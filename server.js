@@ -16,7 +16,7 @@ app.use(express.static(join(__dirname, 'dist')));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
     res.sendFile(join(__dirname, 'dist', 'index.html'));
 });
 

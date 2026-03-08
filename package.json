@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "vite preview --port ${PORT:-8080} --host 0.0.0.0",
+    "start": "node server.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "compression": "^1.8.1",
+    "express": "^5.2.1",
     "framer-motion": "^12.35.1",
     "i18next": "^25.8.14",
     "lucide-react": "^0.577.0",

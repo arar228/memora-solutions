@@ -10,8 +10,11 @@ const priorityColors = { high: 'var(--color-danger)', medium: 'var(--color-gold)
 
 function TaskCard({ task, lang }) {
     return (
-        <motion.div className="kanban-card card" whileHover={{ y: -2 }}>
-            <div className="kanban-card__priority" style={{ background: priorityColors[task.priority] }} />
+        <motion.div className="kanban-card" whileHover={{ y: -4 }}>
+            <div
+                className="kanban-card__priority"
+                style={{ background: `linear-gradient(90deg, ${priorityColors[task.priority]}, transparent)` }}
+            />
             <h4 className="kanban-card__title">{lang === 'ru' ? task.title : task.titleEn}</h4>
             <p className="kanban-card__desc">{lang === 'ru' ? task.desc : task.descEn}</p>
         </motion.div>
@@ -23,11 +26,11 @@ function ReportAccordion({ task, lang }) {
     if (!task.report) return null;
 
     return (
-        <div className="report-item">
+        <div className={`report-item ${open ? 'is-open' : ''}`}>
             <button className="report-item__header" onClick={() => setOpen(!open)}>
-                <CheckCircle2 size={16} className="report-item__icon" />
+                <CheckCircle2 size={24} className="report-item__icon" />
                 <span>{lang === 'ru' ? task.title : task.titleEn}</span>
-                {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                <ChevronDown size={20} className="report-item__toggle" />
             </button>
             <AnimatePresence>
                 {open && (
@@ -36,8 +39,11 @@ function ReportAccordion({ task, lang }) {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <p>{task.report}</p>
+                        <div className="report-item__inner">
+                            <p>{task.report}</p>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -105,17 +111,17 @@ export default function KanbanPage() {
 
                 {/* Feedback input */}
                 <AnimatedSection delay={0.05}>
-                    <div className="feedback-form card">
+                    <div className="feedback-form">
                         <input
                             type="text"
-                            className="search-form__input feedback-form__input"
+                            className="feedback-form__input"
                             placeholder={t('kanban.feedbackPlaceholder')}
                             value={feedbackText}
                             onChange={e => setFeedbackText(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && handleFeedback()}
                         />
                         <button className="btn btn-primary" onClick={handleFeedback}>
-                            <Send size={16} /> {t('kanban.addFeedback')}
+                            <Send size={18} /> {t('kanban.addFeedback')}
                         </button>
                     </div>
                 </AnimatedSection>

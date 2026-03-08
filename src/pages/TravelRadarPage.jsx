@@ -39,8 +39,8 @@ function DealCard({ deal, t, i18n }) {
                 </div>
                 <div className="deal-card__footer">
                     <div className="deal-card__pricing">
-                        <span className="deal-card__old-price">{deal.oldPrice.toLocaleString()} ₽</span>
-                        <span className="deal-card__price">{deal.price.toLocaleString()} ₽</span>
+                        {deal.oldPrice && <span className="deal-card__old-price">{deal.oldPrice?.toLocaleString()} ₽</span>}
+                        <span className="deal-card__price">{deal.price?.toLocaleString()} ₽</span>
                         <span className="deal-card__per-person">{t('travel.perPerson')}</span>
                     </div>
                     <div className="deal-card__meta">

@@ -134,41 +134,96 @@ export default function HomePage() {
                 <div className="container">
                     <AnimatedSection>
                         <div className="section-header">
-                            <h2>{t('home.productsTitle')}</h2>
-                            <p className="section-subtitle">{t('home.productsSubtitle')}</p>
+                            <h2>Полезные сервисы для путешественников</h2>
+                            <p className="section-subtitle">Облегчите подготовку и проведение своих поездок с нашими инструментами в Telegram.</p>
                         </div>
                     </AnimatedSection>
 
                     <div className="products-grid-large">
-                        {products.map((product, i) => (
-                            <AnimatedSection key={i} delay={i * 0.1}>
-                                <Link to={product.to} className={`product-card-large card product-card-large--${product.color}`}>
-                                    <div className="product-card-large__content">
-                                        <div className={`product-card-large__icon product-card-large__icon--${product.color}`}>
-                                            {product.icon}
+                        {/* Travel Radar Card */}
+                        <AnimatedSection delay={0.1}>
+                            <Link to="/travel-radar" className="product-card-large card product-card-large--gold">
+                                <div className="product-card-large__content">
+                                    <div className="product-card-large__icon product-card-large__icon--gold">
+                                        <Compass size={32} />
+                                    </div>
+                                    <div className="product-card-large__info">
+                                        <div className="product-card-large__header">
+                                            <h3 className="product-card-large__title">{t('products.travelRadar.title')}</h3>
+                                            <span className="product-card__status product-card__status--dev">{t('statusDev')}</span>
                                         </div>
-                                        <div className="product-card-large__info">
-                                            <div className="product-card-large__header">
-                                                <h3 className="product-card-large__title">{product.title}</h3>
-                                                <span className={`product-card__status product-card__status--${product.statusClass}`}>
-                                                    {product.status}
-                                                </span>
-                                            </div>
-                                            <p className="product-card-large__desc">{product.desc}</p>
-                                            <div className="product-card-large__bot">{product.bot}</div>
-                                            <div className="product-card-large__cta btn btn-primary">Попробовать →</div>
+                                        <p className="product-card-large__desc">Мониторинг выгодных туров и билетов. Экономьте время и деньги, получая оперативные уведомления в Telegram.</p>
+                                        <div className="product-card-large__bot">@MemoraTravelRadarBot</div>
+                                        <div className="product-card-large__cta btn btn-primary">Попробовать →</div>
+                                    </div>
+                                </div>
+                                <div className="product-card-large__visual product-card-large__visual--gold mockup-container">
+                                    <div className="mockup-chat">
+                                        <div className="mockup-bubble mockup-bubble--in">
+                                            <span className="mockup-icon">🌴</span> <b>Найден тур на Бали!</b> <br />Скидка 40% на перелет и отель.
+                                            <div className="mockup-btn">Смотреть билеты</div>
                                         </div>
                                     </div>
-                                    <div className={`product-card-large__visual product-card-large__visual--${product.color}`}>
-                                        <div className="visual-graphic">
-                                            <div className="vg-circle"></div>
-                                            <div className="vg-line"></div>
-                                            <div className="vg-dash"></div>
+                                </div>
+                            </Link>
+                        </AnimatedSection>
+
+                        {/* Wallet Card */}
+                        <AnimatedSection delay={0.2}>
+                            <Link to="/wallet" className="product-card-large card product-card-large--green">
+                                <div className="product-card-large__content">
+                                    <div className="product-card-large__icon product-card-large__icon--green">
+                                        <Wallet size={32} />
+                                    </div>
+                                    <div className="product-card-large__info">
+                                        <div className="product-card-large__header">
+                                            <h3 className="product-card-large__title">{t('products.wallet.title')}</h3>
+                                            <span className="product-card__status product-card__status--active">{t('statusActive')}</span>
+                                        </div>
+                                        <p className="product-card-large__desc">Удобный бот для контроля совместного бюджета в поездках. Вносите расходы прямо в чате и знайте, кто кому должен.</p>
+                                        <div className="product-card-large__bot">@MemoraWallet_bot</div>
+                                        <div className="product-card-large__cta btn btn-primary">Попробовать →</div>
+                                    </div>
+                                </div>
+                                <div className="product-card-large__visual product-card-large__visual--green mockup-container">
+                                    <div className="mockup-chat">
+                                        <div className="mockup-bubble mockup-bubble--out">
+                                            Потратил 1500 руб. на такси 🚕
+                                        </div>
+                                        <div className="mockup-bubble mockup-bubble--in mockup-bubble--success">
+                                            Расход добавлен! Остаток бюджета: 45 000 руб.
                                         </div>
                                     </div>
-                                </Link>
-                            </AnimatedSection>
-                        ))}
+                                </div>
+                            </Link>
+                        </AnimatedSection>
+
+                        {/* BDay Bot Card */}
+                        <AnimatedSection delay={0.3}>
+                            <Link to="/bday-bot" className="product-card-large card product-card-large--blue">
+                                <div className="product-card-large__content">
+                                    <div className="product-card-large__icon product-card-large__icon--blue">
+                                        <Cake size={32} />
+                                    </div>
+                                    <div className="product-card-large__info">
+                                        <div className="product-card-large__header">
+                                            <h3 className="product-card-large__title">{t('products.bdayBot.title')}</h3>
+                                            <span className="product-card__status product-card__status--active">{t('statusActive')}</span>
+                                        </div>
+                                        <p className="product-card-large__desc">Надежные напоминания о днях рождения близких и коллег, чтобы вы никогда не забывали о важных датах даже в роуминге.</p>
+                                        <div className="product-card-large__bot">@MemoraBDayBot</div>
+                                        <div className="product-card-large__cta btn btn-primary">Попробовать →</div>
+                                    </div>
+                                </div>
+                                <div className="product-card-large__visual product-card-large__visual--blue mockup-container">
+                                    <div className="mockup-chat">
+                                        <div className="mockup-bubble mockup-bubble--in">
+                                            <span className="mockup-icon">🎉</span> <b>Напоминание!</b><br />Завтра день рождения у Анны. <br />Не забудьте подготовить подарок!
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </AnimatedSection>
                     </div>
                 </div>
             </section>

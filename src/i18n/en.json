@@ -1,0 +1,169 @@
+{
+    "brand": "Memora Solutions",
+    "brandFull": "Memora Solutions",
+    "tagline": "Digital tools for a better quality of life",
+    "heroSubtitle": "We build products to help you improve relationships, plan ahead, and free up time for happiness",
+    "scrollDown": "Learn more",
+    "nav": {
+        "home": "Home",
+        "travelRadar": "Travel Radar",
+        "wallet": "Wallet Manager",
+        "bdayBot": "Bday Bot",
+        "kanban": "Kanban",
+        "contacts": "Contacts"
+    },
+    "theme": {
+        "light": "Light theme",
+        "dark": "Dark theme"
+    },
+    "home": {
+        "productsTitle": "Our Products",
+        "productsSubtitle": "Every tool is built from scratch: from idea to implementation",
+        "philosophyTitle": "Our Philosophy",
+        "pillar1Title": "Relationships",
+        "pillar1Desc": "Improve the quality of communication with your loved ones through digital tools",
+        "pillar2Title": "Planning",
+        "pillar2Desc": "A very underrated skill. We help make it enjoyable",
+        "pillar3Title": "Free Time",
+        "pillar3Desc": "Free up time for what brings happiness"
+    },
+    "products": {
+        "travelRadar": {
+            "title": "Memora Travel Radar",
+            "desc": "Personal monitoring system for travel deals and last-minute tours",
+            "status": "In Development",
+            "bot": "@MemoraTravelRadarBot"
+        },
+        "wallet": {
+            "title": "Memora Wallet Manager",
+            "desc": "Convenient Telegram bot to control and analyze your expenses",
+            "status": "Active",
+            "bot": "@MemoraWallet_bot",
+            "features": {
+                "title": "Features",
+                "f1": "Quick expense input via Telegram",
+                "f2": "Automatic spending categorization",
+                "f3": "Reports and analytics by period",
+                "f4": "Budgets and limits by category",
+                "f5": "Data export"
+            },
+            "howTo": {
+                "title": "How to Start",
+                "step1": "Open Telegram and find @MemoraWallet_bot",
+                "step2": "Press /start to begin",
+                "step3": "Enter the amount and expense category",
+                "step4": "Use /report to view statistics"
+            }
+        },
+        "bdayBot": {
+            "title": "Memora Bday Bot",
+            "desc": "Telegram bot for storing birthdays and sending reminders",
+            "status": "Active",
+            "bot": "@MemoraBDayBot",
+            "features": {
+                "title": "Features",
+                "f1": "Store all birthdays in one place",
+                "f2": "Automatic reminders 1 day before",
+                "f3": "List of upcoming celebrations",
+                "f4": "Greetings and wishes",
+                "f5": "Age calculator"
+            },
+            "howTo": {
+                "title": "How to Start",
+                "step1": "Open Telegram and find @MemoraBDayBot",
+                "step2": "Press /start to register",
+                "step3": "Add birthdays via /add",
+                "step4": "The bot will remind you of each celebration"
+            }
+        }
+    },
+    "travel": {
+        "pageTitle": "Memora Travel Radar",
+        "pageSubtitle": "Personal monitoring system for travel deals from Saint Petersburg",
+        "searchTitle": "Search Hot Deals",
+        "departureCity": "Departure City",
+        "destination": "Destination",
+        "dates": "Dates",
+        "dateFrom": "Date from",
+        "dateTo": "Date to",
+        "stars": "Stars",
+        "budget": "Budget up to",
+        "nights": "Nights",
+        "nightsMin": "Min nights",
+        "nightsMax": "Max nights",
+        "search": "Find Tours",
+        "sortBy": "Sort by",
+        "sortPrice": "Price",
+        "sortDiscount": "Discount",
+        "sortStars": "Stars",
+        "sortDate": "Date",
+        "filters": "Filters",
+        "resultsCount": "Deals found",
+        "perPerson": "per person",
+        "nightsLabel": "nights",
+        "departureDate": "Departure",
+        "ultraHot": "ULTRA HOT",
+        "lastPlaces": "Last places",
+        "daysLeft": "{{days}} days left",
+        "operator": "Operator",
+        "meals": "Meals",
+        "loading": "Scanning deals...",
+        "noResults": "No tours found. Change your parameters or check useful services below.",
+        "usefulServices": "Useful Services",
+        "usefulServicesDesc": "Curated list of the best resources for travelers",
+        "howToUse": "How to use",
+        "destinations": {
+            "thailand": "Thailand",
+            "vietnam": "Vietnam",
+            "turkey": "Turkey",
+            "china": "China / Hainan",
+            "bali": "Bali"
+        },
+        "mealsOptions": {
+            "ai": "All Inclusive",
+            "fb": "Full Board",
+            "hb": "Half Board",
+            "bb": "Breakfast",
+            "ro": "Room Only"
+        }
+    },
+    "kanban": {
+        "pageTitle": "Kanban Board",
+        "pageSubtitle": "Track the project development and participate in the process",
+        "feedback": "Feedback",
+        "feedbackDesc": "Share an idea or suggestion",
+        "potential": "Potential Tasks",
+        "potentialDesc": "Formed by the team based on feedback",
+        "inProgress": "In Progress",
+        "inProgressDesc": "Active tasks. Maximum 3 open at a time",
+        "reportsTitle": "Completed Task Reports",
+        "addFeedback": "Suggest an idea",
+        "feedbackPlaceholder": "Describe your idea or suggestion..."
+    },
+    "contacts": {
+        "pageTitle": "Contacts",
+        "pageSubtitle": "Get in touch with us",
+        "email": "Email",
+        "telegram": "Telegram",
+        "message": "We are always happy to hear feedback from our users"
+    },
+    "admin": {
+        "title": "Admin Panel",
+        "password": "Password",
+        "login": "Log in",
+        "wrongPassword": "Wrong password",
+        "tabs": {
+            "kanban": "Kanban",
+            "content": "Content",
+            "services": "Services"
+        }
+    },
+    "footer": {
+        "copyright": "© 2026 Memora Solutions. All rights reserved.",
+        "madeWith": "Made with attention to detail"
+    },
+    "statusActive": "Active",
+    "statusDev": "In Development",
+    "openBot": "Open Bot",
+    "learnMore": "Learn More"
+}

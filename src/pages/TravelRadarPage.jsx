@@ -1,9 +1,9 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, SlidersHorizontal, Star, Flame, Clock, ChevronDown, ChevronUp, ExternalLink, MapPin } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
-import { mockDeals, usefulServices } from '../data/mockData';
+import { usefulServices } from '../data/mockData';
 import './TravelRadarPage.css';
 
 function DealCard({ deal, t, i18n }) {
@@ -106,29 +106,41 @@ export default function TravelRadarPage() {
 
     const destinations = ['thailand', 'vietnam', 'turkey', 'china', 'bali'];
 
-    const filteredDeals = useMemo(() => {
-        let deals = [...mockDeals];
-        if (filters.destination) deals = deals.filter(d => d.destination === filters.destination);
-        if (filters.minStars > 0) deals = deals.filter(d => d.stars >= filters.minStars);
-        deals = deals.filter(d => d.price <= filters.maxBudget);
+    const [tours, setTours] = useState([]);
 
-        switch (filters.sortBy) {
-            case 'price': deals.sort((a, b) => a.price - b.price); break;
-            case 'discount': deals.sort((a, b) => b.discount - a.discount); break;
-            case 'stars': deals.sort((a, b) => b.stars - a.stars); break;
-            case 'date': deals.sort((a, b) => new Date(a.departureDate) - new Date(b.departureDate)); break;
-            default: break;
-        }
-        return deals;
-    }, [filters]);
-
-    const handleSearch = () => {
+    const fetchTours = async () => {
         setLoading(true);
         setSearched(false);
-        setTimeout(() => {
+        try {
+            const queryParams = new URLSearchParams({
+                destination: filters.destination,
+                minStars: filters.minStars.toString(),
+                maxBudget: filters.maxBudget.toString(),
+                sortBy: filters.sortBy,
+            }).toString();
+
+            const res = await fetch(`/api/tours?${queryParams}`);
+            if (!res.ok) throw new Error('API request failed');
+
+            const data = await res.json();
+            setTours(data);
+        } catch (error) {
+            console.error('Failed to fetch tours:', error);
+            setTours([]); // fallback on error
+        } finally {
             setLoading(false);
             setSearched(true);
-        }, 1500);
+        }
+    };
+
+    // Run search on mount
+    useEffect(() => {
+        fetchTours();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const handleSearch = () => {
+        fetchTours();
     };
 
     return (
@@ -221,7 +233,7 @@ export default function TravelRadarPage() {
                                 {t(`travel.sort${s.charAt(0).toUpperCase() + s.slice(1)}`)}
                             </button>
                         ))}
-                        <span className="sort-bar__count">{t('travel.resultsCount')}: {filteredDeals.length}</span>
+                        <span className="sort-bar__count">{t('travel.resultsCount')}: {tours.length}</span>
                     </div>
                 </AnimatedSection>
 
@@ -249,8 +261,8 @@ export default function TravelRadarPage() {
                 {searched && !loading && (
                     <div className="deals-grid">
                         <AnimatePresence>
-                            {filteredDeals.length > 0 ? (
-                                filteredDeals.map((deal, i) => (
+                            {tours.length > 0 ? (
+                                tours.map((deal, i) => (
                                     <DealCard key={deal.id} deal={deal} t={t} i18n={i18n} />
                                 ))
                             ) : (

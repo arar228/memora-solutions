@@ -121,6 +121,7 @@
     margin-bottom: var(--space-xs);
     background: linear-gradient(180deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -178,6 +179,38 @@
 .bento-card--howto {
     grid-column: span 5;
     background: var(--color-surface);
+}
+
+/* Full Width: About / Value Prop */
+.bento-card--about {
+    grid-column: span 12;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .bento-card--about {
+    background: linear-gradient(135deg, rgba(36, 36, 40, 0.7) 0%, rgba(36, 36, 40, 0.4) 100%);
+}
+
+.bento-card--about::after {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    right: 40px;
+    font-size: 180px;
+    font-family: var(--font-display);
+    color: var(--color-gold);
+    opacity: 0.1;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.bento-card--about .about-desc {
+    font-size: var(--text-h3);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 800px;
 }
 
 .bento-card h2 {

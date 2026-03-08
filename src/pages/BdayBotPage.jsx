@@ -35,8 +35,16 @@ export default function BdayBotPage() {
                 </AnimatedSection>
 
                 <div className="product-bento">
+                    {/* About / Value Prop Bento Card */}
+                    <AnimatedSection delay={0.05} className="bento-card bento-card--about">
+                        <h2>
+                            <Cake size={24} /> {t('products.bdayBot.about.title')}
+                        </h2>
+                        <p className="about-desc">{t('products.bdayBot.about.desc')}</p>
+                    </AnimatedSection>
+
                     {/* Features Bento Card */}
-                    <AnimatedSection delay={0.1} className="bento-card bento-card--features">
+                    <AnimatedSection delay={0.15} className="bento-card bento-card--features">
                         <h2>
                             <CheckCircle2 size={24} /> {t('products.bdayBot.features.title')}
                         </h2>

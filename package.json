@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "vite preview --port ${PORT:-8080} --host 0.0.0.0",
     "lint": "eslint .",
     "preview": "vite preview"
   },

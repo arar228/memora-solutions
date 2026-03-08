@@ -128,6 +128,11 @@
     gap: var(--space-xl);
 }
 
+.products-grid>div {
+    display: flex;
+    height: 100%;
+}
+
 .product-card {
     text-decoration: none;
     color: var(--color-text);
@@ -136,6 +141,8 @@
     padding: var(--space-2xl);
     position: relative;
     cursor: pointer;
+    flex: 1;
+    width: 100%;
 }
 
 .product-card:hover .product-card__arrow {
@@ -252,9 +259,18 @@
     gap: var(--space-xl);
 }
 
+.pillars-grid>div {
+    display: flex;
+    height: 100%;
+}
+
 .pillar-card {
     text-align: center;
     padding: var(--space-2xl);
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .pillar-card__icon {

@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 8010;
+const PORT = 8010; // Hardcoded to match Railway's custom public network port
 
 app.use(compression());
 

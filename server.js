@@ -4,7 +4,7 @@ import { dirname, join } from 'path';
 import compression from 'compression';
 
 import { pool } from './backend/db.js';
-import { startCronParser } from './backend/parser.js';
+import { startCronParser } from './backend/tg_parser.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

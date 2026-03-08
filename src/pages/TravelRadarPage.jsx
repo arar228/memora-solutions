@@ -54,28 +54,28 @@ function DealCard({ deal, t, i18n }) {
     );
 }
 
-function ServiceCardDark({ service, t, i18n }) {
+function ServiceAccordion({ service, t, i18n }) {
     const [open, setOpen] = useState(false);
     const lang = i18n.language;
 
     return (
-        <div className="service-card-dark card">
-            <div className="service-card-dark__header">
+        <div className="service-card card">
+            <div className="service-card__header">
                 <div>
-                    <h4 className="service-card-dark__name">{service.name}</h4>
-                    <p className="service-card-dark__desc">{service.desc[lang] || service.desc.en}</p>
+                    <h4 className="service-card__name">{service.name}</h4>
+                    <p className="service-card__desc">{service.desc[lang] || service.desc.en}</p>
                 </div>
-                <a href={service.url} target="_blank" rel="noopener noreferrer" className="service-card-dark__link">
+                <a href={service.url} target="_blank" rel="noopener noreferrer" className="service-card__link">
                     <ExternalLink size={16} />
                 </a>
             </div>
-            <button className="service-card-dark__toggle" onClick={() => setOpen(!open)}>
+            <button className="service-card__toggle" onClick={() => setOpen(!open)}>
                 {t('travel.howToUse')} {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        className="service-card-dark__steps"
+                        className="service-card__steps"
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -280,20 +280,20 @@ export default function TravelRadarPage() {
 
                 {/* Useful Services */}
                 <AnimatedSection>
-                    <div className="useful-services-dark-section section">
-                        <div className="section-header section-header--dark">
-                            <h2>Полезные сервисы</h2>
-                            <p className="section-subtitle">Курируемый список лучших ресурсов для путешественников</p>
+                    <div className="useful-services section">
+                        <div className="section-header">
+                            <h2>{t('travel.usefulServices')}</h2>
+                            <p className="section-subtitle">{t('travel.usefulServicesDesc')}</p>
                         </div>
                         {usefulServices.map((cat, ci) => (
-                            <div key={cat.category} className="services-category-dark">
-                                <h3 className="services-category-dark__title">
-                                    <span className="services-category-dark__badge">{cat.category}</span>
+                            <div key={cat.category} className="services-category">
+                                <h3 className="services-category__title">
+                                    <span className="services-category__badge">{cat.category}</span>
                                     {cat.categoryName[i18n.language] || cat.categoryName.en}
                                 </h3>
-                                <div className="services-grid-dark">
+                                <div className="services-grid">
                                     {cat.services.map((svc, si) => (
-                                        <ServiceCardDark key={si} service={svc} t={t} i18n={i18n} />
+                                        <ServiceAccordion key={si} service={svc} t={t} i18n={i18n} />
                                     ))}
                                 </div>
                             </div>

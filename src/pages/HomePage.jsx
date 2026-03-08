@@ -34,7 +34,7 @@ function GoldParticles() {
             particles.forEach(p => {
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(200, 155, 109, ${p.opacity})`;
+                ctx.fillStyle = `rgba(6, 182, 212, ${p.opacity})`;
                 ctx.fill();
                 p.x += p.dx;
                 p.y += p.dy;
@@ -139,22 +139,33 @@ export default function HomePage() {
                         </div>
                     </AnimatedSection>
 
-                    <div className="products-grid">
+                    <div className="products-grid-large">
                         {products.map((product, i) => (
                             <AnimatedSection key={i} delay={i * 0.1}>
-                                <Link to={product.to} className={`product-card card product-card--${product.color}`}>
-                                    <div className="product-card__top">
-                                        <div className={`product-card__icon product-card__icon--${product.color}`}>
+                                <Link to={product.to} className={`product-card-large card product-card-large--${product.color}`}>
+                                    <div className="product-card-large__content">
+                                        <div className={`product-card-large__icon product-card-large__icon--${product.color}`}>
                                             {product.icon}
                                         </div>
-                                        <span className={`product-card__status product-card__status--${product.statusClass}`}>
-                                            {product.status}
-                                        </span>
+                                        <div className="product-card-large__info">
+                                            <div className="product-card-large__header">
+                                                <h3 className="product-card-large__title">{product.title}</h3>
+                                                <span className={`product-card__status product-card__status--${product.statusClass}`}>
+                                                    {product.status}
+                                                </span>
+                                            </div>
+                                            <p className="product-card-large__desc">{product.desc}</p>
+                                            <div className="product-card-large__bot">{product.bot}</div>
+                                            <div className="product-card-large__cta btn btn-primary">Попробовать →</div>
+                                        </div>
                                     </div>
-                                    <h3 className="product-card__title">{product.title}</h3>
-                                    <p className="product-card__desc">{product.desc}</p>
-                                    <div className="product-card__bot">{product.bot}</div>
-                                    <span className="product-card__arrow">→</span>
+                                    <div className={`product-card-large__visual product-card-large__visual--${product.color}`}>
+                                        <div className="visual-graphic">
+                                            <div className="vg-circle"></div>
+                                            <div className="vg-line"></div>
+                                            <div className="vg-dash"></div>
+                                        </div>
+                                    </div>
                                 </Link>
                             </AnimatedSection>
                         ))}

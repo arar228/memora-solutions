@@ -111,9 +111,11 @@ export async function runTgParser() {
 
                     const price = extractPrice(post.text);
                     const country = guessDestCountry(post.text);
+                    const tLower = post.text.toLowerCase();
 
-                    // Если цены нет, это скорее всего инфопост, пропускаем
-                    if (price < 500) continue;
+                    // Фильтрация рекламы, билетов и мусора
+                    if (price < 3000) continue; // слишком дешево для тура
+                    if (tLower.match(/розыгрыш|сертификат|конкурс|промокод|айфон|iphone|бесплатно/)) continue;
 
                     // Укорачиваем текст для "названия отеля/курорта" до 50 символов
                     const shortDesc = post.text.split('\n')[0].substring(0, 60) + '...';
@@ -130,7 +132,9 @@ export async function runTgParser() {
                         meals: ['RO', 'BB', 'HB', 'AI', 'UAI'][Math.floor(Math.random() * 5)],
                         imageUrl: post.imageUrl || 'https://placehold.co/600x400/2a2a2a/ffffff?text=Travel+Deal',
                         operator: channel,
-                        urgent: post.text.toLowerCase().includes('горящ') || post.text.toLowerCase().includes('огонь')
+                        urgent: tLower.includes('горящ') || tLower.includes('огонь') || tLower.includes('срочно'),
+                        fullText: post.text,
+                        link: post.link
                     });
 
                     validPostsCount++;
@@ -161,11 +165,11 @@ export async function runTgParser() {
                 await pool.query(
                     `INSERT INTO tours (
                         destination, country, flag, resort, stars, nights, meals,
-                        operator, price, oldprice, discount, departuredate, daysleft, image, urgent, "ultraHot"
-                    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`,
+                        operator, price, oldprice, discount, departuredate, daysleft, image, urgent, "ultraHot", description, postlink
+                    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`,
                     [
                         destination, t.countryName, flag, t.hotelName, t.stars, t.nights, t.meals,
-                        t.operator, t.price, t.oldPrice, discount, depDate, daysLeft, t.imageUrl, t.urgent, false
+                        t.operator, t.price, t.oldPrice, discount, depDate, daysLeft, t.imageUrl, t.urgent, false, t.fullText, t.link
                     ]
                 );
                 savedCount++;

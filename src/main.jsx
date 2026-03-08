@@ -9,3 +9,12 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 );
+
+// Hide global loader after a brief moment to ensure fonts and styles are applied
+setTimeout(() => {
+  const loader = document.getElementById('global-loader');
+  if (loader) {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 600);
+  }
+}, 500);

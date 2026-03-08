@@ -49,7 +49,6 @@ export default function App() {
         <main className="app__main">
           <AnimatedRoutes />
         </main>
-        <Footer />
       </div>
     </BrowserRouter>
   );

@@ -22,7 +22,9 @@ async function seed() {
             daysLeft INTEGER NOT NULL,
             image TEXT NOT NULL,
             urgent BOOLEAN NOT NULL DEFAULT false,
-            "ultraHot" BOOLEAN NOT NULL DEFAULT false
+            "ultraHot" BOOLEAN NOT NULL DEFAULT false,
+            description TEXT,
+            postlink VARCHAR(255)
         );
     `;
 
@@ -38,12 +40,12 @@ async function seed() {
             const insertQuery = `
                 INSERT INTO tours (
                     destination, country, flag, resort, stars, nights, meals,
-                    operator, price, oldPrice, discount, departureDate, daysLeft, image, urgent, "ultraHot"
-                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+                    operator, price, "oldPrice", discount, "departureDate", "daysLeft", image, urgent, "ultraHot", description, postlink
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)
             `;
             const values = [
                 deal.destination, deal.country, deal.flag, deal.resort, deal.stars, deal.nights, deal.meals,
-                deal.operator, deal.price, deal.oldPrice, deal.discount, deal.departureDate, deal.daysLeft, deal.image, deal.urgent, deal.ultraHot
+                deal.operator, deal.price, deal.oldPrice, deal.discount, deal.departureDate, deal.daysLeft, deal.image, deal.urgent, deal.ultraHot, 'Моковый тур для теста верстки', 'https://t.me/travel'
             ];
             await pool.query(insertQuery, values);
         }

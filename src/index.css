@@ -1,35 +1,65 @@
 /* ============================================
    MEMORA SOLUTIONS — Design System
-   Aesthetic: "Quiet Luxury" (Тихая Роскошь)
-   Fonts: Cormorant Garamond + Manrope
+   Aesthetic: "Quiet Luxury" with Teal/Emerald
+   Fonts: iA Writer Quattro
    ============================================ */
+
+@font-face {
+  font-family: 'iA Writer Quattro';
+  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'iA Writer Quattro';
+  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'iA Writer Quattro';
+  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'iA Writer Quattro';
+  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+}
 
 /* === CSS Custom Properties === */
 :root {
-  /* Brand Colors */
-  --color-gold: #C89B6D;
-  --color-gold-hover: #D6AE82;
-  --color-gold-light: rgba(200, 155, 109, 0.12);
-  --color-gold-glow: rgba(200, 155, 109, 0.25);
-  --color-gold-active: #A87447;
-  --color-green: #BFD3A8;
-  --color-green-light: #DCE8CF;
-  --color-green-dark: #9FB987;
-  --color-blue: #AFC6D0;
-  --color-blue-light: #D9E6EB;
-  --color-blue-dark: #8FA9B4;
-  --color-lavender: #9B8BB5;
+  /* Brand Colors (Updated based on Logo: Green/Bluish) */
+  --color-gold: #06b6d4;
+  /* Teal/Cyan Primary */
+  --color-gold-hover: #0891b2;
+  --color-gold-light: rgba(6, 182, 212, 0.12);
+  --color-gold-glow: rgba(6, 182, 212, 0.25);
+  --color-gold-active: #0e7490;
+  --color-green: #10b981;
+  /* Emerald Green */
+  --color-green-light: #d1fae5;
+  --color-green-dark: #059669;
+  --color-blue: #3b82f6;
+  --color-blue-light: #dbeafe;
+  --color-blue-dark: #2563eb;
+  --color-lavender: #8b5cf6;
 
-  /* Neutral Colors — Light Theme */
-  --color-bg: #F5F4F1;
-  --color-bg-secondary: #EFEDE8;
-  --color-surface: #FFFFFF;
-  --color-surface-hover: #FDFCFA;
-  --color-border: #E6E3DD;
-  --color-border-hover: #D4D0C8;
-  --color-text: #2B2B2B;
-  --color-text-secondary: #6B6B6B;
-  --color-text-tertiary: #9A9A9A;
+  /* Neutral Colors — Light Theme (Removed Soft Beige) */
+  --color-bg: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f9fafb;
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-text: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94a3b8;
 
   /* Semantic */
   --color-danger: #D4634B;
@@ -38,8 +68,8 @@
   --color-warning: #D4A34B;
 
   /* Typography */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Manrope', -apple-system, sans-serif;
+  --font-display: 'iA Writer Quattro', 'iA Writer Quattro V', -apple-system, sans-serif;
+  --font-body: 'iA Writer Quattro', 'iA Writer Quattro V', -apple-system, sans-serif;
 
   --text-hero: clamp(2.5rem, 5vw, 3.5rem);
   --text-h1: clamp(1.75rem, 3vw, 2.5rem);
@@ -364,5 +394,65 @@ textarea {
 
   :root {
     --header-height: 60px;
+  }
+}
+
+/* === Global Loader === */
+.global-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+}
+
+.global-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-logo {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.loader-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--color-gold);
+  border-right-color: var(--color-green);
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(0.85);
+    opacity: 0.7;
   }
 }

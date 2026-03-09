@@ -221,6 +221,17 @@
     background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
 }
 
+.product-card-large__logo {
+    width: 65%;
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
+}
+
 .visual-graphic {
     position: relative;
     width: 100%;
@@ -290,6 +301,8 @@
     font-size: var(--text-xs);
     font-weight: 700;
     letter-spacing: 0.04em;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .product-card__status--active {

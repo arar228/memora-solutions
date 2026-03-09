@@ -10,6 +10,7 @@ import BdayBotPage from './pages/BdayBotPage';
 import KanbanPage from './pages/KanbanPage';
 import ContactsPage from './pages/ContactsPage';
 import AdminPage from './pages/AdminPage';
+import CreatorPage from './pages/CreatorPage';
 
 function PageTransition({ children }) {
   return (
@@ -37,6 +38,7 @@ function AnimatedRoutes() {
         <Route path="/kanban" element={<PageTransition><KanbanPage /></PageTransition>} />
         <Route path="/contacts" element={<PageTransition><ContactsPage /></PageTransition>} />
         <Route path="/admin" element={<PageTransition><AdminPage /></PageTransition>} />
+        <Route path="/creator" element={<PageTransition><CreatorPage /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );

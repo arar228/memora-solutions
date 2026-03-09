@@ -19,6 +19,7 @@ export default function HomePage() {
             bot: '@MemoraTravelRadarBot',
             to: '/travel-radar',
             color: 'gold',
+            logo: '/logo.png',
         },
         {
             icon: <Wallet size={32} />,
@@ -29,6 +30,7 @@ export default function HomePage() {
             bot: '@MemoraWallet_bot',
             to: '/wallet',
             color: 'green',
+            logo: '/wallet-logo.png',
         },
         {
             icon: <Cake size={32} />,
@@ -39,6 +41,7 @@ export default function HomePage() {
             bot: '@MemoraBDayBot',
             to: '/bday-bot',
             color: 'blue',
+            logo: '/bdaybot-logo.png',
         },
     ];
 
@@ -128,11 +131,7 @@ export default function HomePage() {
                                         </div>
                                     </div>
                                     <div className={`product-card-large__visual product-card-large__visual--${product.color}`}>
-                                        <div className="visual-graphic">
-                                            <div className="vg-circle"></div>
-                                            <div className="vg-line"></div>
-                                            <div className="vg-dash"></div>
-                                        </div>
+                                        <img src={product.logo} alt={product.title} className="product-card-large__logo" />
                                     </div>
                                 </Link>
                             </AnimatedSection>

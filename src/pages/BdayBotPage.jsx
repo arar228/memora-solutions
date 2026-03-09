@@ -19,7 +19,7 @@ export default function BdayBotPage() {
                             {t('statusActive')}
                         </div>
                         <div className="product-page__icon product-page__icon--blue">
-                            <Cake size={48} strokeWidth={1.5} />
+                            <img src="/bdaybot-logo.png" alt="BDay Bot" className="product-page__icon-img" />
                         </div>
                         <h1>{t('products.bdayBot.title')}</h1>
                         <p className="product-page__desc">{t('products.bdayBot.desc')}</p>

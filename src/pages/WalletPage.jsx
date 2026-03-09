@@ -19,7 +19,7 @@ export default function WalletPage() {
                             {t('statusActive')}
                         </div>
                         <div className="product-page__icon product-page__icon--green">
-                            <Wallet size={48} strokeWidth={1.5} />
+                            <img src="/wallet-logo.png" alt="Wallet" className="product-page__icon-img" />
                         </div>
                         <h1>{t('products.wallet.title')}</h1>
                         <p className="product-page__desc">{t('products.wallet.desc')}</p>

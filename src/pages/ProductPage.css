@@ -89,6 +89,13 @@
     position: relative;
 }
 
+.product-page__icon-img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
 .product-page__icon::after {
     content: '';
     position: absolute;

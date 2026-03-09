@@ -14,16 +14,14 @@
     z-index: 0;
 }
 
-.hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(6, 182, 212, 0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 90% 80% at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 80%),
-        var(--color-bg);
+.hero__logo {
+    width: 500px;
+    height: 500px;
+    object-fit: contain;
+    margin-bottom: var(--space-md);
 }
+
+
 
 .hero__particles {
     position: absolute;
@@ -50,13 +48,6 @@
     flex-direction: column;
     align-items: center;
     gap: var(--space-lg);
-}
-
-.hero__logo {
-    width: 220px;
-    height: 220px;
-    object-fit: contain;
-    margin-bottom: var(--space-md);
 }
 
 .hero__title {
@@ -312,9 +303,6 @@
 }
 
 /* === Philosophy / Pillars === */
-.philosophy-section {
-    background: var(--color-bg-secondary);
-}
 
 .pillars-grid {
     display: grid;
@@ -368,8 +356,8 @@
 /* === Responsive === */
 @media (max-width: 768px) {
     .hero__logo {
-        width: 140px;
-        height: 140px;
+        width: 210px;
+        height: 210px;
     }
 
     .hero__title {

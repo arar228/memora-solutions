@@ -1,53 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Compass, Wallet, Cake, Heart, CalendarCheck, Clock, ChevronDown } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
 import './HomePage.css';
-
-function GoldParticles() {
-    const canvasRef = useRef(null);
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        let animId;
-        const particles = [];
-        const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
-        resize();
-        window.addEventListener('resize', resize);
-
-        for (let i = 0; i < 35; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 2.5 + 0.5,
-                dx: (Math.random() - 0.5) * 0.3,
-                dy: (Math.random() - 0.5) * 0.3,
-                opacity: Math.random() * 0.4 + 0.1,
-            });
-        }
-
-        const draw = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(6, 182, 212, ${p.opacity})`;
-                ctx.fill();
-                p.x += p.dx;
-                p.y += p.dy;
-                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-            });
-            animId = requestAnimationFrame(draw);
-        };
-        draw();
-        return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); };
-    }, []);
-    return <canvas ref={canvasRef} className="hero__particles" />;
-}
 
 export default function HomePage() {
     const { t } = useTranslation();
@@ -91,14 +48,17 @@ export default function HomePage() {
         { icon: <Clock size={28} />, title: t('home.pillar3Title'), desc: t('home.pillar3Desc') },
     ];
 
+    const { scrollY } = useScroll();
+
+    // Smoothly blur the logo from 0px to 20px over the first 300px of scroll
+    const logoBlur = useTransform(scrollY, [0, 300], ["blur(0px)", "blur(20px)"]);
+    // Smoothly fade out the logo over the first 400px of scroll
+    const logoOpacity = useTransform(scrollY, [0, 400], [1, 0.3]);
+
     return (
         <div className="home-page">
             {/* Hero Section */}
             <section className="hero">
-                <div className="hero__bg">
-                    <div className="hero__gradient" />
-                    <GoldParticles />
-                </div>
                 <div className="hero__content container">
                     <motion.div
                         className="hero__text"
@@ -106,7 +66,15 @@ export default function HomePage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <img src="/logo.png" alt="" className="hero__logo" />
+                        <motion.img
+                            src="/logo.png"
+                            alt=""
+                            className="hero__logo"
+                            style={{
+                                filter: logoBlur,
+                                opacity: logoOpacity,
+                            }}
+                        />
                         <h1 className="hero__title">{t('brand')}</h1>
                         <p className="hero__tagline">{t('tagline')}</p>
                         <p className="hero__subtitle">{t('heroSubtitle')}</p>

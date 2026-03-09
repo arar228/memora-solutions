@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import GoldParticles from './components/GoldParticles';
 import HomePage from './pages/HomePage';
 import TravelRadarPage from './pages/TravelRadarPage';
 import WalletPage from './pages/WalletPage';
@@ -45,6 +46,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="app">
+        <GoldParticles />
         <Header />
         <main className="app__main">
           <AnimatedRoutes />

@@ -50,16 +50,16 @@
   --color-blue-dark: #2563eb;
   --color-lavender: #8b5cf6;
 
-  /* Neutral Colors — Light Theme (Removed Soft Beige) */
-  --color-bg: #f8fafc;
-  --color-bg-secondary: #f1f5f9;
-  --color-surface: #ffffff;
-  --color-surface-hover: #f9fafb;
-  --color-border: #e2e8f0;
-  --color-border-hover: #cbd5e1;
-  --color-text: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-tertiary: #94a3b8;
+  /* Neutral Colors (Fixed to Dark Theme) */
+  --color-bg: #1A1A1E;
+  --color-bg-secondary: #202024;
+  --color-surface: #242428;
+  --color-surface-hover: #2A2A2E;
+  --color-border: #3A3A3E;
+  --color-border-hover: #4A4A4E;
+  --color-text: #E5E5E5;
+  --color-text-secondary: #9A9A9E;
+  --color-text-tertiary: #6A6A6E;
 
   /* Semantic */
   --color-danger: #D4634B;
@@ -101,32 +101,7 @@
   --radius-btn: 10px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
-  --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.1);
-  --shadow-gold: 0 4px 20px rgba(200, 155, 109, 0.2);
-
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.18s ease;
-  --transition-slow: 0.3s ease;
-  --transition-spring: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* === Dark Theme === */
-[data-theme="dark"] {
-  --color-bg: #1A1A1E;
-  --color-bg-secondary: #202024;
-  --color-surface: #242428;
-  --color-surface-hover: #2A2A2E;
-  --color-border: #3A3A3E;
-  --color-border-hover: #4A4A4E;
-  --color-text: #E5E5E5;
-  --color-text-secondary: #9A9A9E;
-  --color-text-tertiary: #6A6A6E;
-
+  /* Shadows (Fixed to Dark Theme) */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.25);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
@@ -375,14 +350,9 @@ textarea {
 
 /* === Glassmorphism === */
 .glass {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(26, 26, 30, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-[data-theme="dark"] .glass {
-  background: rgba(26, 26, 30, 0.8);
   border: 1px solid rgba(58, 58, 62, 0.5);
 }
 

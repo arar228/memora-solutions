@@ -28,15 +28,12 @@ export default function CreatorPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <span className="creator-hero__eyebrow">О создателе</span>
+                        <span className="creator-hero__eyebrow">{t('creator.eyebrow')}</span>
                         <h1 className="creator-hero__title">
-                            Привет, это Сергей.<br />
-                            <span className="creator-hero__title-accent">Вот почему этому проекту стоит доверять.</span>
+                            {t('creator.heroTitle')}<br />
+                            <span className="creator-hero__title-accent">{t('creator.heroAccent')}</span>
                         </h1>
-                        <p className="creator-hero__lead">
-                            За Memora стоит живой человек с 6+ годами в системной интеграции,
-                            860&nbsp;млн рублей реализованных проектов и привычкой делать сложное — понятным.
-                        </p>
+                        <p className="creator-hero__lead">{t('creator.heroLead')}</p>
                     </motion.div>
 
                     <motion.div
@@ -46,7 +43,7 @@ export default function CreatorPage() {
                         transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <div className="creator-hero__photo-frame">
-                            <img src="/creator.jpg" alt="Сергей Маклаков" className="creator-hero__photo" />
+                            <img src="/creator.jpg" alt={t('creator.photoAlt')} className="creator-hero__photo" />
                             <div className="creator-hero__photo-border" />
                         </div>
                     </motion.div>
@@ -67,13 +64,8 @@ export default function CreatorPage() {
 
                 <AnimatedSection>
                     <section className="creator-section creator-intro">
-                        <p className="creator-text creator-text--large">
-                            Это не очередной «проект о саморазвитии», собранный за выходные.
-                        </p>
-                        <p className="creator-text">
-                            За Memora Solutions стоит <strong>Сергей Маклаков</strong> — человек, который последние
-                            6,5&nbsp;лет занимается тем, что берёт технически сложные задачи и доводит их до результата.
-                        </p>
+                        <p className="creator-text creator-text--large">{t('creator.introLarge')}</p>
+                        <p className="creator-text" dangerouslySetInnerHTML={{ __html: t('creator.introText') }} />
                     </section>
                 </AnimatedSection>
 
@@ -82,28 +74,28 @@ export default function CreatorPage() {
                     <section className="creator-numbers">
                         <div className="creator-numbers__card">
                             <Briefcase size={22} className="creator-numbers__icon" />
-                            <span className="creator-numbers__value">6,5 лет</span>
-                            <span className="creator-numbers__label">в системной интеграции</span>
+                            <span className="creator-numbers__value">{t('creator.num1Value')}</span>
+                            <span className="creator-numbers__label">{t('creator.num1Label')}</span>
                         </div>
                         <div className="creator-numbers__card">
                             <Sparkles size={22} className="creator-numbers__icon" />
-                            <span className="creator-numbers__value">860+ млн ₽</span>
-                            <span className="creator-numbers__label">объём проектов</span>
+                            <span className="creator-numbers__value">{t('creator.num2Value')}</span>
+                            <span className="creator-numbers__label">{t('creator.num2Label')}</span>
                         </div>
                         <div className="creator-numbers__card">
                             <Cpu size={22} className="creator-numbers__icon" />
-                            <span className="creator-numbers__value">1 200+</span>
-                            <span className="creator-numbers__label">рабочих станций</span>
+                            <span className="creator-numbers__value">{t('creator.num3Value')}</span>
+                            <span className="creator-numbers__label">{t('creator.num3Label')}</span>
                         </div>
                         <div className="creator-numbers__card">
                             <Users size={22} className="creator-numbers__icon" />
                             <span className="creator-numbers__value">25</span>
-                            <span className="creator-numbers__label">специалистов в команде</span>
+                            <span className="creator-numbers__label">{t('creator.num4Label')}</span>
                         </div>
                         <div className="creator-numbers__card">
                             <Building2 size={22} className="creator-numbers__icon" />
                             <span className="creator-numbers__value">24+</span>
-                            <span className="creator-numbers__label">инженерных систем</span>
+                            <span className="creator-numbers__label">{t('creator.num5Label')}</span>
                         </div>
                     </section>
                 </AnimatedSection>
@@ -113,14 +105,12 @@ export default function CreatorPage() {
                 {/* --- Scale --- */}
                 <AnimatedSection>
                     <section className="creator-story">
-                        <div className="creator-story__label">01 / Масштаб</div>
-                        <h2 className="creator-story__title">В реальном мире это выглядело так</h2>
-                        <p className="creator-text">
-                            Поставить оборудование в исторический корпус университета, где нельзя поцарапать лестницу.
-                        </p>
+                        <div className="creator-story__label">{t('creator.s1Label')}</div>
+                        <h2 className="creator-story__title">{t('creator.s1Title')}</h2>
+                        <p className="creator-text">{t('creator.s1Text')}</p>
                         <div className="creator-scene">
                             <SceneScale />
-                            <div className="creator-scene__hint">Наведите курсор на проект, чтобы узнать подробнее</div>
+                            <div className="creator-scene__hint">{t('creator.s1Hint')}</div>
                         </div>
                     </section>
                 </AnimatedSection>
@@ -128,12 +118,9 @@ export default function CreatorPage() {
                 {/* --- Logistics --- */}
                 <AnimatedSection>
                     <section className="creator-story">
-                        <div className="creator-story__label">02 / Логистика</div>
-                        <h2 className="creator-story__title">5 тонн металла через полстраны</h2>
-                        <p className="creator-text">
-                            Заказать 5-тонный подъёмный кран в Челябинске и привезти его в Петербург под конец года.
-                            Декабрь. Дедлайн. Туда, куда лифт не заходит.
-                        </p>
+                        <div className="creator-story__label">{t('creator.s2Label')}</div>
+                        <h2 className="creator-story__title">{t('creator.s2Title')}</h2>
+                        <p className="creator-text">{t('creator.s2Text')}</p>
                         <div className="creator-scene">
                             <SceneLogistics />
                         </div>
@@ -143,12 +130,9 @@ export default function CreatorPage() {
                 {/* --- Workstations --- */}
                 <AnimatedSection>
                     <section className="creator-story">
-                        <div className="creator-story__label">03 / Рабочие станции</div>
-                        <h2 className="creator-story__title">1 200 компьютеров с нуля</h2>
-                        <p className="creator-text">
-                            Собрать с нуля больше тысячи мощных компьютеров для конструкторских бюро.
-                            Каждый — под конкретную задачу заказчика.
-                        </p>
+                        <div className="creator-story__label">{t('creator.s3Label')}</div>
+                        <h2 className="creator-story__title">{t('creator.s3Title')}</h2>
+                        <p className="creator-text">{t('creator.s3Text')}</p>
                         <div className="creator-scene">
                             <SceneWorkstations />
                         </div>
@@ -158,12 +142,9 @@ export default function CreatorPage() {
                 {/* --- DOMATRIX --- */}
                 <AnimatedSection>
                     <section className="creator-story">
-                        <div className="creator-story__label">04 / Автоматизация</div>
-                        <h2 className="creator-story__title">Платформа DOMATRIX</h2>
-                        <p className="creator-text">
-                            Выстроить системы автоматизации для жилых комплексов.
-                            Разработать платформу, которая объединяет десятки инженерных систем здания в одном интерфейсе.
-                        </p>
+                        <div className="creator-story__label">{t('creator.s4Label')}</div>
+                        <h2 className="creator-story__title">{t('creator.s4Title')}</h2>
+                        <p className="creator-text">{t('creator.s4Text')}</p>
                         <div className="creator-scene">
                             <SceneDomatrix />
                         </div>
@@ -173,12 +154,9 @@ export default function CreatorPage() {
                 {/* --- VR --- */}
                 <AnimatedSection>
                     <section className="creator-story">
-                        <div className="creator-story__label">05 / VR-пространство</div>
-                        <h2 className="creator-story__title">Групповой VR в одном автобусе</h2>
-                        <p className="creator-text">
-                            Все в разных местах — но в одном пространстве.
-                            Технология, которая объединяет людей.
-                        </p>
+                        <div className="creator-story__label">{t('creator.s5Label')}</div>
+                        <h2 className="creator-story__title">{t('creator.s5Title')}</h2>
+                        <p className="creator-text">{t('creator.s5Text')}</p>
                         <div className="creator-scene">
                             <SceneVR />
                         </div>
@@ -189,37 +167,25 @@ export default function CreatorPage() {
                 <AnimatedSection>
                     <blockquote className="creator-quote">
                         <span className="creator-quote__mark">"</span>
-                        <p>Суммарный объём реализованных проектов — <strong>более 860&nbsp;млн рублей</strong>.</p>
+                        <p dangerouslySetInnerHTML={{ __html: t('creator.quote') }} />
                     </blockquote>
                 </AnimatedSection>
 
                 {/* ═══════════════ PHILOSOPHY ═══════════════ */}
                 <AnimatedSection>
                     <section className="creator-section">
-                        <p className="creator-text">
-                            Но ещё параллельно — читал, практиковал, исследовал. Медитация, философия, работа с памятью,
-                            осознанность, Eckhart Tolle и буддийские практики. Не как хобби, а как второй язык,
-                            на котором можно объяснять мир.
-                        </p>
-                        <p className="creator-text creator-text--accent">
-                            Memora Solutions — это точка пересечения двух миров: технического и философского.
-                        </p>
-                        <p className="creator-text">
-                            Здесь не будет воды и мотивационных банальностей.
-                            Только то, что реально работает — проверено на себе и тех, кто рядом.
-                        </p>
+                        <p className="creator-text">{t('creator.phil1')}</p>
+                        <p className="creator-text creator-text--accent">{t('creator.phil2')}</p>
+                        <p className="creator-text">{t('creator.phil3')}</p>
                     </section>
                 </AnimatedSection>
 
                 {/* ═══════════════ TEAM GRAPH ═══════════════ */}
                 <AnimatedSection>
                     <section className="creator-story">
-                        <div className="creator-story__label">06 / Команда</div>
-                        <h2 className="creator-story__title">Люди, с которыми это возможно</h2>
-                        <p className="creator-text">
-                            Если вы хотите просто читать — добро пожаловать.<br />
-                            Если хотите работать вместе — ещё лучше.
-                        </p>
+                        <div className="creator-story__label">{t('creator.s6Label')}</div>
+                        <h2 className="creator-story__title">{t('creator.s6Title')}</h2>
+                        <p className="creator-text" dangerouslySetInnerHTML={{ __html: t('creator.s6Text') }} />
                         <div className="creator-scene">
                             <SceneTeam />
                         </div>
@@ -230,16 +196,9 @@ export default function CreatorPage() {
                 <AnimatedSection>
                     <section className="creator-cta">
                         <div className="creator-cta__inner">
-                            <h2 className="creator-cta__title">Давайте работать вместе</h2>
-                            <p className="creator-cta__text">
-                                Если у вас есть идея, задача или просто вопрос — пишите.
-                                Мне интересно работать с людьми, которые делают что-то осмысленное.
-                            </p>
-                            <p className="creator-cta__text">
-                                Открыт к коллаборациям, консультациям, совместным проектам —
-                                особенно там, где нужен человек, который умеет разобраться в сложном
-                                и объяснить простым языком.
-                            </p>
+                            <h2 className="creator-cta__title">{t('creator.ctaTitle')}</h2>
+                            <p className="creator-cta__text">{t('creator.ctaText1')}</p>
+                            <p className="creator-cta__text">{t('creator.ctaText2')}</p>
                             <div className="creator-cta__links">
                                 <a href="mailto:s.maklakov@armk.pro" className="creator-cta__link">
                                     <Mail size={18} />

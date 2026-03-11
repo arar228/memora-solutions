@@ -1,0 +1,439 @@
+/* ============================================
+   MEMORA SOLUTIONS — Design System
+   Aesthetic: "Quiet Luxury" with Teal/Emerald
+   Fonts: iA Writer Quattro
+   ============================================ */
+
+@font-face {
+  font-family: 'iA Writer Quattro';
+  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'iA Writer Quattro';
+  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'iA Writer Quattro';
+  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'iA Writer Quattro';
+  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* === CSS Custom Properties === */
+:root {
+  /* Brand Colors (Updated based on Logo: Green/Bluish) */
+  --color-gold: #06b6d4;
+  /* Teal/Cyan Primary */
+  --color-gold-hover: #0891b2;
+  --color-gold-light: rgba(6, 182, 212, 0.12);
+  --color-gold-glow: rgba(6, 182, 212, 0.25);
+  --color-gold-active: #0e7490;
+  --color-green: #10b981;
+  /* Emerald Green */
+  --color-green-light: #d1fae5;
+  --color-green-dark: #059669;
+  --color-blue: #3b82f6;
+  --color-blue-light: #dbeafe;
+  --color-blue-dark: #2563eb;
+  --color-lavender: #8b5cf6;
+
+  /* Neutral Colors (Fixed to Dark Theme) */
+  --color-bg: #1A1A1E;
+  --color-bg-secondary: #202024;
+  --color-surface: #242428;
+  --color-surface-hover: #2A2A2E;
+  --color-border: #3A3A3E;
+  --color-border-hover: #4A4A4E;
+  --color-text: #E5E5E5;
+  --color-text-secondary: #9A9A9E;
+  --color-text-tertiary: #6A6A6E;
+
+  /* Semantic */
+  --color-danger: #D4634B;
+  --color-danger-bg: rgba(212, 99, 75, 0.1);
+  --color-success: #5A9E6F;
+  --color-warning: #D4A34B;
+
+  /* Typography */
+  --font-display: 'iA Writer Quattro', 'iA Writer Quattro V', -apple-system, sans-serif;
+  --font-body: 'iA Writer Quattro', 'iA Writer Quattro V', -apple-system, sans-serif;
+
+  --text-hero: clamp(2.5rem, 5vw, 3.5rem);
+  --text-h1: clamp(1.75rem, 3vw, 2.5rem);
+  --text-h2: clamp(1.5rem, 2.5vw, 1.75rem);
+  --text-h3: clamp(1.125rem, 2vw, 1.375rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-section: clamp(4rem, 8vw, 8rem);
+
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 72px;
+
+  /* Borders */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-btn: 10px;
+  --radius-full: 9999px;
+
+  /* Shadows (Fixed to Dark Theme) */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --shadow-gold: 0 4px 20px rgba(200, 155, 109, 0.15);
+}
+
+/* === Reset & Base === */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text);
+  background:
+    radial-gradient(ellipse 80% 30% at 50% 15%, rgba(6, 182, 212, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 25% at 20% 40%, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 20% at 80% 10%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 30% at 50% 70%, rgba(139, 92, 246, 0.04) 0%, transparent 80%),
+    var(--color-bg);
+  line-height: 1.7;
+  transition: background-color var(--transition-slow), color var(--transition-slow);
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+/* Ensure only the browser scrollbar is used — no inner page scrollbars */
+.app {
+  overflow: visible;
+}
+
+.app__main {
+  overflow: visible;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: var(--text-h1);
+}
+
+h2 {
+  font-size: var(--text-h2);
+}
+
+h3 {
+  font-size: var(--text-h3);
+}
+
+a {
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+a:hover {
+  color: var(--color-gold-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: inherit;
+}
+
+input,
+select,
+textarea {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+}
+
+/* === Utility Classes === */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+.section {
+  padding: var(--space-section) 0;
+}
+
+/* === Buttons === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 12px 28px;
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  font-size: var(--text-small);
+  letter-spacing: 0.02em;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--color-gold);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--color-gold-hover);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* Ripple effect */
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* === Cards === */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  border-color: var(--color-border-hover);
+}
+
+/* === Skeleton Loading === */
+.skeleton {
+  background: linear-gradient(90deg,
+      var(--color-bg-secondary) 25%,
+      var(--color-surface) 37%,
+      var(--color-bg-secondary) 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* === Ultra-hot Badge === */
+.badge-ultra-hot {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: var(--color-danger);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(212, 99, 75, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(212, 99, 75, 0.7);
+  }
+}
+
+/* === Scroll Indicator === */
+.scroll-indicator {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+@keyframes bounce-gentle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* === Glassmorphism === */
+.glass {
+  background: rgba(26, 26, 30, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(58, 58, 62, 0.5);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+
+  :root {
+    --header-height: 60px;
+  }
+}
+
+/* === Global Loader === */
+.global-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+}
+
+.global-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-logo {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.loader-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--color-gold);
+  border-right-color: var(--color-green);
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+}

@@ -1,0 +1,207 @@
+{
+    "brand": "Memora Solutions",
+    "brandFull": "Memora Solutions",
+    "tagline": "Digital tools for a better quality of life",
+    "heroSubtitle": "We build products to help you improve relationships, plan ahead, and free up time for happiness",
+    "scrollDown": "Learn more",
+    "nav": {
+        "home": "Home",
+        "travelRadar": "Travel Radar",
+        "wallet": "Wallet Manager",
+        "bdayBot": "Bday Bot",
+        "kanban": "Suggest an Idea",
+        "creator": "About Creator"
+    },
+    "theme": {
+        "light": "Light theme",
+        "dark": "Dark theme"
+    },
+    "home": {
+        "productsTitle": "Our Products",
+        "productsSubtitle": "Every tool is built from scratch: from idea to implementation",
+        "philosophyTitle": "Our Philosophy",
+        "pillar1Title": "Relationships",
+        "pillar1Desc": "Improve the quality of communication with your loved ones through digital tools",
+        "pillar2Title": "Planning",
+        "pillar2Desc": "A very underrated skill. We help make it enjoyable",
+        "pillar3Title": "Free Time",
+        "pillar3Desc": "Free up time for what brings happiness"
+    },
+    "products": {
+        "travelRadar": {
+            "title": "Memora Travel Radar",
+            "desc": "Personal monitoring system for travel deals and last-minute tours",
+            "status": "In Development",
+            "bot": "@MemoraTravelRadarBot"
+        },
+        "wallet": {
+            "title": "Memora Wallet Manager",
+            "desc": "Convenient Telegram bot to control and analyze your expenses",
+            "status": "Active",
+            "bot": "@MemoraWallet_bot",
+            "features": {
+                "title": "Features",
+                "f1": "Quick expense input via Telegram",
+                "f2": "Automatic spending categorization",
+                "f3": "Reports and analytics by period",
+                "f4": "Budgets and limits by category",
+                "f5": "Data export"
+            },
+            "howTo": {
+                "title": "How to Start",
+                "step1": "Open Telegram and find @MemoraWallet_bot",
+                "step2": "Press /start to begin",
+                "step3": "Enter the amount and expense category",
+                "step4": "Use /report to view statistics"
+            }
+        },
+        "bdayBot": {
+            "title": "Memora Bday Bot",
+            "desc": "Telegram bot for storing birthdays and sending reminders",
+            "status": "Active",
+            "bot": "@MemoraBDayBot",
+            "features": {
+                "title": "Features",
+                "f1": "Store all birthdays in one place",
+                "f2": "Automatic reminders 1 day before",
+                "f3": "List of upcoming celebrations",
+                "f4": "Greetings and wishes",
+                "f5": "Age calculator"
+            },
+            "howTo": {
+                "title": "How to Start",
+                "step1": "Open Telegram and find @MemoraBDayBot",
+                "step2": "Press /start to register",
+                "step3": "Add birthdays via /add",
+                "step4": "The bot will remind you of each celebration"
+            }
+        }
+    },
+    "travel": {
+        "pageTitle": "Memora Travel Radar",
+        "pageSubtitle": "Personal monitoring system for travel deals from Saint Petersburg",
+        "searchTitle": "Search Hot Deals",
+        "departureCity": "Departure City",
+        "destination": "Destination",
+        "dates": "Dates",
+        "dateFrom": "Date from",
+        "dateTo": "Date to",
+        "stars": "Stars",
+        "budget": "Budget up to",
+        "nights": "Nights",
+        "nightsMin": "Min nights",
+        "nightsMax": "Max nights",
+        "search": "Find Tours",
+        "sortBy": "Sort by",
+        "sortPrice": "Price",
+        "sortDiscount": "Discount",
+        "sortStars": "Stars",
+        "sortDate": "Date",
+        "filters": "Filters",
+        "resultsCount": "Deals found",
+        "perPerson": "per person",
+        "nightsLabel": "nights",
+        "departureDate": "Departure",
+        "ultraHot": "ULTRA HOT",
+        "lastPlaces": "Last places",
+        "daysLeft": "{{days}} days left",
+        "operator": "Operator",
+        "meals": "Meals",
+        "loading": "Scanning deals...",
+        "noResults": "No tours found. Change your parameters or check useful services below.",
+        "usefulServices": "Useful Services",
+        "usefulServicesDesc": "Curated list of the best resources for travelers",
+        "howToUse": "How to use",
+        "destinations": {
+            "thailand": "Thailand",
+            "vietnam": "Vietnam",
+            "turkey": "Turkey",
+            "china": "China / Hainan",
+            "bali": "Bali"
+        },
+        "mealsOptions": {
+            "ai": "All Inclusive",
+            "fb": "Full Board",
+            "hb": "Half Board",
+            "bb": "Breakfast",
+            "ro": "Room Only"
+        }
+    },
+    "kanban": {
+        "pageTitle": "Suggest an Idea",
+        "pageSubtitle": "Track the project development and participate in the process",
+        "feedback": "Feedback",
+        "feedbackDesc": "Share an idea or suggestion",
+        "potential": "Potential Tasks",
+        "potentialDesc": "Formed by the team based on feedback",
+        "inProgress": "In Progress",
+        "inProgressDesc": "Active tasks. Maximum 3 open at a time",
+        "reportsTitle": "Completed Task Reports",
+        "addFeedback": "Suggest an idea",
+        "feedbackPlaceholder": "Describe your idea or suggestion...",
+        "cooldownMessage": "Please wait {{minutes}} min {{seconds}} sec before sending new ideas",
+        "messagesLeft": "Messages left: {{count}}"
+    },
+    "admin": {
+        "title": "Admin Panel",
+        "password": "Password",
+        "login": "Log in",
+        "wrongPassword": "Wrong password",
+        "tabs": {
+            "kanban": "Kanban",
+            "content": "Content",
+            "services": "Services"
+        }
+    },
+    "footer": {
+        "copyright": "© 2026 Memora Solutions. All rights reserved.",
+        "madeWith": "Made with attention to detail"
+    },
+    "statusActive": "Active",
+    "statusDev": "In Development",
+    "openBot": "Open Bot",
+    "learnMore": "Learn More",
+    "creator": {
+        "eyebrow": "About the Creator",
+        "heroTitle": "Hi, I'm Sergey.",
+        "heroAccent": "Here's why you can trust this project.",
+        "heroLead": "Behind Memora stands a real person with {{years}}+ years in system integration, $12M+ in delivered projects, and a habit of making the complex — clear.",
+        "photoAlt": "Sergey Maklakov",
+        "introLarge": "This isn't another \"self-improvement project\" put together over a weekend.",
+        "introText": "Behind Memora Solutions is <strong>Sergey Maklakov</strong> — a person who has spent the last {{years}} years taking on technically complex challenges and delivering results.",
+        "num1Value": "{{years}} years",
+        "num1Label": "in system integration",
+        "num2Value": "12M+ $",
+        "num2Label": "project volume",
+        "num3Value": "1,200+",
+        "num3Label": "powerful computers",
+        "num4Label": "team specialists",
+        "num5Label": "engineering systems",
+        "s1Label": "01 / Scale",
+        "s1Title": "What it looked like in the real world",
+        "s1Text": "Delivering equipment to a historic university building where you can't scratch the staircase.",
+        "s1Hint": "Hover over a project to learn more",
+        "s2Label": "02 / Logistics",
+        "s2Title": "5 tons of metal across the country",
+        "s2Text": "Ordering a 5-ton overhead crane in Chelyabinsk and shipping it to Saint Petersburg at year's end. December. Deadline. To a place where the elevator doesn't reach.",
+        "s3Label": "03 / Powerful Computers",
+        "s3Title": "1,200 powerful computers from scratch",
+        "s3Text": "Building over a thousand high-performance computers for engineering bureaus from the ground up. Each one tailored to a specific client's requirements.",
+        "s4Label": "04 / Automation",
+        "s4Title": "DOMATRIX Platform",
+        "s4Text": "Building automation systems for residential complexes. Developing a platform that unifies dozens of building engineering systems into a single interface.",
+        "s5Label": "05 / VR Space",
+        "s5Title": "Group VR in a single bus",
+        "s5Text": "Everyone in different places — but in one shared space. Technology that connects people.",
+        "quote": "Total delivered project volume — <strong>over $12 million</strong>.",
+        "phil1": "But in parallel — I've been reading, practicing, researching. Meditation, philosophy, memory work, mindfulness, Eckhart Tolle and Buddhist practices. Not as a hobby, but as a second language for explaining the world.",
+        "phil2": "Memora Solutions is where two worlds intersect: the technical and the philosophical.",
+        "phil3": "There won't be any fluff or motivational clichés here. Only what actually works — tested on myself and those around me.",
+        "s6Label": "06 / Team",
+        "s6Title": "The people who make it possible",
+        "s6Text": "If you just want to read — welcome.<br />If you want to work together — even better.",
+        "ctaTitle": "Let's work together",
+        "ctaText1": "If you have an idea, a challenge, or just a question — reach out. I'm interested in working with people who build something meaningful.",
+        "ctaText2": "Open to collaborations, consulting, and joint projects — especially where someone is needed who can untangle complexity and explain it simply."
+    }
+}

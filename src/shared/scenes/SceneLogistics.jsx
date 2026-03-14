@@ -110,8 +110,8 @@ export default function SceneLogistics() {
 
         const onMouseMove = (event) => {
             const rect = renderer.domElement.getBoundingClientRect();
-            mouse.x = ((event.clientX - rect.left) / width) * 2 - 1;
-            mouse.y = -((event.clientY - rect.top) / height) * 2 + 1;
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects([mChed, mSPb]);

@@ -101,16 +101,14 @@ export default function SceneScale() {
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         let hoveredMesh = null;
+        const mouseScreen = { x: 0, y: 0 };
 
         const onMouseMove = (event) => {
             const rect = renderer.domElement.getBoundingClientRect();
-            mouse.x = ((event.clientX - rect.left) / width) * 2 - 1;
-            mouse.y = -((event.clientY - rect.top) / height) * 2 + 1;
-
-            // Optional: update tooltip position if visible
-            if (hoveredMesh) {
-                setTooltip(t => ({ ...t, x: event.clientX, y: event.clientY }));
-            }
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            mouseScreen.x = event.clientX - rect.left;
+            mouseScreen.y = event.clientY - rect.top;
         };
         renderer.domElement.addEventListener('mousemove', onMouseMove);
 
@@ -130,7 +128,6 @@ export default function SceneScale() {
             if (!isVisible) return;
 
             const time = clock.getElapsedTime();
-            const delta = clock.getDelta();
 
             // Raycaster
             raycaster.setFromCamera(mouse, camera);
@@ -139,7 +136,6 @@ export default function SceneScale() {
             if (intersects.length > 0) {
                 const object = intersects[0].object;
                 if (hoveredMesh !== object) {
-                    // Mouse enter
                     if (hoveredMesh) {
                         hoveredMesh.material.copy(baseMat);
                         hoveredMesh.userData.isHovered = false;
@@ -147,11 +143,16 @@ export default function SceneScale() {
                     hoveredMesh = object;
                     hoveredMesh.material.copy(hoverMat);
                     hoveredMesh.userData.isHovered = true;
-                    // Show Tooltip - approximate screen pos from rect (mousemove catches actual)
                 }
+                const rect = renderer.domElement.getBoundingClientRect();
+                setTooltip({
+                    visible: true,
+                    text: `${hoveredMesh.userData.title} / ${hoveredMesh.userData.value}`,
+                    x: mouseScreen.x,
+                    y: mouseScreen.y
+                });
             } else {
                 if (hoveredMesh) {
-                    // Mouse leave
                     hoveredMesh.material.copy(baseMat);
                     hoveredMesh.userData.isHovered = false;
                     hoveredMesh = null;
@@ -165,7 +166,7 @@ export default function SceneScale() {
 
                 // 1. In-Animation (Growth)
                 if (u.animatingIn) {
-                    const t = Math.min((time - u.startTime) / 1.5, 1.0); // 1.5s duration
+                    const t = Math.min((time - u.startTime) / 1.5, 1.0);
                     if (t > 0) {
                         const easeT = elasticOut(t);
                         mesh.scale.y = Math.max(0.01, u.targetScaleY * easeT);
@@ -178,19 +179,8 @@ export default function SceneScale() {
                 // 2. Idle / Hover Animation
                 if (!u.animatingIn && hasTriggeredIn) {
                     if (u.isHovered) {
-                        // Hover: lift 15px up (approx 1 unit in orthographic projection)
                         mesh.position.y = THREE.MathUtils.lerp(mesh.position.y, u.baseY + 1.5, 0.1);
-                        if (!tooltip.visible) {
-                            // First frame of hover, mouse position will be close enough
-                            setTooltip({
-                                visible: true,
-                                text: `${u.title} / ${u.value}`,
-                                x: tooltip.x || 0,
-                                y: tooltip.y || 0
-                            });
-                        }
                     } else {
-                        // Idle bobbing
                         const targetY = u.baseY + Math.sin(time * 1.5 + u.phaseOffset) * 0.2;
                         mesh.position.y = THREE.MathUtils.lerp(mesh.position.y, targetY, 0.1);
                     }
@@ -252,12 +242,12 @@ export default function SceneScale() {
     }, []);
 
     return (
-        <>
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
             <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
             {tooltip.visible && (
                 <div
                     style={{
-                        position: 'fixed',
+                        position: 'absolute',
                         left: tooltip.x,
                         top: tooltip.y - 40,
                         transform: 'translate(-50%, -100%)',
@@ -277,6 +267,6 @@ export default function SceneScale() {
                     {tooltip.text}
                 </div>
             )}
-        </>
+        </div>
     );
 }

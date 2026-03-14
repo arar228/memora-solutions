@@ -172,12 +172,35 @@ export default function SceneLogistics() {
     productGroup.position.set(chel.x, 2, chel.z);
     scene.add(productGroup);
 
-    // Moving dot (glow on route)
-    const dotGeo = new THREE.SphereGeometry(1.2, 12, 12);
-    const dotMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const dot = new THREE.Mesh(dotGeo, dotMat);
-    dot.visible = false;
-    scene.add(dot);
+    // === AIRPLANE MODEL ===
+    const plane3D = new THREE.Group();
+    // Fuselage
+    const fuselageGeo = new THREE.ConeGeometry(0.6, 4, 8);
+    const fuselageMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x2da39a, emissiveIntensity: 0.3 });
+    const fuselage = new THREE.Mesh(fuselageGeo, fuselageMat);
+    fuselage.rotation.x = Math.PI / 2; // Point forward (along Z)
+    plane3D.add(fuselage);
+    // Wings
+    const wingGeo = new THREE.BoxGeometry(6, 0.15, 1.5);
+    const wingMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, emissive: 0x2da39a, emissiveIntensity: 0.2 });
+    const wings = new THREE.Mesh(wingGeo, wingMat);
+    wings.position.z = 0.5;
+    plane3D.add(wings);
+    // Tail fin
+    const tailGeo = new THREE.BoxGeometry(0.15, 1.5, 1);
+    const tailMat = new THREE.MeshStandardMaterial({ color: 0x6B4FA0, emissive: 0x6B4FA0, emissiveIntensity: 0.3 });
+    const tail = new THREE.Mesh(tailGeo, tailMat);
+    tail.position.set(0, 0.6, 1.8);
+    plane3D.add(tail);
+    // Tail wings
+    const tailWingGeo = new THREE.BoxGeometry(2.5, 0.12, 0.8);
+    const tailWings = new THREE.Mesh(tailWingGeo, wingMat.clone());
+    tailWings.position.set(0, 0, 1.8);
+    plane3D.add(tailWings);
+    plane3D.visible = false;
+    plane3D.scale.setScalar(1.2);
+    scene.add(plane3D);
+    let prevPlanePos = null;
 
     // === ANIMATION ===
     const clock = new THREE.Clock();
@@ -273,7 +296,7 @@ export default function SceneLogistics() {
         });
         extraPieces.forEach(m => { m.visible = false; });
         productGroup.position.set(chel.x, 2, chel.z);
-        dot.visible = false;
+        plane3D.visible = false;
         trailLine.geometry.setDrawRange(0, 0);
       }
 
@@ -283,9 +306,15 @@ export default function SceneLogistics() {
         const routeP = p * 0.4; // 0-40% of route = Chel→Kazan
         const pos = routeCurve.getPointAt(routeP);
         productGroup.position.copy(pos);
-        dot.visible = true;
-        dot.position.copy(pos);
-        dot.position.y += 0.5;
+        plane3D.visible = true;
+        plane3D.position.copy(pos);
+        plane3D.position.y += 3;
+        // Orient plane along route direction
+        if (prevPlanePos) {
+          const dir = new THREE.Vector3().subVectors(pos, prevPlanePos);
+          if (dir.length() > 0.01) plane3D.lookAt(pos.x + dir.x, pos.y + 3, pos.z + dir.z);
+        }
+        prevPlanePos = pos.clone();
         trailLine.geometry.setDrawRange(0, Math.floor(routeP * 200));
       }
 
@@ -294,7 +323,7 @@ export default function SceneLogistics() {
         const p = easeOut((t - T2) / JOIN_DUR);
         const pos = routeCurve.getPointAt(0.4);
         productGroup.position.copy(pos);
-        dot.position.copy(pos); dot.position.y += 0.5;
+        plane3D.position.copy(pos); plane3D.position.y += 3;
 
         extraPieces.forEach(m => {
           m.visible = true;
@@ -309,7 +338,12 @@ export default function SceneLogistics() {
         const routeP = 0.4 + p * 0.6; // 40-100% of route
         const pos = routeCurve.getPointAt(Math.min(routeP, 1));
         productGroup.position.copy(pos);
-        dot.position.copy(pos); dot.position.y += 0.5;
+        plane3D.position.copy(pos); plane3D.position.y += 3;
+        if (prevPlanePos) {
+          const dir = new THREE.Vector3().subVectors(pos, prevPlanePos);
+          if (dir.length() > 0.01) plane3D.lookAt(pos.x + dir.x, pos.y + 3, pos.z + dir.z);
+        }
+        prevPlanePos = pos.clone();
         trailLine.geometry.setDrawRange(0, Math.floor(routeP * 200));
       }
 
@@ -317,8 +351,8 @@ export default function SceneLogistics() {
       if (t >= T4) {
         const pos = routeCurve.getPointAt(1);
         productGroup.position.copy(pos);
-        dot.visible = true;
-        dot.position.copy(pos); dot.position.y += 0.5;
+        plane3D.visible = true;
+        plane3D.position.copy(pos); plane3D.position.y += 3;
         trailLine.geometry.setDrawRange(0, 200);
         // Celebrate pulse
         const pulse = Math.sin((t - T4) * 8) * 0.3 + 1.2;
@@ -327,9 +361,9 @@ export default function SceneLogistics() {
 
       if (t < T4) productGroup.scale.setScalar(1);
 
-      // Dot glow
-      if (dot.visible) {
-        dotMat.color.setHSL(0.48, 1, 0.5 + Math.sin(time * 6) * 0.2);
+      // Plane glow pulse
+      if (plane3D.visible) {
+        fuselageMat.emissiveIntensity = 0.3 + Math.sin(time * 6) * 0.15;
       }
 
       updateLabels();
@@ -359,7 +393,10 @@ export default function SceneLogistics() {
       mapGeo.dispose(); mapMat.dispose();
       cityGeo.dispose(); ringGeo.dispose();
       pieceGeo.dispose(); pieceMat.dispose();
-      dotGeo.dispose(); dotMat.dispose();
+      fuselageGeo.dispose(); fuselageMat.dispose();
+      wingGeo.dispose(); wingMat.dispose();
+      tailGeo.dispose(); tailMat.dispose();
+      tailWingGeo.dispose();
       renderer.dispose();
       if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
     };

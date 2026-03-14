@@ -1,12 +1,43 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Lightbulb, Clock, CheckCircle2, Send, ChevronDown, ChevronUp } from 'lucide-react';
+import { MessageSquare, Lightbulb, Clock, CheckCircle2, Send, ChevronDown } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import { kanbanData } from '../../data/mockData';
 import './KanbanPage.css';
 
 const priorityColors = { high: 'var(--color-danger)', medium: 'var(--color-gold)', low: 'var(--color-green)' };
+
+const RATE_LIMIT = 3;
+const RATE_WINDOW_MS = 30 * 60 * 1000; // 30 minutes
+
+function getMessageTimestamps() {
+    try {
+        const raw = localStorage.getItem('kanban-feedback-ts');
+        return raw ? JSON.parse(raw) : [];
+    } catch { return []; }
+}
+
+function saveMessageTimestamp() {
+    const timestamps = getMessageTimestamps();
+    timestamps.push(Date.now());
+    localStorage.setItem('kanban-feedback-ts', JSON.stringify(timestamps));
+}
+
+function getRateLimitInfo() {
+    const now = Date.now();
+    const timestamps = getMessageTimestamps().filter(ts => now - ts < RATE_WINDOW_MS);
+    // clean up old timestamps
+    localStorage.setItem('kanban-feedback-ts', JSON.stringify(timestamps));
+    const remaining = RATE_LIMIT - timestamps.length;
+    const isLimited = remaining <= 0;
+    let waitMinutes = 0;
+    if (isLimited && timestamps.length > 0) {
+        const oldest = Math.min(...timestamps);
+        waitMinutes = Math.ceil((RATE_WINDOW_MS - (now - oldest)) / 60000);
+    }
+    return { isLimited, remaining, waitMinutes };
+}
 
 function TaskCard({ task, lang }) {
     return (
@@ -56,6 +87,9 @@ export default function KanbanPage() {
     const lang = i18n.language;
     const [feedbackText, setFeedbackText] = useState('');
     const [feedbackItems, setFeedbackItems] = useState([]);
+    const [, forceUpdate] = useState(0);
+
+    const rateInfo = useMemo(() => getRateLimitInfo(), [feedbackItems, forceUpdate]);
 
     const columns = [
         {
@@ -65,6 +99,7 @@ export default function KanbanPage() {
             icon: <MessageSquare size={18} />,
             color: 'var(--color-gold)',
             items: [...kanbanData.feedback, ...feedbackItems],
+            autoHeight: true,
         },
         {
             key: 'potential',
@@ -88,6 +123,12 @@ export default function KanbanPage() {
 
     const handleFeedback = () => {
         if (!feedbackText.trim()) return;
+        const info = getRateLimitInfo();
+        if (info.isLimited) {
+            forceUpdate(n => n + 1);
+            return;
+        }
+        saveMessageTimestamp();
         setFeedbackItems(prev => [...prev, {
             id: Date.now(),
             title: feedbackText,
@@ -115,21 +156,45 @@ export default function KanbanPage() {
                         <input
                             type="text"
                             className="feedback-form__input"
-                            placeholder={t('kanban.feedbackPlaceholder')}
+                            placeholder={rateInfo.isLimited
+                                ? (lang === 'ru'
+                                    ? `Подождите ${rateInfo.waitMinutes} мин...`
+                                    : `Wait ${rateInfo.waitMinutes} min...`)
+                                : t('kanban.feedbackPlaceholder')
+                            }
                             value={feedbackText}
                             onChange={e => setFeedbackText(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && handleFeedback()}
+                            disabled={rateInfo.isLimited}
                         />
-                        <button className="btn btn-primary" onClick={handleFeedback}>
+                        <button
+                            className="btn btn-primary"
+                            onClick={handleFeedback}
+                            disabled={rateInfo.isLimited}
+                        >
                             <Send size={18} /> {t('kanban.addFeedback')}
                         </button>
                     </div>
+                    {rateInfo.isLimited && (
+                        <p className="feedback-rate-limit">
+                            {lang === 'ru'
+                                ? `Лимит сообщений достигнут. Попробуйте через ${rateInfo.waitMinutes} мин.`
+                                : `Message limit reached. Try again in ${rateInfo.waitMinutes} min.`}
+                        </p>
+                    )}
+                    {!rateInfo.isLimited && rateInfo.remaining < RATE_LIMIT && (
+                        <p className="feedback-remaining">
+                            {lang === 'ru'
+                                ? `Осталось сообщений: ${rateInfo.remaining} из ${RATE_LIMIT}`
+                                : `Messages remaining: ${rateInfo.remaining} of ${RATE_LIMIT}`}
+                        </p>
+                    )}
                 </AnimatedSection>
 
                 <AnimatedSection delay={0.1}>
                     <div className="kanban-board">
                         {columns.map((col) => (
-                            <div key={col.key} className="kanban-column">
+                            <div key={col.key} className={`kanban-column ${col.autoHeight ? 'kanban-column--auto' : ''}`}>
                                 <div className="kanban-column__header">
                                     <span className="kanban-column__icon" style={{ color: col.color }}>{col.icon}</span>
                                     <div className="kanban-column__info">
@@ -165,3 +230,4 @@ export default function KanbanPage() {
         </div>
     );
 }
+

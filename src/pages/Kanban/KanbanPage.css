@@ -114,6 +114,36 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
+.kanban-column--auto {
+    height: auto;
+    max-height: none;
+}
+
+.kanban-column--auto .kanban-column__body {
+    overflow: visible;
+}
+
+.feedback-rate-limit {
+    text-align: center;
+    color: var(--color-danger);
+    font-size: var(--text-small);
+    margin-top: var(--space-sm);
+    font-weight: 500;
+}
+
+.feedback-remaining {
+    text-align: center;
+    color: var(--color-text-tertiary);
+    font-size: var(--text-xs);
+    margin-top: var(--space-sm);
+}
+
+.feedback-form__input:disabled,
+.feedback-form .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .kanban-column__header {
     display: flex;
     align-items: flex-start;

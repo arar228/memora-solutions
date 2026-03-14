@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from './shared/Header';
-import Footer from './shared/Footer';
 import GoldParticles from './shared/GoldParticles';
 import ErrorBoundary from './shared/ErrorBoundary';
 import LoadingFallback from './shared/LoadingFallback';
@@ -67,7 +66,6 @@ export default function App() {
             </Suspense>
           </ErrorBoundary>
         </main>
-        <Footer />
       </div>
     </BrowserRouter>
   );

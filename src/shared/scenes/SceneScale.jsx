@@ -26,6 +26,7 @@ export default function SceneScale() {
     const mountRef = useRef(null);
     const [tooltip, setTooltip] = useState({ visible: false, text: '', x: 0, y: 0 });
     const [detail, setDetail] = useState(null);
+    const closeRef = useRef(null);
 
     useEffect(() => {
         if (!mountRef.current) return;
@@ -188,16 +189,23 @@ export default function SceneScale() {
         // Collect solid meshes for raycasting
         const solidMeshes = meshes.map(g => g.userData.solidMesh);
 
+        const closeFocused = () => {
+            if (!focusedMesh) return;
+            zoomDir = -1; zoomProgress = 1; isZooming = true;
+            setDetail(null);
+            const u = focusedMesh.userData;
+            u.solidMat.color.setHex(u.origColor);
+            u.solidMat.emissive.setHex(u.origEmissive);
+            u.solidMat.emissiveIntensity = 0.3;
+            u.solidMat.opacity = 0.85;
+            focusedMesh = null;
+        };
+        closeRef.current = closeFocused;
+
         const onClick = () => {
             if (isZooming) return;
             if (focusedMesh) {
-                zoomDir = -1; zoomProgress = 1; isZooming = true;
-                setDetail(null);
-                const u = focusedMesh.userData;
-                u.solidMat.color.setHex(u.origColor);
-                u.solidMat.emissive.setHex(u.origEmissive);
-                u.solidMat.emissiveIntensity = 0.3;
-                focusedMesh = null;
+                closeFocused();
                 return;
             }
             raycaster.setFromCamera(mouse, camera);
@@ -417,15 +425,16 @@ export default function SceneScale() {
                 }}>{tooltip.text}</div>
             )}
             {detail && (
-                <div style={{
+                <div onClick={() => closeRef.current?.()} style={{
                     position: 'absolute', top: 20, right: 20, maxWidth: 260,
                     background: 'rgba(13, 13, 26, 0.94)',
                     border: '1px solid rgba(45, 163, 154, 0.4)',
                     borderRadius: '12px', padding: '20px', color: 'white',
                     zIndex: 1000, backdropFilter: 'blur(12px)',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 40px rgba(45,163,154,0.08)',
-                    animation: 'fadeSlideIn 0.35s ease-out'
+                    animation: 'fadeSlideIn 0.35s ease-out', cursor: 'pointer'
                 }}>
+                    <div style={{ position: 'absolute', top: 10, right: 14, fontSize: 16, color: 'rgba(255,255,255,0.5)', lineHeight: 1 }}>✕</div>
                     <div style={{ fontSize: 22, fontWeight: 700, color: '#2da39a', marginBottom: 6, fontFamily: 'var(--font-display)' }}>{detail.value}</div>
                     <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>{detail.title}</div>
                     <div style={{ fontSize: 12, lineHeight: 1.6, color: 'rgba(255,255,255,0.7)' }}>{detail.desc}</div>

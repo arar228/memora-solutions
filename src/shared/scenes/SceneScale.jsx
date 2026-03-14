@@ -246,8 +246,8 @@ export default function SceneScale() {
         const tick = () => {
             animationId = requestAnimationFrame(tick);
             if (!isVisible) return;
-            const time = clock.getElapsedTime();
             const delta = clock.getDelta();
+            const time = clock.elapsedTime;
 
             // Particles drift
             const positions = particles.geometry.attributes.position.array;

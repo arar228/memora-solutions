@@ -33,7 +33,6 @@ export default function Header() {
         { to: '/wallet', label: t('nav.wallet') },
         { to: '/bday-bot', label: t('nav.bdayBot') },
         { to: '/kanban', label: t('nav.kanban') },
-        { to: '/contacts', label: t('nav.contacts') },
         { to: '/creator', label: t('nav.creator') },
     ];
 

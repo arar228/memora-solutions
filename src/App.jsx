@@ -13,7 +13,6 @@ const TravelRadarPage = lazy(() => import('./pages/TravelRadar'));
 const WalletPage = lazy(() => import('./pages/Wallet'));
 const BdayBotPage = lazy(() => import('./pages/BdayBot'));
 const KanbanPage = lazy(() => import('./pages/Kanban'));
-const ContactsPage = lazy(() => import('./pages/Contacts'));
 const AdminPage = lazy(() => import('./pages/Admin'));
 const CreatorPage = lazy(() => import('./pages/Creator'));
 
@@ -41,7 +40,6 @@ function AnimatedRoutes() {
         <Route path="/wallet" element={<PageTransition><WalletPage /></PageTransition>} />
         <Route path="/bday-bot" element={<PageTransition><BdayBotPage /></PageTransition>} />
         <Route path="/kanban" element={<PageTransition><KanbanPage /></PageTransition>} />
-        <Route path="/contacts" element={<PageTransition><ContactsPage /></PageTransition>} />
         <Route path="/admin" element={<PageTransition><AdminPage /></PageTransition>} />
         <Route path="/creator" element={<PageTransition><CreatorPage /></PageTransition>} />
       </Routes>

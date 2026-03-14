@@ -7,7 +7,6 @@ import ruHome from '../locales/ru/home.json';
 import ruProducts from '../locales/ru/products.json';
 import ruTravel from '../locales/ru/travel.json';
 import ruKanban from '../locales/ru/kanban.json';
-import ruContacts from '../locales/ru/contacts.json';
 import ruAdmin from '../locales/ru/admin.json';
 import ruCreator from '../locales/ru/creator.json';
 
@@ -17,7 +16,6 @@ import enHome from '../locales/en/home.json';
 import enProducts from '../locales/en/products.json';
 import enTravel from '../locales/en/travel.json';
 import enKanban from '../locales/en/kanban.json';
-import enContacts from '../locales/en/contacts.json';
 import enAdmin from '../locales/en/admin.json';
 import enCreator from '../locales/en/creator.json';
 
@@ -32,7 +30,6 @@ i18n.use(initReactI18next).init({
         products: ruProducts,
         travel: ruTravel,
         kanban: ruKanban,
-        contacts: ruContacts,
         admin: ruAdmin,
         creator: ruCreator,
       },
@@ -44,7 +41,6 @@ i18n.use(initReactI18next).init({
         products: enProducts,
         travel: enTravel,
         kanban: enKanban,
-        contacts: enContacts,
         admin: enAdmin,
         creator: enCreator,
       },

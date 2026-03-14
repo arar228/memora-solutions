@@ -64,6 +64,7 @@
     transition: color var(--transition-base);
     position: relative;
     padding: var(--space-xs) 0;
+    white-space: nowrap;
 }
 
 .header__nav-link:hover {

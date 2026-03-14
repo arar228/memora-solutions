@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: center;
     padding-top: var(--header-height);
-    overflow: hidden;
+    overflow: clip;
 }
 
 .creator-hero__glow {

@@ -81,12 +81,6 @@ export default function HomePage() {
                         <h1 className="hero__title">{t('brand')}</h1>
                         <p className="hero__tagline">{t('tagline')}</p>
                         <p className="hero__subtitle">{t('heroSubtitle')}</p>
-                        <div className="hero__actions">
-                            <Link to="/travel-radar" className="btn btn-primary hero__cta">
-                                {t('products.travelRadar.title')}
-                                <Compass size={16} />
-                            </Link>
-                        </div>
                     </motion.div>
                     <motion.div
                         className="hero__scroll-indicator scroll-indicator"

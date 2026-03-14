@@ -11,13 +11,13 @@ const PROJECTS = [
     { id: 3, size: 3.5, x: -6, z: 4, delay: 0.3, title: 'Мощные компьютеры', value: '80+ млн\u00A0₽',
       desc: 'Графические станции, 3D-моделирование, рендер-фермы',
       color: 0x2da39a, emissive: 0x1a6060, edgeColor: 0x4dd0c8 },
-    { id: 4, size: 3, x: 7, z: 3, delay: 0.45, title: 'VR-оборудование', value: '45+ млн\u00A0₽',
+    { id: 4, size: 3, x: 8, z: 5, delay: 0.45, title: 'VR-оборудование', value: '45+ млн\u00A0₽',
       desc: 'Шлемы, контроллеры, трекинг, VR-классы',
       color: 0xF44336, emissive: 0x8b1a11, edgeColor: 0xff7961 },
-    { id: 5, size: 2.5, x: 0, z: 6, delay: 0.6, title: 'Интерактивные комплексы', value: '20+ млн\u00A0₽',
+    { id: 5, size: 2.5, x: 2, z: 10, delay: 0.6, title: 'Интерактивные комплексы', value: '20+ млн\u00A0₽',
       desc: 'Панели, доски, проекционные системы',
       color: 0xFFC107, emissive: 0x8a6800, edgeColor: 0xfff350 },
-    { id: 6, size: 2, x: -2, z: 8, delay: 0.75, title: 'Системы ВКС', value: '15+ млн\u00A0₽',
+    { id: 6, size: 2, x: -4, z: 11, delay: 0.75, title: 'Системы ВКС', value: '15+ млн\u00A0₽',
       desc: 'Видеоконференцсвязь, конференц-залы, гибридные аудитории',
       color: 0xFF5722, emissive: 0x8b2f00, edgeColor: 0xff8a65 }
 ];

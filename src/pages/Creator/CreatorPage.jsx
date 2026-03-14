@@ -34,6 +34,16 @@ export default function CreatorPage() {
                             <span className="creator-hero__title-accent">{t('creator.heroAccent')}</span>
                         </h1>
                         <p className="creator-hero__lead">{t('creator.heroLead')}</p>
+                        <div className="creator-cta__links" style={{ marginTop: 'var(--space-lg)' }}>
+                            <a href="mailto:s.maklakov@armk.pro" className="creator-cta__link">
+                                <Mail size={18} />
+                                <span>s.maklakov@armk.pro</span>
+                            </a>
+                            <a href="https://t.me/MemoraSolutions" target="_blank" rel="noopener noreferrer" className="creator-cta__link creator-cta__link--tg">
+                                <Send size={18} />
+                                <span>@MemoraSolutions</span>
+                            </a>
+                        </div>
                     </motion.div>
 
                     <motion.div

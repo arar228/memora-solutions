@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Mail, Send, ArrowDown, Sparkles, Briefcase, Users, Cpu, Building2 } from 'lucide-react';
@@ -11,7 +12,18 @@ import SceneTeam from '../../shared/scenes/SceneTeam';
 import './CreatorPage.css';
 
 export default function CreatorPage() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    const experienceYears = useMemo(() => {
+        const start = new Date(2019, 9); // October 2019
+        const now = new Date();
+        const years = (now - start) / (1000 * 60 * 60 * 24 * 365.25);
+        const rounded = Math.round(years * 10) / 10;
+        const formatted = i18n.language === 'ru'
+            ? `${rounded.toFixed(1).replace('.', ',')} лет`
+            : `${rounded.toFixed(1)} years`;
+        return formatted;
+    }, [i18n.language]);
 
     return (
         <div className="creator-page">
@@ -84,7 +96,7 @@ export default function CreatorPage() {
                     <section className="creator-numbers">
                         <div className="creator-numbers__card">
                             <Briefcase size={22} className="creator-numbers__icon" />
-                            <span className="creator-numbers__value">{t('creator.num1Value')}</span>
+                            <span className="creator-numbers__value">{experienceYears}</span>
                             <span className="creator-numbers__label">{t('creator.num1Label')}</span>
                         </div>
                         <div className="creator-numbers__card">

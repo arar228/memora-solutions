@@ -1,16 +1,21 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import GoldParticles from './components/GoldParticles';
-import HomePage from './pages/HomePage';
-import TravelRadarPage from './pages/TravelRadarPage';
-import WalletPage from './pages/WalletPage';
-import BdayBotPage from './pages/BdayBotPage';
-import KanbanPage from './pages/KanbanPage';
-import ContactsPage from './pages/ContactsPage';
-import AdminPage from './pages/AdminPage';
-import CreatorPage from './pages/CreatorPage';
+import Header from './shared/Header';
+import Footer from './shared/Footer';
+import GoldParticles from './shared/GoldParticles';
+import ErrorBoundary from './shared/ErrorBoundary';
+import LoadingFallback from './shared/LoadingFallback';
+
+// Lazy-loaded pages
+const HomePage = lazy(() => import('./pages/Home'));
+const TravelRadarPage = lazy(() => import('./pages/TravelRadar'));
+const WalletPage = lazy(() => import('./pages/Wallet'));
+const BdayBotPage = lazy(() => import('./pages/BdayBot'));
+const KanbanPage = lazy(() => import('./pages/Kanban'));
+const ContactsPage = lazy(() => import('./pages/Contacts'));
+const AdminPage = lazy(() => import('./pages/Admin'));
+const CreatorPage = lazy(() => import('./pages/Creator'));
 
 function PageTransition({ children }) {
   return (
@@ -51,8 +56,13 @@ export default function App() {
         <GoldParticles />
         <Header />
         <main className="app__main">
-          <AnimatedRoutes />
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingFallback />}>
+              <AnimatedRoutes />
+            </Suspense>
+          </ErrorBoundary>
         </main>
+        <Footer />
       </div>
     </BrowserRouter>
   );

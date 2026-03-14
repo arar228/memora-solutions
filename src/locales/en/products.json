@@ -1,0 +1,50 @@
+{
+    "travelRadar": {
+        "title": "Memora Travel Radar",
+        "desc": "Personal monitoring system for travel deals and last-minute tours",
+        "status": "In Development",
+        "bot": "@MemoraTravelRadarBot"
+    },
+    "wallet": {
+        "title": "Memora Wallet Manager",
+        "desc": "Convenient Telegram bot to control and analyze your expenses",
+        "status": "Active",
+        "bot": "@MemoraWallet_bot",
+        "features": {
+            "title": "Features",
+            "f1": "Quick expense input via Telegram",
+            "f2": "Automatic spending categorization",
+            "f3": "Reports and analytics by period",
+            "f4": "Budgets and limits by category",
+            "f5": "Data export"
+        },
+        "howTo": {
+            "title": "How to Start",
+            "step1": "Open Telegram and find @MemoraWallet_bot",
+            "step2": "Press /start to begin",
+            "step3": "Enter the amount and expense category",
+            "step4": "Use /report to view statistics"
+        }
+    },
+    "bdayBot": {
+        "title": "Memora Bday Bot",
+        "desc": "Telegram bot for storing birthdays and sending reminders",
+        "status": "Active",
+        "bot": "@MemoraBDayBot",
+        "features": {
+            "title": "Features",
+            "f1": "Store all birthdays in one place",
+            "f2": "Automatic reminders 1 day before",
+            "f3": "List of upcoming celebrations",
+            "f4": "Greetings and wishes",
+            "f5": "Age calculator"
+        },
+        "howTo": {
+            "title": "How to Start",
+            "step1": "Open Telegram and find @MemoraBDayBot",
+            "step2": "Press /start to register",
+            "step3": "Add birthdays via /add",
+            "step4": "The bot will remind you of each celebration"
+        }
+    }
+}

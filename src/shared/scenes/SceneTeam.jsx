@@ -147,21 +147,57 @@ export default function SceneTeam() {
     placeOnRing(ring1Roles, R1);
     placeOnRing(ring2Roles, R2);
 
-    // === CTA NODE ===
+    // === CTA NODE (eye-catching) ===
     const ctaMat = new THREE.MeshStandardMaterial({
-      color: 0x2DA39A, emissive: 0x2DA39A, emissiveIntensity: 0.4,
-      roughness: 0.3, metalness: 0.5
+      color: 0x2DA39A, emissive: 0x2DA39A, emissiveIntensity: 0.6,
+      roughness: 0.2, metalness: 0.5
     });
-    const cta = new THREE.Mesh(new THREE.SphereGeometry(6, 16, 16), ctaMat);
+    const cta = new THREE.Mesh(new THREE.SphereGeometry(8, 20, 20), ctaMat);
     const ctaAngle = Math.PI * 0.75;
-    cta.position.set(Math.cos(ctaAngle) * (R2 + 25), Math.sin(ctaAngle) * (R2 + 25), 0);
-    cta.userData = { role: 'Есть интересная задача? Напишите.', group: 99, baseScale: 1 };
+    const ctaX = Math.cos(ctaAngle) * (R2 + 30);
+    const ctaY = Math.sin(ctaAngle) * (R2 + 30);
+    cta.position.set(ctaX, ctaY, 0);
+    cta.userData = { role: 'Есть интересная задача? Напишите.', group: 99, baseScale: 1.2 };
+    cta.scale.set(1.2, 1.2, 1.2);
     root.add(cta);
     nodeMeshes.push(cta);
-    // CTA connection
-    const ctaLineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), cta.position]);
-    const ctaLineMat = new THREE.LineBasicMaterial({ color: 0x2DA39A, transparent: true, opacity: 0.15 });
-    root.add(new THREE.Line(ctaLineGeo, ctaLineMat));
+
+    // CTA glow ring (pulsing)
+    const ctaRingGeo = new THREE.TorusGeometry(12, 0.4, 8, 32);
+    const ctaRingMat = new THREE.MeshBasicMaterial({ color: 0x2DA39A, transparent: true, opacity: 0.35 });
+    const ctaRing = new THREE.Mesh(ctaRingGeo, ctaRingMat);
+    ctaRing.position.set(ctaX, ctaY, 0);
+    root.add(ctaRing);
+
+    // CTA outer glow ring 2
+    const ctaRing2 = new THREE.Mesh(
+      new THREE.TorusGeometry(16, 0.2, 8, 32),
+      new THREE.MeshBasicMaterial({ color: 0x2DA39A, transparent: true, opacity: 0.15 })
+    );
+    ctaRing2.position.set(ctaX, ctaY, 0);
+    root.add(ctaRing2);
+
+    // CTA point light
+    const ctaLight = new THREE.PointLight(0x2DA39A, 0.5, 40);
+    ctaLight.position.set(ctaX, ctaY, 5);
+    root.add(ctaLight);
+
+    // CTA always-visible label (sprite)
+    const ctaCanvas = document.createElement('canvas');
+    ctaCanvas.width = 320; ctaCanvas.height = 56;
+    const ctaCtx = ctaCanvas.getContext('2d');
+    ctaCtx.fillStyle = 'rgba(13,13,26,0.9)';
+    ctaCtx.roundRect(0, 0, 320, 56, 8); ctaCtx.fill();
+    ctaCtx.strokeStyle = '#2DA39A';
+    ctaCtx.lineWidth = 2; ctaCtx.roundRect(2, 2, 316, 52, 7); ctaCtx.stroke();
+    ctaCtx.fillStyle = '#2DA39A';
+    ctaCtx.font = 'bold 22px sans-serif'; ctaCtx.textAlign = 'center';
+    ctaCtx.fillText('Напишите нам →', 160, 36);
+    const ctaTex = new THREE.CanvasTexture(ctaCanvas);
+    const ctaSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: ctaTex, transparent: true, opacity: 0.9 }));
+    ctaSprite.position.set(ctaX, ctaY - 16, 0);
+    ctaSprite.scale.set(28, 5, 1);
+    root.add(ctaSprite);
 
     // All interactable meshes include hub
     const allInteractable = [hub, ...nodeMeshes];
@@ -263,9 +299,18 @@ export default function SceneTeam() {
             m.scale.set(b, b, b);
           }
         });
-        // CTA blink
+        // CTA pulsing glow
         if (hoveredMesh !== cta) {
-          cta.material.emissiveIntensity = 0.3 + Math.sin(time * 3) * 0.2;
+          const pulse = 0.5 + Math.sin(time * 3) * 0.3;
+          ctaMat.emissiveIntensity = 0.4 + pulse * 0.4;
+          ctaRingMat.opacity = 0.2 + pulse * 0.25;
+          ctaRing.rotation.z = time * 0.5;
+          ctaRing2.rotation.z = -time * 0.3;
+          const s = 1.2 + Math.sin(time * 2) * 0.1;
+          cta.scale.set(s, s, s);
+          ctaLight.intensity = 0.3 + pulse * 0.4;
+          // Sprite gentle bob
+          ctaSprite.position.y = ctaY - 16 + Math.sin(time * 1.5) * 1.5;
         }
       }
 

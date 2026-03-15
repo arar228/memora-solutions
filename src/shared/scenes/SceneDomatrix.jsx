@@ -160,28 +160,57 @@ export default function SceneDomatrix() {
 
     scene.add(building);
 
-    // === SYSTEM NODES ===
+    // === SYSTEM NODES (evenly distributed grid) ===
     const nodes = [];
-    // SHARED geometry (1 sphere for all)
     const nodeGeo = new THREE.SphereGeometry(1.2, 12, 12);
 
-    SYSTEMS.forEach((sys, idx) => {
-      const f = idx % floors;
-      const col = Math.floor(idx / floors);
-      const cols = Math.ceil(SYSTEMS.length / floors);
-      const y = f * floorH + floorH / 2;
-      const x = -bW/2 + 6 + col * ((bW - 12) / cols);
-      const z = ((idx * 7.3) % (bD - 6)) - (bD - 6) / 2; // deterministic, not random
+    // Distribute evenly: assign systems to floors, then spread across width
+    const perFloor = [];
+    for (let f = 0; f < floors; f++) perFloor.push([]);
+    SYSTEMS.forEach((sys, i) => perFloor[i % floors].push(sys));
 
-      const mat = new THREE.MeshStandardMaterial({
-        color: sys.color, emissive: sys.color, emissiveIntensity: 0.4,
-        roughness: 0.4, metalness: 0.3, transparent: true, opacity: 0.9
+    let sysIdx = 0;
+    const margin = 6;
+    perFloor.forEach((floorSystems, f) => {
+      const y = f * floorH + floorH / 2;
+      const count = floorSystems.length;
+      floorSystems.forEach((sys, col) => {
+        // Spread evenly across full building width
+        const x = -bW/2 + margin + (col + 0.5) * ((bW - margin * 2) / count);
+        // Alternate Z depth for visual variety
+        const zRow = (sysIdx % 3);
+        const z = (zRow - 1) * (bD * 0.28);
+
+        const mat = new THREE.MeshStandardMaterial({
+          color: sys.color, emissive: sys.color, emissiveIntensity: 0.4,
+          roughness: 0.4, metalness: 0.3, transparent: true, opacity: 0.9
+        });
+        const mesh = new THREE.Mesh(nodeGeo, mat);
+        mesh.position.set(x, y, z);
+        mesh.userData = { sys, connections: [] };
+        building.add(mesh);
+
+        // Floating label (sprite using canvas)
+        const canvas = document.createElement('canvas');
+        canvas.width = 128; canvas.height = 48;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgba(13,13,26,0.85)';
+        ctx.roundRect(0, 0, 128, 48, 6); ctx.fill();
+        ctx.strokeStyle = `#${sys.color.toString(16).padStart(6,'0')}`;
+        ctx.lineWidth = 2; ctx.roundRect(2, 2, 124, 44, 5); ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 20px monospace'; ctx.textAlign = 'center';
+        ctx.fillText(sys.id, 64, 32);
+        const tex = new THREE.CanvasTexture(canvas);
+        const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.85 });
+        const sprite = new THREE.Sprite(spriteMat);
+        sprite.position.set(x, y + 2.2, z);
+        sprite.scale.set(5, 2, 1);
+        building.add(sprite);
+
+        nodes.push({ mesh, sprite, sys });
+        sysIdx++;
       });
-      const mesh = new THREE.Mesh(nodeGeo, mat);
-      mesh.position.set(x, y, z);
-      mesh.userData = { sys, connections: [] };
-      building.add(mesh);
-      nodes.push({ mesh, sys });
     });
 
     // === CONNECTIONS (straight lines — no bezier for perf) ===

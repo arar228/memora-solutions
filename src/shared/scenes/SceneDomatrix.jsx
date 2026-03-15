@@ -62,12 +62,12 @@ export default function SceneDomatrix() {
     el.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableZoom = false;
+    controls.enableZoom = true;
     controls.enablePan = false;
-    controls.minPolarAngle = Math.PI / 4;
-    controls.maxPolarAngle = Math.PI / 2 + 0.15;
-    controls.minAzimuthAngle = -Math.PI / 4;
-    controls.maxAzimuthAngle = Math.PI / 3;
+    controls.minDistance = 30;
+    controls.maxDistance = 180;
+    controls.minPolarAngle = Math.PI / 6;
+    controls.maxPolarAngle = Math.PI / 2 + 0.2;
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.target.set(0, 10, 0);

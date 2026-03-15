@@ -36,18 +36,34 @@ export default function SceneTeam() {
         const linksData = [];
 
         // 1 Central Node (Sergey)
-        const centerNode = { id: 0, group: 0, role: 'Сергей Маклаков', baseScale: 1.5, x: 0, y: 0, z: 0 };
+        const centerNode = { id: 0, group: 0, role: 'Memora Solutions', baseScale: 1.5, x: 0, y: 0, z: 0 };
         nodesData.push(centerNode);
 
-        // Peripheral roles
+        // Peripheral roles — specific, prestigious titles
         const roles = [
-            { count: 4, name: 'Менеджер', group: 1 },
-            { count: 6, name: 'Инженер', group: 2 },
-            { count: 4, name: 'Разработчик', group: 3 },
-            { count: 3, name: 'Проектировщик', group: 4 },
-            { count: 2, name: 'Логист', group: 5 },
-            { count: 2, name: 'Сетевик', group: 6 },
-            { count: 4, name: 'Специалист', group: 7 } // Filler to reach 25 peripheral nodes exact
+            { count: 2, name: 'Руководитель проектов', group: 1 },
+            { count: 1, name: 'Аккаунт-менеджер', group: 1 },
+            { count: 1, name: 'Менеджер по закупкам', group: 1 },
+            { count: 2, name: 'Инженер слаботочных систем', group: 2 },
+            { count: 1, name: 'BIM-инженер', group: 2 },
+            { count: 1, name: 'Инженер-проектировщик ОВиК', group: 2 },
+            { count: 1, name: 'Инженер-наладчик АСУ ТП', group: 2 },
+            { count: 1, name: 'Сетевой инженер (CCNA)', group: 2 },
+            { count: 1, name: 'Frontend-архитектор', group: 3 },
+            { count: 1, name: 'Fullstack-разработчик', group: 3 },
+            { count: 1, name: 'Backend-разработчик (Node.js)', group: 3 },
+            { count: 1, name: 'DevOps-инженер', group: 3 },
+            { count: 1, name: 'Проектировщик КЖ / КМ', group: 4 },
+            { count: 1, name: 'Архитектор ИТ-решений', group: 4 },
+            { count: 1, name: 'Сметчик-экономист', group: 4 },
+            { count: 1, name: 'Логист по ВЭД', group: 5 },
+            { count: 1, name: 'Координатор поставок', group: 5 },
+            { count: 1, name: 'Инженер СКС', group: 6 },
+            { count: 1, name: 'Монтажник-высотник', group: 6 },
+            { count: 1, name: 'Техник по видеонаблюдению', group: 7 },
+            { count: 1, name: 'Специалист по СКУД/ОПС', group: 7 },
+            { count: 1, name: 'Инженер по пожарной безопасности', group: 7 },
+            { count: 1, name: 'Диспетчер объектов', group: 7 }
         ];
 
         let idCounter = 1;
@@ -156,7 +172,7 @@ export default function SceneTeam() {
                     // Special tooltip for +1 node
                     const text = hoveredMesh.userData.id === 999
                         ? hoveredMesh.userData.role
-                        : hoveredMesh.userData.id === 0 ? 'Сергей' : hoveredMesh.userData.role;
+                        : hoveredMesh.userData.id === 0 ? 'Memora Solutions' : hoveredMesh.userData.role;
 
                     setTooltip({
                         visible: true,

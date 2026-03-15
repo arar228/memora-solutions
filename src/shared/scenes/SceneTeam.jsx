@@ -182,6 +182,13 @@ export default function SceneTeam() {
     ctaLight.position.set(ctaX, ctaY, 5);
     root.add(ctaLight);
 
+    // CTA connection line (slightly brighter than regular)
+    const ctaLineGeo = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(0, 0, 0),
+      new THREE.Vector3(ctaX, ctaY, 0)
+    ]);
+    root.add(new THREE.Line(ctaLineGeo, new THREE.LineBasicMaterial({ color: 0x2DA39A, transparent: true, opacity: 0.25 })));
+
     // All interactable meshes include hub
     const allInteractable = [hub, ...nodeMeshes];
 

@@ -1,363 +1,349 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import * as d3Force from 'd3-force';
 import { gsap } from 'gsap';
 
+/* ======================================================================
+   SceneTeam — orbital layout, NO d3 force (deterministic, fast, even)
+   7 groups on 2 concentric rings around a center hub
+   ====================================================================== */
+
+// Group definitions with distinct colors
+const GROUPS = [
+  { id: 1, label: 'Управление', color: 0x6366F1, ring: 1 },
+  { id: 2, label: 'Инженерия',  color: 0x3B82F6, ring: 1 },
+  { id: 3, label: 'IT / Dev',   color: 0x8B5CF6, ring: 1 },
+  { id: 4, label: 'Проектирование', color: 0x14B8A6, ring: 2 },
+  { id: 5, label: 'Логистика',  color: 0xF59E0B, ring: 2 },
+  { id: 6, label: 'Монтаж',     color: 0xEF4444, ring: 2 },
+  { id: 7, label: 'Безопасность', color: 0xF97316, ring: 2 },
+];
+
+const ROLES = [
+  // Group 1 — Management
+  { name: 'Руководитель проектов', group: 1 },
+  { name: 'Аккаунт-менеджер', group: 1 },
+  { name: 'Менеджер по закупкам', group: 1 },
+  // Group 2 — Engineering
+  { name: 'Инженер слаботочных систем', group: 2 },
+  { name: 'BIM-инженер', group: 2 },
+  { name: 'Инженер-проектировщик ОВиК', group: 2 },
+  { name: 'Инженер-наладчик АСУ ТП', group: 2 },
+  { name: 'Сетевой инженер (CCNA)', group: 2 },
+  // Group 3 — IT/Dev
+  { name: 'Frontend-архитектор', group: 3 },
+  { name: 'Fullstack-разработчик', group: 3 },
+  { name: 'Backend-разработчик', group: 3 },
+  { name: 'DevOps-инженер', group: 3 },
+  // Group 4 — Design
+  { name: 'Проектировщик КЖ / КМ', group: 4 },
+  { name: 'Архитектор ИТ-решений', group: 4 },
+  { name: 'Сметчик-экономист', group: 4 },
+  // Group 5 — Logistics
+  { name: 'Логист по ВЭД', group: 5 },
+  { name: 'Координатор поставок', group: 5 },
+  // Group 6 — Fieldwork
+  { name: 'Инженер СКС', group: 6 },
+  { name: 'Монтажник-высотник', group: 6 },
+  // Group 7 — Safety
+  { name: 'Техник по видеонаблюдению', group: 7 },
+  { name: 'Специалист по СКУД/ОПС', group: 7 },
+  { name: 'Инженер по пожарной безопасности', group: 7 },
+];
+
 export default function SceneTeam() {
-    const mountRef = useRef(null);
-    const [tooltip, setTooltip] = useState({ visible: false, text: '', x: 0, y: 0 });
+  const mountRef = useRef(null);
+  const [tooltip, setTooltip] = useState({ visible: false, text: '', x: 0, y: 0 });
 
-    useEffect(() => {
-        if (!mountRef.current) return;
+  useEffect(() => {
+    if (!mountRef.current) return;
+    const el = mountRef.current;
+    const W = el.clientWidth, H = el.clientHeight;
 
-        const width = mountRef.current.clientWidth;
-        const height = mountRef.current.clientHeight;
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('#0D0D1A');
 
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color('#0D0D1A');
+    const camera = new THREE.PerspectiveCamera(50, W / H, 1, 500);
+    camera.position.set(0, 0, 180);
+    camera.lookAt(0, 0, 0);
 
-        const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-        camera.position.set(0, 0, 300); // 2D flat view conceptually, using perspective for depth
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.domElement.style.touchAction = 'pan-y';
+    el.appendChild(renderer.domElement);
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(width, height);
-        renderer.domElement.style.touchAction = 'pan-y';
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        mountRef.current.appendChild(renderer.domElement);
+    // Lighting
+    scene.add(new THREE.AmbientLight(0x445566, 0.5));
+    const dL = new THREE.DirectionalLight(0xffffff, 0.4);
+    dL.position.set(30, 50, 80); scene.add(dL);
 
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = false;
-        controls.enableRotate = false; // keep it flat as requested, let simulation do the work
-        controls.enablePan = false;
+    const root = new THREE.Group();
+    scene.add(root);
 
-        // --- GRAPH DATA & D3 SIMULATION ---
-        const nodesData = [];
-        const linksData = [];
+    // === CENTER HUB ===
+    const hubGeo = new THREE.SphereGeometry(10, 24, 24);
+    const hubMat = new THREE.MeshStandardMaterial({
+      color: 0x6B4FA0, emissive: 0x6B4FA0, emissiveIntensity: 0.3,
+      roughness: 0.3, metalness: 0.5
+    });
+    const hub = new THREE.Mesh(hubGeo, hubMat);
+    hub.userData = { id: 'center', role: 'Memora Solutions', group: 0 };
+    root.add(hub);
 
-        // 1 Central Node (Sergey)
-        const centerNode = { id: 0, group: 0, role: 'Memora Solutions', baseScale: 1.5, x: 0, y: 0, z: 0 };
-        nodesData.push(centerNode);
+    // Outer glow ring for center
+    const hubRingGeo = new THREE.TorusGeometry(13, 0.3, 8, 48);
+    const hubRing = new THREE.Mesh(hubRingGeo, new THREE.MeshBasicMaterial({ color: 0x6B4FA0, transparent: true, opacity: 0.3 }));
+    root.add(hubRing);
 
-        // Peripheral roles — specific, prestigious titles
-        const roles = [
-            { count: 2, name: 'Руководитель проектов', group: 1 },
-            { count: 1, name: 'Аккаунт-менеджер', group: 1 },
-            { count: 1, name: 'Менеджер по закупкам', group: 1 },
-            { count: 2, name: 'Инженер слаботочных систем', group: 2 },
-            { count: 1, name: 'BIM-инженер', group: 2 },
-            { count: 1, name: 'Инженер-проектировщик ОВиК', group: 2 },
-            { count: 1, name: 'Инженер-наладчик АСУ ТП', group: 2 },
-            { count: 1, name: 'Сетевой инженер (CCNA)', group: 2 },
-            { count: 1, name: 'Frontend-архитектор', group: 3 },
-            { count: 1, name: 'Fullstack-разработчик', group: 3 },
-            { count: 1, name: 'Backend-разработчик (Node.js)', group: 3 },
-            { count: 1, name: 'DevOps-инженер', group: 3 },
-            { count: 1, name: 'Проектировщик КЖ / КМ', group: 4 },
-            { count: 1, name: 'Архитектор ИТ-решений', group: 4 },
-            { count: 1, name: 'Сметчик-экономист', group: 4 },
-            { count: 1, name: 'Логист по ВЭД', group: 5 },
-            { count: 1, name: 'Координатор поставок', group: 5 },
-            { count: 1, name: 'Инженер СКС', group: 6 },
-            { count: 1, name: 'Монтажник-высотник', group: 6 },
-            { count: 1, name: 'Техник по видеонаблюдению', group: 7 },
-            { count: 1, name: 'Специалист по СКУД/ОПС', group: 7 },
-            { count: 1, name: 'Инженер по пожарной безопасности', group: 7 },
-            { count: 1, name: 'Диспетчер объектов', group: 7 }
-        ];
+    // === ORBITAL RINGS (visual guides) ===
+    const R1 = 55, R2 = 90; // ring radii
+    [R1, R2].forEach(r => {
+      const orbitGeo = new THREE.TorusGeometry(r, 0.15, 8, 64);
+      const orbit = new THREE.Mesh(orbitGeo, new THREE.MeshBasicMaterial({ color: 0x222244, transparent: true, opacity: 0.25 }));
+      root.add(orbit);
+    });
 
-        let idCounter = 1;
-        roles.forEach(role => {
-            for (let i = 0; i < role.count; i++) {
-                nodesData.push({
-                    id: idCounter,
-                    group: role.group,
-                    role: role.name,
-                    baseScale: 0.8 + Math.random() * 0.4,
-                    // initial randomized layout around center
-                    x: (Math.random() - 0.5) * 200,
-                    y: (Math.random() - 0.5) * 200,
-                    z: (Math.random() - 0.5) * 50 // some Z depth
-                });
-                // Link every peripheral node directly to the center
-                linksData.push({ source: idCounter, target: 0 });
+    // === PLACE NODES ON RINGS ===
+    const nodeGeo = new THREE.SphereGeometry(5, 16, 16);
+    const nodeMeshes = [];
+    const links = [];
 
-                // Add some intra-cluster connections (connect to previous node in same group)
-                if (i > 0) {
-                    linksData.push({ source: idCounter, target: idCounter - 1 });
-                }
+    // Separate roles by ring
+    const ring1Roles = ROLES.filter(r => GROUPS.find(g => g.id === r.group).ring === 1);
+    const ring2Roles = ROLES.filter(r => GROUPS.find(g => g.id === r.group).ring === 2);
 
-                idCounter++;
-            }
+    const placeOnRing = (roles, radius) => {
+      const count = roles.length;
+      roles.forEach((role, i) => {
+        const grp = GROUPS.find(g => g.id === role.group);
+        const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+
+        const mat = new THREE.MeshStandardMaterial({
+          color: grp.color, emissive: grp.color, emissiveIntensity: 0.25,
+          roughness: 0.4, metalness: 0.3
         });
+        const mesh = new THREE.Mesh(nodeGeo, mat);
+        mesh.position.set(x, y, 0);
+        mesh.userData = { role: role.name, group: role.group, groupLabel: grp.label, color: grp.color, baseScale: 1 };
+        root.add(mesh);
+        nodeMeshes.push(mesh);
 
-        // Add the special interactive "CTA reader" node manually at the end
-        const readerNode = { id: 999, group: 99, role: 'Есть интересная задача? Напишите.', baseScale: 1.2, x: 100, y: -100, z: 20 };
-        nodesData.push(readerNode);
-        linksData.push({ source: 999, target: 0 });
-
-        // Force simulation
-        const simulation = d3Force.forceSimulation(nodesData)
-            .force('link', d3Force.forceLink(linksData).id(d => d.id).distance(60))
-            .force('charge', d3Force.forceManyBody().strength(-200)) // Repulsion
-            .force('center', d3Force.forceCenter(0, 0)) // Keep around origin
-            //.force('z', d3Force.forceZ(0).strength(0.05)) // keep Z flat mostly
-            .velocityDecay(0.08); // Equivalent to damping 0.92 = 1.0 - 0.08
-
-        simulation.alphaMin(0.01);
-
-        // --- MESH COMPONENTS ---
-        const sphereGeo = new THREE.SphereGeometry(6, 16, 16);
-        const nodeMeshes = [];
-        const groupMatCache = {
-            0: new THREE.MeshBasicMaterial({ color: 0x6B4FA0 }), // Center Violet
-            99: new THREE.MeshBasicMaterial({ color: 0x2DA39A }), // Reader Teal
-            // Others white-ish
-            default: new THREE.MeshBasicMaterial({ color: 0xbbbbff })
-        };
-        const hoverMat = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Bright hover
-
-        nodesData.forEach(d => {
-            const mat = d.group === 0 ? groupMatCache[0] : (d.group === 99 ? groupMatCache[99] : groupMatCache.default);
-            const mesh = new THREE.Mesh(sphereGeo, mat.clone());
-            mesh.scale.set(d.baseScale, d.baseScale, d.baseScale);
-            // Will position in loop from simulation
-            mesh.userData = { ...d, originalMat: mat };
-            scene.add(mesh);
-            nodeMeshes.push(mesh);
+        // Connection line to center
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(0, 0, 0),
+          new THREE.Vector3(x, y, 0)
+        ]);
+        const lineMat = new THREE.LineBasicMaterial({
+          color: grp.color, transparent: true, opacity: 0.12
         });
+        const line = new THREE.Line(lineGeo, lineMat);
+        root.add(line);
+        links.push({ line, lineMat, mesh, color: grp.color });
+      });
+    };
 
-        const lineGeo = new THREE.BufferGeometry();
-        // Multiply by 3 for XYZ, * 2 points per line
-        const linePos = new Float32Array(linksData.length * 6);
-        lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
-        const lineMat = new THREE.LineBasicMaterial({ color: 0x6B4FA0, transparent: true, opacity: 0.4 });
-        const lines = new THREE.LineSegments(lineGeo, lineMat);
-        scene.add(lines);
+    placeOnRing(ring1Roles, R1);
+    placeOnRing(ring2Roles, R2);
 
-        // --- INTERACTION ---
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-        let hoveredMesh = null;
+    // === CTA NODE ===
+    const ctaMat = new THREE.MeshStandardMaterial({
+      color: 0x2DA39A, emissive: 0x2DA39A, emissiveIntensity: 0.4,
+      roughness: 0.3, metalness: 0.5
+    });
+    const cta = new THREE.Mesh(new THREE.SphereGeometry(6, 16, 16), ctaMat);
+    const ctaAngle = Math.PI * 0.75;
+    cta.position.set(Math.cos(ctaAngle) * (R2 + 25), Math.sin(ctaAngle) * (R2 + 25), 0);
+    cta.userData = { role: 'Есть интересная задача? Напишите.', group: 99, baseScale: 1 };
+    root.add(cta);
+    nodeMeshes.push(cta);
+    // CTA connection
+    const ctaLineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), cta.position]);
+    const ctaLineMat = new THREE.LineBasicMaterial({ color: 0x2DA39A, transparent: true, opacity: 0.15 });
+    root.add(new THREE.Line(ctaLineGeo, ctaLineMat));
 
-        const onMouseMove = (event) => {
-            const rect = renderer.domElement.getBoundingClientRect();
-            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    // All interactable meshes include hub
+    const allInteractable = [hub, ...nodeMeshes];
 
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(nodeMeshes);
+    // === INTERACTION ===
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let hoveredMesh = null;
+    let rayDirty = false, lastMX = 0, lastMY = 0;
 
-            if (intersects.length > 0) {
-                const object = intersects[0].object;
-                if (hoveredMesh !== object) {
-                    if (hoveredMesh) resetHover(hoveredMesh);
+    const onMouseMove = (e) => {
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      lastMX = e.clientX; lastMY = e.clientY;
+      rayDirty = true;
+    };
 
-                    document.body.style.cursor = 'pointer';
-                    hoveredMesh = object;
-                    hoveredMesh.material.copy(hoverMat);
-                    gsap.to(hoveredMesh.scale, {
-                        x: hoveredMesh.userData.baseScale * 1.5,
-                        y: hoveredMesh.userData.baseScale * 1.5,
-                        z: hoveredMesh.userData.baseScale * 1.5,
-                        duration: 0.2
-                    });
+    const doRaycast = () => {
+      if (!rayDirty) return;
+      rayDirty = false;
+      raycaster.setFromCamera(mouse, camera);
+      const hits = raycaster.intersectObjects(allInteractable);
 
-                    // Specific logic for center
-                    if (hoveredMesh.userData.id === 0) {
-                        lines.material.opacity = 1.0;
-                        lines.material.color.setHex(0xffffff);
-                    }
+      if (hits.length > 0) {
+        const obj = hits[0].object;
+        if (hoveredMesh !== obj) {
+          if (hoveredMesh) resetHover();
+          hoveredMesh = obj;
+          gsap.to(hoveredMesh.scale, { x: 1.4, y: 1.4, z: 1.4, duration: 0.2 });
+          if (hoveredMesh.material.emissiveIntensity !== undefined) {
+            hoveredMesh.material.emissiveIntensity = 0.7;
+          }
+          // Dim others
+          allInteractable.forEach(m => {
+            if (m !== hoveredMesh) m.material.opacity = 0.3;
+            m.material.transparent = true;
+          });
+          hoveredMesh.material.opacity = 1;
+          // Highlight connected links
+          links.forEach(l => {
+            if (l.mesh === hoveredMesh) { l.lineMat.opacity = 0.6; }
+          });
 
-                    // Special tooltip for +1 node
-                    const text = hoveredMesh.userData.id === 999
-                        ? hoveredMesh.userData.role
-                        : hoveredMesh.userData.id === 0 ? 'Memora Solutions' : hoveredMesh.userData.role;
+          const text = hoveredMesh.userData.id === 'center'
+            ? 'Memora Solutions'
+            : hoveredMesh.userData.groupLabel
+              ? `${hoveredMesh.userData.groupLabel} — ${hoveredMesh.userData.role}`
+              : hoveredMesh.userData.role;
+          setTooltip({ visible: true, text, x: lastMX, y: lastMY });
+        } else {
+          setTooltip(t => ({ ...t, x: lastMX, y: lastMY }));
+        }
+        renderer.domElement.style.cursor = 'pointer';
+      } else {
+        if (hoveredMesh) { resetHover(); hoveredMesh = null; }
+        setTooltip(t => ({ ...t, visible: false }));
+        renderer.domElement.style.cursor = 'default';
+      }
+    };
 
-                    setTooltip({
-                        visible: true,
-                        text,
-                        x: event.clientX,
-                        y: event.clientY
-                    });
-                } else {
-                    setTooltip(t => ({ ...t, x: event.clientX, y: event.clientY }));
-                }
-            } else {
-                if (hoveredMesh) {
-                    resetHover(hoveredMesh);
-                    hoveredMesh = null;
-                    document.body.style.cursor = 'default';
-                    setTooltip(t => ({ ...t, visible: false }));
-                }
-            }
-        };
+    const resetHover = () => {
+      if (!hoveredMesh) return;
+      const bs = hoveredMesh.userData.baseScale || 1;
+      gsap.to(hoveredMesh.scale, { x: bs, y: bs, z: bs, duration: 0.2 });
+      if (hoveredMesh.material.emissiveIntensity !== undefined) {
+        hoveredMesh.material.emissiveIntensity = hoveredMesh.userData.id === 'center' ? 0.3 : 0.25;
+      }
+      allInteractable.forEach(m => { m.material.opacity = 1; m.material.transparent = false; });
+      links.forEach(l => { l.lineMat.opacity = 0.12; });
+    };
 
-        const resetHover = (mesh) => {
-            mesh.material.copy(mesh.userData.originalMat);
-            gsap.to(mesh.scale, {
-                x: mesh.userData.baseScale,
-                y: mesh.userData.baseScale,
-                z: mesh.userData.baseScale,
-                duration: 0.2
-            });
-            lines.material.opacity = 0.4;
-            lines.material.color.setHex(0x6B4FA0);
-        };
+    renderer.domElement.addEventListener('mousemove', onMouseMove);
 
-        renderer.domElement.addEventListener('mousemove', onMouseMove);
+    // === ANIMATION ===
+    const clock = new THREE.Clock();
+    let animId, isVisible = false, entered = false;
 
-        // --- ANIMATION LOOP ---
-        let animationId;
-        let isVisible = false;
-        const clock = new THREE.Clock();
+    // Start hidden
+    allInteractable.forEach(m => { m.visible = false; });
 
-        // Initial setup for entrance animation
-        let hasTriggeredIn = false;
-        // set all meshes to origin initially, invisible
-        nodeMeshes.forEach(m => { m.visible = false; m.position.set(0, 0, 0); });
+    const tick = () => {
+      animId = requestAnimationFrame(tick);
+      if (!isVisible) return;
+      const time = clock.getElapsedTime();
 
-        const tick = () => {
-            animationId = requestAnimationFrame(tick);
-            if (!isVisible) return;
+      doRaycast();
 
-            const time = clock.getElapsedTime();
+      // Slow root rotation
+      root.rotation.z = Math.sin(time * 0.1) * 0.03;
+      // Hub ring rotation
+      hubRing.rotation.z = time * 0.3;
 
-            // Run simulation 1 tick
-            simulation.tick();
+      // Breathing
+      if (entered) {
+        nodeMeshes.forEach((m, i) => {
+          if (hoveredMesh !== m) {
+            const b = 1 + Math.sin(time * 1.5 + i * 0.7) * 0.06;
+            m.scale.set(b, b, b);
+          }
+        });
+        // CTA blink
+        if (hoveredMesh !== cta) {
+          cta.material.emissiveIntensity = 0.3 + Math.sin(time * 3) * 0.2;
+        }
+      }
 
-            // Update mesh positions from D3 + entrance animation GSAP
-            if (hasTriggeredIn) {
-                // Update Lines (Wait until entrance animation distributes them)
-                const positions = lines.geometry.attributes.position.array;
+      renderer.render(scene, camera);
+    };
 
-                nodesData.forEach((d, i) => {
-                    const mesh = nodeMeshes[i];
+    const obs = new IntersectionObserver(([e]) => {
+      isVisible = e.isIntersecting;
+      if (isVisible && !entered) {
+        entered = true;
+        clock.start();
+        // Entrance animation — nodes expand from center
+        allInteractable.forEach((m, i) => {
+          m.visible = true;
+          const target = { x: m.position.x, y: m.position.y, z: m.position.z };
+          m.position.set(0, 0, 0);
+          gsap.to(m.position, {
+            ...target, duration: 1 + i * 0.03, ease: 'power3.out', delay: i * 0.04
+          });
+        });
+      }
+    }, { threshold: 0.3 });
+    obs.observe(el); tick();
 
-                    // Add "breathing" effect
-                    const breathe = 1.0 + Math.sin(time * 2 + d.id) * 0.05;
-                    if (hoveredMesh !== mesh) {
-                        mesh.scale.set(d.baseScale * breathe, d.baseScale * breathe, d.baseScale * breathe);
-                    }
-                });
+    const onResize = () => {
+      const w = el.clientWidth, h = el.clientHeight;
+      camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h);
+    };
+    window.addEventListener('resize', onResize);
 
-                linksData.forEach((link, i) => {
-                    const sourceMesh = nodeMeshes.find(m => m.userData.id === link.source.id);
-                    const targetMesh = nodeMeshes.find(m => m.userData.id === link.target.id);
+    return () => {
+      window.removeEventListener('resize', onResize);
+      cancelAnimationFrame(animId); obs.disconnect();
+      renderer.domElement.removeEventListener('mousemove', onMouseMove);
+      renderer.domElement.style.cursor = 'default';
+      renderer.dispose();
+      if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
+    };
+  }, []);
 
-                    if (sourceMesh && targetMesh) {
-                        positions[i * 6] = sourceMesh.position.x;
-                        positions[i * 6 + 1] = sourceMesh.position.y;
-                        positions[i * 6 + 2] = sourceMesh.position.z;
-                        positions[i * 6 + 3] = targetMesh.position.x;
-                        positions[i * 6 + 4] = targetMesh.position.y;
-                        positions[i * 6 + 5] = targetMesh.position.z;
-                    }
-                });
-                lines.geometry.attributes.position.needsUpdate = true;
-
-                // Keep the +1 node blinking gently
-                const readerMesh = nodeMeshes.find(m => m.userData.id === 999);
-                if (readerMesh && hoveredMesh !== readerMesh) {
-                    readerMesh.material.opacity = 0.5 + Math.sin(time * 4) * 0.5;
-                    readerMesh.material.transparent = true;
-                }
-            }
-
-            renderer.render(scene, camera);
-        };
-
-        const observer = new IntersectionObserver(([entry]) => {
-            isVisible = entry.isIntersecting;
-            if (isVisible && !hasTriggeredIn) {
-                // Trigger entrance
-                hasTriggeredIn = true;
-                // Run simulation entirely to get end positions, then animate to them
-                for (let i = 0; i < 300; i++) simulation.tick();
-
-                nodeMeshes.forEach(mesh => {
-                    mesh.visible = true;
-                    gsap.to(mesh.position, {
-                        x: mesh.userData.x,
-                        y: mesh.userData.y,
-                        z: mesh.userData.z,
-                        duration: 1.2,
-                        ease: "power2.out",
-                        onUpdate: () => {
-                            // Link to D3 force object so physics can take over after
-                            mesh.userData.x = mesh.position.x;
-                            mesh.userData.y = mesh.position.y;
-                            mesh.userData.z = mesh.position.z;
-                        }
-                    });
-                });
-                clock.start();
-            }
-        }, { threshold: 0.3 });
-
-        observer.observe(mountRef.current);
-        tick();
-
-        return () => {
-            window.removeEventListener('resize', () => { });
-            cancelAnimationFrame(animationId);
-            observer.disconnect();
-            renderer.domElement.removeEventListener('mousemove', onMouseMove);
-            document.body.style.cursor = 'default';
-
-            simulation.stop();
-            controls.dispose();
-            sphereGeo.dispose();
-            Object.values(groupMatCache).forEach(m => m.dispose());
-            hoverMat.dispose();
-            lineGeo.dispose(); lineMat.dispose();
-            renderer.dispose();
-
-            if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
-                mountRef.current.removeChild(renderer.domElement);
-            }
-        };
-    }, []);
-
-    return (
-        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-            <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
-            {tooltip.visible && (
-                <div
-                    style={{
-                        position: 'fixed',
-                        left: tooltip.x,
-                        top: tooltip.y - 30,
-                        transform: 'translate(-50%, -100%)',
-                        background: 'rgba(13, 13, 26, 0.9)',
-                        color: 'white',
-                        padding: '6px 10px',
-                        borderRadius: '4px',
-                        fontSize: '12px',
-                        pointerEvents: 'none',
-                        zIndex: 1000,
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(4px)',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    {tooltip.text}
-                </div>
-            )}
-
-            {/* Custom Label for the +1 Node to ensure it's noticed */}
-            <div style={{
-                position: 'absolute',
-                bottom: 20,
-                right: 20,
-                color: '#2DA39A',
-                fontFamily: 'monospace',
-                fontWeight: 'bold',
-                fontSize: '14px',
-                pointerEvents: 'none'
-            }}>
-                +1?
-            </div>
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
+      {tooltip.visible && (
+        <div style={{
+          position: 'fixed', left: tooltip.x, top: tooltip.y - 36,
+          transform: 'translate(-50%, -100%)',
+          background: 'rgba(13,13,26,0.94)', color: 'white',
+          padding: '8px 14px', borderRadius: '8px', fontSize: 13,
+          fontFamily: 'var(--font-display), sans-serif',
+          pointerEvents: 'none', zIndex: 1000,
+          border: '1px solid rgba(107,79,160,0.4)',
+          backdropFilter: 'blur(8px)', whiteSpace: 'nowrap',
+          boxShadow: '0 4px 20px rgba(107,79,160,0.2)'
+        }}>
+          {tooltip.text}
         </div>
-    );
+      )}
+      {/* Legend */}
+      <div style={{
+        position: 'absolute', bottom: 16, left: 16,
+        display: 'flex', flexWrap: 'wrap', gap: '8px 14px',
+        maxWidth: 420
+      }}>
+        {GROUPS.map(g => (
+          <div key={g.id} style={{
+            display: 'flex', alignItems: 'center', gap: 5,
+            fontSize: 11, color: 'rgba(255,255,255,0.6)', fontFamily: 'monospace'
+          }}>
+            <span style={{
+              width: 8, height: 8, borderRadius: '50%',
+              background: `#${g.color.toString(16).padStart(6,'0')}`,
+              display: 'inline-block'
+            }} />
+            {g.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

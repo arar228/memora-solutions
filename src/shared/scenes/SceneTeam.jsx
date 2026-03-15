@@ -62,8 +62,8 @@ export default function SceneTeam() {
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#0D0D1A');
 
-    const camera = new THREE.PerspectiveCamera(50, W / H, 1, 500);
-    camera.position.set(0, 0, 180);
+    const camera = new THREE.PerspectiveCamera(50, W / H, 1, 600);
+    camera.position.set(0, 0, 260);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });

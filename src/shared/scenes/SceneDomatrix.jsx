@@ -2,7 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 /* ======================================================================
-   DOMATRIX — 23 engineering systems inside a detailed smart building
+   DOMATRIX — 23 engineering systems, OPTIMIZED for performance
+   - No per-node PointLights (was 23 lights!)
+   - Shared geometries & materials
+   - Bezier connections reduced to 8 points
+   - No MeshPhysicalMaterial (expensive)
+   - No fog (extra pass)
+   - Throttled raycaster
    ====================================================================== */
 
 const SYSTEMS = [
@@ -43,189 +49,142 @@ export default function SceneDomatrix() {
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#0D0D1A');
-    scene.fog = new THREE.FogExp2('#0D0D1A', 0.004);
 
-    const camera = new THREE.PerspectiveCamera(40, W / H, 0.5, 500);
+    const camera = new THREE.PerspectiveCamera(40, W / H, 1, 300);
     camera.position.set(50, 35, 70);
-    camera.lookAt(0, 8, 0);
+    camera.lookAt(0, 10, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(W, H);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
     renderer.domElement.style.touchAction = 'pan-y';
     el.appendChild(renderer.domElement);
 
-    // Lights
-    scene.add(new THREE.AmbientLight(0x333355, 0.5));
-    const dL = new THREE.DirectionalLight(0xffffff, 0.6);
-    dL.position.set(30, 50, 40); dL.castShadow = true;
+    // 2 lights only (instead of 23+3)
+    scene.add(new THREE.AmbientLight(0x445566, 0.6));
+    const dL = new THREE.DirectionalLight(0xffffff, 0.7);
+    dL.position.set(30, 50, 40);
     scene.add(dL);
-    scene.add(new THREE.DirectionalLight(0x2da39a, 0.2).position.set(-20, 10, -20) && new THREE.DirectionalLight(0x2da39a, 0.2));
 
-    // Floor
+    // Floor (simple)
     const floor = new THREE.Mesh(
-      new THREE.PlaneGeometry(200, 200),
-      new THREE.MeshStandardMaterial({ color: 0x080812, roughness: 0.85 })
+      new THREE.PlaneGeometry(150, 150),
+      new THREE.MeshStandardMaterial({ color: 0x080812, roughness: 0.9 })
     );
     floor.rotation.x = -Math.PI / 2; floor.position.y = -0.5;
-    floor.receiveShadow = true; scene.add(floor);
-    scene.add(new THREE.GridHelper(200, 40, 0x1a1a3a, 0x0f0f20));
+    scene.add(floor);
+    scene.add(new THREE.GridHelper(150, 30, 0x1a1a3a, 0x0f0f20));
 
-    // === BUILD DETAILED SMART BUILDING ===
+    // === BUILDING (optimized — fewer meshes) ===
     const building = new THREE.Group();
-    const bW = 60, bH = 48, bD = 24;
-    const floors = 6;
-    const floorH = bH / floors;
+    const bW = 60, bH = 48, bD = 24, floors = 6, floorH = bH / floors;
 
-    // Glass facade (semi-transparent)
-    const glassMat = new THREE.MeshPhysicalMaterial({
-      color: 0x1a2244, transparent: true, opacity: 0.12,
-      roughness: 0.05, metalness: 0.9, clearcoat: 1, clearcoatRoughness: 0.05,
-      side: THREE.DoubleSide
+    // Glass walls — use MeshStandardMaterial (not Physical — much cheaper)
+    const glassMat = new THREE.MeshStandardMaterial({
+      color: 0x1a2244, transparent: true, opacity: 0.1,
+      roughness: 0.1, metalness: 0.8, side: THREE.DoubleSide
     });
-    const addM = (parent, mesh, pos, rot) => {
-      if (pos) mesh.position.set(pos[0], pos[1], pos[2]);
-      if (rot) mesh.rotation.set(rot[0], rot[1], rot[2]);
-      parent.add(mesh); return mesh;
-    };
-    // Front glass
-    addM(building, new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat), [0, bH/2, bD/2]);
-    // Back glass
-    addM(building, new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat), [0, bH/2, -bD/2], [0, Math.PI, 0]);
-    // Left glass
-    addM(building, new THREE.Mesh(new THREE.PlaneGeometry(bD, bH), glassMat), [-bW/2, bH/2, 0], [0, Math.PI/2, 0]);
-    // Right glass
-    addM(building, new THREE.Mesh(new THREE.PlaneGeometry(bD, bH), glassMat), [bW/2, bH/2, 0], [0, -Math.PI/2, 0]);
+    const frameMat = new THREE.MeshBasicMaterial({ color: 0x444466 });
 
-    // Steel frame edges
-    const frameMat = new THREE.MeshStandardMaterial({ color: 0x444466, roughness: 0.3, metalness: 0.8 });
-    const ef = 0.3; // edge frame thickness
-    // Vertical corners
-    [[-bW/2, bD/2], [bW/2, bD/2], [-bW/2, -bD/2], [bW/2, -bD/2]].forEach(([x, z]) => {
-      addM(building, new THREE.Mesh(new THREE.BoxGeometry(ef, bH, ef), frameMat), [x, bH/2, z]);
-    });
-    // Top and bottom horizontal edges
-    [[0, 0, bD/2], [0, 0, -bD/2]].forEach(([x, yo, z]) => {
-      addM(building, new THREE.Mesh(new THREE.BoxGeometry(bW, ef, ef), frameMat), [x, yo, z]);
-      addM(building, new THREE.Mesh(new THREE.BoxGeometry(bW, ef, ef), frameMat), [x, bH + yo, z]);
-    });
-    [[-bW/2, 0, 0], [bW/2, 0, 0]].forEach(([x, yo, z]) => {
-      addM(building, new THREE.Mesh(new THREE.BoxGeometry(ef, ef, bD), frameMat), [x, yo, z]);
-      addM(building, new THREE.Mesh(new THREE.BoxGeometry(ef, ef, bD), frameMat), [x, bH + yo, z]);
-    });
+    // 4 glass panels
+    const wallF = new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat);
+    wallF.position.set(0, bH/2, bD/2); building.add(wallF);
+    const wallB = new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat);
+    wallB.position.set(0, bH/2, -bD/2); wallB.rotation.y = Math.PI; building.add(wallB);
+    const wallL = new THREE.Mesh(new THREE.PlaneGeometry(bD, bH), glassMat);
+    wallL.position.set(-bW/2, bH/2, 0); wallL.rotation.y = Math.PI/2; building.add(wallL);
+    const wallR = new THREE.Mesh(new THREE.PlaneGeometry(bD, bH), glassMat);
+    wallR.position.set(bW/2, bH/2, 0); wallR.rotation.y = -Math.PI/2; building.add(wallR);
 
-    // Floor slabs
-    const slabMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e, transparent: true, opacity: 0.4, roughness: 0.5 });
+    // Building wireframe (1 draw call for entire frame)
+    const bGeo = new THREE.BoxGeometry(bW, bH, bD);
+    const bEdges = new THREE.EdgesGeometry(bGeo);
+    const bWire = new THREE.LineSegments(bEdges, new THREE.LineBasicMaterial({ color: 0x444466 }));
+    bWire.position.y = bH/2; building.add(bWire);
+    bGeo.dispose();
+
+    // Floor slabs — use LineSegments only (no solid meshes)
+    const slabLineMat = new THREE.LineBasicMaterial({ color: 0x2da39a, transparent: true, opacity: 0.15 });
     for (let f = 0; f <= floors; f++) {
       const y = f * floorH;
-      addM(building, new THREE.Mesh(new THREE.BoxGeometry(bW - 0.5, 0.15, bD - 0.5), slabMat), [0, y, 0]);
-      // Floor edge glow
-      const edgeGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(bW - 0.5, 0.15, bD - 0.5));
-      addM(building, new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({ color: 0x2da39a, transparent: true, opacity: 0.15 })), [0, y, 0]);
+      const sGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(bW - 0.5, 0.1, bD - 0.5));
+      const sLine = new THREE.LineSegments(sGeo, slabLineMat);
+      sLine.position.y = y; building.add(sLine);
     }
 
-    // Horizontal mullions on facade (window dividers)
-    for (let f = 0; f < floors; f++) {
-      const y = f * floorH + floorH * 0.6;
-      [bD/2, -bD/2].forEach(z => {
-        addM(building, new THREE.Mesh(new THREE.BoxGeometry(bW, 0.1, 0.1), frameMat), [0, y, z]);
-      });
-    }
-    // Vertical mullions
+    // Mullions — just lines (2 draw calls instead of 30+)
+    const mullionPts = [];
     for (let i = 0; i < 8; i++) {
       const x = -bW/2 + (i + 1) * bW / 9;
       [bD/2, -bD/2].forEach(z => {
-        addM(building, new THREE.Mesh(new THREE.BoxGeometry(0.1, bH, 0.1), frameMat), [x, bH/2, z]);
+        mullionPts.push(new THREE.Vector3(x, 0, z), new THREE.Vector3(x, bH, z));
       });
     }
+    for (let f = 0; f < floors; f++) {
+      const y = f * floorH + floorH * 0.6;
+      [bD/2, -bD/2].forEach(z => {
+        mullionPts.push(new THREE.Vector3(-bW/2, y, z), new THREE.Vector3(bW/2, y, z));
+      });
+    }
+    const mullionGeo = new THREE.BufferGeometry().setFromPoints(mullionPts);
+    building.add(new THREE.LineSegments(mullionGeo, new THREE.LineBasicMaterial({ color: 0x333355, transparent: true, opacity: 0.3 })));
 
-    // Roof equipment (simplified AC units, antennas)
-    const roofY = bH + 0.5;
-    // AC units
-    for (let i = 0; i < 4; i++) {
-      const ac = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshStandardMaterial({ color: 0x555577, roughness: 0.4, metalness: 0.5 }));
-      ac.position.set(-15 + i * 10, roofY + 0.75, -5);
-      building.add(ac);
-      // AC fan
-      const fan = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.1, 12), new THREE.MeshStandardMaterial({ color: 0x333355 }));
-      fan.position.set(-15 + i * 10, roofY + 1.6, -5);
-      building.add(fan);
+    // Roof equipment (3 simple boxes = 3 draw calls)
+    const roofMat = new THREE.MeshBasicMaterial({ color: 0x555577 });
+    for (let i = 0; i < 3; i++) {
+      const ac = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), roofMat);
+      ac.position.set(-12 + i * 12, bH + 1, -4); building.add(ac);
     }
     // Antenna
-    const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 6, 8), new THREE.MeshStandardMaterial({ color: 0x888899, metalness: 0.8 }));
-    antenna.position.set(20, roofY + 3, 5);
-    building.add(antenna);
-    // Satellite dish
-    const dish = new THREE.Mesh(new THREE.SphereGeometry(1.5, 12, 6, 0, Math.PI), new THREE.MeshStandardMaterial({ color: 0xddddee, roughness: 0.3 }));
-    dish.position.set(15, roofY + 1, 8); dish.rotation.x = -0.3;
-    building.add(dish);
+    const ant = new THREE.Mesh(new THREE.BoxGeometry(0.12, 5, 0.12), roofMat);
+    ant.position.set(20, bH + 3, 5); building.add(ant);
 
-    // Entrance (ground floor)
-    const entranceMat = new THREE.MeshStandardMaterial({ color: 0x2da39a, transparent: true, opacity: 0.3 });
-    addM(building, new THREE.Mesh(new THREE.BoxGeometry(6, floorH * 0.8, 0.2), entranceMat), [0, floorH * 0.4, bD/2 + 0.1]);
-    // Entrance canopy
-    addM(building, new THREE.Mesh(new THREE.BoxGeometry(10, 0.15, 3), frameMat), [0, floorH * 0.85, bD/2 + 1.5]);
+    // Entrance glow bar
+    const entBar = new THREE.Mesh(
+      new THREE.BoxGeometry(8, 0.2, 0.2),
+      new THREE.MeshBasicMaterial({ color: 0x2da39a })
+    );
+    entBar.position.set(0, floorH * 0.85, bD/2 + 0.2); building.add(entBar);
 
     scene.add(building);
 
-    // === SYSTEM NODES (23 systems distributed across the building) ===
+    // === SYSTEM NODES ===
     const nodes = [];
-    const nodeGeo = new THREE.SphereGeometry(1.2, 16, 16);
-    const ringGeo = new THREE.TorusGeometry(1.6, 0.08, 8, 24);
+    // SHARED geometry (1 sphere for all)
+    const nodeGeo = new THREE.SphereGeometry(1.2, 12, 12);
 
     SYSTEMS.forEach((sys, idx) => {
       const f = idx % floors;
       const col = Math.floor(idx / floors);
+      const cols = Math.ceil(SYSTEMS.length / floors);
       const y = f * floorH + floorH / 2;
-      const x = -bW/2 + 6 + col * (bW - 12) / Math.ceil(SYSTEMS.length / floors);
-      const z = (Math.random() - 0.5) * (bD - 6);
+      const x = -bW/2 + 6 + col * ((bW - 12) / cols);
+      const z = ((idx * 7.3) % (bD - 6)) - (bD - 6) / 2; // deterministic, not random
 
-      // Node sphere
       const mat = new THREE.MeshStandardMaterial({
-        color: sys.color, emissive: sys.color, emissiveIntensity: 0.3,
-        roughness: 0.3, metalness: 0.5, transparent: true, opacity: 0.9
+        color: sys.color, emissive: sys.color, emissiveIntensity: 0.4,
+        roughness: 0.4, metalness: 0.3, transparent: true, opacity: 0.9
       });
       const mesh = new THREE.Mesh(nodeGeo, mat);
       mesh.position.set(x, y, z);
-      mesh.userData = { sys, origColor: sys.color, connections: [] };
+      mesh.userData = { sys, connections: [] };
       building.add(mesh);
-
-      // Outer ring
-      const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: sys.color, transparent: true, opacity: 0.3 }));
-      ring.position.copy(mesh.position);
-      ring.userData.isNodeRing = true;
-      ring.userData.nodeIdx = idx;
-      building.add(ring);
-
-      // Point light
-      const pL = new THREE.PointLight(sys.color, 0.15, 8);
-      pL.position.copy(mesh.position);
-      building.add(pL);
-
-      nodes.push({ mesh, ring, light: pL, sys });
+      nodes.push({ mesh, sys });
     });
 
-    // === CONNECTIONS (neural network lines between systems) ===
+    // === CONNECTIONS (straight lines — no bezier for perf) ===
     const connections = [];
-    const connMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.06 });
+    const connBaseMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.05 });
 
+    const connPairs = new Set();
     nodes.forEach((n1, i) => {
-      // Connect to 2-3 random other systems
-      const targets = [
-        nodes[(i + 1) % nodes.length],
-        nodes[(i + 3) % nodes.length],
-        ...(i % 3 === 0 ? [nodes[(i + 7) % nodes.length]] : [])
-      ];
-      targets.forEach(n2 => {
-        if (n1 !== n2) {
-          const mid = new THREE.Vector3().lerpVectors(n1.mesh.position, n2.mesh.position, 0.5);
-          mid.y += 2 + Math.random() * 3;
-          const curve = new THREE.QuadraticBezierCurve3(n1.mesh.position, mid, n2.mesh.position);
-          const geo = new THREE.BufferGeometry().setFromPoints(curve.getPoints(16));
-          const lMat = connMat.clone();
+      [(i + 1) % nodes.length, (i + 3) % nodes.length].forEach(j => {
+        const key = Math.min(i, j) + '-' + Math.max(i, j);
+        if (i !== j && !connPairs.has(key)) {
+          connPairs.add(key);
+          const n2 = nodes[j];
+          const geo = new THREE.BufferGeometry().setFromPoints([n1.mesh.position, n2.mesh.position]);
+          const lMat = connBaseMat.clone();
           const line = new THREE.Line(geo, lMat);
           building.add(line);
           const conn = { n1, n2, line, lMat, progress: 0, isPulsing: false };
@@ -236,10 +195,12 @@ export default function SceneDomatrix() {
       });
     });
 
-    // === INTERACTION ===
+    // === INTERACTION (throttled raycaster) ===
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
     let hoveredNode = null;
+    let rayDirty = false;
+    let lastMouseX = 0, lastMouseY = 0;
 
     const allMeshes = nodes.map(n => n.mesh);
 
@@ -247,6 +208,13 @@ export default function SceneDomatrix() {
       const rect = renderer.domElement.getBoundingClientRect();
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      lastMouseX = e.clientX; lastMouseY = e.clientY;
+      rayDirty = true;
+    };
+
+    const doRaycast = () => {
+      if (!rayDirty) return;
+      rayDirty = false;
       raycaster.setFromCamera(mouse, camera);
       const hits = raycaster.intersectObjects(allMeshes);
 
@@ -255,16 +223,16 @@ export default function SceneDomatrix() {
         if (hoveredNode !== obj) {
           if (hoveredNode) resetHover();
           hoveredNode = obj;
-          hoveredNode.scale.set(1.6, 1.6, 1.6);
+          hoveredNode.scale.set(1.5, 1.5, 1.5);
           hoveredNode.material.emissiveIntensity = 0.8;
-          nodes.forEach(n => { if (n.mesh !== hoveredNode) n.mesh.material.opacity = 0.2; });
+          nodes.forEach(n => { if (n.mesh !== hoveredNode) n.mesh.material.opacity = 0.25; });
           hoveredNode.userData.connections.forEach(c => {
-            c.lMat.opacity = 0.7;
+            c.lMat.opacity = 0.6;
             c.lMat.color.setHex(hoveredNode.userData.sys.color);
           });
-          setTooltip({ visible: true, text: hoveredNode.userData.sys.name, id: hoveredNode.userData.sys.id, x: e.clientX, y: e.clientY });
+          setTooltip({ visible: true, text: hoveredNode.userData.sys.name, id: hoveredNode.userData.sys.id, x: lastMouseX, y: lastMouseY });
         } else {
-          setTooltip(t => ({ ...t, x: e.clientX, y: e.clientY }));
+          setTooltip(t => ({ ...t, x: lastMouseX, y: lastMouseY }));
         }
         renderer.domElement.style.cursor = 'pointer';
       } else {
@@ -277,10 +245,10 @@ export default function SceneDomatrix() {
     const resetHover = () => {
       if (!hoveredNode) return;
       hoveredNode.scale.set(1, 1, 1);
-      hoveredNode.material.emissiveIntensity = 0.3;
+      hoveredNode.material.emissiveIntensity = 0.4;
       nodes.forEach(n => n.mesh.material.opacity = 0.9);
       hoveredNode.userData.connections.forEach(c => {
-        c.lMat.opacity = 0.06; c.lMat.color.setHex(0xffffff);
+        c.lMat.opacity = 0.05; c.lMat.color.setHex(0xffffff);
       });
     };
 
@@ -297,7 +265,7 @@ export default function SceneDomatrix() {
     renderer.domElement.addEventListener('mousemove', onMouseMove);
     renderer.domElement.addEventListener('click', onClick);
 
-    // === ANIMATION ===
+    // === ANIMATION (lightweight) ===
     const clock = new THREE.Clock();
     let animId, isVisible = false;
 
@@ -307,35 +275,44 @@ export default function SceneDomatrix() {
       const delta = clock.getDelta();
       const time = clock.elapsedTime;
 
-      // Slow building rotation
-      building.rotation.y = Math.sin(time * 0.15) * 0.12;
+      // Raycaster in animation frame (throttled — only when mouse moved)
+      doRaycast();
 
-      // Node ring rotation + pulse
-      nodes.forEach((n, i) => {
-        n.ring.rotation.x = time * 0.5 + i;
-        n.ring.rotation.y = time * 0.3 + i * 0.5;
-        n.mesh.material.emissiveIntensity = hoveredNode === n.mesh ? 0.8 : 0.3 + Math.sin(time * 2 + i) * 0.1;
-      });
+      // Slow building rotation
+      building.rotation.y = Math.sin(time * 0.15) * 0.1;
+
+      // Only update emissive for non-hovered nodes every 4th frame
+      const frame = Math.floor(time * 60);
+      if (frame % 4 === 0) {
+        nodes.forEach((n, i) => {
+          if (hoveredNode !== n.mesh) {
+            n.mesh.material.emissiveIntensity = 0.4 + Math.sin(time * 2 + i) * 0.08;
+          }
+        });
+      }
 
       // Connection pulses
       connections.forEach(c => {
         if (c.isPulsing) {
-          c.progress += delta * 2.5;
+          c.progress += delta * 3;
           if (c.progress >= 1) {
             c.isPulsing = false;
-            const isHovered = hoveredNode && hoveredNode.userData.connections.includes(c);
-            c.lMat.opacity = isHovered ? 0.7 : 0.06;
-            if (!isHovered) c.lMat.color.setHex(0xffffff);
+            const isH = hoveredNode && hoveredNode.userData.connections.includes(c);
+            c.lMat.opacity = isH ? 0.6 : 0.05;
+            if (!isH) c.lMat.color.setHex(0xffffff);
           } else {
-            c.lMat.opacity = 1 - c.progress * 0.8;
+            c.lMat.opacity = 1 - c.progress * 0.9;
           }
         }
       });
 
-      // Random ambient pulses
-      if (!hoveredNode && Math.random() < 0.03) {
+      // Rare ambient pulse (1-2% chance per frame)
+      if (!hoveredNode && Math.random() < 0.015) {
         const rc = connections[Math.floor(Math.random() * connections.length)];
-        if (!rc.isPulsing) { rc.isPulsing = true; rc.progress = 0; rc.lMat.opacity = 0.6; rc.lMat.color.setHex(SYSTEMS[Math.floor(Math.random() * SYSTEMS.length)].color); }
+        if (!rc.isPulsing) {
+          rc.isPulsing = true; rc.progress = 0; rc.lMat.opacity = 0.4;
+          rc.lMat.color.setHex(SYSTEMS[Math.floor(Math.random() * SYSTEMS.length)].color);
+        }
       }
 
       renderer.render(scene, camera);
@@ -367,7 +344,6 @@ export default function SceneDomatrix() {
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
 
-      {/* Tooltip */}
       {tooltip.visible && (
         <div style={{
           position: 'fixed', left: tooltip.x, top: tooltip.y - 40,
@@ -384,7 +360,6 @@ export default function SceneDomatrix() {
         </div>
       )}
 
-      {/* Active system info panel */}
       {activeSystem && (
         <div onClick={() => setActiveSystem(null)} style={{
           position: 'absolute', top: 20, right: 20, maxWidth: 280,
@@ -403,7 +378,6 @@ export default function SceneDomatrix() {
         </div>
       )}
 
-      {/* System count badge */}
       <div style={{
         position: 'absolute', bottom: 20, left: 20,
         fontFamily: 'monospace', fontSize: 12, color: '#2da39a',

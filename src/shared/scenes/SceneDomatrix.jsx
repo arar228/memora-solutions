@@ -86,54 +86,59 @@ export default function SceneDomatrix() {
       roughness: 0.05, metalness: 0.9, clearcoat: 1, clearcoatRoughness: 0.05,
       side: THREE.DoubleSide
     });
+    const addM = (parent, mesh, pos, rot) => {
+      if (pos) mesh.position.set(pos[0], pos[1], pos[2]);
+      if (rot) mesh.rotation.set(rot[0], rot[1], rot[2]);
+      parent.add(mesh); return mesh;
+    };
     // Front glass
-    building.add(Object.assign(new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat), { position: new THREE.Vector3(0, bH/2, bD/2) }));
+    addM(building, new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat), [0, bH/2, bD/2]);
     // Back glass
-    building.add(Object.assign(new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat), { position: new THREE.Vector3(0, bH/2, -bD/2), rotation: new THREE.Euler(0, Math.PI, 0) }));
+    addM(building, new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat), [0, bH/2, -bD/2], [0, Math.PI, 0]);
     // Left glass
-    building.add(Object.assign(new THREE.Mesh(new THREE.PlaneGeometry(bD, bH), glassMat), { position: new THREE.Vector3(-bW/2, bH/2, 0), rotation: new THREE.Euler(0, Math.PI/2, 0) }));
+    addM(building, new THREE.Mesh(new THREE.PlaneGeometry(bD, bH), glassMat), [-bW/2, bH/2, 0], [0, Math.PI/2, 0]);
     // Right glass
-    building.add(Object.assign(new THREE.Mesh(new THREE.PlaneGeometry(bD, bH), glassMat), { position: new THREE.Vector3(bW/2, bH/2, 0), rotation: new THREE.Euler(0, -Math.PI/2, 0) }));
+    addM(building, new THREE.Mesh(new THREE.PlaneGeometry(bD, bH), glassMat), [bW/2, bH/2, 0], [0, -Math.PI/2, 0]);
 
     // Steel frame edges
     const frameMat = new THREE.MeshStandardMaterial({ color: 0x444466, roughness: 0.3, metalness: 0.8 });
     const ef = 0.3; // edge frame thickness
     // Vertical corners
     [[-bW/2, bD/2], [bW/2, bD/2], [-bW/2, -bD/2], [bW/2, -bD/2]].forEach(([x, z]) => {
-      building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(ef, bH, ef), frameMat), { position: new THREE.Vector3(x, bH/2, z) }));
+      addM(building, new THREE.Mesh(new THREE.BoxGeometry(ef, bH, ef), frameMat), [x, bH/2, z]);
     });
     // Top and bottom horizontal edges
     [[0, 0, bD/2], [0, 0, -bD/2]].forEach(([x, yo, z]) => {
-      building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(bW, ef, ef), frameMat), { position: new THREE.Vector3(x, yo, z) }));
-      building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(bW, ef, ef), frameMat), { position: new THREE.Vector3(x, bH + yo, z) }));
+      addM(building, new THREE.Mesh(new THREE.BoxGeometry(bW, ef, ef), frameMat), [x, yo, z]);
+      addM(building, new THREE.Mesh(new THREE.BoxGeometry(bW, ef, ef), frameMat), [x, bH + yo, z]);
     });
     [[-bW/2, 0, 0], [bW/2, 0, 0]].forEach(([x, yo, z]) => {
-      building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(ef, ef, bD), frameMat), { position: new THREE.Vector3(x, yo, z) }));
-      building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(ef, ef, bD), frameMat), { position: new THREE.Vector3(x, bH + yo, z) }));
+      addM(building, new THREE.Mesh(new THREE.BoxGeometry(ef, ef, bD), frameMat), [x, yo, z]);
+      addM(building, new THREE.Mesh(new THREE.BoxGeometry(ef, ef, bD), frameMat), [x, bH + yo, z]);
     });
 
     // Floor slabs
     const slabMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e, transparent: true, opacity: 0.4, roughness: 0.5 });
     for (let f = 0; f <= floors; f++) {
       const y = f * floorH;
-      building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(bW - 0.5, 0.15, bD - 0.5), slabMat), { position: new THREE.Vector3(0, y, 0) }));
+      addM(building, new THREE.Mesh(new THREE.BoxGeometry(bW - 0.5, 0.15, bD - 0.5), slabMat), [0, y, 0]);
       // Floor edge glow
       const edgeGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(bW - 0.5, 0.15, bD - 0.5));
-      building.add(Object.assign(new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({ color: 0x2da39a, transparent: true, opacity: 0.15 })), { position: new THREE.Vector3(0, y, 0) }));
+      addM(building, new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({ color: 0x2da39a, transparent: true, opacity: 0.15 })), [0, y, 0]);
     }
 
     // Horizontal mullions on facade (window dividers)
     for (let f = 0; f < floors; f++) {
       const y = f * floorH + floorH * 0.6;
       [bD/2, -bD/2].forEach(z => {
-        building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(bW, 0.1, 0.1), frameMat), { position: new THREE.Vector3(0, y, z) }));
+        addM(building, new THREE.Mesh(new THREE.BoxGeometry(bW, 0.1, 0.1), frameMat), [0, y, z]);
       });
     }
     // Vertical mullions
     for (let i = 0; i < 8; i++) {
       const x = -bW/2 + (i + 1) * bW / 9;
       [bD/2, -bD/2].forEach(z => {
-        building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(0.1, bH, 0.1), frameMat), { position: new THREE.Vector3(x, bH/2, z) }));
+        addM(building, new THREE.Mesh(new THREE.BoxGeometry(0.1, bH, 0.1), frameMat), [x, bH/2, z]);
       });
     }
 
@@ -160,9 +165,9 @@ export default function SceneDomatrix() {
 
     // Entrance (ground floor)
     const entranceMat = new THREE.MeshStandardMaterial({ color: 0x2da39a, transparent: true, opacity: 0.3 });
-    building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(6, floorH * 0.8, 0.2), entranceMat), { position: new THREE.Vector3(0, floorH * 0.4, bD/2 + 0.1) }));
+    addM(building, new THREE.Mesh(new THREE.BoxGeometry(6, floorH * 0.8, 0.2), entranceMat), [0, floorH * 0.4, bD/2 + 0.1]);
     // Entrance canopy
-    building.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(10, 0.15, 3), frameMat), { position: new THREE.Vector3(0, floorH * 0.85, bD/2 + 1.5) }));
+    addM(building, new THREE.Mesh(new THREE.BoxGeometry(10, 0.15, 3), frameMat), [0, floorH * 0.85, bD/2 + 1.5]);
 
     scene.add(building);
 

@@ -9,13 +9,13 @@ import { gsap } from 'gsap';
 
 // Group definitions with distinct colors
 const GROUPS = [
-  { id: 1, label: 'Управление', color: 0x6366F1, ring: 1 },
-  { id: 2, label: 'Инженерия',  color: 0x3B82F6, ring: 1 },
-  { id: 3, label: 'IT / Dev',   color: 0x8B5CF6, ring: 1 },
-  { id: 4, label: 'Проектирование', color: 0x14B8A6, ring: 2 },
-  { id: 5, label: 'Логистика',  color: 0xF59E0B, ring: 2 },
-  { id: 6, label: 'Монтаж',     color: 0xEF4444, ring: 2 },
-  { id: 7, label: 'Безопасность', color: 0xF97316, ring: 2 },
+  { id: 1, label: 'Управление', color: 0x818CF8, ring: 1 },
+  { id: 2, label: 'Инженерия',  color: 0x38BDF8, ring: 1 },
+  { id: 3, label: 'IT / Dev',   color: 0xA78BFA, ring: 1 },
+  { id: 4, label: 'Проектирование', color: 0x34D399, ring: 2 },
+  { id: 5, label: 'Логистика',  color: 0xFBBF24, ring: 2 },
+  { id: 6, label: 'Монтаж',     color: 0xF87171, ring: 2 },
+  { id: 7, label: 'Безопасность', color: 0xFB923C, ring: 2 },
 ];
 
 const ROLES = [
@@ -182,23 +182,6 @@ export default function SceneTeam() {
     ctaLight.position.set(ctaX, ctaY, 5);
     root.add(ctaLight);
 
-    // CTA always-visible label (sprite)
-    const ctaCanvas = document.createElement('canvas');
-    ctaCanvas.width = 320; ctaCanvas.height = 56;
-    const ctaCtx = ctaCanvas.getContext('2d');
-    ctaCtx.fillStyle = 'rgba(13,13,26,0.9)';
-    ctaCtx.roundRect(0, 0, 320, 56, 8); ctaCtx.fill();
-    ctaCtx.strokeStyle = '#2DA39A';
-    ctaCtx.lineWidth = 2; ctaCtx.roundRect(2, 2, 316, 52, 7); ctaCtx.stroke();
-    ctaCtx.fillStyle = '#2DA39A';
-    ctaCtx.font = 'bold 22px sans-serif'; ctaCtx.textAlign = 'center';
-    ctaCtx.fillText('Напишите нам →', 160, 36);
-    const ctaTex = new THREE.CanvasTexture(ctaCanvas);
-    const ctaSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: ctaTex, transparent: true, opacity: 0.9 }));
-    ctaSprite.position.set(ctaX, ctaY - 16, 0);
-    ctaSprite.scale.set(28, 5, 1);
-    root.add(ctaSprite);
-
     // All interactable meshes include hub
     const allInteractable = [hub, ...nodeMeshes];
 
@@ -309,8 +292,6 @@ export default function SceneTeam() {
           const s = 1.2 + Math.sin(time * 2) * 0.1;
           cta.scale.set(s, s, s);
           ctaLight.intensity = 0.3 + pulse * 0.4;
-          // Sprite gentle bob
-          ctaSprite.position.y = ctaY - 16 + Math.sin(time * 1.5) * 1.5;
         }
       }
 
@@ -369,26 +350,6 @@ export default function SceneTeam() {
           {tooltip.text}
         </div>
       )}
-      {/* Legend */}
-      <div style={{
-        position: 'absolute', bottom: 16, left: 16,
-        display: 'flex', flexWrap: 'wrap', gap: '8px 14px',
-        maxWidth: 420
-      }}>
-        {GROUPS.map(g => (
-          <div key={g.id} style={{
-            display: 'flex', alignItems: 'center', gap: 5,
-            fontSize: 11, color: 'rgba(255,255,255,0.6)', fontFamily: 'monospace'
-          }}>
-            <span style={{
-              width: 8, height: 8, borderRadius: '50%',
-              background: `#${g.color.toString(16).padStart(6,'0')}`,
-              display: 'inline-block'
-            }} />
-            {g.label}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

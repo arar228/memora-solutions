@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 /* ======================================================================
    DOMATRIX — 23 engineering systems, OPTIMIZED for performance
@@ -59,6 +60,17 @@ export default function SceneDomatrix() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.domElement.style.touchAction = 'pan-y';
     el.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.minPolarAngle = Math.PI / 4;
+    controls.maxPolarAngle = Math.PI / 2 + 0.15;
+    controls.minAzimuthAngle = -Math.PI / 4;
+    controls.maxAzimuthAngle = Math.PI / 3;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.target.set(0, 10, 0);
 
     // 2 lights only (instead of 23+3)
     scene.add(new THREE.AmbientLight(0x445566, 0.6));
@@ -278,8 +290,12 @@ export default function SceneDomatrix() {
       // Raycaster in animation frame (throttled — only when mouse moved)
       doRaycast();
 
-      // Slow building rotation
-      building.rotation.y = Math.sin(time * 0.15) * 0.1;
+      controls.update();
+
+      // Slow auto-rotation only when not dragging
+      if (!controls.isDragging) {
+        building.rotation.y = Math.sin(time * 0.15) * 0.1;
+      }
 
       // Only update emissive for non-hovered nodes every 4th frame
       const frame = Math.floor(time * 60);
@@ -335,6 +351,7 @@ export default function SceneDomatrix() {
       renderer.domElement.removeEventListener('mousemove', onMouseMove);
       renderer.domElement.removeEventListener('click', onClick);
       renderer.domElement.style.cursor = 'default';
+      controls.dispose();
       renderer.dispose();
       if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
     };

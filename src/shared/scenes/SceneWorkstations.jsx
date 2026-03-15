@@ -168,11 +168,95 @@ function buildPC() {
   );
   pc.add(audioLine);
 
-  // Front panel header
+  // Front panel header (with individual pins)
   place(box([0.1, 0.15, 0.3], 0x222222), mbX + 0.1, 2.8, 3.2);
-  // SATA ports
-  for (let i = 0; i < 4; i++) {
-    place(box([0.15, 0.08, 0.2], 0x222244), mbX + 0.1, 3 + i * 0.25, 3.5);
+  for (let p = 0; p < 9; p++) {
+    place(box([0.01, 0.01, 0.08], 0xccaa00, 0.3, 0.8), mbX + 0.08, 2.75 + p * 0.03, 3.2);
+  }
+
+  // SATA ports (angled, with colored accent)
+  for (let i = 0; i < 6; i++) {
+    place(box([0.15, 0.08, 0.2], i < 2 ? 0x444488 : 0x222244), mbX + 0.1, 3 + i * 0.2, 3.5);
+  }
+
+  // USB 3.0 internal header (blue)
+  place(box([0.12, 0.15, 0.45], 0x2244aa, 0.4, 0.5), mbX + 0.12, 5, 2.5);
+  // USB 3.0 pins
+  for (let p = 0; p < 10; p++) {
+    place(box([0.01, 0.01, 0.06], 0xccaa00, 0.3, 0.8), mbX + 0.08, 4.94 + p * 0.012, 2.5);
+  }
+
+  // USB-C internal header
+  place(box([0.1, 0.08, 0.25], 0x333344, 0.4, 0.5), mbX + 0.12, 4.7, 2.8);
+
+  // RGB header (4-pin with glow)
+  place(box([0.06, 0.1, 0.15], 0x222222), mbX + 0.1, 8.8, 2);
+  const rgbHdr = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.08),
+    new THREE.MeshBasicMaterial({ color: 0xff00ff }));
+  place(rgbHdr, mbX + 0.15, 8.82, 2);
+  rgbHdr.userData.isRGBRing = true; rgbHdr.userData.rgbSpeed = 3; rgbHdr.userData.rgbOffset = 0;
+
+  // ARGB header
+  place(box([0.06, 0.06, 0.12], 0x222222), mbX + 0.1, 8.8, 2.5);
+  const argbHdr = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.06),
+    new THREE.MeshBasicMaterial({ color: 0x00ff88 }));
+  place(argbHdr, mbX + 0.15, 8.82, 2.5);
+  argbHdr.userData.isRGBRing = true; argbHdr.userData.rgbSpeed = 2; argbHdr.userData.rgbOffset = 0.5;
+
+  // M.2 slot with heatsink (detailed)
+  place(box([0.04, 0.12, 1.4], 0x1a1a30, 0.4, 0.5), mbX + 0.1, 5.5, 1.2);
+  // M.2 SSD chip
+  place(box([0.04, 0.08, 0.2], 0x0a0a0a, 0.3, 0.6), mbX + 0.11, 5.5, 0.8);
+  // M.2 heatsink (with fins)
+  place(box([0.15, 0.15, 1.5], 0x444466, 0.2, 0.7), mbX + 0.2, 5.5, 1.2);
+  for (let f = 0; f < 6; f++) {
+    place(box([0.16, 0.01, 1.5], 0x555577), mbX + 0.2, 5.45 + f * 0.02, 1.2);
+  }
+
+  // Second M.2 slot (lower)
+  place(box([0.04, 0.12, 1.4], 0x1a1a30, 0.4, 0.5), mbX + 0.1, 4, 1.2);
+
+  // PCIe x16 slot (reinforced, metal)
+  place(box([0.04, 0.12, 2.5], 0x111111, 0.5, 0.3), mbX + 0.08, 4.6, 0);
+  // PCIe reinforcement
+  place(box([0.06, 0.14, 2.5], 0x888888, 0.3, 0.7), mbX + 0.06, 4.6, 0);
+  // PCIe x1 slots
+  place(box([0.04, 0.08, 0.8], 0x111111), mbX + 0.08, 3.6, -1.5);
+  place(box([0.04, 0.08, 0.8], 0x111111), mbX + 0.08, 3, 0);
+
+  // Debug LED display (2-digit segment on corner)
+  place(box([0.04, 0.2, 0.3], 0x111111, 0.5, 0.3), mbX + 0.12, 8.6, 3);
+  const debugLed = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.15, 0.22),
+    new THREE.MeshBasicMaterial({ color: 0xff3300 }));
+  place(debugLed, mbX + 0.15, 8.6, 3);
+  debugLed.userData.isLED = true; debugLed.userData.ledHue = 0.05;
+
+  // WiFi module + antenna connectors
+  place(box([0.08, 0.15, 0.3], 0x1a1a2e, 0.4, 0.5), mbX + 0.12, 8.2, -3.5);
+  // Antenna gold connectors
+  const antMat = new THREE.MeshStandardMaterial({ color: 0xddaa00, roughness: 0.2, metalness: 0.9 });
+  const ant1 = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.06, 8), antMat);
+  ant1.rotation.z = Math.PI / 2;
+  place(ant1, mbX + 0.18, 8.25, -3.6);
+  const ant2 = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.06, 8), antMat);
+  ant2.rotation.z = Math.PI / 2;
+  place(ant2, mbX + 0.18, 8.25, -3.4);
+
+  // Additional capacitor rows (power delivery)
+  for (let i = 0; i < 12; i++) {
+    const cap2 = new THREE.Mesh(capGeo, capMat);
+    cap2.rotation.z = Math.PI / 2;
+    place(cap2, mbX + 0.12, 7.5 + (i % 6) * 0.12, -2 - Math.floor(i/6) * 0.15);
+  }
+
+  // PCB art layer (decorative pattern near audio)
+  const artMat = new THREE.LineBasicMaterial({ color: 0x222233, transparent: true, opacity: 0.2 });
+  for (let i = 0; i < 5; i++) {
+    const aPts = [
+      new THREE.Vector3(mbX + 0.06, 2.5 + i * 0.08, -3),
+      new THREE.Vector3(mbX + 0.06, 2.5 + i * 0.08, -2.2 + i * 0.1)
+    ];
+    pc.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(aPts), artMat));
   }
 
   // ────── AIO COOLER PUMP (on CPU) ──────
@@ -203,116 +287,153 @@ function buildPC() {
     pc.add(new THREE.Mesh(tubeGeo, tubeMat));
   });
 
-  // ────── GPU (ultra-detailed triple-fan RTX style) ──────
-  const gpuY = 4.5;
-  const gpuX = mbX + 1;
+  // ────── GPU RTX 5090 (massive, 3.5-slot, ultra-detailed) ──────
+  const gpuY = 4.3;
+  const gpuX = mbX + 1.2;
+  const gpuThick = 1.6; // 3.5-slot thickness
+  const gpuLen = 5.5;
 
   // GPU PCB (green, detailed)
-  place(box([0.06, 0.14, 5.2], 0x0a1a0a, 0.6, 0.2), mbX + 0.08, gpuY + 0.4, 0);
-  // PCB traces on GPU board
-  for (let i = 0; i < 8; i++) {
-    place(box([0.005, 0.005, 4.8], 0x1a3a1a, 0.5, 0.2), mbX + 0.12, gpuY + 0.35 + i * 0.015, 0);
+  place(box([0.06, 0.14, gpuLen], 0x0a1a0a, 0.6, 0.2), mbX + 0.08, gpuY + gpuThick/2 + 0.1, 0);
+  // PCB traces
+  for (let i = 0; i < 12; i++) {
+    place(box([0.005, 0.005, gpuLen - 0.4], 0x1a3a1a, 0.5, 0.2), mbX + 0.12, gpuY + gpuThick/2 + 0.05 + i * 0.01, 0);
   }
 
-  // GPU die (silicon chip visible on PCB)
-  place(box([0.04, 0.25, 0.25], 0x888888, 0.15, 0.9), mbX + 0.12, gpuY + 0.15, 0);
-  // Die contact pads
-  place(box([0.02, 0.2, 0.2], 0xccaa44, 0.2, 0.8), mbX + 0.14, gpuY + 0.15, 0);
-
-  // GPU heatsink fin stack (aluminum, between PCB and shroud)
-  for (let i = 0; i < 20; i++) {
-    place(box([0.8, 0.02, 4.8], 0x888899, 0.25, 0.6), gpuX, gpuY + 0.05 + i * 0.015, 0);
-  }
-
-  // GPU copper heatpipes (5 pipes visible through fins)
-  const gpuPipeMat = new THREE.MeshStandardMaterial({ color: 0xcc7733, roughness: 0.2, metalness: 0.8 });
-  for (let i = 0; i < 5; i++) {
-    const pipeZ = -1.8 + i * 0.9;
-    const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 4.8, 8), gpuPipeMat);
-    pipe.rotation.x = Math.PI / 2;
-    place(pipe, gpuX - 0.1 + (i % 2) * 0.12, gpuY + 0.15, pipeZ * 0.3);
-  }
-
-  // GPU shroud body (angular, dark)
-  place(box([1.2, 0.15, 5.2], 0x1a1a2e, 0.25, 0.7), gpuX, gpuY + 0.3, 0);
-  place(box([1.2, 0.15, 5.2], 0x15152a, 0.25, 0.7), gpuX, gpuY - 0.3, 0);
-  // Shroud side accent strips
-  place(box([1.22, 0.03, 5.22], 0x333355), gpuX, gpuY + 0.38, 0);
-  place(box([1.22, 0.03, 5.22], 0x333355), gpuX, gpuY - 0.38, 0);
-  // Shroud angular vents (decorative diagonal lines)
-  for (let i = 0; i < 6; i++) {
-    place(box([0.5, 0.02, 0.04], 0x2a2a4a), gpuX + 0.3, gpuY + 0.32, -2.2 + i * 0.15);
-    place(box([0.5, 0.02, 0.04], 0x2a2a4a), gpuX + 0.3, gpuY + 0.32, 1.6 + i * 0.15);
-  }
-
-  // GPU backplate (with cutout window and screws)
-  place(box([1.2, 0.04, 5.2], 0x15152a, 0.3, 0.7), gpuX, gpuY - 0.35, 0);
-  // Backplate cutout (darker area showing fins)
-  place(box([0.6, 0.05, 1.5], 0x0d0d18), gpuX, gpuY - 0.36, 0);
-  // Backplate screws
-  [[-2, gpuY - 0.36], [-1, gpuY - 0.36], [1, gpuY - 0.36], [2, gpuY - 0.36]].forEach(([z, y]) => {
-    const screw = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.03, 8), new THREE.MeshStandardMaterial({ color: 0x999999, metalness: 0.8 }));
-    screw.rotation.x = Math.PI / 2;
-    place(screw, gpuX, y, z);
+  // GPU die (big GB202 silicon)
+  place(box([0.06, 0.35, 0.35], 0x999999, 0.1, 0.9), mbX + 0.13, gpuY + gpuThick/2 - 0.1, 0);
+  // Die substrate (interposer)
+  place(box([0.04, 0.5, 0.5], 0x333333, 0.3, 0.6), mbX + 0.15, gpuY + gpuThick/2 - 0.1, 0);
+  // Die contact pads (gold)
+  place(box([0.02, 0.3, 0.3], 0xccaa44, 0.2, 0.8), mbX + 0.17, gpuY + gpuThick/2 - 0.1, 0);
+  // VRAM chips around GPU die (12 chips — GDDR7)
+  [[0.4,0.25],[-0.4,0.25],[0.4,-0.25],[-0.4,-0.25],
+   [0.25,0.4],[-0.25,0.4],[0.25,-0.4],[-0.25,-0.4],
+   [0,0.45],[0,-0.45],[0.45,0],[- 0.45,0]].forEach(([dy, dz]) => {
+    place(box([0.02, 0.1, 0.1], 0x111111, 0.3, 0.5), mbX + 0.15, gpuY + gpuThick/2 - 0.1 + dy, dz);
   });
 
-  // GPU PCIe bracket + stiffener
-  place(box([0.04, 0.8, 0.15], 0x888888, 0.3, 0.7), mbX + 0.08, gpuY + 0.1, -D/2 + 1);
-  place(box([0.5, 0.05, 0.08], 0x666666, 0.3, 0.7), gpuX - 0.2, gpuY + 0.47, -D/2 + 1);
+  // Vapor chamber (flat copper plate)
+  place(box([0.06, 1.2, gpuLen - 0.6], 0xcc7733, 0.2, 0.8), mbX + 0.22, gpuY + gpuThick/2 - 0.1, 0);
 
-  // GPU 3 fans (with detailed ring and hubs)
-  [-1.5, 0, 1.5].forEach((fz, idx) => {
+  // GPU heatsink fin stack (massive, 30 rows)
+  for (let i = 0; i < 30; i++) {
+    place(box([gpuThick - 0.4, 0.015, gpuLen - 0.6], 0x888899, 0.25, 0.6), gpuX, gpuY + i * 0.012, 0);
+  }
+
+  // GPU copper heatpipes (7 pipes — massive cooling)
+  const gpuPipeMat = new THREE.MeshStandardMaterial({ color: 0xcc7733, roughness: 0.2, metalness: 0.8 });
+  for (let i = 0; i < 7; i++) {
+    const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, gpuLen - 0.5, 8), gpuPipeMat);
+    pipe.rotation.x = Math.PI / 2;
+    place(pipe, gpuX - 0.3 + (i % 3) * 0.15, gpuY + 0.1 + Math.floor(i/3) * 0.12, 0);
+  }
+
+  // GPU shroud (massive angular body)
+  place(box([gpuThick, 0.18, gpuLen], 0x1a1a2e, 0.25, 0.7), gpuX, gpuY + gpuThick/2 + 0.18, 0);
+  place(box([gpuThick, 0.18, gpuLen], 0x15152a, 0.25, 0.7), gpuX, gpuY - gpuThick/2 + 0.18, 0);
+  // Side panels of shroud
+  place(box([gpuThick, gpuThick * 0.5, 0.06], 0x1a1a2e, 0.25, 0.7), gpuX, gpuY + 0.15, gpuLen/2);
+  place(box([gpuThick, gpuThick * 0.5, 0.06], 0x1a1a2e, 0.25, 0.7), gpuX, gpuY + 0.15, -gpuLen/2);
+
+  // Shroud accent strips (geometric lines)
+  place(box([gpuThick + 0.02, 0.03, gpuLen + 0.02], 0x333355), gpuX, gpuY + gpuThick/2 + 0.27, 0);
+  place(box([gpuThick + 0.02, 0.03, gpuLen + 0.02], 0x333355), gpuX, gpuY - gpuThick/2 + 0.27, 0);
+  // V-shaped decorative accent on shroud
+  for (let i = 0; i < 10; i++) {
+    place(box([0.6 - i * 0.04, 0.015, 0.03], 0x2a2a4a), gpuX + 0.1, gpuY + gpuThick/2 + 0.2, -2 + i * 0.12);
+    place(box([0.6 - i * 0.04, 0.015, 0.03], 0x2a2a4a), gpuX + 0.1, gpuY + gpuThick/2 + 0.2, 2.2 - i * 0.12);
+  }
+
+  // GPU backplate (with cutout + thermal pad visible)
+  place(box([gpuThick, 0.04, gpuLen], 0x15152a, 0.3, 0.7), gpuX, gpuY - gpuThick/2 + 0.15, 0);
+  // Backplate thermal pad cutout
+  place(box([0.8, 0.05, 2], 0x555555, 0.6, 0.3), gpuX, gpuY - gpuThick/2 + 0.14, 0);
+  // Backplate logo depression
+  place(box([0.5, 0.045, 0.8], 0x1a1a30), gpuX - 0.2, gpuY - gpuThick/2 + 0.145, -1.5);
+  // Backplate screws (6)
+  [[-2.2, 0], [-1, 0], [0, 0], [1, 0], [2.2, 0], [0, 0.5]].forEach(([z, xo]) => {
+    const screw = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.03, 8),
+      new THREE.MeshStandardMaterial({ color: 0x999999, metalness: 0.8 }));
+    screw.rotation.x = Math.PI / 2;
+    place(screw, gpuX + xo, gpuY - gpuThick/2 + 0.135, z);
+  });
+
+  // GPU PCIe bracket (tall, 3.5 slots)
+  place(box([0.04, gpuThick + 0.5, 0.15], 0x888888, 0.3, 0.7), mbX + 0.08, gpuY + 0.1, -D/2 + 1);
+  // Bracket display ports (3x DP + 1x HDMI)
+  for (let i = 0; i < 3; i++) {
+    place(box([0.12, 0.15, 0.06], 0x222244), mbX + 0.08, gpuY - 0.3 + i * 0.35, -D/2 + 0.5);
+  }
+  place(box([0.14, 0.1, 0.06], 0x222222), mbX + 0.08, gpuY + 0.75, -D/2 + 0.5);
+
+  // GPU support bracket (anti-sag)
+  place(box([0.08, gpuY - 2.3, 0.08], 0x888888, 0.3, 0.7), gpuX + 0.3, (2.3 + gpuY - gpuThick/2) / 2 + 0.4, 1.5);
+  place(box([0.4, 0.04, 0.08], 0x888888, 0.3, 0.7), gpuX + 0.15, gpuY - gpuThick/2 + 0.16, 1.5);
+
+  // GPU 3 fans (bigger, more blades)
+  [-1.6, 0, 1.6].forEach((fz) => {
     // Fan shroud ring
     const shroudRing = new THREE.Mesh(
-      new THREE.TorusGeometry(0.55, 0.04, 8, 24),
+      new THREE.TorusGeometry(0.65, 0.05, 8, 28),
       new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.3, metalness: 0.6 })
     );
     shroudRing.rotation.z = Math.PI / 2;
-    place(shroudRing, gpuX, gpuY + 0.31, fz);
+    place(shroudRing, gpuX, gpuY + gpuThick/2 + 0.2, fz);
 
     // Fan hub
     const hub = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.12, 0.12, 0.06, 16),
+      new THREE.CylinderGeometry(0.14, 0.14, 0.06, 16),
       new THREE.MeshStandardMaterial({ color: 0x222244 })
     );
     hub.rotation.z = Math.PI / 2;
-    place(hub, gpuX, gpuY + 0.31, fz);
+    place(hub, gpuX, gpuY + gpuThick/2 + 0.2, fz);
 
-    // Fan blades (9 per fan, curved look)
-    for (let b = 0; b < 9; b++) {
+    // Fan blades (11 per fan, like Founders Edition)
+    for (let b = 0; b < 11; b++) {
       const blade = new THREE.Mesh(
-        new THREE.BoxGeometry(0.025, 0.38, 0.06),
-        new THREE.MeshBasicMaterial({ color: 0x444477, transparent: true, opacity: 0.25 })
+        new THREE.BoxGeometry(0.02, 0.45, 0.08),
+        new THREE.MeshBasicMaterial({ color: 0x444477, transparent: true, opacity: 0.2 })
       );
-      blade.position.set(gpuX, gpuY + 0.32, fz);
-      blade.rotation.z = (b / 9) * Math.PI * 2;
+      blade.position.set(gpuX, gpuY + gpuThick/2 + 0.21, fz);
+      blade.rotation.z = (b / 11) * Math.PI * 2;
       blade.userData.isFan = true;
       pc.add(blade);
     }
   });
 
-  // GPU GEFORCE RTX illuminated logo (side-lit strip + text blocks)
-  const gpuLabel = new THREE.Mesh(
-    new THREE.BoxGeometry(0.04, 0.06, 2.2),
+  // GPU side RGB strip (GEFORCE RTX 5090 illumination)
+  const gpuRGBStrip = new THREE.Mesh(
+    new THREE.BoxGeometry(0.04, 0.08, gpuLen - 0.5),
     new THREE.MeshBasicMaterial({ color: 0x44ff44 })
   );
-  place(gpuLabel, gpuX + 0.62, gpuY + 0.1, -0.3);
-  gpuLabel.userData.isLED = true;
-  // "RTX" text blocks
-  ['R','T','X'].forEach((_, i) => {
-    place(box([0.045, 0.12, 0.12], 0x44ff44, 0.3, 0.3), gpuX + 0.62, gpuY + 0.1, 0.8 + i * 0.18);
+  place(gpuRGBStrip, gpuX + gpuThick/2, gpuY + 0.15, 0);
+  gpuRGBStrip.userData.isLED = true;
+
+  // "GeForce RTX" text blocks on side
+  const txtBlocks = [0,0.15,0.3, 0.55,0.7,0.85, 1.1, 1.35,1.5,1.65,1.8];
+  txtBlocks.forEach((tz) => {
+    place(box([0.045, 0.1, 0.1], 0x44ff44, 0.3, 0.3), gpuX + gpuThick/2, gpuY + 0.15, -1.5 + tz);
   });
 
-  // GPU power connectors (8+8 pin, detailed)
-  [1.8, 2.3].forEach(pz => {
-    place(box([0.3, 0.2, 0.18], 0x222222, 0.5, 0.3), gpuX, gpuY + 0.48, pz);
-    // Pin grid inside connector
-    for (let r = 0; r < 2; r++) {
-      for (let c = 0; c < 4; c++) {
-        place(box([0.015, 0.015, 0.02], 0xccaa00, 0.3, 0.8), gpuX - 0.06 + r * 0.12, gpuY + 0.42 + c * 0.04, pz + 0.09);
-      }
-    }
+  // "5090" numbers on GPU shroud top
+  [0, 0.2, 0.4, 0.6].forEach((tz, i) => {
+    const numBlock = new THREE.Mesh(
+      new THREE.BoxGeometry(gpuThick * 0.4, 0.015, 0.13),
+      new THREE.MeshBasicMaterial({ color: 0x44ff44, transparent: true, opacity: 0.6 })
+    );
+    place(numBlock, gpuX + 0.1, gpuY + gpuThick/2 + 0.19, 1.5 + tz);
+    numBlock.userData.isLED = true;
   });
+
+  // GPU power connectors (12+4 pin 12VHPWR)
+  place(box([0.35, 0.25, 0.25], 0x222222, 0.5, 0.3), gpuX, gpuY + gpuThick/2 + 0.25, 2.2);
+  // 12VHPWR pin grid (16 pins, 4x4)
+  for (let r = 0; r < 4; r++) {
+    for (let c = 0; c < 4; c++) {
+      place(box([0.015, 0.015, 0.02], 0xccaa00, 0.3, 0.8), gpuX - 0.08 + r * 0.06, gpuY + gpuThick/2 + 0.18 + c * 0.04, 2.32);
+    }
+  }
 
   // ────── RAM (4 sticks, RGB top — teal glow like reference) ──────
   for (let i = 0; i < 4; i++) {

@@ -72,11 +72,20 @@ export default function SceneDomatrix() {
     controls.dampingFactor = 0.08;
     controls.target.set(0, 10, 0);
 
-    // 2 lights only (instead of 23+3)
-    scene.add(new THREE.AmbientLight(0x445566, 0.6));
-    const dL = new THREE.DirectionalLight(0xffffff, 0.7);
-    dL.position.set(30, 50, 40);
-    scene.add(dL);
+    // Professional 3-point lighting
+    scene.add(new THREE.AmbientLight(0x334455, 0.4));
+    // Key light (warm, top-right)
+    const keyLight = new THREE.DirectionalLight(0xfff0e0, 0.8);
+    keyLight.position.set(40, 60, 50);
+    scene.add(keyLight);
+    // Fill light (cool, left — softer)
+    const fillLight = new THREE.DirectionalLight(0x8090b0, 0.35);
+    fillLight.position.set(-40, 20, 30);
+    scene.add(fillLight);
+    // Rim light (teal, behind-below — separates from background)
+    const rimLight = new THREE.DirectionalLight(0x2da39a, 0.3);
+    rimLight.position.set(0, -10, -40);
+    scene.add(rimLight);
 
     // Floor (simple)
     const floor = new THREE.Mesh(

@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
+import { Reflector } from 'three/examples/jsm/objects/Reflector';
 import { disposeScene } from './_shared/disposeScene';
 
 const PROJECTS = [
@@ -52,11 +57,17 @@ export default function SceneScale() {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        // Cinematic look: ACES tone mapping flattens highlights, sRGB output
+        // ensures emissive colors render at the saturation we authored.
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.15;
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
         mountRef.current.appendChild(renderer.domElement);
 
-        // === LIGHTS ===
-        scene.add(new THREE.AmbientLight(0x4444aa, 0.4));
-        const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        // === LIGHTS (3-point + warm/cool rim + under-glow) ===
+        scene.add(new THREE.AmbientLight(0x4a4a8a, 0.55));
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
         dirLight.position.set(15, 25, 15);
         dirLight.castShadow = true;
         dirLight.shadow.mapSize.set(1024, 1024);
@@ -68,48 +79,74 @@ export default function SceneScale() {
         dirLight.shadow.camera.bottom = -20;
         scene.add(dirLight);
 
-        // Rim light
-        const rimLight = new THREE.DirectionalLight(0x2da39a, 0.4);
-        rimLight.position.set(-10, 5, -10);
-        scene.add(rimLight);
+        // Cool rim from behind-left
+        const rimCool = new THREE.DirectionalLight(0x2da39a, 0.7);
+        rimCool.position.set(-10, 5, -10);
+        scene.add(rimCool);
 
-        // Point light for dramatic under-glow
-        const pointLight = new THREE.PointLight(0x6B4FA0, 0.6, 30);
+        // Warm rim from front-right — gives cubes a violet bounce
+        const rimWarm = new THREE.DirectionalLight(0x6B4FA0, 0.5);
+        rimWarm.position.set(12, 8, -6);
+        scene.add(rimWarm);
+
+        // Under-glow point light (animated in tick)
+        const pointLight = new THREE.PointLight(0x6B4FA0, 0.9, 35);
         pointLight.position.set(0, -2, 0);
         scene.add(pointLight);
 
-        // === FLOOR ===
-        // Grid
-        const gridHelper = new THREE.GridHelper(40, 40, 0x1a1a3a, 0x0f0f20);
-        gridHelper.position.y = -0.5;
+        // === FLOOR (real planar reflection + subtle grid) ===
+        const reflector = new Reflector(new THREE.PlaneGeometry(40, 40), {
+            textureWidth: Math.round(W * Math.min(window.devicePixelRatio, 2)),
+            textureHeight: Math.round(H * Math.min(window.devicePixelRatio, 2)),
+            color: 0x0a0a18,
+        });
+        reflector.rotation.x = -Math.PI / 2;
+        reflector.position.y = -0.5;
+        scene.add(reflector);
+
+        // Tinted overlay on top of the mirror to mute it (mirror alone is too
+        // glossy and steals attention from the cubes).
+        const floorTint = new THREE.Mesh(
+            new THREE.PlaneGeometry(40, 40),
+            new THREE.MeshBasicMaterial({ color: 0x0D0D1A, transparent: true, opacity: 0.55 })
+        );
+        floorTint.rotation.x = -Math.PI / 2;
+        floorTint.position.y = -0.499;
+        scene.add(floorTint);
+
+        // Subtle grid drawn slightly above so it sits on the muted reflection.
+        const gridHelper = new THREE.GridHelper(40, 40, 0x2da39a, 0x1a1a3a);
+        gridHelper.material.opacity = 0.18;
+        gridHelper.material.transparent = true;
+        gridHelper.position.y = -0.49;
         scene.add(gridHelper);
 
-        // Reflective plane
-        const planeGeo = new THREE.PlaneGeometry(40, 40);
-        const planeMat = new THREE.MeshStandardMaterial({
-            color: 0x0a0a18,
-            roughness: 0.4,
-            metalness: 0.6,
-            transparent: true,
-            opacity: 0.7
-        });
-        const plane = new THREE.Mesh(planeGeo, planeMat);
-        plane.rotation.x = -Math.PI / 2;
-        plane.position.y = -0.5;
-        plane.receiveShadow = true;
-        scene.add(plane);
-
-        // === PARTICLES ===
-        const particleCount = 80;
+        // === PARTICLES (denser, two-tone) ===
+        const particleCount = 250;
         const pGeo = new THREE.BufferGeometry();
         const pPos = new Float32Array(particleCount * 3);
+        const pColors = new Float32Array(particleCount * 3);
+        const cViolet = new THREE.Color(0x6B4FA0);
+        const cTeal = new THREE.Color(0x2da39a);
         for (let i = 0; i < particleCount; i++) {
             pPos[i * 3] = (Math.random() - 0.5) * 40;
-            pPos[i * 3 + 1] = Math.random() * 20;
+            pPos[i * 3 + 1] = Math.random() * 22;
             pPos[i * 3 + 2] = (Math.random() - 0.5) * 40;
+            const c = Math.random() < 0.55 ? cViolet : cTeal;
+            pColors[i * 3] = c.r;
+            pColors[i * 3 + 1] = c.g;
+            pColors[i * 3 + 2] = c.b;
         }
         pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const pMat = new THREE.PointsMaterial({ color: 0x6B4FA0, size: 0.12, transparent: true, opacity: 0.5 });
+        pGeo.setAttribute('color', new THREE.BufferAttribute(pColors, 3));
+        const pMat = new THREE.PointsMaterial({
+            vertexColors: true,
+            size: 0.16,
+            transparent: true,
+            opacity: 0.7,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        });
         const particles = new THREE.Points(pGeo, pMat);
         scene.add(particles);
 
@@ -121,15 +158,23 @@ export default function SceneScale() {
         PROJECTS.forEach(p => {
             const group = new THREE.Group();
 
-            // Solid cube with glass-like material
-            const mat = new THREE.MeshStandardMaterial({
+            // Glass-like cube: transmission gives the bend-light look,
+            // emissive feeds UnrealBloomPass for the neon halo.
+            const mat = new THREE.MeshPhysicalMaterial({
                 color: p.color,
                 emissive: p.emissive,
-                emissiveIntensity: 0.3,
-                roughness: 0.2,
-                metalness: 0.5,
+                emissiveIntensity: 0.55,
+                roughness: 0.12,
+                metalness: 0.0,
+                transmission: 0.45,
+                thickness: 0.9,
+                ior: 1.5,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.08,
+                attenuationColor: new THREE.Color(p.color),
+                attenuationDistance: 1.6,
                 transparent: true,
-                opacity: 0.85
+                opacity: 0.9,
             });
             const mesh = new THREE.Mesh(cubeGeo, mat);
             mesh.castShadow = true;
@@ -236,6 +281,17 @@ export default function SceneScale() {
 
         renderer.domElement.addEventListener('mousemove', onMouseMove);
         renderer.domElement.addEventListener('click', onClick);
+
+        // === POST-PROCESSING (bloom on emissive parts) ===
+        const composer = new EffectComposer(renderer);
+        composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        composer.setSize(W, H);
+        composer.addPass(new RenderPass(scene, camera));
+        // strength=0.65 keeps highlights warm without blowing the whole scene out;
+        // threshold=0 means anything emissive contributes to the bloom.
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(W, H), 0.65, 0.5, 0.0);
+        composer.addPass(bloomPass);
+        composer.addPass(new OutputPass());
 
         // === ANIMATION ===
         let clock = new THREE.Clock();
@@ -363,10 +419,10 @@ export default function SceneScale() {
             });
 
             // Under-glow pulse
-            pointLight.intensity = 0.4 + Math.sin(time * 1.5) * 0.2;
+            pointLight.intensity = 0.6 + Math.sin(time * 1.5) * 0.3;
             pointLight.color.setHSL(0.75 + Math.sin(time * 0.3) * 0.05, 0.8, 0.5);
 
-            renderer.render(scene, camera);
+            composer.render();
         };
 
         const observer = new IntersectionObserver(([entry]) => {
@@ -391,6 +447,8 @@ export default function SceneScale() {
             camera.top = d; camera.bottom = -d;
             camera.updateProjectionMatrix();
             renderer.setSize(w, h);
+            composer.setSize(w, h);
+            bloomPass.setSize(w, h);
         };
         window.addEventListener('resize', handleResize);
 
@@ -401,8 +459,10 @@ export default function SceneScale() {
             renderer.domElement.removeEventListener('mousemove', onMouseMove);
             renderer.domElement.removeEventListener('click', onClick);
             renderer.domElement.style.cursor = 'default';
-            // Frees the per-cube materials and edge materials that the
-            // previous manual cleanup missed.
+            // Reflector owns a hidden render target — needs explicit dispose.
+            if (typeof reflector.dispose === 'function') reflector.dispose();
+            composer.dispose();
+            // Walks the rest of the tree and frees every geometry/material/texture.
             disposeScene(scene, renderer);
         };
     }, []);

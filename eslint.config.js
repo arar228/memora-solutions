@@ -23,7 +23,15 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // ESLint can't see <motion.X> in JSX as a use of `motion`, so allow that
+      // specific import name on top of capitalised identifiers.
+      'no-unused-vars': ['error', {
+        varsIgnorePattern: '^([A-Z_]|motion)',
+        argsIgnorePattern: '^[A-Z_]|^_',
+      }],
+      // Preview rule that flags benign React patterns (e.g. closing a menu on
+      // route change). Turn off until upstream stabilises.
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
 ])

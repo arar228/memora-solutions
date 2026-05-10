@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { disposeScene } from './_shared/disposeScene';
 
 const PROJECTS = [
     { id: 1, size: 7, x: -4, z: -6, delay: 0, title: 'Учебные лаборатории', value: '500+ млн\u00A0₽',
@@ -399,13 +400,10 @@ export default function SceneScale() {
             observer.disconnect();
             renderer.domElement.removeEventListener('mousemove', onMouseMove);
             renderer.domElement.removeEventListener('click', onClick);
-            cubeGeo.dispose(); edgeGeo.dispose();
-            planeGeo.dispose(); planeMat.dispose();
-            pGeo.dispose(); pMat.dispose();
-            renderer.dispose();
-            if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
-                mountRef.current.removeChild(renderer.domElement);
-            }
+            renderer.domElement.style.cursor = 'default';
+            // Frees the per-cube materials and edge materials that the
+            // previous manual cleanup missed.
+            disposeScene(scene, renderer);
         };
     }, []);
 

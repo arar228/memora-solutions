@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
+import { disposeScene } from './_shared/disposeScene';
 
 /* ======================================================================
    SceneTeam — orbital layout, NO d3 force (deterministic, fast, even)
@@ -331,11 +332,16 @@ export default function SceneTeam() {
 
     return () => {
       window.removeEventListener('resize', onResize);
-      cancelAnimationFrame(animId); obs.disconnect();
+      cancelAnimationFrame(animId);
+      obs.disconnect();
       renderer.domElement.removeEventListener('mousemove', onMouseMove);
       renderer.domElement.style.cursor = 'default';
-      renderer.dispose();
-      if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
+      // Kill per-node tweens so GSAP doesn't keep holding references after unmount.
+      allInteractable.forEach(m => {
+        gsap.killTweensOf(m.scale);
+        gsap.killTweensOf(m.position);
+      });
+      disposeScene(scene, renderer);
     };
   }, []);
 

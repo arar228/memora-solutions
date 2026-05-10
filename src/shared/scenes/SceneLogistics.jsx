@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { disposeScene } from './_shared/disposeScene';
 
 // Russia border [lon, lat] — ~70 key vertices for recognizable outline
 const BORDER = [
@@ -390,15 +391,7 @@ export default function SceneLogistics() {
       window.removeEventListener('resize', onResize);
       cancelAnimationFrame(animId);
       observer.disconnect();
-      mapGeo.dispose(); mapMat.dispose();
-      cityGeo.dispose(); ringGeo.dispose();
-      pieceGeo.dispose(); pieceMat.dispose();
-      fuselageGeo.dispose(); fuselageMat.dispose();
-      wingGeo.dispose(); wingMat.dispose();
-      tailGeo.dispose(); tailMat.dispose();
-      tailWingGeo.dispose();
-      renderer.dispose();
-      if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
+      disposeScene(scene, renderer);
     };
   }, []);
 

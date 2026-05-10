@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { disposeScene } from './_shared/disposeScene';
 
 /* =========================================================
    WHITE GAMING PC — matching reference: white case, glass,
@@ -101,7 +102,6 @@ function buildPC() {
   });
 
   // IC chips (small rectangles on board)
-  const chipMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.3, metalness: 0.6 });
   [[3.5, 0.5], [4.2, -1], [5.5, 2.5], [4, 3], [7.5, 2]].forEach(([y, z]) => {
     place(box([0.04, 0.15, 0.2], 0x0a0a0a, 0.3, 0.6), mbX + 0.1, y, z);
   });
@@ -417,7 +417,7 @@ function buildPC() {
   });
 
   // "5090" numbers on GPU shroud top
-  [0, 0.2, 0.4, 0.6].forEach((tz, i) => {
+  [0, 0.2, 0.4, 0.6].forEach((tz) => {
     const numBlock = new THREE.Mesh(
       new THREE.BoxGeometry(gpuThick * 0.4, 0.015, 0.13),
       new THREE.MeshBasicMaterial({ color: 0x44ff44, transparent: true, opacity: 0.6 })
@@ -868,8 +868,11 @@ export default function SceneWorkstations() {
     window.addEventListener('resize', onResize);
     return () => {
       window.removeEventListener('resize', onResize);
-      cancelAnimationFrame(animId); obs.disconnect(); renderer.dispose();
-      if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
+      cancelAnimationFrame(animId);
+      obs.disconnect();
+      // disposeScene walks the whole tree, so it handles the 100+ meshes
+      // produced by buildPC() plus the InstancedMesh's geometry/material.
+      disposeScene(scene, renderer);
     };
   }, []);
 

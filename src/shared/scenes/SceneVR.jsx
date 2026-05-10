@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { gsap } from 'gsap';
+import { disposeScene } from './_shared/disposeScene';
 
 export default function SceneVR() {
     const mountRef = useRef(null);
@@ -286,23 +287,17 @@ export default function SceneVR() {
         tick();
 
         return () => {
-            window.removeEventListener('resize', () => { });
             cancelAnimationFrame(animationId);
             observer.disconnect();
             renderer.domElement.removeEventListener('mousemove', onMouseMove);
             renderer.domElement.removeEventListener('click', onClick);
-
+            document.body.style.cursor = 'default';
             controls.dispose();
-            mainGeo.dispose(); mainMat.dispose();
-            pGeo.dispose(); pMat.dispose();
-            avatarGeo.dispose(); avatarMatBase.dispose(); avatarMatHover.dispose();
-            lines.forEach(l => { l.geometry.dispose(); l.material.dispose(); });
-            renderer.dispose();
-
-            if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
-                mountRef.current.removeChild(renderer.domElement);
-            }
+            // Kill any pending tweens on objects we created.
             gsap.killTweensOf(explodeObj);
+            avatars.forEach(a => gsap.killTweensOf(a.scale));
+            // Walk the scene and dispose every geometry/material/texture.
+            disposeScene(scene, renderer);
         };
     }, []);
 

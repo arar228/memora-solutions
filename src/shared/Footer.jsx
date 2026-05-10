@@ -9,7 +9,7 @@ export default function Footer() {
         <footer className="footer">
             <div className="footer__inner container">
                 <div className="footer__brand">
-                    <img src="/logo.png" alt="" className="footer__logo" />
+                    <img src="/logo.png" alt={t('brand')} className="footer__logo" />
                     <span className="footer__brand-text">{t('brand')}</span>
                 </div>
                 <div className="footer__info">

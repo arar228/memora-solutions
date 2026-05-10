@@ -386,7 +386,7 @@ function ProjectRow({project,templates,expanded,onToggle,onDataChange,showToast,
   const updateCount=countUpdates();
 
   const handleDrop=section=>(slotId,file)=>{onDataChange(project.id,section,slotId,1);showToast(`📎 ${file.name} → ${slotId}`);};
-  const handleDownload=section=>slotId=>showToast(`↓ Скачивание ${slotId}...`);
+  const handleDownload=_section=>slotId=>showToast(`↓ Скачивание ${slotId}...`);
 
   const mini=(slots,data,c)=>slots.map(s=>{const f=(data[s.id]||0)>0;return (<div key={s.id} style={{width:11,height:11,opacity:f?1:0.15}}>{rs(s.shape,11,f,c,T.emptyBorder)}</div>);});
 

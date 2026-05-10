@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -71,7 +70,7 @@ export default function HomePage() {
                     >
                         <motion.img
                             src="/logo.png"
-                            alt=""
+                            alt={t('brand')}
                             className="hero__logo"
                             style={{
                                 filter: logoBlur,
@@ -121,7 +120,7 @@ export default function HomePage() {
                                             </div>
                                             <p className="product-card-large__desc">{product.desc}</p>
                                             <div className="product-card-large__bot">{product.bot}</div>
-                                            <div className="product-card-large__cta btn btn-primary">Попробовать →</div>
+                                            <div className="product-card-large__cta btn btn-primary">{t('tryIt')}</div>
                                         </div>
                                     </div>
                                     <div className={`product-card-large__visual product-card-large__visual--${product.color}`}>

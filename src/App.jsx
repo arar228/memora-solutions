@@ -1,19 +1,24 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from './shared/Header';
 import GoldParticles from './shared/GoldParticles';
 import ErrorBoundary from './shared/ErrorBoundary';
 import LoadingFallback from './shared/LoadingFallback';
+import NotFound from './shared/NotFound';
+import lazyWithRetry from './shared/lazyWithRetry';
 
-// Lazy-loaded pages
-const HomePage = lazy(() => import('./pages/Home'));
-const TravelRadarPage = lazy(() => import('./pages/TravelRadar'));
-const WalletPage = lazy(() => import('./pages/Wallet'));
-const BdayBotPage = lazy(() => import('./pages/BdayBot'));
-const KanbanPage = lazy(() => import('./pages/Kanban'));
-const AdminPage = lazy(() => import('./pages/Admin'));
-const CreatorPage = lazy(() => import('./pages/Creator'));
+// Lazy-loaded pages — wrapped to recover from stale-chunk errors after deploys.
+const HomePage = lazyWithRetry(() => import('./pages/Home'));
+const TravelRadarPage = lazyWithRetry(() => import('./pages/TravelRadar'));
+const WalletPage = lazyWithRetry(() => import('./pages/Wallet'));
+const BdayBotPage = lazyWithRetry(() => import('./pages/BdayBot'));
+const KanbanPage = lazyWithRetry(() => import('./pages/Kanban'));
+const CreatorPage = lazyWithRetry(() => import('./pages/Creator'));
+
+// Admin is dev-only — import.meta.env.DEV is statically replaced at build time,
+// so the import and chunk are tree-shaken out of production bundles.
+const AdminPage = import.meta.env.DEV ? lazyWithRetry(() => import('./pages/Admin')) : null;
 
 function PageTransition({ children }) {
   return (
@@ -39,8 +44,11 @@ function AnimatedRoutes() {
         <Route path="/wallet" element={<PageTransition><WalletPage /></PageTransition>} />
         <Route path="/bday-bot" element={<PageTransition><BdayBotPage /></PageTransition>} />
         <Route path="/kanban" element={<PageTransition><KanbanPage /></PageTransition>} />
-        <Route path="/admin" element={<PageTransition><AdminPage /></PageTransition>} />
         <Route path="/creator" element={<PageTransition><CreatorPage /></PageTransition>} />
+        {AdminPage && (
+          <Route path="/admin" element={<PageTransition><AdminPage /></PageTransition>} />
+        )}
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );

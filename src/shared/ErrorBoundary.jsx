@@ -1,17 +1,29 @@
 import { Component } from 'react';
+import i18n from '../i18n/i18n';
 
 export default class ErrorBoundary extends Component {
     constructor(props) {
         super(props);
-        this.state = { hasError: false, error: null };
+        this.state = { hasError: false };
+        this.onLanguageChanged = () => this.forceUpdate();
     }
 
-    static getDerivedStateFromError(error) {
-        return { hasError: true, error };
+    static getDerivedStateFromError() {
+        return { hasError: true };
+    }
+
+    componentDidMount() {
+        i18n.on('languageChanged', this.onLanguageChanged);
+    }
+
+    componentWillUnmount() {
+        i18n.off('languageChanged', this.onLanguageChanged);
     }
 
     componentDidCatch(error, errorInfo) {
-        console.error('[ErrorBoundary]', error, errorInfo);
+        if (import.meta.env.DEV) {
+            console.error('[ErrorBoundary]', error, errorInfo);
+        }
     }
 
     render() {
@@ -27,9 +39,11 @@ export default class ErrorBoundary extends Component {
                     textAlign: 'center',
                     color: 'var(--color-text, #ccc)',
                 }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Что-то пошло не так</h2>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
+                        {i18n.t('errorBoundary.title')}
+                    </h2>
                     <p style={{ opacity: 0.7, maxWidth: '400px', marginBottom: '1.5rem' }}>
-                        Произошла ошибка при загрузке страницы. Попробуйте обновить.
+                        {i18n.t('errorBoundary.text')}
                     </p>
                     <button
                         onClick={() => window.location.reload()}
@@ -44,7 +58,7 @@ export default class ErrorBoundary extends Component {
                             fontWeight: 600,
                         }}
                     >
-                        Обновить страницу
+                        {i18n.t('errorBoundary.reload')}
                     </button>
                 </div>
             );

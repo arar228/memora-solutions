@@ -57,13 +57,22 @@ export default function Header() {
                 </nav>
 
                 <div className="header__actions">
-                    <button onClick={toggleLang} className="header__action-btn" title={i18n.language === 'ru' ? 'Switch to English' : 'Переключить на русский'}>
-                        <Globe size={18} />
+                    <button
+                        onClick={toggleLang}
+                        className="header__action-btn"
+                        aria-label={i18n.language === 'ru' ? t('a11y.switchToEn') : t('a11y.switchToRu')}
+                    >
+                        <Globe size={18} aria-hidden="true" />
                         <span className="header__lang-label">{i18n.language === 'ru' ? 'EN' : 'RU'}</span>
                     </button>
 
-                    <button className="header__burger" onClick={() => setMobileOpen(!mobileOpen)}>
-                        {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+                    <button
+                        className="header__burger"
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        aria-label={mobileOpen ? t('a11y.closeMenu') : t('a11y.openMenu')}
+                        aria-expanded={mobileOpen}
+                    >
+                        {mobileOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
                     </button>
                 </div>
             </div>

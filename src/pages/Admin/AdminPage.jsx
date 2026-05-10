@@ -1,68 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Lock, LogIn, Plus, Trash2, Save, X } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import './AdminPage.css';
 
 export default function AdminPage() {
     const { t } = useTranslation();
-    const [authenticated, setAuthenticated] = useState(false);
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const [activeTab, setActiveTab] = useState('kanban');
-
-    // Simple localStorage-based auth
-    useEffect(() => {
-        const auth = sessionStorage.getItem('memora-admin');
-        if (auth === 'true') setAuthenticated(true);
-    }, []);
-
-    const handleLogin = (e) => {
-        e.preventDefault();
-        if (password === 'memora2026') {
-            setAuthenticated(true);
-            sessionStorage.setItem('memora-admin', 'true');
-        } else {
-            setError(t('admin.wrongPassword'));
-        }
-    };
-
-    if (!authenticated) {
-        return (
-            <div className="admin-page">
-                <div className="admin-login">
-                    <div className="admin-login__card card">
-                        <div className="admin-login__icon">
-                            <Lock size={32} />
-                        </div>
-                        <h2>{t('admin.title')}</h2>
-                        <form onSubmit={handleLogin}>
-                            <input
-                                type="password"
-                                className="search-form__input"
-                                placeholder={t('admin.password')}
-                                value={password}
-                                onChange={e => { setPassword(e.target.value); setError(''); }}
-                                autoFocus
-                            />
-                            {error && <p className="admin-login__error">{error}</p>}
-                            <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: 16 }}>
-                                <LogIn size={16} /> {t('admin.login')}
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="admin-page">
             <div className="container">
                 <div className="admin-header">
                     <h1>{t('admin.title')}</h1>
-                    <button className="btn btn-secondary" onClick={() => { sessionStorage.removeItem('memora-admin'); setAuthenticated(false); }}>
-                        <X size={16} /> Logout
-                    </button>
+                    <span className="admin-header__badge">DEV</span>
                 </div>
 
                 <div className="admin-tabs">
@@ -78,16 +28,16 @@ export default function AdminPage() {
                 </div>
 
                 <div className="admin-content card">
-                    {activeTab === 'kanban' && <KanbanManager t={t} />}
-                    {activeTab === 'content' && <ContentManager t={t} />}
-                    {activeTab === 'services' && <ServicesManager t={t} />}
+                    {activeTab === 'kanban' && <KanbanManager />}
+                    {activeTab === 'content' && <ContentManager />}
+                    {activeTab === 'services' && <ServicesManager />}
                 </div>
             </div>
         </div>
     );
 }
 
-function KanbanManager({ t }) {
+function KanbanManager() {
     const [tasks, setTasks] = useState(() => {
         const saved = localStorage.getItem('memora-kanban');
         return saved ? JSON.parse(saved) : [];
@@ -136,7 +86,7 @@ function KanbanManager({ t }) {
     );
 }
 
-function ContentManager({ t }) {
+function ContentManager() {
     return (
         <div className="admin-manager">
             <h3>Управление контентом</h3>
@@ -147,7 +97,7 @@ function ContentManager({ t }) {
     );
 }
 
-function ServicesManager({ t }) {
+function ServicesManager() {
     return (
         <div className="admin-manager">
             <h3>Управление полезными сервисами</h3>

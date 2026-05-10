@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { disposeScene } from './_shared/disposeScene';
 
 /* ======================================================================
    DOMATRIX — 23 engineering systems, OPTIMIZED for performance
@@ -105,8 +106,6 @@ export default function SceneDomatrix() {
       color: 0x1a2244, transparent: true, opacity: 0.1,
       roughness: 0.1, metalness: 0.8, side: THREE.DoubleSide
     });
-    const frameMat = new THREE.MeshBasicMaterial({ color: 0x444466 });
-
     // 4 glass panels
     const wallF = new THREE.Mesh(new THREE.PlaneGeometry(bW, bH), glassMat);
     wallF.position.set(0, bH/2, bD/2); building.add(wallF);
@@ -385,13 +384,14 @@ export default function SceneDomatrix() {
 
     return () => {
       window.removeEventListener('resize', onResize);
-      cancelAnimationFrame(animId); obs.disconnect();
+      cancelAnimationFrame(animId);
+      obs.disconnect();
       renderer.domElement.removeEventListener('mousemove', onMouseMove);
       renderer.domElement.removeEventListener('click', onClick);
       renderer.domElement.style.cursor = 'default';
       controls.dispose();
-      renderer.dispose();
-      if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
+      // disposeScene also frees the 23 sprite CanvasTextures via traversal.
+      disposeScene(scene, renderer);
     };
   }, []);
 

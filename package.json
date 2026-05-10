@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "start": "serve -s dist"
+    "start": "serve -s dist",
+    "optimize-images": "node scripts/optimize-images.js"
   },
   "dependencies": {
     "d3-force": "^3.0.0",
@@ -32,6 +33,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "serve": "^14.2.4",
+    "sharp": "^0.34.5",
     "vite": "^7.3.1"
   }
 }

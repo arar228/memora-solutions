@@ -124,7 +124,7 @@ export default function HomePage() {
                                         </div>
                                     </div>
                                     <div className={`product-card-large__visual product-card-large__visual--${product.color}`}>
-                                        <img src={product.logo} alt={product.title} className="product-card-large__logo" />
+                                        <img src={product.logo} alt={product.title} className="product-card-large__logo" loading="lazy" decoding="async" />
                                     </div>
                                 </Link>
                             </AnimatedSection>

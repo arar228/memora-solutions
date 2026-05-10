@@ -164,7 +164,7 @@ export default function CreatorPage() {
                         transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <div className="creator-hero__photo-frame">
-                            <img src="/creator.jpg" alt={t('creator.photoAlt')} className="creator-hero__photo" />
+                            <img src="/creator.jpg" alt={t('creator.photoAlt')} className="creator-hero__photo" loading="lazy" decoding="async" />
                             <div className="creator-hero__photo-border" />
                         </div>
                     </motion.div>

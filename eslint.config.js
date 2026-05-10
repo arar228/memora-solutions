@@ -7,7 +7,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['src/**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
@@ -32,6 +32,16 @@ export default defineConfig([
       // Preview rule that flags benign React patterns (e.g. closing a menu on
       // route change). Turn off until upstream stabilises.
       'react-hooks/set-state-in-effect': 'off',
+    },
+  },
+  {
+    // Node-side scripts (build tooling, image optimizer, etc.).
+    files: ['scripts/**/*.js'],
+    extends: [js.configs.recommended],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      globals: globals.node,
+      sourceType: 'module',
     },
   },
 ])

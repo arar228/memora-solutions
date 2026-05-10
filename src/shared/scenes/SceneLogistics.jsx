@@ -95,30 +95,32 @@ function buildTruck() {
   grille.position.set(4.85, 1.4, 0);
   truck.add(grille);
   for (let i = 0; i < 5; i++) {
-    const slat = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.05, 1.45), chromeMat);
-    slat.position.set(4.86, 0.85 + i * 0.22, 0);
+    // Slats sit on the grille face between the two headlight housings;
+    // narrower in Z so they don't punch into the headlight bodies.
+    const slat = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.05, 1.0), chromeMat);
+    slat.position.set(4.95, 0.85 + i * 0.22, 0);
     truck.add(slat);
   }
-  // Bumper with chrome trim
+  // Bumper with chrome trim — sits low (below grille / headlights / cabin)
   const bumper = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.45, 1.95), bodyMat);
-  bumper.position.set(4.95, 0.6, 0);
+  bumper.position.set(4.95, 0.42, 0);
   truck.add(bumper);
   const bumperTrim = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.08, 1.95), chromeMat);
-  bumperTrim.position.set(5.08, 0.6, 0);
+  bumperTrim.position.set(5.13, 0.42, 0);
   truck.add(bumperTrim);
   // Front windshield
   const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.05, 1.05, 1.85), glassMat);
   windshield.position.set(4.78, 1.95, 0);
   windshield.rotation.z = -0.1;
   truck.add(windshield);
-  // Side windows
-  for (const z of [-1.05, 1.05]) {
+  // Side windows — outside the cabin shell so they read as a glass panel
+  for (const z of [-1.07, 1.07]) {
     const sw = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.85, 0.04), glassMat);
     sw.position.set(3.5, 2.05, z);
     truck.add(sw);
   }
-  // Cabin doors (visual only — outlines)
-  for (const z of [-1.06, 1.06]) {
+  // Cabin doors (outlines + handle), pushed out a bit further
+  for (const z of [-1.08, 1.08]) {
     const doorLine = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.6, 0.03), chromeMat);
     doorLine.position.set(3.0, 1.6, z);
     truck.add(doorLine);
@@ -126,13 +128,13 @@ function buildTruck() {
     handle.position.set(3.4, 1.5, z);
     truck.add(handle);
   }
-  // Headlights — recessed in housings, bright bloom-ready cores
+  // Headlights — mounted on the grille face, sticking forward
   for (const z of [-0.7, 0.7]) {
     const housing = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.4, 0.5), bodyMat);
-    housing.position.set(4.92, 1.05, z);
+    housing.position.set(4.95, 1.05, z);
     truck.add(housing);
-    const bulb = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.32, 0.42), headlightMat);
-    bulb.position.set(4.97, 1.05, z);
+    const bulb = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.32, 0.42), headlightMat);
+    bulb.position.set(5.01, 1.05, z);
     truck.add(bulb);
   }
   // Side mirrors (with arms)
@@ -151,13 +153,13 @@ function buildTruck() {
   const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.7, 6), chromeMat);
   antenna.position.set(2.9, 4.0, -0.7);
   truck.add(antenna);
-  // Vertical exhausts (twin stacks behind cabin)
+  // Vertical exhausts (twin stacks just behind the cabin back)
   for (const z of [-1.05, 1.05]) {
     const stack = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 1.6, 12), chromeMat);
-    stack.position.set(2.4, 2.8, z);
+    stack.position.set(2.2, 2.8, z);
     truck.add(stack);
     const tip = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.08, 12), bodyMat);
-    tip.position.set(2.4, 3.65, z);
+    tip.position.set(2.2, 3.65, z);
     truck.add(tip);
   }
 
@@ -267,8 +269,8 @@ function buildCrane() {
   const cabinGlass = new THREE.MeshPhysicalMaterial({
     color: 0x132040, roughness: 0.04, transmission: 0.5,
     thickness: 0.2, ior: 1.45, clearcoat: 1.0,
+    transparent: true,
   });
-  const wheelMat = new THREE.MeshStandardMaterial({ color: 0x0c0c12, roughness: 0.85 });
 
   // ── Carrier chassis (the base vehicle) ───────────────────────────
   // Main chassis box
@@ -283,26 +285,19 @@ function buildCrane() {
     crane.add(panel);
   }
 
-  // Carrier wheels (4 small wheels — they'll be hidden when on truck deck)
-  const cwGeo = new THREE.CylinderGeometry(0.34, 0.34, 0.32, 14);
-  cwGeo.rotateX(Math.PI / 2);
-  for (const x of [-1.3, 1.3]) {
-    for (const z of [-0.85, 0.85]) {
-      const w = new THREE.Mesh(cwGeo, wheelMat);
-      w.position.set(x, 0.34, z);
-      crane.add(w);
-    }
-  }
+  // (Carrier wheels removed — they intersected the chassis box and were
+  //  pure clutter on the truck deck. The crane sits on outriggers when
+  //  working and on the truck deck the rest of the time, never on tyres.)
 
-  // Hydraulic outrigger legs (stowed against chassis)
+  // Hydraulic outrigger legs — placed under the chassis (chassis bottom
+  // is at y=0.325, so legs sit at y≈0.22 with feet on the ground).
   for (const x of [-1.5, 1.5]) {
     for (const z of [-0.85, 0.85]) {
       const leg = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.18, 0.45), accentMat);
-      leg.position.set(x, 0.55, z);
+      leg.position.set(x, 0.24, z);
       crane.add(leg);
-      // Foot pad
-      const foot = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.08, 0.4), hydraulicMat);
-      foot.position.set(x, 0.46, z);
+      const foot = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.06, 0.4), hydraulicMat);
+      foot.position.set(x, 0.13, z);
       crane.add(foot);
     }
   }
@@ -534,13 +529,16 @@ function buildHistoricBuilding() {
   const ground = new THREE.Mesh(new THREE.BoxGeometry(W, H1, D), stoneMat);
   ground.position.y = 0.7 + H1 / 2;
   g.add(ground);
-  // Rustication lines (horizontal grooves on facade)
-  for (let i = 0; i < 5; i++) {
+  // Rustication lines (horizontal grooves) — placed above the ground-floor
+  // windows (which top out around y=2.55) and below the cornice (y=3.9),
+  // so they don't run through the glass. Pushed forward in Z so they don't
+  // z-fight with the wall.
+  for (let i = 0; i < 3; i++) {
     const ru = new THREE.Mesh(
-      new THREE.BoxGeometry(W, 0.04, 0.01),
+      new THREE.BoxGeometry(W, 0.05, 0.05),
       stoneDarkMat
     );
-    ru.position.set(0, 0.9 + i * 0.55, facadeZ + 0.005);
+    ru.position.set(0, 2.8 + i * 0.35, facadeZ + 0.04);
     g.add(ru);
   }
 
@@ -561,12 +559,12 @@ function buildHistoricBuilding() {
     );
     glass.position.set(x, 1.7, facadeZ + 0.03);
     g.add(glass);
-    // Mullion cross
+    // Mullion cross — V and H on slightly different Z so they don't z-fight
     const mulV = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.55, 0.04), windowFrameMat);
-    mulV.position.set(x, 1.7, facadeZ + 0.04);
+    mulV.position.set(x, 1.7, facadeZ + 0.05);
     g.add(mulV);
     const mulH = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.04, 0.04), windowFrameMat);
-    mulH.position.set(x, 1.7, facadeZ + 0.04);
+    mulH.position.set(x, 1.7, facadeZ + 0.06);
     g.add(mulH);
     // Sill below
     const sill = new THREE.Mesh(
@@ -655,20 +653,21 @@ function buildHistoricBuilding() {
   top.position.y = 0.7 + H1 + H2 / 2;
   g.add(top);
 
-  // Cornice between floors
+  // Cornice between floors — facade-only panel, sticks out 0.25 from wall
+  // (was a full wraparound box that cut through floor interiors).
   const cornice = new THREE.Mesh(
-    new THREE.BoxGeometry(W + 0.2, 0.18, D + 0.1),
+    new THREE.BoxGeometry(W + 0.3, 0.18, 0.25),
     stoneDarkMat
   );
-  cornice.position.y = 0.7 + H1 + 0.05;
+  cornice.position.set(0, 0.7 + H1 + 0.0, facadeZ + 0.12);
   g.add(cornice);
-  // Dentils (small teeth-shapes on cornice)
+  // Dentils — sit just below the cornice, pushed forward so they don't z-fight
   for (let i = 0; i < 28; i++) {
     const dent = new THREE.Mesh(
-      new THREE.BoxGeometry(0.16, 0.12, 0.06),
+      new THREE.BoxGeometry(0.16, 0.12, 0.08),
       stoneMat
     );
-    dent.position.set(-W / 2 + 0.3 + i * 0.5, 0.7 + H1 + 0.05, facadeZ + 0.07);
+    dent.position.set(-W / 2 + 0.3 + i * 0.5, 0.7 + H1 - 0.07, facadeZ + 0.28);
     g.add(dent);
   }
 
@@ -688,9 +687,9 @@ function buildHistoricBuilding() {
     glass.material.emissiveIntensity = 0.5;
     glass.position.set(x, 0.7 + H1 + H2 / 2, facadeZ - 0.1 + 0.03);
     g.add(glass);
-    // Mullion
+    // Mullion (V only on 2nd floor — slimmer windows don't need a cross)
     const mulV = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.42, 0.04), windowFrameMat);
-    mulV.position.set(x, 0.7 + H1 + H2 / 2, facadeZ - 0.1 + 0.04);
+    mulV.position.set(x, 0.7 + H1 + H2 / 2, facadeZ - 0.1 + 0.05);
     g.add(mulV);
   }
 
@@ -1228,7 +1227,7 @@ export default function SceneLogistics() {
         // Crane local +X = forward = same as truck. So crane faces same way.
         crane.position.set(
           lerp(chel.x + 1.2, chel.x - 0.6, p),
-          lerp(0, 0.9, p),
+          lerp(0, 0.55, p),                  // sit on truck deck (top y = 0.875)
           lerp(chel.z + 1.5, chel.z + 0.6, p)
         );
         crane.rotation.y = lerp(-Math.PI * 0.15, truck.rotation.y, p);
@@ -1253,11 +1252,11 @@ export default function SceneLogistics() {
         // Crane rides on truck deck — needs to inherit truck rotation,
         // sit at the deck height and a slight backward offset along truck local -X.
         // We do that by attaching crane to truck position + an offset rotated by truck.rotation.y.
-        const back = new THREE.Vector3(-1.5, 0.9, 0);
+        const back = new THREE.Vector3(-1.5, 0, 0);
         back.applyAxisAngle(new THREE.Vector3(0, 1, 0), truck.rotation.y);
         crane.position.set(
           truck.position.x + back.x,
-          0.9,
+          0.55,
           truck.position.z + back.z
         );
         crane.rotation.y = truck.rotation.y;
@@ -1284,9 +1283,9 @@ export default function SceneLogistics() {
         truck.position.copy(pos);
         truck.position.y = 0;
         orientToward(truck, dirEnd);
-        const back = new THREE.Vector3(-1.5, 0.9, 0);
+        const back = new THREE.Vector3(-1.5, 0, 0);
         back.applyAxisAngle(new THREE.Vector3(0, 1, 0), truck.rotation.y);
-        crane.position.set(pos.x + back.x, 0.9, pos.z + back.z);
+        crane.position.set(pos.x + back.x, 0.55, pos.z + back.z);
         crane.rotation.y = truck.rotation.y;
         // Turret swivels ~90° to face the building (which sits to the truck's right side)
         turret.rotation.y = lerp(0, -Math.PI / 2, p);
@@ -1308,9 +1307,9 @@ export default function SceneLogistics() {
         truck.position.copy(pos);
         truck.position.y = 0;
         orientToward(truck, dirEnd);
-        const back = new THREE.Vector3(-1.5, 0.9, 0);
+        const back = new THREE.Vector3(-1.5, 0, 0);
         back.applyAxisAngle(new THREE.Vector3(0, 1, 0), truck.rotation.y);
-        crane.position.set(pos.x + back.x, 0.9, pos.z + back.z);
+        crane.position.set(pos.x + back.x, 0.55, pos.z + back.z);
         crane.rotation.y = truck.rotation.y;
         turret.rotation.y = -Math.PI / 2;
         boomGroup.rotation.z = BOOM_LIFT + Math.sin(elapsed * 1.2) * 0.015;

@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { gsap } from 'gsap';
+import i18n from '../../i18n/i18n';
 import { disposeScene } from './_shared/disposeScene';
 
 export default function SceneVR() {
+    // useTranslation is used for the JSX caption (re-renders on language
+    // change). Inside the long-running useEffect we read i18n.t directly
+    // — it always pulls the current language without requiring deps.
+    const { t } = useTranslation();
     const mountRef = useRef(null);
     const [tooltip, setTooltip] = useState({ visible: false, text: '', x: 0, y: 0 });
 
@@ -162,7 +168,7 @@ export default function SceneVR() {
 
                         setTooltip({
                             visible: true,
-                            text: `Участник №${object.userData.id}`,
+                            text: i18n.t('creator.scene.vrMember', { n: object.userData.id }),
                             x: event.clientX,
                             y: event.clientY
                         });
@@ -334,7 +340,7 @@ export default function SceneVR() {
                 color: 'rgba(255,255,255,0.5)',
                 fontSize: '12px',
                 pointerEvents: 'none'
-            }}>Все в разных местах — но в одном пространстве. (Кликните на сферу)</div>
+            }}>{t('creator.scene.vrCaption')}</div>
         </>
     );
 }

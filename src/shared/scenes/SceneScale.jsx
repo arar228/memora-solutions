@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
@@ -7,32 +8,60 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
 import { Reflector } from 'three/examples/jsm/objects/Reflector';
 import { disposeScene } from './_shared/disposeScene';
 
+// Title / value / desc are localised: { ru, en } picked at use-site
+// based on the current i18n.language. Numerics, sizes, colors stay
+// shared since they're language-agnostic.
 const PROJECTS = [
-    { id: 1, size: 7, x: -4, z: -6, delay: 0, title: 'Учебные лаборатории', value: '500+ млн\u00A0₽',
-      desc: 'Проектирование и оснащение лабораторных комплексов для университетов и колледжей',
+    { id: 1, size: 7, x: -4, z: -6, delay: 0,
+      title: { ru: 'Учебные лаборатории', en: 'Educational laboratories' },
+      value: { ru: '500+ млн ₽', en: '$7M+' },
+      desc: { ru: 'Проектирование и оснащение лабораторных комплексов для университетов и колледжей',
+              en: 'Designing and equipping laboratory complexes for universities and colleges' },
       color: 0x6B4FA0, emissive: 0x3b2060, edgeColor: 0x9b7fd0 },
-    { id: 2, size: 5, x: 5, z: -4, delay: 0.15, title: 'IT-инфраструктура', value: '200+ млн\u00A0₽',
-      desc: 'Серверные, СКС, Wi-Fi, системы хранения данных',
+    { id: 2, size: 5, x: 5, z: -4, delay: 0.15,
+      title: { ru: 'IT-инфраструктура', en: 'IT infrastructure' },
+      value: { ru: '200+ млн ₽', en: '$2.8M+' },
+      desc: { ru: 'Серверные, СКС, Wi-Fi, системы хранения данных',
+              en: 'Server rooms, structured cabling, Wi-Fi, storage systems' },
       color: 0x2196F3, emissive: 0x0d47a1, edgeColor: 0x64b5f6 },
-    { id: 3, size: 3.5, x: -6, z: 4, delay: 0.3, title: 'Мощные компьютеры', value: '80+ млн\u00A0₽',
-      desc: 'Графические станции, 3D-моделирование, рендер-фермы',
+    { id: 3, size: 3.5, x: -6, z: 4, delay: 0.3,
+      title: { ru: 'Мощные компьютеры', en: 'High-performance workstations' },
+      value: { ru: '80+ млн ₽', en: '$1.1M+' },
+      desc: { ru: 'Графические станции, 3D-моделирование, рендер-фермы',
+              en: 'Graphics workstations, 3D modeling, render farms' },
       color: 0x2da39a, emissive: 0x1a6060, edgeColor: 0x4dd0c8 },
-    { id: 4, size: 3, x: 8, z: 5, delay: 0.45, title: 'VR-оборудование', value: '45+ млн\u00A0₽',
-      desc: 'Шлемы, контроллеры, трекинг, VR-классы',
+    { id: 4, size: 3, x: 8, z: 5, delay: 0.45,
+      title: { ru: 'VR-оборудование', en: 'VR equipment' },
+      value: { ru: '45+ млн ₽', en: '$630K+' },
+      desc: { ru: 'Шлемы, контроллеры, трекинг, VR-классы',
+              en: 'Headsets, controllers, tracking, VR classrooms' },
       color: 0xF44336, emissive: 0x8b1a11, edgeColor: 0xff7961 },
-    { id: 5, size: 2.5, x: 2, z: 10, delay: 0.6, title: 'Интерактивные комплексы', value: '20+ млн\u00A0₽',
-      desc: 'Панели, доски, проекционные системы',
+    { id: 5, size: 2.5, x: 2, z: 10, delay: 0.6,
+      title: { ru: 'Интерактивные комплексы', en: 'Interactive systems' },
+      value: { ru: '20+ млн ₽', en: '$280K+' },
+      desc: { ru: 'Панели, доски, проекционные системы',
+              en: 'Touch panels, smart boards, projection systems' },
       color: 0xFFC107, emissive: 0x8a6800, edgeColor: 0xfff350 },
-    { id: 6, size: 2, x: -4, z: 11, delay: 0.75, title: 'Системы ВКС', value: '15+ млн\u00A0₽',
-      desc: 'Видеоконференцсвязь, конференц-залы, гибридные аудитории',
+    { id: 6, size: 2, x: -4, z: 11, delay: 0.75,
+      title: { ru: 'Системы ВКС', en: 'Conferencing systems' },
+      value: { ru: '15+ млн ₽', en: '$210K+' },
+      desc: { ru: 'Видеоконференцсвязь, конференц-залы, гибридные аудитории',
+              en: 'Video conferencing, meeting rooms, hybrid auditoriums' },
       color: 0xFF5722, emissive: 0x8b2f00, edgeColor: 0xff8a65 }
 ];
 
+const pickLang = (obj, lang) => (obj && (obj[lang] || obj.ru)) || '';
+
 export default function SceneScale() {
+    const { t, i18n } = useTranslation();
     const mountRef = useRef(null);
     const [tooltip, setTooltip] = useState({ visible: false, text: '', x: 0, y: 0 });
     const [detail, setDetail] = useState(null);
     const closeRef = useRef(null);
+    // Stable ref so the long-running useEffect can read the current language
+    // without recreating the entire WebGL scene on every change.
+    const langRef = useRef(i18n.language);
+    useEffect(() => { langRef.current = i18n.language; }, [i18n.language]);
 
     useEffect(() => {
         if (!mountRef.current) return;
@@ -274,7 +303,12 @@ export default function SceneScale() {
                 zoomDir = 1; zoomProgress = 0; isZooming = true;
                 setTooltip(t => ({ ...t, visible: false }));
                 setTimeout(() => {
-                    setDetail({ title: group.userData.title, value: group.userData.value, desc: group.userData.desc });
+                    const lang = langRef.current;
+                    setDetail({
+                        title: pickLang(group.userData.title, lang),
+                        value: pickLang(group.userData.value, lang),
+                        desc: pickLang(group.userData.desc, lang),
+                    });
                 }, 300);
             }
         };
@@ -367,7 +401,10 @@ export default function SceneScale() {
                         renderer.domElement.style.cursor = 'pointer';
                     }
                     if (hoveredMesh) {
-                        setTooltip({ visible: true, text: `${hoveredMesh.userData.title} / ${hoveredMesh.userData.value}`, x: mouseScreen.x, y: mouseScreen.y });
+                        const lang = langRef.current;
+                        const title = pickLang(hoveredMesh.userData.title, lang);
+                        const value = pickLang(hoveredMesh.userData.value, lang);
+                        setTooltip({ visible: true, text: `${title} / ${value}`, x: mouseScreen.x, y: mouseScreen.y });
                     }
                 } else if (hoveredMesh) {
                     const hu = hoveredMesh.userData;
@@ -496,7 +533,7 @@ export default function SceneScale() {
                     <div style={{ fontSize: 22, fontWeight: 700, color: '#2da39a', marginBottom: 6, fontFamily: 'var(--font-display)' }}>{detail.value}</div>
                     <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>{detail.title}</div>
                     <div style={{ fontSize: 12, lineHeight: 1.6, color: 'rgba(255,255,255,0.7)' }}>{detail.desc}</div>
-                    <div style={{ marginTop: 12, fontSize: 10, color: 'rgba(255,255,255,0.35)', textAlign: 'center' }}>Кликните чтобы вернуться</div>
+                    <div style={{ marginTop: 12, fontSize: 10, color: 'rgba(255,255,255,0.35)', textAlign: 'center' }}>{t('creator.scene.closeHint')}</div>
                 </div>
             )}
             <style>{`@keyframes fadeSlideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }`}</style>

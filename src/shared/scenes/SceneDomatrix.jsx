@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { disposeScene } from './_shared/disposeScene';
@@ -40,6 +41,7 @@ const SYSTEMS = [
 ];
 
 export default function SceneDomatrix() {
+  const { t } = useTranslation();
   const mountRef = useRef(null);
   const [tooltip, setTooltip] = useState({ visible: false, text: '', id: '', x: 0, y: 0 });
   const [activeSystem, setActiveSystem] = useState(null);
@@ -429,7 +431,7 @@ export default function SceneDomatrix() {
           <div style={{ fontSize: 28, marginBottom: 4 }}>{activeSystem.icon}</div>
           <div style={{ fontSize: 18, fontWeight: 700, color: `#${activeSystem.color.toString(16).padStart(6,'0')}`, marginBottom: 4, fontFamily: 'var(--font-display)' }}>{activeSystem.id}</div>
           <div style={{ fontSize: 13, lineHeight: 1.5, color: 'rgba(255,255,255,0.8)' }}>{activeSystem.name}</div>
-          <div style={{ marginTop: 10, fontSize: 10, color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>Кликните чтобы закрыть</div>
+          <div style={{ marginTop: 10, fontSize: 10, color: 'rgba(255,255,255,0.3)', textAlign: 'center' }}>{t('creator.scene.domatrixCloseHint')}</div>
         </div>
       )}
 
@@ -439,7 +441,7 @@ export default function SceneDomatrix() {
         background: 'rgba(13,13,26,0.85)', padding: '6px 14px',
         borderRadius: '6px', border: '1px solid rgba(45,163,154,0.2)'
       }}>
-        {SYSTEMS.length} инженерных систем
+        {t('creator.scene.domatrixSystemsCount', { count: SYSTEMS.length })}
       </div>
 
       <style>{`@keyframes dFadeIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}`}</style>

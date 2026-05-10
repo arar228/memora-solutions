@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function isWebGLAvailable() {
     if (typeof window === 'undefined') return true;
@@ -12,6 +13,7 @@ function isWebGLAvailable() {
 }
 
 export default function WebGLFallback({ children, fallback }) {
+    const { t } = useTranslation();
     // Lazy initial state — runs once, no render-time side effects.
     const [supported] = useState(isWebGLAvailable);
 
@@ -29,7 +31,7 @@ export default function WebGLFallback({ children, fallback }) {
                 textAlign: 'center',
                 fontSize: '0.9rem',
             }}>
-                3D-сцена недоступна в этом браузере
+                {t('creator.scene.webglUnsupported')}
             </div>
         );
     }

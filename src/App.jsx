@@ -60,11 +60,29 @@ function ScrollToTop() {
   return null;
 }
 
+function GlobalLoaderHider() {
+  // Runs once after the React tree is mounted. The HTML splash loader in
+  // index.html is no longer needed — Suspense's LoadingFallback covers
+  // any further lazy-chunk waits.
+  useEffect(() => {
+    const loader = document.getElementById('global-loader');
+    if (!loader) return;
+    loader.classList.add('hide');
+    const remove = () => loader.remove();
+    loader.addEventListener('transitionend', remove, { once: true });
+    // Fallback in case the transition never fires.
+    const t = setTimeout(remove, 1000);
+    return () => clearTimeout(t);
+  }, []);
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <div className="app">
-      <ScrollToTop />
+        <GlobalLoaderHider />
+        <ScrollToTop />
         <GoldParticles />
         <Header />
         <main className="app__main">

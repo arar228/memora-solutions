@@ -1,8 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as THREE from 'three';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
+import i18n from '../../i18n/i18n';
 import { disposeScene } from './_shared/disposeScene';
 
-// Russia border [lon, lat] — ~70 key vertices for recognizable outline
+/* ======================================================================
+   SceneLogistics — story of the Chelyabinsk → Saint Petersburg crane.
+   Four acts on a 16-second loop:
+     1. SHOW   (0–3s)  — crane stands assembled in Chelyabinsk.
+     2. LOAD   (3–4.5s) — boom folds, crane settles onto a low-loader truck.
+     3. DRIVE  (4.5–10s) — truck rolls along the route, follow-cam tracks it.
+     4. LIFT   (10–14s) — truck stops by a historic building in St. Petersburg,
+                          crane raises its boom toward the rooftop.
+     5. HOLD   (14–16s) — wide cinematic shot of the building lit up.
+   ====================================================================== */
+
+// ───── Geographic outline (simplified Russia silhouette) ─────
 const BORDER = [
   [29.7,59.9],[28,57.8],[29,56],[30,54],[32,52.5],[35,52],[37,51],[39,49.5],
   [40,48],[39,47],[37,45],[38.5,44],[40,43.5],[43,42.5],[46,42],[48,42.5],
@@ -16,18 +33,331 @@ const BORDER = [
   [38,64.5],[35,66],[33,68],[33,69],[36,69.5],[38,68],[40,66],[38,65],
   [36,64],[34,63],[31,62],[29.7,59.9]
 ];
-
 const LON_C = 75, LAT_C = 58, SX = 1.2, SZ = 2.0;
 const toXZ = (lon, lat) => ({ x: (lon - LON_C) * SX, z: -(lat - LAT_C) * SZ });
 
 const CITIES = [
-  { name: 'Санкт-Петербург', lon: 30.3, lat: 59.9, color: 0x6B4FA0, role: 'end' },
-  { name: 'Москва', lon: 37.6, lat: 55.75, color: 0xffffff, role: 'pass' },
-  { name: 'Казань', lon: 49.1, lat: 55.8, color: 0xffa500, role: 'join' },
-  { name: 'Челябинск', lon: 61.4, lat: 55.2, color: 0xFFA500, role: 'start' },
+  { id: 'spb',  nameRu: 'Санкт-Петербург', nameEn: 'Saint Petersburg', lon: 30.3, lat: 59.9, color: 0x6B4FA0, role: 'end' },
+  { id: 'msk',  nameRu: 'Москва',           nameEn: 'Moscow',           lon: 37.6, lat: 55.75, color: 0x88c4ff, role: 'pass' },
+  { id: 'kzn',  nameRu: 'Казань',           nameEn: 'Kazan',            lon: 49.1, lat: 55.8, color: 0x88c4ff, role: 'pass' },
+  { id: 'chel', nameRu: 'Челябинск',        nameEn: 'Chelyabinsk',      lon: 61.4, lat: 55.2, color: 0xFFA500, role: 'start' },
 ];
 
+// ─────────────────────── Truck (low-loader) ───────────────────────
+function buildTruck() {
+  const truck = new THREE.Group();
+
+  const bodyMat = new THREE.MeshStandardMaterial({
+    color: 0x2a3242, roughness: 0.5, metalness: 0.4,
+  });
+  const cabinMat = new THREE.MeshStandardMaterial({
+    color: 0x4a5566, roughness: 0.45, metalness: 0.5,
+    emissive: 0x6B4FA0, emissiveIntensity: 0.05,
+  });
+  const wheelMat = new THREE.MeshStandardMaterial({
+    color: 0x111118, roughness: 0.85, metalness: 0.1,
+  });
+  const headlightMat = new THREE.MeshBasicMaterial({ color: 0xfff6c4 });
+  const trimMat = new THREE.MeshStandardMaterial({
+    color: 0x2da39a, emissive: 0x2da39a, emissiveIntensity: 0.7,
+    roughness: 0.4, metalness: 0.3,
+  });
+
+  // Cabin: short, tall, rounded shoulders
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.2, 2.0, 2.0), cabinMat);
+  cabin.position.set(-3.6, 1.5, 0);
+  truck.add(cabin);
+
+  // Roof spoiler
+  const spoiler = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.18, 1.6), bodyMat);
+  spoiler.position.set(-3.6, 2.7, 0);
+  truck.add(spoiler);
+
+  // Cabin windshield (dark glass)
+  const glassMat = new THREE.MeshPhysicalMaterial({
+    color: 0x0a1020, roughness: 0.05, transmission: 0.4,
+    thickness: 0.3, ior: 1.45, clearcoat: 1.0,
+  });
+  const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.06, 1.2, 1.6), glassMat);
+  windshield.position.set(-2.45, 1.85, 0);
+  truck.add(windshield);
+
+  // Headlights
+  for (const z of [-0.7, 0.7]) {
+    const hl = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.25, 0.35), headlightMat);
+    hl.position.set(-2.55, 0.95, z);
+    truck.add(hl);
+  }
+
+  // Low-loader deck (the long flat platform)
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(6.5, 0.35, 1.9), bodyMat);
+  deck.position.set(0.6, 0.7, 0);
+  truck.add(deck);
+
+  // Coupler between cabin and deck
+  const coupler = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 1.4), bodyMat);
+  coupler.position.set(-2.3, 1.0, 0);
+  truck.add(coupler);
+
+  // Teal trim stripe along the deck (catches bloom)
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(6.5, 0.05, 0.04), trimMat);
+  for (const z of [-0.95, 0.95]) {
+    const s = stripe.clone();
+    s.position.set(0.6, 0.92, z);
+    truck.add(s);
+  }
+
+  // Wheels — 2 cabin wheels + 6 deck wheels (low-loader has many axles)
+  const wheelGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.35, 16);
+  wheelGeo.rotateX(Math.PI / 2);
+  const cabinWheelXs = [-3.2, -4.1];
+  const deckWheelXs = [-1.2, -0.2, 0.8, 1.8, 2.7, 3.6];
+  const allWheelXs = [...cabinWheelXs, ...deckWheelXs];
+  for (const x of allWheelXs) {
+    for (const z of [-1.05, 1.05]) {
+      const w = new THREE.Mesh(wheelGeo, wheelMat);
+      w.position.set(x, 0.42, z);
+      truck.add(w);
+    }
+  }
+
+  return truck;
+}
+
+// ─────────────────────── Crane ───────────────────────
+// The crane is parented under a "base" so we can attach it either to the
+// world (act 1) or to the truck deck (acts 2-5) by reparenting.
+function buildCrane() {
+  const crane = new THREE.Group();
+
+  const chassisMat = new THREE.MeshStandardMaterial({
+    color: 0xc4882a, roughness: 0.5, metalness: 0.3,
+    emissive: 0x3a2408, emissiveIntensity: 0.15,
+  });
+  const accentMat = new THREE.MeshStandardMaterial({
+    color: 0x1a1a26, roughness: 0.6, metalness: 0.3,
+  });
+  const boomMat = new THREE.MeshStandardMaterial({
+    color: 0xddaa33, roughness: 0.4, metalness: 0.4,
+    emissive: 0x3a2408, emissiveIntensity: 0.18,
+  });
+  const lightMat = new THREE.MeshBasicMaterial({ color: 0x2da39a });
+
+  // Chassis (the carrier vehicle base) — flat, wide
+  const chassis = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.5, 1.6), chassisMat);
+  chassis.position.set(0, 0.55, 0);
+  crane.add(chassis);
+
+  // Chassis wheels — 4 small wheels (the crane sits on these on the ground;
+  // they're hidden visually when the crane is on the truck deck).
+  const cw = new THREE.CylinderGeometry(0.32, 0.32, 0.3, 14);
+  cw.rotateX(Math.PI / 2);
+  const cwMat = new THREE.MeshStandardMaterial({ color: 0x111118, roughness: 0.85 });
+  for (const x of [-1.2, 1.2]) {
+    for (const z of [-0.8, 0.8]) {
+      const w = new THREE.Mesh(cw, cwMat);
+      w.position.set(x, 0.32, z);
+      crane.add(w);
+    }
+  }
+
+  // Outriggers (stabilizer legs that fold out)
+  for (const x of [-1.4, 1.4]) {
+    for (const z of [-0.85, 0.85]) {
+      const leg = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.15, 0.4), accentMat);
+      leg.position.set(x, 0.45, z);
+      crane.add(leg);
+    }
+  }
+
+  // Operator cabin
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.95, 0.95), chassisMat);
+  cabin.position.set(-0.9, 1.27, 0);
+  crane.add(cabin);
+
+  const cabinGlass = new THREE.Mesh(
+    new THREE.BoxGeometry(0.05, 0.6, 0.7),
+    new THREE.MeshPhysicalMaterial({
+      color: 0x152040, roughness: 0.05, transmission: 0.4,
+      thickness: 0.2, ior: 1.45,
+    })
+  );
+  cabinGlass.position.set(-1.32, 1.35, 0);
+  crane.add(cabinGlass);
+
+  // Turret (the rotating yellow base the boom is attached to)
+  const turret = new THREE.Group();
+  const turretBase = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.65, 0.35, 16), chassisMat);
+  turretBase.position.y = 0.18;
+  turret.add(turretBase);
+
+  // Boom (extending arm) — created horizontal, pivots from origin
+  const boomGroup = new THREE.Group();
+  // Main lower segment — long box from origin out along +X
+  const boom1Len = 4.2;
+  const boom1 = new THREE.Mesh(new THREE.BoxGeometry(boom1Len, 0.32, 0.35), boomMat);
+  boom1.position.set(boom1Len / 2 + 0.15, 0.35, 0);
+  boomGroup.add(boom1);
+
+  // Lattice strip along boom (gives it that "industrial" feel)
+  const lattice = new THREE.Mesh(
+    new THREE.BoxGeometry(boom1Len, 0.04, 0.04),
+    new THREE.MeshStandardMaterial({ color: 0x1a1a26 })
+  );
+  lattice.position.set(boom1Len / 2 + 0.15, 0.18, 0);
+  boomGroup.add(lattice);
+
+  // Telescoping inner section (slightly thinner box on top)
+  const boom2 = new THREE.Mesh(new THREE.BoxGeometry(boom1Len * 0.85, 0.22, 0.25), boomMat);
+  boom2.position.set(boom1Len / 2 + 0.4, 0.45, 0);
+  boomGroup.add(boom2);
+
+  // Hook hanging from boom tip
+  const hookCable = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.015, 0.015, 0.8, 6),
+    new THREE.MeshStandardMaterial({ color: 0x222226 })
+  );
+  hookCable.position.set(boom1Len + 0.15, 0.0, 0);
+  boomGroup.add(hookCable);
+  const hook = new THREE.Mesh(
+    new THREE.ConeGeometry(0.1, 0.18, 8),
+    new THREE.MeshStandardMaterial({ color: 0x444450, metalness: 0.6, roughness: 0.4 })
+  );
+  hook.rotation.z = Math.PI;
+  hook.position.set(boom1Len + 0.15, -0.45, 0);
+  boomGroup.add(hook);
+
+  boomGroup.position.set(0.45, 0.4, 0);
+  // Start horizontal pointing forward (+X). We'll animate its rotation.z.
+  turret.add(boomGroup);
+
+  // Counterweight on the back of the turret
+  const counter = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.4, 1.1), accentMat);
+  counter.position.set(-0.55, 0.3, 0);
+  turret.add(counter);
+
+  turret.position.set(0.4, 1.0, 0);
+  crane.add(turret);
+
+  // Warning beacon on top of cabin (pulses)
+  const beacon = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), lightMat);
+  beacon.position.set(-0.9, 1.85, 0);
+  crane.add(beacon);
+
+  return { crane, boomGroup, turret, beacon };
+}
+
+// ─────────── Historic building (St Petersburg classical facade) ───────────
+function buildHistoricBuilding() {
+  const g = new THREE.Group();
+
+  const stoneMat = new THREE.MeshStandardMaterial({
+    color: 0xc6b59c, roughness: 0.85, metalness: 0.0,
+  });
+  const stoneDarkMat = new THREE.MeshStandardMaterial({
+    color: 0x6c5e4d, roughness: 0.9, metalness: 0.0,
+  });
+  const windowMat = new THREE.MeshStandardMaterial({
+    color: 0xffe9a8, emissive: 0xffe9a8, emissiveIntensity: 0.9,
+    transparent: true, opacity: 0.9,
+  });
+  const roofMat = new THREE.MeshStandardMaterial({
+    color: 0x5a6a52, roughness: 0.6, metalness: 0.3,
+  });
+
+  const W = 12, D = 5, H1 = 3.0, H2 = 2.6;
+
+  // Ground floor
+  const ground = new THREE.Mesh(new THREE.BoxGeometry(W, H1, D), stoneMat);
+  ground.position.y = H1 / 2;
+  g.add(ground);
+
+  // Window cutouts on ground floor (warm glow strips)
+  for (const x of [-4.5, -2.5, -0.5, 1.5, 3.5, 5.5]) {
+    const win = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.4, 0.05), windowMat);
+    win.position.set(x - 0.5, 1.6, D / 2 + 0.001);
+    g.add(win);
+  }
+  // Main entrance (taller darker arch)
+  const door = new THREE.Mesh(new THREE.BoxGeometry(1.4, 2.4, 0.05), windowMat);
+  door.material.emissiveIntensity = 1.4;
+  door.position.set(0, 1.2, D / 2 + 0.002);
+  g.add(door);
+
+  // Steps in front of entrance — 4 stone steps
+  for (let i = 0; i < 4; i++) {
+    const step = new THREE.Mesh(
+      new THREE.BoxGeometry(3.0 - i * 0.2, 0.18, 0.45),
+      stoneDarkMat
+    );
+    step.position.set(0, 0.09 + i * 0.18, D / 2 + 0.45 - i * 0.18);
+    g.add(step);
+  }
+
+  // 2nd floor (slightly recessed)
+  const top = new THREE.Mesh(
+    new THREE.BoxGeometry(W - 0.8, H2, D - 0.4),
+    stoneMat
+  );
+  top.position.y = H1 + H2 / 2;
+  g.add(top);
+
+  // 2nd floor windows
+  for (const x of [-4.5, -2.5, -0.5, 1.5, 3.5, 5.5]) {
+    const win = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.1, 0.05), windowMat);
+    win.material = windowMat.clone();
+    win.material.emissiveIntensity = 0.4;
+    win.position.set(x - 0.5, H1 + H2 / 2, (D - 0.4) / 2 + 0.001);
+    g.add(win);
+  }
+
+  // Classical 6-column portico in front of entrance
+  const colMat = stoneMat;
+  for (const x of [-3.6, -2.2, -0.8, 0.8, 2.2, 3.6]) {
+    const col = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, H1 + H2 - 0.4, 12), colMat);
+    col.position.set(x - 0.5, (H1 + H2 - 0.4) / 2 + 0.18, D / 2 + 0.55);
+    g.add(col);
+    // Cap (capital) on top
+    const cap = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.12, 0.46), stoneDarkMat);
+    cap.position.set(x - 0.5, H1 + H2 - 0.22, D / 2 + 0.55);
+    g.add(cap);
+  }
+
+  // Triangular pediment above the columns
+  const pedShape = new THREE.Shape();
+  pedShape.moveTo(-3.5, 0);
+  pedShape.lineTo(3.5, 0);
+  pedShape.lineTo(0, 1.1);
+  pedShape.lineTo(-3.5, 0);
+  const ped = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(pedShape, { depth: 0.3, bevelEnabled: false }),
+    stoneMat
+  );
+  ped.rotation.y = 0;
+  ped.position.set(-0.5, H1 + H2 - 0.1, D / 2 + 0.4);
+  g.add(ped);
+
+  // Roof — slanted simple
+  const roof = new THREE.Mesh(new THREE.BoxGeometry(W, 0.22, D), roofMat);
+  roof.position.y = H1 + H2 + 0.11;
+  g.add(roof);
+
+  // Roof crown lights (warm glow strip — the spot we'll lift to)
+  for (const x of [-4, -2, 0, 2, 4]) {
+    const crown = new THREE.Mesh(
+      new THREE.SphereGeometry(0.12, 8, 8),
+      new THREE.MeshBasicMaterial({ color: 0xffd28a })
+    );
+    crown.position.set(x, H1 + H2 + 0.3, 0);
+    g.add(crown);
+  }
+
+  return g;
+}
+
+// ─────────────────────────────────────────────────────────────
 export default function SceneLogistics() {
+  const { t } = useTranslation();
   const mountRef = useRef(null);
   const [labels, setLabels] = useState([]);
 
@@ -38,198 +368,235 @@ export default function SceneLogistics() {
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#0D0D1A');
-    scene.fog = new THREE.FogExp2('#0D0D1A', 0.002);
+    scene.fog = new THREE.FogExp2('#0D0D1A', 0.0035);
 
     const camera = new THREE.PerspectiveCamera(40, W / H, 1, 800);
+
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(W, H);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.domElement.style.touchAction = 'pan-y';
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     el.appendChild(renderer.domElement);
 
-    // Lights
-    scene.add(new THREE.AmbientLight(0x4444aa, 0.5));
-    const dL = new THREE.DirectionalLight(0xffffff, 0.7);
-    dL.position.set(40, 150, 80);
-    scene.add(dL);
+    // ─── Lights ──────────────────────────────────────────
+    scene.add(new THREE.AmbientLight(0x445577, 0.45));
 
-    // === MAP ===
-    const shape = new THREE.Shape();
-    const fp = toXZ(BORDER[0][0], BORDER[0][1]);
-    shape.moveTo(fp.x, fp.z);
-    for (let i = 1; i < BORDER.length; i++) {
-      const p = toXZ(BORDER[i][0], BORDER[i][1]);
-      shape.lineTo(p.x, p.z);
-    }
-    shape.closePath();
+    const keyLight = new THREE.DirectionalLight(0xffd9a8, 0.9);
+    keyLight.position.set(40, 80, 60);
+    scene.add(keyLight);
 
-    // Land surface
-    const mapGeo = new THREE.ShapeGeometry(shape, 1);
-    const mapMat = new THREE.MeshStandardMaterial({
-      color: 0x12122a, roughness: 0.9, metalness: 0.1, side: THREE.DoubleSide,
-      emissive: 0x080818, emissiveIntensity: 0.4
+    const fillLight = new THREE.DirectionalLight(0x6B4FA0, 0.35);
+    fillLight.position.set(-40, 30, -10);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.DirectionalLight(0x2da39a, 0.4);
+    rimLight.position.set(0, 20, -60);
+    scene.add(rimLight);
+
+    // ─── Russia outline (no fill, thin teal lines only) ──
+    const outlinePts = BORDER.map(([lo, la]) => {
+      const p = toXZ(lo, la);
+      return new THREE.Vector3(p.x, 0.4, p.z);
     });
-    const mapMesh = new THREE.Mesh(mapGeo, mapMat);
-    mapMesh.rotation.x = -Math.PI / 2;
-    scene.add(mapMesh);
-
-    // Glowing border
-    const bPts = BORDER.map(([lo, la]) => { const p = toXZ(lo, la); return new THREE.Vector3(p.x, 0.5, p.z); });
-    bPts.push(bPts[0].clone());
-    const bLine = new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints(bPts),
-      new THREE.LineBasicMaterial({ color: 0x2da39a, transparent: true, opacity: 0.7 })
+    outlinePts.push(outlinePts[0].clone());
+    const outline = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(outlinePts),
+      new THREE.LineBasicMaterial({ color: 0x2da39a, transparent: true, opacity: 0.5 })
     );
-    scene.add(bLine);
+    scene.add(outline);
 
-    // Inner grid for tech feel
-    const gridHelper = new THREE.GridHelper(300, 60, 0x1a1a3a, 0x0f0f25);
-    gridHelper.position.y = -0.1;
-    scene.add(gridHelper);
+    // Soft glow second pass — slightly larger, lower opacity
+    const outlineGlow = outline.clone();
+    outlineGlow.material = outline.material.clone();
+    outlineGlow.material.opacity = 0.12;
+    outlineGlow.position.y = 0.3;
+    scene.add(outlineGlow);
 
-    // === CITIES ===
-    const cityMeshes = [];
-    const cityGeo = new THREE.SphereGeometry(1.8, 16, 16);
-    const ringGeo = new THREE.RingGeometry(2.5, 3.2, 32);
-
-    CITIES.forEach(c => {
+    // ─── Cities (markers + vertical light beacons) ──────
+    const cityNodes = [];
+    for (const c of CITIES) {
       const pos = toXZ(c.lon, c.lat);
-
-      // Sphere marker
+      // Marker dot
       const mat = new THREE.MeshBasicMaterial({ color: c.color });
-      const mesh = new THREE.Mesh(cityGeo, mat);
-      mesh.position.set(pos.x, 1, pos.z);
-      scene.add(mesh);
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(0.45, 12, 12), mat);
+      dot.position.set(pos.x, 0.5, pos.z);
+      scene.add(dot);
 
-      // Ring around marker
-      const rMat = new THREE.MeshBasicMaterial({ color: c.color, transparent: true, opacity: 0.4, side: THREE.DoubleSide });
-      const ring = new THREE.Mesh(ringGeo, rMat);
+      // Beacon — a vertical thin glowing column reaching up
+      const beaconHeight = c.role === 'pass' ? 6 : 12;
+      const beam = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.12, 0.04, beaconHeight, 8, 1, true),
+        new THREE.MeshBasicMaterial({
+          color: c.color, transparent: true, opacity: 0.35,
+          side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        })
+      );
+      beam.position.set(pos.x, beaconHeight / 2, pos.z);
+      scene.add(beam);
+
+      // Outer pulsing ring on the ground around the marker
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(0.7, 0.95, 32),
+        new THREE.MeshBasicMaterial({
+          color: c.color, transparent: true, opacity: 0.5,
+          side: THREE.DoubleSide,
+        })
+      );
       ring.rotation.x = -Math.PI / 2;
-      ring.position.set(pos.x, 0.3, pos.z);
+      ring.position.set(pos.x, 0.05, pos.z);
       scene.add(ring);
 
-      cityMeshes.push({ mesh, ring, ...c, sceneX: pos.x, sceneZ: pos.z });
-    });
+      cityNodes.push({ ...c, sceneX: pos.x, sceneZ: pos.z, dot, beam, ring });
+    }
 
-    // === ROUTE CURVE ===
+    // ─── Route (dashed double line) ─────────────────────
     const chel = toXZ(61.4, 55.2);
-    const kaz = toXZ(49.1, 55.8);
-    const mos = toXZ(37.6, 55.75);
+    const kzn = toXZ(49.1, 55.8);
+    const msk = toXZ(37.6, 55.75);
     const spb = toXZ(30.3, 59.9);
-
+    // Build route as a smooth curve with slight bumps so it doesn't look ruler-straight
     const routeCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(chel.x, 2, chel.z),
-      new THREE.Vector3((chel.x + kaz.x) / 2, 2, (chel.z + kaz.z) / 2 - 3),
-      new THREE.Vector3(kaz.x, 2, kaz.z),
-      new THREE.Vector3((kaz.x + mos.x) / 2, 2, (kaz.z + mos.z) / 2 + 2),
-      new THREE.Vector3(mos.x, 2, mos.z),
-      new THREE.Vector3((mos.x + spb.x) / 2, 2, (mos.z + spb.z) / 2 - 3),
-      new THREE.Vector3(spb.x, 2, spb.z),
+      new THREE.Vector3(chel.x, 0.45, chel.z),
+      new THREE.Vector3((chel.x + kzn.x) / 2, 0.45, (chel.z + kzn.z) / 2 - 1.5),
+      new THREE.Vector3(kzn.x, 0.45, kzn.z),
+      new THREE.Vector3((kzn.x + msk.x) / 2, 0.45, (kzn.z + msk.z) / 2 + 1.0),
+      new THREE.Vector3(msk.x, 0.45, msk.z),
+      new THREE.Vector3((msk.x + spb.x) / 2, 0.45, (msk.z + spb.z) / 2 - 1.5),
+      new THREE.Vector3(spb.x, 0.45, spb.z),
     ], false, 'catmullrom', 0.5);
 
-    // Route trail line (drawn progressively)
-    const routePoints = routeCurve.getPoints(200);
-    const trailGeo = new THREE.BufferGeometry().setFromPoints(routePoints);
-    const trailMat = new THREE.LineBasicMaterial({ color: 0x2da39a, transparent: true, opacity: 0.9 });
+    // Two dashed offset rails (looks like a road on a paper map)
+    const routePts = routeCurve.getPoints(220);
+    function makeRail(offsetZ, color, opacity) {
+      const pts = routePts.map(p => new THREE.Vector3(p.x, p.y, p.z + offsetZ));
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      const mat = new THREE.LineDashedMaterial({
+        color, dashSize: 0.5, gapSize: 0.4, transparent: true, opacity,
+      });
+      const line = new THREE.Line(geo, mat);
+      line.computeLineDistances();
+      return line;
+    }
+    const railA = makeRail(-0.18, 0x88c4ff, 0.55);
+    const railB = makeRail(0.18, 0x88c4ff, 0.55);
+    scene.add(railA, railB);
+
+    // Solid travelled-trail line (gets drawn progressively as the truck moves)
+    const trailGeo = new THREE.BufferGeometry().setFromPoints(routePts);
+    const trailMat = new THREE.LineBasicMaterial({
+      color: 0x2da39a, transparent: true, opacity: 0.95,
+    });
     const trailLine = new THREE.Line(trailGeo, trailMat);
     trailLine.geometry.setDrawRange(0, 0);
     scene.add(trailLine);
 
-    // === PRODUCT (assembly of pieces) ===
-    const productGroup = new THREE.Group();
-    const pieceMat = new THREE.MeshStandardMaterial({ color: 0xffa500, emissive: 0x804000, emissiveIntensity: 0.3 });
-    const pieceGeo = new THREE.BoxGeometry(1, 1, 1);
+    // ─── Truck + crane ──────────────────────────────────
+    const truck = buildTruck();
+    truck.visible = false;
+    scene.add(truck);
 
-    // Main body pieces (assemble at Chelyabinsk)
-    const mainPieces = [];
-    const mainOffsets = [
-      [-0.6, 0, -0.6], [0.6, 0, -0.6], [-0.6, 0, 0.6], [0.6, 0, 0.6]
-    ];
-    mainOffsets.forEach(off => {
-      const m = new THREE.Mesh(pieceGeo, pieceMat.clone());
-      m.userData.targetOff = new THREE.Vector3(...off);
-      m.userData.startOff = new THREE.Vector3(
-        off[0] * 12 + (Math.random() - 0.5) * 10,
-        8 + Math.random() * 6,
-        off[2] * 12 + (Math.random() - 0.5) * 10
-      );
-      productGroup.add(m);
-      mainPieces.push(m);
+    const { crane, boomGroup, turret, beacon } = buildCrane();
+    // Place crane standing in Chelyabinsk initially
+    crane.position.set(chel.x + 1, 0, chel.z + 1);
+    scene.add(crane);
+
+    // ─── Historic building (Petersburg, near SPb beacon) ─
+    const building = buildHistoricBuilding();
+    building.position.set(spb.x - 1, 0.4, spb.z + 4);
+    building.rotation.y = Math.PI / 2 - 0.3; // angle so the facade faces incoming truck
+    building.visible = false; // appears in act 4
+    scene.add(building);
+
+    // Warm spotlight for the building (lit when act 4 begins)
+    const buildingLight = new THREE.SpotLight(0xffd28a, 0, 30, Math.PI / 4, 0.5, 1.0);
+    buildingLight.position.set(spb.x - 1, 6, spb.z + 12);
+    buildingLight.target.position.set(spb.x - 1, 2, spb.z + 4);
+    scene.add(buildingLight);
+    scene.add(buildingLight.target);
+
+    // ─── Snow particles (visible during act 3-5) ────────
+    const SNOW = 250;
+    const snowGeo = new THREE.BufferGeometry();
+    const snowPos = new Float32Array(SNOW * 3);
+    const snowSpeed = new Float32Array(SNOW);
+    for (let i = 0; i < SNOW; i++) {
+      // Concentrated around SPb area (where weather is "active")
+      snowPos[i * 3] = spb.x + (Math.random() - 0.5) * 30;
+      snowPos[i * 3 + 1] = Math.random() * 18;
+      snowPos[i * 3 + 2] = spb.z + (Math.random() - 0.5) * 25;
+      snowSpeed[i] = 0.04 + Math.random() * 0.06;
+    }
+    snowGeo.setAttribute('position', new THREE.BufferAttribute(snowPos, 3));
+    const snowMat = new THREE.PointsMaterial({
+      color: 0xeaf2ff, size: 0.18, transparent: true, opacity: 0,
+      depthWrite: false, blending: THREE.AdditiveBlending,
     });
+    const snow = new THREE.Points(snowGeo, snowMat);
+    scene.add(snow);
 
-    // Extra pieces (join at Kazan)
-    const extraPieces = [];
-    const extraOffsets = [[0, 1.1, 0], [0, -0.1, 0]];
-    extraOffsets.forEach(off => {
-      const m = new THREE.Mesh(pieceGeo, pieceMat.clone());
-      m.material.color.setHex(0x6B4FA0);
-      m.material.emissive.setHex(0x3b2060);
-      m.userData.targetOff = new THREE.Vector3(...off);
-      m.visible = false;
-      productGroup.add(m);
-      extraPieces.push(m);
+    // ─── Ambient star particles (subtle, scene-wide) ────
+    const STARS = 180;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(STARS * 3);
+    for (let i = 0; i < STARS; i++) {
+      starPos[i * 3] = (Math.random() - 0.5) * 120;
+      starPos[i * 3 + 1] = 5 + Math.random() * 35;
+      starPos[i * 3 + 2] = (Math.random() - 0.5) * 80;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const starMat = new THREE.PointsMaterial({
+      color: 0x88aaff, size: 0.1, transparent: true, opacity: 0.4,
+      blending: THREE.AdditiveBlending, depthWrite: false,
     });
+    scene.add(new THREE.Points(starGeo, starMat));
 
-    productGroup.position.set(chel.x, 2, chel.z);
-    scene.add(productGroup);
+    // ─── Post-processing: bloom on emissive elements ────
+    const composer = new EffectComposer(renderer);
+    composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    composer.setSize(W, H);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.55, 0.55, 0.0);
+    composer.addPass(bloom);
+    composer.addPass(new OutputPass());
 
-    // === AIRPLANE MODEL ===
-    const plane3D = new THREE.Group();
-    // Fuselage
-    const fuselageGeo = new THREE.ConeGeometry(0.6, 4, 8);
-    const fuselageMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x2da39a, emissiveIntensity: 0.3 });
-    const fuselage = new THREE.Mesh(fuselageGeo, fuselageMat);
-    fuselage.rotation.x = Math.PI / 2; // Point forward (along Z)
-    plane3D.add(fuselage);
-    // Wings
-    const wingGeo = new THREE.BoxGeometry(6, 0.15, 1.5);
-    const wingMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, emissive: 0x2da39a, emissiveIntensity: 0.2 });
-    const wings = new THREE.Mesh(wingGeo, wingMat);
-    wings.position.z = 0.5;
-    plane3D.add(wings);
-    // Tail fin
-    const tailGeo = new THREE.BoxGeometry(0.15, 1.5, 1);
-    const tailMat = new THREE.MeshStandardMaterial({ color: 0x6B4FA0, emissive: 0x6B4FA0, emissiveIntensity: 0.3 });
-    const tail = new THREE.Mesh(tailGeo, tailMat);
-    tail.position.set(0, 0.6, 1.8);
-    plane3D.add(tail);
-    // Tail wings
-    const tailWingGeo = new THREE.BoxGeometry(2.5, 0.12, 0.8);
-    const tailWings = new THREE.Mesh(tailWingGeo, wingMat.clone());
-    tailWings.position.set(0, 0, 1.8);
-    plane3D.add(tailWings);
-    plane3D.visible = false;
-    plane3D.scale.setScalar(1.2);
-    scene.add(plane3D);
-    let prevPlanePos = null;
-
-    // === ANIMATION ===
+    // ─── Animation timeline ────────────────────────────
     const clock = new THREE.Clock();
     let animId, isVisible = false;
 
-    // Phase timing
-    const ASSEMBLY_DUR = 3;
-    const TRAVEL1_DUR = 3;   // Chel → Kazan
-    const JOIN_DUR = 1.5;
-    const TRAVEL2_DUR = 4;   // Kazan → SPb
-    const HOLD_DUR = 2;
-    const TOTAL = ASSEMBLY_DUR + TRAVEL1_DUR + JOIN_DUR + TRAVEL2_DUR + HOLD_DUR;
-    const T1 = ASSEMBLY_DUR;
-    const T2 = T1 + TRAVEL1_DUR;
-    const T3 = T2 + JOIN_DUR;
-    const T4 = T3 + TRAVEL2_DUR;
+    const T_SHOW = 3.0;
+    const T_LOAD = 1.5;
+    const T_DRIVE = 5.5;
+    const T_LIFT = 4.0;
+    const T_HOLD = 2.0;
+    const T1 = T_SHOW;
+    const T2 = T1 + T_LOAD;
+    const T3 = T2 + T_DRIVE;
+    const T4 = T3 + T_LIFT;
+    const TOTAL = T4 + T_HOLD;
 
-    const easeOut = t => 1 - Math.pow(1 - t, 3);
-    const easeInOut = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+    const easeInOut = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+    const lerp = (a, b, t) => a + (b - a) * t;
 
-    // Camera keyframes: { time, pos, lookAt }
+    // Camera keyframes — { t, pos, look }. Interpolated continuously.
     const camFrames = [
-      { t: 0,    pos: [chel.x + 15, 40, chel.z + 25], look: [chel.x, 0, chel.z] },
-      { t: T1,   pos: [chel.x + 10, 30, chel.z + 20], look: [chel.x, 2, chel.z] },
-      { t: T2,   pos: [(chel.x+spb.x)/2, 80, 50],     look: [(chel.x+spb.x)/2, 0, (chel.z+spb.z)/2] },
-      { t: T3,   pos: [mos.x + 20, 50, mos.z + 30],   look: [mos.x, 0, mos.z] },
-      { t: T4,   pos: [0, 120, 60],                    look: [-20, 0, -5] },
-      { t: TOTAL, pos: [0, 120, 60],                   look: [-20, 0, -5] },
+      // Act 1: SHOW — high 3/4 view of Chelyabinsk crane
+      { t: 0,    pos: [chel.x + 8, 6, chel.z + 9],   look: [chel.x + 1, 1.2, chel.z + 1] },
+      { t: T1,   pos: [chel.x + 6, 4, chel.z + 6],   look: [chel.x + 1, 1.0, chel.z + 1] },
+      // Act 2: LOAD — pull back slightly
+      { t: T2,   pos: [chel.x + 9, 7, chel.z + 7],   look: [chel.x + 1, 1.0, chel.z + 1] },
+      // Act 3: DRIVE — overhead following the truck
+      { t: T2 + 0.6, pos: [chel.x - 4, 22, chel.z + 8], look: [chel.x, 0, chel.z] },
+      { t: T3 - 0.5, pos: [spb.x + 6, 22, spb.z + 12],  look: [spb.x, 0, spb.z + 2] },
+      // Act 4: LIFT — low angle on building + crane
+      { t: T3,   pos: [spb.x + 8, 4, spb.z + 13],     look: [spb.x - 1, 4, spb.z + 4] },
+      { t: T4,   pos: [spb.x + 12, 6, spb.z + 14],    look: [spb.x - 1, 4.5, spb.z + 4] },
+      // Act 5: HOLD — wide cinematic
+      { t: TOTAL, pos: [spb.x + 18, 9, spb.z + 18],   look: [spb.x - 1, 3.5, spb.z + 4] },
     ];
 
     const lerpCam = (time) => {
@@ -242,133 +609,190 @@ export default function SceneLogistics() {
       const dur = b.t - a.t || 1;
       const p = easeInOut(Math.max(0, Math.min(1, (time - a.t) / dur)));
       camera.position.set(
-        THREE.MathUtils.lerp(a.pos[0], b.pos[0], p),
-        THREE.MathUtils.lerp(a.pos[1], b.pos[1], p),
-        THREE.MathUtils.lerp(a.pos[2], b.pos[2], p)
+        lerp(a.pos[0], b.pos[0], p),
+        lerp(a.pos[1], b.pos[1], p),
+        lerp(a.pos[2], b.pos[2], p)
       );
       camera.lookAt(
-        THREE.MathUtils.lerp(a.look[0], b.look[0], p),
-        THREE.MathUtils.lerp(a.look[1], b.look[1], p),
-        THREE.MathUtils.lerp(a.look[2], b.look[2], p)
+        lerp(a.look[0], b.look[0], p),
+        lerp(a.look[1], b.look[1], p),
+        lerp(a.look[2], b.look[2], p)
       );
     };
 
-    // Update city labels screen positions
-    const updateLabels = () => {
-      const arr = cityMeshes.map(c => {
+    // Truck heading helper: orient along route direction
+    let prevTruckPos = null;
+    const orientToward = (obj, pos) => {
+      if (!prevTruckPos) { prevTruckPos = pos.clone(); return; }
+      const dir = new THREE.Vector3().subVectors(pos, prevTruckPos);
+      if (dir.lengthSq() > 0.0001) {
+        // We model the truck as facing -X by default (cabin at -3.6),
+        // so we want it to face the direction of travel.
+        const angle = Math.atan2(dir.x, dir.z);
+        obj.rotation.y = angle - Math.PI / 2;
+      }
+      prevTruckPos = pos.clone();
+    };
+
+    // Update DOM city labels each frame (in screen space)
+    const updateLabels = (lang) => {
+      const arr = cityNodes.map(c => {
         const v = new THREE.Vector3(c.sceneX, 4, c.sceneZ);
         v.project(camera);
         return {
-          name: c.name,
+          name: lang === 'en' ? c.nameEn : c.nameRu,
           x: (v.x * 0.5 + 0.5) * W,
           y: (-v.y * 0.5 + 0.5) * H,
-          visible: v.z < 1
+          visible: v.z < 1,
+          color: '#' + c.color.toString(16).padStart(6, '0'),
         };
       });
       setLabels(arr);
     };
 
+    // Read the current language without putting `t` in the effect deps —
+    // otherwise switching language would tear down and rebuild the whole
+    // WebGL scene. The listener just updates a local variable.
+    let labelLang = i18n.language || 'ru';
+    const onLangChanged = (lng) => { labelLang = lng || 'ru'; };
+    i18n.on('languageChanged', onLangChanged);
+
+    // Main animation loop
     const tick = () => {
       animId = requestAnimationFrame(tick);
       if (!isVisible) return;
 
       const elapsed = clock.getElapsedTime();
-      const t = elapsed % TOTAL;
+      const time = elapsed % TOTAL;
 
-      // Camera
-      lerpCam(t);
+      lerpCam(time);
 
-      // City pulsation
-      const time = elapsed;
-      cityMeshes.forEach(c => {
-        c.mesh.scale.setScalar(1 + Math.sin(time * 3 + c.sceneX) * 0.15);
-        c.ring.scale.setScalar(1 + Math.sin(time * 2) * 0.1);
-        c.ring.material.opacity = 0.2 + Math.sin(time * 2) * 0.15;
+      // City breathing
+      cityNodes.forEach(c => {
+        c.dot.scale.setScalar(1 + Math.sin(elapsed * 2.4 + c.sceneX * 0.1) * 0.15);
+        c.ring.scale.setScalar(1 + Math.sin(elapsed * 1.6 + c.sceneZ * 0.1) * 0.2);
+        c.ring.material.opacity = 0.3 + Math.sin(elapsed * 1.6) * 0.2;
+        c.beam.material.opacity = 0.25 + Math.sin(elapsed * 1.5 + c.sceneX) * 0.12;
       });
 
-      // Border glow pulsation
-      bLine.material.opacity = 0.5 + Math.sin(time * 1.5) * 0.2;
+      // Outline subtle pulse
+      outline.material.opacity = 0.45 + Math.sin(elapsed * 0.5) * 0.05;
 
-      // === PHASE: ASSEMBLY (0 → T1) ===
-      if (t < T1) {
-        const p = easeOut(Math.min(1, t / T1));
-        mainPieces.forEach(m => {
-          m.position.lerpVectors(m.userData.startOff, m.userData.targetOff, p);
-        });
-        extraPieces.forEach(m => { m.visible = false; });
-        productGroup.position.set(chel.x, 2, chel.z);
-        plane3D.visible = false;
+      // Crane warning beacon
+      beacon.material.color.setHSL(0.5 + Math.sin(elapsed * 4) * 0.05, 0.7, 0.5);
+      beacon.scale.setScalar(0.9 + Math.sin(elapsed * 8) * 0.25);
+
+      // ─── ACT 1: SHOW (crane in Chelyabinsk, boom horizontal) ─
+      if (time < T1) {
+        truck.visible = false;
+        building.visible = false;
+        crane.position.set(chel.x + 1, 0, chel.z + 1);
+        crane.rotation.y = -Math.PI * 0.15;
+        // Boom horizontal, rotating slightly to "scan"
+        boomGroup.rotation.z = lerp(0, -0.05, easeInOut(time / T1));
+        turret.rotation.y = Math.sin(elapsed * 0.4) * 0.15;
         trailLine.geometry.setDrawRange(0, 0);
+        snowMat.opacity = 0;
+        buildingLight.intensity = 0;
       }
 
-      // === PHASE: TRAVEL Chel → Kazan (T1 → T2) ===
-      if (t >= T1 && t < T2) {
-        const p = easeInOut((t - T1) / TRAVEL1_DUR);
-        const routeP = p * 0.4; // 0-40% of route = Chel→Kazan
-        const pos = routeCurve.getPointAt(routeP);
-        productGroup.position.copy(pos);
-        plane3D.visible = true;
-        plane3D.position.copy(pos);
-        plane3D.position.y += 3;
-        // Orient plane along route direction
-        if (prevPlanePos) {
-          const dir = new THREE.Vector3().subVectors(pos, prevPlanePos);
-          if (dir.length() > 0.01) plane3D.lookAt(pos.x + dir.x, pos.y + 3, pos.z + dir.z);
-        }
-        prevPlanePos = pos.clone();
-        trailLine.geometry.setDrawRange(0, Math.floor(routeP * 200));
+      // ─── ACT 2: LOAD (boom folds up, crane settles on truck) ─
+      else if (time < T2) {
+        const p = easeInOut((time - T1) / T_LOAD);
+        // Show truck stationed next to crane
+        truck.visible = true;
+        truck.position.set(chel.x - 0.5, 0, chel.z + 1);
+        truck.rotation.y = -Math.PI / 2; // facing +Z (toward viewer)
+        prevTruckPos = truck.position.clone();
+        // Boom folds upward to vertical-ish so it can lay on the truck deck
+        boomGroup.rotation.z = lerp(-0.05, -Math.PI / 2 + 0.4, p);
+        // Crane chassis lifts onto truck deck (smoothly)
+        crane.position.set(
+          lerp(chel.x + 1, chel.x - 0.5, p),
+          lerp(0, 0.9, p),                    // up onto deck
+          lerp(chel.z + 1, chel.z + 1, p),
+        );
+        // Slight rotation for variety as it turns to align with truck
+        crane.rotation.y = lerp(-Math.PI * 0.15, -Math.PI / 2 - 0.05, p);
+        turret.rotation.y = lerp(Math.sin(elapsed * 0.4) * 0.15, 0, p);
+        trailLine.geometry.setDrawRange(0, 0);
+        snowMat.opacity = 0;
       }
 
-      // === PHASE: JOIN at Kazan (T2 → T3) ===
-      if (t >= T2 && t < T3) {
-        const p = easeOut((t - T2) / JOIN_DUR);
-        const pos = routeCurve.getPointAt(0.4);
-        productGroup.position.copy(pos);
-        plane3D.position.copy(pos); plane3D.position.y += 3;
-
-        extraPieces.forEach(m => {
-          m.visible = true;
-          const far = new THREE.Vector3(m.userData.targetOff.x + 8, m.userData.targetOff.y + 6, m.userData.targetOff.z - 8);
-          m.position.lerpVectors(far, m.userData.targetOff, p);
-        });
+      // ─── ACT 3: DRIVE (truck moves along route) ─
+      else if (time < T3) {
+        const p = easeInOut((time - T2) / T_DRIVE);
+        const pos = routeCurve.getPointAt(p);
+        truck.visible = true;
+        truck.position.copy(pos);
+        truck.position.y = 0;
+        orientToward(truck, pos);
+        // Crane rides on truck deck — keep position synced with truck deck pos
+        crane.position.copy(pos);
+        crane.position.y = 0.9;
+        crane.rotation.y = truck.rotation.y - Math.PI / 2 - 0.05;
+        // Boom stays folded
+        boomGroup.rotation.z = -Math.PI / 2 + 0.4;
+        // Trail line draws progressively
+        trailLine.geometry.setDrawRange(0, Math.floor(p * 220));
+        // Snow fades in as we approach Petersburg
+        snowMat.opacity = lerp(0, 0.85, Math.min(1, p * 1.4));
+        // Building appears as we get close (last 30% of drive)
+        building.visible = p > 0.55;
       }
 
-      // === PHASE: TRAVEL Kazan → SPb (T3 → T4) ===
-      if (t >= T3 && t < T4) {
-        const p = easeInOut((t - T3) / TRAVEL2_DUR);
-        const routeP = 0.4 + p * 0.6; // 40-100% of route
-        const pos = routeCurve.getPointAt(Math.min(routeP, 1));
-        productGroup.position.copy(pos);
-        plane3D.position.copy(pos); plane3D.position.y += 3;
-        if (prevPlanePos) {
-          const dir = new THREE.Vector3().subVectors(pos, prevPlanePos);
-          if (dir.length() > 0.01) plane3D.lookAt(pos.x + dir.x, pos.y + 3, pos.z + dir.z);
-        }
-        prevPlanePos = pos.clone();
-        trailLine.geometry.setDrawRange(0, Math.floor(routeP * 200));
-      }
-
-      // === PHASE: HOLD ===
-      if (t >= T4) {
+      // ─── ACT 4: LIFT (truck stops, boom rises toward roof) ─
+      else if (time < T4) {
+        const p = easeOut((time - T3) / T_LIFT);
         const pos = routeCurve.getPointAt(1);
-        productGroup.position.copy(pos);
-        plane3D.visible = true;
-        plane3D.position.copy(pos); plane3D.position.y += 3;
-        trailLine.geometry.setDrawRange(0, 200);
-        // Celebrate pulse
-        const pulse = Math.sin((t - T4) * 8) * 0.3 + 1.2;
-        productGroup.scale.setScalar(pulse);
+        truck.visible = true;
+        truck.position.copy(pos);
+        truck.position.y = 0;
+        // Truck heading: was facing along route direction at t=1
+        // Keep last orientation; freeze prevTruckPos
+        crane.position.copy(pos);
+        crane.position.y = 0.9;
+        // Crane rotates its turret to face the building
+        const targetTurretY = -1.2;
+        turret.rotation.y = lerp(0, targetTurretY, p);
+        // Boom unfolds from horizontal-folded to vertical-up
+        boomGroup.rotation.z = lerp(-Math.PI / 2 + 0.4, -1.45, p);
+        building.visible = true;
+        buildingLight.intensity = lerp(0, 1.4, p);
+        snowMat.opacity = 0.85 + Math.sin(elapsed * 2) * 0.05;
+        trailLine.geometry.setDrawRange(0, 220);
       }
 
-      if (t < T4) productGroup.scale.setScalar(1);
-
-      // Plane glow pulse
-      if (plane3D.visible) {
-        fuselageMat.emissiveIntensity = 0.3 + Math.sin(time * 6) * 0.15;
+      // ─── ACT 5: HOLD (final cinematic shot) ─
+      else {
+        const pos = routeCurve.getPointAt(1);
+        truck.visible = true;
+        truck.position.copy(pos);
+        truck.position.y = 0;
+        crane.position.copy(pos);
+        crane.position.y = 0.9;
+        turret.rotation.y = -1.2;
+        boomGroup.rotation.z = -1.45 + Math.sin(elapsed * 1.5) * 0.02;
+        building.visible = true;
+        buildingLight.intensity = 1.4 + Math.sin(elapsed * 2) * 0.15;
+        snowMat.opacity = 0.85;
       }
 
-      updateLabels();
-      renderer.render(scene, camera);
+      // Snowfall — drift down, wrap when below ground
+      const snowArr = snow.geometry.attributes.position.array;
+      for (let i = 0; i < SNOW; i++) {
+        snowArr[i * 3 + 1] -= snowSpeed[i];
+        snowArr[i * 3] += Math.sin(elapsed * 0.5 + i) * 0.005;
+        if (snowArr[i * 3 + 1] < 0.5) {
+          snowArr[i * 3 + 1] = 18;
+          snowArr[i * 3] = spb.x + (Math.random() - 0.5) * 30;
+          snowArr[i * 3 + 2] = spb.z + (Math.random() - 0.5) * 25;
+        }
+      }
+      snow.geometry.attributes.position.needsUpdate = true;
+
+      updateLabels(labelLang);
+      composer.render();
     };
 
     const observer = new IntersectionObserver(([e]) => {
@@ -384,6 +808,8 @@ export default function SceneLogistics() {
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
+      composer.setSize(w, h);
+      bloom.setSize(w, h);
     };
     window.addEventListener('resize', onResize);
 
@@ -391,6 +817,8 @@ export default function SceneLogistics() {
       window.removeEventListener('resize', onResize);
       cancelAnimationFrame(animId);
       observer.disconnect();
+      i18n.off('languageChanged', onLangChanged);
+      composer.dispose();
       disposeScene(scene, renderer);
     };
   }, []);
@@ -404,10 +832,18 @@ export default function SceneLogistics() {
           transform: 'translate(-50%, -100%)',
           color: '#fff', fontSize: 11, fontFamily: 'var(--font-display)',
           pointerEvents: 'none', whiteSpace: 'nowrap',
-          textShadow: '0 0 8px rgba(45,163,154,0.8), 0 2px 4px rgba(0,0,0,0.9)',
-          fontWeight: 600, letterSpacing: '0.5px'
+          textShadow: `0 0 8px ${l.color}, 0 2px 4px rgba(0,0,0,0.9)`,
+          fontWeight: 600, letterSpacing: '0.5px',
         }}>{l.name}</div>
       ))}
+      <div style={{
+        position: 'absolute', bottom: 16, left: '50%',
+        transform: 'translateX(-50%)',
+        color: 'rgba(255,255,255,0.55)', fontSize: 12,
+        fontFamily: 'var(--font-display)',
+        pointerEvents: 'none', whiteSpace: 'nowrap',
+        textShadow: '0 2px 8px rgba(0,0,0,0.6)',
+      }}>{t('creator.scene.logisticsCaption')}</div>
     </div>
   );
 }

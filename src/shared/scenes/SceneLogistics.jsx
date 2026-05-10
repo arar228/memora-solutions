@@ -7,6 +7,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
 import i18n from '../../i18n/i18n';
 import { disposeScene } from './_shared/disposeScene';
+import { getProfile } from './_shared/deviceProfile';
 
 /* ======================================================================
    SceneLogistics — story of the Chelyabinsk → Saint Petersburg crane.
@@ -847,6 +848,7 @@ export default function SceneLogistics() {
     if (!mountRef.current) return;
     const el = mountRef.current;
     const W = el.clientWidth, H = el.clientHeight;
+    const profile = getProfile();
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#0D0D1A');
@@ -854,9 +856,9 @@ export default function SceneLogistics() {
 
     const camera = new THREE.PerspectiveCamera(38, W / H, 1, 800);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: profile.antialias, alpha: true });
     renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(profile.pixelRatio);
     renderer.domElement.style.touchAction = 'pan-y';
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.1;
@@ -1069,10 +1071,15 @@ export default function SceneLogistics() {
 
     // ─── Post-processing ────────────────────────────────
     const composer = new EffectComposer(renderer);
-    composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    composer.setPixelRatio(profile.pixelRatio);
     composer.setSize(W, H);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.55, 0.55, 0.0);
+    const bloom = new UnrealBloomPass(
+      new THREE.Vector2(W, H),
+      profile.bloomStrength,
+      profile.bloomRadius,
+      profile.bloomThreshold
+    );
     composer.addPass(bloom);
     composer.addPass(new OutputPass());
 

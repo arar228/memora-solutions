@@ -9,6 +9,7 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
 import { gsap } from 'gsap';
 import i18n from '../../i18n/i18n';
 import { disposeScene } from './_shared/disposeScene';
+import { getProfile } from './_shared/deviceProfile';
 
 /* ======================================================================
    SceneTeam — "the people who make it possible"
@@ -99,11 +100,12 @@ export default function SceneTeam() {
     scene.background = new THREE.Color('#0D0D1A');
     scene.fog = new THREE.FogExp2('#0D0D1A', 0.013);
 
+    const profile = getProfile();
     const camera = new THREE.PerspectiveCamera(40, W / H, 0.5, 200);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: profile.antialias, alpha: true });
     renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(profile.pixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -368,10 +370,15 @@ export default function SceneTeam() {
 
     // ─── Post-processing ────────────────────────────────
     const composer = new EffectComposer(renderer);
-    composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    composer.setPixelRatio(profile.pixelRatio);
     composer.setSize(W, H);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.7, 0.55, 0.0);
+    const bloom = new UnrealBloomPass(
+      new THREE.Vector2(W, H),
+      profile.bloomStrength,
+      profile.bloomRadius,
+      profile.bloomThreshold
+    );
     composer.addPass(bloom);
     composer.addPass(new OutputPass());
 

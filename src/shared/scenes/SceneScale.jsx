@@ -7,6 +7,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
 import { Reflector } from 'three/examples/jsm/objects/Reflector';
 import { disposeScene } from './_shared/disposeScene';
+import { getProfile } from './_shared/deviceProfile';
 
 // Title / value / desc are localised: { ru, en } picked at use-site
 // based on the current i18n.language. Numerics, sizes, colors stay
@@ -67,6 +68,7 @@ export default function SceneScale() {
         if (!mountRef.current) return;
         const W = mountRef.current.clientWidth;
         const H = mountRef.current.clientHeight;
+        const profile = getProfile();
 
         const scene = new THREE.Scene();
         scene.background = new THREE.Color('#0D0D1A');
@@ -80,11 +82,11 @@ export default function SceneScale() {
         const originalCamPos = camera.position.clone();
         const originalLookAt = new THREE.Vector3(0, 0, 0);
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const renderer = new THREE.WebGLRenderer({ antialias: profile.antialias, alpha: true });
         renderer.setSize(W, H);
         renderer.domElement.style.touchAction = 'pan-y';
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.shadowMap.enabled = true;
+        renderer.setPixelRatio(profile.pixelRatio);
+        renderer.shadowMap.enabled = !profile.mobile;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         // Cinematic look: ACES tone mapping flattens highlights, sRGB output
         // ensures emissive colors render at the saturation we authored.
@@ -123,15 +125,30 @@ export default function SceneScale() {
         pointLight.position.set(0, -2, 0);
         scene.add(pointLight);
 
-        // === FLOOR (real planar reflection + subtle grid) ===
-        const reflector = new Reflector(new THREE.PlaneGeometry(40, 40), {
-            textureWidth: Math.round(W * Math.min(window.devicePixelRatio, 2)),
-            textureHeight: Math.round(H * Math.min(window.devicePixelRatio, 2)),
-            color: 0x0a0a18,
-        });
-        reflector.rotation.x = -Math.PI / 2;
-        reflector.position.y = -0.5;
-        scene.add(reflector);
+        // === FLOOR (real planar reflection on desktop, plain plane on mobile) ===
+        let reflector;
+        if (profile.useReflector) {
+            reflector = new Reflector(new THREE.PlaneGeometry(40, 40), {
+                textureWidth: Math.round(W * profile.pixelRatio),
+                textureHeight: Math.round(H * profile.pixelRatio),
+                color: 0x0a0a18,
+            });
+            reflector.rotation.x = -Math.PI / 2;
+            reflector.position.y = -0.5;
+            scene.add(reflector);
+        } else {
+            // Plain dark plane stand-in — keeps the silhouette without the
+            // double render pass that Reflector requires.
+            const fallbackFloor = new THREE.Mesh(
+                new THREE.PlaneGeometry(40, 40),
+                new THREE.MeshStandardMaterial({
+                    color: 0x0a0a18, roughness: 0.4, metalness: 0.6,
+                })
+            );
+            fallbackFloor.rotation.x = -Math.PI / 2;
+            fallbackFloor.position.y = -0.5;
+            scene.add(fallbackFloor);
+        }
 
         // Tinted overlay on top of the mirror to mute it (mirror alone is too
         // glossy and steals attention from the cubes).
@@ -187,24 +204,35 @@ export default function SceneScale() {
         PROJECTS.forEach(p => {
             const group = new THREE.Group();
 
-            // Glass-like cube: transmission gives the bend-light look,
-            // emissive feeds UnrealBloomPass for the neon halo.
-            const mat = new THREE.MeshPhysicalMaterial({
-                color: p.color,
-                emissive: p.emissive,
-                emissiveIntensity: 0.55,
-                roughness: 0.12,
-                metalness: 0.0,
-                transmission: 0.45,
-                thickness: 0.9,
-                ior: 1.5,
-                clearcoat: 1.0,
-                clearcoatRoughness: 0.08,
-                attenuationColor: new THREE.Color(p.color),
-                attenuationDistance: 1.6,
-                transparent: true,
-                opacity: 0.9,
-            });
+            // Cube material: glass-like with transmission on desktop, plain
+            // emissive standard material on mobile (transmission adds a
+            // per-mesh full-scene render pass which murders mobile GPUs).
+            const mat = profile.useTransmission
+                ? new THREE.MeshPhysicalMaterial({
+                    color: p.color,
+                    emissive: p.emissive,
+                    emissiveIntensity: 0.55,
+                    roughness: 0.12,
+                    metalness: 0.0,
+                    transmission: 0.45,
+                    thickness: 0.9,
+                    ior: 1.5,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.08,
+                    attenuationColor: new THREE.Color(p.color),
+                    attenuationDistance: 1.6,
+                    transparent: true,
+                    opacity: 0.9,
+                })
+                : new THREE.MeshStandardMaterial({
+                    color: p.color,
+                    emissive: p.emissive,
+                    emissiveIntensity: 0.7,
+                    roughness: 0.25,
+                    metalness: 0.4,
+                    transparent: true,
+                    opacity: 0.9,
+                });
             const mesh = new THREE.Mesh(cubeGeo, mat);
             mesh.castShadow = true;
             mesh.receiveShadow = true;
@@ -318,12 +346,15 @@ export default function SceneScale() {
 
         // === POST-PROCESSING (bloom on emissive parts) ===
         const composer = new EffectComposer(renderer);
-        composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        composer.setPixelRatio(profile.pixelRatio);
         composer.setSize(W, H);
         composer.addPass(new RenderPass(scene, camera));
-        // strength=0.65 keeps highlights warm without blowing the whole scene out;
-        // threshold=0 means anything emissive contributes to the bloom.
-        const bloomPass = new UnrealBloomPass(new THREE.Vector2(W, H), 0.65, 0.5, 0.0);
+        const bloomPass = new UnrealBloomPass(
+            new THREE.Vector2(W, H),
+            profile.bloomStrength,
+            profile.bloomRadius,
+            profile.bloomThreshold
+        );
         composer.addPass(bloomPass);
         composer.addPass(new OutputPass());
 
@@ -497,7 +528,7 @@ export default function SceneScale() {
             renderer.domElement.removeEventListener('click', onClick);
             renderer.domElement.style.cursor = 'default';
             // Reflector owns a hidden render target — needs explicit dispose.
-            if (typeof reflector.dispose === 'function') reflector.dispose();
+            if (reflector && typeof reflector.dispose === 'function') reflector.dispose();
             composer.dispose();
             // Walks the rest of the tree and frees every geometry/material/texture.
             disposeScene(scene, renderer);

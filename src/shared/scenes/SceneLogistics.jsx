@@ -40,10 +40,6 @@ const BORDER = [
 const VOLGA = [
   [37, 56.7],[38, 55.8],[40, 55.5],[44, 54.0],[46, 51.6],[48, 49.5],[48, 47.0],[47.5, 45.5],[47.7, 43.0]
 ];
-// Ural mountains spine (along the route, between Chelyabinsk and Kazan)
-const URAL = [
-  [60, 67],[60.2, 64],[60.3, 60],[60.5, 56],[60.7, 53],[60.4, 50.5],[60, 48]
-];
 // Great lake silhouettes (Caspian + Baikal)
 const CASPIAN = [
   [47, 47.0],[48, 46.0],[50, 45.5],[52, 44.5],[53, 42.5],[51, 41.0],[49, 41.5],[47.5, 43],[47, 47]
@@ -922,29 +918,7 @@ export default function SceneLogistics() {
       new THREE.LineBasicMaterial({ color: 0x4a90c8, transparent: true, opacity: 0.5 })
     ));
 
-    // Ural mountain spine — small triangular peaks along the longitude
-    const uralMat = new THREE.MeshStandardMaterial({
-      color: 0x554b3a, roughness: 0.9, metalness: 0.0,
-      emissive: 0x1a1612, emissiveIntensity: 0.2,
-    });
-    for (let i = 0; i < URAL.length - 1; i++) {
-      const a = toXZ(URAL[i][0], URAL[i][1]);
-      const b = toXZ(URAL[i + 1][0], URAL[i + 1][1]);
-      const segLen = Math.hypot(b.x - a.x, b.z - a.z);
-      const peakCount = Math.max(2, Math.floor(segLen / 1.2));
-      for (let j = 0; j < peakCount; j++) {
-        const t = j / peakCount + (Math.random() - 0.5) * 0.05;
-        const x = a.x + (b.x - a.x) * t + (Math.random() - 0.5) * 0.4;
-        const z = a.z + (b.z - a.z) * t + (Math.random() - 0.5) * 0.4;
-        const peak = new THREE.Mesh(
-          new THREE.ConeGeometry(0.4 + Math.random() * 0.3, 0.8 + Math.random() * 1.0, 5),
-          uralMat
-        );
-        peak.position.set(x, peak.geometry.parameters.height / 2 + 0.4, z);
-        peak.rotation.y = Math.random() * Math.PI;
-        scene.add(peak);
-      }
-    }
+    // (Ural mountain peaks removed — the cones read as trees on the map.)
 
     // ─── Cities (markers + vertical light beacons + ground rings) ──
     const cityNodes = [];

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './devCards.css';
 
 /**
  * PomodoroShowcase — interactive demo card for the Memora Pomodoro timer,

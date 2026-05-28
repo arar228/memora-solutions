@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Compass, Wallet, Cake, Heart, CalendarCheck, Clock, ChevronDown } from 'lucide-react';
+import { Compass, Wallet, Cake, Timer, Heart, CalendarCheck, Clock, ChevronDown } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import './HomePage.css';
 
@@ -41,6 +41,17 @@ export default function HomePage() {
             to: '/bday-bot',
             color: 'blue',
             logo: '/bdaybot-logo.png',
+        },
+        {
+            icon: <Timer size={32} />,
+            title: t('pomodoro.heroTitle'),
+            desc: t('pomodoro.heroLead'),
+            status: t('statusActive'),
+            statusClass: 'active',
+            bot: t('pomodoro.downloadHint'),
+            to: '/pomodoro',
+            color: 'orange',
+            logo: '/pomodoro-logo.png',
         },
     ];
 

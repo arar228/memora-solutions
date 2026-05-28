@@ -15,6 +15,8 @@ const WalletPage = lazyWithRetry(() => import('./pages/Wallet'));
 const BdayBotPage = lazyWithRetry(() => import('./pages/BdayBot'));
 const KanbanPage = lazyWithRetry(() => import('./pages/Kanban'));
 const CreatorPage = lazyWithRetry(() => import('./pages/Creator'));
+const PomodoroPage = lazyWithRetry(() => import('./pages/Pomodoro'));
+const InternalPage = lazyWithRetry(() => import('./pages/Internal'));
 
 // Admin is dev-only — import.meta.env.DEV is statically replaced at build time,
 // so the import and chunk are tree-shaken out of production bundles.
@@ -45,6 +47,8 @@ function AnimatedRoutes() {
         <Route path="/bday-bot" element={<PageTransition><BdayBotPage /></PageTransition>} />
         <Route path="/kanban" element={<PageTransition><KanbanPage /></PageTransition>} />
         <Route path="/creator" element={<PageTransition><CreatorPage /></PageTransition>} />
+        <Route path="/pomodoro" element={<PageTransition><PomodoroPage /></PageTransition>} />
+        <Route path="/internal" element={<PageTransition><InternalPage /></PageTransition>} />
         {AdminPage && (
           <Route path="/admin" element={<PageTransition><AdminPage /></PageTransition>} />
         )}

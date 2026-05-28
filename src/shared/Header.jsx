@@ -32,7 +32,9 @@ export default function Header() {
         { to: '/travel-radar', label: t('nav.travelRadar') },
         { to: '/wallet', label: t('nav.wallet') },
         { to: '/bday-bot', label: t('nav.bdayBot') },
+        { to: '/pomodoro', label: t('nav.pomodoro') },
         { to: '/kanban', label: t('nav.kanban') },
+        { to: '/internal', label: t('nav.internal') },
         { to: '/creator', label: t('nav.creator') },
     ];
 

@@ -1,0 +1,177 @@
+.pomodoro-page {
+    min-height: 100vh;
+}
+
+.pomodoro-hero {
+    position: relative;
+    padding: calc(var(--space-2xl) * 1.4) 0 var(--space-xl);
+    overflow: hidden;
+    text-align: center;
+}
+
+.pomodoro-hero__glow {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(224, 90, 51, 0.18), transparent 70%);
+    pointer-events: none;
+}
+
+.pomodoro-hero__inner {
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.pomodoro-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+    color: #E05A33;
+    background: rgba(224, 90, 51, 0.12);
+    border: 1px solid rgba(224, 90, 51, 0.25);
+    margin-bottom: var(--space-md);
+}
+
+.pomodoro-hero__title {
+    font-family: var(--ff-heading);
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--c-text);
+    margin-bottom: var(--space-md);
+}
+
+.pomodoro-hero__lead {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--c-text-secondary);
+    max-width: 600px;
+    margin: 0 auto var(--space-lg);
+}
+
+.pomodoro-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pomodoro-hero__hint {
+    margin-top: var(--space-sm);
+    font-size: 0.8rem;
+    color: var(--c-text-secondary);
+    opacity: 0.7;
+}
+
+.pomodoro-page__body {
+    padding-bottom: var(--space-2xl);
+}
+
+.pomodoro-bento {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.pomodoro-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: var(--space-lg);
+}
+
+.pomodoro-card--about {
+    grid-column: 1 / -1;
+}
+
+.pomodoro-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--ff-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--c-text);
+    margin-bottom: var(--space-sm);
+}
+
+.pomodoro-card--about p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--c-text-secondary);
+}
+
+.pomodoro-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.pomodoro-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--c-text-secondary);
+}
+
+.pomodoro-features li svg {
+    color: #E05A33;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.pomodoro-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.pomodoro-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--c-text-secondary);
+}
+
+.pomodoro-steps__num {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #E05A33;
+    background: rgba(224, 90, 51, 0.12);
+    border: 1px solid rgba(224, 90, 51, 0.25);
+}
+
+@media (max-width: 720px) {
+    .pomodoro-bento {
+        grid-template-columns: 1fr;
+    }
+}

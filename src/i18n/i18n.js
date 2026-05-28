@@ -9,6 +9,8 @@ import ruTravel from '../locales/ru/travel.json';
 import ruKanban from '../locales/ru/kanban.json';
 import ruAdmin from '../locales/ru/admin.json';
 import ruCreator from '../locales/ru/creator.json';
+import ruInternal from '../locales/ru/internal.json';
+import ruPomodoro from '../locales/ru/pomodoro.json';
 
 // English locale files
 import enCommon from '../locales/en/common.json';
@@ -18,6 +20,8 @@ import enTravel from '../locales/en/travel.json';
 import enKanban from '../locales/en/kanban.json';
 import enAdmin from '../locales/en/admin.json';
 import enCreator from '../locales/en/creator.json';
+import enInternal from '../locales/en/internal.json';
+import enPomodoro from '../locales/en/pomodoro.json';
 
 const savedLang = localStorage.getItem('memora-lang') || 'ru';
 
@@ -32,6 +36,8 @@ i18n.use(initReactI18next).init({
         kanban: ruKanban,
         admin: ruAdmin,
         creator: ruCreator,
+        internal: ruInternal,
+        pomodoro: ruPomodoro,
       },
     },
     en: {
@@ -43,6 +49,8 @@ i18n.use(initReactI18next).init({
         kanban: enKanban,
         admin: enAdmin,
         creator: enCreator,
+        internal: enInternal,
+        pomodoro: enPomodoro,
       },
     },
   },

@@ -173,6 +173,11 @@
     color: var(--color-blue-dark);
 }
 
+.product-card-large__icon--orange {
+    background: rgba(224, 90, 51, 0.12);
+    color: #E05A33;
+}
+
 .product-card-large__header {
     display: flex;
     align-items: center;
@@ -283,6 +288,10 @@
 
 .product-card-large--blue .product-card-large__visual {
     background: linear-gradient(135deg, var(--color-blue-light), #e0e7ff);
+}
+
+.product-card-large--orange .product-card-large__visual {
+    background: linear-gradient(135deg, rgba(224, 90, 51, 0.15), #fff1ec);
 }
 
 @keyframes float {

@@ -1,0 +1,230 @@
+/* ============================================
+   Settings Panel Styles
+   ============================================ */
+
+.settings-panel {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-back {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: var(--t2);
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-bottom: 8px;
+  transition: color var(--tr-fast);
+}
+
+.settings-back:hover {
+  color: var(--t1);
+}
+
+/* Section */
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+
+.settings-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--t3);
+  padding: 8px 0 6px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+/* Row */
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--sf);
+  border-radius: var(--r-md);
+  min-height: 40px;
+}
+
+.setting-label {
+  font-size: 12px;
+  color: var(--t1);
+}
+
+.setting-value {
+  color: var(--t2);
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+/* Toggle */
+.toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: var(--r-full);
+  border: none;
+  background: var(--sf3);
+  cursor: pointer;
+  transition: background var(--tr-fast);
+  padding: 0;
+}
+
+.toggle.on {
+  background: var(--a);
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  transition: transform var(--tr-fast);
+}
+
+.toggle.on .toggle-knob {
+  transform: translateX(16px);
+}
+
+/* Stepper */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepper-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--bd);
+  background: var(--sf2);
+  color: var(--t1);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+}
+
+.stepper-btn:hover:not(:disabled) {
+  background: var(--sf3);
+  border-color: var(--bd2);
+}
+
+.stepper-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.stepper-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--t1);
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Slider */
+.setting-slider {
+  width: 100px;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--sf3);
+  border-radius: var(--r-full);
+  outline: none;
+  cursor: pointer;
+}
+
+.setting-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--a);
+  cursor: pointer;
+}
+
+/* Theme pills in settings */
+.theme-pills-settings {
+  display: flex;
+  gap: 6px;
+}
+
+/* Hotkey field */
+.hotkey-field {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--t2);
+  background: var(--sf2);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-sm);
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+}
+
+.hotkey-field:hover {
+  border-color: var(--a);
+  color: var(--t1);
+}
+
+/* Data buttons */
+.data-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.data-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--sf);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-md);
+  color: var(--t1);
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+}
+
+.data-btn:hover {
+  background: var(--sf2);
+  border-color: var(--bd2);
+}
+
+.data-btn.danger {
+  color: #E05A33;
+}
+
+.data-btn.danger:hover {
+  background: rgba(224, 90, 51, 0.1);
+  border-color: rgba(224, 90, 51, 0.3);
+}

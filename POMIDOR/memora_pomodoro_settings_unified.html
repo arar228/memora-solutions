@@ -1,0 +1,374 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap');
+:root {
+  --a: #E05A33; --brk: #1D9E75;
+  --bg: #0C0C0F; --sf: #16161A; --sf2: #1E1E24; --sf3: #252530;
+  --bd: rgba(255,255,255,0.06); --bd2: rgba(255,255,255,0.1);
+  --t1: #E8E6E1; --t2: #8A8A8D; --t3: #55555A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+.app{max-width:420px;margin:0 auto;font-family:'Outfit',sans-serif;color:var(--t1);background:var(--bg);border-radius:16px;border:0.5px solid var(--bd);overflow:hidden}
+.app-header{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--bd)}
+.app-header-left{display:flex;align-items:center;gap:8px}
+.app-logo{width:24px;height:24px;border-radius:6px;background:var(--a);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff}
+.app-title{font-size:13px;font-weight:500;color:var(--t2)}
+.app-title span{color:var(--t1);font-weight:600}
+.app-close{width:28px;height:28px;border-radius:6px;border:0.5px solid var(--bd);background:var(--sf);display:flex;align-items:center;justify-content:center;color:var(--t3);cursor:pointer;font-size:14px}
+
+.scroll{max-height:600px;overflow-y:auto;padding:0 20px 20px;scrollbar-width:thin;scrollbar-color:var(--sf2) transparent}
+
+.section{margin-top:20px}
+.section-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--t3);margin-bottom:12px;font-weight:500}
+
+.row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;min-height:36px}
+.row-label{font-size:13px;color:var(--t2);flex-shrink:0}
+.row-label small{display:block;font-size:10px;color:var(--t3);margin-top:1px}
+
+.stepper{display:flex;align-items:center;gap:0;background:var(--sf);border-radius:8px;border:0.5px solid var(--bd);overflow:hidden}
+.stepper-btn{width:28px;height:28px;border:none;background:transparent;color:var(--t2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Outfit'}
+.stepper-btn:hover{background:var(--sf2);color:var(--t1)}
+.stepper-val{width:36px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--t1);border-left:0.5px solid var(--bd);border-right:0.5px solid var(--bd);padding:4px 0}
+
+.toggle{position:relative;width:36px;height:20px;border-radius:10px;background:var(--sf2);border:0.5px solid var(--bd);cursor:pointer;transition:background 0.2s}
+.toggle.on{background:var(--a);border-color:var(--a)}
+.toggle-dot{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
+.toggle.on .toggle-dot{transform:translateX(16px)}
+
+.slider-row{padding:10px 0}
+.slider-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.slider-track{position:relative;width:100%;height:4px;background:var(--sf2);border-radius:2px;cursor:pointer}
+.slider-fill{position:absolute;left:0;top:0;height:100%;border-radius:2px;background:var(--a)}
+.slider-thumb{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--t1);border:2px solid var(--a);transform:translate(-50%,-50%);cursor:grab;transition:box-shadow 0.15s}
+.slider-thumb:hover{box-shadow:0 0 0 4px rgba(224,90,51,0.15)}
+.slider-val{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t1);min-width:30px;text-align:right}
+
+.color-row{display:flex;gap:6px;align-items:center}
+.color-dot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color 0.15s, transform 0.15s}
+.color-dot.active{border-color:var(--t1);transform:scale(1.15)}
+.color-custom{width:22px;height:22px;border-radius:50%;border:1px dashed var(--t3);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--t3);cursor:pointer}
+
+.select-wrap{position:relative}
+.select{appearance:none;background:var(--sf);border:0.5px solid var(--bd);border-radius:8px;padding:5px 28px 5px 10px;font-size:12px;font-family:'Outfit',sans-serif;color:var(--t1);cursor:pointer;min-width:120px}
+.select option{background:var(--sf);color:var(--t1)}
+.select-arrow{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--t3);pointer-events:none}
+
+.sound-file{display:flex;align-items:center;gap:6px;background:var(--sf);border:0.5px solid var(--bd);border-radius:8px;padding:4px 4px 4px 10px;font-size:11px;color:var(--t3);min-width:160px}
+.sound-file span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sound-file-btn{width:22px;height:22px;border-radius:5px;border:none;background:var(--sf2);color:var(--t2);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.sound-file-btn:hover{background:var(--a);color:#fff}
+
+.profile-pills{display:flex;gap:4px;flex-wrap:wrap}
+.profile-pill{padding:4px 12px;border-radius:16px;font-size:11px;border:0.5px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;transition:all 0.15s;font-family:'Outfit',sans-serif}
+.profile-pill.active{border-color:var(--a);color:var(--t1);background:rgba(224,90,51,0.1)}
+.profile-pill.add{border-style:dashed;border-color:var(--t3);color:var(--t3)}
+
+.preview-box{background:var(--sf);border-radius:10px;border:0.5px solid var(--bd);padding:12px;margin-top:8px}
+.preview-label{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+
+.compact-preview{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:14px;transition:all 0.3s}
+.compact-preview.with-bg{background:var(--bg);border:0.5px solid var(--bd)}
+.compact-preview.no-bg{background:transparent;border:0.5px solid transparent}
+.cp-ring{width:36px;height:36px;position:relative;flex-shrink:0}
+.cp-ring svg{transform:rotate(-90deg)}
+.cp-ring-bg{fill:none;stroke-width:3}
+.cp-ring-fg{fill:none;stroke-width:3;stroke-linecap:round}
+.cp-ring-pct{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700}
+.cp-info{display:flex;flex-direction:column;gap:1px}
+.cp-time{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;letter-spacing:-1px}
+.cp-label{font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.cp-ctrls{display:flex;gap:4px;margin-left:auto}
+.cp-btn{width:24px;height:24px;border-radius:50%;border:0.5px solid;display:flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;background:transparent}
+.cp-btn.play{width:28px;height:28px;border:none}
+
+.divider{height:0.5px;background:var(--bd);margin:16px 0 0}
+</style>
+
+<div class="app">
+  <div class="app-header">
+    <div class="app-header-left">
+      <div class="app-logo">M</div>
+      <div class="app-title"><span>Memora</span> Pomodoro &middot; Settings</div>
+    </div>
+    <div class="app-close">&times;</div>
+  </div>
+
+  <div class="scroll">
+
+    <!-- PROFILE -->
+    <div class="section">
+      <div class="section-label">Profile</div>
+      <div class="profile-pills">
+        <button class="profile-pill active">Pomodoro</button>
+        <button class="profile-pill">Deep Work</button>
+        <button class="profile-pill add">+ new</button>
+      </div>
+    </div>
+
+    <!-- TIMER -->
+    <div class="section">
+      <div class="section-label">Timer</div>
+      <div class="row">
+        <span class="row-label">Work time</span>
+        <div class="stepper"><button class="stepper-btn" onclick="adj('work',-1)">-</button><div class="stepper-val" id="work-val">25</div><button class="stepper-btn" onclick="adj('work',1)">+</button></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Break time</span>
+        <div class="stepper"><button class="stepper-btn" onclick="adj('brk',-1)">-</button><div class="stepper-val" id="brk-val">5</div><button class="stepper-btn" onclick="adj('brk',1)">+</button></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Long break</span>
+        <div class="stepper"><button class="stepper-btn" onclick="adj('lng',-1)">-</button><div class="stepper-val" id="lng-val">15</div><button class="stepper-btn" onclick="adj('lng',1)">+</button></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Rounds before long break</span>
+        <div class="stepper"><button class="stepper-btn" onclick="adj('rnd',-1)">-</button><div class="stepper-val" id="rnd-val">4</div><button class="stepper-btn" onclick="adj('rnd',1)">+</button></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Auto-start break</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Auto-start work</span>
+        <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Count backwards</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Display</span>
+        <div class="select-wrap">
+          <select class="select"><option>Remaining time</option><option>Pomodoro index</option><option>Nothing</option></select>
+          <span class="select-arrow">&#9662;</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- APPEARANCE -->
+    <div class="section">
+      <div class="section-label">Appearance</div>
+      <div class="row">
+        <span class="row-label">Theme color</span>
+        <div class="color-row">
+          <div class="color-dot active" style="background:#E05A33" onclick="setThemeColor(this,'#E05A33')"></div>
+          <div class="color-dot" style="background:#378ADD" onclick="setThemeColor(this,'#378ADD')"></div>
+          <div class="color-dot" style="background:#1D9E75" onclick="setThemeColor(this,'#1D9E75')"></div>
+          <div class="color-dot" style="background:#7F77DD" onclick="setThemeColor(this,'#7F77DD')"></div>
+          <div class="color-dot" style="background:#E0A033" onclick="setThemeColor(this,'#E0A033')"></div>
+          <div class="color-custom" title="Custom">+</div>
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-top">
+          <span class="row-label">Opacity</span>
+          <span class="slider-val" id="opacity-val">90%</span>
+        </div>
+        <div class="slider-track" id="opacity-track" onmousedown="startDrag(event,'opacity')">
+          <div class="slider-fill" id="opacity-fill" style="width:90%"></div>
+          <div class="slider-thumb" id="opacity-thumb" style="left:90%"></div>
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-top">
+          <span class="row-label">Size</span>
+          <span class="slider-val" id="size-val">100%</span>
+        </div>
+        <div class="slider-track" id="size-track" onmousedown="startDrag(event,'size')">
+          <div class="slider-fill" id="size-fill" style="width:66%"></div>
+          <div class="slider-thumb" id="size-thumb" style="left:66%"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="row-label">Show background<small>Transparent overlay when off</small></span>
+        <div class="toggle on" id="bg-toggle" onclick="toggleBg(this)"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Show seconds</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Show controls</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Flashing animation</span>
+        <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Timer font</span>
+        <div class="select-wrap">
+          <select class="select"><option>JetBrains Mono</option><option>Segoe UI Light</option><option>SF Mono</option><option>System</option></select>
+          <span class="select-arrow">&#9662;</span>
+        </div>
+      </div>
+
+      <!-- LIVE PREVIEW -->
+      <div class="preview-box">
+        <div class="preview-label">Live preview</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div class="compact-preview with-bg" id="preview-widget">
+            <div class="cp-ring">
+              <svg viewBox="0 0 36 36" width="36" height="36">
+                <circle class="cp-ring-bg" cx="18" cy="18" r="15" id="prev-ring-bg" style="stroke:var(--sf2)"/>
+                <circle class="cp-ring-fg" cx="18" cy="18" r="15" stroke-dasharray="94.2" stroke-dashoffset="30" id="prev-ring-fg" style="stroke:var(--a)"/>
+              </svg>
+              <span class="cp-ring-pct" id="prev-pct" style="color:var(--t1)">68%</span>
+            </div>
+            <div class="cp-info">
+              <span class="cp-time" id="prev-time" style="color:var(--t1)">17:04</span>
+              <span class="cp-label" id="prev-label" style="color:var(--t2)">focus</span>
+            </div>
+            <div class="cp-ctrls" id="prev-ctrls">
+              <div class="cp-btn" id="prev-btn1" style="border-color:var(--bd);color:var(--t2)">&#8634;</div>
+              <div class="cp-btn play" id="prev-btn2" style="background:var(--a);color:#fff">&#10074;&#10074;</div>
+              <div class="cp-btn" id="prev-btn3" style="border-color:var(--bd);color:var(--t2)">&#9197;</div>
+            </div>
+          </div>
+          <span style="font-size:10px;color:var(--t3)">Drag to reposition on screen</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SOUND -->
+    <div class="section">
+      <div class="section-label">Sound</div>
+      <div class="slider-row">
+        <div class="slider-top">
+          <span class="row-label">Volume</span>
+          <span class="slider-val" id="vol-val">70%</span>
+        </div>
+        <div class="slider-track" id="vol-track" onmousedown="startDrag(event,'vol')">
+          <div class="slider-fill" id="vol-fill" style="width:70%"></div>
+          <div class="slider-thumb" id="vol-thumb" style="left:70%"></div>
+        </div>
+      </div>
+      <div class="row">
+        <span class="row-label">Sound notifications</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Period start/end sounds</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Work sound</span>
+        <div class="sound-file"><span>bell-gentle.mp3</span><button class="sound-file-btn">&#9654;</button><button class="sound-file-btn">&#8943;</button></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Break sound</span>
+        <div class="sound-file"><span>chime-soft.mp3</span><button class="sound-file-btn">&#9654;</button><button class="sound-file-btn">&#8943;</button></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Repeat work sound</span>
+        <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- BEHAVIOR -->
+    <div class="section">
+      <div class="section-label">Behavior</div>
+      <div class="row">
+        <span class="row-label">Always on top</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Minimize to tray on close</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Launch on startup</span>
+        <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Global hotkey</span>
+        <div style="background:var(--sf);border:0.5px solid var(--bd);border-radius:6px;padding:4px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2);cursor:pointer">Ctrl+Shift+P</div>
+      </div>
+      <div class="row">
+        <span class="row-label">Taskbar progress</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+      <div class="row">
+        <span class="row-label">Desktop notifications</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-dot"></div></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- DATA -->
+    <div class="section" style="margin-bottom:4px">
+      <div class="section-label">Data</div>
+      <div class="row">
+        <span class="row-label">Export statistics</span>
+        <div class="select-wrap">
+          <select class="select"><option>JSON</option><option>CSV</option></select>
+          <span class="select-arrow">&#9662;</span>
+        </div>
+      </div>
+      <div class="row">
+        <span class="row-label">Import from YAPA</span>
+        <button style="background:var(--sf);border:0.5px solid var(--bd);border-radius:8px;padding:5px 14px;font-size:11px;font-family:'Outfit',sans-serif;color:var(--t2);cursor:pointer">Import...</button>
+      </div>
+      <div class="row">
+        <span class="row-label">Reset all data</span>
+        <button style="background:transparent;border:0.5px solid rgba(226,75,74,0.3);border-radius:8px;padding:5px 14px;font-size:11px;font-family:'Outfit',sans-serif;color:#E24B4A;cursor:pointer">Reset</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const vals = {work:25,brk:5,lng:15,rnd:4};
+const limits = {work:[1,60],brk:[1,30],lng:[1,60],rnd:[1,8]};
+function adj(k,d){
+  vals[k] = Math.max(limits[k][0], Math.min(limits[k][1], vals[k]+d));
+  document.getElementById(k+'-val').textContent = vals[k];
+}
+
+let activeColor = '#E05A33';
+function setThemeColor(el, hex) {
+  document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('active'));
+  el.classList.add('active');
+  activeColor = hex;
+  document.documentElement.style.setProperty('--a', hex);
+  document.getElementById('prev-ring-fg').style.stroke = hex;
+  document.getElementById('prev-btn2').style.background = hex;
+}
+
+function toggleBg(el) {
+  el.classList.toggle('on');
+  const on = el.classList.contains('on');
+  const pw = document.getElementById('preview-widget');
+  pw.classList.toggle('with-bg', on);
+  pw.classList.toggle('no-bg', !on);
+}
+
+let dragging = null;
+function startDrag(e, id) {
+  dragging = id;
+  updateSlider(e, id);
+}
+document.addEventListener('mousemove', e => { if(dragging) updateSlider(e, dragging); });
+document.addEventListener('mouseup', () => { dragging = null; });
+function updateSlider(e, id) {
+  const track = document.getElementById(id+'-track');
+  const rect = track.getBoundingClientRect();
+  let pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  document.getElementById(id+'-fill').style.width = (pct*100)+'%';
+  document.getElementById(id+'-thumb').style.left = (pct*100)+'%';
+  if(id==='opacity') document.getElementById('opacity-val').textContent = Math.round(pct*100)+'%';
+  if(id==='size') document.getElementById('size-val').textContent = Math.round(50+pct*100)+'%';
+  if(id==='vol') document.getElementById('vol-val').textContent = Math.round(pct*100)+'%';
+}
+</script>

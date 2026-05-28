@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Мемора Помидор — Pill (micro) overlay</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ========== DESIGN TOKENS ========== */
+:root {
+  --a: #E05A33;           /* accent: Tomato (default theme) */
+  --a-dim: rgba(224,90,51,0.15);
+  --a-glow: rgba(224,90,51,0.25);
+  --brk: #1D9E75;         /* break accent */
+  --bg: #0C0C0F;          /* window background */
+  --sf: #16161A;           /* surface */
+  --sf2: #1E1E24;          /* surface alt */
+  --bd: rgba(255,255,255,0.06); /* border */
+  --t1: #E8E6E1;           /* text primary */
+  --t2: #8A8A8D;           /* text secondary */
+  --t3: #55555A;           /* text tertiary */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: #1a1a2e; /* demo background — in Electron this would be transparent */
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-height: 100vh;
+  padding: 32px;
+}
+
+/* ========== PILL OVERLAY — ~120×32 px ========== */
+/*
+  Electron window config:
+    width: 140, height: 40
+    frame: false, transparent: true, alwaysOnTop: true
+    resizable: false, skipTaskbar: true
+    CSS on widget root: -webkit-app-region: drag
+    Buttons: -webkit-app-region: no-drag
+*/
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px 4px 4px;
+  background: var(--bg);
+  border: 0.5px solid var(--bd);
+  border-radius: 20px;
+  cursor: move; /* -webkit-app-region: drag in Electron */
+  user-select: none;
+  transition: opacity 0.3s;
+}
+
+/* — Logo icon — */
+.pill-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  flex-shrink: 0;
+}
+
+/* — Mini progress ring (24×24 SVG) — */
+.pill-ring {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.pill-ring svg { transform: rotate(-90deg); }
+.pill-ring-bg {
+  fill: none;
+  stroke: var(--sf2);
+  stroke-width: 2.5;
+}
+.pill-ring-fg {
+  fill: none;
+  stroke: var(--a);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear, stroke 0.3s;
+}
+.pill-ring-fg.break { stroke: var(--brk); }
+
+/* — Time display — */
+.pill-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t1);
+  min-width: 42px;
+  text-align: center;
+}
+
+/* — Play/Pause button — */
+.pill-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 0.5px solid var(--bd);
+  background: var(--sf);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--t2);
+  font-size: 8px;
+  cursor: pointer; /* -webkit-app-region: no-drag */
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.pill-btn:hover {
+  border-color: var(--a);
+  color: var(--t1);
+}
+
+/* ========== DEMO: show with/without background ========== */
+.pill.no-bg {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* ========== DEMO CONTROLS ========== */
+.demo-controls {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: 'Outfit', sans-serif;
+}
+.demo-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #E8E6E1;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.demo-btn:hover { background: rgba(255,255,255,0.1); }
+.demo-label {
+  font-size: 10px;
+  color: #55555A;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.demo-size {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #55555A;
+  margin-top: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- ========== PILL WIDGET ========== -->
+<div class="pill" id="pill">
+  <div class="pill-logo">М</div>
+  <div class="pill-ring">
+    <svg viewBox="0 0 24 24" width="24" height="24">
+      <circle class="pill-ring-bg" cx="12" cy="12" r="9"/>
+      <circle class="pill-ring-fg" id="ringFg" cx="12" cy="12" r="9"
+        stroke-dasharray="56.55" stroke-dashoffset="18"/>
+    </svg>
+  </div>
+  <span class="pill-time" id="time">17:04</span>
+  <button class="pill-btn" id="playBtn" onclick="toggle()">&#10074;&#10074;</button>
+</div>
+
+<!-- ========== DEMO CONTROLS (not part of the product) ========== -->
+<div class="demo-controls">
+  <span class="demo-label">Pill (micro) overlay</span>
+  <span class="demo-size">~120 × 32 px</span>
+  <button class="demo-btn" onclick="toggleBg()">Фон вкл/выкл</button>
+  <button class="demo-btn" onclick="toggleBreak()">Focus / Break</button>
+  <button class="demo-btn" onclick="setTheme('#E05A33')">Томат</button>
+  <button class="demo-btn" onclick="setTheme('#378ADD')">Океан</button>
+  <button class="demo-btn" onclick="setTheme('#1D9E75')">Лес</button>
+  <button class="demo-btn" onclick="setTheme('#7F77DD')">Фиалка</button>
+</div>
+
+<script>
+/* Timer simulation */
+let paused = false;
+let isBreak = false;
+let timeLeft = 17 * 60 + 4;
+const total = 25 * 60;
+const CIRC = 2 * Math.PI * 9;
+
+function updateDisplay() {
+  const m = Math.floor(timeLeft / 60);
+  const s = timeLeft % 60;
+  document.getElementById('time').textContent =
+    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  const pct = timeLeft / total;
+  document.getElementById('ringFg').style.strokeDashoffset = CIRC * (1 - pct);
+}
+
+function toggle() {
+  paused = !paused;
+  document.getElementById('playBtn').innerHTML = paused ? '&#9654;' : '&#10074;&#10074;';
+}
+
+setInterval(() => {
+  if (!paused && timeLeft > 0) {
+    timeLeft--;
+    updateDisplay();
+  }
+}, 1000);
+
+/* Demo helpers */
+function toggleBg() {
+  document.getElementById('pill').classList.toggle('no-bg');
+}
+function toggleBreak() {
+  isBreak = !isBreak;
+  document.getElementById('ringFg').classList.toggle('break', isBreak);
+}
+function setTheme(hex) {
+  document.documentElement.style.setProperty('--a', hex);
+}
+
+updateDisplay();
+</script>
+</body>
+</html>

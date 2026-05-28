@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Мемора Помидор — Compact overlay</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ========== DESIGN TOKENS ========== */
+:root {
+  --a: #E05A33;
+  --a-dim: rgba(224,90,51,0.15);
+  --a-glow: rgba(224,90,51,0.25);
+  --brk: #1D9E75;
+  --bg: #0C0C0F;
+  --sf: #16161A;
+  --sf2: #1E1E24;
+  --bd: rgba(255,255,255,0.06);
+  --t1: #E8E6E1;
+  --t2: #8A8A8D;
+  --t3: #55555A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: #1a1a2e;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-height: 100vh;
+  padding: 32px;
+}
+
+/* ========== COMPACT OVERLAY — ~220×52 px ========== */
+/*
+  Electron window config:
+    width: 240, height: 60
+    frame: false, transparent: true, alwaysOnTop: true
+    resizable: false, skipTaskbar: true
+    CSS root: -webkit-app-region: drag
+    Buttons: -webkit-app-region: no-drag
+*/
+.compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg);
+  border: 0.5px solid var(--bd);
+  border-radius: 14px;
+  cursor: move;
+  user-select: none;
+  transition: opacity 0.3s, background 0.3s;
+}
+
+/* — Progress ring (36×36 SVG with percentage inside) — */
+.compact-ring {
+  width: 36px;
+  height: 36px;
+  position: relative;
+  flex-shrink: 0;
+}
+.compact-ring svg { transform: rotate(-90deg); }
+.compact-ring-bg {
+  fill: none;
+  stroke: var(--sf2);
+  stroke-width: 3;
+}
+.compact-ring-fg {
+  fill: none;
+  stroke: var(--a);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear, stroke 0.3s;
+}
+.compact-ring-fg.break { stroke: var(--brk); }
+.compact-ring-pct {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--t1);
+}
+
+/* — Time + label column — */
+.compact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.compact-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--t1);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.compact-label {
+  font-size: 10px;
+  color: var(--t2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* — Control buttons — */
+.compact-controls {
+  display: flex;
+  gap: 4px;
+  margin-left: 4px;
+}
+.compact-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 0.5px solid var(--bd);
+  background: var(--sf);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--t2);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.compact-btn:hover {
+  border-color: var(--a);
+  color: var(--t1);
+}
+.compact-btn.play {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--a);
+  color: #fff;
+  font-size: 11px;
+}
+.compact-btn.play:hover { transform: scale(1.08); }
+.compact-btn.play:active { transform: scale(0.96); }
+.compact-btn.play.break { background: var(--brk); }
+
+/* ========== NO BACKGROUND MODE ========== */
+.compact.no-bg {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* ========== DEMO CONTROLS ========== */
+.demo-controls {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: 'Outfit', sans-serif;
+}
+.demo-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #E8E6E1;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.demo-btn:hover { background: rgba(255,255,255,0.1); }
+.demo-label {
+  font-size: 10px;
+  color: #55555A;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.demo-size {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #55555A;
+  margin-top: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- ========== COMPACT WIDGET ========== -->
+<div class="compact" id="widget">
+
+  <!-- Ring with percentage -->
+  <div class="compact-ring">
+    <svg viewBox="0 0 36 36" width="36" height="36">
+      <circle class="compact-ring-bg" cx="18" cy="18" r="15"/>
+      <circle class="compact-ring-fg" id="ringFg" cx="18" cy="18" r="15"
+        stroke-dasharray="94.25" stroke-dashoffset="30"/>
+    </svg>
+    <span class="compact-ring-pct" id="pct">68%</span>
+  </div>
+
+  <!-- Time + mode label -->
+  <div class="compact-info">
+    <span class="compact-time" id="time">17:04</span>
+    <span class="compact-label" id="label">фокус</span>
+  </div>
+
+  <!-- 3 buttons: Reset, Play/Pause, Skip -->
+  <div class="compact-controls">
+    <button class="compact-btn" onclick="resetTimer()" title="Сброс">&#8634;</button>
+    <button class="compact-btn play" id="playBtn" onclick="toggleTimer()" title="Старт/Пауза">&#10074;&#10074;</button>
+    <button class="compact-btn" onclick="skipTimer()" title="Пропуск">&#9197;</button>
+  </div>
+</div>
+
+<!-- ========== DEMO CONTROLS ========== -->
+<div class="demo-controls">
+  <span class="demo-label">Compact overlay (по умолчанию)</span>
+  <span class="demo-size">~220 × 52 px</span>
+  <button class="demo-btn" onclick="toggleBg()">Фон вкл/выкл</button>
+  <button class="demo-btn" onclick="switchMode()">Focus / Break</button>
+  <button class="demo-btn" onclick="setTheme('#E05A33')">Томат</button>
+  <button class="demo-btn" onclick="setTheme('#378ADD')">Океан</button>
+  <button class="demo-btn" onclick="setTheme('#1D9E75')">Лес</button>
+  <button class="demo-btn" onclick="setTheme('#7F77DD')">Фиалка</button>
+</div>
+
+<script>
+const CIRC = 2 * Math.PI * 15;
+const MODES = {
+  work:  { time: 25*60, ru: 'фокус',    en: 'focus' },
+  short: { time: 5*60,  ru: 'перерыв',  en: 'short break' },
+};
+let mode = 'work';
+let timeLeft = 17 * 60 + 4;
+let total = 25 * 60;
+let paused = false;
+
+function updateDisplay() {
+  const m = Math.floor(timeLeft / 60);
+  const s = timeLeft % 60;
+  document.getElementById('time').textContent =
+    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  const pct = timeLeft / total;
+  document.getElementById('ringFg').style.strokeDashoffset = CIRC * (1 - pct);
+  document.getElementById('pct').textContent = Math.round(pct * 100) + '%';
+}
+
+function toggleTimer() {
+  paused = !paused;
+  document.getElementById('playBtn').innerHTML =
+    paused ? '&#9654;' : '&#10074;&#10074;';
+}
+
+function resetTimer() {
+  timeLeft = total;
+  paused = true;
+  document.getElementById('playBtn').innerHTML = '&#9654;';
+  updateDisplay();
+}
+
+function skipTimer() {
+  switchMode();
+}
+
+function switchMode() {
+  const isBreak = mode === 'work';
+  mode = isBreak ? 'short' : 'work';
+  total = MODES[mode].time;
+  timeLeft = total;
+  paused = true;
+  document.getElementById('playBtn').innerHTML = '&#9654;';
+  document.getElementById('label').textContent = MODES[mode].ru;
+  document.getElementById('ringFg').classList.toggle('break', isBreak);
+  document.getElementById('playBtn').classList.toggle('break', isBreak);
+  updateDisplay();
+}
+
+setInterval(() => {
+  if (!paused && timeLeft > 0) {
+    timeLeft--;
+    updateDisplay();
+  }
+}, 1000);
+
+/* Demo helpers */
+function toggleBg() {
+  document.getElementById('widget').classList.toggle('no-bg');
+}
+function setTheme(hex) {
+  document.documentElement.style.setProperty('--a', hex);
+}
+
+updateDisplay();
+</script>
+</body>
+</html>

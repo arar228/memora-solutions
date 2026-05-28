@@ -1,0 +1,84 @@
+
+
+
+MEMORA SOLUTIONS
+МЕМОРА ПОМИДОР
+Техническое задание на разработку
+Кросс-платформенный помодоро-таймер | Memora Pomodoro
+
+v2.0  |  Март 2026
+Автор: Сергей Маклаков  |  s.maklakov@armk.pro
+@MemoraSolutions
+
+1. Общие сведения
+
+1.1 Цели проекта
+Создать минималистичный, современный, двуязычный помодоро-таймер с режимом always-on-top, прозрачным оверлеем, GitHub-style статистикой и едиными настройками без вкладок.
+Режим always-on-top (compact overlay) с опцией прозрачного фона
+Двуязычный интерфейс RU/EN с мгновенным переключением
+GitHub-style contributions grid для визуализации продуктивности
+Кастомные темы (Томат, Океан, Лес, Фиалка)
+Единая панель настроек без вкладок (scroll-лента с секциями)
+Профили таймеров (Pomodoro, Deep Work, custom)
+Отображение прогресса на таскбаре + системный трей
+Менее 50 MB RAM, менее 80 MB инсталлятор
+
+2. Функциональные требования
+2.1 Таймер (Core)
+
+2.2 Always-on-top (Compact overlay)
+Ключевая фича: компактный виджет поверх всех окон, ~220×52 px
+
+2.3 Системный трей и таскбар
+
+2.4 Contributions Grid
+
+2.5 Локализация
+
+2.6 Настройки (Settings)
+Все настройки в едином scroll-потоке без вкладок. Секции разделены тонкими линиями.
+Секция Profile: пилл-переключатель профилей + кнопка «+ new».
+Секция Timer: stepper-компоненты (+/-) для Work/Break/Long break/Rounds. Toggle: auto-start break, auto-start work, count backwards. Select: display mode.
+Секция Appearance: точки выбора цвета (5 пресетов + custom). Слайдеры Opacity, Size. Toggle: показывать фон, секунды, кнопки, анимацию. Select: шрифт таймера. Live preview внизу.
+Секция Sound: слайдер Volume. Toggle: звуковые уведомления, start/end sounds, repeat work sound. Компонент выбора файла с кнопками Play/Browse.
+Секция Behavior: toggle always-on-top, minimize to tray, launch on startup, taskbar progress, desktop notifications. Настройка hotkey через клик+запись комбинации.
+Секция Data: экспорт JSON/CSV, импорт из YAPA, сброс данных (красная кнопка с подтверждением).
+
+3. Интерфейс (UI/UX)
+Прототипы UI прилагаются как HTML-файлы. Разработчику следует воспроизвести дизайн максимально близко к прототипу.
+3.1 Основное окно
+Размер окна: 400×600 px (фиксированный). Состав: Header с логотипом + переключатель RU/EN + кнопка смены темы. Mode tabs (pill-переключатель). SVG-кольцо прогресса. 3 кнопки управления. 4 session dots. Tray preview. Contributions grid. Theme pills.
+3.2 Типографика
+3.3 Цветовая палитра
+
+4. Архитектура
+4.1 Стек
+4.2 Структура проекта
+memora-pomodoro/
+src/main/ — Electron main process (tray, IPC, DB, globalShortcut)
+src/renderer/components/ — Timer, CompactOverlay, Controls, ContribGrid, Settings
+src/renderer/themes/ — CSS-переменные для каждой темы
+src/renderer/i18n/ — ru.json, en.json
+src/shared/ — типы, константы, IPC-контракты
+assets/ — логотип, иконки, звуки, шрифты
+4.3 IPC-схема
+4.4 Схема БД
+Таблица sessions:
+
+Таблица settings:
+
+5. Нефункциональные требования
+6. Родмап
+
+7. Конкурентный анализ
+
+Уникальное преимущество: единственный помодоро-таймер, объединяющий always-on-top overlay, GitHub-style статистику, двуязычность и кросс-платформенность.
+
+8. Приложения
+Логотип: ChatGPT_Image_logo.png (1024×1024, помидор с лепестками)
+Прототип 1: Основное окно с таймером, RU/EN, contrib grid, темами (HTML)
+Прототип 2: Compact overlay в 3 вариантах — pill, compact, bar (HTML)
+Прототип 3: Единая панель настроек без вкладок (HTML)
+
+
+Memora Solutions © 2026  |  @MemoraSolutions  |  s.maklakov@armk.pro

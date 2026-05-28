@@ -1,0 +1,112 @@
+/* ============================================
+   Memora Pomodoro — Design System
+   Taken from prototypes, pixel-perfect
+   ============================================ */
+
+/* --- Fonts --- */
+/* JetBrains Mono — manual from assets */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/assets/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+/* Outfit — loaded via @fontsource/outfit imports in main.tsx */
+
+/* --- CSS Variables (themes) --- */
+:root {
+  /* Surfaces */
+  --bg:  #0C0C0F;
+  --sf:  #16161A;
+  --sf2: #1E1E24;
+  --sf3: #252530;
+
+  /* Borders */
+  --bd:  rgba(255, 255, 255, 0.06);
+  --bd2: rgba(255, 255, 255, 0.1);
+
+  /* Text */
+  --t1: #E8E6E1;
+  --t2: #8A8A8D;
+  --t3: #55555A;
+
+  /* Accent — switched by theme JS */
+  --a:     #E05A33;
+  --a-dim: rgba(224, 90, 51, 0.15);
+  --a-glow: rgba(224, 90, 51, 0.25);
+
+  /* Break color (constant) */
+  --brk: #1D9E75;
+
+  /* Radius */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-full: 9999px;
+
+  /* Transitions */
+  --tr-fast: 150ms ease;
+  --tr-normal: 300ms ease;
+  --tr-slow: 500ms ease;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  color: var(--t1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* --- Drag region for frameless window --- */
+.app-drag {
+  -webkit-app-region: drag;
+}
+
+.app-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sf3);
+  border-radius: var(--r-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--t3);
+}
+
+/* --- Focus visible --- */
+:focus-visible {
+  outline: 2px solid var(--a);
+  outline-offset: 2px;
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

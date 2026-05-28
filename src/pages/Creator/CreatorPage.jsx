@@ -12,6 +12,7 @@ import SceneTeam from '../../shared/scenes/SceneTeam';
 import './CreatorPage.css';
 
 const ProductDevOS = lazy(() => import('../../shared/ProductDevOS'));
+const PomodoroShowcase = lazy(() => import('../../shared/PomodoroShowcase'));
 
 const FULL_QUOTE = `Создали систему, которая превращает хаос проектной работы в управляемый конвейер. Суть простая: каждый проект стартует не с чистого листа, а с готовой структуры — набора «кармашков», куда команда складывает ключевые документы: от позиционирования до принципов разработки. Пустой кармашек — это задача. Заполненный — накопленный опыт, который автоматически работает на следующий проект. Чем больше проектов проходит через систему, тем быстрее, надёжнее и шире масштабируется каждый следующий. Мультипликатор, который растёт вместе с командой.`;
 
@@ -321,6 +322,10 @@ export default function CreatorPage() {
                         <p className="creator-text">{t('creator.s7Intro')}</p>
 
                         <DevShowcase t={t} />
+
+                        <Suspense fallback={<div style={{ height: 200 }} />}>
+                            <PomodoroShowcase t={t} />
+                        </Suspense>
                     </section>
                 </AnimatedSection>
 

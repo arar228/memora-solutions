@@ -1,0 +1,259 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap');
+:root {
+  --a: #E05A33;
+  --brk: #1D9E75;
+  --bg: #0C0C0F;
+  --sf: #16161A;
+  --sf2: #1E1E24;
+  --bd: rgba(255,255,255,0.06);
+  --t1: #E8E6E1;
+  --t2: #8A8A8D;
+  --t3: #55555A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.demo-scene {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: var(--border-radius-lg, 12px);
+  padding: 20px;
+  min-height: 520px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Outfit', sans-serif;
+}
+.fake-window {
+  background: #1c1c24;
+  border-radius: 8px;
+  border: 0.5px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.fake-titlebar {
+  height: 28px;
+  background: #141418;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 6px;
+}
+.fake-dot { width: 10px; height: 10px; border-radius: 50%; }
+.fake-dot.r { background: #e05a33; }
+.fake-dot.y { background: #e0a033; }
+.fake-dot.g { background: #1d9e75; }
+.fake-titlebar span { font-size: 11px; color: var(--t3); margin-left: 8px; font-family: 'Outfit', sans-serif; }
+.fake-content { padding: 16px; }
+.fake-code { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--t2); line-height: 1.8; }
+.fake-code .kw { color: #c678dd; }
+.fake-code .fn { color: #61afef; }
+.fake-code .str { color: #98c379; }
+.fake-code .cm { color: #55555a; }
+
+.mode-selector {
+  display: flex; gap: 6px; margin-bottom: 16px; justify-content: center;
+}
+.mode-btn {
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-family: 'Outfit', sans-serif;
+  border: 0.5px solid var(--bd); background: var(--sf); color: var(--t2); cursor: pointer; transition: all 0.2s;
+}
+.mode-btn.active { border-color: var(--a); color: var(--t1); background: rgba(224,90,51,0.12); }
+
+.label-tag {
+  position: absolute; font-size: 10px; font-family: 'Outfit', sans-serif;
+  color: var(--a); background: rgba(224,90,51,0.12); padding: 2px 8px;
+  border-radius: 10px; letter-spacing: 0.5px; white-space: nowrap;
+}
+
+/* === PILL === */
+.pill {
+  position: absolute;
+  background: var(--bg);
+  border: 0.5px solid var(--bd);
+  border-radius: 20px;
+  padding: 4px 6px 4px 4px;
+  display: flex; align-items: center; gap: 6px;
+  backdrop-filter: blur(12px);
+  cursor: move;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.pill-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--a); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; font-weight: 600; font-family: 'Outfit'; }
+.pill-time { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--t1); min-width: 42px; }
+.pill-ring { width: 24px; height: 24px; position: relative; }
+.pill-ring svg { transform: rotate(-90deg); }
+.pill-ring-bg { fill: none; stroke: var(--sf2); stroke-width: 2.5; }
+.pill-ring-fg { fill: none; stroke: var(--a); stroke-width: 2.5; stroke-linecap: round; }
+.pill-ctrl { width: 20px; height: 20px; border-radius: 50%; border: 0.5px solid var(--bd); background: var(--sf); display: flex; align-items: center; justify-content: center; color: var(--t2); font-size: 8px; cursor: pointer; }
+.pill-ctrl:hover { border-color: var(--a); color: var(--t1); }
+
+/* === COMPACT === */
+.compact {
+  position: absolute;
+  background: var(--bg);
+  border: 0.5px solid var(--bd);
+  border-radius: 14px;
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 10px;
+  backdrop-filter: blur(12px);
+  cursor: move;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.compact-ring { width: 36px; height: 36px; position: relative; }
+.compact-ring svg { transform: rotate(-90deg); }
+.compact-ring-bg { fill: none; stroke: var(--sf2); stroke-width: 3; }
+.compact-ring-fg { fill: none; stroke: var(--a); stroke-width: 3; stroke-linecap: round; }
+.compact-ring-time { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; color: var(--t1); }
+.compact-info { display: flex; flex-direction: column; gap: 1px; }
+.compact-time { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; color: var(--t1); letter-spacing: -1px; }
+.compact-label { font-size: 10px; color: var(--t2); text-transform: uppercase; letter-spacing: 1px; }
+.compact-controls { display: flex; gap: 4px; margin-left: 4px; }
+.compact-btn { width: 24px; height: 24px; border-radius: 50%; border: 0.5px solid var(--bd); background: var(--sf); display: flex; align-items: center; justify-content: center; color: var(--t2); font-size: 10px; cursor: pointer; }
+.compact-btn.play { background: var(--a); border: none; color: #fff; width: 28px; height: 28px; }
+.compact-btn:hover { border-color: var(--a); color: var(--t1); }
+
+/* === BAR === */
+.bar {
+  position: absolute;
+  background: var(--bg);
+  border: 0.5px solid var(--bd);
+  border-radius: 10px;
+  padding: 6px 12px;
+  display: flex; align-items: center; gap: 8px;
+  backdrop-filter: blur(12px);
+  cursor: move;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.bar-logo { width: 18px; height: 18px; border-radius: 4px; background: var(--a); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #fff; font-weight: 600; font-family: 'Outfit'; }
+.bar-time { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: var(--t1); }
+.bar-progress { width: 80px; height: 3px; background: var(--sf2); border-radius: 2px; overflow: hidden; }
+.bar-progress-fill { height: 100%; background: var(--a); border-radius: 2px; width: 68%; }
+.bar-label { font-size: 10px; color: var(--t2); font-family: 'Outfit'; }
+.bar-sep { width: 0.5px; height: 14px; background: var(--bd); }
+.bar-btn { color: var(--t2); font-size: 10px; cursor: pointer; background: none; border: none; padding: 2px; font-family: 'Outfit'; }
+.bar-btn:hover { color: var(--t1); }
+.bar-dots { display: flex; gap: 3px; }
+.bar-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sf2); }
+.bar-dot.done { background: var(--a); }
+.bar-dot.cur { background: var(--a); box-shadow: 0 0 4px rgba(224,90,51,0.4); }
+
+.hidden { opacity: 0; pointer-events: none; transform: scale(0.95); }
+
+.size-ref {
+  position: absolute; font-size: 9px; color: var(--t3); font-family: 'JetBrains Mono', monospace;
+  background: rgba(0,0,0,0.4); padding: 1px 5px; border-radius: 4px;
+}
+</style>
+
+<div style="padding: 0.5rem 0;">
+  <div class="mode-selector">
+    <button class="mode-btn active" onclick="showMode('pill')">Pill (micro)</button>
+    <button class="mode-btn" onclick="showMode('compact')">Compact</button>
+    <button class="mode-btn" onclick="showMode('bar')">Bar (wide)</button>
+  </div>
+
+  <div class="demo-scene" id="scene">
+    <div class="fake-window" style="width: 100%; height: 440px;">
+      <div class="fake-titlebar">
+        <div class="fake-dot r"></div><div class="fake-dot y"></div><div class="fake-dot g"></div>
+        <span>project.ts — memora-pomodoro</span>
+      </div>
+      <div class="fake-content">
+        <div class="fake-code">
+          <span class="cm">// src/main/timer.ts</span><br>
+          <span class="kw">import</span> { BrowserWindow, Tray } <span class="kw">from</span> <span class="str">'electron'</span>;<br>
+          <span class="kw">import</span> { TimerState } <span class="kw">from</span> <span class="str">'../shared/types'</span>;<br><br>
+          <span class="kw">export class</span> <span class="fn">PomodoroTimer</span> {<br>
+          &nbsp;&nbsp;<span class="kw">private</span> state: TimerState = <span class="str">'idle'</span>;<br>
+          &nbsp;&nbsp;<span class="kw">private</span> remaining = <span class="str">25 * 60</span>;<br><br>
+          &nbsp;&nbsp;<span class="fn">start</span>() {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.state = <span class="str">'running'</span>;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.interval = setInterval(() => {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.remaining--;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.<span class="fn">updateTray</span>();<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.<span class="fn">updateTaskbar</span>();<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;}, <span class="str">1000</span>);<br>
+          &nbsp;&nbsp;}<br><br>
+          &nbsp;&nbsp;<span class="kw">private</span> <span class="fn">updateTaskbar</span>() {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> progress = <span class="str">1</span> - <span class="kw">this</span>.remaining / <span class="kw">this</span>.total;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;win.<span class="fn">setProgressBar</span>(progress);<br>
+          &nbsp;&nbsp;}<br>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- PILL MODE -->
+    <div class="pill" id="mode-pill" style="top: 16px; right: 16px;">
+      <div class="pill-icon">M</div>
+      <div class="pill-ring">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <circle class="pill-ring-bg" cx="12" cy="12" r="9"/>
+          <circle class="pill-ring-fg" cx="12" cy="12" r="9" stroke-dasharray="56.5" stroke-dashoffset="18"/>
+        </svg>
+      </div>
+      <span class="pill-time">17:04</span>
+      <div class="pill-ctrl" onclick="togglePause()" id="pillPlay">&#10074;&#10074;</div>
+    </div>
+    <div class="label-tag" id="label-pill" style="top: 50px; right: 16px;">~120 x 32 px</div>
+
+    <!-- COMPACT MODE -->
+    <div class="compact hidden" id="mode-compact" style="top: 16px; right: 16px;">
+      <div class="compact-ring">
+        <svg viewBox="0 0 36 36" width="36" height="36">
+          <circle class="compact-ring-bg" cx="18" cy="18" r="15"/>
+          <circle class="compact-ring-fg" cx="18" cy="18" r="15" stroke-dasharray="94.2" stroke-dashoffset="30"/>
+        </svg>
+        <span class="compact-ring-time">68%</span>
+      </div>
+      <div class="compact-info">
+        <span class="compact-time">17:04</span>
+        <span class="compact-label">focus</span>
+      </div>
+      <div class="compact-controls">
+        <div class="compact-btn">&#8634;</div>
+        <div class="compact-btn play">&#10074;&#10074;</div>
+        <div class="compact-btn">&#9197;</div>
+      </div>
+    </div>
+    <div class="label-tag hidden" id="label-compact" style="top: 62px; right: 16px;">~220 x 52 px</div>
+
+    <!-- BAR MODE -->
+    <div class="bar hidden" id="mode-bar" style="top: 16px; left: 50%; transform: translateX(-50%);">
+      <div class="bar-logo">M</div>
+      <span class="bar-time">17:04</span>
+      <div class="bar-progress"><div class="bar-progress-fill"></div></div>
+      <span class="bar-label">focus</span>
+      <div class="bar-sep"></div>
+      <div class="bar-dots">
+        <div class="bar-dot done"></div>
+        <div class="bar-dot done"></div>
+        <div class="bar-dot cur"></div>
+        <div class="bar-dot"></div>
+      </div>
+      <div class="bar-sep"></div>
+      <button class="bar-btn">&#10074;&#10074;</button>
+      <button class="bar-btn">&#9197;</button>
+    </div>
+    <div class="label-tag hidden" id="label-bar" style="top: 46px; left: 50%; transform: translateX(-50%);">~340 x 30 px</div>
+  </div>
+</div>
+
+<script>
+let current = 'pill';
+function showMode(mode) {
+  ['pill','compact','bar'].forEach(m => {
+    document.getElementById('mode-'+m).classList.toggle('hidden', m !== mode);
+    document.getElementById('label-'+m).classList.toggle('hidden', m !== mode);
+  });
+  document.querySelectorAll('.mode-btn').forEach((b,i) => {
+    const modes = ['pill','compact','bar'];
+    b.classList.toggle('active', modes[i] === mode);
+  });
+  current = mode;
+}
+
+let paused = false;
+function togglePause() {
+  paused = !paused;
+  document.getElementById('pillPlay').innerHTML = paused ? '&#9654;' : '&#10074;&#10074;';
+}
+</script>

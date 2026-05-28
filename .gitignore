@@ -16,6 +16,12 @@ dist
 dist-ssr
 *.local
 
+# Electron build output (memora-pomodoro)
+release
+out
+memora-pomodoro/release
+memora-pomodoro/out
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

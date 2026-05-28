@@ -1,0 +1,52 @@
+appId: pro.armk.memora-pomodoro
+productName: Memora Pomodoro
+copyright: Copyright © 2026 Memora Solutions
+
+directories:
+  output: release
+  buildResources: resources
+
+files:
+  - dist/**/*
+
+extraResources:
+  - from: assets
+    to: assets
+    filter:
+      - "**/*"
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: assets/icon.png
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  perMachine: false
+  license: resources/license.txt
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Memora Pomodoro
+
+mac:
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+  icon: assets/icon.png
+  category: public.app-category.productivity
+
+linux:
+  target:
+    - target: AppImage
+      arch: [x64]
+    - target: deb
+      arch: [x64]
+  icon: assets/icon.png
+  category: Utility
+
+publish:
+  provider: github
+  owner: arar228
+  repo: memora-solutions

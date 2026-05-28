@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
+  <title>Overlay</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body, #root { height: 100%; overflow: hidden; background: transparent !important; }
+    body {
+      font-family: 'Outfit', -apple-system, sans-serif;
+      background: transparent;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+    :root {
+      --a: #E05A33;
+      --brk: #1D9E75;
+      --bg: #0C0C0F;
+      --sf: #16161A;
+      --sf2: #1E1E24;
+      --bd: rgba(255,255,255,0.06);
+      --t1: #E8E6E1;
+      --t2: #8A8A8D;
+      --t3: #55555A;
+    }
+
+    /* ========== SHARED ========== */
+    .ov {
+      display: flex;
+      align-items: center;
+      cursor: move;
+      transition: box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .ov:hover { box-shadow: 0 2px 16px rgba(0,0,0,0.35); }
+    .ov.no-bg { background: transparent !important; border-color: transparent !important; backdrop-filter: none !important; }
+
+    /* ========== PILL (micro) ~120×32 ========== */
+    .ov-pill {
+      gap: 6px;
+      padding: 4px 6px 4px 4px;
+      background: var(--bg);
+      border-radius: 20px;
+      border: 0.5px solid var(--bd);
+      backdrop-filter: blur(12px);
+    }
+    .ov-pill-icon {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 600; color: #fff;
+      flex-shrink: 0;
+    }
+    .ov-mini-ring { flex-shrink: 0; }
+    .ov-mini-ring svg { transform: rotate(-90deg); }
+    .ov-pill-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 600;
+      color: var(--t1); min-width: 42px;
+    }
+    .ov-pill-btn {
+      width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      border: 0.5px solid var(--bd);
+      background: var(--sf);
+      color: var(--t2); cursor: pointer;
+      transition: all 150ms ease;
+      padding: 0; flex-shrink: 0;
+    }
+    .ov-pill-btn:hover { border-color: var(--a); color: var(--t1); }
+
+    /* ========== COMPACT (default) ~220×52 ========== */
+    .ov-compact {
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--bg);
+      border-radius: 14px;
+      border: 0.5px solid var(--bd);
+      backdrop-filter: blur(12px);
+    }
+    .ov-ring-wrap {
+      position: relative; width: 36px; height: 36px; flex-shrink: 0;
+    }
+    .ov-ring-wrap svg { transform: rotate(-90deg); }
+    .ov-pct {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; font-weight: 700; color: var(--t1);
+    }
+    .ov-info {
+      display: flex; flex-direction: column; gap: 1px; min-width: 50px;
+    }
+    .ov-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px; font-weight: 700; color: var(--t1);
+      letter-spacing: -1px; line-height: 1;
+    }
+    .ov-mode {
+      font-size: 10px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--t2); line-height: 1;
+    }
+    .ov-controls { display: flex; gap: 4px; margin-left: 4px; }
+    .ov-btn {
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      border: 0.5px solid var(--bd);
+      background: var(--sf);
+      color: var(--t2); cursor: pointer;
+      transition: all 150ms ease; padding: 0;
+    }
+    .ov-btn:hover { border-color: var(--a); color: var(--t1); }
+    .ov-btn-play {
+      width: 28px; height: 28px;
+      border: none; color: white;
+    }
+    .ov-btn-play:hover { transform: scale(1.08); }
+
+    /* ========== BAR (wide) ~340×30 ========== */
+    .ov-bar {
+      gap: 8px;
+      padding: 6px 12px;
+      background: var(--bg);
+      border-radius: 10px;
+      border: 0.5px solid var(--bd);
+      backdrop-filter: blur(12px);
+      width: 100%;
+    }
+    .ov-bar-logo {
+      width: 18px; height: 18px; border-radius: 4px;
+      background: var(--a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 600; color: #fff;
+      flex-shrink: 0;
+    }
+    .ov-bar-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px; font-weight: 600; color: var(--t1);
+    }
+    .ov-bar-progress {
+      width: 80px; height: 3px;
+      background: var(--sf2); border-radius: 2px;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .ov-bar-fill {
+      height: 100%;
+      border-radius: 2px; transition: width 1s linear;
+    }
+    .ov-bar-mode {
+      font-size: 10px; font-weight: 500;
+      color: var(--t2);
+    }
+    .ov-bar-sep {
+      width: 0.5px; height: 14px;
+      background: var(--bd); flex-shrink: 0;
+    }
+    .ov-bar-dots { display: flex; gap: 3px; align-items: center; }
+    .ov-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--sf2);
+      transition: background 200ms ease;
+    }
+    .ov-dot.done { background: var(--a); }
+    .ov-dot.cur { background: var(--a); box-shadow: 0 0 4px rgba(224,90,51,0.4); }
+    .ov-bar-controls {
+      display: flex; gap: 3px; margin-left: auto;
+    }
+    .ov-bar-btn {
+      color: var(--t2); font-size: 10px; cursor: pointer;
+      background: none; border: none; padding: 2px;
+      transition: color 150ms ease;
+    }
+    .ov-bar-btn:hover { color: var(--t1); }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="./overlay-entry.tsx"></script>
+</body>
+</html>

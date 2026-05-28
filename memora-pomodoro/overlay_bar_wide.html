@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Мемора Помидор — Bar (wide) overlay</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ========== DESIGN TOKENS ========== */
+:root {
+  --a: #E05A33;
+  --a-dim: rgba(224,90,51,0.15);
+  --a-glow: rgba(224,90,51,0.25);
+  --brk: #1D9E75;
+  --bg: #0C0C0F;
+  --sf: #16161A;
+  --sf2: #1E1E24;
+  --bd: rgba(255,255,255,0.06);
+  --t1: #E8E6E1;
+  --t2: #8A8A8D;
+  --t3: #55555A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: #1a1a2e;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px;
+}
+
+/* ========== BAR OVERLAY — ~340×30 px ========== */
+/*
+  Electron window config:
+    width: 360, height: 38
+    frame: false, transparent: true, alwaysOnTop: true
+    resizable: false, skipTaskbar: true
+    CSS root: -webkit-app-region: drag
+    Buttons: -webkit-app-region: no-drag
+*/
+.bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--bg);
+  border: 0.5px solid var(--bd);
+  border-radius: 10px;
+  cursor: move;
+  user-select: none;
+  transition: opacity 0.3s, background 0.3s;
+}
+
+/* — Logo — */
+.bar-logo {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 600;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  flex-shrink: 0;
+}
+
+/* — Time — */
+.bar-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--t1);
+  min-width: 42px;
+}
+
+/* — Progress bar (80px wide, 3px height) — */
+.bar-progress {
+  width: 80px;
+  height: 3px;
+  background: var(--sf2);
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.bar-progress-fill {
+  height: 100%;
+  background: var(--a);
+  border-radius: 2px;
+  transition: width 1s linear, background 0.3s;
+}
+.bar-progress-fill.break { background: var(--brk); }
+
+/* — Mode label — */
+.bar-label {
+  font-size: 10px;
+  color: var(--t2);
+  font-family: 'Outfit', sans-serif;
+  white-space: nowrap;
+}
+
+/* — Separator — */
+.bar-sep {
+  width: 0.5px;
+  height: 14px;
+  background: var(--bd);
+  flex-shrink: 0;
+}
+
+/* — Session dots (4 dots showing completed pomodoros in cycle) — */
+.bar-dots {
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.bar-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sf2);
+}
+.bar-dot.done { background: var(--a); }
+.bar-dot.current {
+  background: var(--a);
+  box-shadow: 0 0 4px var(--a-glow);
+}
+
+/* — Control buttons — */
+.bar-btn {
+  background: none;
+  border: none;
+  color: var(--t2);
+  font-size: 10px;
+  cursor: pointer;
+  padding: 2px;
+  font-family: 'Outfit', sans-serif;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+.bar-btn:hover { color: var(--t1); }
+
+/* ========== NO BACKGROUND MODE ========== */
+.bar.no-bg {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* ========== DEMO CONTROLS ========== */
+.demo-controls {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: 'Outfit', sans-serif;
+}
+.demo-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #E8E6E1;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.demo-btn:hover { background: rgba(255,255,255,0.1); }
+.demo-label {
+  font-size: 10px;
+  color: #55555A;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.demo-size {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #55555A;
+  margin-top: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- ========== BAR WIDGET ========== -->
+<div class="bar" id="widget">
+  <div class="bar-logo">М</div>
+  <span class="bar-time" id="time">17:04</span>
+  <div class="bar-progress">
+    <div class="bar-progress-fill" id="progressFill" style="width: 68%"></div>
+  </div>
+  <span class="bar-label" id="label">фокус</span>
+  <div class="bar-sep"></div>
+  <div class="bar-dots" id="dots">
+    <div class="bar-dot done"></div>
+    <div class="bar-dot done"></div>
+    <div class="bar-dot current"></div>
+    <div class="bar-dot"></div>
+  </div>
+  <div class="bar-sep"></div>
+  <button class="bar-btn" id="playBtn" onclick="toggleTimer()">&#10074;&#10074;</button>
+  <button class="bar-btn" onclick="skipTimer()">&#9197;</button>
+</div>
+
+<!-- ========== DEMO CONTROLS ========== -->
+<div class="demo-controls">
+  <span class="demo-label">Bar (wide) overlay</span>
+  <span class="demo-size">~340 × 30 px</span>
+  <button class="demo-btn" onclick="toggleBg()">Фон вкл/выкл</button>
+  <button class="demo-btn" onclick="switchMode()">Focus / Break</button>
+  <button class="demo-btn" onclick="setTheme('#E05A33')">Томат</button>
+  <button class="demo-btn" onclick="setTheme('#378ADD')">Океан</button>
+  <button class="demo-btn" onclick="setTheme('#1D9E75')">Лес</button>
+  <button class="demo-btn" onclick="setTheme('#7F77DD')">Фиалка</button>
+</div>
+
+<script>
+const MODES = {
+  work:  { time: 25*60, ru: 'фокус' },
+  short: { time: 5*60,  ru: 'перерыв' },
+};
+let mode = 'work';
+let timeLeft = 17 * 60 + 4;
+let total = 25 * 60;
+let paused = false;
+
+function updateDisplay() {
+  const m = Math.floor(timeLeft / 60);
+  const s = timeLeft % 60;
+  document.getElementById('time').textContent =
+    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  const pct = timeLeft / total;
+  document.getElementById('progressFill').style.width = (pct * 100) + '%';
+}
+
+function toggleTimer() {
+  paused = !paused;
+  document.getElementById('playBtn').innerHTML =
+    paused ? '&#9654;' : '&#10074;&#10074;';
+}
+
+function skipTimer() { switchMode(); }
+
+function switchMode() {
+  const isBreak = mode === 'work';
+  mode = isBreak ? 'short' : 'work';
+  total = MODES[mode].time;
+  timeLeft = total;
+  paused = true;
+  document.getElementById('playBtn').innerHTML = '&#9654;';
+  document.getElementById('label').textContent = MODES[mode].ru;
+  document.getElementById('progressFill').classList.toggle('break', isBreak);
+  updateDisplay();
+}
+
+setInterval(() => {
+  if (!paused && timeLeft > 0) {
+    timeLeft--;
+    updateDisplay();
+  }
+}, 1000);
+
+/* Demo helpers */
+function toggleBg() {
+  document.getElementById('widget').classList.toggle('no-bg');
+}
+function setTheme(hex) {
+  document.documentElement.style.setProperty('--a', hex);
+  document.documentElement.style.setProperty('--a-glow', hex + '40');
+}
+
+updateDisplay();
+</script>
+</body>
+</html>

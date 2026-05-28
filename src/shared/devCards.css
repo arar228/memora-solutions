@@ -20,7 +20,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(to bottom, var(--c-accent-1), var(--c-accent-2));
+    background: linear-gradient(to bottom, var(--color-gold), var(--color-lavender));
     border-radius: 3px 0 0 3px;
 }
 
@@ -33,28 +33,28 @@
     padding: 4px 10px;
     border-radius: 4px;
     background: rgba(107, 79, 160, 0.12);
-    color: var(--c-accent-1);
+    color: var(--color-gold);
     border: 1px solid rgba(107, 79, 160, 0.2);
     margin-bottom: var(--space-md);
 }
 
 .creator-dev-card__title {
-    font-family: var(--ff-heading);
+    font-family: var(--font-display);
     font-size: 1.3rem;
     font-weight: 600;
-    color: var(--c-text);
+    color: var(--color-text);
     margin-bottom: var(--space-sm);
 }
 
 .creator-dev-card__text {
     font-size: 0.95rem;
     line-height: 1.75;
-    color: var(--c-text-secondary);
+    color: var(--color-text-secondary);
     margin-bottom: var(--space-md);
 }
 
 .creator-dev-card__text strong {
-    color: var(--c-text);
+    color: var(--color-text);
     font-weight: 500;
 }
 
@@ -67,7 +67,7 @@
     border-radius: 6px;
     padding: 6px 14px;
     font-size: 0.8rem;
-    color: var(--c-text-secondary);
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition: all 0.2s;
     margin-bottom: var(--space-md);
@@ -75,7 +75,7 @@
 
 .creator-dev-card__expand-btn:hover {
     border-color: rgba(255, 255, 255, 0.15);
-    color: var(--c-text);
+    color: var(--color-text);
 }
 
 .creator-dev-card__quote {
@@ -85,7 +85,7 @@
     border-radius: 0 8px 8px 0;
     font-size: 0.85rem;
     line-height: 1.7;
-    color: var(--c-text-secondary);
+    color: var(--color-text-secondary);
     font-style: italic;
     margin-bottom: var(--space-md);
 }
@@ -185,7 +185,7 @@
     border: 1px solid rgba(107, 79, 160, 0.4);
     background: rgba(107, 79, 160, 0.15);
     color: #fff;
-    font-family: var(--ff-heading);
+    font-family: var(--font-display);
     font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
@@ -221,7 +221,7 @@
 
 .creator-dev-mobile-fallback__text {
     font-size: 0.85rem;
-    color: var(--c-text-secondary);
+    color: var(--color-text-secondary);
     line-height: 1.6;
 }
 

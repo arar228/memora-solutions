@@ -1,0 +1,43 @@
+name: Update Travel Radar feed
+
+# Scrapes public Telegram travel channels and refreshes public/tours.json.
+# The site reads that file as a static feed, so this keeps deals fresh
+# without any backend.
+
+on:
+  schedule:
+    # Every 3 hours (UTC). GitHub may delay scheduled runs under load.
+    - cron: '0 */3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-tours
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch tours
+        run: node scripts/fetch-tours.js
+
+      - name: Commit updated feed
+        run: |
+          if [[ -z "$(git status --porcelain public/tours.json)" ]]; then
+            echo "No feed changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/tours.json
+          git commit -m "chore(travel): refresh tours feed [skip ci]"
+          git push

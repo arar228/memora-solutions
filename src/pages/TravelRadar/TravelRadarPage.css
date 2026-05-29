@@ -213,7 +213,9 @@
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* min(100%, 280px) so a single column never exceeds the viewport on
+       narrow phones (a fixed 300px min track overflowed < ~340px screens). */
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: var(--space-md);
 }
 

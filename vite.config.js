@@ -11,7 +11,6 @@ export default defineConfig({
           three: ['three'],
           gsap: ['gsap'],
           motion: ['framer-motion'],
-          'd3-force': ['d3-force'],
         },
       },
     },

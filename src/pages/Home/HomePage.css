@@ -2,6 +2,7 @@
 .hero {
     position: relative;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,6 +40,7 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    min-height: 100dvh;
     justify-content: center;
     padding-top: var(--header-height);
     padding-bottom: 100px;

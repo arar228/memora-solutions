@@ -153,6 +153,9 @@
     position: relative;
     height: 650px;
     overflow: auto;
+    /* Hand the scroll gesture back to the page when this inner box reaches its
+       edge, so it doesn't trap touch scrolling on mobile. */
+    overscroll-behavior: contain;
     background: #0b0d11;
 }
 

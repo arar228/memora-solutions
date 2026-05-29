@@ -87,9 +87,15 @@ export default function KanbanPage() {
     const lang = i18n.language;
     const [feedbackText, setFeedbackText] = useState('');
     const [feedbackItems, setFeedbackItems] = useState([]);
-    const [, forceUpdate] = useState(0);
+    const [rateTick, forceUpdate] = useState(0);
 
-    const rateInfo = useMemo(() => getRateLimitInfo(), [feedbackItems, forceUpdate]);
+    // Depend on the tick *value*, not the (stable) setter — otherwise the memo
+    // never recomputed when a blocked send bumped forceUpdate, so the
+    // "limit reached / wait N min" info never refreshed. getRateLimitInfo()
+    // reads localStorage (external state), so these deps are intentional even
+    // though the callback takes no args — they're our "refresh" signals.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const rateInfo = useMemo(() => getRateLimitInfo(), [feedbackItems, rateTick]);
 
     const columns = [
         {

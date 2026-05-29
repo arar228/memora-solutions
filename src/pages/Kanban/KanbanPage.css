@@ -338,8 +338,15 @@
         grid-template-columns: 1fr;
     }
 
+    /* Stacked on mobile: let columns grow with content and scroll with the
+       page instead of being fixed-height inner scrollers. Nested scroll
+       boxes capture the touch gesture and feel like "the page won't scroll". */
     .kanban-column {
-        height: 500px;
+        height: auto;
+    }
+
+    .kanban-column__body {
+        overflow: visible;
     }
 }
 

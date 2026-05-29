@@ -674,6 +674,10 @@ export default function SceneVR() {
 
     const clock = new THREE.Clock();
     let animId, isInView = false;
+    // Track last-pushed React state so we only setState when the value
+    // actually changes (most frames repeat the same value).
+    let lastPhase = null;
+    let lastConnected = -1;
 
     const tick = () => {
       animId = requestAnimationFrame(tick);
@@ -699,7 +703,8 @@ export default function SceneVR() {
 
       // ─── Phase 1: INTRO ─────────────────────────
       if (time < T1) {
-        setPhase('intro');
+        // Only setState when the phase actually changed
+        if ('intro' !== lastPhase) { lastPhase = 'intro'; setPhase('intro'); }
         // Pods dim, no avatars, no beams
         pods.forEach(p => {
           p.userData.ringMat.emissiveIntensity = 0.15;
@@ -712,12 +717,14 @@ export default function SceneVR() {
         sphereWire.material.opacity = 0.2;
         eqRing.material.opacity = 0.2;
         sphereLight.intensity = 0;
-        setConnectedCount(0);
+        // Only setState when the connected count actually changed
+        if (0 !== lastConnected) { lastConnected = 0; setConnectedCount(0); }
       }
 
       // ─── Phase 2: CONNECT — pods light up one by one ──
       else if (time < T2) {
-        setPhase('connect');
+        // Only setState when the phase actually changed
+        if ('connect' !== lastPhase) { lastPhase = 'connect'; setPhase('connect'); }
         const phaseT = (time - T1) / T_CONNECT;
         const lit = Math.floor(phaseT * (POD_COUNT + 0.2));
         let actualLit = 0;
@@ -742,12 +749,14 @@ export default function SceneVR() {
         sphereLight.intensity = phaseT * 1.0;
         particles.material.opacity = lerp(0, 0.3, phaseT);
         centralModel.visible = false;
-        setConnectedCount(actualLit);
+        // Only setState when the connected count actually changed
+        if (actualLit !== lastConnected) { lastConnected = actualLit; setConnectedCount(actualLit); }
       }
 
       // ─── Phase 3: SYNC — model materialises ─
       else if (time < T3) {
-        setPhase('sync');
+        // Only setState when the phase actually changed
+        if ('sync' !== lastPhase) { lastPhase = 'sync'; setPhase('sync'); }
         const phaseT = (time - T2) / T_SYNC;
         pods.forEach((p, i) => {
           p.userData.ringMat.emissiveIntensity = 0.6 + Math.sin(elapsed * 2.5 + i) * 0.15;
@@ -759,12 +768,14 @@ export default function SceneVR() {
         centralModel.scale.setScalar(easeOut(phaseT) * (hovered?.type === 'model' ? 1.15 : 1.0));
         sphereLight.intensity = 1.0 + Math.sin(elapsed * 2) * 0.2;
         particles.material.opacity = lerp(0.3, 0.6, phaseT);
-        setConnectedCount(POD_COUNT);
+        // Only setState when the connected count actually changed
+        if (POD_COUNT !== lastConnected) { lastConnected = POD_COUNT; setConnectedCount(POD_COUNT); }
       }
 
       // ─── Phase 4: MEETING — avatars gesture, model rotates ─
       else if (time < T4) {
-        setPhase('meeting');
+        // Only setState when the phase actually changed
+        if ('meeting' !== lastPhase) { lastPhase = 'meeting'; setPhase('meeting'); }
         pods.forEach((p, i) => {
           p.userData.ringMat.emissiveIntensity = 0.6 + Math.sin(elapsed * 2.5 + i) * 0.15;
           updateBeam(i, 0.55 + Math.sin(elapsed * 3 + i) * 0.15);
@@ -784,7 +795,8 @@ export default function SceneVR() {
 
       // ─── Phase 5: HOLD ──────────────────────────
       else {
-        setPhase('hold');
+        // Only setState when the phase actually changed
+        if ('hold' !== lastPhase) { lastPhase = 'hold'; setPhase('hold'); }
         pods.forEach((p, i) => {
           p.userData.ringMat.emissiveIntensity = 0.55;
           updateBeam(i, 0.5);

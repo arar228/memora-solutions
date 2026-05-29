@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './devCards.css';
 
 /**
@@ -6,30 +6,46 @@ import './devCards.css';
  * displayed in the "Other Developments" section of the Creator page.
  * Shows a simulated timer UI with ring animation and contribution grid.
  */
+
+// Mock contribution heatmap — generated once at module load, not during
+// render. (Generating it in render re-randomised the grid every tick while
+// the timer ran, causing flicker + needless work; doing it at module scope
+// keeps it stable and is pure as far as React's render is concerned.)
+const GRID_CELLS = Array.from({ length: 7 * 16 }, () => {
+    const rand = Math.random();
+    if (rand > 0.7) return 4;
+    if (rand > 0.5) return 3;
+    if (rand > 0.35) return 2;
+    if (rand > 0.2) return 1;
+    return 0;
+});
 export default function PomodoroShowcase({ t }) {
     const isRu = t('creator.s7Label') === '07 / Внутренние разработки';
     const [isRunning, setIsRunning] = useState(false);
     const [timeLeft, setTimeLeft] = useState(25 * 60);
     const [mode, setMode] = useState('focus');
 
-    // Simulate running for demo
-    const handleToggle = () => {
-        if (!isRunning) {
-            setIsRunning(true);
-            const interval = setInterval(() => {
-                setTimeLeft(prev => {
-                    if (prev <= 0) {
-                        clearInterval(interval);
-                        setIsRunning(false);
-                        return 25 * 60;
-                    }
-                    return prev - 1;
-                });
-            }, 50); // Sped up for demo
-        } else {
-            setIsRunning(false);
-        }
-    };
+    // Simulate running for demo. The timer is driven by a single effect keyed
+    // on `isRunning` so it is always cleaned up — pausing, finishing, or
+    // unmounting (e.g. navigating away from the Creator page) clears the
+    // interval. The previous version created an interval per "play" press
+    // without ever clearing it, stacking many 20Hz setState loops that kept
+    // firing after unmount and janked/froze the page on mobile.
+    const handleToggle = () => setIsRunning(prev => !prev);
+
+    useEffect(() => {
+        if (!isRunning) return;
+        const interval = setInterval(() => {
+            setTimeLeft(prev => {
+                if (prev <= 1) {
+                    setIsRunning(false);
+                    return 25 * 60;
+                }
+                return prev - 1;
+            });
+        }, 50); // Sped up for demo
+        return () => clearInterval(interval);
+    }, [isRunning]);
 
     const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
     const secs = String(timeLeft % 60).padStart(2, '0');
@@ -37,15 +53,7 @@ export default function PomodoroShowcase({ t }) {
     const circumference = 2 * Math.PI * 70;
     const offset = circumference * (1 - progress);
 
-    // Generate mock contribution data
-    const gridCells = Array.from({ length: 7 * 16 }, (_, i) => {
-        const rand = Math.random();
-        if (rand > 0.7) return 4;
-        if (rand > 0.5) return 3;
-        if (rand > 0.35) return 2;
-        if (rand > 0.2) return 1;
-        return 0;
-    });
+    const gridCells = GRID_CELLS;
 
     return (
         <div className="creator-dev-card" style={{ marginTop: 24 }}>

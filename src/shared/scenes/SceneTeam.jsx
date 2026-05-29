@@ -589,6 +589,9 @@ export default function SceneTeam() {
     const clock = new THREE.Clock();
     let animId, isInView = false;
     let lastSpawnAt = -Infinity;
+    // Track last-pushed React phase so we only setState when it actually
+    // changes (most frames repeat the same value).
+    let lastPhase = null;
 
     const tick = () => {
       animId = requestAnimationFrame(tick);
@@ -609,7 +612,8 @@ export default function SceneTeam() {
 
       // GENESIS
       if (time < T1) {
-        setPhase('genesis');
+        // Only setState when the phase actually changed
+        if ('genesis' !== lastPhase) { lastPhase = 'genesis'; setPhase('genesis'); }
         clusters.forEach(c => { c.clusterGroup.visible = false; });
         hubLines.forEach(h => h.mat.opacity = 0);
         invitationGroup.scale.setScalar(0);
@@ -620,7 +624,8 @@ export default function SceneTeam() {
       }
       // FORMATION
       else if (time < T2) {
-        setPhase('formation');
+        // Only setState when the phase actually changed
+        if ('formation' !== lastPhase) { lastPhase = 'formation'; setPhase('formation'); }
         clusters.forEach((c, idx) => {
           if (time >= c.appearTime) {
             const localT = Math.min(1, (time - c.appearTime) / 0.8);
@@ -646,7 +651,8 @@ export default function SceneTeam() {
       }
       // CONNECT
       else if (time < T3) {
-        setPhase('connect');
+        // Only setState when the phase actually changed
+        if ('connect' !== lastPhase) { lastPhase = 'connect'; setPhase('connect'); }
         const phaseT = (time - T2) / T_CONNECT;
         clusters.forEach(c => {
           c.clusterGroup.position.copy(c.toPos);
@@ -666,7 +672,8 @@ export default function SceneTeam() {
       }
       // INVITATION
       else if (time < T4) {
-        setPhase('invitation');
+        // Only setState when the phase actually changed
+        if ('invitation' !== lastPhase) { lastPhase = 'invitation'; setPhase('invitation'); }
         const phaseT = (time - T3) / T_INVITATION;
         if (!invitationStarted) {
           invitationStarted = true;
@@ -684,7 +691,8 @@ export default function SceneTeam() {
       }
       // HOLD
       else {
-        setPhase('hold');
+        // Only setState when the phase actually changed
+        if ('hold' !== lastPhase) { lastPhase = 'hold'; setPhase('hold'); }
         if (elapsed - lastSpawnAt > 0.5) {
           spawnPulse(clusters[Math.floor(Math.random() * clusters.length)]);
           lastSpawnAt = elapsed;

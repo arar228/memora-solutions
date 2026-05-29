@@ -156,11 +156,20 @@ export default function SceneDomatrix() {
     const stoneMat = new THREE.MeshStandardMaterial({
       color: 0x1a1a26, roughness: 0.7, metalness: 0.2,
     });
-    const glassMat = new THREE.MeshPhysicalMaterial({
-      color: 0x132040, roughness: 0.05, transmission: 0.55,
-      thickness: 0.2, ior: 1.45, transparent: true, clearcoat: 1.0,
-      side: THREE.DoubleSide,
-    });
+    // Glass walls: transmission gives true glass on desktop, but each
+    // transmissive material costs a full-scene render pass — too expensive
+    // on mobile, so fall back to a cheap transparent standard material there.
+    const glassMat = profile.useTransmission
+      ? new THREE.MeshPhysicalMaterial({
+          color: 0x132040, roughness: 0.05, transmission: 0.55,
+          thickness: 0.2, ior: 1.45, transparent: true, clearcoat: 1.0,
+          side: THREE.DoubleSide,
+        })
+      : new THREE.MeshStandardMaterial({
+          color: 0x132040, roughness: 0.1, metalness: 0,
+          transparent: true, opacity: 0.5,
+          side: THREE.DoubleSide,
+        });
 
     // Floor slabs (concrete) — basement floor + ground floor + 4 floor plates + roof
     function addSlab(y, color = 0x2a2a3e) {

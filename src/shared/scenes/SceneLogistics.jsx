@@ -60,7 +60,10 @@ const CITIES = [
 ];
 
 // ─────────────────────── Truck (low-loader, forward = +X) ───────────────────────
-function buildTruck() {
+// `useTransmission` is threaded in from the device profile: transmission glass
+// runs an extra full-scene render pass that murders mobile GPUs, so on mobile we
+// fall back to a cheap MeshStandardMaterial.
+function buildTruck(useTransmission) {
   const truck = new THREE.Group();
 
   const bodyMat = new THREE.MeshStandardMaterial({ color: 0x2a3242, roughness: 0.5, metalness: 0.45 });
@@ -76,10 +79,17 @@ function buildTruck() {
     color: 0x2da39a, emissive: 0x2da39a, emissiveIntensity: 0.85,
     roughness: 0.4, metalness: 0.3,
   });
-  const glassMat = new THREE.MeshPhysicalMaterial({
-    color: 0x0a1428, roughness: 0.04, transmission: 0.5,
-    thickness: 0.2, ior: 1.45, clearcoat: 1.0,
-  });
+  // Glass: transmission on desktop, cheaper standard material on mobile
+  // (transmission adds a per-mesh full-scene render pass).
+  const glassMat = useTransmission
+    ? new THREE.MeshPhysicalMaterial({
+        color: 0x0a1428, roughness: 0.04, transmission: 0.5,
+        thickness: 0.2, ior: 1.45, clearcoat: 1.0,
+      })
+    : new THREE.MeshStandardMaterial({
+        color: 0x0a1428, roughness: 0.1, metalness: 0,
+        transparent: true, opacity: 0.5,
+      });
   const chromeMat = new THREE.MeshStandardMaterial({ color: 0xc8ccd2, roughness: 0.15, metalness: 0.95 });
 
   // ── Cabin (at +X end so truck "looks" toward +X) ─────────────────
@@ -252,7 +262,8 @@ function buildTruck() {
 }
 
 // ─────────────────────── Crane (forward = +X) ───────────────────────
-function buildCrane() {
+// `useTransmission` threaded in from the device profile (see buildTruck).
+function buildCrane(useTransmission) {
   const crane = new THREE.Group();
 
   const carrierMat = new THREE.MeshStandardMaterial({
@@ -267,11 +278,18 @@ function buildCrane() {
   const hydraulicMat = new THREE.MeshStandardMaterial({ color: 0x96a2b0, roughness: 0.2, metalness: 0.85 });
   const chromeMat = new THREE.MeshStandardMaterial({ color: 0xc8ccd2, roughness: 0.2, metalness: 0.9 });
   const beaconMat = new THREE.MeshBasicMaterial({ color: 0x2da39a });
-  const cabinGlass = new THREE.MeshPhysicalMaterial({
-    color: 0x132040, roughness: 0.04, transmission: 0.5,
-    thickness: 0.2, ior: 1.45, clearcoat: 1.0,
-    transparent: true,
-  });
+  // Glass: transmission on desktop, cheaper standard material on mobile
+  // (transmission adds a per-mesh full-scene render pass).
+  const cabinGlass = useTransmission
+    ? new THREE.MeshPhysicalMaterial({
+        color: 0x132040, roughness: 0.04, transmission: 0.5,
+        thickness: 0.2, ior: 1.45, clearcoat: 1.0,
+        transparent: true,
+      })
+    : new THREE.MeshStandardMaterial({
+        color: 0x132040, roughness: 0.1, metalness: 0,
+        transparent: true, opacity: 0.5,
+      });
 
   // ── Carrier chassis (the base vehicle) ───────────────────────────
   // Main chassis box
@@ -1009,11 +1027,11 @@ export default function SceneLogistics() {
     scene.add(trailLine);
 
     // ─── Truck + crane ──────────────────────────────────
-    const truck = buildTruck();
+    const truck = buildTruck(profile.useTransmission);
     truck.visible = false;
     scene.add(truck);
 
-    const { crane, boomGroup, turret, beacon } = buildCrane();
+    const { crane, boomGroup, turret, beacon } = buildCrane(profile.useTransmission);
     // Standalone crane sits beside Chelyabinsk in act 1
     crane.position.set(chel.x + 1.2, 0, chel.z + 1.5);
     scene.add(crane);
@@ -1170,6 +1188,20 @@ export default function SceneLogistics() {
 
     const clock = new THREE.Clock();
     let animId, isVisible = false;
+    // Perf: labels are projected to 2D every frame, but the DOM doesn't need
+    // 60fps. Throttle setLabels to ~12fps via a frame-time accumulator.
+    // We derive the per-frame delta from `elapsed` (rather than clock.getDelta(),
+    // which would steal time from getElapsedTime) to avoid disturbing animation.
+    let labelAccum = 0, lastElapsed = 0;
+    // Perf: track the last progress value we pushed to React so we only call
+    // setProgress when km/pct actually change (instead of every frame).
+    let lastKm = -1, lastPct = -1;
+    const pushProgress = (km, pct) => {
+      if (km !== lastKm || pct !== lastPct) {
+        lastKm = km; lastPct = pct;
+        setProgress({ km, pct });
+      }
+    };
 
     // Boom angles. Model: rotation.z=0 → boom horizontal (+X);
     // rotation.z = +Pi/2 → boom straight up.
@@ -1183,6 +1215,10 @@ export default function SceneLogistics() {
       if (!isVisible) return;
 
       const elapsed = clock.getElapsedTime();
+      // Per-frame delta for the label throttle (clamped so a tab-switch gap
+      // doesn't fire a burst). Never negative thanks to monotonic getElapsedTime.
+      const frameDt = Math.min(elapsed - lastElapsed, 0.1);
+      lastElapsed = elapsed;
       const time = elapsed % TOTAL;
       lerpCam(time);
 
@@ -1214,7 +1250,7 @@ export default function SceneLogistics() {
         trailLine.geometry.setDrawRange(0, 0);
         snowMat.opacity = 0;
         buildingLight.intensity = 0;
-        setProgress({ km: 0, pct: 0 });
+        pushProgress(0, 0);
       }
 
       // ─── ACT 2: LOAD (boom rises, crane settles on truck) ─
@@ -1241,7 +1277,7 @@ export default function SceneLogistics() {
         turret.rotation.y = lerp(Math.sin(elapsed * 0.4) * 0.2, 0, p);
         trailLine.geometry.setDrawRange(0, 0);
         snowMat.opacity = 0;
-        setProgress({ km: 0, pct: 0 });
+        pushProgress(0, 0);
       }
 
       // ─── ACT 3: DRIVE (truck rolls along the route) ─
@@ -1276,8 +1312,8 @@ export default function SceneLogistics() {
         snowMat.opacity = lerp(0, 0.85, Math.min(1, rawP * 1.3));
         // Building appears as we get close (last 35%)
         building.visible = rawP > 0.55;
-        // Distance counter
-        setProgress({ km: Math.floor(p * TOTAL_KM), pct: Math.floor(p * 100) });
+        // Distance counter (only pushes to React when km/pct change)
+        pushProgress(Math.floor(p * TOTAL_KM), Math.floor(p * 100));
       }
 
       // ─── ACT 4: LIFT (truck stops, boom tilts toward roof) ─
@@ -1302,7 +1338,7 @@ export default function SceneLogistics() {
         buildingLight.intensity = lerp(0, 1.6, p);
         snowMat.opacity = 0.85 + Math.sin(elapsed * 2) * 0.05;
         trailLine.geometry.setDrawRange(0, 260);
-        setProgress({ km: TOTAL_KM, pct: 100 });
+        pushProgress(TOTAL_KM, 100);
       }
 
       // ─── ACT 5: HOLD (final cinematic) ─
@@ -1338,7 +1374,13 @@ export default function SceneLogistics() {
       }
       snow.geometry.attributes.position.needsUpdate = true;
 
-      updateLabels();
+      // Perf: throttle label DOM updates to ~12fps. Positions track moving 3D
+      // objects, so skip-if-equal won't help — time-based throttling is correct.
+      labelAccum += frameDt;
+      if (labelAccum >= 0.08) {
+        labelAccum = 0;
+        updateLabels();
+      }
       composer.render();
     };
 

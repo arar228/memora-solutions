@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Mail, Send, ArrowDown, Sparkles, Briefcase, Users, Cpu, Building2 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
+import LazyScene from '../../shared/scenes/_shared/LazyScene';
 import SceneScale from '../../shared/scenes/SceneScale';
 import SceneLogistics from '../../shared/scenes/SceneLogistics';
 import SceneWorkstations from '../../shared/scenes/SceneWorkstations';
@@ -131,7 +132,7 @@ export default function CreatorPage() {
                         <h2 className="creator-story__title">{t('creator.s1Title')}</h2>
                         <p className="creator-text">{t('creator.s1Text')}</p>
                         <div className="creator-scene">
-                            <SceneScale />
+                            <LazyScene><SceneScale /></LazyScene>
                             <div className="creator-scene__hint">{t('creator.s1Hint')}</div>
                         </div>
                     </section>
@@ -144,7 +145,7 @@ export default function CreatorPage() {
                         <h2 className="creator-story__title">{t('creator.s2Title')}</h2>
                         <p className="creator-text">{t('creator.s2Text')}</p>
                         <div className="creator-scene">
-                            <SceneLogistics />
+                            <LazyScene><SceneLogistics /></LazyScene>
                         </div>
                     </section>
                 </AnimatedSection>
@@ -156,7 +157,7 @@ export default function CreatorPage() {
                         <h2 className="creator-story__title">{t('creator.s3Title')}</h2>
                         <p className="creator-text">{t('creator.s3Text')}</p>
                         <div className="creator-scene">
-                            <SceneWorkstations />
+                            <LazyScene><SceneWorkstations /></LazyScene>
                         </div>
                     </section>
                 </AnimatedSection>
@@ -168,7 +169,7 @@ export default function CreatorPage() {
                         <h2 className="creator-story__title">{t('creator.s4Title')}</h2>
                         <p className="creator-text">{t('creator.s4Text')}</p>
                         <div className="creator-scene">
-                            <SceneDomatrix />
+                            <LazyScene><SceneDomatrix /></LazyScene>
                         </div>
                     </section>
                 </AnimatedSection>
@@ -180,7 +181,7 @@ export default function CreatorPage() {
                         <h2 className="creator-story__title">{t('creator.s5Title')}</h2>
                         <p className="creator-text">{t('creator.s5Text')}</p>
                         <div className="creator-scene">
-                            <SceneVR />
+                            <LazyScene><SceneVR /></LazyScene>
                         </div>
                     </section>
                 </AnimatedSection>
@@ -209,7 +210,7 @@ export default function CreatorPage() {
                         <h2 className="creator-story__title">{t('creator.s6Title')}</h2>
                         <p className="creator-text" dangerouslySetInnerHTML={{ __html: t('creator.s6Text') }} />
                         <div className="creator-scene">
-                            <SceneTeam />
+                            <LazyScene><SceneTeam /></LazyScene>
                         </div>
                     </section>
                 </AnimatedSection>

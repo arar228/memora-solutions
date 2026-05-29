@@ -6,23 +6,43 @@ export default function GoldParticles() {
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
+
+        // Respect the user's reduced-motion preference — skip the animation
+        // entirely (no canvas, no rAF loop) for those who opt out.
+        const reduceMotion = typeof window !== 'undefined'
+            && window.matchMedia
+            && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduceMotion) return;
+
         const ctx = canvas.getContext('2d');
-        let animId;
+        let animId = null;
         const particles = [];
-        const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+
+        // Size from the actual viewport. The old version read canvas.offsetWidth
+        // inside the effect before layout had settled, which returned 0 → a 0×0
+        // canvas with every particle seeded into nothing (invisible particles).
+        const resize = () => {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            const changed = canvas.width !== w || canvas.height !== h;
+            canvas.width = w;
+            canvas.height = h;
+            // (Re)seed only when we first get real dimensions or the size changed.
+            if (changed && particles.length === 0) {
+                for (let i = 0; i < 50; i++) {
+                    particles.push({
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        r: Math.random() * 2.5 + 0.5,
+                        dx: (Math.random() - 0.5) * 0.3,
+                        dy: (Math.random() - 0.5) * 0.3,
+                        opacity: Math.random() * 0.4 + 0.1,
+                    });
+                }
+            }
+        };
         resize();
         window.addEventListener('resize', resize);
-
-        for (let i = 0; i < 50; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 2.5 + 0.5,
-                dx: (Math.random() - 0.5) * 0.3,
-                dy: (Math.random() - 0.5) * 0.3,
-                opacity: Math.random() * 0.4 + 0.1,
-            });
-        }
 
         const draw = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -38,8 +58,22 @@ export default function GoldParticles() {
             });
             animId = requestAnimationFrame(draw);
         };
-        draw();
-        return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); };
+
+        const start = () => { if (animId === null) animId = requestAnimationFrame(draw); };
+        const stop = () => { if (animId !== null) { cancelAnimationFrame(animId); animId = null; } };
+
+        // Pause the loop while the tab is hidden — no point burning CPU/GPU
+        // painting a full-screen canvas no one can see (matters on mobile).
+        const onVisibility = () => { document.hidden ? stop() : start(); };
+        document.addEventListener('visibilitychange', onVisibility);
+
+        if (!document.hidden) start();
+
+        return () => {
+            stop();
+            window.removeEventListener('resize', resize);
+            document.removeEventListener('visibilitychange', onVisibility);
+        };
     }, []);
     return <canvas ref={canvasRef} className="global-particles" />;
 }

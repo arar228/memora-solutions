@@ -186,7 +186,9 @@ function makeDataTexture() {
 }
 
 // ───── Hero workstation (close-up) ─────
-function buildHeroStation() {
+// `useTransmission` comes from the device profile: true on desktop (glass with
+// transmission), false on mobile (cheaper standard material — see towerGlassMat).
+function buildHeroStation(useTransmission = true) {
   const station = new THREE.Group();
 
   const deskMat = new THREE.MeshStandardMaterial({
@@ -274,11 +276,19 @@ function buildHeroStation() {
   const tower = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.55, 0.45), towerMat);
   tower.position.set(0.85, 0.275, -0.28);
   station.add(tower);
-  // Tower side panel — tinted glass facing the viewer
-  const towerGlassMat = new THREE.MeshPhysicalMaterial({
-    color: 0x152040, roughness: 0.04, transmission: 0.5,
-    thickness: 0.18, ior: 1.45, transparent: true, clearcoat: 1.0,
-  });
+  // Tower side panel — tinted glass facing the viewer.
+  // Desktop: real transmission glass. Mobile: plain transparent standard
+  // material (transmission adds a per-mesh full-scene render pass that
+  // murders mobile GPUs).
+  const towerGlassMat = useTransmission
+    ? new THREE.MeshPhysicalMaterial({
+        color: 0x152040, roughness: 0.04, transmission: 0.5,
+        thickness: 0.18, ior: 1.45, transparent: true, clearcoat: 1.0,
+      })
+    : new THREE.MeshStandardMaterial({
+        color: 0x152040, roughness: 0.1, metalness: 0,
+        transparent: true, opacity: 0.5,
+      });
   const towerGlass = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.46, 0.4), towerGlassMat);
   towerGlass.position.set(0.74, 0.275, -0.28);
   station.add(towerGlass);
@@ -475,7 +485,7 @@ export default function SceneWorkstations() {
     scene.add(grid);
 
     // ─── Hero station (always visible) ───────────────────
-    const heroStation = buildHeroStation();
+    const heroStation = buildHeroStation(profile.useTransmission);
     heroStation.position.set(0, 0, 0);
     scene.add(heroStation);
 
@@ -650,6 +660,11 @@ export default function SceneWorkstations() {
 
     const clock = new THREE.Clock();
     let animId, isInView = false;
+    // Track last pushed HUD values so we only call React setState when they
+    // actually change (most frames repeat the same value). Avoids a full
+    // React reconciliation every frame on top of WebGL + bloom.
+    let lastPhase = null;
+    let lastCount = -1;
 
     const tick = () => {
       animId = requestAnimationFrame(tick);
@@ -669,29 +684,30 @@ export default function SceneWorkstations() {
 
       // ─── Phase 1: CLOSE ─────────────────────────
       if (time < T1) {
-        setPhase('close');
+        if ('close' !== lastPhase) { lastPhase = 'close'; setPhase('close'); }
         midGroup.visible = false;
         bodyMesh.visible = false;
         screenMesh.visible = false;
-        setCount(1);
+        if (1 !== lastCount) { lastCount = 1; setCount(1); }
         // Subtle desk lamp flicker
         deskLamp.intensity = 0.7 + Math.sin(elapsed * 4.2) * 0.04;
       }
 
       // ─── Phase 2: PULL ──────────────────────────
       else if (time < T2) {
-        setPhase('pull');
+        if ('pull' !== lastPhase) { lastPhase = 'pull'; setPhase('pull'); }
         const p = (time - T1) / T_PULL;
         // Mid ring fades in over first 70% of pull
         setMidOpacity(Math.min(1, p / 0.7));
         bodyMesh.visible = false;
         screenMesh.visible = false;
-        setCount(Math.min(25, Math.floor(p * 25) + 1));
+        const n = Math.min(25, Math.floor(p * 25) + 1);
+        if (n !== lastCount) { lastCount = n; setCount(n); }
       }
 
       // ─── Phase 3: FAR (1,200 spawn in) ─────────
       else if (time < T3) {
-        setPhase('far');
+        if ('far' !== lastPhase) { lastPhase = 'far'; setPhase('far'); }
         setMidOpacity(Math.max(0, 1 - (time - T2) / 1.0)); // mid fades out as far comes in
         bodyMesh.visible = true;
         screenMesh.visible = true;
@@ -719,16 +735,17 @@ export default function SceneWorkstations() {
           bodyMesh.instanceMatrix.needsUpdate = true;
           screenMesh.instanceMatrix.needsUpdate = true;
         }
-        setCount(Math.min(TOTAL, 25 + visCount));
+        const n = Math.min(TOTAL, 25 + visCount);
+        if (n !== lastCount) { lastCount = n; setCount(n); }
       }
 
       // ─── Phase 4: HOLD ──────────────────────────
       else {
-        setPhase('hold');
+        if ('hold' !== lastPhase) { lastPhase = 'hold'; setPhase('hold'); }
         setMidOpacity(0);
         bodyMesh.visible = true;
         screenMesh.visible = true;
-        setCount(TOTAL);
+        if (TOTAL !== lastCount) { lastCount = TOTAL; setCount(TOTAL); }
       }
 
       // ─── Reset for new loop ─────────────────────

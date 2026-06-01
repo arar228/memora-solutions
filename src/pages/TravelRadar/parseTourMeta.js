@@ -131,10 +131,12 @@ export function extractRoute(text) {
 /** "28 400 ₽" / "от 48 000 ₽" / '' */
 export function extractPrice(text) {
     const s = text || '';
-    const m = s.match(/(от\s*)?(\d[\d\s]{1,9}\d|\d{3,})\s*(₽|руб(?:\.|лей|ля)?|р\.|[Рр](?=[\s.,!)]|$)|RUB|\/чел|\$|€)/);
+    // Thousands are written with a space OR a dot ("36 600" / "36.600"), so the
+    // number group allows both; the dot/space is normalised to a space below.
+    const m = s.match(/(от\s*)?(\d[\d\s.]{1,9}\d|\d{3,})\s*(₽|руб(?:\.|лей|ля)?|р\.|[Рр](?=[\s.,!)]|$)|RUB|\/чел|\$|€)/);
     if (!m) return '';
     const prefix = m[1] ? 'от ' : '';
-    const num = m[2].replace(/\s+/g, ' ').trim();
+    const num = m[2].replace(/[.\s]+/g, ' ').trim();
     const cur = /\$/.test(m[0]) ? '$' : /€/.test(m[0]) ? '€' : '₽';
     return `${prefix}${num} ${cur}`;
 }

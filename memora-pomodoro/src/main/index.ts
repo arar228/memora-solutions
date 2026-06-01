@@ -5,7 +5,7 @@ import { IPC } from '../shared/ipc-channels';
 import { registerTimerIPC, timerStart, timerPause, timerResume, timerReset, timerSkip, setProfile, setTrayUpdater, refreshSettingsCache } from './timer';
 import { initDB, registerDBIPC, getAllSettings, getActiveProfile, setProfileSyncCallback, setSettingsCacheInvalidator } from './db';
 import { createTray, updateTray, setTrayLang, destroyTray } from './tray';
-import { createOverlayWindow, registerOverlayIPC, destroyOverlay } from './overlay';
+import { createOverlayWindow, registerOverlayIPC, destroyOverlay, updateOverlaySettings, setOverlayVisible } from './overlay';
 import { registerHotkeys, unregisterAll } from './hotkeys';
 
 let mainWindow: BrowserWindow | null = null;
@@ -58,7 +58,14 @@ function createMainWindow(): void {
   });
 
   if (process.env.ELECTRON_RENDERER_URL) {
-    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
+    const url = process.env.ELECTRON_RENDERER_URL;
+    mainWindow.loadURL(url);
+    // Dev only: the Vite server may not be accepting connections the instant
+    // Electron launches (esp. while it re-optimizes deps). Retry on a refused
+    // connection so the window isn't left blank instead of needing a manual reload.
+    mainWindow.webContents.on('did-fail-load', (_e, code) => {
+      if (code === -102 && mainWindow) setTimeout(() => mainWindow?.loadURL(url), 500);
+    });
   } else {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
   }
@@ -141,7 +148,18 @@ if (!gotLock) {
 
     // Create windows
     createMainWindow();
-    createOverlayWindow();
+    createOverlayWindow(settings.overlay_mode);
+
+    // Apply the stored overlay appearance (opacity / bg / size / theme / lang)
+    // and restore its last visibility, instead of always starting compact/hidden.
+    updateOverlaySettings({
+      overlay_opacity: settings.overlay_opacity,
+      overlay_show_bg: settings.overlay_show_bg,
+      overlay_size: settings.overlay_size,
+      theme: settings.theme,
+      lang: settings.lang,
+    });
+    if (settings.overlay_visible) setOverlayVisible(true);
 
     // Create tray
     createTray(handleTrayAction);

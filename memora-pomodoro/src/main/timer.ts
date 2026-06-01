@@ -43,26 +43,13 @@ function broadcastTick(): void {
     mode,
     status,
     completedPomos,
+    countBackwards: profile.count_backwards,
   };
   BrowserWindow.getAllWindows().forEach((win) => {
     win.webContents.send(IPC.TIMER_TICK, payload);
   });
   // Update tray
   if (trayUpdateFn) trayUpdateFn(status, timeLeft, mode);
-}
-
-// Next mode logic
-function getNextMode(): TimerMode {
-  if (mode === 'focus') {
-    completedPomos++;
-    totalSessionPomos++;
-    if (completedPomos >= profile.rounds) {
-      completedPomos = 0;
-      return 'long_break';
-    }
-    return 'short_break';
-  }
-  return 'focus';
 }
 
 // Get duration for mode in seconds
@@ -74,17 +61,41 @@ function getDuration(m: TimerMode): number {
   }
 }
 
-// Complete current interval
-function completeInterval(): void {
+// Complete current interval.
+// `natural` = the interval ran down to zero on its own. A *skipped* focus
+// (natural=false) must NOT count as a finished pomodoro: it's neither saved to
+// the DB/grid nor counted toward the round, and fires no completion sound /
+// notification.
+function completeInterval(natural = true): void {
   if (intervalId) {
     clearInterval(intervalId);
     intervalId = null;
   }
 
-  const nextMode = getNextMode();
-  const autoStart = mode === 'focus'
-    ? profile.auto_start_break
-    : profile.auto_start_work;
+  const wasFocus = mode === 'focus';
+  const countsAsPomo = wasFocus && natural;
+
+  // Count + record a naturally completed focus session.
+  if (countsAsPomo) {
+    completedPomos++;
+    totalSessionPomos++;
+    if (startedAt) saveSession(profile.name, mode, totalTime, true, startedAt);
+  }
+
+  // Decide the next mode from the (possibly updated) round counter.
+  let nextMode: TimerMode;
+  if (wasFocus) {
+    if (completedPomos >= profile.rounds) {
+      nextMode = 'long_break';
+      completedPomos = 0; // start a fresh cycle of rounds
+    } else {
+      nextMode = 'short_break';
+    }
+  } else {
+    nextMode = 'focus';
+  }
+
+  const autoStart = wasFocus ? profile.auto_start_break : profile.auto_start_work;
 
   const payload: TimerCompletePayload = {
     mode,
@@ -93,15 +104,11 @@ function completeInterval(): void {
     autoStart,
   };
 
-  // Save completed focus session to DB
-  if (mode === 'focus' && startedAt) {
-    saveSession(profile.name, mode, totalTime, true, startedAt);
-  }
-
-  // Desktop notification (uses cached settings)
+  // Desktop notification + sound only on a natural completion (skipping is a
+  // deliberate user action — no "complete!" alert).
   try {
     const s = getSettings();
-    if (s.desktop_notifications) {
+    if (natural && s.desktop_notifications) {
       const isRu = s.lang === 'ru';
       const title = mode === 'focus'
         ? (isRu ? 'Фокус завершён!' : 'Focus complete!')
@@ -113,7 +120,7 @@ function completeInterval(): void {
     }
 
     // Play sound
-    if (s.sound_notifications) {
+    if (natural && s.sound_notifications) {
       const soundFile = mode === 'focus' ? s.sound_work : s.sound_break;
       BrowserWindow.getAllWindows().forEach((win) => {
         if (!win.isDestroyed()) {
@@ -240,7 +247,7 @@ export function timerSkip(): { ok: boolean } {
     clearInterval(intervalId);
     intervalId = null;
   }
-  completeInterval();
+  completeInterval(false); // skip — don't count as a finished pomodoro
   return { ok: true };
 }
 

@@ -3,6 +3,7 @@ import path from 'path';
 import { IPC } from '../shared/ipc-channels';
 import { OVERLAY_SIZES } from '../shared/constants';
 import type { OverlayMode } from '../shared/types';
+import { setSetting } from './db';
 
 let overlayWindow: BrowserWindow | null = null;
 let overlayVisible = false;
@@ -63,7 +64,12 @@ export function createOverlayWindow(mode: OverlayMode = 'compact'): void {
   });
 
   if (process.env.ELECTRON_RENDERER_URL) {
-    overlayWindow.loadURL(`${process.env.ELECTRON_RENDERER_URL}/overlay.html`);
+    const url = `${process.env.ELECTRON_RENDERER_URL}/overlay.html`;
+    overlayWindow.loadURL(url);
+    // Retry on a refused connection while the dev server is still starting up.
+    overlayWindow.webContents.on('did-fail-load', (_e, code) => {
+      if (code === -102 && overlayWindow) setTimeout(() => overlayWindow?.loadURL(url), 500);
+    });
   } else {
     overlayWindow.loadFile(path.join(__dirname, '../renderer/overlay.html'));
   }
@@ -71,12 +77,20 @@ export function createOverlayWindow(mode: OverlayMode = 'compact'): void {
 
 export function toggleOverlay(): void {
   if (!overlayWindow) return;
-  overlayVisible = !overlayVisible;
-  if (overlayVisible) {
-    overlayWindow.show();
-  } else {
-    overlayWindow.hide();
-  }
+  setOverlayVisible(!overlayVisible);
+}
+
+// Show/hide the overlay and persist the choice so it's restored next launch.
+export function setOverlayVisible(visible: boolean): void {
+  if (!overlayWindow || overlayWindow.isDestroyed()) return;
+  overlayVisible = visible;
+  if (visible) overlayWindow.show();
+  else overlayWindow.hide();
+  setSetting('overlay_visible', visible);
+}
+
+export function getOverlayWindow(): BrowserWindow | null {
+  return overlayWindow;
 }
 
 export function updateOverlaySettings(settings: Record<string, unknown>): void {

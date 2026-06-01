@@ -20,6 +20,7 @@ export interface TimerTickPayload {
   mode: TimerMode;
   status: TimerStatus;
   completedPomos: number;
+  countBackwards: boolean;
 }
 
 export interface TimerCompletePayload {

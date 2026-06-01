@@ -37,11 +37,6 @@ export const IPC = {
 
   // System
   LANG_CHANGE:       'lang:change',
-  HOTKEY_RECORD:     'hotkey:record-start',
-  HOTKEY_RECORDED:   'hotkey:recorded',
-  UPDATE_AVAILABLE:  'update:available',
-  UPDATE_READY:      'update:ready',
-  UPDATE_INSTALL:    'update:install',
   GET_VERSION:       'get-version',
   OPEN_EXTERNAL:     'open-external',
   PLAY_SOUND:        'play-sound',

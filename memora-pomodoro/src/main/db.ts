@@ -139,30 +139,34 @@ export function getStats(): Stats {
     `SELECT DISTINCT date(started_at) as day FROM sessions WHERE mode='focus' AND completed=1 ORDER BY day DESC`
   )[0]?.values?.map((v: unknown[]) => v[0] as string) || [];
 
-  let currentStreak = 0;
-  let bestStreak = 0;
-  let streak = 0;
-  const todayDate = new Date();
+  // `days` are DISTINCT focus days in DESC order. Compute day gaps from UTC
+  // midnight so a single missing day correctly breaks a run.
+  const DAY = 86400000;
+  const toMs = (s: string) => Date.parse(`${s}T00:00:00Z`);
+  const yesterday = new Date(Date.now() - DAY).toISOString().slice(0, 10);
 
-  for (let i = 0; i < days.length; i++) {
-    const expected = new Date(todayDate);
-    expected.setDate(expected.getDate() - i);
-    const expectedStr = expected.toISOString().slice(0, 10);
-    if (days[i] === expectedStr) {
-      streak++;
-    } else {
-      if (i === 0 && streak === 0) {
-        // Today doesn't have pomodoros, check yesterday
-        continue;
-      }
-      if (currentStreak === 0) currentStreak = streak;
-      bestStreak = Math.max(bestStreak, streak);
-      streak = 0;
-      // Don't break — continue to find best streak in history
+  // Current streak: consecutive days ending today (or yesterday if nothing yet
+  // today). If the most recent activity is older than yesterday, the streak is 0.
+  let currentStreak = 0;
+  if (days.length && (days[0] === today || days[0] === yesterday)) {
+    currentStreak = 1;
+    for (let i = 1; i < days.length; i++) {
+      if (Math.round((toMs(days[i - 1]) - toMs(days[i])) / DAY) === 1) currentStreak++;
+      else break;
     }
   }
-  bestStreak = Math.max(bestStreak, streak);
-  if (currentStreak === 0) currentStreak = streak;
+
+  // Best streak: longest run of consecutive days anywhere in history.
+  let bestStreak = days.length ? 1 : 0;
+  let run = bestStreak;
+  for (let i = 1; i < days.length; i++) {
+    if (Math.round((toMs(days[i - 1]) - toMs(days[i])) / DAY) === 1) {
+      run++;
+      if (run > bestStreak) bestStreak = run;
+    } else {
+      run = 1;
+    }
+  }
 
   return { totalPomodoros: total, todayPomodoros: todayCount, currentStreak, bestStreak };
 }
@@ -230,12 +234,20 @@ function exportJSON(): string {
   return JSON.stringify({ app: 'Memora Pomodoro', version: '1.0.0', exported_at: new Date().toISOString(), sessions: mapped, total_pomodoros: mapped.length }, null, 2);
 }
 
+// RFC-4180 field escaping: wrap in quotes and double internal quotes when the
+// value contains a comma, quote or newline (e.g. a profile name with a comma).
+function csvField(v: unknown): string {
+  const s = String(v ?? '');
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
 function exportCSV(): string {
   if (!db) return '';
-  const sessions = db.exec(`SELECT profile, mode, duration_sec, completed, started_at, finished_at FROM sessions ORDER BY started_at`);
-  const header = 'profile,mode,duration_sec,completed,started_at,finished_at\n';
-  const rows = sessions[0]?.values.map((r: unknown[]) => r.join(',')).join('\n') || '';
-  return header + rows;
+  // Same row set as the JSON export (completed focus sessions) for consistency.
+  const sessions = db.exec(`SELECT profile, mode, duration_sec, completed, started_at, finished_at FROM sessions WHERE mode='focus' AND completed=1 ORDER BY started_at`);
+  const header = 'profile,mode,duration_sec,completed,started_at,finished_at';
+  const rows = sessions[0]?.values.map((r: unknown[]) => r.map(csvField).join(',')) || [];
+  return [header, ...rows].join('\n') + '\n';
 }
 
 // === Register IPC handlers ===
@@ -255,12 +267,13 @@ export function registerDBIPC(): void {
 
       switch (key) {
         case 'always_on_top': {
-          // Apply only to main window (overlay is always on top by design)
-          const wins = BrowserWindow.getAllWindows();
-          wins.forEach(w => {
-            if (!w.isDestroyed() && !w.isAlwaysOnTop()) {
-              w.setAlwaysOnTop(value as boolean);
-            }
+          // Apply to every window EXCEPT the overlay (which stays always-on-top
+          // by design). The old `!w.isAlwaysOnTop()` guard meant turning the
+          // setting OFF skipped the main window — so it could never be untoggled.
+          const { getOverlayWindow } = await import('./overlay');
+          const overlay = getOverlayWindow();
+          BrowserWindow.getAllWindows().forEach(w => {
+            if (!w.isDestroyed() && w !== overlay) w.setAlwaysOnTop(value as boolean);
           });
           break;
         }
@@ -272,7 +285,10 @@ export function registerDBIPC(): void {
         case 'overlay_show_bg':
         case 'overlay_show_seconds':
         case 'overlay_show_controls':
-        case 'overlay_mode': {
+        case 'overlay_mode':
+        // Theme/lang are forwarded too so the overlay recolors / relabels live.
+        case 'theme':
+        case 'lang': {
           const { updateOverlaySettings } = await import('./overlay');
           updateOverlaySettings({ [key]: value });
           break;

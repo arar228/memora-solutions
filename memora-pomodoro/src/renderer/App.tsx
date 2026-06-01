@@ -27,6 +27,7 @@ export default function App() {
     mode: 'focus',
     status: 'idle',
     completedPomos: 0,
+    countBackwards: true,
   });
   const [refreshKey, setRefreshKey] = useState(0);
   const [totalPomos, setTotalPomos] = useState(1);
@@ -106,9 +107,13 @@ export default function App() {
     window.api.settings.set('theme', t);
   }, []);
 
-  // Timer display
-  const minutes = Math.floor(timerState.timeLeft / 60);
-  const seconds = timerState.timeLeft % 60;
+  // Timer display — count down (remaining) or up (elapsed) per the profile's
+  // "count backwards" setting. The progress ring always reflects elapsed.
+  const shownSeconds = timerState.countBackwards
+    ? timerState.timeLeft
+    : timerState.totalTime - timerState.timeLeft;
+  const minutes = Math.floor(shownSeconds / 60);
+  const seconds = shownSeconds % 60;
   const timeDisplay = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   const progress = 1 - timerState.timeLeft / timerState.totalTime;
   const strokeOffset = RING_CIRCUMFERENCE * (1 - progress);

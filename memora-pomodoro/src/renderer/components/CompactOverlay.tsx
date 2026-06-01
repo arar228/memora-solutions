@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import type { TimerTickPayload, OverlayMode, AppSettings } from '../../shared/types';
-import { BREAK_COLOR } from '../../shared/constants';
-
-const ACCENT = '#E05A33';
+import type { TimerTickPayload, OverlayMode, AppSettings, ThemeName } from '../../shared/types';
+import { BREAK_COLOR, THEME_COLORS } from '../../shared/constants';
 
 function fmt(n: number): string { return String(n).padStart(2, '0'); }
 
@@ -13,13 +11,14 @@ const MODE_LABELS = {
 
 export default function CompactOverlay() {
   const [tick, setTick] = useState<TimerTickPayload>({
-    timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0,
+    timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0, countBackwards: true,
   });
   const [mode, setMode] = useState<OverlayMode>('compact');
   const [showBg, setShowBg] = useState(true);
   const [showSeconds, setShowSeconds] = useState(true);
   const [showControls, setShowControls] = useState(true);
   const [lang, setLang] = useState<'ru' | 'en'>('ru');
+  const [theme, setTheme] = useState<ThemeName>('tomato');
 
   useEffect(() => {
     const unsub = window.api.timer.onTick((data) => setTick(data));
@@ -34,6 +33,7 @@ export default function CompactOverlay() {
       if (s.overlay_show_seconds !== undefined) setShowSeconds(s.overlay_show_seconds as boolean);
       if (s.overlay_show_controls !== undefined) setShowControls(s.overlay_show_controls as boolean);
       if (s.lang) setLang(s.lang as 'ru' | 'en');
+      if (s.theme) setTheme(s.theme as ThemeName);
     });
     // Load initial settings
     window.api.settings.getAll().then((s: AppSettings) => {
@@ -42,17 +42,19 @@ export default function CompactOverlay() {
       setShowSeconds(s.overlay_show_seconds !== false);
       setShowControls(s.overlay_show_controls !== false);
       setLang(s.lang || 'ru');
+      setTheme(s.theme || 'tomato');
     });
     return unsub;
   }, []);
 
-  const mins = Math.floor(tick.timeLeft / 60);
-  const secs = tick.timeLeft % 60;
+  const shown = tick.countBackwards ? tick.timeLeft : tick.totalTime - tick.timeLeft;
+  const mins = Math.floor(shown / 60);
+  const secs = shown % 60;
   const timeStr = showSeconds ? `${fmt(mins)}:${fmt(secs)}` : `${fmt(mins)}`;
   const progress = tick.totalTime > 0 ? 1 - tick.timeLeft / tick.totalTime : 0;
   const pct = Math.round(progress * 100);
   const isBreak = tick.mode !== 'focus';
-  const color = isBreak ? BREAK_COLOR : ACCENT;
+  const color = isBreak ? BREAK_COLOR : THEME_COLORS[theme].accent;
   const modeLabel = MODE_LABELS[lang][tick.mode];
 
   const handlePlayPause = () => {

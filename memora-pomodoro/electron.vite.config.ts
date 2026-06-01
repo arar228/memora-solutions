@@ -30,7 +30,10 @@ export default defineConfig({
     root: resolve(__dirname, 'src/renderer'),
     server: {
       port: 3333,
-      host: 'localhost',
+      // Bind IPv4 explicitly: with 'localhost' Vite may listen on IPv6 (::1)
+      // while Electron resolves localhost to 127.0.0.1 → ERR_CONNECTION_REFUSED
+      // and a blank dev window. Pinning both ends to 127.0.0.1 avoids the mismatch.
+      host: '127.0.0.1',
     },
     build: {
       outDir: 'dist/renderer',

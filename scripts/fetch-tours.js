@@ -91,7 +91,9 @@ function parseChannel(html, channel) {
         const hrefRe = /href="([^"]+)"/gi;
         let lm;
         while ((lm = hrefRe.exec(rawText)) !== null) {
-            const url = lm[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"');
+            // Telegram double-encodes ampersands in tracking URLs ("&amp;amp;"),
+            // so collapse one-or-more "amp;" after an "&" in a single pass.
+            const url = lm[1].replace(/&(?:amp;)+/gi, '&').replace(/&quot;/g, '"');
             if (!/^https?:\/\//i.test(url)) continue;
             if (/(?:t\.me|telegram\.me|telegram\.org)\//i.test(url)) continue;
             const key = url.replace(/\/+$/, '').toLowerCase();

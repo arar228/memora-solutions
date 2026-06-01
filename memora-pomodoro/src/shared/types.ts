@@ -67,7 +67,8 @@ export interface Stats {
 }
 
 // === Settings ===
-export type ThemeName = 'tomato' | 'ocean' | 'forest' | 'violet';
+export type PresetTheme = 'tomato' | 'ocean' | 'forest' | 'violet';
+export type ThemeName = PresetTheme | 'custom';
 export type Lang = 'ru' | 'en';
 export type OverlayMode = 'pill' | 'compact' | 'bar';
 
@@ -90,8 +91,14 @@ export interface AppSettings {
   overlay_visible: boolean;
   sound_volume: number;
   sound_notifications: boolean;
+  sound_start: boolean;
+  sound_repeat: boolean;
   sound_work: string;
   sound_break: string;
+  // Appearance
+  timer_font: string;
+  show_animation: boolean;
+  custom_accent: string;
 }
 
 // === Electron API (exposed via preload) ===
@@ -122,13 +129,18 @@ export interface ElectronAPI {
     setLang: (lang: Lang) => Promise<void>;
     toggleOverlay: () => Promise<void>;
     getVersion: () => Promise<string>;
-    onPlaySound: (cb: (data: { file: string; volume: number }) => void) => () => void;
+    onPlaySound: (cb: (data: { file: string; volume: number; times?: number }) => void) => () => void;
+  };
+  sound: {
+    pick: () => Promise<string | null>;
+    read: (file: string) => Promise<Uint8Array | null>;
   };
   profile: {
     getAll: () => Promise<Profile[]>;
     getActive: () => Promise<Profile>;
     update: (profile: Profile) => Promise<{ ok: boolean }>;
     setActive: (name: string) => Promise<{ ok: boolean }>;
+    create: (name?: string) => Promise<{ ok: boolean; profile?: Profile }>;
   };
   window: {
     minimize: () => Promise<void>;

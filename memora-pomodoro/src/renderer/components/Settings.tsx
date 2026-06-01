@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { AppSettings, ThemeName, Lang, Profile } from '../../shared/types';
-import { THEME_COLORS, TIMER_LIMITS, DEFAULT_SETTINGS, DEFAULT_PROFILES } from '../../shared/constants';
+import type { AppSettings, ThemeName, PresetTheme, Lang, Profile } from '../../shared/types';
+import { THEME_COLORS, themeColors, TIMER_LIMITS, DEFAULT_SETTINGS, DEFAULT_PROFILES } from '../../shared/constants';
+
+const BUNDLED_SOUNDS = ['bell-gentle.wav', 'chime-soft.wav'];
 
 interface SettingsProps {
   lang: Lang;
@@ -79,6 +81,9 @@ const L = {
     importYapa: 'Импорт из YAPA', reset: 'Сбросить все данные',
     resetConfirm: 'Это удалит всю историю. Продолжить?',
     back: '← Назад', min: 'мин', lang: 'Язык',
+    newProfile: 'Новый', font: 'Шрифт таймера', animation: 'Анимация',
+    preview: 'Превью', soundStart: 'Звук старта', soundRepeat: 'Повторять звук работы',
+    soundFile: 'Файл звука', play: 'Прослушать', browse: 'Обзор',
   },
   en: {
     profile: 'Profile', timer: 'Timer', work: 'Work', brk: 'Break',
@@ -97,6 +102,9 @@ const L = {
     importYapa: 'Import from YAPA', reset: 'Reset all data',
     resetConfirm: 'This will delete all history. Continue?',
     back: '← Back', min: 'min', lang: 'Language',
+    newProfile: 'New', font: 'Timer font', animation: 'Animation',
+    preview: 'Preview', soundStart: 'Start sound', soundRepeat: 'Repeat work sound',
+    soundFile: 'Sound file', play: 'Play', browse: 'Browse',
   },
 };
 
@@ -163,6 +171,40 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
     }
   }, [profiles]);
 
+  // Create a new (auto-named) profile and switch to it.
+  const addProfile = useCallback(async () => {
+    const res = await window.api.profile.create();
+    if (res?.profile) {
+      const list = await window.api.profile.getAll();
+      setProfiles(list);
+      setProfile(res.profile);
+    }
+  }, []);
+
+  // Preview the currently selected completion sound (bundled or custom).
+  const previewSound = useCallback(async () => {
+    const file = settings.sound_work;
+    try {
+      let src = `/assets/sounds/${file}`;
+      if (!BUNDLED_SOUNDS.includes(file)) {
+        const data = await window.api.sound.read(file);
+        if (!data) return;
+        src = URL.createObjectURL(new Blob([data as unknown as BlobPart]));
+      }
+      const a = new Audio(src);
+      a.volume = settings.sound_volume / 100;
+      a.play().catch(() => {});
+    } catch { /* ignore */ }
+  }, [settings.sound_work, settings.sound_volume]);
+
+  // Import a custom sound file via the native dialog.
+  const browseSound = useCallback(async () => {
+    const file = await window.api.sound.pick();
+    if (file) updateSetting('sound_work', file);
+  }, [updateSetting]);
+
+  const previewAccent = themeColors(theme, settings.custom_accent).accent;
+
   return (
     <div className="settings-panel">
       {/* Back button */}
@@ -172,7 +214,7 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
       <div className="settings-section">
         <h3 className="settings-section-title">{t.profile}</h3>
         <div className="setting-row">
-          <div style={{ display: 'flex', gap: 6 }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {profiles.map(p => (
               <button
                 key={p.name}
@@ -189,6 +231,17 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
                 {p.name}
               </button>
             ))}
+            <button
+              className="profile-pill profile-add"
+              onClick={addProfile}
+              style={{
+                padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 600,
+                border: '1px dashed rgba(255,255,255,0.2)', background: 'transparent',
+                color: 'var(--a)', cursor: 'pointer', transition: 'all 150ms ease',
+              }}
+            >
+              + {t.newProfile}
+            </button>
           </div>
         </div>
       </div>
@@ -211,7 +264,7 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
         <div className="setting-row">
           <span className="setting-label">{t.color}</span>
           <div className="theme-pills-settings">
-            {(Object.keys(THEME_COLORS) as ThemeName[]).map(th => (
+            {(Object.keys(THEME_COLORS) as PresetTheme[]).map(th => (
               <button
                 key={th}
                 className={`theme-pill ${theme === th ? 'active' : ''}`}
@@ -219,7 +272,39 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
                 onClick={() => onThemeChange(th)}
               />
             ))}
+            {/* custom color picker pill */}
+            <label
+              className={`theme-pill ${theme === 'custom' ? 'active' : ''}`}
+              style={{ background: settings.custom_accent, position: 'relative', overflow: 'hidden', cursor: 'pointer' }}
+              title={t.color}
+            >
+              <input
+                type="color"
+                value={settings.custom_accent}
+                onChange={e => { updateSetting('custom_accent', e.target.value); onThemeChange('custom'); }}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer', border: 'none', padding: 0 }}
+              />
+            </label>
           </div>
+        </div>
+        <div className="setting-row">
+          <span className="setting-label">{t.font}</span>
+          <select className="setting-select" value={settings.timer_font} onChange={e => updateSetting('timer_font', e.target.value)}>
+            <option value="JetBrains Mono">Mono</option>
+            <option value="Outfit">Sans</option>
+            <option value="Georgia">Serif</option>
+          </select>
+        </div>
+        <Toggle label={t.animation} checked={settings.show_animation} onChange={v => updateSetting('show_animation', v)} />
+        {/* Live preview */}
+        <div className="appearance-preview">
+          <svg width="56" height="56" viewBox="0 0 56 56">
+            <circle cx="28" cy="28" r="22" fill="none" stroke="var(--sf2)" strokeWidth="4" />
+            <circle cx="28" cy="28" r="22" fill="none" stroke={previewAccent} strokeWidth="4" strokeLinecap="round"
+              strokeDasharray={2 * Math.PI * 22} strokeDashoffset={2 * Math.PI * 22 * 0.35} transform="rotate(-90 28 28)" />
+          </svg>
+          <span style={{ fontFamily: `'${settings.timer_font}', monospace`, color: 'var(--t1)', fontSize: 20, fontWeight: 700, letterSpacing: 1 }}>17:35</span>
+          <span style={{ fontSize: 10, color: 'var(--t3)' }}>{t.preview}</span>
         </div>
         <div className="setting-row">
           <span className="setting-label">{t.lang}</span>
@@ -284,6 +369,31 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
         <h3 className="settings-section-title">{t.sound}</h3>
         <SliderRow label={t.volume} value={settings.sound_volume} onChange={v => updateSetting('sound_volume', v)} min={0} max={100} suffix="%" />
         <Toggle label={t.soundNotif} checked={settings.sound_notifications} onChange={v => updateSetting('sound_notifications', v)} />
+        <Toggle label={t.soundStart} checked={settings.sound_start} onChange={v => updateSetting('sound_start', v)} />
+        <Toggle label={t.soundRepeat} checked={settings.sound_repeat} onChange={v => updateSetting('sound_repeat', v)} />
+        <div className="setting-row">
+          <span className="setting-label">{t.soundFile}</span>
+          <select
+            className="setting-select"
+            value={BUNDLED_SOUNDS.includes(settings.sound_work) ? settings.sound_work : 'custom'}
+            onChange={e => { if (e.target.value !== 'custom') updateSetting('sound_work', e.target.value); }}
+          >
+            <option value="bell-gentle.wav">Bell</option>
+            <option value="chime-soft.wav">Chime</option>
+            {!BUNDLED_SOUNDS.includes(settings.sound_work) && (
+              <option value="custom">{settings.sound_work}</option>
+            )}
+          </select>
+        </div>
+        <div className="setting-row">
+          <span className="setting-label" style={{ fontSize: 11, color: 'var(--t3)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 140 }}>
+            {settings.sound_work}
+          </span>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button className="mini-btn" onClick={previewSound}>▶ {t.play}</button>
+            <button className="mini-btn" onClick={browseSound}>{t.browse}…</button>
+          </div>
+        </div>
       </div>
 
       {/* === Behavior === */}

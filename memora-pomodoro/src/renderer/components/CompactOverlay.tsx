@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { TimerTickPayload, OverlayMode, AppSettings, ThemeName } from '../../shared/types';
-import { BREAK_COLOR, THEME_COLORS } from '../../shared/constants';
+import { BREAK_COLOR, themeColors } from '../../shared/constants';
 
 function fmt(n: number): string { return String(n).padStart(2, '0'); }
 
@@ -19,6 +19,7 @@ export default function CompactOverlay() {
   const [showControls, setShowControls] = useState(true);
   const [lang, setLang] = useState<'ru' | 'en'>('ru');
   const [theme, setTheme] = useState<ThemeName>('tomato');
+  const [customAccent, setCustomAccent] = useState('#E05A33');
 
   useEffect(() => {
     const unsub = window.api.timer.onTick((data) => setTick(data));
@@ -34,6 +35,7 @@ export default function CompactOverlay() {
       if (s.overlay_show_controls !== undefined) setShowControls(s.overlay_show_controls as boolean);
       if (s.lang) setLang(s.lang as 'ru' | 'en');
       if (s.theme) setTheme(s.theme as ThemeName);
+      if (s.custom_accent) setCustomAccent(s.custom_accent as string);
     });
     // Load initial settings
     window.api.settings.getAll().then((s: AppSettings) => {
@@ -43,6 +45,7 @@ export default function CompactOverlay() {
       setShowControls(s.overlay_show_controls !== false);
       setLang(s.lang || 'ru');
       setTheme(s.theme || 'tomato');
+      setCustomAccent(s.custom_accent || '#E05A33');
     });
     return unsub;
   }, []);
@@ -54,7 +57,7 @@ export default function CompactOverlay() {
   const progress = tick.totalTime > 0 ? 1 - tick.timeLeft / tick.totalTime : 0;
   const pct = Math.round(progress * 100);
   const isBreak = tick.mode !== 'focus';
-  const color = isBreak ? BREAK_COLOR : THEME_COLORS[theme].accent;
+  const color = isBreak ? BREAK_COLOR : themeColors(theme, customAccent).accent;
   const modeLabel = MODE_LABELS[lang][tick.mode];
 
   const handlePlayPause = () => {

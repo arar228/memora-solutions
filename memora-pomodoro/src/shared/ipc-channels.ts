@@ -33,7 +33,12 @@ export const IPC = {
   PROFILE_GET_ACTIVE:  'profile:get-active',
   PROFILE_UPDATE:      'profile:update',
   PROFILE_SET_ACTIVE:  'profile:set-active',
+  PROFILE_CREATE:      'profile:create',
   PROFILE_UPDATED:     'profile:updated',
+
+  // Sound (custom file picker + reader)
+  SOUND_PICK:        'sound:pick',
+  SOUND_READ:        'sound:read',
 
   // System
   LANG_CHANGE:       'lang:change',

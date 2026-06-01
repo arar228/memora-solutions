@@ -1,4 +1,4 @@
-import type { Profile, AppSettings, ThemeName } from './types';
+import type { Profile, AppSettings, ThemeName, PresetTheme } from './types';
 
 // Default profiles
 export const DEFAULT_PROFILES: Profile[] = [
@@ -44,17 +44,38 @@ export const DEFAULT_SETTINGS: AppSettings = {
   overlay_visible: false,
   sound_volume: 70,
   sound_notifications: true,
+  sound_start: false,
+  sound_repeat: false,
   sound_work: 'bell-gentle.wav',
   sound_break: 'chime-soft.wav',
+  timer_font: 'JetBrains Mono',
+  show_animation: true,
+  custom_accent: '#E05A33',
 };
 
-// Theme colors
-export const THEME_COLORS: Record<ThemeName, { accent: string; dim: string; glow: string }> = {
+// Theme colors (presets only; 'custom' resolves to AppSettings.custom_accent).
+export const THEME_COLORS: Record<PresetTheme, { accent: string; dim: string; glow: string }> = {
   tomato:  { accent: '#E05A33', dim: 'rgba(224,90,51,0.15)', glow: 'rgba(224,90,51,0.25)' },
   ocean:   { accent: '#378ADD', dim: 'rgba(55,138,221,0.15)', glow: 'rgba(55,138,221,0.25)' },
   forest:  { accent: '#1D9E75', dim: 'rgba(29,158,117,0.15)', glow: 'rgba(29,158,117,0.25)' },
   violet:  { accent: '#7F77DD', dim: 'rgba(127,119,221,0.15)', glow: 'rgba(127,119,221,0.25)' },
 };
+
+// Hex → rgba helper for deriving dim/glow from a custom accent.
+function hexToRgba(hex: string, alpha: number): string {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return `rgba(224,90,51,${alpha})`;
+  const n = parseInt(m[1], 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
+}
+
+// Resolve the accent triple for any theme, including 'custom'.
+export function themeColors(theme: ThemeName, customAccent: string): { accent: string; dim: string; glow: string } {
+  if (theme === 'custom') {
+    return { accent: customAccent, dim: hexToRgba(customAccent, 0.15), glow: hexToRgba(customAccent, 0.25) };
+  }
+  return THEME_COLORS[theme] ?? THEME_COLORS.tomato;
+}
 
 // Break color (always green regardless of theme)
 export const BREAK_COLOR = '#1D9E75';

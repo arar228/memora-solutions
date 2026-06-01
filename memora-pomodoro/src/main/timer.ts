@@ -52,6 +52,15 @@ function broadcastTick(): void {
   if (trayUpdateFn) trayUpdateFn(status, timeLeft, mode);
 }
 
+// Broadcast a sound cue to all windows (renderer plays it `times` times).
+function broadcastSound(file: string, volume: number, times = 1): void {
+  BrowserWindow.getAllWindows().forEach((win) => {
+    if (!win.isDestroyed()) {
+      win.webContents.send(IPC.PLAY_SOUND, { file, volume, times });
+    }
+  });
+}
+
 // Get duration for mode in seconds
 function getDuration(m: TimerMode): number {
   switch (m) {
@@ -119,17 +128,10 @@ function completeInterval(natural = true): void {
       new Notification({ title, body }).show();
     }
 
-    // Play sound
+    // Play completion sound (repeat the work sound if enabled).
     if (natural && s.sound_notifications) {
-      const soundFile = mode === 'focus' ? s.sound_work : s.sound_break;
-      BrowserWindow.getAllWindows().forEach((win) => {
-        if (!win.isDestroyed()) {
-          win.webContents.send(IPC.PLAY_SOUND, {
-            file: soundFile,
-            volume: s.sound_volume / 100,
-          });
-        }
-      });
+      const soundFile = wasFocus ? s.sound_work : s.sound_break;
+      broadcastSound(soundFile, s.sound_volume / 100, wasFocus && s.sound_repeat ? 2 : 1);
     }
   } catch { /* notifications may not be available */ }
 
@@ -154,6 +156,15 @@ function completeInterval(natural = true): void {
 
 // Start the timer
 function startTimer(): void {
+  // Start cue on a fresh interval (timeLeft===totalTime), not on resume.
+  if (timeLeft === totalTime) {
+    try {
+      const s = getSettings();
+      if (s.sound_notifications && s.sound_start) {
+        broadcastSound(mode === 'focus' ? s.sound_work : s.sound_break, s.sound_volume / 100, 1);
+      }
+    } catch { /* ignore */ }
+  }
   status = 'running';
   startedAt = new Date().toISOString();
   expectedTick = Date.now() + 1000;

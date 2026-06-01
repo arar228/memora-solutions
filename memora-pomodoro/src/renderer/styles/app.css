@@ -149,7 +149,7 @@
 
 .ring-time {
   position: absolute;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--timer-font, 'JetBrains Mono'), monospace;
   font-size: 48px;
   font-weight: 700;
   color: var(--t1);

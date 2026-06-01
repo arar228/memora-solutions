@@ -158,6 +158,7 @@ if (!gotLock) {
       overlay_size: settings.overlay_size,
       theme: settings.theme,
       lang: settings.lang,
+      custom_accent: settings.custom_accent,
     });
     if (settings.overlay_visible) setOverlayVisible(true);
 

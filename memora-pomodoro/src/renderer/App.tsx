@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { TimerTickPayload, TimerMode, TimerStatus, ThemeName } from '../shared/types';
-import { THEME_COLORS, BREAK_COLOR, RING_CIRCUMFERENCE, RING_RADIUS } from '../shared/constants';
+import type { TimerTickPayload, TimerMode, TimerStatus, ThemeName, PresetTheme } from '../shared/types';
+import { THEME_COLORS, themeColors, BREAK_COLOR, RING_CIRCUMFERENCE, RING_RADIUS } from '../shared/constants';
 import ContribGrid from './components/ContribGrid';
 import Settings from './components/Settings';
 import FloatingTomatoes from './components/FloatingTomatoes';
@@ -17,6 +17,9 @@ const MODE_LABELS: Record<string, Record<TimerMode, string>> = {
 export default function App() {
   const [lang, setLang] = useState<'ru' | 'en'>('ru');
   const [theme, setTheme] = useState<ThemeName>('tomato');
+  const [customAccent, setCustomAccent] = useState('#E05A33');
+  const [timerFont, setTimerFont] = useState('JetBrains Mono');
+  const [showAnimation, setShowAnimation] = useState(true);
   const [view, setView] = useState<'timer' | 'settings'>('timer');
   const [rounds, setRounds] = useState(4);
 
@@ -37,11 +40,26 @@ export default function App() {
     window.api.settings.getAll().then(s => {
       if (s.lang) setLang(s.lang);
       if (s.theme) setTheme(s.theme);
+      if (s.custom_accent) setCustomAccent(s.custom_accent);
+      if (s.timer_font) setTimerFont(s.timer_font);
+      if (typeof s.show_animation === 'boolean') setShowAnimation(s.show_animation);
     });
     window.api.profile.getActive().then(p => {
       if (p?.rounds) setRounds(p.rounds);
     });
   }, []);
+
+  // Re-sync appearance + active rounds when returning from the Settings view.
+  useEffect(() => {
+    if (view !== 'timer') return;
+    window.api.settings.getAll().then(s => {
+      if (s.theme) setTheme(s.theme);
+      if (s.custom_accent) setCustomAccent(s.custom_accent);
+      if (s.timer_font) setTimerFont(s.timer_font);
+      if (typeof s.show_animation === 'boolean') setShowAnimation(s.show_animation);
+    });
+    window.api.profile.getActive().then(p => { if (p?.rounds) setRounds(p.rounds); });
+  }, [view]);
 
   // Escape closes settings
   useEffect(() => {
@@ -52,14 +70,30 @@ export default function App() {
     return () => window.removeEventListener('keydown', handler);
   }, [view]);
 
-  // Sound playback listener
+  // Sound playback listener — bundled sounds load from /assets/sounds; custom
+  // (imported) files are read from userData via IPC and played from a blob.
   useEffect(() => {
-    const unsub = window.api.system.onPlaySound(({ file, volume }) => {
-      try {
-        const audio = new Audio(`/assets/sounds/${file}`);
-        audio.volume = Math.max(0, Math.min(1, volume));
-        audio.play().catch(() => { /* sound play failed — ignore */ });
-      } catch { /* ignore */ }
+    const BUNDLED = ['bell-gentle.wav', 'chime-soft.wav'];
+    const unsub = window.api.system.onPlaySound(async ({ file, volume, times }) => {
+      const playOnce = async () => {
+        try {
+          let src = `/assets/sounds/${file}`;
+          if (!BUNDLED.includes(file)) {
+            const data = await window.api.sound.read(file);
+            if (!data) return;
+            src = URL.createObjectURL(new Blob([data as unknown as BlobPart]));
+          }
+          const audio = new Audio(src);
+          audio.volume = Math.max(0, Math.min(1, volume));
+          if (src.startsWith('blob:')) audio.addEventListener('ended', () => URL.revokeObjectURL(src), { once: true });
+          await audio.play().catch(() => {});
+        } catch { /* ignore */ }
+      };
+      const n = Math.max(1, times || 1);
+      for (let i = 0; i < n; i++) {
+        await playOnce();
+        if (i < n - 1) await new Promise(r => setTimeout(r, 700));
+      }
     });
     return unsub;
   }, []);
@@ -87,14 +121,19 @@ export default function App() {
     });
   }, [refreshKey]);
 
-  // Apply theme + persist
+  // Apply theme (presets + custom) to CSS variables.
   useEffect(() => {
-    const colors = THEME_COLORS[theme];
+    const colors = themeColors(theme, customAccent);
     const root = document.documentElement;
     root.style.setProperty('--a', colors.accent);
     root.style.setProperty('--a-dim', colors.dim);
     root.style.setProperty('--a-glow', colors.glow);
-  }, [theme]);
+  }, [theme, customAccent]);
+
+  // Apply the chosen timer font.
+  useEffect(() => {
+    document.documentElement.style.setProperty('--timer-font', `'${timerFont}'`);
+  }, [timerFont]);
 
   // Persist lang/theme when changed
   const changeLang = useCallback((l: 'ru' | 'en') => {
@@ -118,7 +157,8 @@ export default function App() {
   const progress = 1 - timerState.timeLeft / timerState.totalTime;
   const strokeOffset = RING_CIRCUMFERENCE * (1 - progress);
   const isBreak = timerState.mode !== 'focus';
-  const ringColor = isBreak ? BREAK_COLOR : THEME_COLORS[theme].accent;
+  const accent = themeColors(theme, customAccent).accent;
+  const ringColor = isBreak ? BREAK_COLOR : accent;
 
   // Controls
   const handlePlayPause = useCallback(() => {
@@ -167,8 +207,8 @@ export default function App() {
 
   return (
     <div className="app">
-      {/* Floating tomatoes when running */}
-      <FloatingTomatoes active={timerState.status === 'running'} accentColor={THEME_COLORS[theme].accent} count={totalPomos} />
+      {/* Floating tomatoes when running (respect the animation toggle) */}
+      <FloatingTomatoes active={timerState.status === 'running' && showAnimation} accentColor={accent} count={totalPomos} />
 
       {/* === Header (drag zone) === */}
       <header className="app-header app-drag">
@@ -277,17 +317,17 @@ export default function App() {
           <div
             key={i}
             className={`dot ${i < timerState.completedPomos ? 'filled' : ''}`}
-            style={i < timerState.completedPomos ? { background: THEME_COLORS[theme].accent } : {}}
+            style={i < timerState.completedPomos ? { background: accent } : {}}
           />
         ))}
       </div>
 
       {/* === Contribution Grid === */}
-      <ContribGrid accentColor={THEME_COLORS[theme].accent} lang={lang} refreshKey={refreshKey} />
+      <ContribGrid accentColor={accent} lang={lang} refreshKey={refreshKey} />
 
       {/* === Theme Pills === */}
       <div className="theme-pills">
-        {(Object.keys(THEME_COLORS) as ThemeName[]).map(t => (
+        {(Object.keys(THEME_COLORS) as PresetTheme[]).map(t => (
           <button
             key={t}
             className={`theme-pill ${theme === t ? 'active' : ''}`}
@@ -296,6 +336,12 @@ export default function App() {
             aria-label={t}
           />
         ))}
+        <button
+          className={`theme-pill ${theme === 'custom' ? 'active' : ''}`}
+          style={{ background: customAccent }}
+          onClick={() => changeTheme('custom')}
+          aria-label="custom"
+        />
       </div>
     </div>
   );

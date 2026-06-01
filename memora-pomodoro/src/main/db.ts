@@ -224,6 +224,28 @@ export function updateProfile(profile: Profile): void {
   saveDB();
 }
 
+// Create a new profile with default values and a unique name.
+export function createProfile(name?: string): Profile {
+  const existing = getAllProfiles();
+  const taken = (n: string) => existing.some(p => p.name === n);
+  let finalName = (name || '').trim();
+  if (!finalName) {
+    let i = existing.length + 1;
+    finalName = `Custom ${i}`;
+    while (taken(finalName)) { i++; finalName = `Custom ${i}`; }
+  } else if (taken(finalName)) {
+    const base = finalName; let i = 2;
+    finalName = `${base} ${i}`;
+    while (taken(finalName)) { i++; finalName = `${base} ${i}`; }
+  }
+  const p: Profile = {
+    name: finalName, work_time: 25, break_time: 5, long_break_time: 15, rounds: 4,
+    auto_start_break: true, auto_start_work: false, count_backwards: true,
+  };
+  updateProfile(p);
+  return p;
+}
+
 // === Export ===
 function exportJSON(): string {
   if (!db) return '{}';
@@ -286,9 +308,10 @@ export function registerDBIPC(): void {
         case 'overlay_show_seconds':
         case 'overlay_show_controls':
         case 'overlay_mode':
-        // Theme/lang are forwarded too so the overlay recolors / relabels live.
+        // Theme/lang/custom-accent forwarded so the overlay recolors/relabels live.
         case 'theme':
-        case 'lang': {
+        case 'lang':
+        case 'custom_accent': {
           const { updateOverlaySettings } = await import('./overlay');
           updateOverlaySettings({ [key]: value });
           break;
@@ -393,5 +416,42 @@ export function registerDBIPC(): void {
       profileSyncFn(profile);
     }
     return { ok: true };
+  });
+  ipcMain.handle(IPC.PROFILE_CREATE, (_e, name?: string) => {
+    const p = createProfile(name);
+    // Make the new profile active and push it to the timer.
+    setSetting('active_profile', p.name);
+    if (profileSyncFn) profileSyncFn(p);
+    return { ok: true, profile: p };
+  });
+
+  // === Sound file picker + reader ===
+  ipcMain.handle(IPC.SOUND_PICK, async () => {
+    const { filePaths } = await dialog.showOpenDialog({
+      title: 'Choose a sound',
+      filters: [{ name: 'Audio', extensions: ['wav', 'mp3', 'ogg'] }],
+      properties: ['openFile'],
+    });
+    if (!filePaths?.length) return null;
+    try {
+      const soundsDir = path.join(app.getPath('userData'), 'sounds');
+      fs.mkdirSync(soundsDir, { recursive: true });
+      const base = path.basename(filePaths[0]);
+      fs.copyFileSync(filePaths[0], path.join(soundsDir, base));
+      return base; // store just the filename; the reader resolves it
+    } catch {
+      return null;
+    }
+  });
+
+  ipcMain.handle(IPC.SOUND_READ, (_e, file: string) => {
+    try {
+      const safe = path.basename(file); // guard against path traversal
+      const p = path.join(app.getPath('userData'), 'sounds', safe);
+      if (!fs.existsSync(p)) return null;
+      return fs.readFileSync(p); // Buffer → Uint8Array in the renderer
+    } catch {
+      return null;
+    }
   });
 }

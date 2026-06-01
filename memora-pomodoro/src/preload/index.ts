@@ -44,11 +44,16 @@ const api: ElectronAPI = {
     setLang:       (lang: Lang) => ipcRenderer.invoke(IPC.LANG_CHANGE, lang),
     toggleOverlay: () => ipcRenderer.invoke(IPC.OVERLAY_TOGGLE),
     getVersion:    () => ipcRenderer.invoke(IPC.GET_VERSION),
-    onPlaySound: (cb: (data: { file: string; volume: number }) => void) => {
-      const handler = (_e: Electron.IpcRendererEvent, data: { file: string; volume: number }) => cb(data);
+    onPlaySound: (cb: (data: { file: string; volume: number; times?: number }) => void) => {
+      const handler = (_e: Electron.IpcRendererEvent, data: { file: string; volume: number; times?: number }) => cb(data);
       ipcRenderer.on(IPC.PLAY_SOUND, handler);
       return () => ipcRenderer.removeListener(IPC.PLAY_SOUND, handler);
     },
+  },
+
+  sound: {
+    pick: () => ipcRenderer.invoke(IPC.SOUND_PICK),
+    read: (file: string) => ipcRenderer.invoke(IPC.SOUND_READ, file),
   },
 
   profile: {
@@ -56,6 +61,7 @@ const api: ElectronAPI = {
     getActive: () => ipcRenderer.invoke(IPC.PROFILE_GET_ACTIVE),
     update:    (profile: unknown) => ipcRenderer.invoke(IPC.PROFILE_UPDATE, profile),
     setActive: (name: string) => ipcRenderer.invoke(IPC.PROFILE_SET_ACTIVE, name),
+    create:    (name?: string) => ipcRenderer.invoke(IPC.PROFILE_CREATE, name),
   },
 
   window: {

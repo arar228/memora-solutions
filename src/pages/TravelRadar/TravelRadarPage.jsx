@@ -1,38 +1,60 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence } from 'framer-motion';
 import { RefreshCw } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import { usefulServices } from '../../data/mockData';
-import TourCard from './TourCard';
+import { deriveMeta } from './parseTourMeta';
+import TourRow from './TourRow';
 import ServiceAccordion from './ServiceAccordion';
 import './TravelRadarPage.css';
+
+const TYPE_FILTERS = [
+    { key: '', labelKey: 'travel.typeAll' },
+    { key: 'air', labelKey: 'travel.typeAir' },
+    { key: 'tour', labelKey: 'travel.typeTour' },
+    { key: 'hotel', labelKey: 'travel.typeHotel' },
+    { key: 'promo', labelKey: 'travel.typePromo' },
+];
 
 export default function TravelRadarPage() {
     const { t, i18n } = useTranslation();
     const [loading, setLoading] = useState(true);
     const [feed, setFeed] = useState({ items: [], sources: [], updatedAt: null });
     const [activeChannel, setActiveChannel] = useState('');
+    const [activeType, setActiveType] = useState('');
 
     useEffect(() => {
         let cancelled = false;
         setLoading(true);
         fetch('/tours.json', { cache: 'no-cache' })
-            .then(res => (res.ok ? res.json() : Promise.reject(new Error('no feed'))))
-            .then(data => { if (!cancelled) setFeed(data); })
+            .then((res) => (res.ok ? res.json() : Promise.reject(new Error('no feed'))))
+            .then((data) => { if (!cancelled) setFeed(data); })
             .catch(() => { if (!cancelled) setFeed({ items: [], sources: [], updatedAt: null }); })
             .finally(() => { if (!cancelled) setLoading(false); });
         return () => { cancelled = true; };
     }, []);
 
-    const channels = useMemo(() => {
-        const present = new Set(feed.items.map(i => i.channel));
-        return (feed.sources || []).filter(c => present.has(c));
+    // Best-effort structured fields per post, derived once from the raw text.
+    const metaById = useMemo(() => {
+        const map = {};
+        for (const it of feed.items) map[it.id] = deriveMeta(it);
+        return map;
     }, [feed]);
 
-    const visible = useMemo(() => (
-        activeChannel ? feed.items.filter(i => i.channel === activeChannel) : feed.items
-    ), [feed, activeChannel]);
+    const channels = useMemo(() => {
+        const present = new Set(feed.items.map((i) => i.channel));
+        return (feed.sources || []).filter((c) => present.has(c));
+    }, [feed]);
+
+    // Live filtering by type AND source. Items arrive already sorted newest-first.
+    const visible = useMemo(
+        () => feed.items.filter((it) => {
+            if (activeChannel && it.channel !== activeChannel) return false;
+            if (activeType && metaById[it.id]?.type !== activeType) return false;
+            return true;
+        }),
+        [feed, metaById, activeChannel, activeType]
+    );
 
     const updatedLabel = useMemo(() => {
         if (!feed.updatedAt) return '';
@@ -43,74 +65,93 @@ export default function TravelRadarPage() {
         });
     }, [feed.updatedAt, i18n.language]);
 
+    const sourceCount = (feed.sources || []).length;
+
     return (
         <div className="travel-page">
             <div className="container">
                 <AnimatedSection>
                     <div className="travel-page__header">
                         <h1>{t('travel.pageTitle')}</h1>
-                        <p className="travel-page__subtitle">{t('travel.feedSubtitle')}</p>
+                        <p className="travel-page__meta">
+                            {updatedLabel && (
+                                <span className="travel-page__updated">
+                                    <RefreshCw size={13} aria-hidden="true" /> {t('travel.updatedAt')}: {updatedLabel}
+                                </span>
+                            )}
+                            {sourceCount > 0 && (
+                                <span className="travel-page__count">
+                                    {' · '}{t('travel.sourcesCount', { n: sourceCount })}
+                                </span>
+                            )}
+                        </p>
                     </div>
                 </AnimatedSection>
 
-                <AnimatedSection delay={0.1}>
-                    <div className="feed-bar">
-                        <div className="feed-chips">
+                <AnimatedSection delay={0.05}>
+                    {/* Type filter — live, active highlighted */}
+                    <div className="feed-chips feed-chips--types">
+                        {TYPE_FILTERS.map((f) => (
                             <button
-                                className={`feed-chip ${activeChannel === '' ? 'feed-chip--active' : ''}`}
+                                key={f.key || 'all'}
+                                className={`feed-chip ${activeType === f.key ? 'feed-chip--active' : ''}`}
+                                onClick={() => setActiveType(f.key)}
+                            >
+                                {t(f.labelKey)}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Source filter */}
+                    {channels.length > 0 && (
+                        <div className="feed-chips feed-chips--sources">
+                            <button
+                                className={`feed-chip feed-chip--source ${activeChannel === '' ? 'feed-chip--active' : ''}`}
                                 onClick={() => setActiveChannel('')}
                             >
                                 {t('travel.allSources')}
                             </button>
-                            {channels.map(c => (
+                            {channels.map((c) => (
                                 <button
                                     key={c}
-                                    className={`feed-chip ${activeChannel === c ? 'feed-chip--active' : ''}`}
+                                    className={`feed-chip feed-chip--source ${activeChannel === c ? 'feed-chip--active' : ''}`}
                                     onClick={() => setActiveChannel(c)}
                                 >
                                     @{c}
                                 </button>
                             ))}
                         </div>
-                        {updatedLabel && (
-                            <span className="feed-updated">
-                                <RefreshCw size={13} aria-hidden="true" /> {t('travel.updatedAt')}: {updatedLabel}
-                            </span>
-                        )}
-                    </div>
+                    )}
                 </AnimatedSection>
 
-                {loading && (
-                    <div className="loading-state">
-                        <div className="loading-state__text">{t('travel.loading')}</div>
-                        <div className="feed-grid">
-                            {[1, 2, 3, 4].map(i => (
-                                <div key={i} className="skeleton-card">
-                                    <div className="skeleton" style={{ height: 150, borderRadius: '16px 16px 0 0' }} />
-                                    <div style={{ padding: 18 }}>
-                                        <div className="skeleton" style={{ height: 14, width: '40%', marginBottom: 12 }} />
-                                        <div className="skeleton" style={{ height: 14, width: '90%', marginBottom: 8 }} />
-                                        <div className="skeleton" style={{ height: 14, width: '70%' }} />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                {loading ? (
+                    <div className="tour-feed tour-feed--loading">
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <div key={i} className="tour-row tour-row--skeleton">
+                                <span className="skeleton" style={{ width: 26, height: 26, borderRadius: 8 }} />
+                                <span className="skeleton" style={{ height: 14, width: '45%' }} />
+                                <span className="skeleton" style={{ height: 14, width: 70 }} />
+                            </div>
+                        ))}
                     </div>
-                )}
-
-                {!loading && (
-                    <div className="feed-grid">
-                        <AnimatePresence>
-                            {visible.length > 0 ? (
-                                visible.map(tour => (
-                                    <TourCard key={tour.id} tour={tour} t={t} i18n={i18n} />
-                                ))
-                            ) : (
-                                <div className="empty-state">
-                                    <p>{t('travel.noFeed')}</p>
-                                </div>
-                            )}
-                        </AnimatePresence>
+                ) : visible.length > 0 ? (
+                    <div className="tour-feed">
+                        <div className="tour-feed__head" aria-hidden="true">
+                            <span>{t('travel.colType')}</span>
+                            <span>{t('travel.colRoute')}</span>
+                            <span className="tour-feed__head-price">{t('travel.colPrice')}</span>
+                            <span>{t('travel.colWhen')}</span>
+                            <span>{t('travel.colSource')}</span>
+                            <span />
+                        </div>
+                        {visible.map((tour) => (
+                            <TourRow key={tour.id} tour={tour} meta={metaById[tour.id]} t={t} i18n={i18n} />
+                        ))}
+                        <p className="tour-feed__hint">{t('travel.chevronHint')}</p>
+                    </div>
+                ) : (
+                    <div className="empty-state">
+                        <p>{t('travel.noFeed')}</p>
                     </div>
                 )}
 

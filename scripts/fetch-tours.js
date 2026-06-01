@@ -50,8 +50,8 @@ function decodeEntities(s) {
         .replace(/&#39;/g, "'")
         .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
         .replace(/\n{3,}/g, '\n\n')
-        // Strip trailing reaction clusters that leak from the bubble (e.g. "❤4😁1💩1").
-        .replace(/(?:[\p{Extended_Pictographic}‍️]+\s*\d+\s*)+$/u, '')
+        // Strip trailing reaction clusters that leak from the bubble (emoji+count).
+        .replace(/(?:\p{Extended_Pictographic}+\s*\d+\s*)+$/u, '')
         .trim();
 }
 
@@ -84,13 +84,32 @@ function parseChannel(html, channel) {
         );
         const photo = photoMatch ? photoMatch[1] : null;
 
+        // External (non-Telegram) links from the post HTML, before tags are
+        // stripped — captures anchor-only links whose URL isn't in plain text.
+        const links = [];
+        const seenLinks = new Set();
+        const hrefRe = /href="([^"]+)"/gi;
+        let lm;
+        while ((lm = hrefRe.exec(rawText)) !== null) {
+            const url = lm[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"');
+            if (!/^https?:\/\//i.test(url)) continue;
+            if (/(?:t\.me|telegram\.me|telegram\.org)\//i.test(url)) continue;
+            const key = url.replace(/\/+$/, '').toLowerCase();
+            if (seenLinks.has(key)) continue;
+            seenLinks.add(key);
+            links.push(url);
+        }
+
         items.push({
             id: postId.replace('/', '-'),
             channel,
             channelTitle,
-            text: text.length > 600 ? text.slice(0, 600).trim() + '…' : text,
+            // Keep (almost) the full post — the UI shows it in the expanded panel
+            // so the site works fully without opening Telegram.
+            text: text.length > 2000 ? text.slice(0, 2000).trim() + '…' : text,
             photo,
             link: `https://t.me/${postId}`,
+            links,
             date,
         });
     }

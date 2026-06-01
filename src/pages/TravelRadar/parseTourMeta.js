@@ -18,6 +18,39 @@ const MONTHS = 'янв|фев|март|мар|апр|ма[йя]|июн|июл|а
 // word (e.g. "Нижний Новгород").
 const PLACE = '[A-ZА-ЯЁ][A-Za-zА-Яа-яёЁ.\\-]+(?:\\s[A-ZА-ЯЁ][A-Za-zА-Яа-яёЁ.\\-]+)?';
 
+// Map common declined city forms back to nominative so "из Москвы в Барселону"
+// reads "Москва → Барселона". Best-effort dictionary — unknown forms pass
+// through unchanged (still readable).
+const CITY_NOM = {
+    'москвы': 'Москва', 'москву': 'Москва', 'москве': 'Москва',
+    'петербурга': 'Санкт-Петербург', 'петербург': 'Санкт-Петербург',
+    'питера': 'Санкт-Петербург', 'питер': 'Санкт-Петербург', 'спб': 'Санкт-Петербург',
+    'сочи': 'Сочи', 'самары': 'Самара', 'самару': 'Самара',
+    'казани': 'Казань', 'екатеринбурга': 'Екатеринбург', 'екатеринбург': 'Екатеринбург',
+    'новосибирска': 'Новосибирск', 'нижнего': 'Нижний Новгород',
+    'барселоны': 'Барселона', 'барселону': 'Барселона',
+    'тюмени': 'Тюмень', 'еревана': 'Ереван', 'ереван': 'Ереван',
+    'анталии': 'Анталья', 'анталью': 'Анталья', 'антальи': 'Анталья', 'анталья': 'Анталья',
+    'пхукета': 'Пхукет', 'пхукет': 'Пхукет', 'токио': 'Токио',
+    'дубая': 'Дубай', 'дубай': 'Дубай', 'дубаи': 'Дубай',
+    'ниццы': 'Ницца', 'ниццу': 'Ницца', 'сараево': 'Сараево',
+    'нячанга': 'Нячанг', 'нячанг': 'Нячанг', 'батуми': 'Батуми', 'мале': 'Мале',
+    'пекина': 'Пекин', 'пекин': 'Пекин',
+    'шри-ланки': 'Шри-Ланка', 'шри-ланку': 'Шри-Ланка',
+};
+
+// Posts pepper routes with flag emoji ("из Антальи 🇹🇷 в Москву 🇷🇺 ..."), which
+// Windows renders as the bare 2-letter country codes (TR, RU). Either form sits
+// between the cities and breaks route parsing / clutters the headline, so strip
+// both: the regional-indicator emoji themselves and any orphan lowercase
+// 2-letter code. Uppercase tokens (RT/OW) are kept.
+function stripFlagCodes(s) {
+    return (s || '')
+        .replace(/[\u{1F1E6}-\u{1F1FF}]/gu, '')
+        .replace(/\s+[a-z]{2}(?=[\s.,)]|$)/g, '')
+        .replace(/[ \t]{2,}/g, ' ');
+}
+
 function clean(s) {
     return (s || '').replace(/\s+/g, ' ').trim();
 }
@@ -33,7 +66,7 @@ function stripLead(s) {
 function cleanPlace(s) {
     let p = clean(s).replace(/\s+(?:за|на|во?|от|до|из|и|с|по|к)$/i, '');
     if (p.length > 24) p = p.slice(0, 24).trim();
-    return p;
+    return CITY_NOM[p.toLowerCase()] || p;
 }
 
 /** All external (non-Telegram) URLs from the post, deduped. */
@@ -72,9 +105,14 @@ export function domainOf(url) {
  */
 export function detectType(text) {
     const s = (text || '').toLowerCase();
+    const first = s.split('\n')[0] || '';
+    // A post that leads with discounts/promos is a promo (even if it later
+    // mentions hotels); a promo code buried in a tours post is not.
+    if (/скидк|акци|промокод|распродаж|кэшбэк|кешбэк|купон/.test(first)) return 'promo';
+    // Strong package-tour signal beats an incidental hotel mention.
+    if (/перел[её]т\w*\s+включ|горящие\s+тур|пакетн\w*\s+тур/.test(s)) return 'tour';
     if (/отел|гостиниц|апарт|вилл|resort|\bhotel\b/.test(s)) return 'hotel';
-    if (/\bтур[аовы]?\b|туры|туров|путёвк|путевк|перел[её]т.{0,14}включ|всё\s*включено|все\s*включено|за\s*двоих|на\s*неделю|ночей.{0,20}включ/.test(s)) return 'tour';
-    if (/промокод|промокоду|\bпромо\b|скидк|кэшбэк|кешбэк|купон/.test(s)) return 'promo';
+    if (/\bтур[аовы]?\b|туры|туров|путёвк|путевк|всё\s*включено|все\s*включено|за\s*двоих|на\s*неделю/.test(s)) return 'tour';
     return 'air';
 }
 
@@ -123,7 +161,11 @@ function lines(text) {
  * the first line of the post shown verbatim (the brief's Route/Details fallback).
  */
 export function deriveMeta(item) {
-    const text = item.text || '';
+    // Parse a flag-code-stripped copy so orphan "tr"/"ru" tokens don't break
+    // route detection or clutter the headline. Links still come from the
+    // original text (extractLinks reads item.text), and the expanded panel
+    // shows the original full post unchanged.
+    const text = stripFlagCodes(item.text || '');
     const route = extractRoute(text);
     const ls = lines(text);
 

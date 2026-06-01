@@ -90,14 +90,17 @@ export default function App() {
         <ScrollToTop />
         <GoldParticles />
         <Header />
-        <main className="app__main">
-          <ErrorBoundary>
-            <Suspense fallback={<LoadingFallback />}>
+        <ErrorBoundary>
+          {/* Footer lives inside the Suspense boundary so it's hidden while a
+              route chunk is loading (otherwise the short loading view pushes the
+              footer up into the middle of the screen). */}
+          <Suspense fallback={<LoadingFallback />}>
+            <main className="app__main">
               <AnimatedRoutes />
-            </Suspense>
-          </ErrorBoundary>
-        </main>
-        <Footer />
+            </main>
+            <Footer />
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </BrowserRouter>
   );

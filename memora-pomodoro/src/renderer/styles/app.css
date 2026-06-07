@@ -136,6 +136,15 @@
   color: var(--t1);
 }
 
+/* Tabs are locked while a session is running/paused — make that visible. */
+.mode-tab:disabled {
+  cursor: default;
+}
+
+.mode-tab:disabled:not(.active) {
+  opacity: 0.4;
+}
+
 /* === Ring Timer === */
 .ring-container {
   position: relative;
@@ -435,4 +444,17 @@
     transform: translateY(-110vh) rotate(var(--rotate, 90deg)) scale(0.9);
     opacity: 0;
   }
+}
+
+/* === Interaction polish: press feedback + keyboard focus === */
+.mode-tab:not(:disabled):active,
+.ctrl-btn:active,
+.theme-pill:active {
+  transform: scale(0.93);
+}
+
+.app button:focus-visible,
+.theme-pill:focus-visible {
+  outline: 2px solid var(--a);
+  outline-offset: 2px;
 }

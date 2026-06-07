@@ -159,6 +159,8 @@ export default function App() {
   const isBreak = timerState.mode !== 'focus';
   const accent = themeColors(theme, customAccent).accent;
   const ringColor = isBreak ? BREAK_COLOR : accent;
+  // Mode can only be switched while idle/waiting — lock the tabs otherwise.
+  const modesLocked = timerState.status !== 'idle' && timerState.status !== 'waiting';
 
   // Controls
   const handlePlayPause = useCallback(() => {
@@ -249,6 +251,7 @@ export default function App() {
             key={m}
             role="tab"
             aria-selected={timerState.mode === m}
+            disabled={modesLocked}
             className={`mode-tab ${timerState.mode === m ? 'active' : ''}`}
             onClick={() => handleModeClick(m)}
           >
@@ -278,7 +281,9 @@ export default function App() {
             strokeLinecap="round"
             strokeDasharray={RING_CIRCUMFERENCE}
             strokeDashoffset={strokeOffset}
-            style={{ transition: 'stroke-dashoffset 1s linear, stroke 0.5s ease' }}
+            style={{ transition: timerState.status === 'running'
+              ? 'stroke-dashoffset 1s linear, stroke 0.5s ease'
+              : 'stroke 0.5s ease' }}
             transform="rotate(-90 100 100)"
           />
         </svg>

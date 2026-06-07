@@ -26,6 +26,10 @@ export default function CreatorPage() {
         return formatted;
     }, [i18n.language]);
 
+    // Career timeline entries (localised array from the i18n resource).
+    const career = t('creator.career', { returnObjects: true });
+    const careerList = Array.isArray(career) ? career : [];
+
     return (
         <div className="creator-page">
 
@@ -211,6 +215,33 @@ export default function CreatorPage() {
                         <p className="creator-text" dangerouslySetInnerHTML={{ __html: t('creator.s6Text') }} />
                         <div className="creator-scene">
                             <LazyScene><SceneTeam /></LazyScene>
+                        </div>
+                    </section>
+                </AnimatedSection>
+
+                {/* ═══════════════ PROFESSIONAL PATH ═══════════════ */}
+                <AnimatedSection>
+                    <section className="creator-story creator-career">
+                        <div className="creator-story__label">{t('creator.careerLabel')}</div>
+                        <h2 className="creator-story__title">{t('creator.careerTitle')}</h2>
+
+                        <div className="creator-timeline">
+                            {careerList.map((job, i) => (
+                                <div className="creator-timeline__item" key={i}>
+                                    <span className="creator-timeline__dot" aria-hidden="true" />
+                                    <div className="creator-timeline__body">
+                                        <div className="creator-timeline__period">{job.period}</div>
+                                        <h3 className="creator-timeline__company">{job.company}</h3>
+                                        <div className="creator-timeline__role">{job.role}</div>
+                                        <p className="creator-timeline__desc">{job.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="creator-education">
+                            <h3 className="creator-education__title">{t('creator.educationTitle')}</h3>
+                            <p className="creator-education__text">{t('creator.education')}</p>
                         </div>
                     </section>
                 </AnimatedSection>

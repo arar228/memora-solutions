@@ -664,3 +664,108 @@
     }
 }
 
+
+/* ═══════════ PROFESSIONAL PATH (career timeline) ═══════════ */
+.creator-career {
+    margin-top: var(--space-2xl);
+}
+
+.creator-timeline {
+    position: relative;
+    margin-top: var(--space-xl);
+    padding-left: 28px;
+}
+
+/* vertical line down the timeline */
+.creator-timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--color-gold), var(--color-border) 85%);
+    opacity: 0.55;
+}
+
+.creator-timeline__item {
+    position: relative;
+    padding-bottom: var(--space-xl);
+}
+
+.creator-timeline__item:last-child {
+    padding-bottom: 0;
+}
+
+.creator-timeline__dot {
+    position: absolute;
+    left: -28px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    box-shadow: 0 0 0 4px var(--color-gold-light);
+}
+
+.creator-timeline__period {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: 4px;
+}
+
+.creator-timeline__company {
+    font-size: var(--text-h3);
+    color: var(--color-text);
+    margin-bottom: 2px;
+}
+
+.creator-timeline__role {
+    font-size: var(--text-small);
+    font-weight: 600;
+    color: var(--color-gold);
+    margin-bottom: var(--space-sm);
+}
+
+.creator-timeline__desc {
+    font-size: var(--text-small);
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    max-width: 680px;
+}
+
+/* education card */
+.creator-education {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+}
+
+.creator-education__title {
+    font-size: var(--text-small);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-tertiary);
+    margin-bottom: 6px;
+}
+
+.creator-education__text {
+    font-size: var(--text-body);
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .creator-timeline {
+        padding-left: 22px;
+    }
+
+    .creator-timeline__dot {
+        left: -22px;
+    }
+}

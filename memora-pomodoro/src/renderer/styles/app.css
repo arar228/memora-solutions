@@ -30,7 +30,10 @@
 }
 
 .header-logo {
-  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
 }
 
 .header-title {
@@ -154,6 +157,10 @@
   font-weight: 700;
   color: var(--t1);
   letter-spacing: 2px;
+  /* Fixed-width digits so the time doesn't jitter as numbers change
+     (matters now that the timer font can be a non-monospace choice). */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -60%);

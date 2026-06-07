@@ -190,7 +190,7 @@ export default function App() {
       <div className="app">
         <header className="app-header app-drag">
           <div className="header-left app-no-drag">
-            <svg width="20" height="20" viewBox="0 0 32 32" className="header-logo"><circle cx="16" cy="17" r="12" fill="#E05A33"/><ellipse cx="16" cy="10" rx="3" ry="5" fill="#4CAF50"/><line x1="16" y1="5" x2="16" y2="12" stroke="#2E7D32" strokeWidth="2" strokeLinecap="round"/></svg>
+            <img src="/assets/icon.png" alt="" className="header-logo" width={20} height={20} />
             <span className="header-title">memora pomodoro</span>
           </div>
         </header>
@@ -213,7 +213,7 @@ export default function App() {
       {/* === Header (drag zone) === */}
       <header className="app-header app-drag">
         <div className="header-left app-no-drag">
-          <svg width="20" height="20" viewBox="0 0 32 32" className="header-logo"><circle cx="16" cy="17" r="12" fill="#E05A33"/><ellipse cx="16" cy="10" rx="3" ry="5" fill="#4CAF50"/><line x1="16" y1="5" x2="16" y2="12" stroke="#2E7D32" strokeWidth="2" strokeLinecap="round"/></svg>
+          <img src="/assets/icon.png" alt="" className="header-logo" width={20} height={20} />
           <span className="header-title">memora pomodoro</span>
         </div>
         <div className="header-right app-no-drag">

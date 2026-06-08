@@ -77,7 +77,7 @@ export default function App() {
     const unsub = window.api.system.onPlaySound(async ({ file, volume, times }) => {
       const playOnce = async () => {
         try {
-          let src = `/assets/sounds/${file}`;
+          let src = `./assets/sounds/${file}`;
           if (!BUNDLED.includes(file)) {
             const data = await window.api.sound.read(file);
             if (!data) return;
@@ -192,7 +192,7 @@ export default function App() {
       <div className="app">
         <header className="app-header app-drag">
           <div className="header-left app-no-drag">
-            <img src="/assets/icon.png" alt="" className="header-logo" width={20} height={20} />
+            <img src="./assets/icon.png" alt="" className="header-logo" width={20} height={20} />
             <span className="header-title">memora pomodoro</span>
           </div>
         </header>
@@ -215,7 +215,7 @@ export default function App() {
       {/* === Header (drag zone) === */}
       <header className="app-header app-drag">
         <div className="header-left app-no-drag">
-          <img src="/assets/icon.png" alt="" className="header-logo" width={20} height={20} />
+          <img src="./assets/icon.png" alt="" className="header-logo" width={20} height={20} />
           <span className="header-title">memora pomodoro</span>
         </div>
         <div className="header-right app-no-drag">

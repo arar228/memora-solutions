@@ -7,7 +7,7 @@ interface FloatingTomatoesProps {
 }
 
 const MIN_TOMATOES = 1;
-const MAX_TOMATOES = 20;
+const MAX_TOMATOES = 12;
 
 interface Tomato {
   id: number;
@@ -20,14 +20,15 @@ interface Tomato {
 }
 
 function generateTomatoes(n: number): Tomato[] {
+  // Slow, faint, ambient — a gentle drift up the background, not a fast swarm.
   return Array.from({ length: n }, (_, i) => ({
     id: i,
-    size: 14 + Math.random() * 18,
-    x: 5 + Math.random() * 90,
-    delay: Math.random() * 8,
-    duration: 6 + Math.random() * 8,
-    rotate: Math.random() * 360,
-    opacity: 0.15 + Math.random() * 0.35,
+    size: 12 + Math.random() * 16,
+    x: 4 + Math.random() * 92,
+    delay: Math.random() * 22,
+    duration: 30 + Math.random() * 25,
+    rotate: Math.random() * 160 - 80,
+    opacity: 0.05 + Math.random() * 0.1,
   }));
 }
 
@@ -50,9 +51,9 @@ export default function FloatingTomatoes({ active, accentColor, count }: Floatin
             fontSize: `${t.size}px`,
             animationDelay: `${t.delay}s`,
             animationDuration: `${t.duration}s`,
-            opacity: t.opacity,
             animationPlayState: active ? 'running' : 'paused',
             ['--rotate' as string]: `${t.rotate}deg`,
+            ['--tomato-opacity' as string]: `${t.opacity}`,
           }}
         >
           🍅

@@ -185,7 +185,7 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
   const previewSound = useCallback(async () => {
     const file = settings.sound_work;
     try {
-      let src = `/assets/sounds/${file}`;
+      let src = `./assets/sounds/${file}`;
       if (!BUNDLED_SOUNDS.includes(file)) {
         const data = await window.api.sound.read(file);
         if (!data) return;

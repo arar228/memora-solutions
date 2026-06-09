@@ -66,6 +66,31 @@ export default function PomodoroPage() {
                                     ? 'Сейчас доступна версия для Windows. macOS и Linux — скоро.'
                                     : 'Windows build available now. macOS and Linux coming soon.')}
                         </div>
+
+                        <details className="pomodoro-hero__install">
+                            <summary>
+                                {ru
+                                    ? 'Windows показывает «Система Windows защитила ваш компьютер»? Что делать'
+                                    : 'Windows shows "Windows protected your PC"? What to do'}
+                            </summary>
+                            <div className="pomodoro-hero__install-body">
+                                <ol>
+                                    <li>
+                                        {ru ? 'Нажмите ' : 'Click '}
+                                        <b>{ru ? '«Подробнее»' : '"More info"'}</b>
+                                    </li>
+                                    <li>
+                                        {ru ? 'Затем ' : 'Then click '}
+                                        <b>{ru ? '«Выполнить в любом случае»' : '"Run anyway"'}</b>
+                                    </li>
+                                </ol>
+                                <p>
+                                    {ru
+                                        ? 'Это нормально для нового приложения без платной цифровой подписи — файл безопасен и собран из открытого кода этого проекта.'
+                                        : 'This is normal for a new app without a paid code-signing certificate — the file is safe and built from this project’s open source.'}
+                                </p>
+                            </div>
+                        </details>
                     </motion.div>
                 </div>
             </section>

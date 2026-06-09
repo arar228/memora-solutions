@@ -73,6 +73,68 @@
     opacity: 0.7;
 }
 
+.pomodoro-hero__install {
+    margin: var(--space-md) auto 0;
+    max-width: 460px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+}
+
+.pomodoro-hero__install > summary {
+    cursor: pointer;
+    padding: 10px 14px;
+    list-style: none;
+    font-weight: 500;
+    color: var(--color-text);
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+}
+
+.pomodoro-hero__install > summary::-webkit-details-marker {
+    display: none;
+}
+
+.pomodoro-hero__install > summary::before {
+    content: 'ⓘ ';
+    opacity: 0.7;
+}
+
+.pomodoro-hero__install > summary:hover {
+    opacity: 1;
+}
+
+.pomodoro-hero__install[open] > summary {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.pomodoro-hero__install-body {
+    padding: 10px 14px 12px;
+    line-height: 1.55;
+}
+
+.pomodoro-hero__install-body ol {
+    margin: 0 0 8px;
+    padding-left: 18px;
+}
+
+.pomodoro-hero__install-body li {
+    margin-bottom: 4px;
+}
+
+.pomodoro-hero__install-body b {
+    color: var(--color-text);
+}
+
+.pomodoro-hero__install-body p {
+    margin: 0;
+    opacity: 0.75;
+    font-size: 0.78rem;
+}
+
 .pomodoro-page__body {
     padding-bottom: var(--space-2xl);
 }

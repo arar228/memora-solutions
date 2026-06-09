@@ -18,7 +18,7 @@ export default function HomePage() {
             bot: '@MemoraTravelRadarBot',
             to: '/travel-radar',
             color: 'gold',
-            logo: '/logo.png',
+            logo: '/travel-logo.png',
         },
         {
             icon: <Wallet size={32} />,

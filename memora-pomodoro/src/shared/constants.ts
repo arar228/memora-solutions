@@ -48,7 +48,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   sound_repeat: false,
   sound_work: 'bell-gentle.wav',
   sound_break: 'chime-soft.wav',
-  timer_font: 'JetBrains Mono',
+  timer_font: 'Outfit',
   show_animation: true,
   custom_accent: '#E05A33',
 };

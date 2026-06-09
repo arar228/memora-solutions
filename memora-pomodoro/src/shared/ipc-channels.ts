@@ -14,6 +14,7 @@ export const IPC = {
   // Overlay (Renderer ↔ Main)
   OVERLAY_TOGGLE: 'overlay:toggle',
   OVERLAY_UPDATE: 'overlay:update',
+  OVERLAY_RESIZE: 'overlay:resize',
 
   // Settings (Renderer ↔ Main)
   SETTINGS_GET_ALL: 'settings:all',

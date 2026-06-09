@@ -55,11 +55,11 @@ export function createOverlayWindow(mode: OverlayMode = 'compact'): void {
   overlayWindow.on('moved', () => {
     if (!overlayWindow) return;
     const [x, y] = overlayWindow.getPosition();
-    const s = OVERLAY_SIZES[currentMode];
+    const [ow, oh] = overlayWindow.getSize();
     const cd = screen.getDisplayNearestPoint({ x, y });
     const { x: wx, y: wy, width: ww, height: wh } = cd.workArea;
-    const cx = Math.max(wx, Math.min(x, wx + ww - s.width));
-    const cy = Math.max(wy, Math.min(y, wy + wh - s.height));
+    const cx = Math.max(wx, Math.min(x, wx + ww - ow));
+    const cy = Math.max(wy, Math.min(y, wy + wh - oh));
     if (cx !== x || cy !== y) overlayWindow.setPosition(cx, cy);
   });
 
@@ -105,26 +105,40 @@ export function updateOverlaySettings(settings: Record<string, unknown>): void {
     );
   }
   if ('overlay_mode' in settings) {
-    const newMode = settings.overlay_mode as OverlayMode;
-    currentMode = newMode;
-    const s = OVERLAY_SIZES[newMode];
-    overlayWindow.setSize(s.width, s.height);
-  }
-  if ('overlay_size' in settings) {
-    const scale = (settings.overlay_size as number) / 100;
-    const base = OVERLAY_SIZES[currentMode];
-    const w = Math.round(base.width * scale);
-    const h = Math.round(base.height * scale);
-    overlayWindow.setSize(w, h);
+    // The window size for each mode (and the overlay_size scale) is driven by
+    // the renderer measuring its content and calling overlay.resize — so the
+    // window always hugs the widget with no wasted space. We only track the
+    // mode here for reference.
+    currentMode = settings.overlay_mode as OverlayMode;
   }
 
-  // Forward to overlay renderer
+  // Forward to overlay renderer (it re-renders + reports its new content size)
   overlayWindow.webContents.send(IPC.SETTINGS_UPDATED, settings);
+}
+
+// Resize the overlay window to exactly fit its rendered content (reported by
+// the renderer). Keeps the top-right corner anchored so the widget doesn't
+// drift as it grows/shrinks between modes.
+export function resizeOverlayToContent(width: number, height: number): void {
+  if (!overlayWindow || overlayWindow.isDestroyed()) return;
+  const cw = Math.max(60, Math.round(width));
+  const ch = Math.max(24, Math.round(height));
+  const [x, y] = overlayWindow.getPosition();
+  const [ow] = overlayWindow.getSize();
+  let nx = x + (ow - cw);
+  const cd = screen.getDisplayNearestPoint({ x, y });
+  const { x: wx, width: ww } = cd.workArea;
+  nx = Math.max(wx, Math.min(nx, wx + ww - cw));
+  overlayWindow.setContentSize(cw, ch);
+  overlayWindow.setPosition(Math.round(nx), y);
 }
 
 export function registerOverlayIPC(): void {
   ipcMain.handle(IPC.OVERLAY_TOGGLE, () => {
     toggleOverlay();
+  });
+  ipcMain.handle(IPC.OVERLAY_RESIZE, (_e, w: number, h: number) => {
+    resizeOverlayToContent(w, h);
   });
 }
 

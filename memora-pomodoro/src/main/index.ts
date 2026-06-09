@@ -146,6 +146,19 @@ if (!gotLock) {
       }
     });
 
+    // Switch between the main window and the always-on-top overlay
+    ipcMain.handle('window:to-overlay', () => {
+      setOverlayVisible(true);
+      mainWindow?.hide();
+    });
+    ipcMain.handle('window:to-main', () => {
+      setOverlayVisible(false);
+      if (mainWindow) {
+        mainWindow.show();
+        mainWindow.focus();
+      }
+    });
+
     // Create windows
     createMainWindow();
     createOverlayWindow(settings.overlay_mode);

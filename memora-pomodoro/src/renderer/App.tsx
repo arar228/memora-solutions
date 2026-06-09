@@ -234,6 +234,14 @@ export default function App() {
           </button>
           {/* Window controls */}
           <div className="window-controls">
+            <button
+              className="win-btn"
+              onClick={() => window.api.window.toOverlay()}
+              aria-label={lang === 'ru' ? 'Свернуть в оверлей' : 'Collapse to overlay'}
+              title={lang === 'ru' ? 'Оверлей' : 'Overlay'}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><rect x="12.5" y="12.5" width="6" height="5" rx="1" fill="currentColor" stroke="none"/></svg>
+            </button>
             <button className="win-btn" onClick={() => window.api.window.minimize()} aria-label="Minimize">
               <svg width="10" height="10" viewBox="0 0 10 10"><line x1="1" y1="5" x2="9" y2="5" stroke="currentColor" strokeWidth="1.2"/></svg>
             </button>

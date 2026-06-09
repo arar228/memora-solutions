@@ -85,6 +85,15 @@ export async function initDB(): Promise<void> {
     );
   }
 
+  // One-time settings migrations (keyed by a stored version).
+  const verRow = db.exec(`SELECT value FROM settings WHERE key='_settings_version'`);
+  const ver = verRow[0]?.values?.length ? Number(JSON.parse(verRow[0].values[0][0] as string)) : 1;
+  if (ver < 2) {
+    // v2: default timer font changed from JetBrains Mono → Outfit (Sans).
+    db.run(`UPDATE settings SET value='"Outfit"' WHERE key='timer_font' AND value='"JetBrains Mono"'`);
+    db.run(`INSERT OR REPLACE INTO settings (key, value) VALUES ('_settings_version', '2')`);
+  }
+
   saveDB();
 }
 

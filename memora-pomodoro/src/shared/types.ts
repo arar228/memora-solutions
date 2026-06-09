@@ -135,6 +135,9 @@ export interface ElectronAPI {
     pick: () => Promise<string | null>;
     read: (file: string) => Promise<Uint8Array | null>;
   };
+  overlay: {
+    resize: (width: number, height: number) => Promise<void>;
+  };
   profile: {
     getAll: () => Promise<Profile[]>;
     getActive: () => Promise<Profile>;
@@ -145,6 +148,8 @@ export interface ElectronAPI {
   window: {
     minimize: () => Promise<void>;
     close: () => Promise<void>;
+    toOverlay: () => Promise<void>;
+    toMain: () => Promise<void>;
   };
 }
 

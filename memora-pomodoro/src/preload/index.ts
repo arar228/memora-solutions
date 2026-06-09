@@ -56,6 +56,10 @@ const api: ElectronAPI = {
     read: (file: string) => ipcRenderer.invoke(IPC.SOUND_READ, file),
   },
 
+  overlay: {
+    resize: (width: number, height: number) => ipcRenderer.invoke(IPC.OVERLAY_RESIZE, width, height),
+  },
+
   profile: {
     getAll:    () => ipcRenderer.invoke(IPC.PROFILE_GET_ALL),
     getActive: () => ipcRenderer.invoke(IPC.PROFILE_GET_ACTIVE),
@@ -67,6 +71,8 @@ const api: ElectronAPI = {
   window: {
     minimize:  () => ipcRenderer.invoke('window:minimize'),
     close:     () => ipcRenderer.invoke('window:close'),
+    toOverlay: () => ipcRenderer.invoke('window:to-overlay'),
+    toMain:    () => ipcRenderer.invoke('window:to-main'),
   },
 };
 

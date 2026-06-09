@@ -30,6 +30,9 @@
     .ov {
       display: flex;
       align-items: center;
+      /* Hug the content so the widget (and the window measured from it) has no
+         wasted space — instead of stretching to the full window width. */
+      width: fit-content;
       cursor: move;
       transition: box-shadow 200ms ease, border-color 200ms ease;
     }
@@ -128,7 +131,6 @@
       border-radius: 10px;
       border: 0.5px solid var(--bd);
       backdrop-filter: blur(12px);
-      width: 100%;
     }
     .ov-bar-logo {
       width: 18px; height: 18px; border-radius: 4px;

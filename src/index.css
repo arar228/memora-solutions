@@ -6,28 +6,28 @@
 
 @font-face {
   font-family: 'iA Writer Quattro';
-  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Regular.woff2') format('woff2');
+  src: url('/fonts/quattro/iAWriterQuattroS-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'iA Writer Quattro';
-  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Italic.woff2') format('woff2');
+  src: url('/fonts/quattro/iAWriterQuattroS-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'iA Writer Quattro';
-  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-Bold.woff2') format('woff2');
+  src: url('/fonts/quattro/iAWriterQuattroS-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'iA Writer Quattro';
-  src: url('/fonts/ia-fonts/iA Writer Quattro/Webfonts/iAWriterQuattroS-BoldItalic.woff2') format('woff2');
+  src: url('/fonts/quattro/iAWriterQuattroS-BoldItalic.woff2') format('woff2');
   font-weight: 700;
   font-style: italic;
 }
@@ -203,6 +203,14 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* Visible keyboard focus for all interactive elements (WCAG 2.4.7).
+   Mouse clicks don't trigger :focus-visible, so this only shows for keyboard. */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 button {

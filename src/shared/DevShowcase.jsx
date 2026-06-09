@@ -1,4 +1,5 @@
 import { useState, lazy, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import './devCards.css';
 
 const ProductDevOS = lazy(() => import('./ProductDevOS'));
@@ -7,10 +8,11 @@ const FULL_QUOTE = `Создали систему, которая превращ
 
 const FULL_QUOTE_EN = `We built a system that turns the chaos of project work into a managed pipeline. The idea is simple: every project starts not from scratch, but from a ready-made structure — a set of "pockets" where the team stores key documents: from positioning to development principles. An empty pocket is a task. A filled one is accumulated experience that automatically works for the next project. The more projects go through the system, the faster, more reliably, and more broadly each next one scales. A multiplier that grows with the team.`;
 
-export default function DevShowcase({ t }) {
+export default function DevShowcase() {
+    const { i18n } = useTranslation();
     const [demoOpen, setDemoOpen] = useState(false);
     const [quoteOpen, setQuoteOpen] = useState(false);
-    const isRu = t('creator.s7Label') === '07 / Внутренние разработки';
+    const isRu = i18n.language === 'ru';
 
     return (
         <div className="creator-dev-card">

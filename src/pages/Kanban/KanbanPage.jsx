@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Lightbulb, Clock, CheckCircle2, Send, ChevronDown } from 'lucide-react';
@@ -97,6 +97,15 @@ export default function KanbanPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const rateInfo = useMemo(() => getRateLimitInfo(), [feedbackItems, rateTick]);
 
+    // While rate-limited, refresh exactly when the oldest message ages out of
+    // the window, so the form re-enables itself without the user having to
+    // interact (previously it stayed disabled with stale "wait N min" text).
+    useEffect(() => {
+        if (!rateInfo.isLimited) return;
+        const id = setTimeout(() => forceUpdate(n => n + 1), Math.max(1000, rateInfo.waitMinutes * 60000));
+        return () => clearTimeout(id);
+    }, [rateInfo.isLimited, rateInfo.waitMinutes]);
+
     const columns = [
         {
             key: 'feedback',
@@ -136,7 +145,7 @@ export default function KanbanPage() {
         }
         saveMessageTimestamp();
         setFeedbackItems(prev => [...prev, {
-            id: Date.now(),
+            id: (crypto.randomUUID?.() ?? `fb-${Date.now()}-${prev.length}`),
             title: feedbackText,
             titleEn: feedbackText,
             desc: '',

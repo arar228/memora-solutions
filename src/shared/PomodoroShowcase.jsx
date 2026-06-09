@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './devCards.css';
 
 /**
@@ -19,8 +20,9 @@ const GRID_CELLS = Array.from({ length: 7 * 16 }, () => {
     if (rand > 0.2) return 1;
     return 0;
 });
-export default function PomodoroShowcase({ t }) {
-    const isRu = t('creator.s7Label') === '07 / Внутренние разработки';
+export default function PomodoroShowcase() {
+    const { i18n } = useTranslation();
+    const isRu = i18n.language === 'ru';
     const [isRunning, setIsRunning] = useState(false);
     const [timeLeft, setTimeLeft] = useState(25 * 60);
     const [mode, setMode] = useState('focus');

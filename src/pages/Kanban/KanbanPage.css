@@ -81,6 +81,11 @@
     color: var(--color-gold);
 }
 
+/* Clear ring for keyboard users (the :focus rule above removes the outline). */
+.feedback-form__input:focus-visible {
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.35);
+}
+
 .feedback-form .btn {
     padding: 12px 32px;
 }

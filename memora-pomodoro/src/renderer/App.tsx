@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import type { TimerTickPayload, TimerMode, TimerStatus, ThemeName, PresetTheme } from '../shared/types';
-import { THEME_COLORS, themeColors, BREAK_COLOR, RING_CIRCUMFERENCE, RING_RADIUS } from '../shared/constants';
+import { THEME_COLORS, themeColors, contrastColor, BREAK_COLOR, RING_CIRCUMFERENCE, RING_RADIUS } from '../shared/constants';
 import ContribGrid from './components/ContribGrid';
 import Settings from './components/Settings';
 import FloatingTomatoes from './components/FloatingTomatoes';
@@ -309,6 +309,7 @@ export default function App() {
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 1 9 9"/><polyline points="1 17 3 21 7 19"/></svg>
         </button>
         <button className="ctrl-btn ctrl-play" onClick={handlePlayPause}
+          style={{ color: contrastColor(accent) }}
           aria-label={timerState.status === 'running'
             ? (lang === 'ru' ? 'Пауза' : 'Pause')
             : (lang === 'ru' ? 'Начать' : 'Start')

@@ -77,6 +77,17 @@ export function themeColors(theme: ThemeName, customAccent: string): { accent: s
   return THEME_COLORS[theme] ?? THEME_COLORS.tomato;
 }
 
+// Pick a readable icon/text color (dark or white) to sit ON a colored fill,
+// based on its luminance — so e.g. a light/white custom accent doesn't make the
+// white play-icon invisible.
+export function contrastColor(hex: string): string {
+  const m = /^#?([0-9a-f]{6})$/i.exec((hex || '').trim());
+  if (!m) return '#fff';
+  const n = parseInt(m[1], 16);
+  const lum = (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+  return lum > 0.62 ? '#16161A' : '#fff';
+}
+
 // Break color (always green regardless of theme)
 export const BREAK_COLOR = '#1D9E75';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import type { TimerTickPayload, OverlayMode, AppSettings, ThemeName } from '../../shared/types';
-import { BREAK_COLOR, themeColors } from '../../shared/constants';
+import { BREAK_COLOR, themeColors, contrastColor } from '../../shared/constants';
 
 function fmt(n: number): string { return String(n).padStart(2, '0'); }
 
@@ -106,6 +106,7 @@ export default function CompactOverlay() {
   const pct = Math.round(progress * 100);
   const isBreak = tick.mode !== 'focus';
   const color = isBreak ? BREAK_COLOR : themeColors(theme, customAccent).accent;
+  const onColor = contrastColor(color); // readable icon/text on the colored fill
   const modeLabel = MODE_LABELS[lang][tick.mode];
 
   // zoom scales the whole widget for the overlay-size setting; the window then
@@ -124,7 +125,7 @@ export default function CompactOverlay() {
     const R = 9, C = 2 * Math.PI * R;
     return (
       <div ref={rootRef} className={`ov ov-pill ${showBg ? '' : 'no-bg'}`} style={rootStyle}>
-        <div className="ov-pill-icon" style={{ background: color }}>M</div>
+        <div className="ov-pill-icon" style={{ background: color, color: onColor }}>M</div>
         <div className="ov-mini-ring">
           <svg viewBox="0 0 24 24" width="24" height="24">
             <circle cx="12" cy="12" r={R} fill="none" stroke="var(--sf2, #1E1E24)" strokeWidth="2.5" />
@@ -152,7 +153,7 @@ export default function CompactOverlay() {
     const dots = Array.from({ length: rounds }, (_, i) => i < (tick.completedPomos % rounds));
     return (
       <div ref={rootRef} className={`ov ov-bar ${showBg ? '' : 'no-bg'}`} style={rootStyle}>
-        <div className="ov-bar-logo" style={{ background: color }}>M</div>
+        <div className="ov-bar-logo" style={{ background: color, color: onColor }}>M</div>
         <span className="ov-bar-time">{timeStr}</span>
         <div className="ov-bar-progress">
           <div className="ov-bar-fill" style={{ width: `${pct}%`, background: color }} />
@@ -205,7 +206,7 @@ export default function CompactOverlay() {
         {showControls && (
           <>
             <button className="ov-btn" onClick={() => window.api.timer.reset()}><ResetIcon /></button>
-            <button className="ov-btn ov-btn-play" onClick={handlePlayPause} style={{ background: color }}>
+            <button className="ov-btn ov-btn-play" onClick={handlePlayPause} style={{ background: color, color: onColor }}>
               {tick.status === 'running' ? <PauseIcon /> : <PlayIcon />}
             </button>
             <button className="ov-btn" onClick={() => window.api.timer.skip()}><SkipIcon /></button>

@@ -2,6 +2,14 @@ appId: pro.armk.memora-pomodoro
 productName: Memora Pomodoro
 copyright: Copyright © 2026 Memora Solutions
 
+# Stable, version-less artifact name so the site can link a permanent
+# "latest/download/Memora-Pomodoro-Setup.exe" URL across releases.
+artifactName: Memora-Pomodoro-Setup.${ext}
+# Squeeze the installer harder (text/binaries compress well).
+compression: maximum
+# Strip unused Chromium UI locales (~40MB) after packaging.
+afterPack: scripts/afterPack.cjs
+
 directories:
   output: release
   buildResources: resources

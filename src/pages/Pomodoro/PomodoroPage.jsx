@@ -5,13 +5,31 @@ import AnimatedSection from '../../shared/AnimatedSection';
 import PomodoroShowcase from '../../shared/PomodoroShowcase';
 import './PomodoroPage.css';
 
-const DOWNLOAD_URL = 'https://github.com/arar228/memora-solutions/releases';
+// Permanent, version-less URL (electron-builder artifactName is stable).
+const WIN_INSTALLER = 'https://github.com/arar228/memora-solutions/releases/latest/download/Memora-Pomodoro-Setup.exe';
+const RELEASES_LATEST = 'https://github.com/arar228/memora-solutions/releases/latest';
 const FEATURES = ['f1', 'f2', 'f3', 'f4', 'f5'];
 const STEPS = ['step1', 'step2', 'step3', 'step4'];
 
+function detectOS() {
+    if (typeof navigator === 'undefined') return 'other';
+    const ua = (navigator.userAgent || '').toLowerCase();
+    if (ua.includes('windows')) return 'windows';
+    if (ua.includes('mac')) return 'mac';
+    if (ua.includes('linux') || ua.includes('x11') || ua.includes('android')) return 'linux';
+    return 'other';
+}
+
 export default function PomodoroPage() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const k = (path) => `pomodoro.${path}`;
+    const ru = i18n.language === 'ru';
+
+    // Only Windows is published so far. Windows users get a one-click direct
+    // download; everyone else is sent to the releases page.
+    const os = detectOS();
+    const isWin = os === 'windows';
+    const downloadHref = isWin ? WIN_INSTALLER : RELEASES_LATEST;
 
     return (
         <div className="pomodoro-page">
@@ -30,14 +48,24 @@ export default function PomodoroPage() {
                         <h1 className="pomodoro-hero__title">{t(k('heroTitle'))}</h1>
                         <p className="pomodoro-hero__lead">{t(k('heroLead'))}</p>
                         <a
-                            href={DOWNLOAD_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={downloadHref}
+                            {...(isWin
+                                ? { download: '' }
+                                : { target: '_blank', rel: 'noopener noreferrer' })}
                             className="btn btn-primary pomodoro-hero__cta"
                         >
-                            <Download size={18} aria-hidden="true" /> {t(k('download'))}
+                            <Download size={18} aria-hidden="true" />{' '}
+                            {isWin
+                                ? (ru ? 'Скачать для Windows' : 'Download for Windows')
+                                : t(k('download'))}
                         </a>
-                        <div className="pomodoro-hero__hint">{t(k('downloadHint'))}</div>
+                        <div className="pomodoro-hero__hint">
+                            {isWin
+                                ? t(k('downloadHint'))
+                                : (ru
+                                    ? 'Сейчас доступна версия для Windows. macOS и Linux — скоро.'
+                                    : 'Windows build available now. macOS and Linux coming soon.')}
+                        </div>
                     </motion.div>
                 </div>
             </section>

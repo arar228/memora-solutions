@@ -21,7 +21,6 @@ export default function App() {
   const [timerFont, setTimerFont] = useState('JetBrains Mono');
   const [showAnimation, setShowAnimation] = useState(true);
   const [view, setView] = useState<'timer' | 'settings'>('timer');
-  const [rounds, setRounds] = useState(4);
 
   // Timer state (received from main process via IPC)
   const [timerState, setTimerState] = useState<TimerTickPayload>({
@@ -31,6 +30,7 @@ export default function App() {
     status: 'idle',
     completedPomos: 0,
     countBackwards: true,
+    rounds: 4,
   });
   const [refreshKey, setRefreshKey] = useState(0);
   const [totalPomos, setTotalPomos] = useState(1);
@@ -44,12 +44,10 @@ export default function App() {
       if (s.timer_font) setTimerFont(s.timer_font);
       if (typeof s.show_animation === 'boolean') setShowAnimation(s.show_animation);
     });
-    window.api.profile.getActive().then(p => {
-      if (p?.rounds) setRounds(p.rounds);
-    });
   }, []);
 
-  // Re-sync appearance + active rounds when returning from the Settings view.
+  // Re-sync appearance when returning from the Settings view (rounds come live
+  // from the timer tick payload).
   useEffect(() => {
     if (view !== 'timer') return;
     window.api.settings.getAll().then(s => {
@@ -58,7 +56,6 @@ export default function App() {
       if (s.timer_font) setTimerFont(s.timer_font);
       if (typeof s.show_animation === 'boolean') setShowAnimation(s.show_animation);
     });
-    window.api.profile.getActive().then(p => { if (p?.rounds) setRounds(p.rounds); });
   }, [view]);
 
   // Escape closes settings
@@ -85,8 +82,11 @@ export default function App() {
           }
           const audio = new Audio(src);
           audio.volume = Math.max(0, Math.min(1, volume));
-          if (src.startsWith('blob:')) audio.addEventListener('ended', () => URL.revokeObjectURL(src), { once: true });
-          await audio.play().catch(() => {});
+          const isBlob = src.startsWith('blob:');
+          if (isBlob) audio.addEventListener('ended', () => URL.revokeObjectURL(src), { once: true });
+          // Revoke on play failure too, otherwise the blob URL leaks (no 'ended').
+          try { await audio.play(); }
+          catch { if (isBlob) URL.revokeObjectURL(src); }
         } catch { /* ignore */ }
       };
       const n = Math.max(1, times || 1);
@@ -326,7 +326,7 @@ export default function App() {
 
       {/* === Session Dots === */}
       <div className="session-dots">
-        {Array.from({ length: rounds }).map((_, i) => (
+        {Array.from({ length: timerState.rounds }).map((_, i) => (
           <div
             key={i}
             className={`dot ${i < timerState.completedPomos ? 'filled' : ''}`}

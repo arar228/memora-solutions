@@ -44,6 +44,7 @@ function broadcastTick(): void {
     status,
     completedPomos,
     countBackwards: profile.count_backwards,
+    rounds: profile.rounds,
   };
   BrowserWindow.getAllWindows().forEach((win) => {
     win.webContents.send(IPC.TIMER_TICK, payload);
@@ -150,6 +151,11 @@ function completeInterval(natural = true): void {
     startTimer();
   } else {
     status = 'waiting';
+    // Clear the taskbar progress — the interval finished and is waiting for the
+    // user to start the next one (otherwise the bar stays frozen near full).
+    BrowserWindow.getAllWindows().forEach((win) => {
+      if (!win.isDestroyed()) win.setProgressBar(-1);
+    });
     broadcastTick();
   }
 }
@@ -285,7 +291,10 @@ export function registerTimerIPC(): void {
 // Set active profile
 export function setProfile(p: Profile): void {
   profile = { ...p };
-  if (status === 'idle') {
+  // Apply the new durations to a not-yet-running interval (idle OR waiting for
+  // the next one), so editing the profile takes effect immediately instead of
+  // only after a reset.
+  if (status === 'idle' || status === 'waiting') {
     totalTime = getDuration(mode);
     timeLeft = totalTime;
     broadcastTick();

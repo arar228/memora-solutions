@@ -85,6 +85,17 @@ function handleTrayAction(action: string): void {
         mainWindow.focus();
       }
       break;
+    case 'toggle': // tray left-click: show/hide the main window
+      if (mainWindow) {
+        if (mainWindow.isVisible()) {
+          mainWindow.hide();
+        } else {
+          setOverlayVisible(false);
+          mainWindow.show();
+          mainWindow.focus();
+        }
+      }
+      break;
   }
 }
 
@@ -146,10 +157,11 @@ if (!gotLock) {
       }
     });
 
-    // Switch between the main window and the always-on-top overlay
+    // Switch between the main window and the always-on-top overlay.
+    // Only hide the main window if the overlay actually showed — otherwise the
+    // app would have no visible window at all.
     ipcMain.handle('window:to-overlay', () => {
-      setOverlayVisible(true);
-      mainWindow?.hide();
+      if (setOverlayVisible(true)) mainWindow?.hide();
     });
     ipcMain.handle('window:to-main', () => {
       setOverlayVisible(false);

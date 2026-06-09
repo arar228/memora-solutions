@@ -13,6 +13,13 @@ const MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'
 const DAYS_RU = ['Пн', '', 'Ср', '', 'Пт', '', 'Вс'];
 const DAYS_EN = ['Mon', '', 'Wed', '', 'Fri', '', 'Sun'];
 
+// Local calendar date (YYYY-MM-DD) so grid cells match the user's wall-clock
+// day — consistent with the DB's date(started_at,'localtime') bucketing.
+function localDateStr(d: Date): string {
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
 function getLevel(count: number): string {
   for (const l of GRID_LEVELS) {
     if (count >= l.min && count <= l.max) return l.class;
@@ -43,7 +50,7 @@ function buildGrid(weeks: number): { days: string[][]; allDays: string[] } {
   for (let w = 0; w < weeks; w++) {
     const col: string[] = [];
     for (let d = 0; d < 7; d++) {
-      const dateStr = cursor.toISOString().slice(0, 10);
+      const dateStr = localDateStr(cursor);
       // Only include dates up to today
       if (cursor <= today) {
         col.push(dateStr);

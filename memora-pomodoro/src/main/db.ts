@@ -93,6 +93,11 @@ export async function initDB(): Promise<void> {
     db.run(`UPDATE settings SET value='"Outfit"' WHERE key='timer_font' AND value='"JetBrains Mono"'`);
     db.run(`INSERT OR REPLACE INTO settings (key, value) VALUES ('_settings_version', '2')`);
   }
+  if (ver < 3) {
+    // v3: reset overlay size to 100% (the new auto-fit makes scaling opt-in).
+    db.run(`UPDATE settings SET value='100' WHERE key='overlay_size'`);
+    db.run(`INSERT OR REPLACE INTO settings (key, value) VALUES ('_settings_version', '3')`);
+  }
 
   saveDB();
 }
@@ -115,14 +120,21 @@ export function saveSession(profile: string, mode: string, duration: number, com
   saveDB();
 }
 
+// Local calendar date (YYYY-MM-DD) for a Date — used everywhere day-bucketing
+// happens, so a session is attributed to the user's local day (not UTC).
+function localDateStr(d: Date): string {
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
 export function getHistory(from: string, to: string): DayCount[] {
   if (!db) return [];
   const stmt = db.prepare(
-    `SELECT date(started_at) as day, COUNT(*) as count
+    `SELECT date(started_at, 'localtime') as day, COUNT(*) as count
      FROM sessions
      WHERE mode = 'focus' AND completed = 1
-       AND date(started_at) >= ? AND date(started_at) <= ?
-     GROUP BY date(started_at)
+       AND date(started_at, 'localtime') >= ? AND date(started_at, 'localtime') <= ?
+     GROUP BY day
      ORDER BY day`
   );
   stmt.bind([from, to]);
@@ -140,19 +152,18 @@ export function getStats(): Stats {
 
   const total = (db.exec(`SELECT COUNT(*) FROM sessions WHERE mode='focus' AND completed=1`)[0]?.values[0]?.[0] as number) || 0;
 
-  const today = new Date().toISOString().slice(0, 10);
-  const todayCount = (db.exec(`SELECT COUNT(*) FROM sessions WHERE mode='focus' AND completed=1 AND date(started_at)='${today}'`)[0]?.values[0]?.[0] as number) || 0;
+  const today = localDateStr(new Date());
+  const todayCount = (db.exec(`SELECT COUNT(*) FROM sessions WHERE mode='focus' AND completed=1 AND date(started_at, 'localtime')='${today}'`)[0]?.values[0]?.[0] as number) || 0;
 
-  // Streak calculation
+  // Streak calculation (distinct local focus days, newest first)
   const days = db.exec(
-    `SELECT DISTINCT date(started_at) as day FROM sessions WHERE mode='focus' AND completed=1 ORDER BY day DESC`
+    `SELECT DISTINCT date(started_at, 'localtime') as day FROM sessions WHERE mode='focus' AND completed=1 ORDER BY day DESC`
   )[0]?.values?.map((v: unknown[]) => v[0] as string) || [];
 
-  // `days` are DISTINCT focus days in DESC order. Compute day gaps from UTC
-  // midnight so a single missing day correctly breaks a run.
+  // Day gaps measured from local midnight so a single missing day breaks a run.
   const DAY = 86400000;
-  const toMs = (s: string) => Date.parse(`${s}T00:00:00Z`);
-  const yesterday = new Date(Date.now() - DAY).toISOString().slice(0, 10);
+  const toMs = (s: string) => Date.parse(`${s}T00:00:00`);
+  const yesterday = localDateStr(new Date(Date.now() - DAY));
 
   // Current streak: consecutive days ending today (or yesterday if nothing yet
   // today). If the most recent activity is older than yesterday, the streak is 0.

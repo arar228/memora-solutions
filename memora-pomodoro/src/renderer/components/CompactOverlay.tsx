@@ -29,7 +29,7 @@ const NO_DRAG = { WebkitAppRegion: 'no-drag' } as React.CSSProperties;
 
 export default function CompactOverlay() {
   const [tick, setTick] = useState<TimerTickPayload>({
-    timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0, countBackwards: true,
+    timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0, countBackwards: true, rounds: 4,
   });
   const [mode, setMode] = useState<OverlayMode>('compact');
   const [showBg, setShowBg] = useState(true);
@@ -82,14 +82,20 @@ export default function CompactOverlay() {
       const w = Math.ceil(r.width);
       const h = Math.ceil(r.height);
       if (w < 8 || h < 8) return;
-      if (w === lastSize.current.w && h === lastSize.current.h) return;
+      // Hysteresis: ignore ≤1px jitter so a sub-pixel reflow can't ping-pong the
+      // window size forever (ResizeObserver feedback loop).
+      if (Math.abs(w - lastSize.current.w) <= 1 && Math.abs(h - lastSize.current.h) <= 1) return;
       lastSize.current = { w, h };
       window.api.overlay.resize(w, h);
     };
+    // Defer to the next frame so we never resize synchronously inside the
+    // observer callback (avoids the "ResizeObserver loop" warning + coalesces).
+    let raf = 0;
+    const schedule = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(measure); };
     measure();
-    const ro = new ResizeObserver(measure);
+    const ro = new ResizeObserver(schedule);
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, [mode, showBg, showSeconds, showControls, overlaySize, lang]);
 
   const shown = tick.countBackwards ? tick.timeLeft : tick.totalTime - tick.timeLeft;
@@ -142,7 +148,8 @@ export default function CompactOverlay() {
 
   // === BAR (wide) ===
   if (mode === 'bar') {
-    const dots = Array.from({ length: 4 }, (_, i) => i < (tick.completedPomos % 4));
+    const rounds = tick.rounds || 4;
+    const dots = Array.from({ length: rounds }, (_, i) => i < (tick.completedPomos % rounds));
     return (
       <div ref={rootRef} className={`ov ov-bar ${showBg ? '' : 'no-bg'}`} style={rootStyle}>
         <div className="ov-bar-logo" style={{ background: color }}>M</div>

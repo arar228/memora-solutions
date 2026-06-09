@@ -81,12 +81,16 @@ export function toggleOverlay(): void {
 }
 
 // Show/hide the overlay and persist the choice so it's restored next launch.
-export function setOverlayVisible(visible: boolean): void {
-  if (!overlayWindow || overlayWindow.isDestroyed()) return;
+// Returns whether the overlay window actually exists (so callers don't hide the
+// main window when there's nothing to show — which would leave the app with no
+// visible window).
+export function setOverlayVisible(visible: boolean): boolean {
+  if (!overlayWindow || overlayWindow.isDestroyed()) return false;
   overlayVisible = visible;
   if (visible) overlayWindow.show();
   else overlayWindow.hide();
   setSetting('overlay_visible', visible);
+  return true;
 }
 
 export function getOverlayWindow(): BrowserWindow | null {
@@ -123,9 +127,17 @@ export function resizeOverlayToContent(width: number, height: number): void {
   if (!overlayWindow || overlayWindow.isDestroyed()) return;
   const cw = Math.max(60, Math.round(width));
   const ch = Math.max(24, Math.round(height));
+  const [curW, curH] = overlayWindow.getContentSize();
+  if (curW === cw && curH === ch) return; // already correct — breaks any resize loop
+  // While hidden, just size it (don't move it) so we never mutate the user's
+  // dragged position from background ticks.
+  if (!overlayVisible) {
+    overlayWindow.setContentSize(cw, ch);
+    return;
+  }
   const [x, y] = overlayWindow.getPosition();
   const [ow] = overlayWindow.getSize();
-  let nx = x + (ow - cw);
+  let nx = x + (ow - cw); // keep the top-right corner anchored
   const cd = screen.getDisplayNearestPoint({ x, y });
   const { x: wx, width: ww } = cd.workArea;
   nx = Math.max(wx, Math.min(nx, wx + ww - cw));

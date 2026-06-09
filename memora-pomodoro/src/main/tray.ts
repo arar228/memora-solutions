@@ -1,4 +1,4 @@
-import { Tray, Menu, app, nativeImage, BrowserWindow } from 'electron';
+import { Tray, Menu, app, nativeImage } from 'electron';
 import path from 'path';
 import type { TimerMode, TimerStatus } from '../shared/types';
 
@@ -38,11 +38,6 @@ function buildContextMenu(onAction: (action: string) => void): Menu {
 }
 
 export function createTray(onAction: (action: string) => void): void {
-  // Create a simple 16x16 tray icon (monochrome "M")
-  const iconSize = 16;
-  const icon = nativeImage.createEmpty();
-  
-  // Use a placeholder — we'll replace with real icon later
   try {
     const iconPath = process.platform === 'darwin'
       ? getAssetPath('tray-iconTemplate.png')
@@ -61,13 +56,9 @@ export function createTray(onAction: (action: string) => void): void {
   tray.setToolTip('Memora Pomodoro');
   tray.setContextMenu(buildContextMenu(onAction));
 
-  // Left-click: show/hide main window
-  tray.on('click', () => {
-    const win = BrowserWindow.getAllWindows()[0];
-    if (win) {
-      win.isVisible() ? win.hide() : win.show();
-    }
-  });
+  // Left-click: show/hide the MAIN window (handled in index.ts, which holds the
+  // main-window reference — getAllWindows()[0] could be the overlay).
+  tray.on('click', () => onAction('toggle'));
 }
 
 export function updateTray(status: TimerStatus, timeLeft: number, mode: TimerMode, onAction: (action: string) => void): void {

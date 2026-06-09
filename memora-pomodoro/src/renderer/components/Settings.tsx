@@ -193,7 +193,9 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
       }
       const a = new Audio(src);
       a.volume = settings.sound_volume / 100;
-      a.play().catch(() => {});
+      const isBlob = src.startsWith('blob:');
+      if (isBlob) a.addEventListener('ended', () => URL.revokeObjectURL(src), { once: true });
+      a.play().catch(() => { if (isBlob) URL.revokeObjectURL(src); });
     } catch { /* ignore */ }
   }, [settings.sound_work, settings.sound_volume]);
 

@@ -3,6 +3,7 @@ import { db, uid, now } from '../db.js';
 import { authRequired } from '../auth.js';
 import { audit } from '../audit.js';
 import { loadRequest, serializeRequest, serializeOffer, recordTransition, TransitionError } from '../service.js';
+import { canTransition } from '../stateMachine.js';
 
 const r = Router();
 const isStaff = (role) => ['operator', 'lead', 'admin'].includes(role);
@@ -20,8 +21,11 @@ const getOffer = db.prepare('SELECT * FROM offers WHERE id = ?');
 
 // Separate the service commission from the (pass-through) supplier cost — TZ §6.
 function computeTotals({ supplierCost = 0, fxRate = 1, serviceFee = 0, feeType = 'fixed' }) {
-  const supplierRub = Number(supplierCost) * Number(fxRate || 1);
-  const feeRub = feeType === 'percent' ? supplierRub * (Number(serviceFee) / 100) : Number(serviceFee);
+  const sc = Math.max(0, Number(supplierCost) || 0);
+  const fx = Math.max(0, Number(fxRate) || 1);
+  const fee = Math.max(0, Number(serviceFee) || 0);
+  const supplierRub = sc * fx;
+  const feeRub = feeType === 'percent' ? supplierRub * (fee / 100) : fee;
   return {
     supplierRub: Math.round(supplierRub * 100) / 100,
     feeRub: Math.round(feeRub * 100) / 100,
@@ -69,16 +73,20 @@ r.post('/offers/:id/accept', authRequired, (req, res) => {
   const request = loadRequest(offer.request_id);
   if (!request) return res.status(404).json({ error: 'request not found' });
   if (request.client_id !== req.user.id) return res.status(403).json({ error: 'forbidden' });
+  if (offer.status !== 'sent') return res.status(409).json({ error: 'offer is not open' });
+  if (!canTransition(request.status, 'quote_accepted')) return res.status(409).json({ error: `cannot accept from ${request.status}` });
 
-  db.prepare("UPDATE offers SET status='accepted' WHERE id=?").run(offer.id);
-  db.prepare("UPDATE offers SET status='rejected' WHERE request_id=? AND id<>? AND status='sent'").run(request.id, offer.id);
-  audit({ entity: 'offer', entityId: offer.id, actorId: req.user.id, action: 'accept' });
-  try {
+  // Atomic: accept this offer, reject siblings, and advance the request together.
+  const tx = db.transaction(() => {
+    db.prepare("UPDATE offers SET status='accepted' WHERE id=?").run(offer.id);
+    db.prepare("UPDATE offers SET status='rejected' WHERE request_id=? AND id<>? AND status='sent'").run(request.id, offer.id);
     recordTransition(request, 'quote_accepted', { actorId: req.user.id, actorRole: 'client' });
-  } catch (e) {
+  });
+  try { tx(); } catch (e) {
     if (e instanceof TransitionError) return res.status(e.code).json({ error: e.message });
     throw e;
   }
+  audit({ entity: 'offer', entityId: offer.id, actorId: req.user.id, action: 'accept' });
   res.json({ request: serializeRequest(loadRequest(request.id), { detail: true, role: req.user.role }) });
 });
 

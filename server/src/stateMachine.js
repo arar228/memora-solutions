@@ -30,7 +30,7 @@ const ACTOR_RULES = {
   quoting:          ['operator', 'lead', 'admin'],
   quote_sent:       ['operator', 'lead', 'admin'],
   quote_accepted:   ['client'],                 // only the client accepts
-  awaiting_payment: ['operator', 'lead', 'admin', 'system'],
+  awaiting_payment: ['client', 'operator', 'lead', 'admin', 'system'], // client may self-invoice an accepted offer
   paid:             ['system'],                 // only the payment webhook
   booking:          ['operator', 'lead', 'admin'],
   booked:           ['operator', 'lead', 'admin'],

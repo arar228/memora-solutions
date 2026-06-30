@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { db, uid, now } from '../db.js';
-import { authRequired } from '../auth.js';
+import { authRequired, requireRole } from '../auth.js';
 import { audit } from '../audit.js';
 import { loadRequest, serializeRequest, recordTransition, addSystemMessage, notify } from '../service.js';
 import { createPayment, getPaymentStatus, MOCK_MODE } from '../payments.js';
@@ -17,13 +17,16 @@ const insertPayment = db.prepare(
 const getPaymentByExternal = db.prepare('SELECT * FROM payments WHERE external_id = ?');
 const getPaymentById = db.prepare('SELECT * FROM payments WHERE id = ?');
 
-// Mark a payment paid + advance the request. Idempotent.
-function markPaid(payment) {
-  if (payment.status === 'paid') return; // idempotency guard
+// Mark a payment paid + advance the request. Atomic + idempotent: only the FIRST
+// settlement of a non-paid/non-refunded payment takes effect, so concurrent
+// webhooks (or webhook racing the mock page) can't double-credit / double-notify.
+function markPaid(paymentId) {
   const ts = now();
-  db.prepare("UPDATE payments SET status='paid', paid_at=?, receipt_id=? WHERE id=?")
-    .run(ts, 'rcpt_' + payment.id, payment.id);
-  audit({ entity: 'payment', entityId: payment.id, action: 'paid', after: { amount: payment.amount_rub } });
+  const upd = db.prepare("UPDATE payments SET status='paid', paid_at=?, receipt_id=? WHERE id=? AND status NOT IN ('paid','refunded')")
+    .run(ts, 'rcpt_' + paymentId, paymentId);
+  if (upd.changes === 0) return; // already settled — no-op
+  const payment = getPaymentById.get(paymentId);
+  audit({ entity: 'payment', entityId: paymentId, action: 'paid', after: { amount: payment.amount_rub } });
   const request = loadRequest(payment.request_id);
   if (request) {
     try { recordTransition(request, 'paid', { actorRole: 'system', autoMessage: 'Оплата получена, спасибо! Переходим к бронированию.' }); } catch { /* already past */ }
@@ -37,11 +40,18 @@ r.post('/requests/:id/invoice', authRequired, async (req, res) => {
   if (!request) return res.status(404).json({ error: 'not found' });
   if (!isStaff(req.user.role) && request.client_id !== req.user.id) return res.status(403).json({ error: 'forbidden' });
 
+  // Only invoiceable from an accepted quote (blocks re-invoicing a paid/closed one).
+  if (!['quote_accepted', 'awaiting_payment'].includes(request.status)) {
+    return res.status(409).json({ error: 'request is not awaiting payment' });
+  }
   const offer = acceptedOffer.get(request.id);
   if (!offer) return res.status(409).json({ error: 'no accepted offer to invoice' });
 
-  // Move to awaiting_payment (idempotent-ish: ignore if already there/past).
-  try { recordTransition(request, 'awaiting_payment', { actorId: req.user.id, actorRole: isStaff(req.user.role) ? req.user.role : 'system' }); } catch { /* ignore */ }
+  // Drop any stale pending payment for this request so re-issuing a link can't
+  // leave duplicate pending rows (paid rows are never touched).
+  db.prepare("DELETE FROM payments WHERE request_id=? AND status='pending'").run(request.id);
+
+  try { recordTransition(request, 'awaiting_payment', { actorId: req.user.id, actorRole: req.user.role }); } catch { /* already there */ }
 
   const id = uid('pay');
   let payment;
@@ -64,20 +74,20 @@ r.post('/requests/:id/invoice', authRequired, async (req, res) => {
   res.json({ paymentId: id, confirmationUrl: payment.confirmationUrl, amountRub: offer.total_price_rub, mock: MOCK_MODE });
 });
 
-// POST /api/payments/webhook — ЮKassa notification. Never trust the body; re-fetch.
+// POST /api/payments/webhook — ЮKassa notification. Never trust the body: the
+// status is always re-fetched from the provider. In MOCK mode the webhook is NOT
+// a trusted channel (mock payments settle only via the dev mock-pay page), so it
+// is ignored — preventing a spoofed body from marking a payment paid.
 r.post('/payments/webhook', async (req, res) => {
-  const obj = req.body?.object;
-  const externalId = obj?.id;
+  if (MOCK_MODE) return res.json({ ok: true });
+  const externalId = req.body?.object?.id;
   if (!externalId) return res.status(400).json({ error: 'no payment id' });
   const payment = getPaymentByExternal.get(externalId);
   if (!payment) return res.status(200).json({ ok: true }); // unknown — ack to stop retries
-
   try {
-    const status = MOCK_MODE ? 'succeeded' : await getPaymentStatus(externalId);
-    if (status === 'succeeded') markPaid(payment);
-    else if (status === 'canceled') {
-      db.prepare("UPDATE payments SET status='failed' WHERE id=?").run(payment.id);
-    }
+    const status = await getPaymentStatus(externalId); // authoritative
+    if (status === 'succeeded') markPaid(payment.id);
+    else if (status === 'canceled') db.prepare("UPDATE payments SET status='failed' WHERE id=? AND status='pending'").run(payment.id);
   } catch (e) {
     return res.status(500).json({ error: String(e.message || e) });
   }
@@ -90,7 +100,7 @@ r.get('/payments/mock/:externalId/pay', (req, res) => {
   if (!MOCK_MODE) return res.status(404).send('not found');
   const payment = getPaymentByExternal.get(req.params.externalId);
   if (!payment) return res.status(404).send('payment not found');
-  markPaid(payment);
+  markPaid(payment.id);
   res
     .status(200)
     .send(`<!doctype html><meta charset="utf-8"><title>Оплачено (демо)</title>
@@ -101,12 +111,13 @@ r.get('/payments/mock/:externalId/pay', (req, res) => {
       <script>setTimeout(()=>location.href=${JSON.stringify(RETURN_URL)},1500)</script>`);
 });
 
-// POST /api/payments/:id/refund — staff-initiated refund.
-r.post('/payments/:id/refund', authRequired, (req, res) => {
-  if (!isStaff(req.user.role)) return res.status(403).json({ error: 'forbidden' });
+// POST /api/payments/:id/refund — refund a PAID payment. lead/admin only,
+// state-guarded + idempotent (a conditional UPDATE prevents double-refund).
+r.post('/payments/:id/refund', authRequired, requireRole('lead', 'admin'), (req, res) => {
   const payment = getPaymentById.get(req.params.id);
   if (!payment) return res.status(404).json({ error: 'not found' });
-  db.prepare("UPDATE payments SET status='refunded' WHERE id=?").run(payment.id);
+  const upd = db.prepare("UPDATE payments SET status='refunded' WHERE id=? AND status='paid'").run(payment.id);
+  if (upd.changes === 0) return res.status(409).json({ error: 'payment not in paid state' });
   audit({ entity: 'payment', entityId: payment.id, actorId: req.user.id, action: 'refund' });
   const request = loadRequest(payment.request_id);
   if (request) {

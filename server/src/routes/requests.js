@@ -91,6 +91,12 @@ r.post('/:id/transition', authRequired, (req, res) => {
   if (!to) return res.status(400).json({ error: 'to required' });
   // 'paid' is system-only (set by the payment webhook) — block humans here.
   if (to === 'paid') return res.status(403).json({ error: 'paid is set by the payment webhook only' });
+  // A client may only cancel or request a refund via the generic endpoint;
+  // quote_accepted must go through POST /api/offers/:id/accept (which records the
+  // accepted offer) to avoid an accepted-but-offerless inconsistent state.
+  if (!isStaff(req.user.role) && !['cancelled', 'refund_requested'].includes(to)) {
+    return res.status(403).json({ error: 'clients may only cancel or request a refund here' });
+  }
   try {
     recordTransition(row, to, { actorId: req.user.id, actorRole: req.user.role });
     res.json({ request: serializeRequest(loadRequest(row.id), { detail: true, role: req.user.role }) });

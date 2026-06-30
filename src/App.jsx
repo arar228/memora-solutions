@@ -14,6 +14,7 @@ const HomePage = lazyWithRetry(() => import('./pages/Home'));
 const TravelRadarPage = lazyWithRetry(() => import('./pages/TravelRadar'));
 // --- Travel Radar v2.0 (Concierge) — parallel/experimental; remove this line + the route below + src/pages/TravelRadarV2 to roll back ---
 const TravelRadarV2Page = lazyWithRetry(() => import('./pages/TravelRadarV2'));
+const ConciergeOperatorPage = lazyWithRetry(() => import('./pages/TravelRadarV2/OperatorPage'));
 const WalletPage = lazyWithRetry(() => import('./pages/Wallet'));
 const BdayBotPage = lazyWithRetry(() => import('./pages/BdayBot'));
 const KanbanPage = lazyWithRetry(() => import('./pages/Kanban'));
@@ -47,6 +48,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
         <Route path="/travel-radar" element={<PageTransition><TravelRadarPage /></PageTransition>} />
         <Route path="/travel-radar-v2" element={<PageTransition><TravelRadarV2Page /></PageTransition>} />{/* v2.0 concierge — rollback: delete this line */}
+        <Route path="/travel-radar-v2/operator" element={<PageTransition><ConciergeOperatorPage /></PageTransition>} />{/* v2.0 operator workplace */}
         <Route path="/wallet" element={<PageTransition><WalletPage /></PageTransition>} />
         <Route path="/bday-bot" element={<PageTransition><BdayBotPage /></PageTransition>} />
         <Route path="/kanban" element={<PageTransition><KanbanPage /></PageTransition>} />

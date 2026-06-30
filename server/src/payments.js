@@ -8,7 +8,11 @@ const SECRET = process.env.YOOKASSA_SECRET_KEY || '';
 const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:4000';
 const RETURN_URL = process.env.PAYMENT_RETURN_URL || 'http://localhost:5173/travel-radar-v2';
 
-export const MOCK_MODE = !SHOP_ID || !SECRET;
+// Mock payments are a LOCAL-DEV affordance only. They must never be active in
+// production (where the unauthenticated mock-pay page could mark payments paid).
+// Requires missing keys AND (non-production OR an explicit opt-in flag).
+const ALLOW_MOCK = process.env.NODE_ENV !== 'production' || process.env.ALLOW_MOCK_PAYMENTS === 'true';
+export const MOCK_MODE = (!SHOP_ID || !SECRET) && ALLOW_MOCK;
 
 // Create a payment. Returns { externalId, confirmationUrl, raw }.
 export async function createPayment({ amountRub, description, idempotenceKey, metadata }) {

@@ -3,7 +3,12 @@ import jwt from 'jsonwebtoken';
 import { db, uid, now } from './db.js';
 import { audit } from './audit.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-insecure-secret-change-me';
+const DEV_SECRET = 'dev-insecure-secret-change-me';
+const JWT_SECRET = process.env.JWT_SECRET || DEV_SECRET;
+// Fail closed: never run on the public default in production.
+if (process.env.NODE_ENV === 'production' && (!process.env.JWT_SECRET || JWT_SECRET === DEV_SECRET || JWT_SECRET.length < 24)) {
+  throw new Error('JWT_SECRET must be set to a long random value in production');
+}
 const TOKEN_TTL = '30d';
 const CONSENT_VERSION = '1.0';
 

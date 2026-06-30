@@ -30,6 +30,9 @@ app.use('/api', operatorRouter);
 app.use('/api', (_req, res) => res.status(404).json({ error: 'not found' }));
 // eslint-disable-next-line no-unused-vars
 app.use((err, _req, res, _next) => {
+  if (err?.type === 'entity.parse.failed' || err instanceof SyntaxError) {
+    return res.status(400).json({ error: 'malformed JSON body' });
+  }
   // eslint-disable-next-line no-console
   console.error('[error]', err);
   res.status(500).json({ error: 'internal error' });

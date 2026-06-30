@@ -331,7 +331,9 @@ export function registerDBIPC(): void {
         // Theme/lang/custom-accent forwarded so the overlay recolors/relabels live.
         case 'theme':
         case 'lang':
-        case 'custom_accent': {
+        case 'custom_accent':
+        // Forwarded so the overlay's flash-on-time-up enable/disable applies live.
+        case 'time_up_effect': {
           const { updateOverlaySettings } = await import('./overlay');
           updateOverlaySettings({ [key]: value });
           break;

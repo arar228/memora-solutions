@@ -29,7 +29,12 @@ export interface TimerCompletePayload {
   nextMode: TimerMode;
   duration: number;
   autoStart: boolean;
+  natural: boolean; // true on a real time-up, false on a manual skip
 }
+
+// Visual "time is up" alert shown in addition to (or instead of) ignored OS
+// notifications.
+export type TimeUpEffect = 'flash' | 'tomatoes' | 'both' | 'off';
 
 // === Profile ===
 export interface Profile {
@@ -100,6 +105,7 @@ export interface AppSettings {
   timer_font: string;
   show_animation: boolean;
   custom_accent: string;
+  time_up_effect: TimeUpEffect;
 }
 
 // === Electron API (exposed via preload) ===

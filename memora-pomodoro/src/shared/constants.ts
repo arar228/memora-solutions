@@ -51,6 +51,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   timer_font: 'Outfit',
   show_animation: true,
   custom_accent: '#E05A33',
+  time_up_effect: 'flash',
 };
 
 // Theme colors (presets only; 'custom' resolves to AppSettings.custom_accent).

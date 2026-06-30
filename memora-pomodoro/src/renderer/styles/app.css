@@ -462,3 +462,45 @@
   outline: 2px solid var(--a);
   outline-offset: 2px;
 }
+
+/* === Time-up alert: contrasting flash === */
+.time-up-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none; /* let clicks pass through (and dismiss) */
+  animation: timeUpFlash 0.7s steps(1, end) infinite;
+}
+
+@keyframes timeUpFlash {
+  0%, 49%   { background: transparent; }
+  50%, 100% { background: rgba(230, 64, 64, 0.5); }
+}
+
+/* === Time-up alert: tomato scatter === */
+.tomato-burst {
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.burst-tomato {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: var(--sz, 24px);
+  height: var(--sz, 24px);
+  object-fit: contain;
+  pointer-events: none;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  animation: tomatoBurst var(--dur, 2.4s) cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) forwards;
+}
+
+@keyframes tomatoBurst {
+  0%   { transform: translate(-50%, -50%) rotate(0) scale(0.3); opacity: 0; }
+  12%  { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) rotate(var(--rot, 360deg)) scale(1); opacity: 0; }
+}

@@ -112,6 +112,7 @@ function completeInterval(natural = true): void {
     nextMode,
     duration: totalTime - timeLeft,
     autoStart,
+    natural,
   };
 
   // Desktop notification + sound only on a natural completion (skipping is a
@@ -140,6 +141,16 @@ function completeInterval(natural = true): void {
   BrowserWindow.getAllWindows().forEach((win) => {
     win.webContents.send(IPC.TIMER_COMPLETE, payload);
   });
+
+  // OS-level attention: flash the taskbar button when the user isn't looking,
+  // so a finished interval is noticed even if the window is minimized / behind
+  // another app (system notifications get ignored). No-op for the skipTaskbar
+  // overlay.
+  if (natural) {
+    BrowserWindow.getAllWindows().forEach((win) => {
+      if (!win.isDestroyed() && !win.isFocused()) win.flashFrame(true);
+    });
+  }
 
   // Switch mode
   mode = nextMode;

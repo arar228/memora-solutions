@@ -38,6 +38,10 @@ function createMainWindow(): void {
     mainWindow?.show();
   });
 
+  // Stop the taskbar "attention" flash (from a finished interval) once the user
+  // actually looks at the window.
+  mainWindow.on('focus', () => mainWindow?.flashFrame(false));
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });

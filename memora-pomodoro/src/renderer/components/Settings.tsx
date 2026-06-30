@@ -298,6 +298,15 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
           </select>
         </div>
         <Toggle label={t.animation} checked={settings.show_animation} onChange={v => updateSetting('show_animation', v)} />
+        <div className="setting-row">
+          <span className="setting-label">{lang === 'ru' ? 'Сигнал «время вышло»' : 'Time-up alert'}</span>
+          <select className="setting-select" value={settings.time_up_effect} onChange={e => updateSetting('time_up_effect', e.target.value)}>
+            <option value="flash">{lang === 'ru' ? 'Мигание' : 'Flash'}</option>
+            <option value="tomatoes">{lang === 'ru' ? 'Помидоры' : 'Tomatoes'}</option>
+            <option value="both">{lang === 'ru' ? 'Мигание + помидоры' : 'Flash + tomatoes'}</option>
+            <option value="off">{lang === 'ru' ? 'Выкл' : 'Off'}</option>
+          </select>
+        </div>
         {/* Live preview */}
         <div className="appearance-preview">
           <svg width="56" height="56" viewBox="0 0 56 56">

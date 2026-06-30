@@ -39,11 +39,33 @@ export default function CompactOverlay() {
   const [lang, setLang] = useState<'ru' | 'en'>('ru');
   const [theme, setTheme] = useState<ThemeName>('tomato');
   const [customAccent, setCustomAccent] = useState('#E05A33');
+  const [flashing, setFlashing] = useState(false);
+  const alertOnRef = useRef(true); // time_up_effect !== 'off'
 
   useEffect(() => {
     const unsub = window.api.timer.onTick((data) => setTick(data));
     return unsub;
   }, []);
+
+  // Flash the widget when an interval finishes — the overlay is what the user
+  // watches, and OS notifications get ignored.
+  useEffect(() => {
+    const unsub = window.api.timer.onComplete((p) => {
+      if (p?.natural && alertOnRef.current) setFlashing(true);
+    });
+    return unsub;
+  }, []);
+
+  useEffect(() => {
+    if (!flashing) return;
+    const id = setTimeout(() => setFlashing(false), 12000);
+    return () => clearTimeout(id);
+  }, [flashing]);
+
+  // Stop flashing once the next interval is running (e.g. user pressed play).
+  useEffect(() => {
+    if (tick.status === 'running') setFlashing(false);
+  }, [tick.status]);
 
   // Listen for settings changes from main
   useEffect(() => {
@@ -56,6 +78,7 @@ export default function CompactOverlay() {
       if (s.lang) setLang(s.lang as 'ru' | 'en');
       if (s.theme) setTheme(s.theme as ThemeName);
       if (s.custom_accent) setCustomAccent(s.custom_accent as string);
+      if (s.time_up_effect !== undefined) alertOnRef.current = s.time_up_effect !== 'off';
     });
     window.api.settings.getAll().then((s: AppSettings) => {
       setMode(s.overlay_mode || 'compact');
@@ -66,6 +89,7 @@ export default function CompactOverlay() {
       setLang(s.lang || 'ru');
       setTheme(s.theme || 'tomato');
       setCustomAccent(s.custom_accent || '#E05A33');
+      alertOnRef.current = s.time_up_effect !== 'off';
     });
     return unsub;
   }, []);
@@ -124,7 +148,7 @@ export default function CompactOverlay() {
   if (mode === 'pill') {
     const R = 9, C = 2 * Math.PI * R;
     return (
-      <div ref={rootRef} className={`ov ov-pill ${showBg ? '' : 'no-bg'}`} style={rootStyle}>
+      <div ref={rootRef} className={`ov ov-pill ${showBg ? '' : 'no-bg'} ${flashing ? 'ov-flash' : ''}`} style={rootStyle}>
         <div className="ov-pill-icon" style={{ background: color, color: onColor }}>M</div>
         <div className="ov-mini-ring">
           <svg viewBox="0 0 24 24" width="24" height="24">
@@ -152,7 +176,7 @@ export default function CompactOverlay() {
     const rounds = tick.rounds || 4;
     const dots = Array.from({ length: rounds }, (_, i) => i < (tick.completedPomos % rounds));
     return (
-      <div ref={rootRef} className={`ov ov-bar ${showBg ? '' : 'no-bg'}`} style={rootStyle}>
+      <div ref={rootRef} className={`ov ov-bar ${showBg ? '' : 'no-bg'} ${flashing ? 'ov-flash' : ''}`} style={rootStyle}>
         <div className="ov-bar-logo" style={{ background: color, color: onColor }}>M</div>
         <span className="ov-bar-time">{timeStr}</span>
         <div className="ov-bar-progress">
@@ -188,7 +212,7 @@ export default function CompactOverlay() {
   // === COMPACT (default) ===
   const R = 15, C = 2 * Math.PI * R;
   return (
-    <div ref={rootRef} className={`ov ov-compact ${showBg ? '' : 'no-bg'}`} style={rootStyle}>
+    <div ref={rootRef} className={`ov ov-compact ${showBg ? '' : 'no-bg'} ${flashing ? 'ov-flash' : ''}`} style={rootStyle}>
       <div className="ov-ring-wrap">
         <svg viewBox="0 0 36 36" width="36" height="36">
           <circle cx="18" cy="18" r={R} fill="none" stroke="var(--sf2, #1E1E24)" strokeWidth="3" />

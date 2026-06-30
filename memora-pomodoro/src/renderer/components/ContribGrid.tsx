@@ -71,18 +71,40 @@ export default function ContribGrid({ accentColor, lang, refreshKey = 0 }: Contr
   const [total, setTotal] = useState(0);
   const [hoveredDay, setHoveredDay] = useState<string | null>(null);
   const [hoveredCount, setHoveredCount] = useState(0);
+  // The local calendar day. Drives a rebuild of the grid when midnight rolls
+  // over while the app stays open (otherwise "today" was frozen at launch).
+  const [dayKey, setDayKey] = useState(() => localDateStr(new Date()));
   const weeks = 26;
   const monthNames = lang === 'ru' ? MONTHS_RU : MONTHS_EN;
   const dayLabels = lang === 'ru' ? DAYS_RU : DAYS_EN;
 
-  const { days: grid, allDays } = useMemo(() => buildGrid(weeks), []);
+  const { days: grid, allDays } = useMemo(() => buildGrid(weeks), [dayKey]);
+
+  // Detect day rollover even if the app is left open for days. Checking on an
+  // interval + on window focus covers both continuous running and wake-from-idle.
+  useEffect(() => {
+    const check = () => setDayKey(prev => {
+      const now = localDateStr(new Date());
+      return prev === now ? prev : now;
+    });
+    const id = setInterval(check, 60_000);
+    window.addEventListener('focus', check);
+    document.addEventListener('visibilitychange', check); // catch wake-from-sleep faster
+    return () => {
+      clearInterval(id);
+      window.removeEventListener('focus', check);
+      document.removeEventListener('visibilitychange', check);
+    };
+  }, []);
 
   // Load history data from DB
   useEffect(() => {
     if (allDays.length === 0) return;
+    let cancelled = false;
     const from = allDays[0];
     const to = allDays[allDays.length - 1];
     window.api.db.getHistory(from, to).then((result: DayCount[]) => {
+      if (cancelled) return; // a newer range/refresh superseded this fetch
       const map: Record<string, number> = {};
       let sum = 0;
       for (const r of result) {
@@ -91,7 +113,8 @@ export default function ContribGrid({ accentColor, lang, refreshKey = 0 }: Contr
       }
       setData(map);
       setTotal(sum);
-    });
+    }).catch(() => { /* ignore */ });
+    return () => { cancelled = true; };
   }, [allDays, refreshKey]);
 
   // Compute month labels from actual first day in each week column

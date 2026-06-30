@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import type { TimerTickPayload, TimerMode, TimerStatus, ThemeName, PresetTheme } from '../shared/types';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import type { TimerTickPayload, TimerMode, TimerStatus, ThemeName, PresetTheme, TimeUpEffect } from '../shared/types';
 import { THEME_COLORS, themeColors, contrastColor, BREAK_COLOR, RING_CIRCUMFERENCE, RING_RADIUS } from '../shared/constants';
 import ContribGrid from './components/ContribGrid';
 import Settings from './components/Settings';
 import FloatingTomatoes from './components/FloatingTomatoes';
+import TomatoBurst from './components/TomatoBurst';
 import './styles/app.css';
 import './styles/settings.css';
 
@@ -20,6 +21,10 @@ export default function App() {
   const [customAccent, setCustomAccent] = useState('#E05A33');
   const [timerFont, setTimerFont] = useState('JetBrains Mono');
   const [showAnimation, setShowAnimation] = useState(true);
+  const [timeUpEffect, setTimeUpEffect] = useState<TimeUpEffect>('flash');
+  const [flashing, setFlashing] = useState(false);
+  const [burstKey, setBurstKey] = useState(0);
+  const timeUpEffectRef = useRef<TimeUpEffect>('flash');
   const [view, setView] = useState<'timer' | 'settings'>('timer');
 
   // Timer state (received from main process via IPC)
@@ -43,6 +48,7 @@ export default function App() {
       if (s.custom_accent) setCustomAccent(s.custom_accent);
       if (s.timer_font) setTimerFont(s.timer_font);
       if (typeof s.show_animation === 'boolean') setShowAnimation(s.show_animation);
+      if (s.time_up_effect) setTimeUpEffect(s.time_up_effect);
     });
   }, []);
 
@@ -55,6 +61,7 @@ export default function App() {
       if (s.custom_accent) setCustomAccent(s.custom_accent);
       if (s.timer_font) setTimerFont(s.timer_font);
       if (typeof s.show_animation === 'boolean') setShowAnimation(s.show_animation);
+      if (s.time_up_effect) setTimeUpEffect(s.time_up_effect);
     });
   }, [view]);
 
@@ -106,13 +113,39 @@ export default function App() {
     return unsub;
   }, []);
 
-  // Subscribe to timer completions — refresh grid
+  // Subscribe to timer completions — refresh grid + fire the time-up alert.
   useEffect(() => {
-    const unsub = window.api.timer.onComplete(() => {
+    const unsub = window.api.timer.onComplete((payload) => {
       setRefreshKey(k => k + 1);
+      if (!payload?.natural) return; // a manual skip shouldn't alert
+      const eff = timeUpEffectRef.current;
+      if (eff === 'flash' || eff === 'both') setFlashing(true);
+      if (eff === 'tomatoes' || eff === 'both') setBurstKey(k => k + 1);
     });
     return unsub;
   }, []);
+
+  // Keep the latest effect choice available to the (once-subscribed) handler.
+  useEffect(() => { timeUpEffectRef.current = timeUpEffect; }, [timeUpEffect]);
+
+  // Stop the flash after a while, on any interaction, or once the next interval
+  // is running.
+  useEffect(() => {
+    if (!flashing) return;
+    const stop = () => setFlashing(false);
+    const id = setTimeout(stop, 12000);
+    window.addEventListener('pointerdown', stop);
+    window.addEventListener('keydown', stop);
+    return () => {
+      clearTimeout(id);
+      window.removeEventListener('pointerdown', stop);
+      window.removeEventListener('keydown', stop);
+    };
+  }, [flashing]);
+
+  useEffect(() => {
+    if (timerState.status === 'running') setFlashing(false);
+  }, [timerState.status]);
 
   // Load total pomodoro count (for flying tomatoes)
   useEffect(() => {
@@ -211,6 +244,11 @@ export default function App() {
     <div className="app">
       {/* Floating tomatoes when running (respect the animation toggle) */}
       <FloatingTomatoes active={timerState.status === 'running' && showAnimation} accentColor={accent} count={totalPomos} />
+
+      {/* Time-up alert (system notifications get ignored): a contrasting flash
+          and/or a scatter of tomatoes, per the time_up_effect setting. */}
+      {flashing && <div className="time-up-flash" aria-hidden="true" />}
+      <TomatoBurst trigger={burstKey} />
 
       {/* === Header (drag zone) === */}
       <header className="app-header app-drag">

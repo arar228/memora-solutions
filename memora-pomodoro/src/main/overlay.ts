@@ -37,27 +37,29 @@ export function createOverlayWindow(mode: OverlayMode = 'compact'): void {
     },
   });
 
-  if (process.platform === 'darwin') {
-    overlayWindow.setAlwaysOnTop(true, 'floating');
-  }
+  // 'floating' (normal topmost) already renders above the Windows taskbar in the
+  // standard layout, so combined with the full-bounds clamp below the widget can
+  // rest on top of the taskbar. We deliberately do NOT use 'screen-saver' — that
+  // would also paint over fullscreen video / games, which is annoying.
+  overlayWindow.setAlwaysOnTop(true, 'floating');
 
   overlayWindow.setMovable(true);
 
-  // Return focus to previous window after overlay button click
-  overlayWindow.on('focus', () => {
-    setTimeout(() => {
-      if (overlayWindow && !overlayWindow.isDestroyed()) {
-        overlayWindow.blur();
-      }
-    }, 100);
-  });
+  // NOTE: we intentionally do NOT auto-blur on focus. The previous code blurred
+  // the window 100ms after it gained focus, which cancelled the very first drag
+  // when coming from another app (the window snapped back; only the 2nd drag
+  // stuck). Letting it keep focus while dragging fixes that.
 
   overlayWindow.on('moved', () => {
     if (!overlayWindow) return;
     const [x, y] = overlayWindow.getPosition();
     const [ow, oh] = overlayWindow.getSize();
-    const cd = screen.getDisplayNearestPoint({ x, y });
-    const { x: wx, y: wy, width: ww, height: wh } = cd.workArea;
+    // Pick the display the widget mostly sits on (by its centre), so a widget
+    // straddling two monitors clamps to the right one.
+    const cd = screen.getDisplayNearestPoint({ x: x + Math.round(ow / 2), y: y + Math.round(oh / 2) });
+    // Clamp to the FULL display bounds (not workArea) so the widget can be
+    // parked over the taskbar.
+    const { x: wx, y: wy, width: ww, height: wh } = cd.bounds;
     const cx = Math.max(wx, Math.min(x, wx + ww - ow));
     const cy = Math.max(wy, Math.min(y, wy + wh - oh));
     if (cx !== x || cy !== y) overlayWindow.setPosition(cx, cy);
@@ -136,10 +138,10 @@ export function resizeOverlayToContent(width: number, height: number): void {
     return;
   }
   const [x, y] = overlayWindow.getPosition();
-  const [ow] = overlayWindow.getSize();
+  const [ow, oh] = overlayWindow.getSize();
   let nx = x + (ow - cw); // keep the top-right corner anchored
-  const cd = screen.getDisplayNearestPoint({ x, y });
-  const { x: wx, width: ww } = cd.workArea;
+  const cd = screen.getDisplayNearestPoint({ x: x + Math.round(ow / 2), y: y + Math.round(oh / 2) });
+  const { x: wx, width: ww } = cd.bounds;
   nx = Math.max(wx, Math.min(nx, wx + ww - cw));
   overlayWindow.setContentSize(cw, ch);
   overlayWindow.setPosition(Math.round(nx), y);

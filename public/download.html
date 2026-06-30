@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Скачивание Memora Pomodoro…</title>
+  <!-- Permanent direct link to the latest Windows installer (GitHub Releases). -->
+  <meta http-equiv="refresh"
+    content="0; url=https://github.com/arar228/memora-solutions/releases/latest/download/Memora-Pomodoro-Setup.exe" />
+  <style>
+    :root {
+      --bg: #0e1116;
+      --card: #161a22;
+      --t1: #e8eaed;
+      --t2: #9aa0a8;
+      --teal: #06b6d4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(6, 182, 212, 0.12), transparent 70%), var(--bg);
+      color: var(--t1);
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .card {
+      max-width: 460px;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 40px 32px;
+    }
+
+    img { width: 84px; height: 84px; object-fit: contain; }
+
+    h1 { font-size: 1.35rem; margin: 18px 0 8px; }
+
+    p { color: var(--t2); line-height: 1.6; margin: 8px 0; font-size: 0.95rem; }
+
+    a.btn {
+      display: inline-block;
+      margin-top: 18px;
+      background: var(--teal);
+      color: #04222a;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 12px 26px;
+      border-radius: 12px;
+    }
+
+    .hint {
+      margin-top: 22px;
+      font-size: 0.82rem;
+      color: var(--t2);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 16px;
+    }
+
+    .hint b { color: var(--t1); }
+
+    .home { display: inline-block; margin-top: 16px; color: var(--teal); text-decoration: none; font-size: 0.85rem; }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <img src="/pomodoro-logo.png" alt="Memora Pomodoro" />
+    <h1>Скачивание начинается…</h1>
+    <p>Загрузка <b>Memora Pomodoro для Windows</b> должна начаться автоматически.</p>
+    <a class="btn"
+      href="https://github.com/arar228/memora-solutions/releases/latest/download/Memora-Pomodoro-Setup.exe">Скачать
+      вручную</a>
+    <div class="hint">
+      ⚠️ При первом запуске Windows может показать «Система Windows защитила ваш компьютер».
+      Нажмите <b>«Подробнее» → «Выполнить в любом случае»</b> — это нормально для нового приложения.
+      Ваш прогресс при обновлении не теряется.
+    </div>
+    <a class="home" href="/pomodoro">← Подробнее о приложении</a>
+  </div>
+
+  <script>
+    // Kick off the download immediately (the .exe is served as an attachment,
+    // so the browser downloads it and this page stays visible).
+    window.location.href =
+      'https://github.com/arar228/memora-solutions/releases/latest/download/Memora-Pomodoro-Setup.exe';
+  </script>
+</body>
+
+</html>

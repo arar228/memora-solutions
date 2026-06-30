@@ -18,6 +18,9 @@ const LINKS_AFTER = [
 // Grouped under the "Products" dropdown.
 const PRODUCTS = [
     { to: '/travel-radar', key: 'travelRadar' },
+    // Travel Radar v2.0 (Concierge) — experimental; inline label keeps it self-
+    // contained. Rollback: remove this one line (+ the route + the v2 folder).
+    { to: '/travel-radar-v2', label: { ru: 'Радар Путешествий v2.0', en: 'Travel Radar v2.0' } },
     { to: '/wallet', key: 'wallet' },
     { to: '/bday-bot', key: 'bdayBot' },
     { to: '/pomodoro', key: 'pomodoro' },
@@ -50,6 +53,9 @@ export default function Header() {
 
     const isActive = (to) => location.pathname === to;
     const productsActive = PRODUCTS.some(p => p.to === location.pathname);
+    // Products may carry an inline {ru,en} label (self-contained items) or a
+    // shared i18n key.
+    const productLabel = (p) => (p.label ? (p.label[i18n.language] || p.label.ru) : t(`nav.${p.key}`));
 
     return (
         <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
@@ -101,7 +107,7 @@ export default function Header() {
                                             to={p.to}
                                             className={`header__dropdown-item ${isActive(p.to) ? 'header__dropdown-item--active' : ''}`}
                                         >
-                                            {t(`nav.${p.key}`)}
+                                            {productLabel(p)}
                                         </Link>
                                     ))}
                                 </motion.div>
@@ -167,7 +173,7 @@ export default function Header() {
                                 to={p.to}
                                 className={`header__mobile-link header__mobile-sublink ${isActive(p.to) ? 'header__mobile-link--active' : ''}`}
                             >
-                                {t(`nav.${p.key}`)}
+                                {productLabel(p)}
                             </Link>
                         ))}
 

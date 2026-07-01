@@ -3,9 +3,12 @@ import { db, uid, now } from '../db.js';
 import { authRequired, requireRole } from '../auth.js';
 import { audit } from '../audit.js';
 import { loadRequest, serializeRequest, recordTransition } from '../service.js';
+import { storeEncrypted, readDecrypted } from '../docs.js';
 
 const r = Router();
 const staff = requireRole('operator', 'lead', 'admin');
+const isStaff = (role) => ['operator', 'lead', 'admin'].includes(role);
+const getDoc = db.prepare('SELECT * FROM trip_documents WHERE id = ?');
 
 // POST /api/requests/:id/booking — operator records the supplier booking + payment.
 r.post('/requests/:id/booking', authRequired, staff, (req, res) => {
@@ -53,15 +56,56 @@ r.post('/requests/:id/documents', authRequired, staff, (req, res) => {
   res.json({ ok: true, id });
 });
 
+// POST /api/requests/:id/documents/upload — encrypted-at-rest file upload.
+// Body: { type, filename, mime, contentBase64, visibleToClient }.
+r.post('/requests/:id/documents/upload', authRequired, staff, (req, res) => {
+  const request = loadRequest(req.params.id);
+  if (!request) return res.status(404).json({ error: 'not found' });
+  const b = req.body || {};
+  if (!b.contentBase64) return res.status(400).json({ error: 'contentBase64 required' });
+  let buf;
+  try { buf = Buffer.from(b.contentBase64, 'base64'); } catch { return res.status(400).json({ error: 'bad base64' }); }
+  let stored;
+  try { stored = storeEncrypted(buf); } catch (e) { return res.status(400).json({ error: String(e.message || e) }); }
+  const id = uid('doc');
+  db.prepare(
+    `INSERT INTO trip_documents (id, request_id, type, file_ref, mime, orig_name, encrypted, visible_to_client, issued_at)
+     VALUES (?,?,?,?,?,?,1,?,?)`
+  ).run(id, request.id, b.type || 'ticket', stored, b.mime || 'application/octet-stream',
+    b.filename || 'document', b.visibleToClient === false ? 0 : 1, now());
+  audit({ entity: 'trip_document', entityId: id, actorId: req.user.id, action: 'upload', after: { type: b.type, bytes: buf.length } });
+  res.json({ ok: true, id });
+});
+
+// GET /api/documents/:id/download — decrypt + stream (access-controlled).
+r.get('/documents/:id/download', authRequired, (req, res) => {
+  const doc = getDoc.get(req.params.id);
+  if (!doc || !doc.encrypted) return res.status(404).json({ error: 'not found' });
+  const request = loadRequest(doc.request_id);
+  const owner = request && request.client_id === req.user.id;
+  if (!isStaff(req.user.role) && !(owner && doc.visible_to_client)) return res.status(403).json({ error: 'forbidden' });
+  let buf;
+  try { buf = readDecrypted(doc.file_ref); } catch { return res.status(500).json({ error: 'decrypt failed' }); }
+  audit({ entity: 'trip_document', entityId: doc.id, actorId: req.user.id, action: 'download' });
+  res.setHeader('Content-Type', doc.mime || 'application/octet-stream');
+  res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(doc.orig_name || 'document')}"`);
+  res.send(buf);
+});
+
 // GET /api/requests/:id/documents — list (client sees only visible ones).
 r.get('/requests/:id/documents', authRequired, (req, res) => {
   const request = loadRequest(req.params.id);
   if (!request) return res.status(404).json({ error: 'not found' });
-  const isStaff = ['operator', 'lead', 'admin'].includes(req.user.role);
-  if (!isStaff && request.client_id !== req.user.id) return res.status(403).json({ error: 'forbidden' });
+  const staffCaller = isStaff(req.user.role);
+  if (!staffCaller && request.client_id !== req.user.id) return res.status(403).json({ error: 'forbidden' });
   let rows = db.prepare('SELECT * FROM trip_documents WHERE request_id=? ORDER BY issued_at').all(request.id);
-  if (!isStaff) rows = rows.filter((d) => d.visible_to_client);
-  res.json({ documents: rows.map((d) => ({ id: d.id, type: d.type, fileRef: d.file_ref, issuedAt: d.issued_at })) });
+  if (!staffCaller) rows = rows.filter((d) => d.visible_to_client);
+  res.json({ documents: rows.map((d) => ({
+    id: d.id, type: d.type, name: d.orig_name || null, mime: d.mime || null,
+    issuedAt: d.issued_at,
+    downloadUrl: d.encrypted ? `/api/documents/${d.id}/download` : null,
+    fileRef: d.encrypted ? null : d.file_ref, // external link docs keep a plain ref
+  })) });
 });
 
 // POST /api/requests/:id/complete — close out.

@@ -31,13 +31,14 @@ RBAC on every staff action, full audit log. Request status changes go through a
 - **Requests:** `POST /api/requests`, `GET /api/requests` (client: own / staff: queue+filters), `GET /api/requests/:id`, `POST /api/requests/:id/assign`, `POST /api/requests/:id/transition`, `POST /api/requests/:id/messages`
 - **Offers:** `POST /api/requests/:id/offers` (staff), `POST /api/offers/:id/accept|reject` (client)
 - **Payments:** `POST /api/requests/:id/invoice`, `POST /api/payments/webhook`, `POST /api/payments/:id/refund`
-- **Operator:** `POST /api/requests/:id/booking|documents|complete`, `GET /api/requests/:id/documents`, `GET /api/analytics/funnel`
+- **Operator:** `POST /api/requests/:id/booking|documents|complete`, `GET /api/analytics/funnel`
+- **Documents (AES-256-GCM at rest, 152-ФЗ):** `POST /api/requests/:id/documents/upload` (base64), `GET /api/documents/:id/download` (access-controlled decrypt), `GET /api/requests/:id/documents`
 
 ## Data model
 `users, requests, offers, payments, supplier_payments, bookings, trip_documents, messages, partners, audit_log` (TZ §10).
 
 ## Not yet (next increments)
-Real file upload + at-rest encryption for client docs (152-ФЗ), 2FA, real
-notification channels (Telegram/email/web-push), partner cabinet, Postgres for
-production, deployment. The frontend (`src/pages/TravelRadarV2`) is not yet wired
-to this API (still localStorage) — that is the next step.
+2FA for staff, real notification delivery (Telegram/email/web-push — currently
+logged), partner cabinet, PostgreSQL for production, and deployment. The client
+frontend (`src/pages/TravelRadarV2`) IS wired to this API (live mode + auth) with
+a localStorage fallback when no backend is present.

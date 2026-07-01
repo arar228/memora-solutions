@@ -151,6 +151,15 @@ CREATE TABLE IF NOT EXISTS audit_log (
 CREATE INDEX IF NOT EXISTS idx_audit_entity ON audit_log(entity, entity_id);
 `);
 
+// Idempotent column additions — evolve the schema without dropping the DB.
+for (const alter of [
+  'ALTER TABLE trip_documents ADD COLUMN mime TEXT',
+  'ALTER TABLE trip_documents ADD COLUMN orig_name TEXT',
+  'ALTER TABLE trip_documents ADD COLUMN encrypted INTEGER DEFAULT 0',
+]) {
+  try { db.exec(alter); } catch { /* column already exists */ }
+}
+
 export function uid(prefix = '') {
   const rnd = (globalThis.crypto?.randomUUID?.() || (Date.now().toString(36) + Math.random().toString(36).slice(2)));
   return prefix ? `${prefix}_${rnd}` : rnd;

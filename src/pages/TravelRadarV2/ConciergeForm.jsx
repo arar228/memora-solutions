@@ -24,7 +24,7 @@ function Segment({ value, options, onChange }) {
 
 // Modal request form. `prefill` carries deal context (when opened from a card)
 // or is empty (free-form "I found it myself"). Self-contained, localStorage-backed.
-export default function ConciergeForm({ lang, prefill, onClose, onCreated }) {
+export default function ConciergeForm({ lang, prefill, onClose, onCreated, submitRequest }) {
   const S = getStrings(lang);
   const isFree = !prefill?.dealId;
 
@@ -53,13 +53,13 @@ export default function ConciergeForm({ lang, prefill, onClose, onCreated }) {
 
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!form.consent) return setError(S.needConsent);
     if (!form.route.trim() && !form.external.trim()) return setError(S.needRoute);
     if (!form.contact.trim()) return setError(S.needContact);
 
-    const req = createRequest({
+    const payload = {
       type: form.type,
       source: prefill?.source || (isFree ? 'free_form' : 'radar_deal'),
       dealId: prefill?.dealId || null,
@@ -77,8 +77,15 @@ export default function ConciergeForm({ lang, prefill, onClose, onCreated }) {
       contact: form.contact.trim(),
       channel: form.channel,
       utm: prefill?.utm || null,
-    });
-    onCreated(req);
+    };
+    try {
+      // submitRequest (API) is injected in live mode; else fall back to the
+      // localStorage demo store.
+      const req = submitRequest ? await submitRequest(payload) : createRequest(payload);
+      onCreated(req);
+    } catch (err) {
+      setError(err.message || 'error');
+    }
   };
 
   return (

@@ -5,8 +5,11 @@ import AnimatedSection from '../../shared/AnimatedSection';
 import { deriveMeta } from '../TravelRadar/parseTourMeta';
 import { getStrings } from './strings';
 import { loadRequests } from './conciergeStore';
+import { api, backendAvailable, getToken, setToken } from './api';
 import ConciergeForm from './ConciergeForm';
 import RequestCabinet from './RequestCabinet';
+import LiveCabinet from './LiveCabinet';
+import AuthPanel from './AuthPanel';
 import './TravelRadarV2.css';
 
 const TYPE_ICON = { air: Plane, tour: Luggage, hotel: BedDouble, promo: Percent };
@@ -22,6 +25,24 @@ export default function TravelRadarV2Page() {
   const [modal, setModal] = useState(null); // null | { prefill }
   const [toast, setToast] = useState('');
   const cabinetRef = useRef(null);
+
+  // Live mode when a backend is reachable AND the visitor is signed in; otherwise
+  // the localStorage demo (so the deployed static site still works with no backend).
+  const [online, setOnline] = useState(false);
+  const [user, setUser] = useState(null);
+  const [cabRefresh, setCabRefresh] = useState(0);
+  const live = online && !!user;
+  const requireAuth = online && !user;
+
+  useEffect(() => {
+    let cancelled = false;
+    backendAvailable().then((ok) => {
+      if (cancelled) return;
+      setOnline(ok);
+      if (ok && getToken()) api.me().then((r) => { if (!cancelled) setUser(r.user); }).catch(() => setToken(null));
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   // Capture a video/source tag from the URL for funnel analytics on new requests.
   const utm = useMemo(() => {
@@ -46,28 +67,33 @@ export default function TravelRadarV2Page() {
     [feed]
   );
 
-  const openDeal = (tour, meta) => setModal({
+  const scrollCabinet = () => cabinetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // When a backend is up but the visitor isn't signed in, send them to sign in
+  // (the auth panel lives in the cabinet section) instead of opening the form.
+  const guard = () => { if (requireAuth) { scrollCabinet(); return false; } return true; };
+
+  const openDeal = (tour, meta) => { if (!guard()) return; setModal({
     prefill: {
       type: meta.type === 'promo' ? 'tour' : (meta.type || 'air'),
-      route: meta.primary || '',
-      dealId: tour.id,
-      dealText: tour.text,
-      source: 'radar_deal',
-      utm,
+      route: meta.primary || '', dealId: tour.id, dealText: tour.text, source: 'radar_deal', utm,
     },
-  });
+  }); };
+  const openFree = () => { if (!guard()) return; setModal({ prefill: { source: utm ? 'video_landing' : 'free_form', utm } }); };
 
-  const openFree = () => setModal({ prefill: { source: utm ? 'video_landing' : 'free_form', utm } });
+  // In live mode the form submits to the API; otherwise ConciergeForm falls back
+  // to the localStorage store.
+  const liveSubmit = async (payload) => (await api.createRequest(payload)).request;
 
-  const onCreated = (req) => {
-    setRequests((prev) => [req, ...prev.filter((r) => r.id !== req.id)]);
+  const onCreated = () => {
     setModal(null);
     setToast(S.created);
-    setTimeout(() => cabinetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+    if (live) setCabRefresh((n) => n + 1);
+    else setRequests(loadRequests());
+    setTimeout(scrollCabinet, 60);
     setTimeout(() => setToast(''), 5000);
   };
 
-  const scrollCabinet = () => cabinetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const logout = () => { setToken(null); setUser(null); };
 
   return (
     <div className="tr2-page">
@@ -142,13 +168,20 @@ export default function TravelRadarV2Page() {
         <AnimatedSection delay={0.1}>
           <div className="tr2-section-head" ref={cabinetRef}>
             <h2>{S.cabinetTitle}</h2>
+            {live && <button className="tr2-ghost" onClick={logout}>{user.email} · {lang === 'en' ? 'log out' : 'выйти'}</button>}
           </div>
-          <RequestCabinet lang={lang} requests={requests} setRequests={(next) => setRequests([...next])} />
+          {requireAuth ? (
+            <AuthPanel lang={lang} onAuthed={(u) => { setUser(u); setCabRefresh((n) => n + 1); }} />
+          ) : live ? (
+            <LiveCabinet lang={lang} refreshSignal={cabRefresh} />
+          ) : (
+            <RequestCabinet lang={lang} requests={requests} setRequests={(next) => setRequests([...next])} />
+          )}
         </AnimatedSection>
       </div>
 
       {modal && (
-        <ConciergeForm lang={lang} prefill={modal.prefill} onClose={() => setModal(null)} onCreated={onCreated} />
+        <ConciergeForm lang={lang} prefill={modal.prefill} onClose={() => setModal(null)} onCreated={onCreated} submitRequest={live ? liveSubmit : undefined} />
       )}
       {toast && <div className="tr2-toast">{toast}</div>}
     </div>

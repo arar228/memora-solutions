@@ -3,6 +3,7 @@
 // local dev server. When the backend is unreachable the client-facing pages
 // fall back to the localStorage demo (conciergeStore.js).
 
+const CONFIGURED = !!import.meta.env.VITE_CONCIERGE_API;
 const BASE = (import.meta.env.VITE_CONCIERGE_API || 'http://localhost:4000/api').replace(/\/$/, '');
 const TKEY = 'memora-concierge-token';
 
@@ -45,6 +46,12 @@ export const api = {
 // Best-effort check that a backend is reachable (used to switch the client UI
 // between live-API and localStorage-demo modes).
 export async function backendAvailable() {
+  // Never probe the localhost dev default from a deployed (production) build: it
+  // can't reach a real backend and it triggers the browser's "access local
+  // network / other apps on this device" permission prompt. Only probe when a
+  // backend URL is explicitly configured (VITE_CONCIERGE_API) or we're running
+  // the dev server. So the deployed static site stays in demo mode, silently.
+  if (!CONFIGURED && !import.meta.env.DEV) return false;
   try {
     const ctrl = AbortSignal.timeout ? AbortSignal.timeout(2500) : undefined;
     const res = await fetch(BASE + '/health', { signal: ctrl });

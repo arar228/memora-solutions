@@ -131,7 +131,9 @@ export default function CompactOverlay() {
   const isBreak = tick.mode !== 'focus';
   const color = isBreak ? BREAK_COLOR : themeColors(theme, customAccent).accent;
   const onColor = contrastColor(color); // readable icon/text on the colored fill
-  const modeLabel = MODE_LABELS[lang][tick.mode];
+  const modeLabel = tick.idle
+    ? (lang === 'ru' ? '⏸ ПАУЗА' : '⏸ IDLE')
+    : MODE_LABELS[lang][tick.mode];
 
   // zoom scales the whole widget for the overlay-size setting; the window then
   // auto-fits the scaled content via the measure effect above.

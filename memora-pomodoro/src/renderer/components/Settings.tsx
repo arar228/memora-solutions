@@ -415,6 +415,11 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
         <Toggle label={t.startup} checked={settings.launch_on_startup} onChange={v => updateSetting('launch_on_startup', v)} />
         <Toggle label={t.taskbar} checked={settings.taskbar_progress} onChange={v => updateSetting('taskbar_progress', v)} />
         <Toggle label={t.desktopNotif} checked={settings.desktop_notifications} onChange={v => updateSetting('desktop_notifications', v)} />
+        <Toggle
+          label={lang === 'ru' ? 'Чистое время (пауза при бездействии 10 с)' : 'Pure time (pause after 10s idle)'}
+          checked={settings.pure_time !== false}
+          onChange={v => updateSetting('pure_time', v)}
+        />
         <div className="setting-row">
           <span className="setting-label">{t.hotkey}</span>
           <button className="hotkey-field" onClick={() => setRecordingHotkey(true)}

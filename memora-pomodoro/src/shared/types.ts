@@ -22,6 +22,7 @@ export interface TimerTickPayload {
   completedPomos: number;
   countBackwards: boolean;
   rounds: number;
+  idle?: boolean; // pure-time: focus paused because the user is idle
 }
 
 export interface TimerCompletePayload {
@@ -106,6 +107,7 @@ export interface AppSettings {
   show_animation: boolean;
   custom_accent: string;
   time_up_effect: TimeUpEffect;
+  pure_time: boolean; // "чистое время" — auto-pause focus when the user is idle
 }
 
 // === Electron API (exposed via preload) ===

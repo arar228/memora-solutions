@@ -336,8 +336,10 @@ export default function App() {
         <div className="ring-time">
           {timeDisplay}
         </div>
-        <div className="ring-label" style={{ color: 'var(--t2)' }}>
-          {MODE_LABELS[lang][timerState.mode]}
+        <div className="ring-label" style={{ color: timerState.idle ? '#E0A030' : 'var(--t2)' }}>
+          {timerState.idle
+            ? (lang === 'ru' ? '⏸ бездействие' : '⏸ idle')
+            : MODE_LABELS[lang][timerState.mode]}
         </div>
       </div>
 

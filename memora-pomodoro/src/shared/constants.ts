@@ -52,6 +52,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   show_animation: true,
   custom_accent: '#E05A33',
   time_up_effect: 'flash',
+  pure_time: true,
 };
 
 // Theme colors (presets only; 'custom' resolves to AppSettings.custom_accent).

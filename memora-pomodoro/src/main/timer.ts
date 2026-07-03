@@ -1,4 +1,4 @@
-import { ipcMain, BrowserWindow, Notification } from 'electron';
+import { ipcMain, BrowserWindow, Notification, powerMonitor } from 'electron';
 import { IPC } from '../shared/ipc-channels';
 import type { TimerMode, TimerStatus, TimerTickPayload, TimerCompletePayload, Profile, AppSettings } from '../shared/types';
 import { DEFAULT_PROFILES } from '../shared/constants';
@@ -13,6 +13,8 @@ let totalSessionPomos = 0;
 let startedAt: string | null = null;
 let intervalId: ReturnType<typeof setInterval> | null = null;
 let expectedTick = 0; // for drift correction
+let idlePaused = false; // "чистое время": focus paused because the user is idle
+const IDLE_THRESHOLD = 10; // seconds of no system input before pausing focus
 let trayUpdateFn: ((status: TimerStatus, timeLeft: number, mode: TimerMode) => void) | null = null;
 
 // Cached settings (updated via refreshSettingsCache)
@@ -45,6 +47,7 @@ function broadcastTick(): void {
     completedPomos,
     countBackwards: profile.count_backwards,
     rounds: profile.rounds,
+    idle: idlePaused,
   };
   BrowserWindow.getAllWindows().forEach((win) => {
     win.webContents.send(IPC.TIMER_TICK, payload);
@@ -81,6 +84,7 @@ function completeInterval(natural = true): void {
     clearInterval(intervalId);
     intervalId = null;
   }
+  idlePaused = false;
 
   const wasFocus = mode === 'focus';
   const countsAsPomo = wasFocus && natural;
@@ -183,15 +187,34 @@ function startTimer(): void {
     } catch { /* ignore */ }
   }
   status = 'running';
+  idlePaused = false;
   startedAt = new Date().toISOString();
   expectedTick = Date.now() + 1000;
 
   intervalId = setInterval(() => {
-    // Drift correction
     const now = Date.now();
+    const settings = getSettings();
+    const pureTime = settings.pure_time !== false; // "чистое время" — default on
+
+    // Pure-time: don't count focus seconds while the user is idle (no system-wide
+    // keyboard/mouse activity for IDLE_THRESHOLD s). getSystemIdleTime is OS-wide,
+    // so working in ANY app counts as active — only stepping away pauses it.
+    if (pureTime && mode === 'focus') {
+      let idle = 0;
+      try { idle = powerMonitor.getSystemIdleTime(); } catch { idle = 0; }
+      if (idle >= IDLE_THRESHOLD) {
+        idlePaused = true;
+        expectedTick = now + 1000; // keep current so the idle gap isn't "caught up"
+        broadcastTick();
+        return; // this second does not count
+      }
+      if (idlePaused) idlePaused = false; // active again → resume
+    }
+
+    // Drift correction after system sleep. In pure-time the gap was idle/sleep,
+    // which must NOT count, so skip the catch-up there.
     const drift = now - expectedTick;
-    if (drift > 2000) {
-      // System was asleep — correct timeLeft
+    if (drift > 2000 && !pureTime) {
       const missedSeconds = Math.floor(drift / 1000);
       timeLeft = Math.max(0, timeLeft - missedSeconds);
     }
@@ -260,6 +283,7 @@ export function timerReset(): { ok: boolean } {
     intervalId = null;
   }
   status = 'idle';
+  idlePaused = false;
   timeLeft = getDuration(mode);
   totalTime = timeLeft;
   startedAt = null;

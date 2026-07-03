@@ -67,6 +67,12 @@ export default function PomodoroPage() {
                                     : 'Windows build available now. macOS and Linux coming soon.')}
                         </div>
 
+                        <div className="pomodoro-hero__update">
+                            {ru
+                                ? '↻ Обновляетесь? Просто запустите новый установщик поверх старой версии — вся статистика и настройки сохранятся.'
+                                : '↻ Updating? Just run the new installer over the old version — all your stats and settings are kept.'}
+                        </div>
+
                         <details className="pomodoro-hero__install">
                             <summary>
                                 {ru

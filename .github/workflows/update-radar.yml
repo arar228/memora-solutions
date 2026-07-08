@@ -1,0 +1,53 @@
+name: Update price radar (Travelpayouts)
+
+# Rebuilds public/radar.json for Travel Radar 3.0 from the Travelpayouts Data API
+# (hot flights + cheap-from + price calendar). Runs only when the
+# TRAVELPAYOUTS_TOKEN repo secret is set, so it doesn't fail before the API is
+# connected. The committed radar.json acts as a seed until then.
+
+on:
+  schedule:
+    # Every 3 hours (UTC), offset from the other feeds. Data API is cached anyway.
+    - cron: '15 */3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-radar
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build radar feed
+        env:
+          TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+          TRAVELPAYOUTS_MARKER: ${{ secrets.TRAVELPAYOUTS_MARKER }}
+          TP_CURRENCY: rub
+          TP_MARKET: ru
+        run: |
+          if [ -z "$TRAVELPAYOUTS_TOKEN" ]; then
+            echo "TRAVELPAYOUTS_TOKEN secret not set — skipping (add it in repo Settings → Secrets to enable)."
+            exit 0
+          fi
+          node scripts/fetch-radar.js
+
+      - name: Commit updated radar feed
+        run: |
+          if [[ -z "$(git status --porcelain public/radar.json)" ]]; then
+            echo "No radar changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/radar.json
+          git commit -m "chore(radar): refresh price radar [skip ci]"
+          git push

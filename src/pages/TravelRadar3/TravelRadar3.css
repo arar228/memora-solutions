@@ -1,0 +1,339 @@
+.radar3 {
+    padding-top: calc(var(--header-height, 72px) + var(--space-3xl, 3rem));
+    padding-bottom: var(--space-3xl, 3rem);
+}
+
+/* header */
+.radar3-header {
+    margin-bottom: var(--space-xl, 2rem);
+}
+.radar3-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: var(--text-h1);
+    color: var(--color-text);
+    margin: 0 0 0.5rem;
+}
+.radar3-header h1 svg {
+    color: var(--color-gold);
+}
+.radar3-badge3 {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-gold);
+    border: 1px solid var(--color-gold);
+    border-radius: var(--radius-full);
+    padding: 2px 10px;
+}
+.radar3-sub {
+    color: var(--color-text-secondary);
+    max-width: 640px;
+    margin: 0 0 0.75rem;
+    line-height: 1.55;
+}
+.radar3-metaline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: center;
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    margin: 0;
+}
+.radar3-metaline span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.radar3-src {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 2px 8px;
+}
+
+/* sections */
+.radar3-section {
+    margin-top: var(--space-xl, 2rem);
+}
+.radar3-sec-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.radar3-sec-head svg {
+    color: var(--color-gold);
+}
+.radar3-sec-head h2 {
+    font-size: var(--text-h2);
+    color: var(--color-text);
+    margin: 0;
+}
+.radar3-sec-desc {
+    color: var(--color-text-secondary);
+    font-size: var(--text-small);
+    margin: 0.35rem 0 1.25rem;
+}
+
+/* card grids */
+.radar3-grid {
+    display: grid;
+    gap: 14px;
+}
+.radar3-grid--hot {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.radar3-grid--cheap {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.radar3-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.1rem;
+    text-decoration: none;
+    transition: border-color 0.18s, transform 0.18s, background 0.18s;
+}
+.radar3-card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+    background: var(--color-surface-hover);
+}
+.radar3-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.radar3-route,
+.radar3-dest {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+.radar3-route svg,
+.radar3-dest svg {
+    color: var(--color-text-tertiary);
+    flex-shrink: 0;
+}
+.radar3-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+.radar3-badge--hot {
+    color: var(--color-danger);
+    background: var(--color-danger-bg);
+}
+.radar3-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.radar3-price {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+.radar3-price-old {
+    font-size: 0.78rem;
+    color: var(--color-text-tertiary);
+    text-decoration: line-through;
+}
+.radar3-price-from {
+    font-size: 0.78rem;
+    color: var(--color-text-tertiary);
+}
+.radar3-meta {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+}
+.radar3-buy {
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #0a0a0c;
+    background: var(--color-gold);
+    border-radius: var(--radius-btn);
+    padding: 8px;
+    transition: background 0.18s;
+}
+.radar3-card:hover .radar3-buy {
+    background: var(--color-gold-hover);
+}
+.radar3-buy--ghost {
+    color: var(--color-gold);
+    background: transparent;
+    border: 1px solid var(--color-border);
+}
+.radar3-card:hover .radar3-buy--ghost {
+    background: var(--color-gold-light);
+    border-color: var(--color-gold);
+}
+
+.radar3-empty,
+.radar3-loading {
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    font-size: var(--text-small);
+}
+
+/* origin chips */
+.radar3-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1.1rem;
+}
+.radar3-chips__label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    margin-right: 2px;
+}
+.radar3-chip {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: 6px 14px;
+    transition: color 0.16s, border-color 0.16s, background 0.16s;
+}
+.radar3-chip:hover {
+    border-color: var(--color-border-hover);
+    color: var(--color-text);
+}
+.radar3-chip--active {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+    background: var(--color-gold-light);
+}
+
+/* price calendar */
+.radar3-cal__route {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 12px;
+}
+.radar3-cal__route svg {
+    color: var(--color-text-tertiary);
+}
+.radar3-cal__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+@media (max-width: 560px) {
+    .radar3-cal__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+.radar3-cal__cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 9px 4px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: transform 0.14s;
+}
+.radar3-cal__cell:hover {
+    transform: translateY(-2px);
+}
+.radar3-cal__day {
+    font-size: 0.72rem;
+    opacity: 0.85;
+}
+.radar3-cal__price {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+.radar3-cal__cell--cheap {
+    background: rgba(90, 158, 111, 0.16);
+    color: var(--color-success);
+}
+.radar3-cal__cell--mid {
+    background: rgba(212, 163, 75, 0.14);
+    color: var(--color-warning);
+}
+.radar3-cal__cell--expensive {
+    background: rgba(212, 99, 75, 0.14);
+    color: var(--color-danger);
+}
+.radar3-cal__cell.is-cheapest {
+    border-color: var(--color-success);
+    box-shadow: 0 0 0 1px var(--color-success);
+}
+.radar3-cal__legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    margin-top: 12px;
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+}
+.radar3-cal__legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.radar3-cal__legend .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+.dot--cheap {
+    background: var(--color-success);
+}
+.dot--mid {
+    background: var(--color-warning);
+}
+.dot--exp {
+    background: var(--color-danger);
+}
+.radar3-cal__cheapest {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.radar3-disclaimer {
+    margin-top: var(--space-xl, 2rem);
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+    line-height: 1.6;
+}

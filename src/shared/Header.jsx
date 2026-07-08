@@ -21,6 +21,9 @@ const PRODUCTS = [
     // Travel Radar v2.0 (Concierge) — experimental; inline label keeps it self-
     // contained. Rollback: remove this one line (+ the route + the v2 folder).
     { to: '/travel-radar-v2', label: { ru: 'Радар Путешествий v2.0', en: 'Travel Radar v2.0' } },
+    // Travel Radar 3.0 (live price radar) — experimental; rollback: remove this
+    // one line (+ the route + the TravelRadar3 folder).
+    { to: '/travel-radar-3', label: { ru: 'Радар Путешествий 3.0', en: 'Travel Radar 3.0' } },
     { to: '/wallet', key: 'wallet' },
     { to: '/bday-bot', key: 'bdayBot' },
     { to: '/pomodoro', key: 'pomodoro' },

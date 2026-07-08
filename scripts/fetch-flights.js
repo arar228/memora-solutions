@@ -36,7 +36,7 @@ const OUT_PATH = join(ROOT, 'public', 'flights.json');
 
 const API = 'https://api.travelpayouts.com';
 const TOKEN = process.env.TRAVELPAYOUTS_TOKEN || '';
-const MARKER = process.env.TRAVELPAYOUTS_MARKER || '';
+const MARKER = process.env.TRAVELPAYOUTS_MARKER || '748397';
 const CURRENCY = (process.env.TP_CURRENCY || 'rub').toLowerCase();
 const MARKET = (process.env.TP_MARKET || 'ru').toLowerCase();
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';

@@ -1,6 +1,32 @@
 // Travel Radar data — useful services / lifehacks.
 // (Live tour deals come from /tours.json; the old static mockDeals was unused.)
 
+// --- Travelpayouts affiliate links ---
+// marker + trs are constant for our account (trs = our traffic source, same id as Drive).
+// p (offer id) + campaign_id (program id) differ per brand — taken from the Travelpayouts
+// deep-link generator ("Создать ссылку" / a program's "Ссылки"). Fill TP_PROGRAMS as we
+// generate each brand's link; brands without a mapping keep their plain URL.
+export const TP_MARKER = '748397';
+const TP_TRS = '547927';
+
+const TP_PROGRAMS = {
+    // brand key → { p, campaign_id } from a generated deeplink for that program
+    aviasales: { p: 4114, campaign_id: 100 },
+    // travelata:   { p: ?, campaign_id: ? },
+    // onlinetours: { p: ?, campaign_id: ? },
+    // leveltravel: { p: ?, campaign_id: ? },
+    // agoda:       { p: ?, campaign_id: ? },
+};
+
+// Build a tracked affiliate deep link to `target` for a mapped brand; falls back to the
+// plain target URL if we don't have that brand's ids yet.
+export function tpLink(brand, target) {
+    const prog = TP_PROGRAMS[brand];
+    if (!prog) return target;
+    return `https://tp.media/r?marker=${TP_MARKER}&trs=${TP_TRS}&p=${prog.p}` +
+        `&u=${encodeURIComponent(target)}&campaign_id=${prog.campaign_id}`;
+}
+
 export const usefulServices = [
     {
         category: 'A',
@@ -51,7 +77,7 @@ export const usefulServices = [
             {
                 name: 'Aviasales',
                 desc: { ru: 'Метапоисковик авиабилетов. Обязателен для направлений без чартеров (Бали, нестандартные маршруты). Календарь цен показывает самые дешёвые даты.', en: 'Meta search engine for flights. Essential for routes without charters (Bali, unusual routes). Price calendar shows cheapest dates.' },
-                url: 'https://aviasales.ru',
+                url: tpLink('aviasales', 'https://aviasales.ru'),
                 steps: {
                     ru: ['Введите маршрут и даты', 'Используйте календарь цен для поиска дешёвых дат', 'Подпишитесь на уведомления о снижении цены', 'Бронируйте у партнёров'],
                     en: ['Enter route and dates', 'Use price calendar to find cheap dates', 'Subscribe to price drop notifications', 'Book with partners'],

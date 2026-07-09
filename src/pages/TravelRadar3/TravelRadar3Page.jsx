@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshCw, Radar, Flame, MapPin, Calendar } from 'lucide-react';
+import { RefreshCw, Radar, Flame, MapPin, Calendar, Hotel } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import { STR } from './strings';
 import HotFlights from './HotFlights';
 import CheapFrom from './CheapFrom';
 import PriceCalendar from './PriceCalendar';
+import Hotels from './Hotels';
 import './TravelRadar3.css';
 
 // Travel Radar 3.0 — live flight-price radar driven by public/radar.json
@@ -92,6 +93,19 @@ export default function TravelRadar3Page() {
                                     </div>
                                     <p className="radar3-sec-desc">{s.calDesc}</p>
                                     <PriceCalendar calendars={data.calendars} lang={lang} s={s} />
+                                </section>
+                            </AnimatedSection>
+                        )}
+
+                        {data.hotelCities && data.hotelCities.length > 0 && (
+                            <AnimatedSection delay={0.05}>
+                                <section className="radar3-panel">
+                                    <div className="radar3-sec-head">
+                                        <Hotel size={18} aria-hidden="true" />
+                                        <h2>{s.hotelTitle}</h2>
+                                    </div>
+                                    <p className="radar3-sec-desc">{s.hotelDesc}</p>
+                                    <Hotels cities={data.hotelCities} lang={lang} s={s} />
                                 </section>
                             </AnimatedSection>
                         )}

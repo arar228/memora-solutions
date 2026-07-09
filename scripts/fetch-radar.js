@@ -70,6 +70,12 @@ const CALENDAR_ROUTES = [
   { origin: 'MOW', destination: 'GYD' }, // Баку
 ];
 
+// Hotels: the Hotellook price Data API is shut down, so there is NO live hotel
+// price feed. We surface hotel SEARCH links only (affiliate, marker-carrying).
+// Isolated builder + city list so this can be swapped to an active hotels
+// program later without touching the page.
+const HOTEL_CITIES = ['IST', 'AER', 'DXB', 'EVN', 'TBS', 'AYT', 'GYD', 'HKT', 'BKK', 'MLE', 'SSH', 'TAS'];
+
 // IATA → display name (curated; unknown codes fall back to the code).
 const CITY = {
   MOW: { ru: 'Москва', en: 'Moscow' }, LED: { ru: 'Санкт-Петербург', en: 'Saint Petersburg' },
@@ -149,6 +155,33 @@ function aviaLink({ origin, destination, depart_date, return_date }) {
 
 function localizedName(code) {
   return { ru: cityName(code, 'ru'), en: cityName(code, 'en') };
+}
+
+// ---- hotels: affiliate search link only (no live price API) ----
+function hotelDates() {
+  const ci = new Date(Date.now() + 45 * 864e5).toISOString().slice(0, 10);
+  const co = new Date(Date.now() + 47 * 864e5).toISOString().slice(0, 10);
+  return { checkIn: ci, checkOut: co };
+}
+
+function hotelSearchLink(cityEn, checkIn, checkOut) {
+  const u = new URL('https://search.hotellook.com/');
+  u.searchParams.set('destination', cityEn);
+  u.searchParams.set('checkIn', checkIn);   // capital I
+  u.searchParams.set('checkOut', checkOut); // capital O
+  u.searchParams.set('adults', '1');
+  u.searchParams.set('currency', CURRENCY);
+  u.searchParams.set('language', MARKET === 'ru' ? 'ru' : 'en');
+  if (MARKER) u.searchParams.set('marker', MARKER);
+  return u.toString();
+}
+
+function buildHotelCities() {
+  const { checkIn, checkOut } = hotelDates();
+  return HOTEL_CITIES.map((code) => ({
+    code, name: localizedName(code), checkIn, checkOut,
+    link: hotelSearchLink(cityName(code, 'en'), checkIn, checkOut),
+  }));
 }
 
 // ---- 1. hot flights (cheapest recent, scored vs route median) ----
@@ -327,7 +360,7 @@ async function main() {
     payload = {
       updatedAt: new Date().toISOString(), source: 'travelpayouts',
       market: MARKET, currency: CURRENCY, marker: MARKER,
-      hotFlights, cheapFrom, calendars,
+      hotFlights, cheapFrom, calendars, hotelCities: buildHotelCities(),
     };
   }
 
@@ -367,6 +400,7 @@ function SAMPLE() {
         { date: '2026-08-21', price: 13100, transfers: 0, level: 'expensive', link: link('MOW', 'IST', '2026-08-21') },
       ],
     }],
+    hotelCities: buildHotelCities(),
   };
 }
 

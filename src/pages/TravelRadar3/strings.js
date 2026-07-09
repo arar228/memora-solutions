@@ -29,6 +29,10 @@ export const STR = {
         legendMid: 'средне',
         legendExp: 'дорого',
 
+        hotelTitle: 'Отели',
+        hotelDesc: 'Поиск отелей в популярных городах. Цены и наличие — на странице поиска.',
+        hotelFind: 'Найти отели',
+
         direct: 'прямой',
         buy: 'Купить на Aviasales',
         disclaimer: 'Цены из Travelpayouts Data API — кэшированы (не в реальном времени), обновляются автоматически. Ссылки партнёрские, бронирование на Aviasales.',
@@ -58,6 +62,10 @@ export const STR = {
         legendCheap: 'cheap',
         legendMid: 'mid',
         legendExp: 'pricey',
+
+        hotelTitle: 'Hotels',
+        hotelDesc: 'Search hotels in popular cities. Prices and availability on the search page.',
+        hotelFind: 'Find hotels',
 
         direct: 'direct',
         buy: 'Book on Aviasales',

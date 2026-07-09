@@ -205,6 +205,25 @@
     border-color: var(--color-gold);
 }
 
+/* hotel tiles (search links only — no live price) */
+.radar3-hotel__top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+.radar3-hotel__top svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+}
+.radar3-hotel__city {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+    min-width: 0;
+}
+
 .radar3-empty,
 .radar3-loading {
     color: var(--color-text-secondary);

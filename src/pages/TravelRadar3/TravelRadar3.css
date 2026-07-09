@@ -224,6 +224,18 @@
     min-width: 0;
 }
 
+/* hotel prices widget (Travelpayouts brand selection widget) */
+.radar3-hsearch {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+}
+.radar3-widget {
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+}
+
 /* booking partners (affiliate vendor links, grouped) */
 .radar3-partners {
     display: flex;

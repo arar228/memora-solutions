@@ -24,7 +24,7 @@ export default function PriceCalendar({ calendar, lang, s }) {
                         title={`${fmtDay(d.date)} · ${fmtPrice(d.price, lang)}`}
                     >
                         <span className="radar3-cal__day">{fmtDay(d.date)}</span>
-                        <span className="radar3-cal__price">{Math.round(d.price / 1000)}k</span>
+                        <span className="radar3-cal__price">{fmtPrice(d.price, lang)}</span>
                     </a>
                 ))}
             </div>

@@ -54,9 +54,13 @@
     padding: 2px 8px;
 }
 
-/* sections */
-.radar3-section {
-    margin-top: var(--space-xl, 2rem);
+/* sections — each in a bounded panel for clear grouping */
+.radar3-panel {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg, 16px);
+    padding: 1.5rem;
+    margin-top: 1.25rem;
 }
 .radar3-sec-head {
     display: flex;
@@ -77,16 +81,20 @@
     margin: 0.35rem 0 1.25rem;
 }
 
-/* card grids */
+/* card grids — fixed columns so rows stay even (no scattered orphans) */
 .radar3-grid {
     display: grid;
-    gap: 14px;
+    gap: 12px;
+    grid-template-columns: repeat(4, 1fr);
 }
-.radar3-grid--hot {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+@media (max-width: 1000px) {
+    .radar3-grid { grid-template-columns: repeat(3, 1fr); }
 }
-.radar3-grid--cheap {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+@media (max-width: 720px) {
+    .radar3-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 440px) {
+    .radar3-grid { grid-template-columns: 1fr; }
 }
 
 .radar3-card {
@@ -249,13 +257,8 @@
 }
 .radar3-cal__grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     gap: 8px;
-}
-@media (max-width: 560px) {
-    .radar3-cal__grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
 }
 .radar3-cal__cell {
     display: flex;
@@ -272,12 +275,13 @@
     transform: translateY(-2px);
 }
 .radar3-cal__day {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     opacity: 0.85;
 }
 .radar3-cal__price {
-    font-size: 0.9rem;
+    font-size: 0.72rem;
     font-weight: 700;
+    white-space: nowrap;
 }
 .radar3-cal__cell--cheap {
     background: rgba(90, 158, 111, 0.16);

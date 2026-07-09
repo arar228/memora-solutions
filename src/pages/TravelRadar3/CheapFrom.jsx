@@ -6,15 +6,16 @@ import { transfersLabel } from './strings';
 // Origin selector + cheapest destinations from the selected city.
 export default function CheapFrom({ cities, lang, s }) {
     const [active, setActive] = useState(0);
-    if (!cities || cities.length === 0) return null;
-    const idx = Math.min(active, cities.length - 1);
-    const city = cities[idx];
+    const withItems = (cities || []).filter((c) => c.items && c.items.length > 0);
+    if (withItems.length === 0) return null;
+    const idx = Math.min(active, withItems.length - 1);
+    const city = withItems[idx];
 
     return (
         <div>
             <div className="radar3-chips">
                 <span className="radar3-chips__label">{s.from}:</span>
-                {cities.map((c, i) => (
+                {withItems.map((c, i) => (
                     <button
                         key={c.code}
                         className={`radar3-chip ${i === idx ? 'radar3-chip--active' : ''}`}

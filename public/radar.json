@@ -1,10 +1,67 @@
 {
-  "updatedAt": "2026-07-08T14:08:28.461Z",
+  "updatedAt": "2026-07-09T06:46:37.323Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
   "marker": "748397",
   "hotFlights": [
+    {
+      "origin": "KZN",
+      "destination": "LED",
+      "originName": {
+        "ru": "Казань",
+        "en": "Kazan"
+      },
+      "destName": {
+        "ru": "Санкт-Петербург",
+        "en": "Saint Petersburg"
+      },
+      "depart_date": "2026-10-05",
+      "return_date": "2026-10-10",
+      "price": 4720,
+      "median": 7202,
+      "discount": 0.34,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/KZN0510LED10101?marker=748397&currency=rub"
+    },
+    {
+      "origin": "LED",
+      "destination": "UFA",
+      "originName": {
+        "ru": "Санкт-Петербург",
+        "en": "Saint Petersburg"
+      },
+      "destName": {
+        "ru": "Уфа",
+        "en": "Ufa"
+      },
+      "depart_date": "2026-10-08",
+      "return_date": "2026-10-15",
+      "price": 5175,
+      "median": 7751,
+      "discount": 0.33,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/LED0810UFA15101?marker=748397&currency=rub"
+    },
+    {
+      "origin": "LED",
+      "destination": "KZN",
+      "originName": {
+        "ru": "Санкт-Петербург",
+        "en": "Saint Petersburg"
+      },
+      "destName": {
+        "ru": "Казань",
+        "en": "Kazan"
+      },
+      "depart_date": "2026-09-30",
+      "return_date": "2026-10-13",
+      "price": 4720,
+      "median": 6928,
+      "discount": 0.32,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/LED3009KZN13101?marker=748397&currency=rub"
+    },
     {
       "origin": "AER",
       "destination": "MRV",
@@ -16,13 +73,89 @@
         "ru": "Минеральные Воды",
         "en": "Mineralnye Vody"
       },
-      "depart_date": "2026-07-17",
-      "return_date": "2026-07-18",
-      "price": 4787,
+      "depart_date": "2026-07-18",
+      "return_date": "2026-07-25",
+      "price": 4570,
       "median": 6415,
-      "discount": 0.25,
+      "discount": 0.29,
       "transfers": 0,
-      "link": "https://www.aviasales.com/search/AER1707MRV18071?marker=748397&currency=rub"
+      "link": "https://www.aviasales.com/search/AER1807MRV25071?marker=748397&currency=rub"
+    },
+    {
+      "origin": "KZN",
+      "destination": "UFA",
+      "originName": {
+        "ru": "Казань",
+        "en": "Kazan"
+      },
+      "destName": {
+        "ru": "Уфа",
+        "en": "Ufa"
+      },
+      "depart_date": "2026-10-05",
+      "return_date": "2026-10-09",
+      "price": 3683,
+      "median": 5124,
+      "discount": 0.28,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/KZN0510UFA09101?marker=748397&currency=rub"
+    },
+    {
+      "origin": "MOW",
+      "destination": "KZN",
+      "originName": {
+        "ru": "Москва",
+        "en": "Moscow"
+      },
+      "destName": {
+        "ru": "Казань",
+        "en": "Kazan"
+      },
+      "depart_date": "2026-09-02",
+      "return_date": "2026-09-03",
+      "price": 3843,
+      "median": 5055,
+      "discount": 0.24,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/MOW0209KZN03091?marker=748397&currency=rub"
+    },
+    {
+      "origin": "KZN",
+      "destination": "MRV",
+      "originName": {
+        "ru": "Казань",
+        "en": "Kazan"
+      },
+      "destName": {
+        "ru": "Минеральные Воды",
+        "en": "Mineralnye Vody"
+      },
+      "depart_date": "2026-10-05",
+      "return_date": "2026-10-14",
+      "price": 9454,
+      "median": 11673,
+      "discount": 0.19,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/KZN0510MRV14101?marker=748397&currency=rub"
+    },
+    {
+      "origin": "KRR",
+      "destination": "MCX",
+      "originName": {
+        "ru": "Краснодар",
+        "en": "Krasnodar"
+      },
+      "destName": {
+        "ru": "Махачкала",
+        "en": "Makhachkala"
+      },
+      "depart_date": "2026-09-10",
+      "return_date": "2026-09-13",
+      "price": 10725,
+      "median": 13153,
+      "discount": 0.18,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/KRR1009MCX13091?marker=748397&currency=rub"
     }
   ],
   "cheapFrom": [
@@ -34,28 +167,16 @@
       },
       "items": [
         {
-          "destination": "LED",
-          "destName": {
-            "ru": "Санкт-Петербург",
-            "en": "Saint Petersburg"
-          },
-          "price": 6584,
-          "transfers": 0,
-          "depart_date": "2026-09-28",
-          "return_date": "2026-09-30",
-          "link": "https://www.aviasales.com/search/MOW2809LED30091?marker=748397&currency=rub"
-        },
-        {
           "destination": "KZN",
           "destName": {
             "ru": "Казань",
             "en": "Kazan"
           },
-          "price": 6978,
+          "price": 3843,
           "transfers": 0,
-          "depart_date": "2026-09-01",
-          "return_date": "2026-09-10",
-          "link": "https://www.aviasales.com/search/MOW0109KZN10091?marker=748397&currency=rub"
+          "depart_date": "2026-09-02",
+          "return_date": "2026-09-03",
+          "link": "https://www.aviasales.com/search/MOW0209KZN03091?marker=748397&currency=rub"
         },
         {
           "destination": "MSQ",
@@ -63,11 +184,23 @@
             "ru": "Минск",
             "en": "Minsk"
           },
-          "price": 7234,
+          "price": 6482,
           "transfers": 0,
-          "depart_date": "2026-07-13",
-          "return_date": "2026-07-22",
-          "link": "https://www.aviasales.com/search/MOW1307MSQ22071?marker=748397&currency=rub"
+          "depart_date": "2026-07-22",
+          "return_date": "2026-07-30",
+          "link": "https://www.aviasales.com/search/MOW2207MSQ30071?marker=748397&currency=rub"
+        },
+        {
+          "destination": "LED",
+          "destName": {
+            "ru": "Санкт-Петербург",
+            "en": "Saint Petersburg"
+          },
+          "price": 6620,
+          "transfers": 0,
+          "depart_date": "2026-09-28",
+          "return_date": "2026-09-30",
+          "link": "https://www.aviasales.com/search/MOW2809LED30091?marker=748397&currency=rub"
         },
         {
           "destination": "KUF",
@@ -75,11 +208,11 @@
             "ru": "Самара",
             "en": "Samara"
           },
-          "price": 7724,
+          "price": 7700,
           "transfers": 0,
-          "depart_date": "2026-07-14",
-          "return_date": "2026-07-23",
-          "link": "https://www.aviasales.com/search/MOW1407KUF23071?marker=748397&currency=rub"
+          "depart_date": "2026-07-29",
+          "return_date": "2026-07-31",
+          "link": "https://www.aviasales.com/search/MOW2907KUF31071?marker=748397&currency=rub"
         },
         {
           "destination": "KGD",
@@ -87,11 +220,11 @@
             "ru": "Калининград",
             "en": "Kaliningrad"
           },
-          "price": 9764,
+          "price": 8698,
           "transfers": 0,
-          "depart_date": "2026-09-29",
-          "return_date": "2026-10-07",
-          "link": "https://www.aviasales.com/search/MOW2909KGD07101?marker=748397&currency=rub"
+          "depart_date": "2026-09-30",
+          "return_date": "2026-10-05",
+          "link": "https://www.aviasales.com/search/MOW3009KGD05101?marker=748397&currency=rub"
         },
         {
           "destination": "UFA",
@@ -99,11 +232,35 @@
             "ru": "Уфа",
             "en": "Ufa"
           },
-          "price": 11210,
+          "price": 10567,
+          "transfers": 1,
+          "depart_date": "2026-10-01",
+          "return_date": "2026-10-13",
+          "link": "https://www.aviasales.com/search/MOW0110UFA13101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MCX",
+          "destName": {
+            "ru": "Махачкала",
+            "en": "Makhachkala"
+          },
+          "price": 12212,
           "transfers": 0,
-          "depart_date": "2026-09-01",
-          "return_date": "2026-09-08",
-          "link": "https://www.aviasales.com/search/MOW0109UFA08091?marker=748397&currency=rub"
+          "depart_date": "2026-09-28",
+          "return_date": "2026-10-09",
+          "link": "https://www.aviasales.com/search/MOW2809MCX09101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "SVX",
+          "destName": {
+            "ru": "Екатеринбург",
+            "en": "Yekaterinburg"
+          },
+          "price": 12258,
+          "transfers": 0,
+          "depart_date": "2026-07-14",
+          "return_date": "2026-07-14",
+          "link": "https://www.aviasales.com/search/MOW1407SVX14071?marker=748397&currency=rub"
         }
       ]
     },
@@ -120,11 +277,11 @@
             "ru": "Казань",
             "en": "Kazan"
           },
-          "price": 4712,
+          "price": 4720,
           "transfers": 0,
-          "depart_date": "2026-10-06",
-          "return_date": "2026-11-10",
-          "link": "https://www.aviasales.com/search/LED0610KZN10111?marker=748397&currency=rub"
+          "depart_date": "2026-09-30",
+          "return_date": "2026-10-13",
+          "link": "https://www.aviasales.com/search/LED3009KZN13101?marker=748397&currency=rub"
         },
         {
           "destination": "UFA",
@@ -132,7 +289,7 @@
             "ru": "Уфа",
             "en": "Ufa"
           },
-          "price": 5147,
+          "price": 5175,
           "transfers": 0,
           "depart_date": "2026-10-08",
           "return_date": "2026-10-15",
@@ -144,11 +301,11 @@
             "ru": "Калининград",
             "en": "Kaliningrad"
           },
-          "price": 5654,
+          "price": 5653,
           "transfers": 0,
-          "depart_date": "2026-10-02",
+          "depart_date": "2026-09-29",
           "return_date": "2026-10-07",
-          "link": "https://www.aviasales.com/search/LED0210KGD07101?marker=748397&currency=rub"
+          "link": "https://www.aviasales.com/search/LED2909KGD07101?marker=748397&currency=rub"
         },
         {
           "destination": "MOW",
@@ -168,11 +325,11 @@
             "ru": "Минск",
             "en": "Minsk"
           },
-          "price": 8476,
+          "price": 8389,
           "transfers": 0,
-          "depart_date": "2026-08-31",
+          "depart_date": "2026-09-07",
           "return_date": "2026-09-09",
-          "link": "https://www.aviasales.com/search/LED3108MSQ09091?marker=748397&currency=rub"
+          "link": "https://www.aviasales.com/search/LED0709MSQ09091?marker=748397&currency=rub"
         },
         {
           "destination": "ARH",
@@ -185,6 +342,30 @@
           "depart_date": "2026-09-18",
           "return_date": "2026-09-20",
           "link": "https://www.aviasales.com/search/LED1809ARH20091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "KUF",
+          "destName": {
+            "ru": "Самара",
+            "en": "Samara"
+          },
+          "price": 10137,
+          "transfers": 0,
+          "depart_date": "2026-09-03",
+          "return_date": "2026-09-10",
+          "link": "https://www.aviasales.com/search/LED0309KUF10091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MMK",
+          "destName": {
+            "ru": "Мурманск",
+            "en": "Murmansk"
+          },
+          "price": 11049,
+          "transfers": 0,
+          "depart_date": "2026-09-04",
+          "return_date": "2026-09-07",
+          "link": "https://www.aviasales.com/search/LED0409MMK07091?marker=748397&currency=rub"
         }
       ]
     },
@@ -225,11 +406,11 @@
             "ru": "Батуми",
             "en": "Batumi"
           },
-          "price": 9860,
+          "price": 9947,
           "transfers": 0,
-          "depart_date": "2026-07-19",
-          "return_date": "2026-07-27",
-          "link": "https://www.aviasales.com/search/AER1907BUS27071?marker=748397&currency=rub"
+          "depart_date": "2026-07-20",
+          "return_date": "2026-07-23",
+          "link": "https://www.aviasales.com/search/AER2007BUS23071?marker=748397&currency=rub"
         },
         {
           "destination": "RTW",
@@ -237,23 +418,11 @@
             "ru": "Саратов",
             "en": "Saratov"
           },
-          "price": 10415,
+          "price": 10471,
           "transfers": 0,
           "depart_date": "2026-07-09",
-          "return_date": "2026-07-13",
-          "link": "https://www.aviasales.com/search/AER0907RTW13071?marker=748397&currency=rub"
-        },
-        {
-          "destination": "MOW",
-          "destName": {
-            "ru": "Москва",
-            "en": "Moscow"
-          },
-          "price": 11543,
-          "transfers": 0,
-          "depart_date": "2026-07-09",
-          "return_date": "2026-08-30",
-          "link": "https://www.aviasales.com/search/AER0907MOW30081?marker=748397&currency=rub"
+          "return_date": "2026-07-18",
+          "link": "https://www.aviasales.com/search/AER0907RTW18071?marker=748397&currency=rub"
         },
         {
           "destination": "MCX",
@@ -266,6 +435,42 @@
           "depart_date": "2026-07-24",
           "return_date": "2026-07-31",
           "link": "https://www.aviasales.com/search/AER2407MCX31071?marker=748397&currency=rub"
+        },
+        {
+          "destination": "IST",
+          "destName": {
+            "ru": "Стамбул",
+            "en": "Istanbul"
+          },
+          "price": 13464,
+          "transfers": 0,
+          "depart_date": "2026-07-20",
+          "return_date": "2026-07-20",
+          "link": "https://www.aviasales.com/search/AER2007IST20071?marker=748397&currency=rub"
+        },
+        {
+          "destination": "TJM",
+          "destName": {
+            "ru": "TJM",
+            "en": "TJM"
+          },
+          "price": 13674,
+          "transfers": 0,
+          "depart_date": "2026-07-10",
+          "return_date": "2026-07-11",
+          "link": "https://www.aviasales.com/search/AER1007TJM11071?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MOW",
+          "destName": {
+            "ru": "Москва",
+            "en": "Moscow"
+          },
+          "price": 13711,
+          "transfers": 0,
+          "depart_date": "2026-07-09",
+          "return_date": "2026-08-30",
+          "link": "https://www.aviasales.com/search/AER0907MOW30081?marker=748397&currency=rub"
         }
       ]
     },
@@ -282,11 +487,11 @@
             "ru": "Уфа",
             "en": "Ufa"
           },
-          "price": 6327,
+          "price": 6295,
           "transfers": 0,
-          "depart_date": "2026-08-27",
-          "return_date": "2026-09-01",
-          "link": "https://www.aviasales.com/search/SVX2708UFA01091?marker=748397&currency=rub"
+          "depart_date": "2026-09-05",
+          "return_date": "2026-09-08",
+          "link": "https://www.aviasales.com/search/SVX0509UFA08091?marker=748397&currency=rub"
         },
         {
           "destination": "KUF",
@@ -306,11 +511,11 @@
             "ru": "Казань",
             "en": "Kazan"
           },
-          "price": 9897,
+          "price": 9790,
           "transfers": 0,
-          "depart_date": "2026-08-04",
-          "return_date": "2026-08-11",
-          "link": "https://www.aviasales.com/search/SVX0408KZN11081?marker=748397&currency=rub"
+          "depart_date": "2026-10-03",
+          "return_date": "2026-10-06",
+          "link": "https://www.aviasales.com/search/SVX0310KZN06101?marker=748397&currency=rub"
         },
         {
           "destination": "LED",
@@ -318,7 +523,7 @@
             "ru": "Санкт-Петербург",
             "en": "Saint Petersburg"
           },
-          "price": 11543,
+          "price": 11425,
           "transfers": 0,
           "depart_date": "2026-09-29",
           "return_date": "2026-10-06",
@@ -347,6 +552,345 @@
           "depart_date": "2026-09-05",
           "return_date": "2026-09-10",
           "link": "https://www.aviasales.com/search/SVX0509VOG10091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "NQZ",
+          "destName": {
+            "ru": "Астана",
+            "en": "Astana"
+          },
+          "price": 14801,
+          "transfers": 0,
+          "depart_date": "2026-09-14",
+          "return_date": "2026-09-19",
+          "link": "https://www.aviasales.com/search/SVX1409NQZ19091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "AER",
+          "destName": {
+            "ru": "Сочи",
+            "en": "Sochi"
+          },
+          "price": 15544,
+          "transfers": 0,
+          "depart_date": "2026-10-07",
+          "return_date": "2026-10-21",
+          "link": "https://www.aviasales.com/search/SVX0710AER21101?marker=748397&currency=rub"
+        }
+      ]
+    },
+    {
+      "code": "KZN",
+      "name": {
+        "ru": "Казань",
+        "en": "Kazan"
+      },
+      "items": [
+        {
+          "destination": "UFA",
+          "destName": {
+            "ru": "Уфа",
+            "en": "Ufa"
+          },
+          "price": 3683,
+          "transfers": 0,
+          "depart_date": "2026-10-05",
+          "return_date": "2026-10-09",
+          "link": "https://www.aviasales.com/search/KZN0510UFA09101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "LED",
+          "destName": {
+            "ru": "Санкт-Петербург",
+            "en": "Saint Petersburg"
+          },
+          "price": 4720,
+          "transfers": 0,
+          "depart_date": "2026-10-05",
+          "return_date": "2026-10-10",
+          "link": "https://www.aviasales.com/search/KZN0510LED10101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MOW",
+          "destName": {
+            "ru": "Москва",
+            "en": "Moscow"
+          },
+          "price": 6975,
+          "transfers": 0,
+          "depart_date": "2026-09-09",
+          "return_date": "2026-10-20",
+          "link": "https://www.aviasales.com/search/KZN0909MOW20101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MRV",
+          "destName": {
+            "ru": "Минеральные Воды",
+            "en": "Mineralnye Vody"
+          },
+          "price": 9454,
+          "transfers": 0,
+          "depart_date": "2026-10-05",
+          "return_date": "2026-10-14",
+          "link": "https://www.aviasales.com/search/KZN0510MRV14101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "SVX",
+          "destName": {
+            "ru": "Екатеринбург",
+            "en": "Yekaterinburg"
+          },
+          "price": 9979,
+          "transfers": 0,
+          "depart_date": "2026-08-13",
+          "return_date": "2026-09-15",
+          "link": "https://www.aviasales.com/search/KZN1308SVX15091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MCX",
+          "destName": {
+            "ru": "Махачкала",
+            "en": "Makhachkala"
+          },
+          "price": 10624,
+          "transfers": 0,
+          "depart_date": "2026-09-21",
+          "return_date": "2026-09-24",
+          "link": "https://www.aviasales.com/search/KZN2109MCX24091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "KGD",
+          "destName": {
+            "ru": "Калининград",
+            "en": "Kaliningrad"
+          },
+          "price": 11288,
+          "transfers": 1,
+          "depart_date": "2026-09-21",
+          "return_date": "2026-09-26",
+          "link": "https://www.aviasales.com/search/KZN2109KGD26091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "KJA",
+          "destName": {
+            "ru": "Красноярск",
+            "en": "Krasnoyarsk"
+          },
+          "price": 14151,
+          "transfers": 0,
+          "depart_date": "2026-09-27",
+          "return_date": "2026-10-02",
+          "link": "https://www.aviasales.com/search/KZN2709KJA02101?marker=748397&currency=rub"
+        }
+      ]
+    },
+    {
+      "code": "OVB",
+      "name": {
+        "ru": "Новосибирск",
+        "en": "Novosibirsk"
+      },
+      "items": [
+        {
+          "destination": "NQZ",
+          "destName": {
+            "ru": "Астана",
+            "en": "Astana"
+          },
+          "price": 11326,
+          "transfers": 0,
+          "depart_date": "2026-09-10",
+          "return_date": "2026-09-13",
+          "link": "https://www.aviasales.com/search/OVB1009NQZ13091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "KJA",
+          "destName": {
+            "ru": "Красноярск",
+            "en": "Krasnoyarsk"
+          },
+          "price": 12525,
+          "transfers": 0,
+          "depart_date": "2026-08-25",
+          "return_date": "2026-08-29",
+          "link": "https://www.aviasales.com/search/OVB2508KJA29081?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MOW",
+          "destName": {
+            "ru": "Москва",
+            "en": "Moscow"
+          },
+          "price": 16320,
+          "transfers": 0,
+          "depart_date": "2026-10-08",
+          "return_date": "2026-10-12",
+          "link": "https://www.aviasales.com/search/OVB0810MOW12101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "BSZ",
+          "destName": {
+            "ru": "BSZ",
+            "en": "BSZ"
+          },
+          "price": 17031,
+          "transfers": 0,
+          "depart_date": "2026-10-07",
+          "return_date": "2026-10-11",
+          "link": "https://www.aviasales.com/search/OVB0710BSZ11101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MCX",
+          "destName": {
+            "ru": "Махачкала",
+            "en": "Makhachkala"
+          },
+          "price": 19150,
+          "transfers": 0,
+          "depart_date": "2026-09-30",
+          "return_date": "2026-10-07",
+          "link": "https://www.aviasales.com/search/OVB3009MCX07101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "OSS",
+          "destName": {
+            "ru": "OSS",
+            "en": "OSS"
+          },
+          "price": 19510,
+          "transfers": 0,
+          "depart_date": "2026-09-01",
+          "return_date": "2026-09-28",
+          "link": "https://www.aviasales.com/search/OVB0109OSS28091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "ALA",
+          "destName": {
+            "ru": "Алматы",
+            "en": "Almaty"
+          },
+          "price": 19689,
+          "transfers": 1,
+          "depart_date": "2026-09-23",
+          "return_date": "2026-10-06",
+          "link": "https://www.aviasales.com/search/OVB2309ALA06101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "LED",
+          "destName": {
+            "ru": "Санкт-Петербург",
+            "en": "Saint Petersburg"
+          },
+          "price": 20436,
+          "transfers": 0,
+          "depart_date": "2026-09-21",
+          "return_date": "2026-09-26",
+          "link": "https://www.aviasales.com/search/OVB2109LED26091?marker=748397&currency=rub"
+        }
+      ]
+    },
+    {
+      "code": "KRR",
+      "name": {
+        "ru": "Краснодар",
+        "en": "Krasnodar"
+      },
+      "items": [
+        {
+          "destination": "MCX",
+          "destName": {
+            "ru": "Махачкала",
+            "en": "Makhachkala"
+          },
+          "price": 10725,
+          "transfers": 0,
+          "depart_date": "2026-09-10",
+          "return_date": "2026-09-13",
+          "link": "https://www.aviasales.com/search/KRR1009MCX13091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "BUS",
+          "destName": {
+            "ru": "Батуми",
+            "en": "Batumi"
+          },
+          "price": 13746,
+          "transfers": 0,
+          "depart_date": "2026-10-06",
+          "return_date": "2026-10-13",
+          "link": "https://www.aviasales.com/search/KRR0610BUS13101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "EVN",
+          "destName": {
+            "ru": "Ереван",
+            "en": "Yerevan"
+          },
+          "price": 14731,
+          "transfers": 0,
+          "depart_date": "2026-07-20",
+          "return_date": "2026-07-21",
+          "link": "https://www.aviasales.com/search/KRR2007EVN21071?marker=748397&currency=rub"
+        },
+        {
+          "destination": "IST",
+          "destName": {
+            "ru": "Стамбул",
+            "en": "Istanbul"
+          },
+          "price": 15959,
+          "transfers": 0,
+          "depart_date": "2026-07-09",
+          "return_date": "2026-07-19",
+          "link": "https://www.aviasales.com/search/KRR0907IST19071?marker=748397&currency=rub"
+        },
+        {
+          "destination": "TBS",
+          "destName": {
+            "ru": "Тбилиси",
+            "en": "Tbilisi"
+          },
+          "price": 16025,
+          "transfers": 0,
+          "depart_date": "2026-10-08",
+          "return_date": "2026-10-18",
+          "link": "https://www.aviasales.com/search/KRR0810TBS18101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "KZN",
+          "destName": {
+            "ru": "Казань",
+            "en": "Kazan"
+          },
+          "price": 19923,
+          "transfers": 0,
+          "depart_date": "2026-07-12",
+          "return_date": "2026-07-17",
+          "link": "https://www.aviasales.com/search/KRR1207KZN17071?marker=748397&currency=rub"
+        },
+        {
+          "destination": "UFA",
+          "destName": {
+            "ru": "Уфа",
+            "en": "Ufa"
+          },
+          "price": 22694,
+          "transfers": 0,
+          "depart_date": "2026-09-07",
+          "return_date": "2026-09-21",
+          "link": "https://www.aviasales.com/search/KRR0709UFA21091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MOW",
+          "destName": {
+            "ru": "Москва",
+            "en": "Moscow"
+          },
+          "price": 22746,
+          "transfers": 0,
+          "depart_date": "2026-10-03",
+          "return_date": "2026-10-10",
+          "link": "https://www.aviasales.com/search/KRR0310MOW10101?marker=748397&currency=rub"
         }
       ]
     }
@@ -363,39 +907,32 @@
       "en": "Istanbul"
     },
     "cheapest": {
-      "date": "2026-07-23",
-      "price": 13312,
+      "date": "2026-07-19",
+      "price": 17761,
       "transfers": 0,
       "level": "cheap",
-      "link": "https://www.aviasales.com/search/MOW2307IST1?marker=748397&currency=rub"
+      "link": "https://www.aviasales.com/search/MOW1907IST1?marker=748397&currency=rub"
     },
     "days": [
       {
-        "date": "2026-07-08",
-        "price": 31205,
-        "transfers": 0,
-        "level": "expensive",
-        "link": "https://www.aviasales.com/search/MOW0807IST1?marker=748397&currency=rub"
-      },
-      {
         "date": "2026-07-09",
-        "price": 25959,
+        "price": 26157,
         "transfers": 1,
         "level": "expensive",
         "link": "https://www.aviasales.com/search/MOW0907IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-10",
-        "price": 26216,
-        "transfers": 1,
-        "level": "expensive",
+        "price": 22323,
+        "transfers": 0,
+        "level": "mid",
         "link": "https://www.aviasales.com/search/MOW1007IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-11",
-        "price": 24059,
+        "price": 24192,
         "transfers": 0,
-        "level": "mid",
+        "level": "expensive",
         "link": "https://www.aviasales.com/search/MOW1107IST1?marker=748397&currency=rub"
       },
       {
@@ -407,28 +944,28 @@
       },
       {
         "date": "2026-07-13",
-        "price": 19067,
+        "price": 21170,
         "transfers": 0,
-        "level": "cheap",
+        "level": "mid",
         "link": "https://www.aviasales.com/search/MOW1307IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-14",
-        "price": 23881,
+        "price": 26307,
         "transfers": 0,
-        "level": "mid",
+        "level": "expensive",
         "link": "https://www.aviasales.com/search/MOW1407IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-15",
-        "price": 21306,
+        "price": 22811,
         "transfers": 0,
         "level": "mid",
         "link": "https://www.aviasales.com/search/MOW1507IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-16",
-        "price": 20227,
+        "price": 22281,
         "transfers": 0,
         "level": "mid",
         "link": "https://www.aviasales.com/search/MOW1607IST1?marker=748397&currency=rub"
@@ -442,9 +979,9 @@
       },
       {
         "date": "2026-07-18",
-        "price": 23361,
+        "price": 24888,
         "transfers": 0,
-        "level": "mid",
+        "level": "expensive",
         "link": "https://www.aviasales.com/search/MOW1807IST1?marker=748397&currency=rub"
       },
       {
@@ -456,28 +993,28 @@
       },
       {
         "date": "2026-07-20",
-        "price": 23035,
+        "price": 22392,
         "transfers": 0,
         "level": "mid",
         "link": "https://www.aviasales.com/search/MOW2007IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-21",
-        "price": 19932,
+        "price": 21714,
         "transfers": 0,
         "level": "mid",
         "link": "https://www.aviasales.com/search/MOW2107IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-22",
-        "price": 20227,
+        "price": 21591,
         "transfers": 0,
         "level": "mid",
         "link": "https://www.aviasales.com/search/MOW2207IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-23",
-        "price": 13312,
+        "price": 20319,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/MOW2307IST1?marker=748397&currency=rub"
@@ -486,36 +1023,43 @@
         "date": "2026-07-24",
         "price": 19843,
         "transfers": 0,
-        "level": "mid",
+        "level": "cheap",
         "link": "https://www.aviasales.com/search/MOW2407IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-25",
-        "price": 25384,
+        "price": 24403,
         "transfers": 0,
         "level": "expensive",
         "link": "https://www.aviasales.com/search/MOW2507IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-26",
-        "price": 23337,
+        "price": 24020,
         "transfers": 0,
-        "level": "mid",
+        "level": "expensive",
         "link": "https://www.aviasales.com/search/MOW2607IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-27",
-        "price": 20790,
+        "price": 22687,
         "transfers": 0,
         "level": "mid",
         "link": "https://www.aviasales.com/search/MOW2707IST1?marker=748397&currency=rub"
       },
       {
         "date": "2026-07-28",
-        "price": 16708,
+        "price": 21484,
         "transfers": 0,
-        "level": "cheap",
+        "level": "mid",
         "link": "https://www.aviasales.com/search/MOW2807IST1?marker=748397&currency=rub"
+      },
+      {
+        "date": "2026-07-29",
+        "price": 24548,
+        "transfers": 0,
+        "level": "expensive",
+        "link": "https://www.aviasales.com/search/MOW2907IST1?marker=748397&currency=rub"
       }
     ]
   }

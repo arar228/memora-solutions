@@ -62,7 +62,7 @@ export default function TravelRadar3Page() {
                 ) : (
                     <>
                         <AnimatedSection delay={0.05}>
-                            <section className="radar3-section">
+                            <section className="radar3-panel">
                                 <div className="radar3-sec-head">
                                     <Flame size={18} aria-hidden="true" />
                                     <h2>{s.hotTitle}</h2>
@@ -73,7 +73,7 @@ export default function TravelRadar3Page() {
                         </AnimatedSection>
 
                         <AnimatedSection delay={0.05}>
-                            <section className="radar3-section">
+                            <section className="radar3-panel">
                                 <div className="radar3-sec-head">
                                     <MapPin size={18} aria-hidden="true" />
                                     <h2>{s.cheapTitle}</h2>
@@ -85,7 +85,7 @@ export default function TravelRadar3Page() {
 
                         {data.calendar && (
                             <AnimatedSection delay={0.05}>
-                                <section className="radar3-section">
+                                <section className="radar3-panel">
                                     <div className="radar3-sec-head">
                                         <Calendar size={18} aria-hidden="true" />
                                         <h2>{s.calTitle}</h2>

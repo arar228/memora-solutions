@@ -36,12 +36,13 @@ const MARKER = process.env.TRAVELPAYOUTS_MARKER || '748397';
 const CURRENCY = (process.env.TP_CURRENCY || 'rub').toLowerCase();
 const MARKET = (process.env.TP_MARKET || 'ru').toLowerCase();
 
-const LIMIT = 30;              // deals to request from /latest
-const MIN_DISCOUNT = 0.2;      // keep hot deals >= 20% below the route median
+const LATEST_LIMIT = 60;       // deals to request from the global /latest
+const MIN_DISCOUNT = 0.18;     // keep hot deals >= 18% below the route median
 const MIN_SAMPLES = 4;         // require enough matrix points to trust the median
-const TOP_HOT = 12;            // max hot flights to publish
-const CHEAP_PER_CITY = 6;      // cheapest destinations per origin city
-const REQUEST_DELAY_MS = 250;  // politeness between calls (rate limits)
+const TOP_HOT = 8;             // max hot flights to publish (clean 4-col rows)
+const HOT_POOL = 45;           // cheapest candidate routes to score for "hot"
+const CHEAP_PER_CITY = 8;      // cheapest destinations per origin city
+const REQUEST_DELAY_MS = 220;  // politeness between calls (rate limits)
 const DRY_RUN = !TOKEN;
 
 // Origins for the "cheap from" explorer, and the featured calendar route.
@@ -50,6 +51,10 @@ const ORIGINS = [
   { code: 'LED', ru: 'Санкт-Петербург', en: 'Saint Petersburg' },
   { code: 'AER', ru: 'Сочи', en: 'Sochi' },
   { code: 'SVX', ru: 'Екатеринбург', en: 'Yekaterinburg' },
+  { code: 'KZN', ru: 'Казань', en: 'Kazan' },
+  { code: 'OVB', ru: 'Новосибирск', en: 'Novosibirsk' },
+  { code: 'KRR', ru: 'Краснодар', en: 'Krasnodar' },
+  { code: 'ROV', ru: 'Ростов-на-Дону', en: 'Rostov' },
 ];
 const CALENDAR_ROUTE = { origin: 'MOW', destination: 'IST' };
 
@@ -143,27 +148,44 @@ async function routeMedian(origin, destination) {
   return result;
 }
 
-async function fetchHotFlights() {
+async function fetchLatestGlobal() {
   const json = await apiGet('/v2/prices/latest', {
     currency: CURRENCY, period_type: 'year', sorting: 'price',
-    limit: LIMIT, show_to_affiliates: true, market: MARKET, one_way: false,
+    limit: LATEST_LIMIT, show_to_affiliates: true, market: MARKET, one_way: false,
   });
-  const latest = Array.isArray(json.data) ? json.data : [];
+  return (Array.isArray(json.data) ? json.data : []).map((t) => ({
+    origin: t.origin, destination: t.destination, price: Number(t.value),
+    depart_date: t.depart_date, return_date: t.return_date || null,
+    transfers: t.number_of_changes ?? null,
+  }));
+}
+
+// Score a candidate pool by discount vs the route median; keep genuinely hot,
+// well-supported deals. Candidates come from the global /latest AND every
+// cheap-from item, so the pool is much larger than /latest alone.
+async function buildHotFlights(candidates) {
+  const byRoute = new Map();
+  for (const c of candidates) {
+    if (!c.origin || !c.destination || c.origin === c.destination || !(c.price > 0)) continue;
+    const key = `${c.origin}-${c.destination}`;
+    if (!byRoute.has(key) || c.price < byRoute.get(key).price) byRoute.set(key, c);
+  }
+  const pool = [...byRoute.values()].sort((a, b) => a.price - b.price).slice(0, HOT_POOL);
+
   const scored = [];
-  for (const t of latest) {
-    if (!t.origin || !t.destination || !(t.value > 0)) continue;
+  for (const t of pool) {
     const { median: med, samples } = await routeMedian(t.origin, t.destination);
     await sleep(REQUEST_DELAY_MS);
     if (!med || samples < MIN_SAMPLES) continue;
-    const discount = (med - t.value) / med;
+    const discount = (med - t.price) / med;
     if (discount < MIN_DISCOUNT) continue;
     scored.push({
       origin: t.origin, destination: t.destination,
       originName: localizedName(t.origin), destName: localizedName(t.destination),
       depart_date: t.depart_date, return_date: t.return_date || null,
-      price: Math.round(t.value), median: Math.round(med),
+      price: Math.round(t.price), median: Math.round(med),
       discount: Math.round(discount * 100) / 100,
-      transfers: t.number_of_changes ?? null,
+      transfers: t.transfers ?? null,
       link: aviaLink(t),
     });
   }
@@ -231,20 +253,32 @@ async function main() {
   if (DRY_RUN) {
     payload = SAMPLE();
   } else {
-    const hotFlights = await fetchHotFlights();
-    console.log(`hotFlights: ${hotFlights.length}`);
-
+    // 1. cheap destinations per origin (also the candidate pool for hot flights)
     const cheapFrom = [];
     for (const o of ORIGINS) {
       try {
         const items = await fetchCheapFrom(o.code);
-        cheapFrom.push({ code: o.code, name: { ru: o.ru, en: o.en }, items });
+        if (items.length) cheapFrom.push({ code: o.code, name: { ru: o.ru, en: o.en }, items });
         console.log(`cheapFrom ${o.code}: ${items.length}`);
       } catch (e) {
         console.warn(`[skip cheapFrom] ${o.code}: ${e.message}`);
       }
       await sleep(REQUEST_DELAY_MS);
     }
+
+    // 2. hot flights = global /latest + every cheap-from item, scored vs median
+    let globalLatest = [];
+    try { globalLatest = await fetchLatestGlobal(); }
+    catch (e) { console.warn(`[skip latest] ${e.message}`); }
+    const candidates = [
+      ...globalLatest,
+      ...cheapFrom.flatMap((c) => c.items.map((it) => ({
+        origin: c.code, destination: it.destination, price: it.price,
+        depart_date: it.depart_date, return_date: it.return_date, transfers: it.transfers,
+      }))),
+    ];
+    const hotFlights = await buildHotFlights(candidates);
+    console.log(`hotFlights: ${hotFlights.length} (from ${candidates.length} candidates)`);
 
     let calendar = null;
     try {

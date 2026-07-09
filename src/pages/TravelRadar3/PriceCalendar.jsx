@@ -1,18 +1,67 @@
+import { useState, useMemo } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { fmtPrice, fmtDay } from './helpers';
 
-// Price-per-date heatmap for a featured route (cheap / mid / expensive).
-export default function PriceCalendar({ calendar, lang, s }) {
-    if (!calendar || !calendar.days || calendar.days.length === 0) return null;
-    const { days, cheapest } = calendar;
+// Price-per-date heatmap with an origin → destination selector across every
+// route we have a calendar for.
+export default function PriceCalendar({ calendars, lang, s }) {
+    const list = useMemo(() => calendars || [], [calendars]);
+
+    // Distinct origins in first-seen order.
+    const origins = useMemo(() => {
+        const seen = new Map();
+        for (const c of list) if (!seen.has(c.origin)) seen.set(c.origin, c.originName);
+        return [...seen.entries()].map(([code, name]) => ({ code, name }));
+    }, [list]);
+
+    const [originCode, setOriginCode] = useState(null);
+    const [destCode, setDestCode] = useState(null);
+
+    const activeOrigin = origins.some((o) => o.code === originCode) ? originCode : origins[0]?.code;
+    const dests = useMemo(() => list.filter((c) => c.origin === activeOrigin), [list, activeOrigin]);
+    const cal = dests.find((c) => c.destination === destCode) || dests[0];
+
+    if (!list.length || !cal) return null;
+    const { days, cheapest } = cal;
 
     return (
         <div>
+            {origins.length > 1 && (
+                <div className="radar3-chips">
+                    <span className="radar3-chips__label">{s.from}:</span>
+                    {origins.map((o) => (
+                        <button
+                            key={o.code}
+                            className={`radar3-chip ${o.code === activeOrigin ? 'radar3-chip--active' : ''}`}
+                            onClick={() => { setOriginCode(o.code); setDestCode(null); }}
+                        >
+                            {o.name?.[lang] || o.code}
+                        </button>
+                    ))}
+                </div>
+            )}
+
+            {dests.length > 1 && (
+                <div className="radar3-chips radar3-chips--dest">
+                    <span className="radar3-chips__label">{s.direction}:</span>
+                    {dests.map((c) => (
+                        <button
+                            key={c.destination}
+                            className={`radar3-chip ${c === cal ? 'radar3-chip--active' : ''}`}
+                            onClick={() => setDestCode(c.destination)}
+                        >
+                            {c.destName?.[lang] || c.destination}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             <div className="radar3-cal__route">
-                {calendar.originName?.[lang] || calendar.origin}
+                {cal.originName?.[lang] || cal.origin}
                 <ArrowRight size={15} aria-hidden="true" />
-                {calendar.destName?.[lang] || calendar.destination}
+                {cal.destName?.[lang] || cal.destination}
             </div>
+
             <div className="radar3-cal__grid">
                 {days.map((d, i) => (
                     <a
@@ -28,6 +77,7 @@ export default function PriceCalendar({ calendar, lang, s }) {
                     </a>
                 ))}
             </div>
+
             <div className="radar3-cal__legend">
                 <span><i className="dot dot--cheap" aria-hidden="true" /> {s.legendCheap}</span>
                 <span><i className="dot dot--mid" aria-hidden="true" /> {s.legendMid}</span>

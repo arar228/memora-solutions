@@ -83,7 +83,7 @@ export default function TravelRadar3Page() {
                             </section>
                         </AnimatedSection>
 
-                        {data.calendar && (
+                        {data.calendars && data.calendars.length > 0 && (
                             <AnimatedSection delay={0.05}>
                                 <section className="radar3-panel">
                                     <div className="radar3-sec-head">
@@ -91,7 +91,7 @@ export default function TravelRadar3Page() {
                                         <h2>{s.calTitle}</h2>
                                     </div>
                                     <p className="radar3-sec-desc">{s.calDesc}</p>
-                                    <PriceCalendar calendar={data.calendar} lang={lang} s={s} />
+                                    <PriceCalendar calendars={data.calendars} lang={lang} s={s} />
                                 </section>
                             </AnimatedSection>
                         )}

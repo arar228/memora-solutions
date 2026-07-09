@@ -42,6 +42,7 @@ const MIN_SAMPLES = 4;         // require enough matrix points to trust the medi
 const TOP_HOT = 8;             // max hot flights to publish (clean 4-col rows)
 const HOT_POOL = 45;           // cheapest candidate routes to score for "hot"
 const CHEAP_PER_CITY = 8;      // cheapest destinations per origin city
+const CAL_MAX = 40;            // max routes to build a price calendar for
 const REQUEST_DELAY_MS = 220;  // politeness between calls (rate limits)
 const DRY_RUN = !TOKEN;
 
@@ -56,7 +57,18 @@ const ORIGINS = [
   { code: 'KRR', ru: 'Краснодар', en: 'Krasnodar' },
   { code: 'ROV', ru: 'Ростов-на-Дону', en: 'Rostov' },
 ];
-const CALENDAR_ROUTE = { origin: 'MOW', destination: 'IST' };
+// Featured routes for the price calendar (all from Moscow → unique destinations,
+// so the selector chips read cleanly as destination names).
+const CALENDAR_ROUTES = [
+  { origin: 'MOW', destination: 'IST' }, // Стамбул
+  { origin: 'MOW', destination: 'AER' }, // Сочи
+  { origin: 'MOW', destination: 'DXB' }, // Дубай
+  { origin: 'MOW', destination: 'EVN' }, // Ереван
+  { origin: 'MOW', destination: 'LED' }, // Санкт-Петербург
+  { origin: 'MOW', destination: 'TBS' }, // Тбилиси
+  { origin: 'MOW', destination: 'AYT' }, // Анталия
+  { origin: 'MOW', destination: 'GYD' }, // Баку
+];
 
 // IATA → display name (curated; unknown codes fall back to the code).
 const CITY = {
@@ -89,15 +101,25 @@ const cityName = (code, lang) => (CITY[code] && CITY[code][lang]) || code;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function apiGet(path, params) {
+async function apiGet(path, params, attempt = 1) {
   const url = new URL(API + path);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, String(v));
-  const res = await fetch(url, { headers: { 'x-access-token': TOKEN, 'Accept-Encoding': 'gzip' } });
-  if (res.status === 429) throw new Error('rate limited (429)');
-  if (!res.ok) throw new Error(`${path} → HTTP ${res.status}`);
-  const json = await res.json();
-  if (json && json.success === false) throw new Error(`${path} → API error: ${json.error || 'unknown'}`);
-  return json;
+  try {
+    const res = await fetch(url, { headers: { 'x-access-token': TOKEN, 'Accept-Encoding': 'gzip' } });
+    if (res.status === 429 || res.status >= 500) throw new Error(`transient HTTP ${res.status}`);
+    if (!res.ok) throw new Error(`${path} → HTTP ${res.status}`);
+    const json = await res.json();
+    if (json && json.success === false) throw new Error(`${path} → API error: ${json.error || 'unknown'}`);
+    return json;
+  } catch (e) {
+    // Retry transient network flaps / 429 / 5xx a couple of times.
+    const transient = /transient|fetch failed|ECONN|ETIMEDOUT|network|timeout/i.test(e.message);
+    if (attempt < 3 && transient) {
+      await sleep(400 * attempt);
+      return apiGet(path, params, attempt + 1);
+    }
+    throw e;
+  }
 }
 
 function median(nums) {
@@ -280,24 +302,38 @@ async function main() {
     const hotFlights = await buildHotFlights(candidates);
     console.log(`hotFlights: ${hotFlights.length} (from ${candidates.length} candidates)`);
 
-    let calendar = null;
-    try {
-      calendar = await fetchCalendar(CALENDAR_ROUTE);
-      console.log(`calendar ${CALENDAR_ROUTE.origin}-${CALENDAR_ROUTE.destination}: ${calendar ? calendar.days.length + ' days' : 'none'}`);
-    } catch (e) {
-      console.warn(`[skip calendar]: ${e.message}`);
+    // 3. price calendars for every route we have — curated popular ones first,
+    //    then every cheap-from destination across all origins (deduped, capped).
+    const routeSet = new Map();
+    const addRoute = (o, d) => {
+      if (o && d && o !== d) routeSet.set(`${o}-${d}`, { origin: o, destination: d });
+    };
+    CALENDAR_ROUTES.forEach((r) => addRoute(r.origin, r.destination));
+    cheapFrom.forEach((c) => c.items.forEach((it) => addRoute(c.code, it.destination)));
+    const routes = [...routeSet.values()].slice(0, CAL_MAX);
+
+    const calendars = [];
+    for (const r of routes) {
+      try {
+        const cal = await fetchCalendar(r);
+        if (cal && cal.days.length >= 5) calendars.push(cal);
+      } catch (e) {
+        console.warn(`[skip calendar] ${r.origin}-${r.destination}: ${e.message}`);
+      }
+      await sleep(REQUEST_DELAY_MS);
     }
+    console.log(`calendars: ${calendars.length} routes (from ${routes.length} tried)`);
 
     payload = {
       updatedAt: new Date().toISOString(), source: 'travelpayouts',
       market: MARKET, currency: CURRENCY, marker: MARKER,
-      hotFlights, cheapFrom, calendar,
+      hotFlights, cheapFrom, calendars,
     };
   }
 
   await mkdir(dirname(OUT_PATH), { recursive: true });
   await writeFile(OUT_PATH, JSON.stringify(payload, null, 2) + '\n', 'utf8');
-  console.log(`\nWrote public/radar.json (${payload.hotFlights.length} hot, ${payload.cheapFrom.length} cities, calendar ${payload.calendar ? 'yes' : 'no'})`);
+  console.log(`\nWrote public/radar.json (${payload.hotFlights.length} hot, ${payload.cheapFrom.length} cities, ${payload.calendars.length} calendars)`);
 }
 
 // Minimal offline sample so the page renders without a token.
@@ -318,7 +354,7 @@ function SAMPLE() {
         { destination: 'DXB', destName: nm('DXB'), price: 18400, transfers: 1, depart_date: '2026-09-03', return_date: '2026-09-13', link: link('MOW', 'DXB', '2026-09-03', '2026-09-13') },
       ] },
     ],
-    calendar: {
+    calendars: [{
       origin: 'MOW', destination: 'IST', originName: nm('MOW'), destName: nm('IST'),
       cheapest: { date: '2026-08-18', price: 8900, level: 'cheap', link: link('MOW', 'IST', '2026-08-18') },
       days: [
@@ -330,7 +366,7 @@ function SAMPLE() {
         { date: '2026-08-20', price: 10200, transfers: 1, level: 'mid', link: link('MOW', 'IST', '2026-08-20') },
         { date: '2026-08-21', price: 13100, transfers: 0, level: 'expensive', link: link('MOW', 'IST', '2026-08-21') },
       ],
-    },
+    }],
   };
 }
 

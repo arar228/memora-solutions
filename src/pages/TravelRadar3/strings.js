@@ -22,7 +22,8 @@ export const STR = {
         fromPrice: 'от',
 
         calTitle: 'Календарь цен',
-        calDesc: 'Самые дешёвые даты вылета на популярном направлении.',
+        calDesc: 'Выбери город и направление — покажем самые дешёвые даты вылета.',
+        direction: 'Куда',
         cheapest: 'дешевле всего',
         legendCheap: 'дёшево',
         legendMid: 'средне',
@@ -51,7 +52,8 @@ export const STR = {
         fromPrice: 'from',
 
         calTitle: 'Price calendar',
-        calDesc: 'The cheapest departure dates on a popular route.',
+        calDesc: 'Pick a city and route — we’ll show the cheapest departure dates.',
+        direction: 'To',
         cheapest: 'cheapest',
         legendCheap: 'cheap',
         legendMid: 'mid',

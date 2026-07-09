@@ -81,26 +81,29 @@
     margin: 0.35rem 0 1.25rem;
 }
 
-/* card grids — fixed columns so rows stay even (no scattered orphans) */
+/* card grids — fixed columns so rows stay even (no scattered orphans).
+   minmax(0, 1fr) lets columns shrink below content width so long city names
+   don't push cards past the panel edge. */
 .radar3-grid {
     display: grid;
     gap: 12px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 @media (max-width: 1000px) {
-    .radar3-grid { grid-template-columns: repeat(3, 1fr); }
+    .radar3-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 720px) {
-    .radar3-grid { grid-template-columns: repeat(2, 1fr); }
+    .radar3-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 440px) {
-    .radar3-grid { grid-template-columns: 1fr; }
+    .radar3-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 .radar3-card {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    min-width: 0;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -115,15 +118,18 @@
 }
 .radar3-card__top {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 8px;
 }
 .radar3-route,
 .radar3-dest {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 6px;
+    gap: 4px 6px;
+    min-width: 0;
+    overflow-wrap: anywhere;
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--color-text);
@@ -137,6 +143,7 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    flex-shrink: 0;
     font-size: 0.72rem;
     font-weight: 600;
     padding: 2px 8px;
@@ -172,7 +179,7 @@
     color: var(--color-text-secondary);
 }
 .radar3-buy {
-    margin-top: 4px;
+    margin-top: auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;

@@ -33,6 +33,9 @@ export const STR = {
         hotelDesc: 'Поиск отелей в популярных городах. Цены и наличие — на странице поиска.',
         hotelFind: 'Найти отели',
 
+        partnersTitle: 'Забронировать',
+        partnersDesc: 'Отели, жильё и экскурсии у проверенных сервисов. Цены и наличие — на их сайтах.',
+
         direct: 'прямой',
         buy: 'Купить на Aviasales',
         disclaimer: 'Цены из Travelpayouts Data API — кэшированы (не в реальном времени), обновляются автоматически. Ссылки партнёрские, бронирование на Aviasales.',
@@ -66,6 +69,9 @@ export const STR = {
         hotelTitle: 'Hotels',
         hotelDesc: 'Search hotels in popular cities. Prices and availability on the search page.',
         hotelFind: 'Find hotels',
+
+        partnersTitle: 'Book',
+        partnersDesc: 'Hotels, stays and tours via trusted services. Prices and availability on their sites.',
 
         direct: 'direct',
         buy: 'Book on Aviasales',

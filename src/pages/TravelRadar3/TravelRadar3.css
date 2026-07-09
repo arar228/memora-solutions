@@ -224,6 +224,67 @@
     min-width: 0;
 }
 
+/* booking partners (affiliate vendor links, grouped) */
+.radar3-partners {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+.radar3-pgroup__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin-bottom: 10px;
+}
+.radar3-pgroup__head svg {
+    color: var(--color-gold);
+}
+.radar3-pgroup__items {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+@media (max-width: 1000px) {
+    .radar3-pgroup__items { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+    .radar3-pgroup__items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 440px) {
+    .radar3-pgroup__items { grid-template-columns: minmax(0, 1fr); }
+}
+.radar3-vendor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 14px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color 0.16s, background 0.16s, transform 0.16s;
+}
+.radar3-vendor:hover {
+    border-color: var(--color-gold);
+    background: var(--color-surface-hover);
+    transform: translateY(-2px);
+}
+.radar3-vendor__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+    min-width: 0;
+}
+.radar3-vendor svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+}
+
 .radar3-empty,
 .radar3-loading {
     color: var(--color-text-secondary);

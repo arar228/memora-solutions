@@ -360,7 +360,7 @@ async function main() {
     payload = {
       updatedAt: new Date().toISOString(), source: 'travelpayouts',
       market: MARKET, currency: CURRENCY, marker: MARKER,
-      hotFlights, cheapFrom, calendars, hotelCities: buildHotelCities(),
+      hotFlights, cheapFrom, calendars,
     };
   }
 
@@ -400,7 +400,6 @@ function SAMPLE() {
         { date: '2026-08-21', price: 13100, transfers: 0, level: 'expensive', link: link('MOW', 'IST', '2026-08-21') },
       ],
     }],
-    hotelCities: buildHotelCities(),
   };
 }
 

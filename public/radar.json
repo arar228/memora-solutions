@@ -1,10 +1,29 @@
 {
-  "updatedAt": "2026-07-10T22:15:22.467Z",
+  "updatedAt": "2026-07-11T03:41:07.869Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
   "marker": "748397",
   "hotFlights": [
+    {
+      "origin": "KRR",
+      "destination": "KZN",
+      "originName": {
+        "ru": "Краснодар",
+        "en": "Krasnodar"
+      },
+      "destName": {
+        "ru": "Казань",
+        "en": "Kazan"
+      },
+      "depart_date": "2026-09-29",
+      "return_date": "2026-10-06",
+      "price": 9936,
+      "median": 17162,
+      "discount": 0.42,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/KRR2909KZN06101?marker=748397&currency=rub"
+    },
     {
       "origin": "KZN",
       "destination": "LED",
@@ -19,8 +38,8 @@
       "depart_date": "2026-10-05",
       "return_date": "2026-10-13",
       "price": 4720,
-      "median": 7446,
-      "discount": 0.37,
+      "median": 7417,
+      "discount": 0.36,
       "transfers": 0,
       "link": "https://www.aviasales.com/search/KZN0510LED13101?marker=748397&currency=rub"
     },
@@ -37,11 +56,30 @@
       },
       "depart_date": "2026-10-01",
       "return_date": "2026-10-14",
-      "price": 4748,
-      "median": 6974,
+      "price": 4747,
+      "median": 6957,
       "discount": 0.32,
       "transfers": 0,
       "link": "https://www.aviasales.com/search/LED0110KZN14101?marker=748397&currency=rub"
+    },
+    {
+      "origin": "KZN",
+      "destination": "MOW",
+      "originName": {
+        "ru": "Казань",
+        "en": "Kazan"
+      },
+      "destName": {
+        "ru": "Москва",
+        "en": "Moscow"
+      },
+      "depart_date": "2026-09-02",
+      "return_date": "2026-09-02",
+      "price": 3820,
+      "median": 5465,
+      "discount": 0.3,
+      "transfers": 0,
+      "link": "https://www.aviasales.com/search/KZN0209MOW02091?marker=748397&currency=rub"
     },
     {
       "origin": "KZN",
@@ -57,8 +95,8 @@
       "depart_date": "2026-09-26",
       "return_date": "2026-09-27",
       "price": 3689,
-      "median": 5170,
-      "discount": 0.29,
+      "median": 5157,
+      "discount": 0.28,
       "transfers": 0,
       "link": "https://www.aviasales.com/search/KZN2609UFA27091?marker=748397&currency=rub"
     },
@@ -75,8 +113,8 @@
       },
       "depart_date": "2026-09-13",
       "return_date": "2026-09-17",
-      "price": 10759,
-      "median": 14008,
+      "price": 10757,
+      "median": 14007,
       "discount": 0.23,
       "transfers": 0,
       "link": "https://www.aviasales.com/search/KRR1309MCX17091?marker=748397&currency=rub"
@@ -94,30 +132,11 @@
       },
       "depart_date": "2026-10-08",
       "return_date": "2026-10-15",
-      "price": 6188,
-      "median": 7611,
+      "price": 6187,
+      "median": 7613,
       "discount": 0.19,
       "transfers": 0,
       "link": "https://www.aviasales.com/search/LED0810UFA15101?marker=748397&currency=rub"
-    },
-    {
-      "origin": "AER",
-      "destination": "MCX",
-      "originName": {
-        "ru": "Сочи",
-        "en": "Sochi"
-      },
-      "destName": {
-        "ru": "Махачкала",
-        "en": "Makhachkala"
-      },
-      "depart_date": "2026-09-11",
-      "return_date": "2026-09-18",
-      "price": 7039,
-      "median": 8648,
-      "discount": 0.19,
-      "transfers": 0,
-      "link": "https://www.aviasales.com/search/AER1109MCX18091?marker=748397&currency=rub"
     }
   ],
   "cheapFrom": [
@@ -134,11 +153,11 @@
             "ru": "Казань",
             "en": "Kazan"
           },
-          "price": 4367,
+          "price": 4331,
           "transfers": 0,
-          "depart_date": "2026-09-02",
-          "return_date": "2026-09-03",
-          "link": "https://www.aviasales.com/search/MOW0209KZN03091?marker=748397&currency=rub"
+          "depart_date": "2026-09-01",
+          "return_date": "2026-09-02",
+          "link": "https://www.aviasales.com/search/MOW0109KZN02091?marker=748397&currency=rub"
         },
         {
           "destination": "MSQ",
@@ -146,11 +165,11 @@
             "ru": "Минск",
             "en": "Minsk"
           },
-          "price": 6505,
+          "price": 6463,
           "transfers": 0,
           "depart_date": "2026-07-22",
-          "return_date": "2026-07-23",
-          "link": "https://www.aviasales.com/search/MOW2207MSQ23071?marker=748397&currency=rub"
+          "return_date": "2026-07-29",
+          "link": "https://www.aviasales.com/search/MOW2207MSQ29071?marker=748397&currency=rub"
         },
         {
           "destination": "LED",
@@ -158,7 +177,7 @@
             "ru": "Санкт-Петербург",
             "en": "Saint Petersburg"
           },
-          "price": 6584,
+          "price": 6583,
           "transfers": 0,
           "depart_date": "2026-09-15",
           "return_date": "2026-09-23",
@@ -170,7 +189,7 @@
             "ru": "Самара",
             "en": "Samara"
           },
-          "price": 7727,
+          "price": 7726,
           "transfers": 0,
           "depart_date": "2026-07-29",
           "return_date": "2026-07-30",
@@ -182,7 +201,7 @@
             "ru": "Калининград",
             "en": "Kaliningrad"
           },
-          "price": 8902,
+          "price": 8901,
           "transfers": 0,
           "depart_date": "2026-09-27",
           "return_date": "2026-10-06",
@@ -194,7 +213,7 @@
             "ru": "Уфа",
             "en": "Ufa"
           },
-          "price": 10262,
+          "price": 10261,
           "transfers": 0,
           "depart_date": "2026-09-06",
           "return_date": "2026-09-22",
@@ -206,7 +225,7 @@
             "ru": "Махачкала",
             "en": "Makhachkala"
           },
-          "price": 12061,
+          "price": 12059,
           "transfers": 0,
           "depart_date": "2026-09-28",
           "return_date": "2026-10-11",
@@ -218,7 +237,7 @@
             "ru": "Екатеринбург",
             "en": "Yekaterinburg"
           },
-          "price": 12310,
+          "price": 12308,
           "transfers": 0,
           "depart_date": "2026-09-02",
           "return_date": "2026-09-13",
@@ -239,7 +258,7 @@
             "ru": "Казань",
             "en": "Kazan"
           },
-          "price": 4748,
+          "price": 4747,
           "transfers": 0,
           "depart_date": "2026-10-01",
           "return_date": "2026-10-14",
@@ -251,7 +270,7 @@
             "ru": "Калининград",
             "en": "Kaliningrad"
           },
-          "price": 5654,
+          "price": 5653,
           "transfers": 0,
           "depart_date": "2026-09-29",
           "return_date": "2026-10-07",
@@ -263,7 +282,7 @@
             "ru": "Уфа",
             "en": "Ufa"
           },
-          "price": 6188,
+          "price": 6187,
           "transfers": 0,
           "depart_date": "2026-10-08",
           "return_date": "2026-10-15",
@@ -287,7 +306,7 @@
             "ru": "TJM",
             "en": "TJM"
           },
-          "price": 8153,
+          "price": 8152,
           "transfers": 0,
           "depart_date": "2026-10-08",
           "return_date": "2026-10-13",
@@ -299,11 +318,11 @@
             "ru": "Минск",
             "en": "Minsk"
           },
-          "price": 8430,
+          "price": 8389,
           "transfers": 0,
-          "depart_date": "2026-09-16",
+          "depart_date": "2026-09-21",
           "return_date": "2026-09-23",
-          "link": "https://www.aviasales.com/search/LED1609MSQ23091?marker=748397&currency=rub"
+          "link": "https://www.aviasales.com/search/LED2109MSQ23091?marker=748397&currency=rub"
         },
         {
           "destination": "ARH",
@@ -311,11 +330,11 @@
             "ru": "Архангельск",
             "en": "Arkhangelsk"
           },
-          "price": 9014,
+          "price": 9013,
           "transfers": 0,
-          "depart_date": "2026-09-18",
-          "return_date": "2026-09-20",
-          "link": "https://www.aviasales.com/search/LED1809ARH20091?marker=748397&currency=rub"
+          "depart_date": "2026-09-07",
+          "return_date": "2026-09-21",
+          "link": "https://www.aviasales.com/search/LED0709ARH21091?marker=748397&currency=rub"
         },
         {
           "destination": "KUF",
@@ -323,7 +342,7 @@
             "ru": "Самара",
             "en": "Samara"
           },
-          "price": 10894,
+          "price": 10892,
           "transfers": 0,
           "depart_date": "2026-09-04",
           "return_date": "2026-09-06",
@@ -368,7 +387,7 @@
             "ru": "Ереван",
             "en": "Yerevan"
           },
-          "price": 7854,
+          "price": 7853,
           "transfers": 0,
           "depart_date": "2026-07-28",
           "return_date": "2026-07-29",
@@ -380,7 +399,7 @@
             "ru": "Батуми",
             "en": "Batumi"
           },
-          "price": 9949,
+          "price": 9947,
           "transfers": 0,
           "depart_date": "2026-09-03",
           "return_date": "2026-09-10",
@@ -399,12 +418,24 @@
           "link": "https://www.aviasales.com/search/AER1707RTW23071?marker=748397&currency=rub"
         },
         {
+          "destination": "IST",
+          "destName": {
+            "ru": "Стамбул",
+            "en": "Istanbul"
+          },
+          "price": 13492,
+          "transfers": 0,
+          "depart_date": "2026-07-26",
+          "return_date": "2026-07-27",
+          "link": "https://www.aviasales.com/search/AER2607IST27071?marker=748397&currency=rub"
+        },
+        {
           "destination": "KZN",
           "destName": {
             "ru": "Казань",
             "en": "Kazan"
           },
-          "price": 14991,
+          "price": 14989,
           "transfers": 1,
           "depart_date": "2026-10-07",
           "return_date": "2026-10-11",
@@ -416,23 +447,11 @@
             "ru": "Тбилиси",
             "en": "Tbilisi"
           },
-          "price": 15164,
+          "price": 15162,
           "transfers": 0,
           "depart_date": "2026-09-03",
           "return_date": "2026-09-09",
           "link": "https://www.aviasales.com/search/AER0309TBS09091?marker=748397&currency=rub"
-        },
-        {
-          "destination": "KVX",
-          "destName": {
-            "ru": "KVX",
-            "en": "KVX"
-          },
-          "price": 15300,
-          "transfers": 0,
-          "depart_date": "2026-10-03",
-          "return_date": "2026-10-10",
-          "link": "https://www.aviasales.com/search/AER0310KVX10101?marker=748397&currency=rub"
         }
       ]
     },
@@ -461,7 +480,7 @@
             "ru": "Самара",
             "en": "Samara"
           },
-          "price": 7845,
+          "price": 7844,
           "transfers": 0,
           "depart_date": "2026-09-11",
           "return_date": "2026-09-14",
@@ -473,7 +492,7 @@
             "ru": "Казань",
             "en": "Kazan"
           },
-          "price": 9975,
+          "price": 9974,
           "transfers": 0,
           "depart_date": "2026-09-01",
           "return_date": "2026-09-03",
@@ -485,7 +504,7 @@
             "ru": "Санкт-Петербург",
             "en": "Saint Petersburg"
           },
-          "price": 11471,
+          "price": 11469,
           "transfers": 0,
           "depart_date": "2026-09-29",
           "return_date": "2026-10-06",
@@ -497,7 +516,7 @@
             "ru": "Москва",
             "en": "Moscow"
           },
-          "price": 12298,
+          "price": 12296,
           "transfers": 0,
           "depart_date": "2026-09-01",
           "return_date": "2026-09-09",
@@ -521,23 +540,23 @@
             "ru": "Астана",
             "en": "Astana"
           },
-          "price": 14816,
+          "price": 14814,
           "transfers": 0,
           "depart_date": "2026-09-08",
           "return_date": "2026-09-16",
           "link": "https://www.aviasales.com/search/SVX0809NQZ16091?marker=748397&currency=rub"
         },
         {
-          "destination": "MCX",
+          "destination": "AER",
           "destName": {
-            "ru": "Махачкала",
-            "en": "Makhachkala"
+            "ru": "Сочи",
+            "en": "Sochi"
           },
-          "price": 17370,
+          "price": 16962,
           "transfers": 0,
-          "depart_date": "2026-09-08",
-          "return_date": "2026-09-15",
-          "link": "https://www.aviasales.com/search/SVX0809MCX15091?marker=748397&currency=rub"
+          "depart_date": "2026-10-08",
+          "return_date": "2026-10-20",
+          "link": "https://www.aviasales.com/search/SVX0810AER20101?marker=748397&currency=rub"
         }
       ]
     },
@@ -561,6 +580,18 @@
           "link": "https://www.aviasales.com/search/KZN2609UFA27091?marker=748397&currency=rub"
         },
         {
+          "destination": "MOW",
+          "destName": {
+            "ru": "Москва",
+            "en": "Moscow"
+          },
+          "price": 3820,
+          "transfers": 0,
+          "depart_date": "2026-09-02",
+          "return_date": "2026-09-02",
+          "link": "https://www.aviasales.com/search/KZN0209MOW02091?marker=748397&currency=rub"
+        },
+        {
           "destination": "LED",
           "destName": {
             "ru": "Санкт-Петербург",
@@ -573,24 +604,12 @@
           "link": "https://www.aviasales.com/search/KZN0510LED13101?marker=748397&currency=rub"
         },
         {
-          "destination": "MOW",
-          "destName": {
-            "ru": "Москва",
-            "en": "Moscow"
-          },
-          "price": 8247,
-          "transfers": 0,
-          "depart_date": "2026-07-22",
-          "return_date": "2026-07-28",
-          "link": "https://www.aviasales.com/search/KZN2207MOW28071?marker=748397&currency=rub"
-        },
-        {
           "destination": "SVX",
           "destName": {
             "ru": "Екатеринбург",
             "en": "Yekaterinburg"
           },
-          "price": 9980,
+          "price": 9979,
           "transfers": 0,
           "depart_date": "2026-08-17",
           "return_date": "2026-08-18",
@@ -602,7 +621,7 @@
             "ru": "Махачкала",
             "en": "Makhachkala"
           },
-          "price": 11495,
+          "price": 11493,
           "transfers": 0,
           "depart_date": "2026-10-05",
           "return_date": "2026-10-11",
@@ -614,7 +633,7 @@
             "ru": "Калининград",
             "en": "Kaliningrad"
           },
-          "price": 11612,
+          "price": 11610,
           "transfers": 1,
           "depart_date": "2026-10-02",
           "return_date": "2026-10-07",
@@ -626,7 +645,7 @@
             "ru": "Минеральные Воды",
             "en": "Mineralnye Vody"
           },
-          "price": 12128,
+          "price": 12127,
           "transfers": 0,
           "depart_date": "2026-09-23",
           "return_date": "2026-10-02",
@@ -638,7 +657,7 @@
             "ru": "Сочи",
             "en": "Sochi"
           },
-          "price": 13165,
+          "price": 13163,
           "transfers": 0,
           "depart_date": "2026-07-27",
           "return_date": "2026-08-08",
@@ -671,11 +690,11 @@
             "ru": "Красноярск",
             "en": "Krasnoyarsk"
           },
-          "price": 11570,
+          "price": 12636,
           "transfers": 0,
-          "depart_date": "2026-07-18",
-          "return_date": "2026-07-24",
-          "link": "https://www.aviasales.com/search/OVB1807KJA24071?marker=748397&currency=rub"
+          "depart_date": "2026-08-29",
+          "return_date": "2026-08-30",
+          "link": "https://www.aviasales.com/search/OVB2908KJA30081?marker=748397&currency=rub"
         },
         {
           "destination": "MOW",
@@ -683,7 +702,7 @@
             "ru": "Москва",
             "en": "Moscow"
           },
-          "price": 16582,
+          "price": 16580,
           "transfers": 0,
           "depart_date": "2026-10-05",
           "return_date": "2026-10-07",
@@ -707,35 +726,11 @@
             "ru": "Ташкент",
             "en": "Tashkent"
           },
-          "price": 18394,
+          "price": 18392,
           "transfers": 0,
           "depart_date": "2026-09-28",
           "return_date": "2026-10-05",
           "link": "https://www.aviasales.com/search/OVB2809TAS05101?marker=748397&currency=rub"
-        },
-        {
-          "destination": "MCX",
-          "destName": {
-            "ru": "Махачкала",
-            "en": "Makhachkala"
-          },
-          "price": 19327,
-          "transfers": 0,
-          "depart_date": "2026-09-30",
-          "return_date": "2026-10-07",
-          "link": "https://www.aviasales.com/search/OVB3009MCX07101?marker=748397&currency=rub"
-        },
-        {
-          "destination": "ALA",
-          "destName": {
-            "ru": "Алматы",
-            "en": "Almaty"
-          },
-          "price": 20489,
-          "transfers": 1,
-          "depart_date": "2026-09-27",
-          "return_date": "2026-10-06",
-          "link": "https://www.aviasales.com/search/OVB2709ALA06101?marker=748397&currency=rub"
         },
         {
           "destination": "AZN",
@@ -743,11 +738,35 @@
             "ru": "AZN",
             "en": "AZN"
           },
-          "price": 21089,
+          "price": 18498,
           "transfers": 0,
-          "depart_date": "2026-09-18",
-          "return_date": "2026-10-09",
-          "link": "https://www.aviasales.com/search/OVB1809AZN09101?marker=748397&currency=rub"
+          "depart_date": "2026-09-04",
+          "return_date": "2026-09-18",
+          "link": "https://www.aviasales.com/search/OVB0409AZN18091?marker=748397&currency=rub"
+        },
+        {
+          "destination": "MCX",
+          "destName": {
+            "ru": "Махачкала",
+            "en": "Makhachkala"
+          },
+          "price": 19324,
+          "transfers": 0,
+          "depart_date": "2026-09-30",
+          "return_date": "2026-10-07",
+          "link": "https://www.aviasales.com/search/OVB3009MCX07101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "OSS",
+          "destName": {
+            "ru": "OSS",
+            "en": "OSS"
+          },
+          "price": 19487,
+          "transfers": 0,
+          "depart_date": "2026-09-04",
+          "return_date": "2026-09-18",
+          "link": "https://www.aviasales.com/search/OVB0409OSS18091?marker=748397&currency=rub"
         }
       ]
     },
@@ -759,12 +778,24 @@
       },
       "items": [
         {
+          "destination": "KZN",
+          "destName": {
+            "ru": "Казань",
+            "en": "Kazan"
+          },
+          "price": 9936,
+          "transfers": 0,
+          "depart_date": "2026-09-29",
+          "return_date": "2026-10-06",
+          "link": "https://www.aviasales.com/search/KRR2909KZN06101?marker=748397&currency=rub"
+        },
+        {
           "destination": "MCX",
           "destName": {
             "ru": "Махачкала",
             "en": "Makhachkala"
           },
-          "price": 10759,
+          "price": 10757,
           "transfers": 0,
           "depart_date": "2026-09-13",
           "return_date": "2026-09-17",
@@ -781,6 +812,18 @@
           "depart_date": "2026-10-06",
           "return_date": "2026-10-13",
           "link": "https://www.aviasales.com/search/KRR0610BUS13101?marker=748397&currency=rub"
+        },
+        {
+          "destination": "TBS",
+          "destName": {
+            "ru": "Тбилиси",
+            "en": "Tbilisi"
+          },
+          "price": 14718,
+          "transfers": 0,
+          "depart_date": "2026-10-11",
+          "return_date": "2026-10-11",
+          "link": "https://www.aviasales.com/search/KRR1110TBS11101?marker=748397&currency=rub"
         },
         {
           "destination": "IST",
@@ -800,23 +843,23 @@
             "ru": "Ереван",
             "en": "Yerevan"
           },
-          "price": 15908,
+          "price": 15906,
           "transfers": 0,
           "depart_date": "2026-07-20",
           "return_date": "2026-07-22",
           "link": "https://www.aviasales.com/search/KRR2007EVN22071?marker=748397&currency=rub"
         },
         {
-          "destination": "TBS",
+          "destination": "MOW",
           "destName": {
-            "ru": "Тбилиси",
-            "en": "Tbilisi"
+            "ru": "Москва",
+            "en": "Moscow"
           },
-          "price": 16200,
+          "price": 17471,
           "transfers": 0,
-          "depart_date": "2026-10-08",
-          "return_date": "2026-10-08",
-          "link": "https://www.aviasales.com/search/KRR0810TBS08101?marker=748397&currency=rub"
+          "depart_date": "2026-10-11",
+          "return_date": "2026-10-18",
+          "link": "https://www.aviasales.com/search/KRR1110MOW18101?marker=748397&currency=rub"
         },
         {
           "destination": "SVX",
@@ -829,30 +872,6 @@
           "depart_date": "2026-10-08",
           "return_date": "2026-10-10",
           "link": "https://www.aviasales.com/search/KRR0810SVX10101?marker=748397&currency=rub"
-        },
-        {
-          "destination": "MOW",
-          "destName": {
-            "ru": "Москва",
-            "en": "Moscow"
-          },
-          "price": 18268,
-          "transfers": 0,
-          "depart_date": "2026-10-08",
-          "return_date": "2026-10-19",
-          "link": "https://www.aviasales.com/search/KRR0810MOW19101?marker=748397&currency=rub"
-        },
-        {
-          "destination": "KZN",
-          "destName": {
-            "ru": "Казань",
-            "en": "Kazan"
-          },
-          "price": 18825,
-          "transfers": 0,
-          "depart_date": "2026-07-15",
-          "return_date": "2026-07-19",
-          "link": "https://www.aviasales.com/search/KRR1507KZN19071?marker=748397&currency=rub"
         }
       ]
     }
@@ -879,8 +898,8 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 26624,
-          "transfers": 0,
+          "price": 27030,
+          "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1107IST1?marker=748397&currency=rub"
         },
@@ -893,14 +912,14 @@
         },
         {
           "date": "2026-07-13",
-          "price": 23788,
+          "price": 24182,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1307IST1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-14",
-          "price": 26258,
+          "price": 26085,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1407IST1?marker=748397&currency=rub"
@@ -914,7 +933,7 @@
         },
         {
           "date": "2026-07-16",
-          "price": 26340,
+          "price": 26336,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1607IST1?marker=748397&currency=rub"
@@ -928,28 +947,28 @@
         },
         {
           "date": "2026-07-18",
-          "price": 26997,
+          "price": 27097,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1807IST1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 24696,
+          "price": 24782,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1907IST1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 22865,
+          "price": 22862,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2007IST1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 22918,
+          "price": 22915,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2107IST1?marker=748397&currency=rub"
@@ -963,7 +982,7 @@
         },
         {
           "date": "2026-07-23",
-          "price": 23047,
+          "price": 23043,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2307IST1?marker=748397&currency=rub"
@@ -984,7 +1003,7 @@
         },
         {
           "date": "2026-07-26",
-          "price": 22950,
+          "price": 22947,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2607IST1?marker=748397&currency=rub"
@@ -1012,14 +1031,14 @@
         },
         {
           "date": "2026-07-30",
-          "price": 24205,
+          "price": 24141,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW3007IST1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-31",
-          "price": 26374,
+          "price": 26227,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW3107IST1?marker=748397&currency=rub"
@@ -1047,9 +1066,9 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 26222,
-          "transfers": 1,
-          "level": "expensive",
+          "price": 25393,
+          "transfers": 0,
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1107AER1?marker=748397&currency=rub"
         },
         {
@@ -1068,7 +1087,7 @@
         },
         {
           "date": "2026-07-14",
-          "price": 24223,
+          "price": 24213,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1407AER1?marker=748397&currency=rub"
@@ -1117,7 +1136,7 @@
         },
         {
           "date": "2026-07-21",
-          "price": 23473,
+          "price": 23951,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2107AER1?marker=748397&currency=rub"
@@ -1131,63 +1150,63 @@
         },
         {
           "date": "2026-07-23",
-          "price": 24174,
+          "price": 24170,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2307AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-24",
-          "price": 23927,
+          "price": 24108,
           "transfers": 0,
-          "level": "cheap",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2407AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-25",
-          "price": 24929,
+          "price": 24925,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2507AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 24459,
+          "price": 24456,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2607AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 23219,
+          "price": 23215,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2707AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 24694,
+          "price": 24690,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2807AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 23781,
+          "price": 23777,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2907AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-30",
-          "price": 24150,
+          "price": 24146,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW3007AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-31",
-          "price": 27095,
+          "price": 27091,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW3107AER1?marker=748397&currency=rub"
@@ -1207,7 +1226,7 @@
       },
       "cheapest": {
         "date": "2026-07-27",
-        "price": 30943,
+        "price": 30938,
         "transfers": 1,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/MOW2707DXB1?marker=748397&currency=rub"
@@ -1215,9 +1234,9 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 32247,
+          "price": 38054,
           "transfers": 1,
-          "level": "cheap",
+          "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1107DXB1?marker=748397&currency=rub"
         },
         {
@@ -1229,136 +1248,136 @@
         },
         {
           "date": "2026-07-13",
-          "price": 36051,
+          "price": 37291,
           "transfers": 2,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1307DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-14",
-          "price": 31901,
-          "transfers": 1,
-          "level": "cheap",
+          "price": 34719,
+          "transfers": 2,
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1407DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 32226,
+          "price": 33654,
           "transfers": 2,
-          "level": "cheap",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1507DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 32461,
+          "price": 32022,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1607DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 31605,
+          "price": 31958,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1707DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 31503,
+          "price": 31498,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1807DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 32874,
+          "price": 32870,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1907DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 33488,
+          "price": 33484,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2007DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 32872,
+          "price": 32867,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2107DXB1?marker=748397&currency=rub"
         },
         {
+          "date": "2026-07-22",
+          "price": 32230,
+          "transfers": 1,
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/MOW2207DXB1?marker=748397&currency=rub"
+        },
+        {
           "date": "2026-07-23",
-          "price": 32030,
+          "price": 31989,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2307DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-24",
-          "price": 32602,
+          "price": 32597,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2407DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-25",
-          "price": 32388,
+          "price": 32248,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2507DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 35267,
+          "price": 33781,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2607DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 30943,
+          "price": 30938,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2707DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 32186,
+          "price": 31951,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2807DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 30943,
+          "price": 30938,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2907DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-31",
-          "price": 32487,
+          "price": 32248,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW3107DXB1?marker=748397&currency=rub"
         },
         {
           "date": "2026-08-01",
-          "price": 32168,
+          "price": 32164,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW0108DXB1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-08-02",
-          "price": 33480,
-          "transfers": 1,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/MOW0208DXB1?marker=748397&currency=rub"
         }
       ]
     },
@@ -1374,17 +1393,17 @@
         "en": "Yerevan"
       },
       "cheapest": {
-        "date": "2026-07-31",
-        "price": 28516,
+        "date": "2026-07-29",
+        "price": 28530,
         "transfers": 0,
         "level": "cheap",
-        "link": "https://www.aviasales.com/search/MOW3107EVN1?marker=748397&currency=rub"
+        "link": "https://www.aviasales.com/search/MOW2907EVN1?marker=748397&currency=rub"
       },
       "days": [
         {
           "date": "2026-07-11",
-          "price": 36382,
-          "transfers": 0,
+          "price": 37022,
+          "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1107EVN1?marker=748397&currency=rub"
         },
@@ -1392,14 +1411,14 @@
           "date": "2026-07-12",
           "price": 33877,
           "transfers": 1,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1207EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-13",
           "price": 33976,
           "transfers": 1,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1307EVN1?marker=748397&currency=rub"
         },
         {
@@ -1411,35 +1430,35 @@
         },
         {
           "date": "2026-07-15",
-          "price": 33468,
+          "price": 33497,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1507EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 33757,
+          "price": 33752,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1607EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 33756,
+          "price": 33752,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1707EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 33215,
+          "price": 32285,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1807EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 32480,
+          "price": 32204,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1907EVN1?marker=748397&currency=rub"
@@ -1453,63 +1472,63 @@
         },
         {
           "date": "2026-07-21",
-          "price": 31003,
+          "price": 30085,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2107EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 29785,
+          "price": 29781,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2207EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 29494,
+          "price": 30119,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2307EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-24",
-          "price": 30124,
+          "price": 30120,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2407EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-25",
-          "price": 30169,
+          "price": 30108,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2507EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 29756,
-          "transfers": 2,
+          "price": 30073,
+          "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2607EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 28534,
+          "price": 28556,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2707EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 28560,
+          "price": 28556,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2807EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 28534,
+          "price": 28530,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2907EVN1?marker=748397&currency=rub"
@@ -1523,7 +1542,7 @@
         },
         {
           "date": "2026-07-31",
-          "price": 28516,
+          "price": 29737,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW3107EVN1?marker=748397&currency=rub"
@@ -1593,14 +1612,14 @@
         },
         {
           "date": "2026-07-17",
-          "price": 7833,
+          "price": 7832,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1707LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 7383,
+          "price": 7382,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1807LED1?marker=748397&currency=rub"
@@ -1621,35 +1640,35 @@
         },
         {
           "date": "2026-07-21",
-          "price": 6838,
+          "price": 7252,
           "transfers": 0,
-          "level": "cheap",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2107LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 6832,
+          "price": 6831,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2207LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 7758,
+          "price": 7757,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2307LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-24",
-          "price": 7328,
+          "price": 7327,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2407LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-25",
-          "price": 7395,
+          "price": 7394,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2507LED1?marker=748397&currency=rub"
@@ -1663,9 +1682,9 @@
         },
         {
           "date": "2026-07-27",
-          "price": 7235,
+          "price": 7759,
           "transfers": 0,
-          "level": "mid",
+          "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2707LED1?marker=748397&currency=rub"
         },
         {
@@ -1719,7 +1738,7 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 33132,
+          "price": 35210,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1107TBS1?marker=748397&currency=rub"
@@ -1747,21 +1766,21 @@
         },
         {
           "date": "2026-07-15",
-          "price": 33669,
+          "price": 33664,
           "transfers": 2,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1507TBS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 34771,
+          "price": 34766,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1607TBS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 34301,
+          "price": 34948,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1707TBS1?marker=748397&currency=rub"
@@ -1782,21 +1801,21 @@
         },
         {
           "date": "2026-07-20",
-          "price": 30148,
+          "price": 30144,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2007TBS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 32540,
+          "price": 32535,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2107TBS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 32541,
+          "price": 32537,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2207TBS1?marker=748397&currency=rub"
@@ -1824,14 +1843,14 @@
         },
         {
           "date": "2026-07-26",
-          "price": 34226,
+          "price": 37489,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2607TBS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 34036,
+          "price": 34031,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2707TBS1?marker=748397&currency=rub"
@@ -1879,7 +1898,7 @@
       },
       "cheapest": {
         "date": "2026-07-13",
-        "price": 19029,
+        "price": 19026,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/MOW1307AYT1?marker=748397&currency=rub"
@@ -1887,91 +1906,91 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 20880,
+          "price": 20894,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1107AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-12",
-          "price": 19573,
+          "price": 19735,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1207AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-13",
-          "price": 19029,
+          "price": 19026,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1307AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-14",
-          "price": 22077,
+          "price": 22074,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1407AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 20703,
+          "price": 20700,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1507AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 22159,
+          "price": 22156,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1607AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 23922,
+          "price": 23918,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1707AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 23972,
-          "transfers": 0,
+          "price": 24201,
+          "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1807AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 22479,
+          "price": 22476,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1907AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 26988,
-          "transfers": 1,
-          "level": "expensive",
+          "price": 24667,
+          "transfers": 0,
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2007AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 28010,
+          "price": 27849,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2107AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 28009,
+          "price": 28181,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2207AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 28181,
+          "price": 27849,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2307AYT1?marker=748397&currency=rub"
@@ -1985,28 +2004,28 @@
         },
         {
           "date": "2026-07-25",
-          "price": 27122,
+          "price": 27118,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2507AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 29811,
+          "price": 29807,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2607AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 29356,
+          "price": 29422,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2707AYT1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 29026,
+          "price": 29021,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2807AYT1?marker=748397&currency=rub"
@@ -2020,7 +2039,7 @@
         },
         {
           "date": "2026-07-30",
-          "price": 27475,
+          "price": 27471,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW3007AYT1?marker=748397&currency=rub"
@@ -2055,21 +2074,21 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 37949,
-          "transfers": 1,
+          "price": 43130,
+          "transfers": 3,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1107GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-12",
-          "price": 40199,
+          "price": 40193,
           "transfers": 2,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1207GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-13",
-          "price": 35239,
+          "price": 35234,
           "transfers": 2,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1307GYD1?marker=748397&currency=rub"
@@ -2083,23 +2102,23 @@
         },
         {
           "date": "2026-07-15",
-          "price": 33431,
+          "price": 33426,
           "transfers": 2,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1507GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 36307,
+          "price": 36301,
           "transfers": 2,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1607GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 37815,
+          "price": 37809,
           "transfers": 3,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1707GYD1?marker=748397&currency=rub"
         },
         {
@@ -2111,22 +2130,22 @@
         },
         {
           "date": "2026-07-19",
-          "price": 34529,
+          "price": 34524,
           "transfers": 2,
-          "level": "mid",
+          "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1907GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 36144,
+          "price": 36961,
           "transfers": 2,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2007GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 34145,
-          "transfers": 2,
+          "price": 35526,
+          "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2107GYD1?marker=748397&currency=rub"
         },
@@ -2146,30 +2165,30 @@
         },
         {
           "date": "2026-07-24",
-          "price": 34210,
+          "price": 34205,
           "transfers": 0,
-          "level": "mid",
+          "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2407GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-25",
-          "price": 35822,
+          "price": 35816,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2507GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 35864,
+          "price": 35859,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2607GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 34781,
+          "price": 34776,
           "transfers": 0,
-          "level": "mid",
+          "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2707GYD1?marker=748397&currency=rub"
         },
         {
@@ -2181,16 +2200,16 @@
         },
         {
           "date": "2026-07-29",
-          "price": 35874,
+          "price": 35869,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2907GYD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-30",
-          "price": 33771,
+          "price": 34975,
           "transfers": 0,
-          "level": "cheap",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW3007GYD1?marker=748397&currency=rub"
         },
         {
@@ -2230,7 +2249,7 @@
         },
         {
           "date": "2026-07-12",
-          "price": 7894,
+          "price": 7893,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1207KZN1?marker=748397&currency=rub"
@@ -2244,14 +2263,14 @@
         },
         {
           "date": "2026-07-14",
-          "price": 7786,
+          "price": 7785,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1407KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 7824,
+          "price": 7823,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1507KZN1?marker=748397&currency=rub"
@@ -2265,7 +2284,7 @@
         },
         {
           "date": "2026-07-17",
-          "price": 9056,
+          "price": 9055,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1707KZN1?marker=748397&currency=rub"
@@ -2293,35 +2312,35 @@
         },
         {
           "date": "2026-07-21",
-          "price": 8235,
+          "price": 8234,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2107KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 8200,
+          "price": 8199,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2207KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 8186,
+          "price": 8185,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2307KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-24",
-          "price": 8888,
+          "price": 8886,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2407KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-25",
-          "price": 8931,
+          "price": 8929,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2507KZN1?marker=748397&currency=rub"
@@ -2335,28 +2354,28 @@
         },
         {
           "date": "2026-07-27",
-          "price": 7862,
+          "price": 7861,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2707KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 7832,
+          "price": 7831,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2807KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 7909,
+          "price": 7908,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2907KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-30",
-          "price": 8200,
+          "price": 8198,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW3007KZN1?marker=748397&currency=rub"
@@ -2383,7 +2402,7 @@
       },
       "cheapest": {
         "date": "2026-07-22",
-        "price": 6505,
+        "price": 6463,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/MOW2207MSQ1?marker=748397&currency=rub"
@@ -2412,63 +2431,63 @@
         },
         {
           "date": "2026-07-14",
-          "price": 7561,
+          "price": 7560,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1407MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 7179,
+          "price": 7450,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1507MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 7091,
+          "price": 7050,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1607MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 8443,
+          "price": 8441,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1707MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 7464,
+          "price": 7463,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1807MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 7174,
+          "price": 7147,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1907MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 7126,
+          "price": 7125,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2007MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 7601,
+          "price": 7600,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2107MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 6505,
+          "price": 6463,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2207MSQ1?marker=748397&currency=rub"
@@ -2482,7 +2501,7 @@
         },
         {
           "date": "2026-07-24",
-          "price": 7696,
+          "price": 7695,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2407MSQ1?marker=748397&currency=rub"
@@ -2496,28 +2515,28 @@
         },
         {
           "date": "2026-07-26",
-          "price": 7526,
+          "price": 7525,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2607MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 7779,
+          "price": 7738,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2707MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 7569,
+          "price": 7568,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2807MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 6549,
+          "price": 6548,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2907MSQ1?marker=748397&currency=rub"
@@ -2551,7 +2570,7 @@
       },
       "cheapest": {
         "date": "2026-07-29",
-        "price": 7727,
+        "price": 7726,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/MOW2907KUF1?marker=748397&currency=rub"
@@ -2587,14 +2606,14 @@
         },
         {
           "date": "2026-07-15",
-          "price": 8353,
+          "price": 8352,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1507KUF1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 8743,
+          "price": 8742,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1607KUF1?marker=748397&currency=rub"
@@ -2657,7 +2676,7 @@
         },
         {
           "date": "2026-07-25",
-          "price": 7770,
+          "price": 7769,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2507KUF1?marker=748397&currency=rub"
@@ -2678,14 +2697,14 @@
         },
         {
           "date": "2026-07-28",
-          "price": 7819,
+          "price": 7818,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2807KUF1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 7727,
+          "price": 7726,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2907KUF1?marker=748397&currency=rub"
@@ -2719,7 +2738,7 @@
       },
       "cheapest": {
         "date": "2026-07-14",
-        "price": 11482,
+        "price": 11480,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/MOW1407KGD1?marker=748397&currency=rub"
@@ -2727,98 +2746,98 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 13105,
+          "price": 14319,
           "transfers": 0,
-          "level": "cheap",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1107KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-12",
-          "price": 12537,
+          "price": 13099,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1207KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-13",
-          "price": 12360,
+          "price": 12358,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1307KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-14",
-          "price": 11482,
+          "price": 11480,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1407KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 15173,
+          "price": 15171,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1507KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 14532,
+          "price": 14530,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1607KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 13616,
+          "price": 13614,
           "transfers": 0,
-          "level": "cheap",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1707KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 17665,
+          "price": 17662,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1807KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 16497,
+          "price": 16495,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1907KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 16467,
+          "price": 16465,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2007KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 16547,
+          "price": 16545,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2107KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 15700,
+          "price": 15697,
           "transfers": 0,
-          "level": "mid",
+          "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2207KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 15913,
+          "price": 15911,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2307KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-24",
-          "price": 15451,
+          "price": 15288,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2407KGD1?marker=748397&currency=rub"
@@ -2832,7 +2851,7 @@
         },
         {
           "date": "2026-07-26",
-          "price": 17875,
+          "price": 16999,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2607KGD1?marker=748397&currency=rub"
@@ -2846,14 +2865,14 @@
         },
         {
           "date": "2026-07-28",
-          "price": 17512,
+          "price": 17509,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW2807KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 13105,
+          "price": 13098,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2907KGD1?marker=748397&currency=rub"
@@ -2867,7 +2886,7 @@
         },
         {
           "date": "2026-07-31",
-          "price": 17683,
+          "price": 17566,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW3107KGD1?marker=748397&currency=rub"
@@ -2886,11 +2905,11 @@
         "en": "Ufa"
       },
       "cheapest": {
-        "date": "2026-07-20",
-        "price": 11334,
+        "date": "2026-07-13",
+        "price": 11598,
         "transfers": 0,
         "level": "cheap",
-        "link": "https://www.aviasales.com/search/MOW2007UFA1?marker=748397&currency=rub"
+        "link": "https://www.aviasales.com/search/MOW1307UFA1?marker=748397&currency=rub"
       },
       "days": [
         {
@@ -2916,21 +2935,21 @@
         },
         {
           "date": "2026-07-14",
-          "price": 12403,
+          "price": 12401,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1407UFA1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 13535,
+          "price": 13533,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1507UFA1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 13495,
+          "price": 13493,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1607UFA1?marker=748397&currency=rub"
@@ -2958,9 +2977,9 @@
         },
         {
           "date": "2026-07-20",
-          "price": 11334,
+          "price": 12409,
           "transfers": 0,
-          "level": "cheap",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2007UFA1?marker=748397&currency=rub"
         },
         {
@@ -2972,14 +2991,14 @@
         },
         {
           "date": "2026-07-22",
-          "price": 11615,
+          "price": 11613,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2207UFA1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 12413,
+          "price": 12411,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2307UFA1?marker=748397&currency=rub"
@@ -2993,14 +3012,14 @@
         },
         {
           "date": "2026-07-25",
-          "price": 12089,
+          "price": 12087,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2507UFA1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 12433,
+          "price": 12431,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW2607UFA1?marker=748397&currency=rub"
@@ -3021,7 +3040,7 @@
         },
         {
           "date": "2026-07-29",
-          "price": 11778,
+          "price": 11776,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2907UFA1?marker=748397&currency=rub"
@@ -3077,7 +3096,7 @@
         },
         {
           "date": "2026-07-13",
-          "price": 21310,
+          "price": 21307,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1307MCX1?marker=748397&currency=rub"
@@ -3091,42 +3110,42 @@
         },
         {
           "date": "2026-07-15",
-          "price": 21059,
+          "price": 21055,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW1507MCX1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 24148,
+          "price": 24144,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1607MCX1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 23160,
+          "price": 24323,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1707MCX1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 24775,
+          "price": 24772,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/MOW1807MCX1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 23676,
+          "price": 23673,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW1907MCX1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 20536,
+          "price": 20533,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2007MCX1?marker=748397&currency=rub"
@@ -3140,14 +3159,14 @@
         },
         {
           "date": "2026-07-22",
-          "price": 20691,
+          "price": 20688,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2207MCX1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 21570,
+          "price": 21566,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2307MCX1?marker=748397&currency=rub"
@@ -3161,14 +3180,14 @@
         },
         {
           "date": "2026-07-25",
-          "price": 22346,
+          "price": 22343,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2507MCX1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 20868,
+          "price": 20865,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2607MCX1?marker=748397&currency=rub"
@@ -3182,7 +3201,7 @@
         },
         {
           "date": "2026-07-28",
-          "price": 21472,
+          "price": 21469,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW2807MCX1?marker=748397&currency=rub"
@@ -3196,7 +3215,7 @@
         },
         {
           "date": "2026-07-30",
-          "price": 22067,
+          "price": 22064,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/MOW3007MCX1?marker=748397&currency=rub"
@@ -3364,7 +3383,7 @@
         },
         {
           "date": "2026-07-30",
-          "price": 13753,
+          "price": 13751,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/MOW3007SVX1?marker=748397&currency=rub"
@@ -3391,7 +3410,7 @@
       },
       "cheapest": {
         "date": "2026-07-30",
-        "price": 13827,
+        "price": 13825,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/LED3007KZN1?marker=748397&currency=rub"
@@ -3476,7 +3495,7 @@
         },
         {
           "date": "2026-07-22",
-          "price": 14356,
+          "price": 14354,
           "transfers": 1,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2207KZN1?marker=748397&currency=rub"
@@ -3532,14 +3551,14 @@
         },
         {
           "date": "2026-07-30",
-          "price": 13827,
+          "price": 13825,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED3007KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-31",
-          "price": 14546,
+          "price": 14544,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED3107KZN1?marker=748397&currency=rub"
@@ -3559,7 +3578,7 @@
       },
       "cheapest": {
         "date": "2026-07-14",
-        "price": 12961,
+        "price": 12959,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/LED1407KGD1?marker=748397&currency=rub"
@@ -3567,42 +3586,42 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 16238,
+          "price": 16331,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1107KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-12",
-          "price": 15428,
+          "price": 15426,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1207KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-13",
-          "price": 13569,
+          "price": 13567,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED1307KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-14",
-          "price": 12961,
+          "price": 12959,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED1407KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 13765,
+          "price": 13763,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED1507KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-16",
-          "price": 15280,
+          "price": 15278,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1607KGD1?marker=748397&currency=rub"
@@ -3616,7 +3635,7 @@
         },
         {
           "date": "2026-07-18",
-          "price": 15875,
+          "price": 15873,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1807KGD1?marker=748397&currency=rub"
@@ -3644,7 +3663,7 @@
         },
         {
           "date": "2026-07-22",
-          "price": 14696,
+          "price": 14694,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED2207KGD1?marker=748397&currency=rub"
@@ -3665,21 +3684,21 @@
         },
         {
           "date": "2026-07-25",
-          "price": 15805,
+          "price": 15803,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED2507KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 15852,
+          "price": 15849,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED2607KGD1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 15707,
+          "price": 15704,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED2707KGD1?marker=748397&currency=rub"
@@ -3693,7 +3712,7 @@
         },
         {
           "date": "2026-07-29",
-          "price": 14048,
+          "price": 14046,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2907KGD1?marker=748397&currency=rub"
@@ -3707,7 +3726,7 @@
         },
         {
           "date": "2026-07-31",
-          "price": 14224,
+          "price": 14222,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED3107KGD1?marker=748397&currency=rub"
@@ -3763,7 +3782,7 @@
         },
         {
           "date": "2026-07-15",
-          "price": 21054,
+          "price": 21051,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1507UFA1?marker=748397&currency=rub"
@@ -3784,7 +3803,7 @@
         },
         {
           "date": "2026-07-18",
-          "price": 21055,
+          "price": 21052,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1807UFA1?marker=748397&currency=rub"
@@ -3812,7 +3831,7 @@
         },
         {
           "date": "2026-07-22",
-          "price": 19529,
+          "price": 19527,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED2207UFA1?marker=748397&currency=rub"
@@ -3833,7 +3852,7 @@
         },
         {
           "date": "2026-07-25",
-          "price": 19088,
+          "price": 19085,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED2507UFA1?marker=748397&currency=rub"
@@ -3847,7 +3866,7 @@
         },
         {
           "date": "2026-07-27",
-          "price": 19711,
+          "price": 19708,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED2707UFA1?marker=748397&currency=rub"
@@ -3895,7 +3914,7 @@
       },
       "cheapest": {
         "date": "2026-07-22",
-        "price": 6821,
+        "price": 6820,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/LED2207MOW1?marker=748397&currency=rub"
@@ -3903,9 +3922,9 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 7328,
+          "price": 8538,
           "transfers": 0,
-          "level": "cheap",
+          "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1107MOW1?marker=748397&currency=rub"
         },
         {
@@ -3924,7 +3943,7 @@
         },
         {
           "date": "2026-07-14",
-          "price": 7305,
+          "price": 7304,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED1407MOW1?marker=748397&currency=rub"
@@ -3938,14 +3957,14 @@
         },
         {
           "date": "2026-07-16",
-          "price": 8040,
+          "price": 8039,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED1607MOW1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 7987,
+          "price": 7986,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED1707MOW1?marker=748397&currency=rub"
@@ -3973,14 +3992,14 @@
         },
         {
           "date": "2026-07-21",
-          "price": 7354,
+          "price": 7353,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2107MOW1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 6821,
+          "price": 6820,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2207MOW1?marker=748397&currency=rub"
@@ -4008,7 +4027,7 @@
         },
         {
           "date": "2026-07-27",
-          "price": 7300,
+          "price": 7298,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2707MOW1?marker=748397&currency=rub"
@@ -4078,7 +4097,7 @@
         },
         {
           "date": "2026-07-12",
-          "price": 14945,
+          "price": 14942,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED1207TJM1?marker=748397&currency=rub"
@@ -4106,28 +4125,28 @@
         },
         {
           "date": "2026-07-16",
-          "price": 15516,
+          "price": 15513,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED1607TJM1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 15607,
+          "price": 15605,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED1707TJM1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 15666,
+          "price": 15664,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED1807TJM1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 16539,
+          "price": 16536,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1907TJM1?marker=748397&currency=rub"
@@ -4231,7 +4250,7 @@
       },
       "cheapest": {
         "date": "2026-07-28",
-        "price": 10332,
+        "price": 10330,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/LED2807MSQ1?marker=748397&currency=rub"
@@ -4288,14 +4307,14 @@
         },
         {
           "date": "2026-07-18",
-          "price": 12036,
+          "price": 12034,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED1807MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 12128,
+          "price": 12126,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED1907MSQ1?marker=748397&currency=rub"
@@ -4316,7 +4335,7 @@
         },
         {
           "date": "2026-07-22",
-          "price": 11108,
+          "price": 11106,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2207MSQ1?marker=748397&currency=rub"
@@ -4337,7 +4356,7 @@
         },
         {
           "date": "2026-07-25",
-          "price": 11742,
+          "price": 11741,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED2507MSQ1?marker=748397&currency=rub"
@@ -4351,21 +4370,21 @@
         },
         {
           "date": "2026-07-27",
-          "price": 11293,
+          "price": 11292,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED2707MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 10332,
+          "price": 10330,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2807MSQ1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 10397,
+          "price": 10396,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2907MSQ1?marker=748397&currency=rub"
@@ -4407,7 +4426,7 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 14204,
+          "price": 15012,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1107ARH1?marker=748397&currency=rub"
@@ -4423,14 +4442,14 @@
           "date": "2026-07-13",
           "price": 13180,
           "transfers": 0,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/LED1307ARH1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-14",
           "price": 13334,
           "transfers": 0,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/LED1407ARH1?marker=748397&currency=rub"
         },
         {
@@ -4472,7 +4491,7 @@
           "date": "2026-07-20",
           "price": 12165,
           "transfers": 0,
-          "level": "mid",
+          "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2007ARH1?marker=748397&currency=rub"
         },
         {
@@ -4582,7 +4601,7 @@
         },
         {
           "date": "2026-07-12",
-          "price": 16752,
+          "price": 16749,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1207KUF1?marker=748397&currency=rub"
@@ -4603,7 +4622,7 @@
         },
         {
           "date": "2026-07-15",
-          "price": 16086,
+          "price": 16083,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED1507KUF1?marker=748397&currency=rub"
@@ -4624,7 +4643,7 @@
         },
         {
           "date": "2026-07-18",
-          "price": 16621,
+          "price": 16619,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/LED1807KUF1?marker=748397&currency=rub"
@@ -4659,7 +4678,7 @@
         },
         {
           "date": "2026-07-23",
-          "price": 15994,
+          "price": 15991,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED2307KUF1?marker=748397&currency=rub"
@@ -4687,7 +4706,7 @@
         },
         {
           "date": "2026-07-27",
-          "price": 16012,
+          "price": 16010,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/LED2707KUF1?marker=748397&currency=rub"
@@ -4701,7 +4720,7 @@
         },
         {
           "date": "2026-07-29",
-          "price": 14736,
+          "price": 14734,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED2907KUF1?marker=748397&currency=rub"
@@ -4715,7 +4734,7 @@
         },
         {
           "date": "2026-07-31",
-          "price": 14828,
+          "price": 14826,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/LED3107KUF1?marker=748397&currency=rub"
@@ -4734,11 +4753,11 @@
         "en": "Mineralnye Vody"
       },
       "cheapest": {
-        "date": "2026-07-18",
-        "price": 4570,
+        "date": "2026-07-25",
+        "price": 4749,
         "transfers": 0,
         "level": "cheap",
-        "link": "https://www.aviasales.com/search/AER1807MRV1?marker=748397&currency=rub"
+        "link": "https://www.aviasales.com/search/AER2507MRV1?marker=748397&currency=rub"
       },
       "days": [
         {
@@ -4764,14 +4783,14 @@
         },
         {
           "date": "2026-07-14",
-          "price": 7961,
+          "price": 7959,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/AER1407MRV1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 5160,
+          "price": 6147,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1507MRV1?marker=748397&currency=rub"
@@ -4792,7 +4811,7 @@
         },
         {
           "date": "2026-07-18",
-          "price": 4570,
+          "price": 5110,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1807MRV1?marker=748397&currency=rub"
@@ -4806,7 +4825,7 @@
         },
         {
           "date": "2026-07-20",
-          "price": 5392,
+          "price": 5391,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2007MRV1?marker=748397&currency=rub"
@@ -4855,7 +4874,7 @@
         },
         {
           "date": "2026-07-27",
-          "price": 8409,
+          "price": 8408,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/AER2707MRV1?marker=748397&currency=rub"
@@ -4869,9 +4888,9 @@
         },
         {
           "date": "2026-07-30",
-          "price": 7873,
+          "price": 7872,
           "transfers": 0,
-          "level": "mid",
+          "level": "cheap",
           "link": "https://www.aviasales.com/search/AER3007MRV1?marker=748397&currency=rub"
         },
         {
@@ -4981,7 +5000,7 @@
         },
         {
           "date": "2026-07-21",
-          "price": 14848,
+          "price": 14846,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2107MCX1?marker=748397&currency=rub"
@@ -5030,7 +5049,7 @@
         },
         {
           "date": "2026-07-30",
-          "price": 15386,
+          "price": 15384,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER3007MCX1?marker=748397&currency=rub"
@@ -5071,7 +5090,7 @@
       },
       "cheapest": {
         "date": "2026-07-28",
-        "price": 7854,
+        "price": 7853,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/AER2807EVN1?marker=748397&currency=rub"
@@ -5135,35 +5154,35 @@
         },
         {
           "date": "2026-07-19",
-          "price": 9597,
+          "price": 9596,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1907EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 8753,
+          "price": 8751,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2007EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 9193,
+          "price": 9192,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2107EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 8753,
+          "price": 8751,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2207EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 8301,
+          "price": 8300,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2307EVN1?marker=748397&currency=rub"
@@ -5177,14 +5196,14 @@
         },
         {
           "date": "2026-07-25",
-          "price": 9583,
+          "price": 9581,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2507EVN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 9638,
+          "price": 9637,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2607EVN1?marker=748397&currency=rub"
@@ -5198,7 +5217,7 @@
         },
         {
           "date": "2026-07-28",
-          "price": 7854,
+          "price": 7853,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2807EVN1?marker=748397&currency=rub"
@@ -5212,7 +5231,7 @@
         },
         {
           "date": "2026-07-30",
-          "price": 8747,
+          "price": 8745,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER3007EVN1?marker=748397&currency=rub"
@@ -5247,7 +5266,7 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 11292,
+          "price": 11371,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1107BUS1?marker=748397&currency=rub"
@@ -5352,14 +5371,14 @@
         },
         {
           "date": "2026-07-26",
-          "price": 10614,
+          "price": 10612,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2607BUS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 9962,
+          "price": 9960,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2707BUS1?marker=748397&currency=rub"
@@ -5407,7 +5426,7 @@
       },
       "cheapest": {
         "date": "2026-07-15",
-        "price": 11413,
+        "price": 11411,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/AER1507RTW1?marker=748397&currency=rub"
@@ -5415,7 +5434,7 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 13390,
+          "price": 13388,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1107RTW1?marker=748397&currency=rub"
@@ -5436,7 +5455,7 @@
         },
         {
           "date": "2026-07-15",
-          "price": 11413,
+          "price": 11411,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1507RTW1?marker=748397&currency=rub"
@@ -5457,14 +5476,14 @@
         },
         {
           "date": "2026-07-18",
-          "price": 12353,
+          "price": 12351,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1807RTW1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-19",
-          "price": 13418,
+          "price": 13416,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1907RTW1?marker=748397&currency=rub"
@@ -5506,7 +5525,7 @@
         },
         {
           "date": "2026-07-27",
-          "price": 18408,
+          "price": 18405,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/AER2707RTW1?marker=748397&currency=rub"
@@ -5555,10 +5574,178 @@
         },
         {
           "date": "2026-08-08",
-          "price": 30142,
+          "price": 30138,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/AER0808RTW1?marker=748397&currency=rub"
+        }
+      ]
+    },
+    {
+      "origin": "AER",
+      "destination": "IST",
+      "originName": {
+        "ru": "Сочи",
+        "en": "Sochi"
+      },
+      "destName": {
+        "ru": "Стамбул",
+        "en": "Istanbul"
+      },
+      "cheapest": {
+        "date": "2026-07-15",
+        "price": 13032,
+        "transfers": 0,
+        "level": "cheap",
+        "link": "https://www.aviasales.com/search/AER1507IST1?marker=748397&currency=rub"
+      },
+      "days": [
+        {
+          "date": "2026-07-11",
+          "price": 13584,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/AER1107IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-12",
+          "price": 13615,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/AER1207IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 13651,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/AER1307IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-14",
+          "price": 13114,
+          "transfers": 0,
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/AER1407IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-15",
+          "price": 13032,
+          "transfers": 0,
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/AER1507IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 13684,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/AER1607IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 13893,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/AER1707IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-18",
+          "price": 14595,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/AER1807IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-19",
+          "price": 13498,
+          "transfers": 0,
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/AER1907IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-20",
+          "price": 13778,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/AER2007IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-21",
+          "price": 13602,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/AER2107IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-22",
+          "price": 14185,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/AER2207IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 13485,
+          "transfers": 0,
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/AER2307IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-24",
+          "price": 13549,
+          "transfers": 0,
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/AER2407IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-25",
+          "price": 14403,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/AER2507IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-26",
+          "price": 13492,
+          "transfers": 0,
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/AER2607IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-27",
+          "price": 14352,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/AER2707IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-28",
+          "price": 14572,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/AER2807IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-29",
+          "price": 14549,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/AER2907IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-30",
+          "price": 14653,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/AER3007IST1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-07-31",
+          "price": 14491,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/AER3107IST1?marker=748397&currency=rub"
         }
       ]
     },
@@ -5604,7 +5791,7 @@
         },
         {
           "date": "2026-07-14",
-          "price": 23407,
+          "price": 23404,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1407KZN1?marker=748397&currency=rub"
@@ -5618,14 +5805,14 @@
         },
         {
           "date": "2026-07-16",
-          "price": 25901,
+          "price": 25898,
           "transfers": 1,
           "level": "mid",
           "link": "https://www.aviasales.com/search/AER1607KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-17",
-          "price": 23576,
+          "price": 23572,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1707KZN1?marker=748397&currency=rub"
@@ -5653,7 +5840,7 @@
         },
         {
           "date": "2026-07-23",
-          "price": 30259,
+          "price": 30255,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/AER2307KZN1?marker=748397&currency=rub"
@@ -5674,21 +5861,21 @@
         },
         {
           "date": "2026-07-27",
-          "price": 27128,
+          "price": 27124,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/AER2707KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 28338,
+          "price": 28334,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/AER2807KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 28769,
+          "price": 28765,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/AER2907KZN1?marker=748397&currency=rub"
@@ -5709,7 +5896,7 @@
         },
         {
           "date": "2026-08-02",
-          "price": 28383,
+          "price": 28379,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/AER0208KZN1?marker=748397&currency=rub"
@@ -5751,9 +5938,9 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 15949,
-          "transfers": 0,
-          "level": "cheap",
+          "price": 23790,
+          "transfers": 1,
+          "level": "expensive",
           "link": "https://www.aviasales.com/search/AER1107TBS1?marker=748397&currency=rub"
         },
         {
@@ -5767,19 +5954,19 @@
           "date": "2026-07-13",
           "price": 16954,
           "transfers": 0,
-          "level": "mid",
+          "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1307TBS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-14",
-          "price": 16116,
+          "price": 16114,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1407TBS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 16219,
+          "price": 16217,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER1507TBS1?marker=748397&currency=rub"
@@ -5821,7 +6008,7 @@
         },
         {
           "date": "2026-07-21",
-          "price": 15166,
+          "price": 15164,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER2107TBS1?marker=748397&currency=rub"
@@ -5879,12 +6066,12 @@
           "date": "2026-07-29",
           "price": 19724,
           "transfers": 0,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/AER2907TBS1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-30",
-          "price": 15164,
+          "price": 15131,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER3007TBS1?marker=748397&currency=rub"
@@ -5895,174 +6082,6 @@
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/AER3107TBS1?marker=748397&currency=rub"
-        }
-      ]
-    },
-    {
-      "origin": "AER",
-      "destination": "KVX",
-      "originName": {
-        "ru": "Сочи",
-        "en": "Sochi"
-      },
-      "destName": {
-        "ru": "KVX",
-        "en": "KVX"
-      },
-      "cheapest": {
-        "date": "2026-07-12",
-        "price": 18858,
-        "transfers": 0,
-        "level": "cheap",
-        "link": "https://www.aviasales.com/search/AER1207KVX1?marker=748397&currency=rub"
-      },
-      "days": [
-        {
-          "date": "2026-07-11",
-          "price": 25566,
-          "transfers": 1,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER1107KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-12",
-          "price": 18858,
-          "transfers": 0,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/AER1207KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-13",
-          "price": 19437,
-          "transfers": 0,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/AER1307KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-14",
-          "price": 21755,
-          "transfers": 0,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/AER1407KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-15",
-          "price": 23262,
-          "transfers": 0,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/AER1507KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-16",
-          "price": 25746,
-          "transfers": 1,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER1607KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-17",
-          "price": 24325,
-          "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER1707KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-18",
-          "price": 21277,
-          "transfers": 0,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/AER1807KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-19",
-          "price": 22823,
-          "transfers": 0,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/AER1907KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-20",
-          "price": 22743,
-          "transfers": 0,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/AER2007KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-21",
-          "price": 29026,
-          "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER2107KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-23",
-          "price": 27253,
-          "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER2307KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-24",
-          "price": 24109,
-          "transfers": 0,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/AER2407KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-25",
-          "price": 25079,
-          "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER2507KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-29",
-          "price": 32466,
-          "transfers": 1,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/AER2907KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-08-01",
-          "price": 25063,
-          "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER0108KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-08-02",
-          "price": 27463,
-          "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER0208KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-08-03",
-          "price": 29058,
-          "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER0308KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-08-04",
-          "price": 28118,
-          "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/AER0408KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-08-05",
-          "price": 29424,
-          "transfers": 0,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/AER0508KVX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-08-06",
-          "price": 34469,
-          "transfers": 1,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/AER0608KVX1?marker=748397&currency=rub"
         }
       ]
     },
@@ -6101,7 +6120,7 @@
         },
         {
           "date": "2026-07-13",
-          "price": 8613,
+          "price": 8612,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/SVX1307UFA1?marker=748397&currency=rub"
@@ -6122,7 +6141,7 @@
         },
         {
           "date": "2026-07-16",
-          "price": 9279,
+          "price": 9278,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/SVX1607UFA1?marker=748397&currency=rub"
@@ -6213,7 +6232,7 @@
         },
         {
           "date": "2026-07-29",
-          "price": 7557,
+          "price": 7555,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/SVX2907UFA1?marker=748397&currency=rub"
@@ -6247,7 +6266,7 @@
       },
       "cheapest": {
         "date": "2026-07-30",
-        "price": 11574,
+        "price": 11572,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/SVX3007KUF1?marker=748397&currency=rub"
@@ -6325,14 +6344,14 @@
         },
         {
           "date": "2026-07-21",
-          "price": 12650,
+          "price": 12855,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/SVX2107KUF1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 12716,
+          "price": 12714,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/SVX2207KUF1?marker=748397&currency=rub"
@@ -6388,7 +6407,7 @@
         },
         {
           "date": "2026-07-30",
-          "price": 11574,
+          "price": 11572,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/SVX3007KUF1?marker=748397&currency=rub"
@@ -6415,7 +6434,7 @@
       },
       "cheapest": {
         "date": "2026-07-25",
-        "price": 10849,
+        "price": 10847,
         "transfers": 0,
         "level": "cheap",
         "link": "https://www.aviasales.com/search/SVX2507KZN1?marker=748397&currency=rub"
@@ -6472,7 +6491,7 @@
         },
         {
           "date": "2026-07-18",
-          "price": 14520,
+          "price": 14518,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/SVX1807KZN1?marker=748397&currency=rub"
@@ -6500,7 +6519,7 @@
         },
         {
           "date": "2026-07-22",
-          "price": 13724,
+          "price": 13722,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/SVX2207KZN1?marker=748397&currency=rub"
@@ -6521,14 +6540,14 @@
         },
         {
           "date": "2026-07-25",
-          "price": 10849,
+          "price": 10847,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/SVX2507KZN1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 14189,
+          "price": 14187,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/SVX2607KZN1?marker=748397&currency=rub"
@@ -6591,9 +6610,9 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 18558,
+          "price": 22933,
           "transfers": 0,
-          "level": "cheap",
+          "level": "expensive",
           "link": "https://www.aviasales.com/search/SVX1107LED1?marker=748397&currency=rub"
         },
         {
@@ -6649,7 +6668,7 @@
           "date": "2026-07-19",
           "price": 20387,
           "transfers": 0,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/SVX1907LED1?marker=748397&currency=rub"
         },
         {
@@ -6677,21 +6696,21 @@
           "date": "2026-07-23",
           "price": 20446,
           "transfers": 0,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/SVX2307LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-24",
           "price": 20588,
           "transfers": 0,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/SVX2407LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-25",
           "price": 20335,
           "transfers": 0,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/SVX2507LED1?marker=748397&currency=rub"
         },
         {
@@ -6705,19 +6724,19 @@
           "date": "2026-07-27",
           "price": 20602,
           "transfers": 0,
-          "level": "expensive",
+          "level": "mid",
           "link": "https://www.aviasales.com/search/SVX2707LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
           "price": 19220,
           "transfers": 0,
-          "level": "mid",
+          "level": "cheap",
           "link": "https://www.aviasales.com/search/SVX2807LED1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 19472,
+          "price": 19469,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/SVX2907LED1?marker=748397&currency=rub"
@@ -6759,7 +6778,7 @@
       "days": [
         {
           "date": "2026-07-11",
-          "price": 13403,
+          "price": 13414,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/SVX1107MOW1?marker=748397&currency=rub"
@@ -6857,7 +6876,7 @@
         },
         {
           "date": "2026-07-25",
-          "price": 14619,
+          "price": 14617,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/SVX2507MOW1?marker=748397&currency=rub"
@@ -6885,14 +6904,14 @@
         },
         {
           "date": "2026-07-29",
-          "price": 13361,
+          "price": 13359,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/SVX2907MOW1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-30",
-          "price": 13426,
+          "price": 13425,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/SVX3007MOW1?marker=748397&currency=rub"
@@ -6948,7 +6967,7 @@
         },
         {
           "date": "2026-07-15",
-          "price": 27064,
+          "price": 27060,
           "transfers": 1,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/SVX1507VOG1?marker=748397&currency=rub"
@@ -7109,7 +7128,7 @@
         },
         {
           "date": "2026-07-13",
-          "price": 27236,
+          "price": 27232,
           "transfers": 0,
           "level": "expensive",
           "link": "https://www.aviasales.com/search/SVX1307NQZ1?marker=748397&currency=rub"
@@ -7123,7 +7142,7 @@
         },
         {
           "date": "2026-07-15",
-          "price": 25826,
+          "price": 25822,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/SVX1507NQZ1?marker=748397&currency=rub"
@@ -7221,7 +7240,7 @@
         },
         {
           "date": "2026-07-29",
-          "price": 19566,
+          "price": 19565,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/SVX2907NQZ1?marker=748397&currency=rub"
@@ -7244,169 +7263,169 @@
     },
     {
       "origin": "SVX",
-      "destination": "MCX",
+      "destination": "AER",
       "originName": {
         "ru": "Екатеринбург",
         "en": "Yekaterinburg"
       },
       "destName": {
-        "ru": "Махачкала",
-        "en": "Makhachkala"
+        "ru": "Сочи",
+        "en": "Sochi"
       },
       "cheapest": {
-        "date": "2026-07-25",
-        "price": 27725,
-        "transfers": 1,
+        "date": "2026-07-12",
+        "price": 22439,
+        "transfers": 0,
         "level": "cheap",
-        "link": "https://www.aviasales.com/search/SVX2507MCX1?marker=748397&currency=rub"
+        "link": "https://www.aviasales.com/search/SVX1207AER1?marker=748397&currency=rub"
       },
       "days": [
         {
           "date": "2026-07-11",
-          "price": 31629,
+          "price": 29131,
           "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/SVX1107MCX1?marker=748397&currency=rub"
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/SVX1107AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-12",
-          "price": 35827,
-          "transfers": 1,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX1207MCX1?marker=748397&currency=rub"
+          "price": 22439,
+          "transfers": 0,
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/SVX1207AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-13",
-          "price": 33340,
+          "price": 24717,
           "transfers": 0,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/SVX1307MCX1?marker=748397&currency=rub"
+          "level": "cheap",
+          "link": "https://www.aviasales.com/search/SVX1307AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-14",
-          "price": 35343,
-          "transfers": 1,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX1407MCX1?marker=748397&currency=rub"
+          "price": 26058,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/SVX1407AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-15",
-          "price": 35714,
+          "price": 28521,
           "transfers": 1,
           "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX1507MCX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-16",
-          "price": 36044,
-          "transfers": 1,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX1607MCX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-17",
-          "price": 34072,
-          "transfers": 1,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX1707MCX1?marker=748397&currency=rub"
+          "link": "https://www.aviasales.com/search/SVX1507AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-18",
-          "price": 36957,
+          "price": 25958,
           "transfers": 0,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX1807MCX1?marker=748397&currency=rub"
-        },
-        {
-          "date": "2026-07-19",
-          "price": 36184,
-          "transfers": 1,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX1907MCX1?marker=748397&currency=rub"
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/SVX1807AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-20",
-          "price": 36348,
-          "transfers": 2,
+          "price": 28972,
+          "transfers": 0,
           "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX2007MCX1?marker=748397&currency=rub"
+          "link": "https://www.aviasales.com/search/SVX2007AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-21",
-          "price": 32397,
-          "transfers": 1,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/SVX2107MCX1?marker=748397&currency=rub"
+          "price": 28750,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/SVX2107AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-22",
-          "price": 31744,
+          "price": 28612,
           "transfers": 1,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/SVX2207MCX1?marker=748397&currency=rub"
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/SVX2207AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-23",
-          "price": 30729,
-          "transfers": 1,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/SVX2307MCX1?marker=748397&currency=rub"
+          "price": 27971,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/SVX2307AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-24",
-          "price": 33434,
-          "transfers": 1,
+          "price": 26776,
+          "transfers": 0,
           "level": "mid",
-          "link": "https://www.aviasales.com/search/SVX2407MCX1?marker=748397&currency=rub"
+          "link": "https://www.aviasales.com/search/SVX2407AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-25",
-          "price": 27725,
-          "transfers": 1,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/SVX2507MCX1?marker=748397&currency=rub"
+          "price": 28035,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/SVX2507AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-26",
-          "price": 33550,
-          "transfers": 1,
-          "level": "mid",
-          "link": "https://www.aviasales.com/search/SVX2607MCX1?marker=748397&currency=rub"
+          "price": 29541,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/SVX2607AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-27",
-          "price": 34747,
-          "transfers": 0,
-          "level": "expensive",
-          "link": "https://www.aviasales.com/search/SVX2707MCX1?marker=748397&currency=rub"
+          "price": 27878,
+          "transfers": 1,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/SVX2707AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-28",
-          "price": 32370,
+          "price": 27162,
           "transfers": 0,
           "level": "mid",
-          "link": "https://www.aviasales.com/search/SVX2807MCX1?marker=748397&currency=rub"
+          "link": "https://www.aviasales.com/search/SVX2807AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-29",
-          "price": 30213,
+          "price": 29501,
           "transfers": 1,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/SVX2907MCX1?marker=748397&currency=rub"
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/SVX2907AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-30",
-          "price": 30257,
-          "transfers": 1,
-          "level": "cheap",
-          "link": "https://www.aviasales.com/search/SVX3007MCX1?marker=748397&currency=rub"
+          "price": 28116,
+          "transfers": 0,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/SVX3007AER1?marker=748397&currency=rub"
         },
         {
           "date": "2026-07-31",
-          "price": 33814,
+          "price": 29815,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/SVX3107AER1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-08-01",
+          "price": 31223,
+          "transfers": 0,
+          "level": "expensive",
+          "link": "https://www.aviasales.com/search/SVX0108AER1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-08-02",
+          "price": 27997,
+          "transfers": 1,
+          "level": "mid",
+          "link": "https://www.aviasales.com/search/SVX0208AER1?marker=748397&currency=rub"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 26402,
           "transfers": 0,
           "level": "mid",
-          "link": "https://www.aviasales.com/search/SVX3107MCX1?marker=748397&currency=rub"
+          "link": "https://www.aviasales.com/search/SVX0308AER1?marker=748397&currency=rub"
         }
       ]
     },
@@ -7466,7 +7485,7 @@
         },
         {
           "date": "2026-07-16",
-          "price": 9074,
+          "price": 9072,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/KZN1607UFA1?marker=748397&currency=rub"
@@ -7494,7 +7513,7 @@
         },
         {
           "date": "2026-07-20",
-          "price": 8231,
+          "price": 8229,
           "transfers": 0,
           "level": "cheap",
           "link": "https://www.aviasales.com/search/KZN2007UFA1?marker=748397&currency=rub"
@@ -7571,7 +7590,7 @@
         },
         {
           "date": "2026-07-31",
-          "price": 9538,
+          "price": 9537,
           "transfers": 0,
           "level": "mid",
           "link": "https://www.aviasales.com/search/KZN3107UFA1?marker=748397&currency=rub"

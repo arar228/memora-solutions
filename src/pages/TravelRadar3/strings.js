@@ -4,22 +4,27 @@
 
 export const STR = {
     ru: {
-        pageTitle: 'Радар цен',
-        subtitle: 'Живые цены на авиабилеты — обновляются автоматически. Каждая цена ведёт на Aviasales.',
+        pageTitle: 'Радар путешествий',
+        visaTag: 'без визы',
+        subtitle: 'Горящие авиабилеты из России в страны без визы — живые цены, обновляются автоматически. Каждая ведёт на Aviasales.',
         updated: 'обновлено',
         source: 'данные Travelpayouts',
         loading: 'Загружаем цены…',
         noData: 'Данные пока не подгрузились. Обновите страницу через минуту.',
 
-        hotTitle: 'Горящие рейсы',
-        hotDesc: 'Билеты заметно дешевле обычной цены маршрута.',
-        hotEmpty: 'Сейчас крупных скидок нет — лента обновляется каждые пару часов, загляните позже.',
+        hotTitle: 'Горящие билеты за границу',
+        hotDesc: 'Билеты в безвизовые страны заметно дешевле обычной цены маршрута.',
+        hotEmpty: 'Сейчас крупных скидок в безвизовые страны нет — лента обновляется каждые пару часов, загляните позже.',
         usually: 'обычно',
 
-        cheapTitle: 'Куда улететь дёшево',
-        cheapDesc: 'Самые дешёвые направления прямо сейчас из выбранного города.',
+        cheapTitle: 'Куда улететь без визы',
+        cheapDesc: 'Самые дешёвые безвизовые направления прямо сейчас из выбранного города.',
         from: 'Откуда',
         fromPrice: 'от',
+
+        visaFree: 'без визы',
+        visaVoa: 'виза по прилёту',
+        visaEvisa: 'e-виза',
 
         calTitle: 'Календарь цен',
         calDesc: 'Выбери город и направление — покажем самые дешёвые даты вылета.',
@@ -39,25 +44,30 @@ export const STR = {
 
         direct: 'прямой',
         buy: 'Купить на Aviasales',
-        disclaimer: 'Цены из Travelpayouts Data API — кэшированы (не в реальном времени), обновляются автоматически. Ссылки партнёрские, бронирование на Aviasales.',
+        disclaimer: 'Цены из Travelpayouts Data API — кэшированы (не в реальном времени), обновляются автоматически. Визовые условия — справочно, уточняйте перед поездкой. Ссылки партнёрские, бронирование на Aviasales.',
     },
     en: {
-        pageTitle: 'Price Radar',
-        subtitle: 'Live flight prices — refreshed automatically. Every price links to Aviasales.',
+        pageTitle: 'Travel Radar',
+        visaTag: 'visa-free',
+        subtitle: 'Hot flights from Russia to visa-free countries — live prices, refreshed automatically. Every one links to Aviasales.',
         updated: 'updated',
         source: 'data by Travelpayouts',
         loading: 'Loading prices…',
         noData: 'Data has not loaded yet. Refresh the page in a minute.',
 
-        hotTitle: 'Hot flights',
-        hotDesc: 'Tickets noticeably below the route’s usual price.',
-        hotEmpty: 'No big drops right now — the feed refreshes every couple of hours, check back later.',
+        hotTitle: 'Hot flights abroad',
+        hotDesc: 'Tickets to visa-free countries noticeably below the route’s usual price.',
+        hotEmpty: 'No big drops to visa-free countries right now — the feed refreshes every couple of hours, check back later.',
         usually: 'usually',
 
-        cheapTitle: 'Where to fly cheap',
-        cheapDesc: 'The cheapest destinations right now from the selected city.',
+        cheapTitle: 'Where to fly visa-free',
+        cheapDesc: 'The cheapest visa-free destinations right now from the selected city.',
         from: 'From',
         fromPrice: 'from',
+
+        visaFree: 'visa-free',
+        visaVoa: 'visa on arrival',
+        visaEvisa: 'e-visa',
 
         calTitle: 'Price calendar',
         calDesc: 'Pick a city and route — we’ll show the cheapest departure dates.',
@@ -77,9 +87,16 @@ export const STR = {
 
         direct: 'direct',
         buy: 'Book on Aviasales',
-        disclaimer: 'Prices from the Travelpayouts Data API — cached (not real-time), refreshed automatically. Links are affiliate; booking on Aviasales.',
+        disclaimer: 'Prices from the Travelpayouts Data API — cached (not real-time), refreshed automatically. Visa terms are for reference — verify before travel. Links are affiliate; booking on Aviasales.',
     },
 };
+
+// Short visa-category label for the destination badge ('free' | 'voa' | 'evisa').
+export function visaShort(cat, s) {
+    if (cat === 'voa') return s.visaVoa;
+    if (cat === 'evisa') return s.visaEvisa;
+    return s.visaFree;
+}
 
 // Localized "N transfers" (RU plural-aware).
 export function transfersLabel(n, lang, s) {

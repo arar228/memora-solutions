@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MapPin, ExternalLink } from 'lucide-react';
 import { fmtPrice, fmtDates } from './helpers';
-import { transfersLabel } from './strings';
+import { transfersLabel, visaShort } from './strings';
 
 // Origin selector + cheapest destinations from the selected city.
 export default function CheapFrom({ cities, lang, s }) {
@@ -13,17 +13,18 @@ export default function CheapFrom({ cities, lang, s }) {
 
     return (
         <div>
-            <div className="radar3-chips">
-                <span className="radar3-chips__label">{s.from}:</span>
-                {withItems.map((c, i) => (
-                    <button
-                        key={c.code}
-                        className={`radar3-chip ${i === idx ? 'radar3-chip--active' : ''}`}
-                        onClick={() => setActive(i)}
-                    >
-                        {c.name?.[lang] || c.code}
-                    </button>
-                ))}
+            <div className="radar3-selectrow">
+                <label className="radar3-chips__label" htmlFor="cheap-origin">{s.from}:</label>
+                <select
+                    id="cheap-origin"
+                    className="radar3-select"
+                    value={idx}
+                    onChange={(e) => setActive(Number(e.target.value))}
+                >
+                    {withItems.map((c, i) => (
+                        <option key={c.code} value={i}>{c.name?.[lang] || c.code}</option>
+                    ))}
+                </select>
             </div>
             <div className="radar3-grid radar3-grid--cheap">
                 {(city.items || []).map((it, i) => (
@@ -38,6 +39,14 @@ export default function CheapFrom({ cities, lang, s }) {
                             <span className="radar3-dest">
                                 <MapPin size={14} aria-hidden="true" /> {it.destName?.[lang] || it.destination}
                             </span>
+                            {it.visa && (
+                                <span
+                                    className={`radar3-visa radar3-visa--${it.visa.visa}`}
+                                    title={it.visa.note?.[lang] || ''}
+                                >
+                                    {it.visa.flag} {visaShort(it.visa.visa, s)}
+                                </span>
+                            )}
                         </div>
                         <div className="radar3-price-row">
                             <span className="radar3-price-from">{s.fromPrice}</span>

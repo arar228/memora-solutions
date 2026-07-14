@@ -25,6 +25,10 @@
 import { writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+// Visa allowlist (shared with the page) — the radar only surfaces destinations
+// an RF citizen can reach without a pre-arranged visa. Domestic + visa-required
+// routes are filtered out; each kept destination carries its visa label.
+import { VISA_DESTINATIONS, isVisaTarget, visaInfo } from '../src/pages/TravelRadar3/visaDestinations.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -36,17 +40,19 @@ const MARKER = process.env.TRAVELPAYOUTS_MARKER || '748397';
 const CURRENCY = (process.env.TP_CURRENCY || 'rub').toLowerCase();
 const MARKET = (process.env.TP_MARKET || 'ru').toLowerCase();
 
-const LATEST_LIMIT = 60;       // deals to request from the global /latest
-const MIN_DISCOUNT = 0.18;     // keep hot deals >= 18% below the route median
+const LATEST_LIMIT = 200;      // deals to request from the global /latest
+const MIN_DISCOUNT = 0.15;     // keep hot deals >= 15% below the route median
 const MIN_SAMPLES = 4;         // require enough matrix points to trust the median
-const TOP_HOT = 8;             // max hot flights to publish (clean 4-col rows)
-const HOT_POOL = 45;           // cheapest candidate routes to score for "hot"
-const CHEAP_PER_CITY = 8;      // cheapest destinations per origin city
-const CAL_MAX = 40;            // max routes to build a price calendar for
+const TOP_HOT = 60;            // max hot flights to publish (show all genuinely-hot deals)
+const HOT_POOL = 140;          // cheapest candidate routes to score for "hot"
+const CHEAP_PER_CITY = 80;     // per origin: show ALL visa-free destinations the API returns (high cap = effectively uncapped)
+const CAL_MAX = 120;           // max routes to build a price calendar for
 const REQUEST_DELAY_MS = 220;  // politeness between calls (rate limits)
 const DRY_RUN = !TOKEN;
 
-// Origins for the "cheap from" explorer, and the featured calendar route.
+// RF origin cities for the "cheap from" explorer (also the candidate pool for
+// hot flights). Broad coverage — cities whose airport is closed/quiet simply
+// return no data and are dropped from the UI, so over-including is harmless.
 const ORIGINS = [
   { code: 'MOW', ru: 'Москва', en: 'Moscow' },
   { code: 'LED', ru: 'Санкт-Петербург', en: 'Saint Petersburg' },
@@ -54,27 +60,74 @@ const ORIGINS = [
   { code: 'SVX', ru: 'Екатеринбург', en: 'Yekaterinburg' },
   { code: 'KZN', ru: 'Казань', en: 'Kazan' },
   { code: 'OVB', ru: 'Новосибирск', en: 'Novosibirsk' },
+  { code: 'KJA', ru: 'Красноярск', en: 'Krasnoyarsk' },
+  { code: 'UFA', ru: 'Уфа', en: 'Ufa' },
+  { code: 'KUF', ru: 'Самара', en: 'Samara' },
+  { code: 'CEK', ru: 'Челябинск', en: 'Chelyabinsk' },
+  { code: 'PEE', ru: 'Пермь', en: 'Perm' },
+  { code: 'GOJ', ru: 'Нижний Новгород', en: 'Nizhny Novgorod' },
+  { code: 'VVO', ru: 'Владивосток', en: 'Vladivostok' },
+  { code: 'KGD', ru: 'Калининград', en: 'Kaliningrad' },
+  { code: 'MRV', ru: 'Минеральные Воды', en: 'Mineralnye Vody' },
+  { code: 'MCX', ru: 'Махачкала', en: 'Makhachkala' },
+  { code: 'TJM', ru: 'Тюмень', en: 'Tyumen' },
+  { code: 'OMS', ru: 'Омск', en: 'Omsk' },
+  { code: 'IKT', ru: 'Иркутск', en: 'Irkutsk' },
+  { code: 'SGC', ru: 'Сургут', en: 'Surgut' },
+  { code: 'KHV', ru: 'Хабаровск', en: 'Khabarovsk' },
+  { code: 'VOG', ru: 'Волгоград', en: 'Volgograd' },
+  { code: 'ROV', ru: 'Ростов-на-Дону', en: 'Rostov-on-Don' },
   { code: 'KRR', ru: 'Краснодар', en: 'Krasnodar' },
-  { code: 'ROV', ru: 'Ростов-на-Дону', en: 'Rostov' },
+  { code: 'AAQ', ru: 'Анапа', en: 'Anapa' },
+  { code: 'VOZ', ru: 'Воронеж', en: 'Voronezh' },
+  { code: 'GSV', ru: 'Саратов', en: 'Saratov' },
+  { code: 'ASF', ru: 'Астрахань', en: 'Astrakhan' },
+  { code: 'REN', ru: 'Оренбург', en: 'Orenburg' },
+  { code: 'ULV', ru: 'Ульяновск', en: 'Ulyanovsk' },
+  { code: 'NBC', ru: 'Нижнекамск', en: 'Nizhnekamsk' },
+  { code: 'CSY', ru: 'Чебоксары', en: 'Cheboksary' },
+  { code: 'IJK', ru: 'Ижевск', en: 'Izhevsk' },
+  { code: 'KVX', ru: 'Киров', en: 'Kirov' },
+  { code: 'PEZ', ru: 'Пенза', en: 'Penza' },
+  { code: 'NJC', ru: 'Нижневартовск', en: 'Nizhnevartovsk' },
+  { code: 'NUX', ru: 'Новый Уренгой', en: 'Novy Urengoy' },
+  { code: 'MQF', ru: 'Магнитогорск', en: 'Magnitogorsk' },
+  { code: 'BAX', ru: 'Барнаул', en: 'Barnaul' },
+  { code: 'TOF', ru: 'Томск', en: 'Tomsk' },
+  { code: 'KEJ', ru: 'Кемерово', en: 'Kemerovo' },
+  { code: 'ABA', ru: 'Абакан', en: 'Abakan' },
+  { code: 'UUD', ru: 'Улан-Удэ', en: 'Ulan-Ude' },
+  { code: 'HTA', ru: 'Чита', en: 'Chita' },
+  { code: 'YKS', ru: 'Якутск', en: 'Yakutsk' },
+  { code: 'UUS', ru: 'Южно-Сахалинск', en: 'Yuzhno-Sakhalinsk' },
+  { code: 'PKC', ru: 'Петропавловск-Камчатский', en: 'Petropavlovsk-Kamchatsky' },
+  { code: 'MMK', ru: 'Мурманск', en: 'Murmansk' },
+  { code: 'ARH', ru: 'Архангельск', en: 'Arkhangelsk' },
+  { code: 'NAL', ru: 'Нальчик', en: 'Nalchik' },
+  { code: 'GRV', ru: 'Грозный', en: 'Grozny' },
+  { code: 'OGZ', ru: 'Владикавказ', en: 'Vladikavkaz' },
+  { code: 'STW', ru: 'Ставрополь', en: 'Stavropol' },
 ];
-// Featured routes for the price calendar (all from Moscow → unique destinations,
-// so the selector chips read cleanly as destination names).
+// Featured routes for the price calendar (all from Moscow → unique VISA-FREE
+// destinations, so the selector chips read cleanly as destination names).
 const CALENDAR_ROUTES = [
   { origin: 'MOW', destination: 'IST' }, // Стамбул
-  { origin: 'MOW', destination: 'AER' }, // Сочи
-  { origin: 'MOW', destination: 'DXB' }, // Дубай
-  { origin: 'MOW', destination: 'EVN' }, // Ереван
-  { origin: 'MOW', destination: 'LED' }, // Санкт-Петербург
-  { origin: 'MOW', destination: 'TBS' }, // Тбилиси
   { origin: 'MOW', destination: 'AYT' }, // Анталия
+  { origin: 'MOW', destination: 'DXB' }, // Дубай
+  { origin: 'MOW', destination: 'HRG' }, // Хургада
+  { origin: 'MOW', destination: 'HKT' }, // Пхукет
+  { origin: 'MOW', destination: 'BKK' }, // Бангкок
+  { origin: 'MOW', destination: 'EVN' }, // Ереван
+  { origin: 'MOW', destination: 'TBS' }, // Тбилиси
   { origin: 'MOW', destination: 'GYD' }, // Баку
+  { origin: 'MOW', destination: 'MLE' }, // Мале
 ];
 
 // Hotels: the Hotellook price Data API is shut down, so there is NO live hotel
-// price feed. We surface hotel SEARCH links only (affiliate, marker-carrying).
-// Isolated builder + city list so this can be swapped to an active hotels
-// program later without touching the page.
-const HOTEL_CITIES = ['IST', 'AER', 'DXB', 'EVN', 'TBS', 'AYT', 'GYD', 'HKT', 'BKK', 'MLE', 'SSH', 'TAS'];
+// price feed. We surface hotel SEARCH links only (affiliate, marker-carrying)
+// for visa-free destination hubs. Isolated builder + city list so this can be
+// swapped to an active hotels program later without touching the page.
+const HOTEL_CITIES = ['IST', 'AYT', 'DXB', 'HRG', 'SSH', 'HKT', 'BKK', 'MLE', 'EVN', 'TBS', 'GYD', 'TAS'];
 
 // IATA → display name (curated; unknown codes fall back to the code).
 const CITY = {
@@ -103,7 +156,15 @@ const CITY = {
   BEG: { ru: 'Белград', en: 'Belgrade' }, MSQ: { ru: 'Минск', en: 'Minsk' },
 };
 
-const cityName = (code, lang) => (CITY[code] && CITY[code][lang]) || code;
+// RF origin display names, sourced from ORIGINS (single source of truth).
+const ORIGIN_NAME = Object.fromEntries(ORIGINS.map((o) => [o.code, { ru: o.ru, en: o.en }]));
+
+// Names resolve: visa catalog (foreign cities) → RF origins → misc CITY → code.
+const cityName = (code, lang) =>
+  (VISA_DESTINATIONS[code] && VISA_DESTINATIONS[code].city[lang])
+  || (ORIGIN_NAME[code] && ORIGIN_NAME[code][lang])
+  || (CITY[code] && CITY[code][lang])
+  || code;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -222,6 +283,9 @@ async function buildHotFlights(candidates) {
   const byRoute = new Map();
   for (const c of candidates) {
     if (!c.origin || !c.destination || c.origin === c.destination || !(c.price > 0)) continue;
+    // Only visa-free / easy-visa destinations — the whole point of the radar.
+    // (Without this the global /latest pool is dominated by cheap domestic hops.)
+    if (!isVisaTarget(c.destination)) continue;
     const key = `${c.origin}-${c.destination}`;
     if (!byRoute.has(key) || c.price < byRoute.get(key).price) byRoute.set(key, c);
   }
@@ -237,6 +301,7 @@ async function buildHotFlights(candidates) {
     scored.push({
       origin: t.origin, destination: t.destination,
       originName: localizedName(t.origin), destName: localizedName(t.destination),
+      visa: visaInfo(t.destination),
       depart_date: t.depart_date, return_date: t.return_date || null,
       price: Math.round(t.price), median: Math.round(med),
       discount: Math.round(discount * 100) / 100,
@@ -253,15 +318,17 @@ async function fetchCheapFrom(origin) {
   const json = await apiGet('/v1/city-directions', { currency: CURRENCY, origin });
   const data = json.data || {};
   const items = Object.entries(data)
+    // Keep only destinations RF citizens can enter without a pre-arranged visa.
+    .filter(([destination]) => isVisaTarget(destination) && destination !== origin)
     .map(([destination, d]) => ({
-      destination, destName: localizedName(destination),
+      destination, destName: localizedName(destination), visa: visaInfo(destination),
       price: Math.round(Number(d.price) || 0),
       transfers: d.transfers ?? null,
       depart_date: (d.departure_at || '').slice(0, 10) || null,
       return_date: (d.return_at || '').slice(0, 10) || null,
       link: aviaLink({ origin, destination, depart_date: d.departure_at, return_date: d.return_at }),
     }))
-    .filter((x) => x.price > 0 && x.destination !== origin)
+    .filter((x) => x.price > 0)
     .sort((a, b) => a.price - b.price)
     .slice(0, CHEAP_PER_CITY);
   return items;
@@ -285,7 +352,7 @@ async function fetchCalendar({ origin, destination }) {
     .map(([date, d]) => ({ date, price: Math.round(Number(d.price) || 0), transfers: d.transfers ?? null }))
     .filter((x) => x.price > 0)
     .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(0, 21);
+    .slice(0, 60);
   if (!rows.length) return null;
   const prices = rows.map((r) => r.price);
   const min = Math.min(...prices), max = Math.max(...prices);
@@ -296,6 +363,7 @@ async function fetchCalendar({ origin, destination }) {
   return {
     origin, destination,
     originName: localizedName(origin), destName: localizedName(destination),
+    visa: visaInfo(destination),
     cheapest: days.reduce((a, b) => (b.price < a.price ? b : a)),
     days,
   };
@@ -339,7 +407,7 @@ async function main() {
     //    then every cheap-from destination across all origins (deduped, capped).
     const routeSet = new Map();
     const addRoute = (o, d) => {
-      if (o && d && o !== d) routeSet.set(`${o}-${d}`, { origin: o, destination: d });
+      if (o && d && o !== d && isVisaTarget(d)) routeSet.set(`${o}-${d}`, { origin: o, destination: d });
     };
     CALENDAR_ROUTES.forEach((r) => addRoute(r.origin, r.destination));
     cheapFrom.forEach((c) => c.items.forEach((it) => addRoute(c.code, it.destination)));
@@ -369,37 +437,86 @@ async function main() {
   console.log(`\nWrote public/radar.json (${payload.hotFlights.length} hot, ${payload.cheapFrom.length} cities, ${payload.calendars.length} calendars)`);
 }
 
-// Minimal offline sample so the page renders without a token.
+// Minimal offline sample so the page renders without a token. All routes are
+// RF origin → visa-free / easy-visa destinations (mirrors the live filter).
 function SAMPLE() {
   const link = (o, d, dep, ret) => aviaLink({ origin: o, destination: d, depart_date: dep, return_date: ret });
   const nm = localizedName;
+  const hot = (o, d, dep, ret, price, median, transfers) => ({
+    origin: o, destination: d, originName: nm(o), destName: nm(d), visa: visaInfo(d),
+    depart_date: dep, return_date: ret, price, median,
+    discount: Math.round((1 - price / median) * 100) / 100, transfers, link: link(o, d, dep, ret),
+  });
+  const cheap = (o, d, dep, ret, price, transfers) => ({
+    destination: d, destName: nm(d), visa: visaInfo(d), price, transfers,
+    depart_date: dep, return_date: ret, link: link(o, d, dep, ret),
+  });
+  // Demo cheapFrom: a broad pool of visa-free destinations for every origin, so
+  // the "where to fly visa-free" explorer shows the full breadth offline. Live,
+  // /v1/city-directions returns the real per-destination cheapest and
+  // CHEAP_PER_CITY keeps them all.
+  const DEMO_ORIGINS = ['MOW', 'LED', 'SVX', 'KZN', 'OVB', 'AER', 'KRR', 'UFA'];
+  const POOL = [
+    ['EVN', 6200, 0], ['MSQ', 7800, 0], ['IST', 8900, 0], ['GYD', 9500, 0], ['TBS', 12100, 0],
+    ['BUS', 12800, 0], ['NQZ', 12200, 0], ['ALA', 13100, 0], ['AYT', 13900, 0], ['TAS', 14500, 0],
+    ['HRG', 15200, 0], ['SSH', 16900, 0], ['DXB', 18400, 1], ['BEG', 18500, 1], ['TIV', 21000, 1],
+    ['DOH', 24000, 1], ['TUN', 27000, 1], ['PEK', 29000, 1], ['CMN', 31000, 1], ['BKK', 33000, 1],
+    ['HKT', 34500, 1], ['SYX', 36000, 1], ['CMB', 38000, 1], ['MLE', 41000, 1], ['ZNZ', 44000, 1],
+    ['HAV', 58000, 1], ['PUJ', 62000, 1],
+  ];
+  const DATES = [
+    ['2026-08-14', '2026-08-24'], ['2026-09-03', '2026-09-13'], ['2026-09-28', '2026-10-08'],
+    ['2026-10-10', '2026-10-20'], ['2026-11-05', '2026-11-19'],
+  ];
+  const cheapFrom = DEMO_ORIGINS.map((o, oi) => ({
+    code: o, name: nm(o),
+    items: POOL
+      .filter(([d]) => d !== o)
+      .map(([d, base, tr], di) => {
+        const [dep, ret] = DATES[di % DATES.length];
+        return cheap(o, d, dep, ret, base + oi * 850 + di * 40, tr);
+      })
+      .sort((a, b) => a.price - b.price),
+  }));
+  // Demo hot flights: many discounted deals across origins/destinations, sorted
+  // by discount (live, buildHotFlights scores the real candidate pool).
+  const HOT = [
+    ['MOW', 'IST', 8900, 14300, 0], ['LED', 'AYT', 12900, 19800, 0], ['LED', 'HKT', 34500, 46000, 1],
+    ['MOW', 'HRG', 15200, 21000, 0], ['LED', 'EVN', 9800, 13500, 0], ['MOW', 'DXB', 18400, 25600, 1],
+    ['SVX', 'AYT', 14900, 21500, 0], ['KZN', 'IST', 11800, 16900, 0], ['OVB', 'BKK', 28900, 39000, 0],
+    ['MOW', 'SSH', 16900, 23800, 0], ['KRR', 'GYD', 11100, 15600, 0], ['UFA', 'DXB', 20200, 27800, 1],
+    ['MOW', 'TBS', 10200, 14100, 0], ['LED', 'TIV', 21000, 28500, 1], ['SVX', 'HKT', 32500, 44000, 1],
+    ['MOW', 'MLE', 41000, 55000, 1], ['KZN', 'SSH', 16900, 23000, 0], ['AER', 'IST', 9900, 13800, 0],
+    ['MOW', 'DOH', 24000, 32500, 1], ['LED', 'DXB', 21000, 28000, 1], ['OVB', 'HKT', 31200, 42000, 1],
+    ['MOW', 'ZNZ', 44000, 58000, 1], ['KRR', 'AYT', 12400, 17200, 0], ['MOW', 'PEK', 29000, 38500, 1],
+  ];
+  const hotFlights = HOT
+    .map(([o, d, price, median, tr], i) => {
+      const [dep, ret] = DATES[i % DATES.length];
+      return hot(o, d, dep, ret, price, median, tr);
+    })
+    .sort((a, b) => b.discount - a.discount);
+  // Demo calendars: 30-day heatmaps for a few routes across origins.
+  const mkCal = (o, d, base) => {
+    const start = new Date('2026-08-03').getTime();
+    const raw = [];
+    for (let i = 0; i < 30; i++) {
+      const date = new Date(start + i * 864e5).toISOString().slice(0, 10);
+      const price = Math.round(base * (1 + 0.32 * Math.sin(i / 2.3)) + (i % 7 === 0 ? base * 0.12 : 0));
+      raw.push({ date, price, transfers: i % 3 === 0 ? 0 : 1 });
+    }
+    const prices = raw.map((r) => r.price);
+    const min = Math.min(...prices), max = Math.max(...prices);
+    const days = raw.map((r) => ({ ...r, level: priceLevel(r.price, min, max), link: link(o, d, r.date) }));
+    const cheapest = days.reduce((a, b) => (b.price < a.price ? b : a));
+    return { origin: o, destination: d, originName: nm(o), destName: nm(d), visa: visaInfo(d), cheapest, days };
+  };
+  const calendars = [mkCal('MOW', 'IST', 9500), mkCal('LED', 'AYT', 13500), mkCal('MOW', 'DXB', 19000)];
   return {
     updatedAt: new Date().toISOString(), source: 'sample', market: MARKET, currency: CURRENCY, marker: MARKER,
-    hotFlights: [
-      { origin: 'AER', destination: 'MRV', originName: nm('AER'), destName: nm('MRV'), depart_date: '2026-07-17', return_date: '2026-07-18', price: 4787, median: 6415, discount: 0.25, transfers: 0, link: link('AER', 'MRV', '2026-07-17', '2026-07-18') },
-      { origin: 'MOW', destination: 'IST', originName: nm('MOW'), destName: nm('IST'), depart_date: '2026-08-14', return_date: '2026-08-24', price: 8900, median: 14300, discount: 0.38, transfers: 0, link: link('MOW', 'IST', '2026-08-14', '2026-08-24') },
-      { origin: 'MOW', destination: 'DXB', originName: nm('MOW'), destName: nm('DXB'), depart_date: '2026-09-03', return_date: '2026-09-13', price: 18400, median: 25600, discount: 0.28, transfers: 1, link: link('MOW', 'DXB', '2026-09-03', '2026-09-13') },
-    ],
-    cheapFrom: [
-      { code: 'MOW', name: { ru: 'Москва', en: 'Moscow' }, items: [
-        { destination: 'EVN', destName: nm('EVN'), price: 6200, transfers: 0, depart_date: '2026-09-28', return_date: '2026-10-11', link: link('MOW', 'EVN', '2026-09-28', '2026-10-11') },
-        { destination: 'IST', destName: nm('IST'), price: 8900, transfers: 0, depart_date: '2026-08-14', return_date: '2026-08-24', link: link('MOW', 'IST', '2026-08-14', '2026-08-24') },
-        { destination: 'DXB', destName: nm('DXB'), price: 18400, transfers: 1, depart_date: '2026-09-03', return_date: '2026-09-13', link: link('MOW', 'DXB', '2026-09-03', '2026-09-13') },
-      ] },
-    ],
-    calendars: [{
-      origin: 'MOW', destination: 'IST', originName: nm('MOW'), destName: nm('IST'),
-      cheapest: { date: '2026-08-18', price: 8900, level: 'cheap', link: link('MOW', 'IST', '2026-08-18') },
-      days: [
-        { date: '2026-08-15', price: 12300, transfers: 0, level: 'expensive', link: link('MOW', 'IST', '2026-08-15') },
-        { date: '2026-08-16', price: 11800, transfers: 0, level: 'expensive', link: link('MOW', 'IST', '2026-08-16') },
-        { date: '2026-08-17', price: 9200, transfers: 1, level: 'mid', link: link('MOW', 'IST', '2026-08-17') },
-        { date: '2026-08-18', price: 8900, transfers: 0, level: 'cheap', link: link('MOW', 'IST', '2026-08-18') },
-        { date: '2026-08-19', price: 9400, transfers: 1, level: 'mid', link: link('MOW', 'IST', '2026-08-19') },
-        { date: '2026-08-20', price: 10200, transfers: 1, level: 'mid', link: link('MOW', 'IST', '2026-08-20') },
-        { date: '2026-08-21', price: 13100, transfers: 0, level: 'expensive', link: link('MOW', 'IST', '2026-08-21') },
-      ],
-    }],
+    hotFlights,
+    cheapFrom,
+    calendars,
   };
 }
 

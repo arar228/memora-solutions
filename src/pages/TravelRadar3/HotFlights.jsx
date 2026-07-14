@@ -1,6 +1,6 @@
 import { Flame, ArrowRight, ExternalLink } from 'lucide-react';
 import { fmtPrice, fmtDates, pct } from './helpers';
-import { transfersLabel } from './strings';
+import { transfersLabel, visaShort } from './strings';
 
 // Cheapest recent tickets, scored by discount vs the route median.
 export default function HotFlights({ items, lang, s }) {
@@ -31,6 +31,14 @@ export default function HotFlights({ items, lang, s }) {
                         <span className="radar3-price">{fmtPrice(f.price, lang)}</span>
                         <span className="radar3-price-old">{s.usually} {fmtPrice(f.median, lang)}</span>
                     </div>
+                    {f.visa && (
+                        <span
+                            className={`radar3-visa radar3-visa--${f.visa.visa}`}
+                            title={f.visa.note?.[lang] || ''}
+                        >
+                            {f.visa.flag} {visaShort(f.visa.visa, s)}
+                        </span>
+                    )}
                     <div className="radar3-meta">
                         {fmtDates(f.depart_date, f.return_date)} · {transfersLabel(f.transfers, lang, s)}
                     </div>

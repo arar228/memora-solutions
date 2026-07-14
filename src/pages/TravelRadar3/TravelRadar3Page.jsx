@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefreshCw, Radar, Flame, MapPin, Calendar, Compass, Hotel } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import { STR } from './strings';
+import { isVisaTarget, visaInfo } from './visaDestinations';
 import HotFlights from './HotFlights';
 import CheapFrom from './CheapFrom';
 import PriceCalendar from './PriceCalendar';
@@ -38,6 +39,29 @@ export default function TravelRadar3Page() {
         return () => { cancelled = true; };
     }, []);
 
+    // Safety filter: keep ONLY visa-free / easy-visa destinations for RF
+    // citizens and attach each destination's visa label. Runs over whatever the
+    // feed contains, so the radar is correct even before the next cron rebuild.
+    const view = useMemo(() => {
+        if (!data) return null;
+        const tag = (o, dest) => ({ ...o, visa: o.visa || visaInfo(dest) });
+        const hotFlights = (data.hotFlights || [])
+            .filter((f) => isVisaTarget(f.destination))
+            .map((f) => tag(f, f.destination));
+        const cheapFrom = (data.cheapFrom || [])
+            .map((c) => ({
+                ...c,
+                items: (c.items || [])
+                    .filter((it) => isVisaTarget(it.destination))
+                    .map((it) => tag(it, it.destination)),
+            }))
+            .filter((c) => c.items.length > 0);
+        const calendars = (data.calendars || [])
+            .filter((c) => isVisaTarget(c.destination))
+            .map((c) => tag(c, c.destination));
+        return { hotFlights, cheapFrom, calendars };
+    }, [data]);
+
     const updated = data?.updatedAt ? new Date(data.updatedAt) : null;
     const updatedLabel = updated && !Number.isNaN(updated.getTime())
         ? updated.toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US', {
@@ -52,7 +76,7 @@ export default function TravelRadar3Page() {
                     <div className="radar3-header">
                         <h1>
                             <Radar size={26} aria-hidden="true" /> {s.pageTitle}
-                            <span className="radar3-badge3">3.0</span>
+                            <span className="radar3-badge3">🌍 {s.visaTag}</span>
                         </h1>
                         <p className="radar3-sub">{s.subtitle}</p>
                         <p className="radar3-metaline">
@@ -77,7 +101,7 @@ export default function TravelRadar3Page() {
                                     <h2>{s.hotTitle}</h2>
                                 </div>
                                 <p className="radar3-sec-desc">{s.hotDesc}</p>
-                                <HotFlights items={data.hotFlights} lang={lang} s={s} />
+                                <HotFlights items={view.hotFlights} lang={lang} s={s} />
                             </section>
                         </AnimatedSection>
 
@@ -88,11 +112,11 @@ export default function TravelRadar3Page() {
                                     <h2>{s.cheapTitle}</h2>
                                 </div>
                                 <p className="radar3-sec-desc">{s.cheapDesc}</p>
-                                <CheapFrom cities={data.cheapFrom} lang={lang} s={s} />
+                                <CheapFrom cities={view.cheapFrom} lang={lang} s={s} />
                             </section>
                         </AnimatedSection>
 
-                        {data.calendars && data.calendars.length > 0 && (
+                        {view.calendars && view.calendars.length > 0 && (
                             <AnimatedSection delay={0.05}>
                                 <section className="radar3-panel">
                                     <div className="radar3-sec-head">
@@ -100,7 +124,7 @@ export default function TravelRadar3Page() {
                                         <h2>{s.calTitle}</h2>
                                     </div>
                                     <p className="radar3-sec-desc">{s.calDesc}</p>
-                                    <PriceCalendar calendars={data.calendars} lang={lang} s={s} />
+                                    <PriceCalendar calendars={view.calendars} lang={lang} s={s} />
                                 </section>
                             </AnimatedSection>
                         )}

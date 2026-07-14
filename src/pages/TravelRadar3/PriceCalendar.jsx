@@ -27,17 +27,18 @@ export default function PriceCalendar({ calendars, lang, s }) {
     return (
         <div>
             {origins.length > 1 && (
-                <div className="radar3-chips">
-                    <span className="radar3-chips__label">{s.from}:</span>
-                    {origins.map((o) => (
-                        <button
-                            key={o.code}
-                            className={`radar3-chip ${o.code === activeOrigin ? 'radar3-chip--active' : ''}`}
-                            onClick={() => { setOriginCode(o.code); setDestCode(null); }}
-                        >
-                            {o.name?.[lang] || o.code}
-                        </button>
-                    ))}
+                <div className="radar3-selectrow">
+                    <label className="radar3-chips__label" htmlFor="cal-origin">{s.from}:</label>
+                    <select
+                        id="cal-origin"
+                        className="radar3-select"
+                        value={activeOrigin || ''}
+                        onChange={(e) => { setOriginCode(e.target.value); setDestCode(null); }}
+                    >
+                        {origins.map((o) => (
+                            <option key={o.code} value={o.code}>{o.name?.[lang] || o.code}</option>
+                        ))}
+                    </select>
                 </div>
             )}
 

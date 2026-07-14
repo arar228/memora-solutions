@@ -8,7 +8,7 @@ import './Header.css';
 // Top-level links shown before / after the Products dropdown.
 const LINKS_BEFORE = [
     { to: '/', key: 'home' },
-    { to: '/travel-radar', key: 'travelRadar' },
+    { to: '/travel-radar-3', key: 'travelRadar' },
 ];
 const LINKS_AFTER = [
     { to: '/kanban', key: 'kanban' },
@@ -17,13 +17,8 @@ const LINKS_AFTER = [
 ];
 // Grouped under the "Products" dropdown.
 const PRODUCTS = [
-    { to: '/travel-radar', key: 'travelRadar' },
-    // Travel Radar v2.0 (Concierge) — experimental; inline label keeps it self-
-    // contained. Rollback: remove this one line (+ the route + the v2 folder).
-    { to: '/travel-radar-v2', label: { ru: 'Радар Путешествий v2.0', en: 'Travel Radar v2.0' } },
-    // Travel Radar 3.0 (live price radar) — experimental; rollback: remove this
-    // one line (+ the route + the TravelRadar3 folder).
-    { to: '/travel-radar-3', label: { ru: 'Радар Путешествий 3.0', en: 'Travel Radar 3.0' } },
+    // The live price radar — formerly "3.0"; now the only Travel Radar.
+    { to: '/travel-radar-3', key: 'travelRadar' },
     { to: '/wallet', key: 'wallet' },
     { to: '/bday-bot', key: 'bdayBot' },
     { to: '/pomodoro', key: 'pomodoro' },

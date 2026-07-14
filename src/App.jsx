@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from './shared/Header';
 import Footer from './shared/Footer';
@@ -11,11 +11,8 @@ import lazyWithRetry from './shared/lazyWithRetry';
 
 // Lazy-loaded pages — wrapped to recover from stale-chunk errors after deploys.
 const HomePage = lazyWithRetry(() => import('./pages/Home'));
-const TravelRadarPage = lazyWithRetry(() => import('./pages/TravelRadar'));
-// --- Travel Radar v2.0 (Concierge) — parallel/experimental; remove this line + the route below + src/pages/TravelRadarV2 to roll back ---
-const TravelRadarV2Page = lazyWithRetry(() => import('./pages/TravelRadarV2'));
-const ConciergeOperatorPage = lazyWithRetry(() => import('./pages/TravelRadarV2/OperatorPage'));
-// --- Travel Radar 3.0 (live price radar) — parallel/experimental; remove this line + the route below + src/pages/TravelRadar3 to roll back ---
+// Travel Radar — the live price radar (formerly "3.0"). It replaced the retired
+// v1 and v2 (Concierge) radars; their legacy URLs redirect here (see routes).
 const TravelRadar3Page = lazyWithRetry(() => import('./pages/TravelRadar3'));
 const WalletPage = lazyWithRetry(() => import('./pages/Wallet'));
 const BdayBotPage = lazyWithRetry(() => import('./pages/BdayBot'));
@@ -48,10 +45,10 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
-        <Route path="/travel-radar" element={<PageTransition><TravelRadarPage /></PageTransition>} />
-        <Route path="/travel-radar-v2" element={<PageTransition><TravelRadarV2Page /></PageTransition>} />{/* v2.0 concierge — rollback: delete this line */}
-        <Route path="/travel-radar-v2/operator" element={<PageTransition><ConciergeOperatorPage /></PageTransition>} />{/* v2.0 operator workplace */}
-        <Route path="/travel-radar-3" element={<PageTransition><TravelRadar3Page /></PageTransition>} />{/* v3.0 live price radar — rollback: delete this line */}
+        <Route path="/travel-radar-3" element={<PageTransition><TravelRadar3Page /></PageTransition>} />
+        {/* Retired radars (v1 + v2 Concierge) — redirect any legacy URL to the current radar. */}
+        <Route path="/travel-radar" element={<Navigate to="/travel-radar-3" replace />} />
+        <Route path="/travel-radar-v2/*" element={<Navigate to="/travel-radar-3" replace />} />
         <Route path="/wallet" element={<PageTransition><WalletPage /></PageTransition>} />
         <Route path="/bday-bot" element={<PageTransition><BdayBotPage /></PageTransition>} />
         <Route path="/kanban" element={<PageTransition><KanbanPage /></PageTransition>} />

@@ -50,4 +50,12 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/radar.json
           git commit -m "chore(radar): refresh price radar [skip ci]"
-          git push
+          # Other feed crons push to master too; rebase + retry so a concurrent
+          # push doesn't fail this run with a non-fast-forward rejection.
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "push attempt $i rejected (concurrent update) — rebasing and retrying"
+            sleep $((RANDOM % 5 + 3))
+          done
+          echo "failed to push radar feed after 5 attempts" >&2
+          exit 1

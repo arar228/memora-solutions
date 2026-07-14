@@ -208,7 +208,8 @@ function aviaLink({ origin, destination, depart_date, return_date }) {
   let path = origin + ddmm(depart_date) + destination;
   if (return_date) path += ddmm(return_date);
   path += '1'; // 1 adult
-  const u = new URL('https://www.aviasales.com/search/' + path);
+  // .ru — the Russian Aviasales site (RF market, ₽); marker still attributes.
+  const u = new URL('https://www.aviasales.ru/search/' + path);
   if (MARKER) u.searchParams.set('marker', MARKER);
   u.searchParams.set('currency', CURRENCY);
   return u.toString();

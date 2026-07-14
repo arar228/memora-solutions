@@ -97,13 +97,14 @@ function median(nums) {
   return n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2;
 }
 
-// ---- 4. affiliate deep link (aviasales.com search) ----
+// ---- 4. affiliate deep link (aviasales.ru search) ----
 function deepLink(deal) {
   const ddmm = (s) => (s && s.length >= 10 ? s.slice(8, 10) + s.slice(5, 7) : '');
   let path = deal.origin + ddmm(deal.depart_date) + deal.destination;
   if (deal.return_date) path += ddmm(deal.return_date);
   path += '1'; // 1 adult
-  const u = new URL('https://www.aviasales.com/search/' + path);
+  // .ru — the Russian Aviasales site (RF market, ₽); marker still attributes.
+  const u = new URL('https://www.aviasales.ru/search/' + path);
   if (MARKER) u.searchParams.set('marker', MARKER);
   u.searchParams.set('currency', CURRENCY);
   return u.toString();

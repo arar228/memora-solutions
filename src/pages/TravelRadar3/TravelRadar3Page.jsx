@@ -5,7 +5,7 @@ import AnimatedSection from '../../shared/AnimatedSection';
 import { STR } from './strings';
 import { isVisaTarget, visaInfo } from './visaDestinations';
 import HotFlights from './HotFlights';
-import CheapFrom from './CheapFrom';
+import Explorer from './Explorer';
 import PriceCalendar from './PriceCalendar';
 import Partners from './Partners';
 import WidgetEmbed from './WidgetEmbed';
@@ -112,7 +112,7 @@ export default function TravelRadar3Page() {
                                     <h2>{s.cheapTitle}</h2>
                                 </div>
                                 <p className="radar3-sec-desc">{s.cheapDesc}</p>
-                                <CheapFrom cities={view.cheapFrom} lang={lang} s={s} />
+                                <Explorer cities={view.cheapFrom} lang={lang} s={s} />
                             </section>
                         </AnimatedSection>
 

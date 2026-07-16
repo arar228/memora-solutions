@@ -19,9 +19,11 @@ export default function HotFlights({ items, lang, s }) {
                 >
                     <div className="radar3-card__top">
                         <span className="radar3-route">
-                            {f.originName?.[lang] || f.origin}
-                            <ArrowRight size={14} aria-hidden="true" />
-                            {f.destName?.[lang] || f.destination}
+                            <span className="radar3-route__from">
+                                {f.originName?.[lang] || f.origin}
+                                <ArrowRight size={13} aria-hidden="true" />
+                            </span>
+                            <span className="radar3-route__to">{f.destName?.[lang] || f.destination}</span>
                         </span>
                         <span className="radar3-badge radar3-badge--hot">
                             <Flame size={12} aria-hidden="true" /> −{pct(f.discount)}%

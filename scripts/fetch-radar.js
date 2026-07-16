@@ -41,13 +41,16 @@ const CURRENCY = (process.env.TP_CURRENCY || 'rub').toLowerCase();
 const MARKET = (process.env.TP_MARKET || 'ru').toLowerCase();
 
 const LATEST_LIMIT = 200;      // deals to request from the global /latest
-const MIN_DISCOUNT = 0.15;     // keep hot deals >= 15% below the route median
-const MIN_SAMPLES = 4;         // require enough matrix points to trust the median
-const TOP_HOT = 60;            // max hot flights to publish (show all genuinely-hot deals)
-const HOT_POOL = 140;          // cheapest candidate routes to score for "hot"
+const MIN_DISCOUNT = 0.05;     // show anything >= 5% below the route median (sorted best-first)
+const MIN_SAMPLES = 3;         // require enough matrix points to trust the median
+const TOP_HOT = 120;           // max "best value" flights to publish (lots of data)
+const HOT_POOL = 500;          // max routes to score (parallel, see per-origin selection)
+const CANDIDATES_PER_ORIGIN = 12; // cheapest visa routes scored PER origin — so each
+                                 // city's own leisure deals get a fair chance, not just
+                                 // the globally-cheapest CIS hops
 const CHEAP_PER_CITY = 80;     // per origin: show ALL visa-free destinations the API returns (high cap = effectively uncapped)
 const CAL_MAX = 120;           // max routes to build a price calendar for
-const REQUEST_DELAY_MS = 220;  // politeness between calls (rate limits)
+const CONCURRENCY = 8;         // parallel API requests in flight (apiGet retries 429/5xx)
 const DRY_RUN = !TOKEN;
 
 // RF origin cities for the "cheap from" explorer (also the candidate pool for
@@ -108,6 +111,8 @@ const ORIGINS = [
   { code: 'OGZ', ru: 'Владикавказ', en: 'Vladikavkaz' },
   { code: 'STW', ru: 'Ставрополь', en: 'Stavropol' },
 ];
+// Hot flights must depart FROM Russia — restrict candidate origins to our list.
+const ORIGIN_SET = new Set(ORIGINS.map((o) => o.code));
 // Featured routes for the price calendar (all from Moscow → unique VISA-FREE
 // destinations, so the selector chips read cleanly as destination names).
 const CALENDAR_ROUTES = [
@@ -167,6 +172,22 @@ const cityName = (code, lang) =>
   || code;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Run fn over items with at most `concurrency` requests in flight. Preserves
+// input order in the result. Lets us fetch far more data in the same wall-clock
+// time than a sequential loop with per-call delays.
+async function mapPool(items, concurrency, fn) {
+  const results = new Array(items.length);
+  let next = 0;
+  async function worker() {
+    while (next < items.length) {
+      const i = next++;
+      results[i] = await fn(items[i], i);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, worker));
+  return results;
+}
 
 async function apiGet(path, params, attempt = 1) {
   const url = new URL(API + path);
@@ -284,22 +305,33 @@ async function buildHotFlights(candidates) {
   const byRoute = new Map();
   for (const c of candidates) {
     if (!c.origin || !c.destination || c.origin === c.destination || !(c.price > 0)) continue;
-    // Only visa-free / easy-visa destinations — the whole point of the radar.
-    // (Without this the global /latest pool is dominated by cheap domestic hops.)
-    if (!isVisaTarget(c.destination)) continue;
+    if (!ORIGIN_SET.has(c.origin)) continue;    // must depart FROM Russia
+    if (!isVisaTarget(c.destination)) continue; // visa-free destination only
     const key = `${c.origin}-${c.destination}`;
     if (!byRoute.has(key) || c.price < byRoute.get(key).price) byRoute.set(key, c);
   }
-  const pool = [...byRoute.values()].sort((a, b) => a.price - b.price).slice(0, HOT_POOL);
+  // Select candidates PER ORIGIN (cheapest N each), NOT globally cheapest — so
+  // every city's own leisure routes (Turkey/Egypt/UAE/Thailand) reach the median
+  // scoring. Global cheapest would only ever be short CIS hops that are cheap but
+  // never discounted, which is why the feed showed almost no hot flights.
+  const byOrigin = new Map();
+  for (const c of byRoute.values()) {
+    if (!byOrigin.has(c.origin)) byOrigin.set(c.origin, []);
+    byOrigin.get(c.origin).push(c);
+  }
+  let pool = [];
+  for (const arr of byOrigin.values()) {
+    arr.sort((a, b) => a.price - b.price);
+    pool.push(...arr.slice(0, CANDIDATES_PER_ORIGIN));
+  }
+  pool = pool.slice(0, HOT_POOL);
 
-  const scored = [];
-  for (const t of pool) {
+  const scoredRaw = await mapPool(pool, CONCURRENCY, async (t) => {
     const { median: med, samples } = await routeMedian(t.origin, t.destination);
-    await sleep(REQUEST_DELAY_MS);
-    if (!med || samples < MIN_SAMPLES) continue;
+    if (!med || samples < MIN_SAMPLES) return null;
     const discount = (med - t.price) / med;
-    if (discount < MIN_DISCOUNT) continue;
-    scored.push({
+    if (discount < MIN_DISCOUNT) return null;
+    return {
       origin: t.origin, destination: t.destination,
       originName: localizedName(t.origin), destName: localizedName(t.destination),
       visa: visaInfo(t.destination),
@@ -308,31 +340,53 @@ async function buildHotFlights(candidates) {
       discount: Math.round(discount * 100) / 100,
       transfers: t.transfers ?? null,
       link: aviaLink(t),
-    });
-  }
+    };
+  });
+  const scored = scoredRaw.filter(Boolean);
   scored.sort((a, b) => b.discount - a.discount);
   return scored.slice(0, TOP_HOT);
 }
 
-// ---- 2. cheap destinations from an origin city ----
+// ---- 2. destinations from an origin city ----
+// Merge TWO sources so the explorer has as many visa-free destinations as the
+// API can give (not just the ~10-15 from city-directions):
+//   /v1/city-directions        — cheapest ticket per destination
+//   /v2/prices/latest?origin=X  — many more recent cheap tickets (more places/dates)
+// Dedup by destination keeping the cheapest; visa-free only.
 async function fetchCheapFrom(origin) {
-  const json = await apiGet('/v1/city-directions', { currency: CURRENCY, origin });
-  const data = json.data || {};
-  const items = Object.entries(data)
-    // Keep only destinations RF citizens can enter without a pre-arranged visa.
-    .filter(([destination]) => isVisaTarget(destination) && destination !== origin)
-    .map(([destination, d]) => ({
-      destination, destName: localizedName(destination), visa: visaInfo(destination),
-      price: Math.round(Number(d.price) || 0),
-      transfers: d.transfers ?? null,
-      depart_date: (d.departure_at || '').slice(0, 10) || null,
-      return_date: (d.return_at || '').slice(0, 10) || null,
-      link: aviaLink({ origin, destination, depart_date: d.departure_at, return_date: d.return_at }),
-    }))
-    .filter((x) => x.price > 0)
-    .sort((a, b) => a.price - b.price)
-    .slice(0, CHEAP_PER_CITY);
-  return items;
+  const byDest = new Map();
+  const add = (destination, price, dep, ret, transfers) => {
+    if (!isVisaTarget(destination) || destination === origin || !(price > 0)) return;
+    const p = Math.round(price);
+    const cur = byDest.get(destination);
+    if (!cur || p < cur.price) {
+      byDest.set(destination, {
+        destination, destName: localizedName(destination), visa: visaInfo(destination),
+        price: p, transfers: transfers ?? null,
+        depart_date: (dep || '').slice(0, 10) || null,
+        return_date: (ret || '').slice(0, 10) || null,
+        link: aviaLink({ origin, destination, depart_date: dep, return_date: ret }),
+      });
+    }
+  };
+
+  try {
+    const json = await apiGet('/v1/city-directions', { currency: CURRENCY, origin });
+    for (const [dest, d] of Object.entries(json.data || {})) {
+      add(dest, Number(d.price) || 0, d.departure_at, d.return_at, d.transfers);
+    }
+  } catch (e) { console.warn(`[skip city-directions] ${origin}: ${e.message}`); }
+  try {
+    const json = await apiGet('/v2/prices/latest', {
+      currency: CURRENCY, origin, period_type: 'year', sorting: 'price',
+      limit: 500, show_to_affiliates: true, market: MARKET, one_way: false,
+    });
+    for (const t of (Array.isArray(json.data) ? json.data : [])) {
+      add(t.destination, Number(t.value) || 0, t.depart_date, t.return_date, t.number_of_changes);
+    }
+  } catch (e) { console.warn(`[skip latest] ${origin}: ${e.message}`); }
+
+  return [...byDest.values()].sort((a, b) => a.price - b.price).slice(0, CHEAP_PER_CITY);
 }
 
 // ---- 3. price calendar for a featured route ----
@@ -377,18 +431,18 @@ async function main() {
   if (DRY_RUN) {
     payload = SAMPLE();
   } else {
-    // 1. cheap destinations per origin (also the candidate pool for hot flights)
-    const cheapFrom = [];
-    for (const o of ORIGINS) {
+    // 1. destinations per origin (also the candidate pool for hot flights) — parallel
+    const cheapFromRaw = await mapPool(ORIGINS, CONCURRENCY, async (o) => {
       try {
         const items = await fetchCheapFrom(o.code);
-        if (items.length) cheapFrom.push({ code: o.code, name: { ru: o.ru, en: o.en }, items });
         console.log(`cheapFrom ${o.code}: ${items.length}`);
+        return items.length ? { code: o.code, name: { ru: o.ru, en: o.en }, items } : null;
       } catch (e) {
         console.warn(`[skip cheapFrom] ${o.code}: ${e.message}`);
+        return null;
       }
-      await sleep(REQUEST_DELAY_MS);
-    }
+    });
+    const cheapFrom = cheapFromRaw.filter(Boolean);
 
     // 2. hot flights = global /latest + every cheap-from item, scored vs median
     let globalLatest = [];
@@ -414,16 +468,16 @@ async function main() {
     cheapFrom.forEach((c) => c.items.forEach((it) => addRoute(c.code, it.destination)));
     const routes = [...routeSet.values()].slice(0, CAL_MAX);
 
-    const calendars = [];
-    for (const r of routes) {
+    const calRaw = await mapPool(routes, CONCURRENCY, async (r) => {
       try {
         const cal = await fetchCalendar(r);
-        if (cal && cal.days.length >= 5) calendars.push(cal);
+        return (cal && cal.days.length >= 5) ? cal : null;
       } catch (e) {
         console.warn(`[skip calendar] ${r.origin}-${r.destination}: ${e.message}`);
+        return null;
       }
-      await sleep(REQUEST_DELAY_MS);
-    }
+    });
+    const calendars = calRaw.filter(Boolean);
     console.log(`calendars: ${calendars.length} routes (from ${routes.length} tried)`);
 
     payload = {

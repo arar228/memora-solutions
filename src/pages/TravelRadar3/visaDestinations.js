@@ -143,7 +143,69 @@ const COUNTRIES = [
     ] },
 ];
 
-// Flatten to { IATA: { code, country, city:{ru,en}, flag, visa, note } }.
+// --- Region + trip-type tagging (powers the destination explorer filters) ---
+// Region is per-country; trip "vibe" is per-country with a few per-city
+// overrides (e.g. Istanbul is a city break, Antalya is a beach).
+const REGION_BY_COUNTRY = {
+    // CIS
+    Armenia: 'cis', Georgia: 'cis', Azerbaijan: 'cis', Kazakhstan: 'cis',
+    Uzbekistan: 'cis', Kyrgyzstan: 'cis', Belarus: 'cis', Moldova: 'cis',
+    // Europe
+    Turkey: 'europe', Serbia: 'europe', Montenegro: 'europe',
+    // Middle East
+    UAE: 'me', Qatar: 'me', Bahrain: 'me', Oman: 'me', Jordan: 'me', 'Saudi Arabia': 'me',
+    // Asia
+    Thailand: 'asia', China: 'asia', Vietnam: 'asia', 'Sri Lanka': 'asia', Maldives: 'asia',
+    Indonesia: 'asia', Cambodia: 'asia', Laos: 'asia', Nepal: 'asia', Myanmar: 'asia', Mongolia: 'asia',
+    // Africa
+    Egypt: 'africa', Tunisia: 'africa', Morocco: 'africa', Tanzania: 'africa', Kenya: 'africa',
+    Seychelles: 'africa', Mauritius: 'africa',
+    // Americas
+    Cuba: 'america', 'Dominican Rep.': 'america',
+};
+const TYPE_BY_COUNTRY = {
+    Turkey: 'beach', UAE: 'city', Thailand: 'beach', Egypt: 'beach', Armenia: 'city', Georgia: 'city',
+    Azerbaijan: 'city', Kazakhstan: 'city', Uzbekistan: 'city', Kyrgyzstan: 'nature', Belarus: 'city',
+    Moldova: 'city', Serbia: 'city', Montenegro: 'beach', Maldives: 'beach', China: 'city', Qatar: 'city',
+    Morocco: 'city', Tunisia: 'beach', Cuba: 'beach', 'Dominican Rep.': 'beach', Seychelles: 'beach',
+    Mauritius: 'beach', Myanmar: 'city', Mongolia: 'nature', 'Saudi Arabia': 'city', Indonesia: 'beach',
+    'Sri Lanka': 'beach', Jordan: 'city', Oman: 'city', Tanzania: 'beach', Kenya: 'nature', Nepal: 'nature',
+    Cambodia: 'city', Laos: 'nature', Bahrain: 'city', Vietnam: 'beach',
+};
+// Per-city vibe overrides where a city differs from its country's default.
+const TYPE_BY_CITY = {
+    IST: 'city', SAW: 'city', ADB: 'city', ESB: 'city', TZX: 'city', // Turkey city breaks
+    CAI: 'city',           // Egypt — Cairo
+    BUS: 'beach',          // Georgia — Batumi
+    SYX: 'beach',          // China — Sanya
+    AGA: 'beach',          // Morocco — Agadir
+    BKK: 'city', DMK: 'city', CNX: 'city', // Thailand cities
+    CGK: 'city',           // Indonesia — Jakarta
+    HAN: 'city', SGN: 'city', // Vietnam cities
+    DAR: 'city', JRO: 'nature', // Tanzania
+    MBA: 'beach',          // Kenya — Mombasa
+    CMB: 'city',           // Sri Lanka — Colombo
+    SCO: 'beach',          // Kazakhstan — Aktau (Caspian)
+    TGD: 'city',           // Montenegro — Podgorica
+};
+
+// Region filter metadata (order = chip order).
+export const REGIONS = [
+    { key: 'cis', ru: 'СНГ', en: 'CIS' },
+    { key: 'europe', ru: 'Европа', en: 'Europe' },
+    { key: 'me', ru: 'Ближний Восток', en: 'Middle East' },
+    { key: 'asia', ru: 'Азия', en: 'Asia' },
+    { key: 'africa', ru: 'Африка', en: 'Africa' },
+    { key: 'america', ru: 'Америка', en: 'Americas' },
+];
+// Trip-type filter metadata.
+export const TRIP_TYPES = [
+    { key: 'beach', ru: 'Пляж', en: 'Beach', emoji: '🏖' },
+    { key: 'city', ru: 'Города', en: 'Cities', emoji: '🏙' },
+    { key: 'nature', ru: 'Природа', en: 'Nature', emoji: '⛰' },
+];
+
+// Flatten to { IATA: { code, country, city:{ru,en}, flag, visa, note, region, type } }.
 export const VISA_DESTINATIONS = {};
 for (const c of COUNTRIES) {
     for (const [code, ru, en, override] of c.cities) {
@@ -154,6 +216,8 @@ for (const c of COUNTRIES) {
             flag: c.flag,
             visa: override?.visa || c.visa,
             note: override?.note || c.note,
+            region: REGION_BY_COUNTRY[c.country.en] || 'other',
+            type: TYPE_BY_CITY[code] || TYPE_BY_COUNTRY[c.country.en] || 'city',
         };
     }
 }

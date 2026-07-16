@@ -44,13 +44,15 @@ const LATEST_LIMIT = 200;      // deals to request from the global /latest
 const MIN_DISCOUNT = 0.02;     // show anything >= 2% below the route median (sorted best-first)
 const MIN_SAMPLES = 3;         // require enough matrix points to trust the median
 const TOP_HOT = 150;           // max "best value" flights to publish (lots of data)
-const HOT_POOL = 800;          // max routes to score (parallel, see per-origin selection)
+const HOT_POOL = 450;          // max routes to score reliably (see per-origin selection)
 const CANDIDATES_PER_ORIGIN = 20; // cheapest visa routes scored PER origin — so each
                                  // city's own leisure deals get a fair chance, not just
                                  // the globally-cheapest CIS hops
 const CHEAP_PER_CITY = 80;     // per origin: show ALL visa-free destinations the API returns (high cap = effectively uncapped)
 const CAL_MAX = 120;           // max routes to build a price calendar for
-const CONCURRENCY = 8;         // parallel API requests in flight (apiGet retries 429/5xx)
+const CONCURRENCY = 4;         // parallel API requests in flight — kept modest so the
+                              // Data API doesn't 429-throttle (which dropped ~⅓ of the
+                              // median calls and shrank the hot-flights list)
 const DRY_RUN = !TOKEN;
 
 // RF origin cities for the "cheap from" explorer (also the candidate pool for
@@ -200,10 +202,12 @@ async function apiGet(path, params, attempt = 1) {
     if (json && json.success === false) throw new Error(`${path} → API error: ${json.error || 'unknown'}`);
     return json;
   } catch (e) {
-    // Retry transient network flaps / 429 / 5xx a couple of times.
+    // Retry transient network flaps / 429 / 5xx with exponential backoff + jitter,
+    // so rate-limited requests recover instead of being dropped (which is what
+    // was silently shrinking the hot-flights list).
     const transient = /transient|fetch failed|ECONN|ETIMEDOUT|network|timeout/i.test(e.message);
-    if (attempt < 3 && transient) {
-      await sleep(400 * attempt);
+    if (attempt < 6 && transient) {
+      await sleep(500 * Math.pow(2, attempt - 1) + Math.floor(Math.random() * 400));
       return apiGet(path, params, attempt + 1);
     }
     throw e;

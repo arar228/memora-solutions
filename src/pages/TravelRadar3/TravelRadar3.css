@@ -732,3 +732,52 @@
     padding: 1.75rem;
 }
 .radar3-searchpanel .radar3-sec-head h2 { font-size: 1.3rem; }
+
+/* Hotel search bar (type your own city) — reuses .rd4-ac dropdown + .rd4-searchbtn */
+.rd4-hsearch {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.1rem;
+    flex-wrap: wrap;
+}
+.rd4-hsearch__field {
+    position: relative;
+    flex: 1 1 280px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 12px;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    color: var(--color-text-tertiary);
+    transition: border-color 0.16s;
+}
+.rd4-hsearch__field:focus-within { border-color: var(--color-gold); }
+.rd4-hsearch__field input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    color: var(--color-text);
+    font-size: 0.98rem;
+}
+.rd4-hsearch__field input::placeholder { color: var(--color-text-tertiary); }
+.rd4-hsearch__clear {
+    background: transparent;
+    border: none;
+    color: var(--color-text-tertiary);
+    cursor: pointer;
+    padding: 2px;
+    display: inline-flex;
+}
+.rd4-hsearch__clear:hover { color: var(--color-text); }
+.rd4-hsearch__btn {
+    flex: 0 0 auto;
+    height: 48px;
+    padding: 0 24px;
+    white-space: nowrap;
+    box-shadow: none;
+}

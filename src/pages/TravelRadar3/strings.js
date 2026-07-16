@@ -67,6 +67,7 @@ export const STR = {
         hotelPricesLabel: 'Подборка отелей',
         hotelsByDest: 'Отели по направлениям',
         findHotels: 'Найти отели',
+        hotelSearchPh: 'Введите город — найдём отели',
 
         direct: 'прямой',
         buy: 'Купить на Aviasales',
@@ -136,6 +137,7 @@ export const STR = {
         hotelPricesLabel: 'Featured hotels',
         hotelsByDest: 'Hotels by destination',
         findHotels: 'Find hotels',
+        hotelSearchPh: 'Type a city — find hotels',
 
         direct: 'direct',
         buy: 'Book on Aviasales',

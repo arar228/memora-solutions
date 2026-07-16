@@ -14,6 +14,9 @@ const HomePage = lazyWithRetry(() => import('./pages/Home'));
 // Travel Radar — the live price radar (formerly "3.0"). It replaced the retired
 // v1 and v2 (Concierge) radars; their legacy URLs redirect here (see routes).
 const TravelRadar3Page = lazyWithRetry(() => import('./pages/TravelRadar3'));
+// Travel Radar 4.0 (full travel-service hub) — parallel/experimental; rollback:
+// remove this line + the route below + src/pages/TravelRadar4 + the header entry.
+const TravelRadar4Page = lazyWithRetry(() => import('./pages/TravelRadar4'));
 const WalletPage = lazyWithRetry(() => import('./pages/Wallet'));
 const BdayBotPage = lazyWithRetry(() => import('./pages/BdayBot'));
 const KanbanPage = lazyWithRetry(() => import('./pages/Kanban'));
@@ -46,6 +49,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
         <Route path="/travel-radar-3" element={<PageTransition><TravelRadar3Page /></PageTransition>} />
+        <Route path="/travel-radar-4" element={<PageTransition><TravelRadar4Page /></PageTransition>} />{/* v4.0 travel-service hub — rollback: delete this line */}
         {/* Retired radars (v1 + v2 Concierge) — redirect any legacy URL to the current radar. */}
         <Route path="/travel-radar" element={<Navigate to="/travel-radar-3" replace />} />
         <Route path="/travel-radar-v2/*" element={<Navigate to="/travel-radar-3" replace />} />

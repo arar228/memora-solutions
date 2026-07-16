@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshCw, Radar, Flame, MapPin, Calendar, Compass, Hotel } from 'lucide-react';
+import { RefreshCw, Radar, Flame, MapPin, Calendar, Compass, Hotel, Plane } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import { STR } from './strings';
 import { isVisaTarget, visaInfo } from './visaDestinations';
+import FlightSearch from './FlightSearch';
 import HotFlights from './HotFlights';
 import Explorer from './Explorer';
 import PriceCalendar from './PriceCalendar';
@@ -79,6 +80,17 @@ export default function TravelRadar3Page() {
                             <span className="radar3-src">{s.source}</span>
                         </p>
                     </div>
+                </AnimatedSection>
+
+                {/* === Flight search (top) === */}
+                <AnimatedSection delay={0.03}>
+                    <section className="radar3-panel radar3-searchpanel">
+                        <div className="radar3-sec-head">
+                            <Plane size={18} aria-hidden="true" />
+                            <h2>{s.searchTitle}</h2>
+                        </div>
+                        <FlightSearch lang={lang} s={s} />
+                    </section>
                 </AnimatedSection>
 
                 {loading ? (

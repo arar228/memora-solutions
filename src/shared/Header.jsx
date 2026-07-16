@@ -19,6 +19,9 @@ const LINKS_AFTER = [
 const PRODUCTS = [
     // The live price radar — formerly "3.0"; now the only Travel Radar.
     { to: '/travel-radar-3', key: 'travelRadar' },
+    // Travel Radar 4.0 (full travel-service hub) — experimental; rollback: remove
+    // this one line (+ the route + the TravelRadar4 folder).
+    { to: '/travel-radar-4', label: { ru: 'Радар Путешествий 4.0', en: 'Travel Radar 4.0' } },
     { to: '/wallet', key: 'wallet' },
     { to: '/bday-bot', key: 'bdayBot' },
     { to: '/pomodoro', key: 'pomodoro' },

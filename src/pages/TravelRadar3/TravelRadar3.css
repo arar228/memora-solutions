@@ -725,3 +725,10 @@
     font-weight: 600;
     color: var(--color-gold);
 }
+
+/* Flight search panel at the top of the radar */
+.radar3-searchpanel {
+    background: linear-gradient(160deg, var(--color-gold-light), var(--color-surface) 55%);
+    padding: 1.75rem;
+}
+.radar3-searchpanel .radar3-sec-head h2 { font-size: 1.3rem; }

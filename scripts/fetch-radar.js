@@ -41,11 +41,11 @@ const CURRENCY = (process.env.TP_CURRENCY || 'rub').toLowerCase();
 const MARKET = (process.env.TP_MARKET || 'ru').toLowerCase();
 
 const LATEST_LIMIT = 200;      // deals to request from the global /latest
-const MIN_DISCOUNT = 0.05;     // show anything >= 5% below the route median (sorted best-first)
+const MIN_DISCOUNT = 0.02;     // show anything >= 2% below the route median (sorted best-first)
 const MIN_SAMPLES = 3;         // require enough matrix points to trust the median
-const TOP_HOT = 120;           // max "best value" flights to publish (lots of data)
-const HOT_POOL = 500;          // max routes to score (parallel, see per-origin selection)
-const CANDIDATES_PER_ORIGIN = 12; // cheapest visa routes scored PER origin — so each
+const TOP_HOT = 150;           // max "best value" flights to publish (lots of data)
+const HOT_POOL = 800;          // max routes to score (parallel, see per-origin selection)
+const CANDIDATES_PER_ORIGIN = 20; // cheapest visa routes scored PER origin — so each
                                  // city's own leisure deals get a fair chance, not just
                                  // the globally-cheapest CIS hops
 const CHEAP_PER_CITY = 80;     // per origin: show ALL visa-free destinations the API returns (high cap = effectively uncapped)

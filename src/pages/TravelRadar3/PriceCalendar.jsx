@@ -43,17 +43,18 @@ export default function PriceCalendar({ calendars, lang, s }) {
             )}
 
             {dests.length > 1 && (
-                <div className="radar3-chips radar3-chips--dest">
-                    <span className="radar3-chips__label">{s.direction}:</span>
-                    {dests.map((c) => (
-                        <button
-                            key={c.destination}
-                            className={`radar3-chip ${c === cal ? 'radar3-chip--active' : ''}`}
-                            onClick={() => setDestCode(c.destination)}
-                        >
-                            {c.destName?.[lang] || c.destination}
-                        </button>
-                    ))}
+                <div className="radar3-selectrow">
+                    <label className="radar3-chips__label" htmlFor="cal-dest">{s.direction}:</label>
+                    <select
+                        id="cal-dest"
+                        className="radar3-select"
+                        value={cal.destination}
+                        onChange={(e) => setDestCode(e.target.value)}
+                    >
+                        {dests.map((c) => (
+                            <option key={c.destination} value={c.destination}>{c.destName?.[lang] || c.destination}</option>
+                        ))}
+                    </select>
                 </div>
             )}
 

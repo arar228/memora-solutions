@@ -688,3 +688,40 @@
     line-height: 1.25;
     overflow-wrap: anywhere;
 }
+
+/* === Hotels by destination (dark, on-brand — replaces the bright widget) === */
+.radar3-hotels-head { margin: 0.25rem 0 0.9rem; }
+.radar3-hotels {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+.radar3-hotelcard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    min-height: 132px;
+    padding: 14px;
+    background: linear-gradient(155deg, var(--color-gold-light), var(--color-surface) 62%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: border-color 0.16s, transform 0.16s;
+}
+.radar3-hotelcard:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+}
+.radar3-hotelcard__body { display: flex; flex-direction: column; gap: 2px; }
+.radar3-hotelcard__flag { font-size: 1.5rem; line-height: 1; margin-bottom: 5px; }
+.radar3-hotelcard__city { font-size: 1rem; font-weight: 700; color: var(--color-text); overflow-wrap: anywhere; }
+.radar3-hotelcard__country { font-size: var(--text-xs); color: var(--color-text-tertiary); }
+.radar3-hotelcard__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-gold);
+}

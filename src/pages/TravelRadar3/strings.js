@@ -53,6 +53,8 @@ export const STR = {
         partnersTitle: 'Забронировать',
         partnersDesc: 'Отели, жильё и экскурсии у проверенных сервисов. Цены и наличие — на их сайтах.',
         hotelPricesLabel: 'Подборка отелей',
+        hotelsByDest: 'Отели по направлениям',
+        findHotels: 'Найти отели',
 
         direct: 'прямой',
         buy: 'Купить на Aviasales',
@@ -108,6 +110,8 @@ export const STR = {
         partnersTitle: 'Book',
         partnersDesc: 'Hotels, stays and tours via trusted services. Prices and availability on their sites.',
         hotelPricesLabel: 'Featured hotels',
+        hotelsByDest: 'Hotels by destination',
+        findHotels: 'Find hotels',
 
         direct: 'direct',
         buy: 'Book on Aviasales',

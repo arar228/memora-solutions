@@ -6,6 +6,7 @@ import { STR } from './strings';
 import { isVisaTarget, visaInfo } from './visaDestinations';
 import FlightSearch from './FlightSearch';
 import HotFlights from './HotFlights';
+import ChannelDeals from './ChannelDeals';
 import Explorer from './Explorer';
 import PriceCalendar from './PriceCalendar';
 import Hotels from './Hotels';
@@ -108,6 +109,10 @@ export default function TravelRadar3Page() {
                                 <p className="radar3-sec-desc">{s.hotDesc}</p>
                                 <HotFlights items={view.hotFlights} lang={lang} s={s} />
                             </section>
+                        </AnimatedSection>
+
+                        <AnimatedSection delay={0.05}>
+                            <ChannelDeals lang={lang} s={s} />
                         </AnimatedSection>
 
                         <AnimatedSection delay={0.05}>

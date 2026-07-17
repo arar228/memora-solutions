@@ -16,6 +16,10 @@ export const STR = {
         hotDesc: 'Билеты в безвизовые страны заметно дешевле обычной цены маршрута.',
         hotEmpty: 'Сейчас крупных скидок в безвизовые страны нет — лента обновляется каждые пару часов, загляните позже.',
         usually: 'обычно',
+        channelTitle: 'Горящие авиа-скидки из каналов',
+        channelDesc: 'Живые находки из тревел-каналов, уже с нашей ссылкой на Aviasales. Цены индикативные — актуальные смотри на Aviasales.',
+        allCities: 'Все города',
+        oneway: 'в одну сторону',
 
         cheapTitle: 'Куда полететь без визы',
         cheapDesc: 'Выбери город вылета и подбери направление — фильтруй по бюджету, региону и типу отдыха. Все безвизовые страны, живые цены.',
@@ -86,6 +90,10 @@ export const STR = {
         hotDesc: 'Tickets to visa-free countries noticeably below the route’s usual price.',
         hotEmpty: 'No big drops to visa-free countries right now — the feed refreshes every couple of hours, check back later.',
         usually: 'usually',
+        channelTitle: 'Hot flight deals from channels',
+        channelDesc: 'Live finds from travel channels, already with our Aviasales link. Prices are indicative — see current ones on Aviasales.',
+        allCities: 'All cities',
+        oneway: 'one way',
 
         cheapTitle: 'Where to fly visa-free',
         cheapDesc: 'Pick your departure city and find a destination — filter by budget, region and trip type. Every visa-free country, live prices.',

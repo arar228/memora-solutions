@@ -150,3 +150,24 @@
 }
 .rd4-ac__name { font-size: 0.94rem; color: var(--color-text); display: flex; flex-direction: column; gap: 1px; }
 .rd4-ac__name em { font-style: normal; font-size: var(--text-xs); color: var(--color-text-tertiary); }
+
+/* Mobile: stack From / To full-width (they were cramped side-by-side), rotate the
+   swap between them, and put dates + passengers in two compact columns. */
+@media (max-width: 560px) {
+    .rd4-search__places {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .rd4-search__places .rd4-field { flex: 1 1 auto; min-width: 0; }
+    .rd4-swap {
+        align-self: center;
+        transform: rotate(90deg);
+        margin: -2px 0;
+    }
+    .rd4-swap:active { transform: rotate(270deg); }
+    .rd4-search__opts { gap: 8px; }
+    .rd4-search__opts .rd4-field--date { flex: 1 1 45%; }
+    .rd4-search__opts .rd4-field--pax { flex: 1 1 45%; }
+    .rd4-searchbtn { flex: 1 1 100%; }
+}

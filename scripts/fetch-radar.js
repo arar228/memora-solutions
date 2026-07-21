@@ -115,6 +115,14 @@ const ORIGINS = [
 ];
 // Hot flights must depart FROM Russia — restrict candidate origins to our list.
 const ORIGIN_SET = new Set(ORIGINS.map((o) => o.code));
+
+// Stitching hubs: RF cities hot TOURS commonly depart from. For every origin
+// we record the cheapest domestic round-trip to each hub ("stitch leg") so the
+// frontend can build Москва→Омск→Астана style chains: tour from hub X saves S,
+// leg origin→X costs F — worth showing when F < S. Captured for free from the
+// same two API calls fetchCheapFrom already makes.
+const STITCH_HUBS = ['MOW', 'LED', 'AER', 'KZN', 'SVX', 'OVB', 'KRR', 'MRV', 'UFA', 'KUF', 'ROV', 'OMS', 'VVO', 'KGD', 'IKT'];
+const STITCH_HUB_SET = new Set(STITCH_HUBS);
 // Featured routes for the price calendar (all from Moscow → unique VISA-FREE
 // destinations, so the selector chips read cleanly as destination names).
 const CALENDAR_ROUTES = [
@@ -359,7 +367,20 @@ async function buildHotFlights(candidates) {
 // Dedup by destination keeping the cheapest; visa-free only.
 async function fetchCheapFrom(origin) {
   const byDest = new Map();
+  const stitch = new Map(); // hub → cheapest domestic leg (origin → hub)
   const add = (destination, price, dep, ret, transfers) => {
+    // Stitch legs are captured BEFORE the visa filter — hubs are RF cities.
+    if (STITCH_HUB_SET.has(destination) && destination !== origin && price > 0) {
+      const p = Math.round(price);
+      const cur = stitch.get(destination);
+      if (!cur || p < cur.price) {
+        stitch.set(destination, {
+          dest: destination, price: p,
+          depart_date: (dep || '').slice(0, 10) || null,
+          link: aviaLink({ origin, destination, depart_date: dep, return_date: ret }),
+        });
+      }
+    }
     if (!isVisaTarget(destination) || destination === origin || !(price > 0)) return;
     const p = Math.round(price);
     const cur = byDest.get(destination);
@@ -390,7 +411,10 @@ async function fetchCheapFrom(origin) {
     }
   } catch (e) { console.warn(`[skip latest] ${origin}: ${e.message}`); }
 
-  return [...byDest.values()].sort((a, b) => a.price - b.price).slice(0, CHEAP_PER_CITY);
+  return {
+    items: [...byDest.values()].sort((a, b) => a.price - b.price).slice(0, CHEAP_PER_CITY),
+    stitch: [...stitch.values()],
+  };
 }
 
 // ---- 3. price calendar for a featured route ----
@@ -438,15 +462,23 @@ async function main() {
     // 1. destinations per origin (also the candidate pool for hot flights) — parallel
     const cheapFromRaw = await mapPool(ORIGINS, CONCURRENCY, async (o) => {
       try {
-        const items = await fetchCheapFrom(o.code);
-        console.log(`cheapFrom ${o.code}: ${items.length}`);
-        return items.length ? { code: o.code, name: { ru: o.ru, en: o.en }, items } : null;
+        const { items, stitch } = await fetchCheapFrom(o.code);
+        console.log(`cheapFrom ${o.code}: ${items.length} (+${stitch.length} stitch legs)`);
+        return (items.length || stitch.length)
+          ? { code: o.code, name: { ru: o.ru, en: o.en }, items, stitch }
+          : null;
       } catch (e) {
         console.warn(`[skip cheapFrom] ${o.code}: ${e.message}`);
         return null;
       }
     });
-    const cheapFrom = cheapFromRaw.filter(Boolean);
+    const cheapFromAll = cheapFromRaw.filter(Boolean);
+    // Domestic origin→hub legs for the tour-stitching engine (flat list).
+    const stitchLegs = cheapFromAll.flatMap((c) =>
+      (c.stitch || []).map((s) => ({ origin: c.code, ...s })));
+    const cheapFrom = cheapFromAll
+      .filter((c) => c.items.length)
+      .map(({ stitch: _s, ...rest }) => rest);
 
     // 2. hot flights = global /latest + every cheap-from item, scored vs median
     let globalLatest = [];
@@ -484,10 +516,11 @@ async function main() {
     const calendars = calRaw.filter(Boolean);
     console.log(`calendars: ${calendars.length} routes (from ${routes.length} tried)`);
 
+    console.log(`stitchLegs: ${stitchLegs.length}`);
     payload = {
       updatedAt: new Date().toISOString(), source: 'travelpayouts',
       market: MARKET, currency: CURRENCY, marker: MARKER,
-      hotFlights, cheapFrom, calendars,
+      hotFlights, cheapFrom, calendars, stitchLegs,
     };
   }
 

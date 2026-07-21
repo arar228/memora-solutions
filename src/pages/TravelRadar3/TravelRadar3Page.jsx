@@ -5,6 +5,7 @@ import AnimatedSection from '../../shared/AnimatedSection';
 import { STR } from './strings';
 import { isVisaTarget, visaInfo } from './visaDestinations';
 import FlightSearch from './FlightSearch';
+import HotTours from './HotTours';
 import HotFlights from './HotFlights';
 import ChannelDeals from './ChannelDeals';
 import Explorer from './Explorer';
@@ -100,6 +101,15 @@ export default function TravelRadar3Page() {
                     <div className="radar3-loading">{s.noData}</div>
                 ) : (
                     <>
+                        <AnimatedSection delay={0.04}>
+                            <HotTours
+                                cities={view.cheapFrom}
+                                stitchLegs={data.stitchLegs || []}
+                                lang={lang}
+                                s={s}
+                            />
+                        </AnimatedSection>
+
                         <AnimatedSection delay={0.05}>
                             <section className="radar3-panel">
                                 <div className="radar3-sec-head">

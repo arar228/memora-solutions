@@ -20,15 +20,16 @@ interface Tomato {
 }
 
 function generateTomatoes(n: number): Tomato[] {
-  // Slow, faint, ambient — a gentle drift up the background, not a fast swarm.
+  // Very slow, very faint, ambient — a barely-there drift up the background, not
+  // a fast swarm. (Long durations so a single tomato doesn't visibly "zip" by.)
   return Array.from({ length: n }, (_, i) => ({
     id: i,
-    size: 12 + Math.random() * 16,
+    size: 12 + Math.random() * 14,
     x: 4 + Math.random() * 92,
-    delay: Math.random() * 22,
-    duration: 30 + Math.random() * 25,
-    rotate: Math.random() * 160 - 80,
-    opacity: 0.05 + Math.random() * 0.1,
+    delay: Math.random() * 30,
+    duration: 65 + Math.random() * 45,
+    rotate: Math.random() * 120 - 60,
+    opacity: 0.03 + Math.random() * 0.05,
   }));
 }
 

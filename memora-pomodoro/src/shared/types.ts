@@ -1,6 +1,8 @@
 // === Timer Types ===
 export type TimerMode = 'focus' | 'short_break' | 'long_break';
 export type TimerStatus = 'idle' | 'running' | 'paused' | 'completed' | 'waiting';
+// Countdown timer (Pomodoro) vs. count-up stopwatch.
+export type TimerType = 'timer' | 'stopwatch';
 
 export interface TimerState {
   status: TimerStatus;
@@ -23,6 +25,8 @@ export interface TimerTickPayload {
   countBackwards: boolean;
   rounds: number;
   idle?: boolean; // pure-time: focus paused because the user is idle
+  type: TimerType; // countdown timer vs. count-up stopwatch
+  elapsed: number; // stopwatch: seconds counted up so far
 }
 
 export interface TimerCompletePayload {
@@ -66,6 +70,14 @@ export interface DayCount {
   count: number;
 }
 
+// Per-day focus totals for the weekly bar chart (count of pomodoros + total
+// focus seconds, so a chart can show either pomodoros or time).
+export interface DayStat {
+  day: string;
+  count: number;
+  seconds: number;
+}
+
 export interface Stats {
   totalPomodoros: number;
   todayPomodoros: number;
@@ -105,9 +117,13 @@ export interface AppSettings {
   // Appearance
   timer_font: string;
   show_animation: boolean;
+  scene_on: boolean;   // ambient pixel scene under the timer (mockup: «сцена»)
+  scene_style: string; // which scene animation: 'flight' | (future: 'battle' | 'run' | 'focus')
   custom_accent: string;
   time_up_effect: TimeUpEffect;
   pure_time: boolean; // "чистое время" — auto-pause focus when the user is idle
+  white_noise: string; // ambient background sound: 'off' | 'rain' | … (UI wired; audio asset pending)
+  ticking: string;     // focus ticking: 'off' | 'low' | 'med' | 'high' (UI wired; audio asset pending)
 }
 
 // === Electron API (exposed via preload) ===
@@ -119,6 +135,7 @@ export interface ElectronAPI {
     reset: () => Promise<{ ok: boolean }>;
     skip: () => Promise<{ ok: boolean }>;
     setMode: (mode: TimerMode) => Promise<{ ok: boolean }>;
+    setType: (type: TimerType) => Promise<{ ok: boolean }>;
     onTick: (cb: (data: TimerTickPayload) => void) => () => void;
     onComplete: (cb: (data: TimerCompletePayload) => void) => () => void;
   };
@@ -129,6 +146,7 @@ export interface ElectronAPI {
   };
   db: {
     getHistory: (from: string, to: string) => Promise<DayCount[]>;
+    getWeekly: (from: string, to: string) => Promise<DayStat[]>;
     getStats: () => Promise<Stats>;
     exportData: (format: 'json' | 'csv') => Promise<void>;
     importYapa: () => Promise<{ imported: number }>;
@@ -159,6 +177,7 @@ export interface ElectronAPI {
     close: () => Promise<void>;
     toOverlay: () => Promise<void>;
     toMain: () => Promise<void>;
+    setSidebar: (open: boolean) => Promise<void>;
   };
 }
 

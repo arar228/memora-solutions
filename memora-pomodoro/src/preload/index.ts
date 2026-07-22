@@ -10,6 +10,7 @@ const api: ElectronAPI = {
     reset:   () => ipcRenderer.invoke(IPC.TIMER_RESET),
     skip:    () => ipcRenderer.invoke(IPC.TIMER_SKIP),
     setMode: (mode: string) => ipcRenderer.invoke(IPC.TIMER_SET_MODE, mode),
+    setType: (type: string) => ipcRenderer.invoke(IPC.TIMER_SET_TYPE, type),
     onTick: (cb: (data: TimerTickPayload) => void) => {
       const handler = (_e: Electron.IpcRendererEvent, data: TimerTickPayload) => cb(data);
       ipcRenderer.on(IPC.TIMER_TICK, handler);
@@ -34,6 +35,7 @@ const api: ElectronAPI = {
 
   db: {
     getHistory: (from: string, to: string) => ipcRenderer.invoke(IPC.DB_GET_HISTORY, from, to),
+    getWeekly:  (from: string, to: string) => ipcRenderer.invoke(IPC.DB_GET_WEEKLY, from, to),
     getStats:   () => ipcRenderer.invoke(IPC.DB_GET_STATS),
     exportData: (format: 'json' | 'csv') => ipcRenderer.invoke(IPC.DB_EXPORT, format),
     importYapa: () => ipcRenderer.invoke(IPC.DB_IMPORT_YAPA),
@@ -73,6 +75,7 @@ const api: ElectronAPI = {
     close:     () => ipcRenderer.invoke('window:close'),
     toOverlay: () => ipcRenderer.invoke('window:to-overlay'),
     toMain:    () => ipcRenderer.invoke('window:to-main'),
+    setSidebar: (open: boolean) => ipcRenderer.invoke('window:set-sidebar', open),
   },
 };
 

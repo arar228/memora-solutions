@@ -29,7 +29,7 @@ const NO_DRAG = { WebkitAppRegion: 'no-drag' } as React.CSSProperties;
 
 export default function CompactOverlay() {
   const [tick, setTick] = useState<TimerTickPayload>({
-    timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0, countBackwards: true, rounds: 4,
+    timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0, countBackwards: true, rounds: 4, type: 'timer', elapsed: 0,
   });
   const [mode, setMode] = useState<OverlayMode>('compact');
   const [showBg, setShowBg] = useState(true);

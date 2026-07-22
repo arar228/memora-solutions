@@ -6,6 +6,7 @@ export const IPC = {
   TIMER_RESET:    'timer:reset',
   TIMER_SKIP:     'timer:skip',
   TIMER_SET_MODE: 'timer:set-mode',
+  TIMER_SET_TYPE: 'timer:set-type',
 
   // Timer events (Main → Renderer/Overlay)
   TIMER_TICK:     'timer:tick',
@@ -23,6 +24,7 @@ export const IPC = {
 
   // Database (Renderer → Main)
   DB_GET_HISTORY:   'db:get-history',
+  DB_GET_WEEKLY:    'db:get-weekly',
   DB_GET_STATS:     'db:get-stats',
   DB_SAVE_SESSION:  'db:save-session',
   DB_EXPORT:        'db:export',

@@ -1,6 +1,6 @@
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import path from 'path';
-import { MAIN_WINDOW } from '../shared/constants';
+import { MAIN_WINDOW, SIDEBAR_WIDTH } from '../shared/constants';
 import { IPC } from '../shared/ipc-channels';
 import { registerTimerIPC, timerStart, timerPause, timerResume, timerReset, timerSkip, setProfile, setTrayUpdater, refreshSettingsCache } from './timer';
 import { initDB, registerDBIPC, getAllSettings, getActiveProfile, setProfileSyncCallback, setSettingsCacheInvalidator } from './db';
@@ -21,7 +21,9 @@ function createMainWindow(): void {
   mainWindow = new BrowserWindow({
     width: MAIN_WINDOW.width,
     height: MAIN_WINDOW.height,
-    resizable: false,
+    minWidth: 324,
+    minHeight: 576,
+    resizable: true,
     frame: false,
     titleBarStyle: 'hidden',
     backgroundColor: '#0C0C0F',
@@ -34,7 +36,22 @@ function createMainWindow(): void {
     },
   });
 
+  // === Proportional scaling ===
+  // The window keeps a FIXED aspect ratio (9:16 portrait; wider with the
+  // settings panel open) and the whole UI zooms as one piece: the renderer's
+  // logical viewport is always 540×960, and the zoom factor follows the
+  // window height. Resizing therefore scales every element together instead
+  // of reflowing them independently.
+  const applyZoom = () => {
+    if (!mainWindow) return;
+    const [, h] = mainWindow.getSize();
+    mainWindow.webContents.setZoomFactor(h / MAIN_WINDOW.height);
+  };
+  mainWindow.setAspectRatio(MAIN_WINDOW.width / MAIN_WINDOW.height);
+  mainWindow.on('resize', applyZoom);
+
   mainWindow.on('ready-to-show', () => {
+    applyZoom();
     mainWindow?.show();
   });
 
@@ -151,6 +168,25 @@ if (!gotLock) {
 
     // Window control IPC
     ipcMain.handle('window:minimize', () => mainWindow?.minimize());
+
+    // Settings side panel: opening widens the window by the panel's width,
+    // closing shrinks it back. IDEMPOTENT — repeated "open" calls (React
+    // StrictMode double-invokes, double clicks) must not stack width on top
+    // of width. The panel is SIDEBAR_WIDTH *logical* px, so the physical
+    // delta scales with the current zoom; the fixed aspect ratio switches
+    // between portrait and the doubled-width shape.
+    let sidebarShown = false;
+    ipcMain.handle('window:set-sidebar', (_e, open: boolean) => {
+      if (!mainWindow || open === sidebarShown) return;
+      sidebarShown = open;
+      const [, h] = mainWindow.getSize();
+      const zoom = h / MAIN_WINDOW.height;
+      const mainW = Math.round(MAIN_WINDOW.width * zoom);
+      const panelW = Math.round(SIDEBAR_WIDTH * zoom);
+      const nw = open ? mainW + panelW : mainW;
+      mainWindow.setAspectRatio((MAIN_WINDOW.width + (open ? SIDEBAR_WIDTH : 0)) / MAIN_WINDOW.height);
+      mainWindow.setSize(nw, h, false);
+    });
     ipcMain.handle('window:close', () => {
       const s = getAllSettings();
       if (s.minimize_to_tray) {

@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import initSqlJs, { Database as SqlJsDatabase } from 'sql.js';
 import { IPC } from '../shared/ipc-channels';
-import type { DayCount, Stats, AppSettings, Profile } from '../shared/types';
+import type { DayCount, DayStat, Stats, AppSettings, Profile } from '../shared/types';
 import { DEFAULT_SETTINGS, DEFAULT_PROFILES } from '../shared/constants';
 
 // Profile sync callback (set by index.ts to avoid circular imports)
@@ -142,6 +142,28 @@ export function getHistory(from: string, to: string): DayCount[] {
   while (stmt.step()) {
     const row = stmt.getAsObject() as { day: string; count: number };
     results.push({ day: row.day, count: row.count });
+  }
+  stmt.free();
+  return results;
+}
+
+// Per-day focus totals (count + seconds) for the weekly bar chart. Includes
+// stopwatch sessions (saved as focus), so the time bars reflect real work time.
+export function getWeekly(from: string, to: string): DayStat[] {
+  if (!db) return [];
+  const stmt = db.prepare(
+    `SELECT date(started_at, 'localtime') as day, COUNT(*) as count, COALESCE(SUM(duration_sec), 0) as seconds
+     FROM sessions
+     WHERE mode = 'focus' AND completed = 1
+       AND date(started_at, 'localtime') >= ? AND date(started_at, 'localtime') <= ?
+     GROUP BY day
+     ORDER BY day`
+  );
+  stmt.bind([from, to]);
+  const results: DayStat[] = [];
+  while (stmt.step()) {
+    const row = stmt.getAsObject() as { day: string; count: number; seconds: number };
+    results.push({ day: row.day, count: row.count, seconds: row.seconds });
   }
   stmt.free();
   return results;
@@ -295,6 +317,7 @@ function exportCSV(): string {
 // === Register IPC handlers ===
 export function registerDBIPC(): void {
   ipcMain.handle(IPC.DB_GET_HISTORY, (_e, from: string, to: string) => getHistory(from, to));
+  ipcMain.handle(IPC.DB_GET_WEEKLY, (_e, from: string, to: string) => getWeekly(from, to));
   ipcMain.handle(IPC.DB_GET_STATS, () => getStats());
   ipcMain.handle(IPC.SETTINGS_GET_ALL, () => getAllSettings());
   ipcMain.handle(IPC.SETTINGS_SET, async (_e, key: string, value: unknown) => {
@@ -353,6 +376,13 @@ export function registerDBIPC(): void {
           break;
         }
       }
+
+      // Broadcast the change to every window so the UI applies it LIVE —
+      // the settings panel sits next to the timer now, and waiting for the
+      // panel to close before repainting felt broken.
+      BrowserWindow.getAllWindows().forEach(w => {
+        if (!w.isDestroyed()) w.webContents.send(IPC.SETTINGS_UPDATED, { [key]: value });
+      });
     } catch { /* ignore apply errors */ }
 
     return { ok: true };

@@ -1,6 +1,6 @@
 import { ipcMain, BrowserWindow, Notification, powerMonitor } from 'electron';
 import { IPC } from '../shared/ipc-channels';
-import type { TimerMode, TimerStatus, TimerTickPayload, TimerCompletePayload, Profile, AppSettings } from '../shared/types';
+import type { TimerMode, TimerStatus, TimerType, TimerTickPayload, TimerCompletePayload, Profile, AppSettings } from '../shared/types';
 import { DEFAULT_PROFILES } from '../shared/constants';
 import { saveSession, getAllSettings } from './db';
 
@@ -15,6 +15,11 @@ let intervalId: ReturnType<typeof setInterval> | null = null;
 let expectedTick = 0; // for drift correction
 let idlePaused = false; // "чистое время": focus paused because the user is idle
 const IDLE_THRESHOLD = 10; // seconds of no system input before pausing focus
+
+// Countdown timer vs. count-up stopwatch.
+let timerType: TimerType = 'timer';
+let elapsed = 0; // stopwatch: seconds counted up (paused while idle in pure-time)
+const STOPWATCH_MIN_SAVE = 60; // don't record stopwatch sessions shorter than this
 let trayUpdateFn: ((status: TimerStatus, timeLeft: number, mode: TimerMode) => void) | null = null;
 
 // Cached settings (updated via refreshSettingsCache)
@@ -39,21 +44,45 @@ let profile: Profile = { ...DEFAULT_PROFILES[0] };
 
 // Broadcast tick to all windows
 function broadcastTick(): void {
+  const isSW = timerType === 'stopwatch';
   const payload: TimerTickPayload = {
-    timeLeft,
-    totalTime,
+    timeLeft: isSW ? 0 : timeLeft,
+    totalTime: isSW ? 0 : totalTime,
     mode,
     status,
     completedPomos,
     countBackwards: profile.count_backwards,
     rounds: profile.rounds,
     idle: idlePaused,
+    type: timerType,
+    elapsed,
   };
   BrowserWindow.getAllWindows().forEach((win) => {
     win.webContents.send(IPC.TIMER_TICK, payload);
   });
-  // Update tray
-  if (trayUpdateFn) trayUpdateFn(status, timeLeft, mode);
+  // Update tray (stopwatch has no countdown — show elapsed instead).
+  if (trayUpdateFn) trayUpdateFn(status, isSW ? elapsed : timeLeft, mode);
+}
+
+// Broadcast a completion event (used by the stopwatch when a session is saved,
+// so the renderer refreshes its stats). natural=false → no "time-up" alert.
+function broadcastComplete(natural: boolean): void {
+  const payload: TimerCompletePayload = {
+    mode: 'focus', nextMode: 'focus', duration: elapsed, autoStart: false, natural,
+  };
+  BrowserWindow.getAllWindows().forEach((win) => {
+    if (!win.isDestroyed()) win.webContents.send(IPC.TIMER_COMPLETE, payload);
+  });
+}
+
+// Persist an accumulated stopwatch session (as a focus session) if it's long
+// enough to be meaningful, then clear the stopwatch. Returns whether it saved.
+function saveStopwatchIfAny(): boolean {
+  const save = elapsed >= STOPWATCH_MIN_SAVE && !!startedAt;
+  if (save) saveSession(profile.name, 'focus', elapsed, true, startedAt as string);
+  elapsed = 0;
+  startedAt = null;
+  return save;
 }
 
 // Broadcast a sound cue to all windows (renderer plays it `times` times).
@@ -65,12 +94,13 @@ function broadcastSound(file: string, volume: number, times = 1): void {
   });
 }
 
-// Get duration for mode in seconds
+// Get duration for mode in seconds. Durations are stored as MINUTES and may
+// be fractional (25.5 = 25:30) — the digits scrubber sets seconds too.
 function getDuration(m: TimerMode): number {
   switch (m) {
-    case 'focus': return profile.work_time * 60;
-    case 'short_break': return profile.break_time * 60;
-    case 'long_break': return profile.long_break_time * 60;
+    case 'focus': return Math.round(profile.work_time * 60);
+    case 'short_break': return Math.round(profile.break_time * 60);
+    case 'long_break': return Math.round(profile.long_break_time * 60);
   }
 }
 
@@ -109,7 +139,9 @@ function completeInterval(natural = true): void {
     nextMode = 'focus';
   }
 
-  const autoStart = wasFocus ? profile.auto_start_break : profile.auto_start_work;
+  // Auto-start is retired (manager: «убираем автостарт») — the next interval
+  // always waits for the user to press play.
+  const autoStart = false;
 
   const payload: TimerCompletePayload = {
     mode,
@@ -248,8 +280,49 @@ function startTimer(): void {
   broadcastTick();
 }
 
+// Count-up stopwatch loop. Honors "чистое время" exactly like focus: seconds
+// only accrue while the user is active (system-wide). No target, no completion.
+function startStopwatch(): void {
+  status = 'running';
+  idlePaused = false;
+  if (startedAt === null) startedAt = new Date().toISOString(); // session start, kept across pause/resume
+  expectedTick = Date.now() + 1000;
+
+  intervalId = setInterval(() => {
+    const now = Date.now();
+    const settings = getSettings();
+    const pureTime = settings.pure_time !== false;
+
+    if (pureTime) {
+      let idle = 0;
+      try { idle = powerMonitor.getSystemIdleTime(); } catch { idle = 0; }
+      if (idle >= IDLE_THRESHOLD) {
+        idlePaused = true;
+        expectedTick = now + 1000;
+        broadcastTick();
+        return; // don't count this second
+      }
+      if (idlePaused) idlePaused = false;
+    }
+
+    // Catch up after system sleep only when NOT pure-time (idle/sleep mustn't count).
+    const drift = now - expectedTick;
+    if (drift > 2000 && !pureTime) elapsed += Math.floor(drift / 1000);
+    expectedTick = now + 1000;
+
+    elapsed++;
+    broadcastTick();
+  }, 1000);
+
+  broadcastTick();
+}
+
 // === Public action functions (used by IPC + tray) ===
 export function timerStart(): { ok: boolean } {
+  if (timerType === 'stopwatch') {
+    if (status !== 'running') startStopwatch();
+    return { ok: true };
+  }
   if (status === 'idle' || status === 'waiting') {
     if (status === 'idle') {
       totalTime = getDuration(mode);
@@ -272,7 +345,8 @@ export function timerPause(): { ok: boolean } {
 
 export function timerResume(): { ok: boolean } {
   if (status === 'paused') {
-    startTimer();
+    if (timerType === 'stopwatch') startStopwatch();
+    else startTimer();
   }
   return { ok: true };
 }
@@ -282,8 +356,21 @@ export function timerReset(): { ok: boolean } {
     clearInterval(intervalId);
     intervalId = null;
   }
-  status = 'idle';
   idlePaused = false;
+
+  if (timerType === 'stopwatch') {
+    // Reset = finish the stopwatch: bank the session, then clear to zero.
+    const saved = saveStopwatchIfAny();
+    status = 'idle';
+    BrowserWindow.getAllWindows().forEach((win) => {
+      if (!win.isDestroyed()) win.setProgressBar(-1);
+    });
+    broadcastTick();
+    if (saved) broadcastComplete(false); // refresh stats without a time-up alert
+    return { ok: true };
+  }
+
+  status = 'idle';
   timeLeft = getDuration(mode);
   totalTime = timeLeft;
   startedAt = null;
@@ -291,6 +378,36 @@ export function timerReset(): { ok: boolean } {
     if (!win.isDestroyed()) win.setProgressBar(-1);
   });
   broadcastTick();
+  return { ok: true };
+}
+
+// Switch between countdown timer and stopwatch. Banks a running stopwatch
+// session before leaving it.
+export function timerSetType(t: TimerType): { ok: boolean } {
+  if (t === timerType) return { ok: true };
+  if (intervalId) { clearInterval(intervalId); intervalId = null; }
+  idlePaused = false;
+
+  let savedSW = false;
+  if (timerType === 'stopwatch') savedSW = saveStopwatchIfAny();
+
+  timerType = t;
+  status = 'idle';
+  BrowserWindow.getAllWindows().forEach((win) => {
+    if (!win.isDestroyed()) win.setProgressBar(-1);
+  });
+
+  if (t === 'stopwatch') {
+    elapsed = 0;
+    startedAt = null;
+  } else {
+    mode = 'focus';
+    totalTime = getDuration(mode);
+    timeLeft = totalTime;
+  }
+
+  broadcastTick();
+  if (savedSW) broadcastComplete(false);
   return { ok: true };
 }
 
@@ -321,6 +438,7 @@ export function registerTimerIPC(): void {
   ipcMain.handle(IPC.TIMER_RESET, () => timerReset());
   ipcMain.handle(IPC.TIMER_SKIP, () => timerSkip());
   ipcMain.handle(IPC.TIMER_SET_MODE, (_e, m: TimerMode) => timerSetMode(m));
+  ipcMain.handle(IPC.TIMER_SET_TYPE, (_e, t: TimerType) => timerSetType(t));
 }
 
 // Set active profile

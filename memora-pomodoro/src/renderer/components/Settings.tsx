@@ -112,15 +112,13 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
   const t = L[lang];
   const [settings, setSettings] = useState<AppSettings>({ ...DEFAULT_SETTINGS });
   const [profile, setProfile] = useState<Profile>({ ...DEFAULT_PROFILES[0] });
-  const [profiles, setProfiles] = useState<Profile[]>([...DEFAULT_PROFILES]);
   const [recordingHotkey, setRecordingHotkey] = useState(false);
   const [appVersion, setAppVersion] = useState('');
 
-  // Load settings and profile on mount
+  // Load settings and the (single) active profile on mount
   useEffect(() => {
     window.api.settings.getAll().then(setSettings);
     window.api.profile.getActive().then(setProfile);
-    window.api.profile.getAll().then(setProfiles);
     window.api.system.getVersion().then(v => setAppVersion(v || '1.0.0'));
   }, []);
 
@@ -162,25 +160,6 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
     });
   }, []);
 
-  // Switch active profile
-  const switchProfile = useCallback((name: string) => {
-    const p = profiles.find(pr => pr.name === name);
-    if (p) {
-      setProfile(p);
-      window.api.profile.setActive(name);
-    }
-  }, [profiles]);
-
-  // Create a new (auto-named) profile and switch to it.
-  const addProfile = useCallback(async () => {
-    const res = await window.api.profile.create();
-    if (res?.profile) {
-      const list = await window.api.profile.getAll();
-      setProfiles(list);
-      setProfile(res.profile);
-    }
-  }, []);
-
   // Preview the currently selected completion sound (bundled or custom).
   const previewSound = useCallback(async () => {
     const file = settings.sound_work;
@@ -212,52 +191,17 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
       {/* Back button */}
       <button className="settings-back" onClick={onClose}>{t.back}</button>
 
-      {/* === Profile selector === */}
-      <div className="settings-section">
-        <h3 className="settings-section-title">{t.profile}</h3>
-        <div className="setting-row">
-          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-            {profiles.map(p => (
-              <button
-                key={p.name}
-                className={`profile-pill ${profile.name === p.name ? 'active' : ''}`}
-                onClick={() => switchProfile(p.name)}
-                style={{
-                  padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 500,
-                  border: profile.name === p.name ? '1px solid var(--a)' : '1px solid rgba(255,255,255,0.1)',
-                  background: profile.name === p.name ? 'var(--a-dim)' : 'transparent',
-                  color: profile.name === p.name ? 'var(--a)' : '#8A8A8D',
-                  cursor: 'pointer', transition: 'all 150ms ease',
-                }}
-              >
-                {p.name}
-              </button>
-            ))}
-            <button
-              className="profile-pill profile-add"
-              onClick={addProfile}
-              style={{
-                padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 600,
-                border: '1px dashed rgba(255,255,255,0.2)', background: 'transparent',
-                color: 'var(--a)', cursor: 'pointer', transition: 'all 150ms ease',
-              }}
-            >
-              + {t.newProfile}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* === Timer === */}
+      {/* === Timer ===
+          Профили, автостарты и «обратный отсчёт» убраны (мокап): один набор
+          длительностей, таймер всегда считает вниз, интервалы стартуют
+          вручную. Секунды настраиваются прокруткой цифр на главном экране —
+          здесь целые минуты. */}
       <div className="settings-section">
         <h3 className="settings-section-title">{t.timer}</h3>
-        <Stepper label={t.work} value={profile.work_time} onChange={v => updateProfile('work_time', v)} min={TIMER_LIMITS.work.min} max={TIMER_LIMITS.work.max} suffix={` ${t.min}`} />
-        <Stepper label={t.brk} value={profile.break_time} onChange={v => updateProfile('break_time', v)} min={TIMER_LIMITS.break.min} max={TIMER_LIMITS.break.max} suffix={` ${t.min}`} />
-        <Stepper label={t.longBrk} value={profile.long_break_time} onChange={v => updateProfile('long_break_time', v)} min={TIMER_LIMITS.long_break.min} max={TIMER_LIMITS.long_break.max} suffix={` ${t.min}`} />
+        <Stepper label={t.work} value={Math.round(profile.work_time)} onChange={v => updateProfile('work_time', v)} min={TIMER_LIMITS.work.min} max={TIMER_LIMITS.work.max} suffix={` ${t.min}`} />
+        <Stepper label={t.brk} value={Math.round(profile.break_time)} onChange={v => updateProfile('break_time', v)} min={TIMER_LIMITS.break.min} max={TIMER_LIMITS.break.max} suffix={` ${t.min}`} />
+        <Stepper label={t.longBrk} value={Math.round(profile.long_break_time)} onChange={v => updateProfile('long_break_time', v)} min={TIMER_LIMITS.long_break.min} max={TIMER_LIMITS.long_break.max} suffix={` ${t.min}`} />
         <Stepper label={t.rounds} value={profile.rounds} onChange={v => updateProfile('rounds', v)} min={TIMER_LIMITS.rounds.min} max={TIMER_LIMITS.rounds.max} />
-        <Toggle label={t.autoBreak} checked={profile.auto_start_break} onChange={v => updateProfile('auto_start_break', v)} />
-        <Toggle label={t.autoWork} checked={profile.auto_start_work} onChange={v => updateProfile('auto_start_work', v)} />
-        <Toggle label={t.backward} checked={profile.count_backwards} onChange={v => updateProfile('count_backwards', v)} />
       </div>
 
       {/* === Appearance === */}
@@ -298,6 +242,21 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
           </select>
         </div>
         <Toggle label={t.animation} checked={settings.show_animation} onChange={v => updateSetting('show_animation', v)} />
+        <Toggle
+          label={lang === 'ru' ? 'Сцена (пиксельная анимация)' : 'Scene (pixel animation)'}
+          checked={settings.scene_on !== false}
+          onChange={v => updateSetting('scene_on', v)}
+        />
+        <div className="setting-row">
+          <span className="setting-label">{lang === 'ru' ? 'Анимация сцены' : 'Scene animation'}</span>
+          <select className="setting-select" value={settings.scene_style || 'flight'} onChange={e => updateSetting('scene_style', e.target.value)}>
+            <option value="flight">{lang === 'ru' ? 'Полёт' : 'Flight'}</option>
+            <option value="chart">{lang === 'ru' ? 'График активности' : 'Activity chart'}</option>
+            <option value="battle" disabled>{lang === 'ru' ? 'Сражение (скоро)' : 'Battle (soon)'}</option>
+            <option value="run" disabled>{lang === 'ru' ? 'Бег (скоро)' : 'Run (soon)'}</option>
+            <option value="focus" disabled>{lang === 'ru' ? 'Концентрация (скоро)' : 'Focus (soon)'}</option>
+          </select>
+        </div>
         <div className="setting-row">
           <span className="setting-label">{lang === 'ru' ? 'Сигнал «время вышло»' : 'Time-up alert'}</span>
           <select className="setting-select" value={settings.time_up_effect} onChange={e => updateSetting('time_up_effect', e.target.value)}>

@@ -50,9 +50,13 @@ export const DEFAULT_SETTINGS: AppSettings = {
   sound_break: 'chime-soft.wav',
   timer_font: 'Outfit',
   show_animation: true,
+  scene_on: true,
+  scene_style: 'flight',
   custom_accent: '#E05A33',
   time_up_effect: 'flash',
   pure_time: true,
+  white_noise: 'off',
+  ticking: 'off',
 };
 
 // Theme colors (presets only; 'custom' resolves to AppSettings.custom_accent).
@@ -114,8 +118,12 @@ export const GRID_LEVELS = [
   { min: 7, max: Infinity, class: 'l4' },
 ];
 
-// Window dimensions
-export const MAIN_WINDOW = { width: 400, height: 750 };
+// Window dimensions — portrait main panel at 9:16 (1080×1920) proportions.
+// The settings panel unfolds to the right via the ">>" edge arrow and is
+// exactly as wide as the main view (mockup requirement), so the window
+// doubles in width while it is open.
+export const MAIN_WINDOW = { width: 540, height: 960 };
+export const SIDEBAR_WIDTH = MAIN_WINDOW.width;
 export const OVERLAY_SIZES = {
   pill:    { width: 200, height: 42 },
   compact: { width: 300, height: 64 },

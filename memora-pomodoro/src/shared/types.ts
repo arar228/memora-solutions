@@ -1,5 +1,7 @@
 // === Timer Types ===
-export type TimerMode = 'focus' | 'short_break' | 'long_break';
+// Two modes only: Фокус / Пауза. (Short vs. long breaks and rounds были
+// убраны — сессии в БД мигрируются на 'break' в db.ts, миграция v4.)
+export type TimerMode = 'focus' | 'break';
 export type TimerStatus = 'idle' | 'running' | 'paused' | 'completed' | 'waiting';
 // Countdown timer (Pomodoro) vs. count-up stopwatch.
 export type TimerType = 'timer' | 'stopwatch';
@@ -23,7 +25,6 @@ export interface TimerTickPayload {
   status: TimerStatus;
   completedPomos: number;
   countBackwards: boolean;
-  rounds: number;
   idle?: boolean; // pure-time: focus paused because the user is idle
   type: TimerType; // countdown timer vs. count-up stopwatch
   elapsed: number; // stopwatch: seconds counted up so far
@@ -42,15 +43,13 @@ export interface TimerCompletePayload {
 export type TimeUpEffect = 'flash' | 'tomatoes' | 'both' | 'off';
 
 // === Profile ===
+// Only two durations exist now: Фокус and Пауза. Long breaks, rounds,
+// auto-start and count-backwards were retired — the DB columns stay (with
+// their defaults) but nothing reads them.
 export interface Profile {
   name: string;
   work_time: number;
   break_time: number;
-  long_break_time: number;
-  rounds: number;
-  auto_start_break: boolean;
-  auto_start_work: boolean;
-  count_backwards: boolean;
 }
 
 // === Session ===

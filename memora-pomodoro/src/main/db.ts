@@ -33,12 +33,13 @@ export async function initDB(): Promise<void> {
     db = new SQL.Database();
   }
 
-  // Create tables
+  // Create tables. Modes are 'focus' | 'break' — the old short/long break
+  // split is gone (migration v4 below rewrites pre-existing rows).
   db.run(`
     CREATE TABLE IF NOT EXISTS sessions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       profile TEXT NOT NULL DEFAULT 'Pomodoro',
-      mode TEXT NOT NULL CHECK(mode IN ('focus','short_break','long_break')),
+      mode TEXT NOT NULL CHECK(mode IN ('focus','break')),
       duration_sec INTEGER NOT NULL,
       completed INTEGER NOT NULL DEFAULT 1,
       started_at TEXT NOT NULL,
@@ -69,11 +70,11 @@ export async function initDB(): Promise<void> {
     )
   `);
 
-  // Seed default profiles
+  // Seed the default profile (other columns keep their table defaults).
   for (const p of DEFAULT_PROFILES) {
     db.run(
-      `INSERT OR IGNORE INTO profiles (name, work_time, break_time, long_break_time, rounds, auto_start_break, auto_start_work, count_backwards) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [p.name, p.work_time, p.break_time, p.long_break_time, p.rounds, p.auto_start_break ? 1 : 0, p.auto_start_work ? 1 : 0, p.count_backwards ? 1 : 0]
+      `INSERT OR IGNORE INTO profiles (name, work_time, break_time) VALUES (?, ?, ?)`,
+      [p.name, p.work_time, p.break_time]
     );
   }
 
@@ -97,6 +98,41 @@ export async function initDB(): Promise<void> {
     // v3: reset overlay size to 100% (the new auto-fit makes scaling opt-in).
     db.run(`UPDATE settings SET value='100' WHERE key='overlay_size'`);
     db.run(`INSERT OR REPLACE INTO settings (key, value) VALUES ('_settings_version', '3')`);
+  }
+  if (ver < 4) {
+    // v4: short_break/long_break → break. An existing sessions table still
+    // carries the OLD CHECK constraint, so rebuild it (SQLite can't alter a
+    // constraint in place) and fold both break kinds into one. History is
+    // preserved — focus rows (the ones stats count) are untouched.
+    db.run('BEGIN');
+    try {
+      db.run(`
+        CREATE TABLE sessions_v4 (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          profile TEXT NOT NULL DEFAULT 'Pomodoro',
+          mode TEXT NOT NULL CHECK(mode IN ('focus','break')),
+          duration_sec INTEGER NOT NULL,
+          completed INTEGER NOT NULL DEFAULT 1,
+          started_at TEXT NOT NULL,
+          finished_at TEXT
+        )
+      `);
+      db.run(`
+        INSERT INTO sessions_v4 (id, profile, mode, duration_sec, completed, started_at, finished_at)
+        SELECT id, profile,
+               CASE WHEN mode = 'focus' THEN 'focus' ELSE 'break' END,
+               duration_sec, completed, started_at, finished_at
+        FROM sessions
+      `);
+      db.run(`DROP TABLE sessions`);
+      db.run(`ALTER TABLE sessions_v4 RENAME TO sessions`);
+      db.run(`CREATE INDEX IF NOT EXISTS idx_sessions_date ON sessions(started_at)`);
+      db.run(`INSERT OR REPLACE INTO settings (key, value) VALUES ('_settings_version', '4')`);
+      db.run('COMMIT');
+    } catch (err) {
+      db.run('ROLLBACK');
+      console.error('v4 migration failed:', err);
+    }
   }
 
   saveDB();
@@ -236,17 +272,12 @@ export function setSetting(key: string, value: unknown): void {
 // === Profiles ===
 export function getAllProfiles(): Profile[] {
   if (!db) return [...DEFAULT_PROFILES];
-  const rows = db.exec(`SELECT name, work_time, break_time, long_break_time, rounds, auto_start_break, auto_start_work, count_backwards FROM profiles ORDER BY created_at`);
+  const rows = db.exec(`SELECT name, work_time, break_time FROM profiles ORDER BY created_at`);
   if (!rows[0] || rows[0].values.length === 0) return [...DEFAULT_PROFILES];
   return rows[0].values.map((r: unknown[]) => ({
     name: r[0] as string,
     work_time: r[1] as number,
     break_time: r[2] as number,
-    long_break_time: r[3] as number,
-    rounds: r[4] as number,
-    auto_start_break: !!(r[5] as number),
-    auto_start_work: !!(r[6] as number),
-    count_backwards: !!(r[7] as number),
   }));
 }
 
@@ -258,10 +289,15 @@ export function getActiveProfile(): Profile {
 
 export function updateProfile(profile: Profile): void {
   if (!db) return;
+  // UPDATE (not INSERT OR REPLACE) so the legacy columns and created_at keep
+  // whatever they hold instead of being reset to defaults.
   db.run(
-    `INSERT OR REPLACE INTO profiles (name, work_time, break_time, long_break_time, rounds, auto_start_break, auto_start_work, count_backwards)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [profile.name, profile.work_time, profile.break_time, profile.long_break_time, profile.rounds, profile.auto_start_break ? 1 : 0, profile.auto_start_work ? 1 : 0, profile.count_backwards ? 1 : 0]
+    `INSERT OR IGNORE INTO profiles (name, work_time, break_time) VALUES (?, ?, ?)`,
+    [profile.name, profile.work_time, profile.break_time]
+  );
+  db.run(
+    `UPDATE profiles SET work_time = ?, break_time = ? WHERE name = ?`,
+    [profile.work_time, profile.break_time, profile.name]
   );
   saveDB();
 }
@@ -280,10 +316,7 @@ export function createProfile(name?: string): Profile {
     finalName = `${base} ${i}`;
     while (taken(finalName)) { i++; finalName = `${base} ${i}`; }
   }
-  const p: Profile = {
-    name: finalName, work_time: 25, break_time: 5, long_break_time: 15, rounds: 4,
-    auto_start_break: true, auto_start_work: false, count_backwards: true,
-  };
+  const p: Profile = { name: finalName, work_time: 25, break_time: 5 };
   updateProfile(p);
   return p;
 }

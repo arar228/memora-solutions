@@ -1586,3 +1586,7 @@
 .header-lang {
   font-size: var(--fs-ui);
 }
+
+/* Settings panel typography = main view: one UI font size everywhere. */
+.settings-side .settings-panel,
+.settings-side .settings-panel * { font-size: var(--fs-ui); }

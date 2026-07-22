@@ -4,9 +4,10 @@ import { BREAK_COLOR, themeColors, contrastColor } from '../../shared/constants'
 
 function fmt(n: number): string { return String(n).padStart(2, '0'); }
 
+// Two modes only — Фокус / Пауза (no short vs. long break anymore).
 const MODE_LABELS = {
-  ru: { focus: 'ФОКУС', short_break: 'ПЕРЕРЫВ', long_break: 'ДЛИННЫЙ' },
-  en: { focus: 'FOCUS', short_break: 'BREAK', long_break: 'LONG' },
+  ru: { focus: 'ФОКУС', break: 'ПАУЗА' },
+  en: { focus: 'FOCUS', break: 'BREAK' },
 };
 
 const PlayIcon = () => (
@@ -29,7 +30,7 @@ const NO_DRAG = { WebkitAppRegion: 'no-drag' } as React.CSSProperties;
 
 export default function CompactOverlay() {
   const [tick, setTick] = useState<TimerTickPayload>({
-    timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0, countBackwards: true, rounds: 4, type: 'timer', elapsed: 0,
+    timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0, countBackwards: true, type: 'timer', elapsed: 0,
   });
   const [mode, setMode] = useState<OverlayMode>('compact');
   const [showBg, setShowBg] = useState(true);
@@ -175,8 +176,6 @@ export default function CompactOverlay() {
 
   // === BAR (wide) ===
   if (mode === 'bar') {
-    const rounds = tick.rounds || 4;
-    const dots = Array.from({ length: rounds }, (_, i) => i < (tick.completedPomos % rounds));
     return (
       <div ref={rootRef} className={`ov ov-bar ${showBg ? '' : 'no-bg'} ${flashing ? 'ov-flash' : ''}`} style={rootStyle}>
         <div className="ov-bar-logo" style={{ background: color, color: onColor }}>M</div>
@@ -185,12 +184,6 @@ export default function CompactOverlay() {
           <div className="ov-bar-fill" style={{ width: `${pct}%`, background: color }} />
         </div>
         <span className="ov-bar-mode" style={{ color }}>{modeLabel}</span>
-        <div className="ov-bar-sep" />
-        <div className="ov-bar-dots">
-          {dots.map((done, i) => (
-            <span key={i} className={`ov-dot ${done ? 'done' : ''}`} style={done ? { background: color } : {}} />
-          ))}
-        </div>
         <div className="ov-bar-sep" />
         <div className="ov-bar-controls" style={NO_DRAG}>
           {showControls && (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { AppSettings, ThemeName, PresetTheme, Lang, Profile } from '../../shared/types';
-import { THEME_COLORS, themeColors, TIMER_LIMITS, DEFAULT_SETTINGS, DEFAULT_PROFILES } from '../../shared/constants';
+import type { AppSettings, ThemeName, PresetTheme, Lang } from '../../shared/types';
+import { THEME_COLORS, themeColors, DEFAULT_SETTINGS } from '../../shared/constants';
 
 const BUNDLED_SOUNDS = ['bell-gentle.wav', 'chime-soft.wav'];
 
@@ -29,21 +29,6 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
   );
 }
 
-function Stepper({ label, value, onChange, min, max, suffix }: {
-  label: string; value: number; onChange: (v: number) => void; min: number; max: number; suffix?: string;
-}) {
-  return (
-    <div className="setting-row">
-      <span className="setting-label">{label}</span>
-      <div className="stepper">
-        <button className="stepper-btn" onClick={() => onChange(Math.max(min, value - 1))} disabled={value <= min}>−</button>
-        <span className="stepper-value">{value}{suffix || ''}</span>
-        <button className="stepper-btn" onClick={() => onChange(Math.min(max, value + 1))} disabled={value >= max}>+</button>
-      </div>
-    </div>
-  );
-}
-
 function SliderRow({ label, value, onChange, min, max, suffix }: {
   label: string; value: number; onChange: (v: number) => void; min: number; max: number; suffix?: string;
 }) {
@@ -65,9 +50,6 @@ function SliderRow({ label, value, onChange, min, max, suffix }: {
 // === Labels ===
 const L = {
   ru: {
-    profile: 'Профиль', timer: 'Таймер', work: 'Работа', brk: 'Перерыв',
-    longBrk: 'Длинный перерыв', rounds: 'Раунды', autoBreak: 'Автостарт перерыва',
-    autoWork: 'Автостарт работы', backward: 'Обратный отсчёт',
     appearance: 'Внешний вид', color: 'Цвет', opacity: 'Прозрачность оверлея',
     size: 'Размер оверлея', showBg: 'Фон оверлея', showSec: 'Секунды в оверлее',
     showCtrl: 'Кнопки в оверлее', sound: 'Звук', volume: 'Громкость',
@@ -80,15 +62,12 @@ const L = {
     data: 'Данные', exportJson: 'Экспорт JSON', exportCsv: 'Экспорт CSV',
     importYapa: 'Импорт из YAPA', reset: 'Сбросить все данные',
     resetConfirm: 'Это удалит всю историю. Продолжить?',
-    back: '← Назад', min: 'мин', lang: 'Язык',
-    newProfile: 'Новый', font: 'Шрифт таймера', animation: 'Анимация',
+    min: 'мин', lang: 'Язык',
+    font: 'Шрифт таймера', animation: 'Анимация',
     preview: 'Превью', soundStart: 'Звук старта', soundRepeat: 'Повторять звук работы',
     soundFile: 'Файл звука', play: 'Прослушать', browse: 'Обзор',
   },
   en: {
-    profile: 'Profile', timer: 'Timer', work: 'Work', brk: 'Break',
-    longBrk: 'Long Break', rounds: 'Rounds', autoBreak: 'Auto-start break',
-    autoWork: 'Auto-start work', backward: 'Count backwards',
     appearance: 'Appearance', color: 'Color', opacity: 'Overlay opacity',
     size: 'Overlay size', showBg: 'Overlay background', showSec: 'Overlay seconds',
     showCtrl: 'Overlay controls', sound: 'Sound', volume: 'Volume',
@@ -101,8 +80,8 @@ const L = {
     data: 'Data', exportJson: 'Export JSON', exportCsv: 'Export CSV',
     importYapa: 'Import from YAPA', reset: 'Reset all data',
     resetConfirm: 'This will delete all history. Continue?',
-    back: '← Back', min: 'min', lang: 'Language',
-    newProfile: 'New', font: 'Timer font', animation: 'Animation',
+    min: 'min', lang: 'Language',
+    font: 'Timer font', animation: 'Animation',
     preview: 'Preview', soundStart: 'Start sound', soundRepeat: 'Repeat work sound',
     soundFile: 'Sound file', play: 'Play', browse: 'Browse',
   },
@@ -111,14 +90,12 @@ const L = {
 export default function Settings({ lang, theme, onThemeChange, onLangChange, onClose }: SettingsProps) {
   const t = L[lang];
   const [settings, setSettings] = useState<AppSettings>({ ...DEFAULT_SETTINGS });
-  const [profile, setProfile] = useState<Profile>({ ...DEFAULT_PROFILES[0] });
   const [recordingHotkey, setRecordingHotkey] = useState(false);
   const [appVersion, setAppVersion] = useState('');
 
-  // Load settings and the (single) active profile on mount
+  // Load settings on mount (durations live on the main screen now).
   useEffect(() => {
     window.api.settings.getAll().then(setSettings);
-    window.api.profile.getActive().then(setProfile);
     window.api.system.getVersion().then(v => setAppVersion(v || '1.0.0'));
   }, []);
 
@@ -151,15 +128,6 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
     window.api.settings.set(key, value);
   }, []);
 
-  // Update profile field and persist
-  const updateProfile = useCallback((field: keyof Profile, value: number | boolean) => {
-    setProfile(prev => {
-      const updated = { ...prev, [field]: value };
-      window.api.profile.update(updated);
-      return updated;
-    });
-  }, []);
-
   // Preview the currently selected completion sound (bundled or custom).
   const previewSound = useCallback(async () => {
     const file = settings.sound_work;
@@ -188,21 +156,11 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
 
   return (
     <div className="settings-panel">
-      {/* Back button */}
-      <button className="settings-back" onClick={onClose}>{t.back}</button>
+      {/* Back button removed — the panel closes via the « edge arrow or Esc. */}
 
-      {/* === Timer ===
-          Профили, автостарты и «обратный отсчёт» убраны (мокап): один набор
-          длительностей, таймер всегда считает вниз, интервалы стартуют
-          вручную. Секунды настраиваются прокруткой цифр на главном экране —
-          здесь целые минуты. */}
-      <div className="settings-section">
-        <h3 className="settings-section-title">{t.timer}</h3>
-        <Stepper label={t.work} value={Math.round(profile.work_time)} onChange={v => updateProfile('work_time', v)} min={TIMER_LIMITS.work.min} max={TIMER_LIMITS.work.max} suffix={` ${t.min}`} />
-        <Stepper label={t.brk} value={Math.round(profile.break_time)} onChange={v => updateProfile('break_time', v)} min={TIMER_LIMITS.break.min} max={TIMER_LIMITS.break.max} suffix={` ${t.min}`} />
-        <Stepper label={t.longBrk} value={Math.round(profile.long_break_time)} onChange={v => updateProfile('long_break_time', v)} min={TIMER_LIMITS.long_break.min} max={TIMER_LIMITS.long_break.max} suffix={` ${t.min}`} />
-        <Stepper label={t.rounds} value={profile.rounds} onChange={v => updateProfile('rounds', v)} min={TIMER_LIMITS.rounds.min} max={TIMER_LIMITS.rounds.max} />
-      </div>
+      {/* Секция «Таймер» убрана целиком: длительности Фокуса и Паузы
+          задаются прокруткой цифр на главном экране, а длинных перерывов и
+          раундов больше нет. */}
 
       {/* === Appearance === */}
       <div className="settings-section">

@@ -1,27 +1,8 @@
 import type { Profile, AppSettings, ThemeName, PresetTheme } from './types';
 
-// Default profiles
+// The single duration set (profiles were retired — one config, two modes).
 export const DEFAULT_PROFILES: Profile[] = [
-  {
-    name: 'Pomodoro',
-    work_time: 25,
-    break_time: 5,
-    long_break_time: 15,
-    rounds: 4,
-    auto_start_break: true,
-    auto_start_work: false,
-    count_backwards: true,
-  },
-  {
-    name: 'Deep Work',
-    work_time: 50,
-    break_time: 10,
-    long_break_time: 30,
-    rounds: 4,
-    auto_start_break: true,
-    auto_start_work: false,
-    count_backwards: true,
-  },
+  { name: 'Pomodoro', work_time: 25, break_time: 5 },
 ];
 
 // Default settings
@@ -101,12 +82,10 @@ export const BREAK_COLOR = '#1D9E75';
 export const RING_RADIUS = 90;
 export const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS; // 565.49
 
-// Timer limits
+// Timer limits (minutes) — used by the digit scrubber.
 export const TIMER_LIMITS = {
-  work: { min: 1, max: 60 },
-  break: { min: 1, max: 30 },
-  long_break: { min: 1, max: 60 },
-  rounds: { min: 1, max: 8 },
+  work: { min: 1, max: 180 },
+  break: { min: 1, max: 180 },
 };
 
 // Contribution grid levels (pomodoros per day)

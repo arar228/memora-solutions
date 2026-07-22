@@ -51,8 +51,7 @@ function broadcastTick(): void {
     mode,
     status,
     completedPomos,
-    countBackwards: profile.count_backwards,
-    rounds: profile.rounds,
+    countBackwards: true, // the timer always counts down now
     idle: idlePaused,
     type: timerType,
     elapsed,
@@ -97,11 +96,7 @@ function broadcastSound(file: string, volume: number, times = 1): void {
 // Get duration for mode in seconds. Durations are stored as MINUTES and may
 // be fractional (25.5 = 25:30) — the digits scrubber sets seconds too.
 function getDuration(m: TimerMode): number {
-  switch (m) {
-    case 'focus': return Math.round(profile.work_time * 60);
-    case 'short_break': return Math.round(profile.break_time * 60);
-    case 'long_break': return Math.round(profile.long_break_time * 60);
-  }
+  return Math.round((m === 'focus' ? profile.work_time : profile.break_time) * 60);
 }
 
 // Complete current interval.
@@ -126,18 +121,8 @@ function completeInterval(natural = true): void {
     if (startedAt) saveSession(profile.name, mode, totalTime, true, startedAt);
   }
 
-  // Decide the next mode from the (possibly updated) round counter.
-  let nextMode: TimerMode;
-  if (wasFocus) {
-    if (completedPomos >= profile.rounds) {
-      nextMode = 'long_break';
-      completedPomos = 0; // start a fresh cycle of rounds
-    } else {
-      nextMode = 'short_break';
-    }
-  } else {
-    nextMode = 'focus';
-  }
+  // Two modes only — they simply alternate (rounds/long breaks are gone).
+  const nextMode: TimerMode = wasFocus ? 'break' : 'focus';
 
   // Auto-start is retired (manager: «убираем автостарт») — the next interval
   // always waits for the user to press play.

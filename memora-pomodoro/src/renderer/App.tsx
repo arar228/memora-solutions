@@ -31,7 +31,7 @@ export default function App() {
   // scrubPreview holds the previewed duration in SECONDS.
   const [scrubPreview, setScrubPreview] = useState<number | null>(null);
   const heroTimeRef = useRef<HTMLSpanElement>(null);
-  const scrubRef = useRef<{ startY: number; startTotal: number; unit: 60 | 1; field: 'work_time' | 'break_time' | 'long_break_time' } | null>(null);
+  const scrubRef = useRef<{ startY: number; startTotal: number; unit: 60 | 1; field: 'work_time' | 'break_time' } | null>(null);
 
   // Timer state (received from main process via IPC)
   const [timerState, setTimerState] = useState<TimerTickPayload>({
@@ -41,7 +41,6 @@ export default function App() {
     status: 'idle',
     completedPomos: 0,
     countBackwards: true,
-    rounds: 4,
     type: 'timer',
     elapsed: 0,
   });
@@ -374,9 +373,8 @@ export default function App() {
   // to spin that unit (Фокус → work_time, Пауза → break_time). Durations are
   // stored as fractional minutes so seconds survive the round-trip. Only
   // while the timer is not running.
-  const scrubField: 'work_time' | 'break_time' | 'long_break_time' =
-    timerState.mode === 'focus' ? 'work_time'
-      : timerState.mode === 'long_break' ? 'long_break_time' : 'break_time';
+  const scrubField: 'work_time' | 'break_time' =
+    timerState.mode === 'focus' ? 'work_time' : 'break_time';
   const canScrub = !modesLocked && timerState.type === 'timer' && !!activeProfileData;
 
   const onScrubDown = useCallback((unit: 60 | 1) => (e: React.PointerEvent<HTMLSpanElement>) => {
@@ -494,7 +492,7 @@ export default function App() {
           </button>
           <button role="tab" aria-selected={timerState.mode !== 'focus'} disabled={modesLocked}
             className={`box-btn box-btn--break ${timerState.mode !== 'focus' ? 'active' : ''}`}
-            onClick={() => handleModeClick('short_break')}>
+            onClick={() => handleModeClick('break')}>
             {lang === 'ru' ? 'Пауза' : 'Break'}
           </button>
         </div>

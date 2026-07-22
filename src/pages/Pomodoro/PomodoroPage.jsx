@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Download, CheckCircle2, Timer } from 'lucide-react';
+import { Download, CheckCircle2, Timer, Play, Maximize2 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import PomodoroShowcase from '../../shared/PomodoroShowcase';
 import './PomodoroPage.css';
@@ -8,6 +9,9 @@ import './PomodoroPage.css';
 // Permanent, version-less URL (electron-builder artifactName is stable).
 const WIN_INSTALLER = 'https://github.com/arar228/memora-solutions/releases/latest/download/Memora-Pomodoro-Setup.exe';
 const RELEASES_LATEST = 'https://github.com/arar228/memora-solutions/releases/latest';
+// Веб-копия приложения: та же кодовая база, что и у десктопа, собирается
+// командой `npm run build:web` в memora-pomodoro/ прямо в public/app/pomodoro.
+const WEB_APP_URL = '/app/pomodoro/index.html';
 const FEATURES = ['f1', 'f2', 'f3', 'f4', 'f5'];
 const STEPS = ['step1', 'step2', 'step3', 'step4'];
 
@@ -30,6 +34,22 @@ export default function PomodoroPage() {
     const os = detectOS();
     const isWin = os === 'windows';
     const downloadHref = isWin ? WIN_INSTALLER : RELEASES_LATEST;
+
+    // Номер и дата актуальной версии — файл пишется сборкой веб-копии.
+    const [release, setRelease] = useState(null);
+    useEffect(() => {
+        let cancelled = false;
+        fetch('/pomodoro-version.json', { cache: 'no-cache' })
+            .then(r => (r.ok ? r.json() : null))
+            .then(d => { if (!cancelled) setRelease(d); })
+            .catch(() => { /* без надписи о версии страница остаётся рабочей */ });
+        return () => { cancelled = true; };
+    }, []);
+    const releaseLine = release?.version
+        ? (ru
+            ? `Актуальная версия ${release.version} · от ${new Date(release.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}`
+            : `Latest version ${release.version} · ${new Date(release.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}`)
+        : '';
 
     return (
         <div className="pomodoro-page">
@@ -67,6 +87,10 @@ export default function PomodoroPage() {
                                     : 'Windows build available now. macOS and Linux coming soon.')}
                         </div>
 
+                        {releaseLine && (
+                            <div className="pomodoro-hero__version">{releaseLine}</div>
+                        )}
+
                         <div className="pomodoro-hero__update">
                             {ru
                                 ? '↻ Обновляетесь? Просто запустите новый установщик поверх старой версии — вся статистика и настройки сохранятся.'
@@ -101,7 +125,40 @@ export default function PomodoroPage() {
                 </div>
             </section>
 
+            {/* Рабочая веб-копия приложения — та же кодовая база, что у десктопа */}
             <div className="container pomodoro-page__body">
+                <AnimatedSection>
+                    <section className="pomodoro-live">
+                        <div className="pomodoro-live__head">
+                            <h2>
+                                <Play size={18} aria-hidden="true" />{' '}
+                                {ru ? 'Попробовать прямо здесь' : 'Try it right here'}
+                            </h2>
+                            <a
+                                className="pomodoro-live__open"
+                                href={WEB_APP_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <Maximize2 size={14} aria-hidden="true" />{' '}
+                                {ru ? 'Открыть в отдельной вкладке' : 'Open in a new tab'}
+                            </a>
+                        </div>
+                        <p className="pomodoro-live__lead">
+                            {ru
+                                ? 'Полноценная веб-версия: те же два режима, прокрутка цифр, сцены и статистика. Данные хранятся в этом браузере. Оверлей, трей и горячие клавиши — только в десктопной версии.'
+                                : 'A full web version: the same two modes, digit scrubbing, scenes and stats. Data is stored in this browser. Overlay, tray and global hotkeys are desktop-only.'}
+                        </p>
+                        <div className="pomodoro-live__frame">
+                            <iframe
+                                src={WEB_APP_URL}
+                                title={ru ? 'Мемора Помодоро — веб-версия' : 'Memora Pomodoro — web version'}
+                                loading="lazy"
+                            />
+                        </div>
+                    </section>
+                </AnimatedSection>
+
                 <AnimatedSection>
                     <PomodoroShowcase t={t} />
                 </AnimatedSection>

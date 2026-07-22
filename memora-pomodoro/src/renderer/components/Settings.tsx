@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import type { AppSettings, ThemeName, PresetTheme, Lang } from '../../shared/types';
 import { THEME_COLORS, themeColors, DEFAULT_SETTINGS } from '../../shared/constants';
+import { IS_WEB } from '../../shared/target';
 
 const BUNDLED_SOUNDS = ['bell-gentle.wav', 'chime-soft.wav'];
 
@@ -256,8 +257,8 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
         </div>
       </div>
 
-      {/* === Overlay === */}
-      <div className="settings-section">
+      {/* === Overlay (десктоп-только: в браузере оверлея нет) === */}
+      <div className="settings-section" hidden={IS_WEB}>
         <h3 className="settings-section-title">{t.overlay}</h3>
         <Toggle label={t.overlayToggle} checked={settings.overlay_visible || false} onChange={() => {
           const newVal = !settings.overlay_visible;
@@ -324,8 +325,8 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
         </div>
       </div>
 
-      {/* === Behavior === */}
-      <div className="settings-section">
+      {/* === Behavior (трей, автозапуск, хоткеи — только десктоп) === */}
+      <div className="settings-section" hidden={IS_WEB}>
         <h3 className="settings-section-title">{t.behavior}</h3>
         <Toggle label={t.onTop} checked={settings.always_on_top} onChange={v => updateSetting('always_on_top', v)} />
         <Toggle label={t.tray} checked={settings.minimize_to_tray} onChange={v => updateSetting('minimize_to_tray', v)} />

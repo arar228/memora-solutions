@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { TimerTickPayload, TimerMode, TimerType, ThemeName, TimeUpEffect, Profile } from '../shared/types';
 import { themeColors, contrastColor, BREAK_COLOR } from '../shared/constants';
+import { IS_WEB } from '../shared/target';
 import Settings from './components/Settings';
 import FloatingTomatoes from './components/FloatingTomatoes';
 import TomatoBurst from './components/TomatoBurst';
@@ -21,6 +22,7 @@ export default function App() {
   const [timeUpEffect, setTimeUpEffect] = useState<TimeUpEffect>('flash');
   const [flashing, setFlashing] = useState(false);
   const [burstKey, setBurstKey] = useState(0);
+  const [summaryKey, setSummaryKey] = useState(0); // итоговый график сцены
   const timeUpEffectRef = useRef<TimeUpEffect>('flash');
   // Settings unfold to the RIGHT via the ">>" edge arrow (mockup) — the panel
   // is exactly as wide as the main view; the window doubles while open.
@@ -158,6 +160,9 @@ export default function App() {
     const unsub = window.api.timer.onComplete((payload) => {
       setRefreshKey(k => k + 1);
       if (!payload?.natural) return; // a manual skip shouldn't alert
+      // Досидел интервал до конца → сцена «График активности» показывает
+      // итоговый график за весь отрезок.
+      setSummaryKey(k => k + 1);
       const eff = timeUpEffectRef.current;
       if (eff === 'flash' || eff === 'both') setFlashing(true);
       if (eff === 'tomatoes' || eff === 'both') setBurstKey(k => k + 1);
@@ -450,7 +455,8 @@ export default function App() {
           <button className="header-lang" onClick={() => changeLang(lang === 'ru' ? 'en' : 'ru')}>
             {lang === 'ru' ? 'RU' : 'EN'} <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <div className="window-controls">
+          {/* Кнопки окна существуют только в десктопе. */}
+          <div className="window-controls" hidden={IS_WEB} style={IS_WEB ? { display: 'none' } : undefined}>
             <button className="win-btn" onClick={() => window.api.window.toOverlay()} aria-label={lang === 'ru' ? 'Свернуть в оверлей' : 'Collapse to overlay'} title={lang === 'ru' ? 'Оверлей' : 'Overlay'}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><rect x="12.5" y="12.5" width="6" height="5" rx="1" fill="currentColor" stroke="none"/></svg>
             </button>
@@ -626,6 +632,7 @@ export default function App() {
             idle={!!timerState.idle}
             accent={accent}
             style={sceneStyle}
+            summaryKey={summaryKey}
           />
         </div>
       )}

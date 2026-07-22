@@ -18,6 +18,9 @@ interface SceneProps {
   idle: boolean;   // pure-time auto-pause: the user is away from the keyboard
   accent: string;
   style?: string;  // 'flight' | 'chart'
+  // Bumped when an interval finishes: the chart scene then freezes and shows
+  // the WHOLE session compressed to the module width (см. summary ниже).
+  summaryKey?: number;
 }
 
 const W = 192;
@@ -39,7 +42,7 @@ const RED = '#D95757';
 interface Obstacle { x: number; gapY: number; gapH: number; w: number }
 interface Star { x: number; y: number; speed: number; tone: number }
 
-export default function Scene({ mode, running, idle, accent, style = 'flight' }: SceneProps) {
+export default function Scene({ mode, running, idle, accent, style = 'flight', summaryKey = 0 }: SceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sim = useRef({
     shipY: H / 2, shipVy: 0, t: 0,
@@ -50,9 +53,45 @@ export default function Scene({ mode, running, idle, accent, style = 'flight' }:
     level: 0.35,
     points: [] as number[],
     pushAcc: 0,
+    // Полная история активности за интервал (не обрезается, в отличие от
+    // points): по окончании таймера она ужимается по ширине модуля.
+    history: [] as number[],
+    summary: null as null | { pts: number[]; avg: number; peak: number; active: number },
   });
   const propsRef = useRef({ mode, running, idle, accent, style });
   propsRef.current = { mode, running, idle, accent, style };
+
+  // Таймер отработал → замораживаем сцену и строим итоговый график.
+  useEffect(() => {
+    const s = sim.current;
+    if (summaryKey <= 0) return;
+    const h = s.history;
+    if (h.length < 2) { s.summary = null; return; }
+    // «По-умному ужать»: делим всю историю на W-2 колонок и берём максимум в
+    // каждой корзине — так всплески активности не теряются при сжатии
+    // (усреднение бы их сгладило), а провалы простоя остаются видны.
+    const cols = W - 2;
+    const per = h.length / cols;
+    const pts: number[] = [];
+    for (let i = 0; i < cols; i++) {
+      const from = Math.floor(i * per);
+      const to = Math.max(from + 1, Math.floor((i + 1) * per));
+      let peak = 0;
+      for (let j = from; j < to && j < h.length; j++) peak = Math.max(peak, h[j]);
+      pts.push(peak);
+    }
+    const avg = h.reduce((a, b) => a + b, 0) / h.length;
+    s.summary = {
+      pts, avg,
+      peak: Math.max(...h),
+      active: h.filter(v => v > 0.5).length / h.length, // доля времени «в работе»
+    };
+  }, [summaryKey]);
+
+  // Новый запуск — сбрасываем итог и копим историю заново.
+  useEffect(() => {
+    if (running) { sim.current.summary = null; sim.current.history = []; }
+  }, [running]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -136,8 +175,46 @@ export default function Scene({ mode, running, idle, accent, style = 'flight' }:
       }
     };
 
+    // Итоговый график за весь отработанный интервал: вся история ужата по
+    // ширине модуля, снизу — заливка, сверху — подпись со сводкой.
+    const drawSummary = (px: number) => {
+      const sum = s.summary;
+      if (!sum) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // сетка
+      ctx.fillStyle = '#23232f';
+      for (let gy = 12; gy < H; gy += 16) {
+        for (let gx = 2; gx < W; gx += 8) ctx.fillRect(gx * px, gy * px, px, px);
+      }
+      const top = 14; // место под подпись
+      const yOf = (v: number) => Math.floor(top + (1 - v) * (H - top - 6));
+      // столбики-заливка + линия поверх
+      sum.pts.forEach((v, i) => {
+        const x = (i + 1) * px;
+        const y = yOf(v);
+        ctx.fillStyle = 'rgba(63,174,121,0.16)';
+        ctx.fillRect(x, y * 1, px, canvas.height - y);
+        ctx.fillStyle = v >= sum.avg ? GREEN : '#7d7d92';
+        ctx.fillRect(x, y, px, px * 2);
+      });
+      // средняя линия — пунктиром
+      const avgY = yOf(sum.avg);
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      for (let x = 1; x < W - 1; x += 4) ctx.fillRect(x * px, avgY * px, px * 2, px);
+      // подпись: доля активного времени и пик
+      ctx.fillStyle = '#d8d8e4';
+      ctx.font = `${Math.round(px * 7)}px ui-monospace, monospace`;
+      ctx.textBaseline = 'top';
+      ctx.fillText(
+        `ИТОГ: в работе ${Math.round(sum.active * 100)}%  ·  пик ${Math.round(sum.peak * 100)}%`,
+        2 * px, 3 * px,
+      );
+    };
+
     const drawChart = (px: number, dtn: number) => {
       const { running: run, idle: away } = propsRef.current;
+      // Интервал закончился — показываем застывший итог, а не живую ленту.
+      if (s.summary && !run) { drawSummary(px); return; }
       const active = run && !away;
       // Level climbs while the user works, sinks while they are away (or the
       // timer is stopped it drifts to the baseline).
@@ -149,8 +226,11 @@ export default function Scene({ mode, running, idle, accent, style = 'flight' }:
       s.pushAcc += dtn;
       if (s.pushAcc >= 3) {
         s.pushAcc = 0;
-        s.points.push(s.level + (Math.random() - 0.5) * 0.03);
+        const v = s.level + (Math.random() - 0.5) * 0.03;
+        s.points.push(v);
         if (s.points.length > 64) s.points.shift();
+        // История за весь интервал — источник для итогового графика.
+        if (run) s.history.push(Math.max(0, Math.min(1, v)));
       }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);

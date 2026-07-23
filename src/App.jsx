@@ -28,6 +28,15 @@ const InternalPage = lazyWithRetry(() => import('./pages/Internal'));
 // so the import and chunk are tree-shaken out of production bundles.
 const AdminPage = import.meta.env.DEV ? lazyWithRetry(() => import('./pages/Admin')) : null;
 
+// Панель управления продуктами живёт на отдельном поддомене
+// (admin.memorasolutions.ru) и защищена паролем на сервере — см. server.js.
+// Здесь только выбор, что рендерить: сайт или админку.
+const AdminApp = lazyWithRetry(() => import('./admin/AdminApp'));
+const IS_ADMIN_HOST = typeof window !== 'undefined'
+  && (window.location.hostname.startsWith('admin.')
+    // локальная проверка без поддомена: ?admin=1
+    || new URLSearchParams(window.location.search).has('admin'));
+
 function PageTransition({ children }) {
   return (
     <motion.div
@@ -92,6 +101,18 @@ function GlobalLoaderHider() {
 }
 
 export default function App() {
+  // На поддомене админки сайт не рендерится вообще: ни шапки, ни частиц,
+  // ни маршрутов — только панель управления.
+  if (IS_ADMIN_HOST) {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <AdminApp />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   return (
     <BrowserRouter>
       <div className="app">

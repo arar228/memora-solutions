@@ -1,0 +1,15 @@
+/* Tailwind подключается только здесь — этот файл грузится исключительно
+   админкой (см. lazy-импорт в App.jsx), а preflight выключен в конфиге,
+   поэтому вёрстка основного сайта не затрагивается. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Админка всегда тёмная, независимо от темы сайта. */
+.admin-root {
+    font-family: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+.admin-root code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px;
+}

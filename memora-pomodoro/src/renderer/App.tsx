@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { TimerTickPayload, TimerMode, TimerType, ThemeName, TimeUpEffect, Profile } from '../shared/types';
 import { themeColors, contrastColor, BREAK_COLOR } from '../shared/constants';
 import { IS_WEB } from '../shared/target';
+import { applyTokens } from '../shared/applyTokens';
 import Settings from './components/Settings';
 import FloatingTomatoes from './components/FloatingTomatoes';
 import TomatoBurst from './components/TomatoBurst';
@@ -199,6 +200,9 @@ export default function App() {
       setTotalPomos(s.totalPomodoros || 1);
     }).catch(() => { /* ignore */ });
   }, [refreshKey]);
+
+  // Токены раскладки (ширина колонки, зазоры, высоты) — из shared/tokens.json.
+  useEffect(() => { applyTokens(); }, []);
 
   // Apply theme (presets + custom) to CSS variables.
   useEffect(() => {

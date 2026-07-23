@@ -1590,3 +1590,43 @@
 /* Settings panel typography = main view: one UI font size everywhere. */
 .settings-side .settings-panel,
 .settings-side .settings-panel * { font-size: var(--fs-ui); }
+
+/* ============================================================
+   ТОКЕНЫ РАСКЛАДКИ (крутятся из админки: admin.memorasolutions.ru →
+   Помодоро). Значения по умолчанию задаются здесь, переопределяются
+   src/shared/tokens.json на старте приложения. Блок идёт последним,
+   поэтому переменные выигрывают у ранних правил.
+   ============================================================ */
+:root {
+    --mp-col: 480px;      /* ширина рабочей колонки */
+    --mp-gap: 6px;        /* вертикальный зазор между блоками */
+    --mp-row-h: 40px;     /* высота кнопок-боксов */
+    --mp-ctrl-h: 46px;    /* высота кнопок управления */
+    --mp-radius: 10px;    /* скругление контролов */
+    --mp-pad-x: 15px;     /* боковые поля */
+    --mp-pad-y: 12px;     /* верхнее поле */
+    --mp-scene-ratio: 2.6; /* пропорции сцены (ширина / высота) */
+}
+
+.main-col { gap: var(--mp-gap); padding: var(--mp-pad-y) var(--mp-pad-x) calc(var(--mp-pad-y) + 4px); }
+
+.grid-row,
+.pure-bar,
+.controls-rect,
+.scene-box,
+.stats-box,
+.color-row,
+.laps,
+.hero2-time,
+.app-wide .hero2-time,
+.hero2-track,
+.app-wide .hero2-track { max-width: var(--mp-col); }
+
+.grid-row { gap: var(--mp-gap); margin: 0 auto var(--mp-gap); }
+.controls-rect { gap: var(--mp-gap); margin-top: var(--mp-gap); }
+.box-btn { height: var(--mp-row-h); border-radius: var(--mp-radius); }
+.ctrl-rect { height: var(--mp-ctrl-h); border-radius: var(--mp-radius); }
+.scene-box { margin: var(--mp-gap) auto; border-radius: calc(var(--mp-radius) + 2px); }
+.scene-canvas { aspect-ratio: var(--mp-scene-ratio); }
+.stats-box,
+.color-row { margin-top: var(--mp-gap); border-radius: calc(var(--mp-radius) + 2px); }

@@ -1287,6 +1287,7 @@
 
 /* Scene */
 .scene-box {
+  position: relative;
   width: 100%;
   max-width: 420px;
   margin: 10px auto 4px;
@@ -1294,6 +1295,78 @@
   border-radius: 12px;
   overflow: hidden;
   background: #14141c;
+}
+.scene-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  background: rgba(10,10,15,0.72);
+  color: rgba(255,255,255,0.88);
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transform: translateY(-50%) scale(0.9);
+  transition: opacity 0.16s ease, transform 0.16s ease, color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+.scene-arrow--prev { left: 8px; }
+.scene-arrow--next { right: 8px; }
+.scene-arrow svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.scene-box:hover .scene-arrow,
+.scene-box:focus-within .scene-arrow {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) scale(1);
+}
+.scene-arrow:hover,
+.scene-arrow:focus-visible {
+  color: var(--a);
+  border-color: var(--a);
+  background: rgba(10,10,15,0.9);
+  outline: none;
+}
+.scene-style-label {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  z-index: 2;
+  max-width: calc(100% - 110px);
+  padding: 4px 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  background: rgba(10,10,15,0.68);
+  color: rgba(255,255,255,0.82);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  transform: translate(-50%, 4px);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.scene-box:hover .scene-style-label,
+.scene-box:focus-within .scene-style-label {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 .scene-canvas {
   display: block;
@@ -1327,6 +1400,18 @@
 .scene-chip.active { color: var(--a); border-color: var(--a); background: var(--a-dim); }
 .scene-chip:disabled { opacity: 0.45; cursor: default; }
 .scene-chip__soon { font-size: 9px; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.06em; }
+
+@media (hover: none) {
+  .scene-arrow {
+    opacity: 0.78;
+    pointer-events: auto;
+    transform: translateY(-50%) scale(1);
+  }
+  .scene-style-label {
+    opacity: 0.78;
+    transform: translate(-50%, 0);
+  }
+}
 
 /* Color row */
 .color-row {

@@ -1,16 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { AppSettings, ThemeName, PresetTheme, Lang } from '../../shared/types';
-import { THEME_COLORS, themeColors, DEFAULT_SETTINGS } from '../../shared/constants';
+import type { AppSettings, Lang } from '../../shared/types';
+import { DEFAULT_SETTINGS } from '../../shared/constants';
 import { IS_WEB } from '../../shared/target';
 
 const BUNDLED_SOUNDS = ['bell-gentle.wav', 'chime-soft.wav'];
 
 interface SettingsProps {
   lang: Lang;
-  theme: ThemeName;
-  onThemeChange: (t: ThemeName) => void;
-  onLangChange: (l: Lang) => void;
-  onClose: () => void;
 }
 
 // === Reusable sub-components ===
@@ -51,7 +47,7 @@ function SliderRow({ label, value, onChange, min, max, suffix }: {
 // === Labels ===
 const L = {
   ru: {
-    appearance: 'Внешний вид', color: 'Цвет', opacity: 'Прозрачность оверлея',
+    appearance: 'Внешний вид', opacity: 'Прозрачность оверлея',
     size: 'Размер оверлея', showBg: 'Фон оверлея', showSec: 'Секунды в оверлее',
     showCtrl: 'Кнопки в оверлее', sound: 'Звук', volume: 'Громкость',
     overlay: 'Оверлей', overlayToggle: 'Показать оверлей-виджет',
@@ -63,13 +59,12 @@ const L = {
     data: 'Данные', exportJson: 'Экспорт JSON', exportCsv: 'Экспорт CSV',
     importYapa: 'Импорт из YAPA', reset: 'Сбросить все данные',
     resetConfirm: 'Это удалит всю историю. Продолжить?',
-    min: 'мин', lang: 'Язык',
-    font: 'Шрифт таймера', animation: 'Анимация',
-    preview: 'Превью', soundStart: 'Звук старта', soundRepeat: 'Повторять звук работы',
+    min: 'мин', font: 'Шрифт таймера',
+    soundStart: 'Звук старта', soundRepeat: 'Повторять звук работы',
     soundFile: 'Файл звука', play: 'Прослушать', browse: 'Обзор',
   },
   en: {
-    appearance: 'Appearance', color: 'Color', opacity: 'Overlay opacity',
+    appearance: 'Appearance', opacity: 'Overlay opacity',
     size: 'Overlay size', showBg: 'Overlay background', showSec: 'Overlay seconds',
     showCtrl: 'Overlay controls', sound: 'Sound', volume: 'Volume',
     overlay: 'Overlay', overlayToggle: 'Show overlay widget',
@@ -81,14 +76,13 @@ const L = {
     data: 'Data', exportJson: 'Export JSON', exportCsv: 'Export CSV',
     importYapa: 'Import from YAPA', reset: 'Reset all data',
     resetConfirm: 'This will delete all history. Continue?',
-    min: 'min', lang: 'Language',
-    font: 'Timer font', animation: 'Animation',
-    preview: 'Preview', soundStart: 'Start sound', soundRepeat: 'Repeat work sound',
+    min: 'min', font: 'Timer font',
+    soundStart: 'Start sound', soundRepeat: 'Repeat work sound',
     soundFile: 'Sound file', play: 'Play', browse: 'Browse',
   },
 };
 
-export default function Settings({ lang, theme, onThemeChange, onLangChange, onClose }: SettingsProps) {
+export default function Settings({ lang }: SettingsProps) {
   const t = L[lang];
   const [settings, setSettings] = useState<AppSettings>({ ...DEFAULT_SETTINGS });
   const [recordingHotkey, setRecordingHotkey] = useState(false);
@@ -153,8 +147,6 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
     if (file) updateSetting('sound_work', file);
   }, [updateSetting]);
 
-  const previewAccent = themeColors(theme, settings.custom_accent).accent;
-
   return (
     <div className="settings-panel">
       {/* Back button removed — the panel closes via the « edge arrow or Esc. */}
@@ -167,32 +159,6 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
       <div className="settings-section">
         <h3 className="settings-section-title">{t.appearance}</h3>
         <div className="setting-row">
-          <span className="setting-label">{t.color}</span>
-          <div className="theme-pills-settings">
-            {(Object.keys(THEME_COLORS) as PresetTheme[]).map(th => (
-              <button
-                key={th}
-                className={`theme-pill ${theme === th ? 'active' : ''}`}
-                style={{ background: THEME_COLORS[th].accent }}
-                onClick={() => onThemeChange(th)}
-              />
-            ))}
-            {/* custom color picker pill */}
-            <label
-              className={`theme-pill ${theme === 'custom' ? 'active' : ''}`}
-              style={{ background: settings.custom_accent, position: 'relative', overflow: 'hidden', cursor: 'pointer' }}
-              title={t.color}
-            >
-              <input
-                type="color"
-                value={settings.custom_accent}
-                onChange={e => { updateSetting('custom_accent', e.target.value); onThemeChange('custom'); }}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer', border: 'none', padding: 0 }}
-              />
-            </label>
-          </div>
-        </div>
-        <div className="setting-row">
           <span className="setting-label">{t.font}</span>
           <select className="setting-select" value={settings.timer_font} onChange={e => updateSetting('timer_font', e.target.value)}>
             <option value="JetBrains Mono">Mono</option>
@@ -200,22 +166,11 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
             <option value="Georgia">Serif</option>
           </select>
         </div>
-        <Toggle label={t.animation} checked={settings.show_animation} onChange={v => updateSetting('show_animation', v)} />
         <Toggle
           label={lang === 'ru' ? 'Сцена (пиксельная анимация)' : 'Scene (pixel animation)'}
           checked={settings.scene_on !== false}
           onChange={v => updateSetting('scene_on', v)}
         />
-        <div className="setting-row">
-          <span className="setting-label">{lang === 'ru' ? 'Анимация сцены' : 'Scene animation'}</span>
-          <select className="setting-select" value={settings.scene_style || 'flight'} onChange={e => updateSetting('scene_style', e.target.value)}>
-            <option value="flight">{lang === 'ru' ? 'Полёт' : 'Flight'}</option>
-            <option value="chart">{lang === 'ru' ? 'График активности' : 'Activity chart'}</option>
-            <option value="battle" disabled>{lang === 'ru' ? 'Сражение (скоро)' : 'Battle (soon)'}</option>
-            <option value="run" disabled>{lang === 'ru' ? 'Бег (скоро)' : 'Run (soon)'}</option>
-            <option value="focus" disabled>{lang === 'ru' ? 'Концентрация (скоро)' : 'Focus (soon)'}</option>
-          </select>
-        </div>
         <div className="setting-row">
           <span className="setting-label">{lang === 'ru' ? 'Сигнал «время вышло»' : 'Time-up alert'}</span>
           <select className="setting-select" value={settings.time_up_effect} onChange={e => updateSetting('time_up_effect', e.target.value)}>
@@ -224,36 +179,6 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
             <option value="both">{lang === 'ru' ? 'Мигание + помидоры' : 'Flash + tomatoes'}</option>
             <option value="off">{lang === 'ru' ? 'Выкл' : 'Off'}</option>
           </select>
-        </div>
-        {/* Live preview */}
-        <div className="appearance-preview">
-          <svg width="56" height="56" viewBox="0 0 56 56">
-            <circle cx="28" cy="28" r="22" fill="none" stroke="var(--sf2)" strokeWidth="4" />
-            <circle cx="28" cy="28" r="22" fill="none" stroke={previewAccent} strokeWidth="4" strokeLinecap="round"
-              strokeDasharray={2 * Math.PI * 22} strokeDashoffset={2 * Math.PI * 22 * 0.35} transform="rotate(-90 28 28)" />
-          </svg>
-          <span style={{ fontFamily: `'${settings.timer_font}', monospace`, color: 'var(--t1)', fontSize: 20, fontWeight: 700, letterSpacing: 1 }}>17:35</span>
-          <span style={{ fontSize: 10, color: 'var(--t3)' }}>{t.preview}</span>
-        </div>
-        <div className="setting-row">
-          <span className="setting-label">{t.lang}</span>
-          <div style={{ display: 'flex', gap: 4 }}>
-            {(['ru', 'en'] as Lang[]).map(l => (
-              <button
-                key={l}
-                onClick={() => onLangChange(l)}
-                style={{
-                  padding: '4px 12px', borderRadius: 999, fontSize: 11, fontWeight: 500,
-                  border: lang === l ? '1px solid var(--a)' : '1px solid rgba(255,255,255,0.1)',
-                  background: lang === l ? 'var(--a-dim)' : 'transparent',
-                  color: lang === l ? 'var(--a)' : '#8A8A8D',
-                  cursor: 'pointer', transition: 'all 150ms ease',
-                }}
-              >
-                {l === 'ru' ? 'RU' : 'EN'}
-              </button>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -333,11 +258,6 @@ export default function Settings({ lang, theme, onThemeChange, onLangChange, onC
         <Toggle label={t.startup} checked={settings.launch_on_startup} onChange={v => updateSetting('launch_on_startup', v)} />
         <Toggle label={t.taskbar} checked={settings.taskbar_progress} onChange={v => updateSetting('taskbar_progress', v)} />
         <Toggle label={t.desktopNotif} checked={settings.desktop_notifications} onChange={v => updateSetting('desktop_notifications', v)} />
-        <Toggle
-          label={lang === 'ru' ? 'Чистое время (пауза при бездействии 10 с)' : 'Pure time (pause after 10s idle)'}
-          checked={settings.pure_time !== false}
-          onChange={v => updateSetting('pure_time', v)}
-        />
         <div className="setting-row">
           <span className="setting-label">{t.hotkey}</span>
           <button className="hotkey-field" onClick={() => setRecordingHotkey(true)}

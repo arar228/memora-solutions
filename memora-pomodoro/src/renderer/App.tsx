@@ -11,7 +11,10 @@ import WeeklyChart from './components/WeeklyChart';
 import './styles/app.css';
 import './styles/settings.css';
 
-
+const SCENE_STYLES = ['flight', 'chart'] as const;
+type SceneStyle = (typeof SCENE_STYLES)[number];
+const isSceneStyle = (value: unknown): value is SceneStyle =>
+  typeof value === 'string' && SCENE_STYLES.includes(value as SceneStyle);
 
 // ====== App Component ======
 export default function App() {
@@ -19,7 +22,6 @@ export default function App() {
   const [theme, setTheme] = useState<ThemeName>('tomato');
   const [customAccent, setCustomAccent] = useState('#E05A33');
   const [timerFont, setTimerFont] = useState('JetBrains Mono');
-  const [showAnimation, setShowAnimation] = useState(true);
   const [timeUpEffect, setTimeUpEffect] = useState<TimeUpEffect>('flash');
   const [flashing, setFlashing] = useState(false);
   const [burstKey, setBurstKey] = useState(0);
@@ -29,7 +31,7 @@ export default function App() {
   // is exactly as wide as the main view; the window doubles while open.
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [sceneOn, setSceneOn] = useState(true);
-  const [sceneStyle, setSceneStyle] = useState('flight');
+  const [sceneStyle, setSceneStyle] = useState<SceneStyle>('flight');
   // Time scrubbing: hold LMB on MM or SS and drag to spin that unit.
   // scrubPreview holds the previewed duration in SECONDS.
   const [scrubPreview, setScrubPreview] = useState<number | null>(null);
@@ -66,9 +68,8 @@ export default function App() {
       if (s.theme) setTheme(s.theme);
       if (s.custom_accent) setCustomAccent(s.custom_accent);
       if (s.timer_font) setTimerFont(s.timer_font);
-      if (typeof s.show_animation === 'boolean') setShowAnimation(s.show_animation);
       if (typeof s.scene_on === 'boolean') setSceneOn(s.scene_on);
-      if (s.scene_style) setSceneStyle(s.scene_style);
+      if (isSceneStyle(s.scene_style)) setSceneStyle(s.scene_style);
       if (s.time_up_effect) setTimeUpEffect(s.time_up_effect);
       if (typeof s.pure_time === 'boolean') setPureTime(s.pure_time);
       if (s.active_profile) setActiveProfile(s.active_profile);
@@ -103,9 +104,8 @@ export default function App() {
       if (typeof s.theme === 'string') setTheme(s.theme as ThemeName);
       if (typeof s.custom_accent === 'string') setCustomAccent(s.custom_accent);
       if (typeof s.timer_font === 'string') setTimerFont(s.timer_font);
-      if (typeof s.show_animation === 'boolean') setShowAnimation(s.show_animation);
       if (typeof s.scene_on === 'boolean') setSceneOn(s.scene_on);
-      if (typeof s.scene_style === 'string') setSceneStyle(s.scene_style);
+      if (isSceneStyle(s.scene_style)) setSceneStyle(s.scene_style);
       if (typeof s.time_up_effect === 'string') setTimeUpEffect(s.time_up_effect as TimeUpEffect);
       if (typeof s.pure_time === 'boolean') setPureTime(s.pure_time);
       if (typeof s.sound_volume === 'number') setVolume(s.sound_volume);
@@ -437,11 +437,22 @@ export default function App() {
     const map: Record<string, string> = { CommandOrControl: '⌘', Command: '⌘', Control: 'Ctrl', Ctrl: 'Ctrl', Shift: '⇧', Alt: 'Alt', Option: '⌥' };
     return map[k] ?? k;
   });
+  const changeScene = useCallback((direction: -1 | 1) => {
+    setSceneStyle(current => {
+      const currentIndex = SCENE_STYLES.indexOf(current);
+      const nextIndex = (currentIndex + direction + SCENE_STYLES.length) % SCENE_STYLES.length;
+      const next = SCENE_STYLES[nextIndex];
+      window.api.settings.set('scene_style', next);
+      return next;
+    });
+  }, []);
+  const sceneLabel = sceneStyle === 'flight'
+    ? (lang === 'ru' ? 'Полёт' : 'Flight')
+    : (lang === 'ru' ? 'График активности' : 'Activity chart');
 
   return (
-    <div className={`app app-wide${showAnimation ? ' anim' : ''}`}>
-      {/* Floating tomatoes when running (respect the animation toggle) */}
-      <FloatingTomatoes active={timerState.status === 'running' && showAnimation} accentColor={accent} count={totalPomos} />
+    <div className="app app-wide anim">
+      <FloatingTomatoes active={timerState.status === 'running'} accentColor={accent} count={totalPomos} />
 
       {/* Time-up alert (system notifications get ignored): a contrasting flash
           and/or a scatter of tomatoes, per the time_up_effect setting. */}
@@ -627,9 +638,19 @@ export default function App() {
         </div>
       )}
 
-      {/* === Scene: pixel animation (сцена) — style picked in settings === */}
+      {/* === Scene: switch the animation directly on the main screen === */}
       {sceneOn && (
         <div className="scene-box app-no-drag">
+          <button
+            className="scene-arrow scene-arrow--prev"
+            onClick={() => changeScene(-1)}
+            aria-label={lang === 'ru' ? 'Предыдущая сцена' : 'Previous scene'}
+            title={lang === 'ru' ? 'Предыдущая сцена' : 'Previous scene'}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m15 5-7 7 7 7" />
+            </svg>
+          </button>
           <Scene
             mode={isBreak ? 'break' : 'focus'}
             running={timerState.status === 'running'}
@@ -638,6 +659,17 @@ export default function App() {
             style={sceneStyle}
             summaryKey={summaryKey}
           />
+          <span className="scene-style-label" aria-live="polite">{sceneLabel}</span>
+          <button
+            className="scene-arrow scene-arrow--next"
+            onClick={() => changeScene(1)}
+            aria-label={lang === 'ru' ? 'Следующая сцена' : 'Next scene'}
+            title={lang === 'ru' ? 'Следующая сцена' : 'Next scene'}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m9 5 7 7-7 7" />
+            </svg>
+          </button>
         </div>
       )}
 
@@ -719,13 +751,7 @@ export default function App() {
               </div>
             </section>
 
-            <Settings
-              lang={lang}
-              theme={theme}
-              onThemeChange={changeTheme}
-              onLangChange={changeLang}
-              onClose={() => toggleSettings(false)}
-            />
+            <Settings lang={lang} />
           </aside>
         )}
       </div>

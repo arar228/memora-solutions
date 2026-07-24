@@ -169,12 +169,6 @@
   cursor: pointer;
 }
 
-/* Theme pills in settings */
-.theme-pills-settings {
-  display: flex;
-  gap: 6px;
-}
-
 /* Hotkey field */
 .hotkey-field {
   font-family: 'JetBrains Mono', monospace;
@@ -262,14 +256,6 @@
 .mini-btn:hover {
   border-color: var(--a);
   color: var(--a);
-}
-
-.appearance-preview {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 14px 0 4px;
 }
 
 .profile-add:hover {

@@ -7,6 +7,7 @@ import App from '../renderer/App';
 import '@fontsource/outfit/400.css';
 import '@fontsource/outfit/500.css';
 import '@fontsource/outfit/600.css';
+import '../renderer/styles/theme.css';
 
 declare global {
   interface Window { __MEMORA_WEB__?: boolean }

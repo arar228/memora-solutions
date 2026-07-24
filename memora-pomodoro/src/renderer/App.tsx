@@ -8,6 +8,7 @@ import FloatingTomatoes from './components/FloatingTomatoes';
 import TomatoBurst from './components/TomatoBurst';
 import Scene from './components/Scene';
 import WeeklyChart from './components/WeeklyChart';
+import { APP_ICON_URL } from './assets';
 import './styles/app.css';
 import './styles/settings.css';
 
@@ -462,7 +463,7 @@ export default function App() {
       {/* === Top bar === */}
       <header className="topbar app-drag">
         <div className="topbar-left app-no-drag">
-          <img src="./assets/icon.png" alt="" className="header-logo" width={22} height={22} />
+          <img src={APP_ICON_URL} alt="" className="header-logo" width={22} height={22} />
           <span className="header-title header-title--brand">POMODORO</span>
         </div>
 

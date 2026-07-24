@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { APP_ICON_URL } from '../assets';
 
 interface BurstItem {
   id: string;
@@ -44,7 +45,7 @@ export default function TomatoBurst({ trigger }: { trigger: number }) {
       {items.map((t) => (
         <img
           key={t.id}
-          src="./assets/icon.png"
+          src={APP_ICON_URL}
           alt=""
           className="burst-tomato"
           style={{

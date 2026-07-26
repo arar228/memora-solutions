@@ -62,7 +62,7 @@ export default function Header() {
         <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
             <div className="header__inner container">
                 <Link to="/" className="header__logo">
-                    <img src="/logo.png" alt="Memora Solutions" className="header__logo-img" />
+                    <img src="/logo.png?v=2" alt="Memora Solutions" className="header__logo-img" />
                     <span className="header__logo-text">{t('brand')}</span>
                 </Link>
 

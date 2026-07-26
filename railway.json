@@ -3,7 +3,7 @@
   "deploy": {
     "healthcheckPath": "/health",
     "healthcheckTimeout": 30,
-    "overlapSeconds": "60",
-    "drainingSeconds": "10"
+    "overlapSeconds": 60,
+    "drainingSeconds": 10
   }
 }

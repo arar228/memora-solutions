@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Search, ExternalLink, X, ArrowDownUp } from 'lucide-react';
 import { fmtPrice, fmtDates } from './helpers';
 import { transfersLabel, visaShort } from './strings';
@@ -21,7 +21,7 @@ export default function Explorer({ cities, lang, s }) {
     const idx = Math.min(active, Math.max(0, withItems.length - 1));
     const city = withItems[idx];
 
-    const results = useMemo(() => {
+    const results = (() => {
         if (!city) return [];
         const q = query.trim().toLowerCase();
         const rows = (city.items || [])
@@ -39,7 +39,7 @@ export default function Explorer({ cities, lang, s }) {
         });
         filtered.sort((a, b) => (sortDesc ? b.price - a.price : a.price - b.price));
         return filtered;
-    }, [city, region, tripType, budget, query, sortDesc, lang]);
+    })();
 
     if (withItems.length === 0) return null;
 

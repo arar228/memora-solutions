@@ -67,9 +67,19 @@ jobs:
         continue-on-error: true
         run: node scripts/parse-deals.js
 
+      - name: Validate generated feeds
+        id: validate
+        continue-on-error: true
+        run: node scripts/validate-feeds.js
+
       - name: Commit refreshed feeds
         if: always()
         run: |
+          if [ -f .feed-validation-fatal ]; then
+            echo "Feed validation could not restore a last-known-good file; refusing to commit." >&2
+            exit 1
+          fi
+
           if [[ -z "$(git status --porcelain public/flights.json public/radar.json public/tours.json public/hot-deals.json)" ]]; then
             echo "No data changes."
             exit 0
@@ -90,7 +100,7 @@ jobs:
           exit 1
 
       - name: Report partial failures
-        if: always() && (steps.radar.outcome == 'failure' || steps.flights.outcome == 'failure' || steps.tours.outcome == 'failure' || steps.deals.outcome == 'failure')
+        if: always() && (steps.radar.outcome == 'failure' || steps.flights.outcome == 'failure' || steps.tours.outcome == 'failure' || steps.deals.outcome == 'failure' || steps.validate.outcome == 'failure')
         run: |
-          echo "One or more feed refresh steps failed. Successful feeds were still committed."
+          echo "One or more feed refresh or validation steps failed. Valid feeds were still committed; invalid feeds were restored."
           exit 1

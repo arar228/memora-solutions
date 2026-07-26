@@ -3,6 +3,9 @@
     "private": true,
     "version": "1.0.0",
     "type": "module",
+    "engines": {
+        "node": ">=20.19"
+    },
     "scripts": {
         "dev": "vite",
         "build": "vite build",
@@ -10,7 +13,8 @@
         "lint": "eslint .",
         "start": "node server.js",
         "optimize-images": "node scripts/optimize-images.js",
-        "fetch-tours": "node scripts/fetch-tours.js"
+        "fetch-tours": "node scripts/fetch-tours.js",
+        "validate-feeds": "node scripts/validate-feeds.js"
     },
     "dependencies": {
         "class-variance-authority": "^0.7.1",
@@ -22,24 +26,23 @@
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "react-i18next": "^16.5.6",
-        "react-router-dom": "^7.13.1",
+        "react-router-dom": "^7.18.1",
         "tailwind-merge": "^3.6.0",
         "three": "^0.183.2"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.1",
+        "@eslint/js": "^9.39.5",
         "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^5.1.1",
         "autoprefixer": "^10.5.4",
-        "eslint": "^9.39.1",
+        "eslint": "^9.39.5",
         "eslint-plugin-react-hooks": "^7.0.1",
         "eslint-plugin-react-refresh": "^0.4.24",
         "globals": "^16.5.0",
         "postcss": "^8.5.22",
-        "serve": "^14.2.4",
-        "sharp": "^0.34.5",
+        "sharp": "^0.35.3",
         "tailwindcss": "^3.4.19",
-        "vite": "^7.3.1"
+        "vite": "^7.3.6"
     }
 }

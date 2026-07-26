@@ -1,0 +1,96 @@
+name: Update public travel data
+
+# Refresh all public travel feeds in one run and one commit. Keeping the feeds
+# together avoids three separate Railway deployments for the same data cycle.
+
+on:
+  schedule:
+    - cron: '15 */3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-public-travel-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build price radar
+        id: radar
+        continue-on-error: true
+        env:
+          TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+          TRAVELPAYOUTS_MARKER: ${{ secrets.TRAVELPAYOUTS_MARKER }}
+          TP_CURRENCY: rub
+          TP_MARKET: ru
+        run: |
+          if [ -z "$TRAVELPAYOUTS_TOKEN" ]; then
+            echo "TRAVELPAYOUTS_TOKEN is not set; skipping radar."
+            exit 0
+          fi
+          node scripts/fetch-radar.js
+
+      - name: Fetch hot flights
+        id: flights
+        continue-on-error: true
+        env:
+          TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+          TRAVELPAYOUTS_MARKER: ${{ secrets.TRAVELPAYOUTS_MARKER }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
+          TP_CURRENCY: rub
+          TP_MARKET: ru
+        run: |
+          if [ -z "$TRAVELPAYOUTS_TOKEN" ]; then
+            echo "TRAVELPAYOUTS_TOKEN is not set; skipping flights."
+            exit 0
+          fi
+          node scripts/fetch-flights.js
+
+      - name: Fetch tours
+        id: tours
+        continue-on-error: true
+        run: node scripts/fetch-tours.js
+
+      - name: Structure deals
+        id: deals
+        continue-on-error: true
+        run: node scripts/parse-deals.js
+
+      - name: Commit refreshed feeds
+        if: always()
+        run: |
+          if [[ -z "$(git status --porcelain public/flights.json public/radar.json public/tours.json public/hot-deals.json)" ]]; then
+            echo "No data changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/flights.json public/radar.json public/tours.json public/hot-deals.json
+          git commit -m "chore(data): refresh travel feeds [skip ci]"
+
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "push attempt $i rejected; rebasing and retrying"
+            sleep $((RANDOM % 5 + 3))
+          done
+
+          echo "failed to push refreshed feeds after 5 attempts" >&2
+          exit 1
+
+      - name: Report partial failures
+        if: always() && (steps.radar.outcome == 'failure' || steps.flights.outcome == 'failure' || steps.tours.outcome == 'failure' || steps.deals.outcome == 'failure')
+        run: |
+          echo "One or more feed refresh steps failed. Successful feeds were still committed."
+          exit 1

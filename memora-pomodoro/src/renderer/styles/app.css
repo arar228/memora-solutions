@@ -1343,7 +1343,8 @@
 .scene-style-label {
   position: absolute;
   left: 50%;
-  bottom: 7px;
+  top: 7px;
+  bottom: auto;
   z-index: 2;
   max-width: calc(100% - 110px);
   padding: 4px 10px;
@@ -1360,7 +1361,7 @@
   opacity: 0;
   pointer-events: none;
   backdrop-filter: blur(8px);
-  transform: translate(-50%, 4px);
+  transform: translate(-50%, -4px);
   transition: opacity 0.16s ease, transform 0.16s ease;
 }
 .scene-box:hover .scene-style-label,
@@ -1400,27 +1401,27 @@
   width: min(44%, 220px);
   aspect-ratio: 1;
   background-repeat: no-repeat;
-  background-size: 400% 400%;
+  background-size: 800% 400%;
   filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.36));
-  animation: ninja-tomato-frames 1.15s steps(4, end) infinite;
+  animation: ninja-tomato-frames 1s steps(8, end) infinite;
   will-change: background-position;
 }
 .scene-ninja--inactive .scene-ninja__sprite {
   background-position-y: 0%;
-  animation-duration: 1.6s;
+  animation-duration: 1s;
 }
 .scene-ninja--paused .scene-ninja__sprite {
   background-position-y: 33.3333%;
-  animation-duration: 2.4s;
+  animation-duration: 1.25s;
 }
 .scene-ninja--focus .scene-ninja__sprite {
   width: min(49%, 244px);
   background-position-y: 66.6667%;
-  animation-duration: 0.72s;
+  animation-duration: 0.65s;
 }
 .scene-ninja--break .scene-ninja__sprite {
   background-position-y: 100%;
-  animation-duration: 2.1s;
+  animation-duration: 1.25s;
 }
 .scene-ninja__status {
   position: absolute;
@@ -1443,7 +1444,7 @@
 }
 @keyframes ninja-tomato-frames {
   from { background-position-x: 0%; }
-  to { background-position-x: 133.3333%; }
+  to { background-position-x: 114.2857%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .scene-ninja__sprite { animation: none; }

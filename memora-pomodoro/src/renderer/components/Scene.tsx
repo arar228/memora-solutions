@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { NINJA_TOMATO_SPRITES_URL } from '../assets';
 
 // «Сцена» — ambient pixel-art animation under the timer.
 //
@@ -17,7 +18,9 @@ interface SceneProps {
   running: boolean;
   idle: boolean;   // pure-time auto-pause: the user is away from the keyboard
   accent: string;
-  style?: string;  // 'flight' | 'chart'
+  style?: string;  // 'ninja' | 'flight' | 'chart'
+  status?: 'idle' | 'running' | 'paused' | 'completed' | 'waiting';
+  lang?: 'ru' | 'en';
   // Bumped when an interval finishes: the chart scene then freezes and shows
   // the WHOLE session compressed to the module width (см. summary ниже).
   summaryKey?: number;
@@ -42,7 +45,7 @@ const RED = '#D95757';
 interface Obstacle { x: number; gapY: number; gapH: number; w: number }
 interface Star { x: number; y: number; speed: number; tone: number }
 
-export default function Scene({ mode, running, idle, accent, style = 'flight', summaryKey = 0 }: SceneProps) {
+function CanvasScene({ mode, running, idle, accent, style = 'flight', summaryKey = 0 }: SceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sim = useRef({
     shipY: H / 2, shipVy: 0, t: 0,
@@ -311,4 +314,54 @@ export default function Scene({ mode, running, idle, accent, style = 'flight', s
   }, []);
 
   return <canvas ref={canvasRef} className="scene-canvas" aria-hidden="true" />;
+}
+
+type NinjaState = 'inactive' | 'paused' | 'focus' | 'break';
+
+const NINJA_LABELS: Record<'ru' | 'en', Record<NinjaState, string>> = {
+  ru: {
+    inactive: 'Ниндзя ждёт и начинает сердиться',
+    paused: 'Ниндзя отдыхает',
+    focus: 'Ниндзя тренируется — время фокуса',
+    break: 'Ниндзя восстанавливается',
+  },
+  en: {
+    inactive: 'The ninja is waiting and getting impatient',
+    paused: 'The ninja is resting',
+    focus: 'The ninja is training — focus time',
+    break: 'The ninja is recovering',
+  },
+};
+
+function NinjaTomatoScene({
+  mode,
+  running,
+  idle,
+  status = 'idle',
+  lang = 'ru',
+}: SceneProps) {
+  let state: NinjaState = 'inactive';
+  if (status === 'paused') state = 'paused';
+  else if (running && mode === 'break') state = 'break';
+  else if (running && !idle) state = 'focus';
+
+  return (
+    <div
+      className={`scene-ninja scene-ninja--${state}`}
+      role="img"
+      aria-label={NINJA_LABELS[lang][state]}
+    >
+      <span
+        className="scene-ninja__sprite"
+        style={{ backgroundImage: `url("${NINJA_TOMATO_SPRITES_URL}")` }}
+        aria-hidden="true"
+      />
+      <span className="scene-ninja__status">{NINJA_LABELS[lang][state]}</span>
+    </div>
+  );
+}
+
+export default function Scene(props: SceneProps) {
+  if (props.style === 'ninja') return <NinjaTomatoScene {...props} />;
+  return <CanvasScene {...props} />;
 }

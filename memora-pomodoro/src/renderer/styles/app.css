@@ -1374,6 +1374,80 @@
   aspect-ratio: 8 / 3;
   image-rendering: pixelated;
 }
+.scene-ninja {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 190px;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 70%, color-mix(in srgb, var(--a) 14%, transparent), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent);
+}
+.scene-ninja::before {
+  position: absolute;
+  right: 12%;
+  bottom: 24%;
+  left: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--a) 38%, transparent), transparent);
+  content: '';
+}
+.scene-ninja__sprite {
+  z-index: 1;
+  display: block;
+  width: min(44%, 220px);
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+  background-size: 400% 400%;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.36));
+  animation: ninja-tomato-frames 1.15s steps(4, end) infinite;
+  will-change: background-position;
+}
+.scene-ninja--inactive .scene-ninja__sprite {
+  background-position-y: 0%;
+  animation-duration: 1.6s;
+}
+.scene-ninja--paused .scene-ninja__sprite {
+  background-position-y: 33.3333%;
+  animation-duration: 2.4s;
+}
+.scene-ninja--focus .scene-ninja__sprite {
+  width: min(49%, 244px);
+  background-position-y: 66.6667%;
+  animation-duration: 0.72s;
+}
+.scene-ninja--break .scene-ninja__sprite {
+  background-position-y: 100%;
+  animation-duration: 2.1s;
+}
+.scene-ninja__status {
+  position: absolute;
+  z-index: 2;
+  bottom: 9px;
+  left: 50%;
+  max-width: calc(100% - 88px);
+  padding: 5px 9px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.68);
+  background: rgba(10, 10, 14, 0.7);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+@keyframes ninja-tomato-frames {
+  from { background-position-x: 0%; }
+  to { background-position-x: 133.3333%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-ninja__sprite { animation: none; }
+}
 .scene-chips {
   display: flex;
   gap: 6px;

@@ -12,7 +12,7 @@ import { APP_ICON_URL } from './assets';
 import './styles/app.css';
 import './styles/settings.css';
 
-const SCENE_STYLES = ['flight', 'chart'] as const;
+const SCENE_STYLES = ['ninja', 'chart'] as const;
 type SceneStyle = (typeof SCENE_STYLES)[number];
 const isSceneStyle = (value: unknown): value is SceneStyle =>
   typeof value === 'string' && SCENE_STYLES.includes(value as SceneStyle);
@@ -32,7 +32,7 @@ export default function App() {
   // is exactly as wide as the main view; the window doubles while open.
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [sceneOn, setSceneOn] = useState(true);
-  const [sceneStyle, setSceneStyle] = useState<SceneStyle>('flight');
+  const [sceneStyle, setSceneStyle] = useState<SceneStyle>('ninja');
   // Time scrubbing: hold LMB on MM or SS and drag to spin that unit.
   // scrubPreview holds the previewed duration in SECONDS.
   const [scrubPreview, setScrubPreview] = useState<number | null>(null);
@@ -447,8 +447,8 @@ export default function App() {
       return next;
     });
   }, []);
-  const sceneLabel = sceneStyle === 'flight'
-    ? (lang === 'ru' ? 'Полёт' : 'Flight')
+  const sceneLabel = sceneStyle === 'ninja'
+    ? (lang === 'ru' ? 'Ниндзя-помидорка' : 'Tomato ninja')
     : (lang === 'ru' ? 'График активности' : 'Activity chart');
 
   return (
@@ -659,6 +659,8 @@ export default function App() {
             accent={accent}
             style={sceneStyle}
             summaryKey={summaryKey}
+            status={timerState.status}
+            lang={lang}
           />
           <span className="scene-style-label" aria-live="polite">{sceneLabel}</span>
           <button

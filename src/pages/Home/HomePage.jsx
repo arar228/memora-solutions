@@ -16,7 +16,7 @@ export default function HomePage() {
             status: t('statusDev'),
             statusClass: 'dev',
             bot: '@MemoraTravelRadarBot',
-            to: '/travel-radar-3',
+            to: '/travel-radar',
             color: 'gold',
             logo: '/travel-logo.png',
         },

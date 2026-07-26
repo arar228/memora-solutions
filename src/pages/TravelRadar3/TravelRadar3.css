@@ -1,862 +1,432 @@
-.radar3 {
-    padding-top: calc(var(--header-height, 72px) + var(--space-3xl, 3rem));
-    padding-bottom: var(--space-3xl, 3rem);
+.travel-feed {
+    min-height: 100vh;
+    padding: 8.5rem 0 6rem;
+    background:
+        radial-gradient(circle at 8% 6%, rgba(247, 167, 53, 0.12), transparent 28rem),
+        radial-gradient(circle at 92% 32%, rgba(61, 193, 167, 0.08), transparent 30rem);
 }
 
-/* header */
-.radar3-header {
-    margin-bottom: var(--space-xl, 2rem);
-}
-.radar3-header h1 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    font-size: var(--text-h1);
-    color: var(--color-text);
-    margin: 0 0 0.5rem;
-}
-.radar3-header h1 svg {
-    color: var(--color-gold);
-}
-.radar3-badge3 {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--color-gold);
-    border: 1px solid var(--color-gold);
-    border-radius: var(--radius-full);
-    padding: 2px 10px;
-}
-.radar3-sub {
-    color: var(--color-text-secondary);
-    max-width: 640px;
-    margin: 0 0 0.75rem;
-    line-height: 1.55;
-}
-.radar3-metaline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 16px;
-    align-items: center;
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    margin: 0;
-}
-.radar3-metaline span {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-.radar3-src {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: 2px 8px;
+.travel-feed__hero {
+    max-width: 820px;
+    margin-bottom: 2.5rem;
 }
 
-/* sections — each in a bounded panel for clear grouping */
-.radar3-panel {
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg, 16px);
-    padding: 1.5rem;
-    margin-top: 1.25rem;
-}
-.radar3-sec-head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.radar3-sec-head svg {
-    color: var(--color-gold);
-}
-.radar3-sec-head h2 {
-    font-size: var(--text-h2);
-    color: var(--color-text);
-    margin: 0;
-}
-.radar3-sec-desc {
-    color: var(--color-text-secondary);
-    font-size: var(--text-small);
-    margin: 0.35rem 0 1.25rem;
-}
-
-/* card grids — fixed columns so rows stay even (no scattered orphans).
-   minmax(0, 1fr) lets columns shrink below content width so long city names
-   don't push cards past the panel edge. */
-.radar3-grid {
-    display: grid;
-    gap: 12px;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-@media (max-width: 1000px) {
-    .radar3-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@media (max-width: 720px) {
-    .radar3-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 440px) {
-    .radar3-grid { grid-template-columns: minmax(0, 1fr); }
-}
-
-.radar3-card {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    min-width: 0;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 1rem 1.1rem;
-    text-decoration: none;
-    transition: border-color 0.18s, transform 0.18s, background 0.18s;
-}
-.radar3-card:hover {
-    border-color: var(--color-gold);
-    transform: translateY(-2px);
-    background: var(--color-surface-hover);
-}
-.radar3-card__top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 8px;
-}
-.radar3-route,
-.radar3-dest {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 4px 6px;
-    min-width: 0;
-    overflow-wrap: anywhere;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--color-text);
-}
-.radar3-route svg,
-.radar3-dest svg {
-    color: var(--color-text-tertiary);
-    flex-shrink: 0;
-}
-.radar3-badge {
+.travel-feed__eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: var(--radius-sm);
-    white-space: nowrap;
-}
-.radar3-badge--hot {
-    color: var(--color-danger);
-    background: var(--color-danger-bg);
-}
-/* Visa status pill on each destination. Colour by category. */
-.radar3-visa {
-    align-self: flex-start;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
-    font-size: 0.68rem;
-    font-weight: 600;
-    line-height: 1;
-    padding: 3px 8px;
-    border-radius: var(--radius-full);
-    white-space: nowrap;
-    border: 1px solid transparent;
-}
-.radar3-visa--free {
-    color: var(--color-green);
-    background: color-mix(in srgb, var(--color-green) 12%, transparent);
-    border-color: color-mix(in srgb, var(--color-green) 30%, transparent);
-}
-.radar3-visa--voa {
-    color: var(--color-warning);
-    background: color-mix(in srgb, var(--color-warning) 12%, transparent);
-    border-color: color-mix(in srgb, var(--color-warning) 32%, transparent);
-}
-.radar3-visa--evisa {
-    color: var(--color-blue);
-    background: color-mix(in srgb, var(--color-blue) 12%, transparent);
-    border-color: color-mix(in srgb, var(--color-blue) 30%, transparent);
-}
-.radar3-price-row {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-.radar3-price {
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--color-text);
-}
-.radar3-price-old {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: #f3b758;
     font-size: 0.78rem;
-    color: var(--color-text-tertiary);
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.travel-feed__hero h1 {
+    max-width: 760px;
+    margin: 0;
+    color: var(--text-primary);
+    font-size: clamp(2.35rem, 6vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+}
+
+.travel-feed__hero > p {
+    max-width: 690px;
+    margin: 1.4rem 0;
+    color: var(--text-secondary);
+    font-size: clamp(1rem, 2vw, 1.16rem);
+    line-height: 1.7;
+}
+
+.travel-feed__updated {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-muted);
+    font-size: 0.84rem;
+}
+
+.travel-feed__workspace,
+.travel-feed__useful {
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 28px;
+    background: rgba(11, 14, 18, 0.82);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(18px);
+}
+
+.travel-feed__workspace {
+    padding: clamp(1rem, 2.5vw, 2rem);
+}
+
+.travel-feed__filters {
+    display: grid;
+    grid-template-columns: auto minmax(220px, 1fr) minmax(180px, 0.42fr);
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.travel-feed__tabs {
+    display: flex;
+    gap: 0.3rem;
+    padding: 0.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.travel-feed__tabs button {
+    padding: 0.72rem 0.9rem;
+    border: 0;
+    border-radius: 10px;
+    color: var(--text-muted);
+    background: transparent;
+    font: inherit;
+    font-size: 0.86rem;
+    cursor: pointer;
+    transition: 160ms ease;
+}
+
+.travel-feed__tabs button:hover,
+.travel-feed__tabs button.is-active {
+    color: #17120a;
+    background: #f3b758;
+}
+
+.travel-feed__search,
+.travel-feed__city {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 48px;
+    padding: 0 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.travel-feed__search:focus-within,
+.travel-feed__city:focus-within {
+    border-color: rgba(243, 183, 88, 0.7);
+}
+
+.travel-feed__search input,
+.travel-feed__city select {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    color: var(--text-primary);
+    background: transparent;
+    font: inherit;
+    font-size: 0.9rem;
+}
+
+.travel-feed__city select {
+    cursor: pointer;
+}
+
+.travel-feed__city option {
+    color: #121212;
+}
+
+.travel-feed__count {
+    margin: 1.35rem 0 0.8rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+.travel-feed__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.travel-feed__card {
+    display: flex;
+    min-width: 0;
+    min-height: 285px;
+    flex-direction: column;
+    padding: 1.15rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+    transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.travel-feed__card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(243, 183, 88, 0.34);
+}
+
+.travel-feed__card-top,
+.travel-feed__price-row,
+.travel-feed__actions,
+.travel-feed__meta {
+    display: flex;
+    align-items: center;
+}
+
+.travel-feed__card-top,
+.travel-feed__actions {
+    justify-content: space-between;
+    gap: 0.7rem;
+}
+
+.travel-feed__type {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.38rem 0.58rem;
+    border-radius: 999px;
+    color: #91d9cc;
+    background: rgba(61, 193, 167, 0.11);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.travel-feed__type--tour {
+    color: #f4bd68;
+    background: rgba(243, 183, 88, 0.11);
+}
+
+.travel-feed__discount {
+    color: #f48770;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.travel-feed__route {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 1.2rem 0 0.8rem;
+    color: var(--text-primary);
+    font-size: 1.08rem;
+    line-height: 1.3;
+}
+
+.travel-feed__route span {
+    min-width: 0;
+}
+
+.travel-feed__route svg {
+    flex: 0 0 auto;
+    color: #f3b758;
+}
+
+.travel-feed__price-row {
+    gap: 0.65rem;
+}
+
+.travel-feed__price {
+    color: #f3b758;
+    font-size: 1.22rem;
+    font-weight: 800;
+}
+
+.travel-feed__old-price {
+    color: var(--text-muted);
+    font-size: 0.82rem;
     text-decoration: line-through;
 }
-.radar3-price-from {
-    font-size: 0.78rem;
-    color: var(--color-text-tertiary);
-}
-.radar3-meta {
-    font-size: 0.78rem;
-    color: var(--color-text-secondary);
-}
-.radar3-buy {
-    margin-top: auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: #0a0a0c;
-    background: var(--color-gold);
-    border-radius: var(--radius-btn);
-    padding: 8px;
-    transition: background 0.18s;
-}
-.radar3-card:hover .radar3-buy {
-    background: var(--color-gold-hover);
-}
-.radar3-buy--ghost {
-    color: var(--color-gold);
-    background: transparent;
-    border: 1px solid var(--color-border);
-}
-.radar3-card:hover .radar3-buy--ghost {
-    background: var(--color-gold-light);
-    border-color: var(--color-gold);
-}
 
-/* hotel tiles (search links only — no live price) */
-.radar3-hotel__top {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 4px;
-}
-.radar3-hotel__top svg {
-    color: var(--color-gold);
-    flex-shrink: 0;
-}
-.radar3-hotel__city {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--color-text);
-    overflow-wrap: anywhere;
-    min-width: 0;
-}
-
-/* hotel prices widget (Travelpayouts brand selection widget) */
-.radar3-hsearch {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--color-border);
-}
-.radar3-widget {
-    width: 100%;
-    overflow: hidden;
-    border-radius: var(--radius-md);
-}
-
-/* booking partners (affiliate vendor links, grouped) */
-.radar3-partners {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-.radar3-pgroup__head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    margin-bottom: 10px;
-}
-.radar3-pgroup__head svg {
-    color: var(--color-gold);
-}
-.radar3-pgroup__items {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
-}
-@media (max-width: 1000px) {
-    .radar3-pgroup__items { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@media (max-width: 720px) {
-    .radar3-pgroup__items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 440px) {
-    .radar3-pgroup__items { grid-template-columns: minmax(0, 1fr); }
-}
-.radar3-vendor {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 12px 14px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    transition: border-color 0.16s, background 0.16s, transform 0.16s;
-}
-.radar3-vendor:hover {
-    border-color: var(--color-gold);
-    background: var(--color-surface-hover);
-    transform: translateY(-2px);
-}
-.radar3-vendor__name {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text);
-    overflow-wrap: anywhere;
-    min-width: 0;
-}
-.radar3-vendor svg {
-    color: var(--color-gold);
-    flex-shrink: 0;
-}
-
-.radar3-empty,
-.radar3-loading {
-    color: var(--color-text-secondary);
-    background: var(--color-surface);
-    border: 1px dashed var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 1.5rem;
-    text-align: center;
-    font-size: var(--text-small);
-}
-
-/* origin chips */
-.radar3-chips {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 1.1rem;
-    /* Many destinations → one scrollable strip instead of a tall wall of chips. */
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    padding-bottom: 4px;
-}
-.radar3-chips--dest {
-    margin-top: -0.4rem;
-}
-.radar3-chips__label {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    margin-right: 2px;
-    flex-shrink: 0;
-}
-.radar3-chips .radar3-chip {
-    flex-shrink: 0;
-}
-/* Origin picker as a dropdown — scales cleanly to dozens of cities. */
-.radar3-selectrow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 1.1rem;
-    flex-wrap: wrap;
-}
-.radar3-select {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    padding: 8px 34px 8px 16px;
-    cursor: pointer;
-    max-width: 100%;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2306b6d4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    transition: border-color 0.16s, color 0.16s;
-}
-.radar3-select:hover {
-    border-color: var(--color-gold);
-}
-.radar3-select:focus-visible {
-    outline: 2px solid var(--color-gold);
-    outline-offset: 1px;
-}
-.radar3-select option {
-    color: var(--color-text);
-    background: var(--color-bg);
-}
-.radar3-chip {
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    padding: 6px 14px;
-    transition: color 0.16s, border-color 0.16s, background 0.16s;
-}
-.radar3-chip:hover {
-    border-color: var(--color-border-hover);
-    color: var(--color-text);
-}
-.radar3-chip--active {
-    color: var(--color-gold);
-    border-color: var(--color-gold);
-    background: var(--color-gold-light);
-}
-
-/* price calendar */
-.radar3-cal__route {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text);
-    margin-bottom: 12px;
-}
-.radar3-cal__route svg {
-    color: var(--color-text-tertiary);
-}
-.radar3-cal__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 8px;
-}
-.radar3-cal__cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    padding: 9px 4px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: transform 0.14s;
-}
-.radar3-cal__cell:hover {
-    transform: translateY(-2px);
-}
-.radar3-cal__day {
-    font-size: 0.7rem;
-    opacity: 0.85;
-}
-.radar3-cal__price {
+.travel-feed__meta {
+    min-height: 1.5rem;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
     font-size: 0.72rem;
-    font-weight: 700;
-    white-space: nowrap;
 }
-.radar3-cal__cell--cheap {
-    background: rgba(90, 158, 111, 0.16);
-    color: var(--color-success);
-}
-.radar3-cal__cell--mid {
-    background: rgba(212, 163, 75, 0.14);
-    color: var(--color-warning);
-}
-.radar3-cal__cell--expensive {
-    background: rgba(212, 99, 75, 0.14);
-    color: var(--color-danger);
-}
-.radar3-cal__cell.is-cheapest {
-    border-color: var(--color-success);
-    box-shadow: 0 0 0 1px var(--color-success);
-}
-.radar3-cal__legend {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px 16px;
-    margin-top: 12px;
-    font-size: var(--text-xs);
-    color: var(--color-text-secondary);
-}
-.radar3-cal__legend span {
+
+.travel-feed__meta span {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-}
-.radar3-cal__legend .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 3px;
-    display: inline-block;
-}
-.dot--cheap {
-    background: var(--color-success);
-}
-.dot--mid {
-    background: var(--color-warning);
-}
-.dot--exp {
-    background: var(--color-danger);
-}
-.radar3-cal__cheapest {
-    color: var(--color-text);
-    font-weight: 600;
+    gap: 0.3rem;
 }
 
-.radar3-disclaimer {
-    margin-top: var(--space-xl, 2rem);
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    border-top: 1px solid var(--color-border);
-    padding-top: 1rem;
-    line-height: 1.6;
-}
-
-/* === Destination explorer === */
-.rx { display: flex; flex-direction: column; gap: 1rem; }
-
-.rx-controls {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-}
-/* The origin select reuses .radar3-selectrow, which carries a bottom margin for
-   its standalone use — cancel it here so it lines up with the search box. */
-.rx-origin.radar3-selectrow {
-    margin-bottom: 0;
-    flex-wrap: nowrap;
-}
-.rx-origin .radar3-select { margin: 0; }
-.rx-search {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    min-width: 200px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    padding: 8px 14px;
-    color: var(--color-text-tertiary);
-}
-.rx-search:focus-within { border-color: var(--color-gold); }
-.rx-search input {
-    flex: 1;
-    min-width: 0;
-    border: none;
-    background: transparent;
-    color: var(--color-text);
-    font-size: 0.9rem;
-    outline: none;
-}
-.rx-search input::placeholder { color: var(--color-text-tertiary); }
-.rx-search input::-webkit-search-cancel-button { display: none; }
-.rx-search__clear {
-    display: inline-flex;
-    background: transparent;
-    border: none;
-    color: var(--color-text-tertiary);
-    cursor: pointer;
-    padding: 2px;
-}
-.rx-search__clear:hover { color: var(--color-text); }
-
-.rx-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 12px 14px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-btn, 12px);
-}
-.rx-fgroup {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
-.rx-flabel {
-    flex-shrink: 0;
-    width: 64px;
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    padding-top: 6px;
-}
-.rx-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.rx-chip {
-    font-size: 0.82rem;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    padding: 5px 12px;
-    transition: color 0.15s, border-color 0.15s, background 0.15s;
-    white-space: nowrap;
-}
-.rx-chip:hover { border-color: var(--color-border-hover); color: var(--color-text); }
-.rx-chip.on {
-    color: var(--color-gold);
-    border-color: var(--color-gold);
-    background: var(--color-gold-light);
-    font-weight: 600;
-}
-
-.rx-resultbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-.rx-count { font-size: 0.88rem; color: var(--color-text-secondary); }
-.rx-count b { color: var(--color-text); }
-.rx-actions { display: flex; align-items: center; gap: 8px; }
-.rx-sortbtn,
-.rx-reset {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.8rem;
-    color: var(--color-text-secondary);
-    background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    padding: 5px 12px;
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
-}
-.rx-sortbtn:hover,
-.rx-reset:hover { color: var(--color-text); border-color: var(--color-border-hover); }
-
-.rx-flag { font-size: 1rem; }
-/* Explorer card: small flag+country on top, big destination below with a
-   fixed 2-line height so price/dates/button line up across every card. */
-.rx-cardmeta {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    min-width: 0;
-    font-size: 0.78rem;
-    color: var(--color-text-tertiary);
-    overflow-wrap: anywhere;
-}
-.rx-dest {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--color-text);
-    line-height: 1.25;
-    min-height: 2.5em; /* reserve 2 lines → consistent card alignment */
+.travel-feed__excerpt {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    margin: 0.85rem 0 1rem;
     overflow: hidden;
-    overflow-wrap: anywhere;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 }
 
-/* Hot-flight route: always two lines — origin (small, muted) on top,
-   destination (bold) below — so every card aligns and the destination stands
-   out. Overrides the shared .radar3-route/.radar3-dest inline-flex rule above. */
-.radar3-route {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-    gap: 2px;
-    min-width: 0;
+.travel-feed__actions {
+    margin-top: auto;
 }
-.radar3-route__from {
+
+.travel-feed__deal-link,
+.travel-feed__source {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 0.78rem;
-    color: var(--color-text-tertiary);
-    line-height: 1.2;
-    overflow-wrap: anywhere;
-}
-.radar3-route__to {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--color-text);
-    line-height: 1.25;
-    overflow-wrap: anywhere;
+    gap: 0.38rem;
+    text-decoration: none;
 }
 
-/* === Hotels by destination (dark, on-brand — replaces the bright widget) === */
-.radar3-hotels-head { margin: 0.25rem 0 0.9rem; }
-.radar3-hotels {
+.travel-feed__deal-link {
+    color: #f3b758;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.travel-feed__source {
+    max-width: 45%;
+    overflow: hidden;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.travel-feed__empty {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
-    gap: 12px;
-    margin-bottom: 1.5rem;
-}
-.radar3-hotelcard {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 14px;
-    min-height: 132px;
-    padding: 14px;
-    background: linear-gradient(155deg, var(--color-gold-light), var(--color-surface) 62%);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    transition: border-color 0.16s, transform 0.16s;
-}
-.radar3-hotelcard:hover {
-    border-color: var(--color-gold);
-    transform: translateY(-2px);
-}
-.radar3-hotelcard__body { display: flex; flex-direction: column; gap: 2px; }
-.radar3-hotelcard__flag { font-size: 1.5rem; line-height: 1; margin-bottom: 5px; }
-.radar3-hotelcard__city { font-size: 1rem; font-weight: 700; color: var(--color-text); overflow-wrap: anywhere; }
-.radar3-hotelcard__country { font-size: var(--text-xs); color: var(--color-text-tertiary); }
-.radar3-hotelcard__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-gold);
+    min-height: 220px;
+    place-items: center;
+    color: var(--text-muted);
 }
 
-/* Flight search panel at the top of the radar */
-.radar3-searchpanel {
-    background: linear-gradient(160deg, var(--color-gold-light), var(--color-surface) 55%);
-    padding: 1.75rem;
+.travel-feed__spinner {
+    animation: travel-feed-spin 1s linear infinite;
 }
-.radar3-searchpanel .radar3-sec-head h2 { font-size: 1.3rem; }
 
-/* Hotel search bar (type your own city) — reuses .rd4-ac dropdown + .rd4-searchbtn */
-.rd4-hsearch {
+.travel-feed__fresh-note,
+.travel-feed__disclosure {
+    margin: 1rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    line-height: 1.55;
+}
+
+.travel-feed__useful {
+    margin-top: 1.4rem;
+    padding: clamp(1.4rem, 3.5vw, 2.6rem);
+}
+
+.travel-feed__useful h2 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: -0.03em;
+}
+
+.travel-feed__useful-lead {
+    max-width: 680px;
+    margin: 0.7rem 0 1.6rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.travel-feed__services {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.travel-feed__service {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    padding: 1.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.travel-feed__service > svg {
+    color: #f3b758;
+}
+
+.travel-feed__service h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.travel-feed__service p {
+    margin: 0.25rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+}
+
+.travel-feed__service-links {
     display: flex;
-    gap: 10px;
-    margin-bottom: 1.1rem;
+    grid-column: 1 / -1;
     flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.45rem;
 }
-.rd4-hsearch__field {
-    position: relative;
-    flex: 1 1 280px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    height: 48px;
-    padding: 0 12px;
-    background: rgba(0, 0, 0, 0.28);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    color: var(--color-text-tertiary);
-    transition: border-color 0.16s;
-}
-.rd4-hsearch__field:focus-within { border-color: var(--color-gold); }
-.rd4-hsearch__field input {
-    flex: 1;
-    min-width: 0;
-    border: none;
-    background: transparent;
-    outline: none;
-    color: var(--color-text);
-    font-size: 0.98rem;
-}
-.rd4-hsearch__field input::placeholder { color: var(--color-text-tertiary); }
-.rd4-hsearch__clear {
-    background: transparent;
-    border: none;
-    color: var(--color-text-tertiary);
-    cursor: pointer;
-    padding: 2px;
+
+.travel-feed__service-links a {
     display: inline-flex;
-}
-.rd4-hsearch__clear:hover { color: var(--color-text); }
-.rd4-hsearch__btn {
-    flex: 0 0 auto;
-    height: 48px;
-    padding: 0 24px;
-    white-space: nowrap;
-    box-shadow: none;
-}
-/* === Hot tours (rt-) === */
-.rt-controls {
-    display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 12px 18px;
-    margin-bottom: 18px;
-}
-.rt-stitch {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    height: 40px;
-    padding: 0 16px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
-    white-space: nowrap;
-}
-.rt-stitch:hover { border-color: var(--color-border-hover); color: var(--color-text); }
-.rt-stitch.on {
-    color: var(--color-gold);
-    border-color: var(--color-gold);
-    background: var(--color-gold-light);
-    box-shadow: 0 0 0 3px var(--color-gold-light);
-}
-.rt-leg {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 8px;
-    padding: 7px 10px;
-    font-size: 0.8rem;
-    color: var(--color-text-secondary);
-    background: rgba(0, 0, 0, 0.22);
-    border: 1px dashed var(--color-border);
+    gap: 0.3rem;
+    padding: 0.48rem 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 9px;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.035);
+    font-size: 0.74rem;
+    text-decoration: none;
 }
-.rt-leg__link {
-    color: var(--color-gold);
-    text-decoration: underline;
-    cursor: pointer;
-}
-.rt-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
-.rt-meta > span { display: inline-flex; align-items: center; gap: 4px; }
-.rt-visa {
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--color-border);
-}
-.rt-visa--free { color: #34d399; border-color: rgba(52, 211, 153, 0.4); }
-.rt-visa--voa { color: #fbbf24; border-color: rgba(251, 191, 36, 0.4); }
-.rt-visa--evisa { color: #93c5fd; border-color: rgba(147, 197, 253, 0.4); }
-.rt-note { margin-top: 6px; font-size: 0.76rem; color: var(--color-text-tertiary); }
-.rt-foot { margin: 16px 0 0; font-size: 0.78rem; color: var(--color-text-tertiary); }
 
-@media (max-width: 560px) {
-    .rd4-hsearch__field { flex: 1 1 100%; }
-    .rd4-hsearch__btn { flex: 1 1 100%; justify-content: center; }
-    .radar3-searchpanel { padding: 1.1rem; }
-    .rt-controls { gap: 10px; }
-    .rt-stitch { flex: 1 1 100%; justify-content: center; }
+.travel-feed__service-links a:hover {
+    color: #f3b758;
+    border-color: rgba(243, 183, 88, 0.32);
+}
 
-    /* Roomier tap targets on phones */
-    .rx-chip { padding: 8px 14px; font-size: 0.86rem; }
-    .radar3-select { min-height: 42px; }
-    .rx-search input { min-height: 42px; }
-    /* Tighter section padding reclaims horizontal space */
-    .radar3-panel { padding: 1.1rem; }
-    .radar3-header h1 { font-size: 1.7rem; }
+@keyframes travel-feed-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 980px) {
+    .travel-feed__filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .travel-feed__tabs {
+        grid-column: 1 / -1;
+        width: fit-content;
+    }
+
+    .travel-feed__grid,
+    .travel-feed__services {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .travel-feed {
+        padding: 6.8rem 0 4rem;
+    }
+
+    .travel-feed__workspace,
+    .travel-feed__useful {
+        border-radius: 20px;
+    }
+
+    .travel-feed__filters,
+    .travel-feed__grid,
+    .travel-feed__services {
+        grid-template-columns: 1fr;
+    }
+
+    .travel-feed__tabs {
+        width: 100%;
+    }
+
+    .travel-feed__tabs button {
+        flex: 1;
+    }
+
+    .travel-feed__card {
+        min-height: 270px;
+    }
 }

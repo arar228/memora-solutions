@@ -23,6 +23,7 @@ import { timingSafeEqual } from 'node:crypto';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, 'dist');
 const PORT = process.env.PORT || 3000;
+let isShuttingDown = false;
 
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
@@ -105,6 +106,18 @@ const server = createServer(async (req, res) => {
     const url = new URL(req.url, `http://${host || 'localhost'}`);
     let pathname = decodeURIComponent(url.pathname);
 
+    if (pathname === '/health') {
+      const healthy = !isShuttingDown;
+      res.writeHead(healthy ? 200 : 503, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+      });
+      return res.end(JSON.stringify({
+        status: healthy ? 'ok' : 'shutting_down',
+        uptime: Math.floor(process.uptime()),
+      }));
+    }
+
     if (admin && !checkAuth(req)) return requireAuth(res);
 
     // На основном домене админки нет — она живёт только на поддомене.
@@ -140,3 +153,25 @@ server.listen(PORT, () => {
     ? 'admin.* защищён Basic Auth'
     : 'ВНИМАНИЕ: ADMIN_PASSWORD не задан — админка отдаёт 401 всем');
 });
+
+function shutdown(signal) {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+  console.log(`${signal}: stopping gracefully`);
+
+  server.close((err) => {
+    if (err) {
+      console.error('Graceful shutdown failed', err);
+      process.exit(1);
+    }
+    process.exit(0);
+  });
+
+  setTimeout(() => {
+    console.error('Graceful shutdown timed out');
+    process.exit(1);
+  }, 9_000).unref();
+}
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));

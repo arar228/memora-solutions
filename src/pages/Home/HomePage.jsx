@@ -80,7 +80,7 @@ export default function HomePage() {
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <motion.img
-                            src="/logo.png"
+                            src="/logo.png?v=2"
                             alt={t('brand')}
                             className="hero__logo"
                             style={{

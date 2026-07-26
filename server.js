@@ -90,9 +90,14 @@ function requireAuth(res) {
 async function sendFile(res, path, status = 200) {
   const body = await readFile(path);
   const ext = extname(path).toLowerCase();
-  const immutable = path.includes(`${'assets'}`) && ext !== '.html';
+  const immutable = path.startsWith(join(DIST, 'static')) && ext !== '.html';
   res.writeHead(status, {
     'Content-Type': MIME[ext] || 'application/octet-stream',
+    // An explicit length prevents intermediaries from waiting indefinitely for
+    // the end of a chunked response. This is especially important for
+    // Cloudflare in front of Railway: incomplete cached module responses leave
+    // the SPA stuck on its HTML loader.
+    'Content-Length': body.byteLength,
     'Cache-Control': immutable ? 'public, max-age=31536000, immutable' : 'no-cache',
     'X-Content-Type-Options': 'nosniff',
   });

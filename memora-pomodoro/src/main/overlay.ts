@@ -150,9 +150,10 @@ export function updateOverlaySettings(settings: Record<string, unknown>): void {
     overlayWindow.setOpacity((settings.overlay_opacity as number) / 100);
   }
   if ('overlay_show_bg' in settings) {
-    overlayWindow.setBackgroundColor(
-      settings.overlay_show_bg ? '#1E1E24' : '#00000000'
-    );
+    // The renderer owns the rounded widget background. Painting the native
+    // BrowserWindow itself made its rectangular bounds visible behind that
+    // widget, which looked like a second sharp frame around the overlay.
+    overlayWindow.setBackgroundColor('#00000000');
   }
   if ('overlay_mode' in settings) {
     // The window size for each mode (and the overlay_size scale) is driven by

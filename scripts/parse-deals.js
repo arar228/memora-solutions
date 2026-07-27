@@ -260,6 +260,11 @@ async function loadRefPrices() {
   } catch { return new Map(); }
 }
 
+function publishedAt(deal) {
+  const timestamp = Date.parse(deal.date || '');
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
 async function main() {
   const raw = JSON.parse(await readFile(join(ROOT, 'public', 'tours.json'), 'utf8'));
   const refPrices = await loadRefPrices();
@@ -282,8 +287,10 @@ async function main() {
       deals.push(d);
     }
   }
-  // Manager's ranking: savings first, then discount, then cheapest.
-  deals.sort((a, b) => (b.savings || 0) - (a.savings || 0)
+  // A live feed must stay chronological. Savings only rank offers published
+  // at the same time, so an old high-discount post cannot interrupt fresh ones.
+  deals.sort((a, b) => publishedAt(b) - publishedAt(a)
+    || (b.savings || 0) - (a.savings || 0)
     || (b.discount || 0) - (a.discount || 0)
     || a.price - b.price);
 

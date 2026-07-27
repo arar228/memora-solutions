@@ -110,9 +110,17 @@ function formatUpdated(value, lang) {
     });
 }
 
+function publishedAt(deal) {
+    const timestamp = Date.parse(deal.date || '');
+    return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
 function DealCard({ deal, lang, copy }) {
     const DealIcon = deal.type === 'tour' ? Ticket : Plane;
-    const date = deal.departDate || deal.date;
+    // The calendar in this live feed communicates freshness, so show the
+    // publication timestamp used by the ordering. Fall back to departure only
+    // for legacy items that do not have a source publication date.
+    const date = deal.date || deal.departDate;
     const dateLabel = date
         ? new Date(date).toLocaleDateString(lang === 'ru' ? 'ru-RU' : 'en-US', {
             day: 'numeric',
@@ -213,14 +221,16 @@ export default function TravelRadar3Page() {
 
     const visibleDeals = useMemo(() => {
         const normalizedQuery = query.trim().toLocaleLowerCase(lang);
-        return feed.deals.filter((deal) => {
-            if (type !== 'all' && deal.type !== type) return false;
-            if (city !== 'all' && deal.from?.code !== city) return false;
-            if (!normalizedQuery) return true;
-            return [deal.from?.name, deal.to?.name, deal.source, deal.text]
-                .filter(Boolean)
-                .some((value) => value.toLocaleLowerCase(lang).includes(normalizedQuery));
-        });
+        return feed.deals
+            .filter((deal) => {
+                if (type !== 'all' && deal.type !== type) return false;
+                if (city !== 'all' && deal.from?.code !== city) return false;
+                if (!normalizedQuery) return true;
+                return [deal.from?.name, deal.to?.name, deal.source, deal.text]
+                    .filter(Boolean)
+                    .some((value) => value.toLocaleLowerCase(lang).includes(normalizedQuery));
+            })
+            .sort((a, b) => publishedAt(b) - publishedAt(a));
     }, [city, feed.deals, lang, query, type]);
 
     return (

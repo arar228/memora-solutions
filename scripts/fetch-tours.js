@@ -19,7 +19,6 @@ const OUT_PATH = join(__dirname, '..', 'public', 'tours.json');
 // Verified public hot-tour / travel-deal channels (from the project brief).
 const CHANNELS = [
     'vandroukiru',
-    'checkinticket',
     'samokatus',
     'travelradar',
     'nachemodanahspb',

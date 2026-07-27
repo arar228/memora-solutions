@@ -2,6 +2,7 @@ import { ipcMain, BrowserWindow, Notification, powerMonitor } from 'electron';
 import { IPC } from '../shared/ipc-channels';
 import type { TimerMode, TimerStatus, TimerType, TimerTickPayload, TimerCompletePayload, Profile, AppSettings } from '../shared/types';
 import { DEFAULT_PROFILES } from '../shared/constants';
+import { formatNotificationDuration } from '../shared/format-duration';
 import { saveSession, getAllSettings } from './db';
 
 let status: TimerStatus = 'idle';
@@ -150,7 +151,9 @@ function completeInterval(natural = true): void {
         ? (isRu ? 'Фокус завершён!' : 'Focus complete!')
         : (isRu ? 'Перерыв окончен!' : 'Break is over!');
       const body = mode === 'focus'
-        ? (isRu ? `Отдохните ${profile.break_time} минут` : `Take a ${profile.break_time} min break`)
+        ? (isRu
+            ? `Отдохните ${formatNotificationDuration(profile.break_time, true)}`
+            : `Take a ${formatNotificationDuration(profile.break_time, false)} break`)
         : (isRu ? 'Время работать!' : 'Time to work!');
       new Notification({ title, body }).show();
     }

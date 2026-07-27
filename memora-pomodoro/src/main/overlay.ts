@@ -8,6 +8,27 @@ import { setSetting } from './db';
 let overlayWindow: BrowserWindow | null = null;
 let overlayVisible = false;
 let currentMode: OverlayMode = 'compact';
+let visibilityGuard: NodeJS.Timeout | null = null;
+
+function enforceOverlayVisibility(): void {
+  if (!overlayVisible || !overlayWindow || overlayWindow.isDestroyed()) return;
+  if (overlayWindow.isMinimized()) overlayWindow.restore();
+  if (!overlayWindow.isVisible()) overlayWindow.showInactive();
+  if (!overlayWindow.isAlwaysOnTop()) overlayWindow.setAlwaysOnTop(true, 'screen-saver');
+}
+
+function startVisibilityGuard(): void {
+  if (visibilityGuard) return;
+  // Win+D can ask ordinary topmost windows to minimize. A toolbar window is
+  // normally excluded, and this guard restores it if Explorer still hides it.
+  visibilityGuard = setInterval(enforceOverlayVisibility, 350);
+}
+
+function stopVisibilityGuard(): void {
+  if (!visibilityGuard) return;
+  clearInterval(visibilityGuard);
+  visibilityGuard = null;
+}
 
 export function createOverlayWindow(mode: OverlayMode = 'compact'): void {
   currentMode = mode;
@@ -23,9 +44,13 @@ export function createOverlayWindow(mode: OverlayMode = 'compact'): void {
       : screenW - size.width - 20,
     y: 20,
     frame: false,
+    type: process.platform === 'win32' ? 'toolbar' : undefined,
     transparent: true,
     backgroundColor: '#00000000',
     resizable: false,
+    minimizable: false,
+    maximizable: false,
+    fullscreenable: false,
     skipTaskbar: true,
     alwaysOnTop: true,
     focusable: true,
@@ -37,13 +62,25 @@ export function createOverlayWindow(mode: OverlayMode = 'compact'): void {
     },
   });
 
-  // 'floating' (normal topmost) already renders above the Windows taskbar in the
-  // standard layout, so combined with the full-bounds clamp below the widget can
-  // rest on top of the taskbar. We deliberately do NOT use 'screen-saver' — that
-  // would also paint over fullscreen video / games, which is annoying.
-  overlayWindow.setAlwaysOnTop(true, 'floating');
+  // The screen-saver level is intentionally used here: Electron's regular
+  // floating/status levels sit below the Windows taskbar. This keeps the overlay
+  // visible above both application windows and the taskbar, as requested.
+  overlayWindow.setAlwaysOnTop(true, 'screen-saver');
 
   overlayWindow.setMovable(true);
+  overlayWindow.setMinimizable(false);
+  overlayWindow.setMaximizable(false);
+
+  if (process.platform !== 'win32') {
+    overlayWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+  }
+
+  overlayWindow.on('minimize', () => setTimeout(enforceOverlayVisibility, 0));
+  overlayWindow.on('hide', () => setTimeout(enforceOverlayVisibility, 0));
+  overlayWindow.on('show', () => {
+    overlayWindow?.setAlwaysOnTop(true, 'screen-saver');
+    overlayWindow?.moveTop();
+  });
 
   // NOTE: we intentionally do NOT auto-blur on focus. The previous code blurred
   // the window 100ms after it gained focus, which cancelled the very first drag
@@ -89,8 +126,15 @@ export function toggleOverlay(): void {
 export function setOverlayVisible(visible: boolean): boolean {
   if (!overlayWindow || overlayWindow.isDestroyed()) return false;
   overlayVisible = visible;
-  if (visible) overlayWindow.show();
-  else overlayWindow.hide();
+  if (visible) {
+    overlayWindow.setAlwaysOnTop(true, 'screen-saver');
+    overlayWindow.showInactive();
+    overlayWindow.moveTop();
+    startVisibilityGuard();
+  } else {
+    stopVisibilityGuard();
+    overlayWindow.hide();
+  }
   setSetting('overlay_visible', visible);
   return true;
 }
@@ -157,6 +201,7 @@ export function registerOverlayIPC(): void {
 }
 
 export function destroyOverlay(): void {
+  stopVisibilityGuard();
   if (overlayWindow && !overlayWindow.isDestroyed()) {
     overlayWindow.destroy();
   }

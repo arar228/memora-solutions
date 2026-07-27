@@ -17,13 +17,13 @@
     :root {
       --a: #E05A33;
       --brk: #1D9E75;
-      --bg: #0C0C0F;
-      --sf: #16161A;
-      --sf2: #1E1E24;
-      --bd: rgba(255,255,255,0.06);
-      --t1: #E8E6E1;
-      --t2: #8A8A8D;
-      --t3: #55555A;
+      --bg: #0F0F14;
+      --sf: #17171C;
+      --sf2: #24242B;
+      --bd: rgba(255,255,255,0.14);
+      --t1: #F2F0EB;
+      --t2: #A19FA5;
+      --t3: #626169;
     }
 
     /* ========== SHARED ========== */
@@ -34,10 +34,13 @@
          wasted space — instead of stretching to the full window width. */
       width: fit-content;
       cursor: move;
-      transition: box-shadow 200ms ease, border-color 200ms ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.34);
+      transition: box-shadow 200ms ease, border-color 200ms ease, transform 200ms ease;
     }
-    .ov:hover { box-shadow: 0 2px 16px rgba(0,0,0,0.35); }
+    .ov:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.42); }
     .ov.no-bg { background: transparent !important; border-color: transparent !important; backdrop-filter: none !important; }
+    .ov button:focus-visible { outline: 1px solid var(--a); outline-offset: 2px; }
+    .ov button:disabled { opacity: 0.42; cursor: default; }
 
     /* Time-up alert: blink the widget a contrasting red (OS notifications get ignored). */
     .ov-flash { animation: ovFlash 0.7s steps(1, end) infinite !important; }
@@ -50,9 +53,9 @@
     .ov-pill {
       gap: 6px;
       padding: 4px 6px 4px 4px;
-      background: var(--bg);
+      background: linear-gradient(180deg, #15151B, var(--bg));
       border-radius: 20px;
-      border: 0.5px solid var(--bd);
+      border: 1px solid var(--bd);
       backdrop-filter: blur(12px);
     }
     .ov-pill-icon {
@@ -61,7 +64,9 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 10px; font-weight: 600; color: #fff;
       flex-shrink: 0;
+      overflow: hidden;
     }
+    .ov-pill-icon img { width: 18px; height: 18px; object-fit: contain; }
     .ov-mini-ring { flex-shrink: 0; }
     .ov-mini-ring svg { transform: rotate(-90deg); }
     .ov-pill-time {
@@ -73,7 +78,7 @@
       width: 20px; height: 20px;
       display: flex; align-items: center; justify-content: center;
       border-radius: 50%;
-      border: 0.5px solid var(--bd);
+      border: 1px solid var(--bd);
       background: var(--sf);
       color: var(--t2); cursor: pointer;
       transition: all 150ms ease;
@@ -85,9 +90,9 @@
     .ov-compact {
       gap: 10px;
       padding: 8px 12px;
-      background: var(--bg);
-      border-radius: 14px;
-      border: 0.5px solid var(--bd);
+      background: linear-gradient(180deg, #15151B, var(--bg));
+      border-radius: 12px;
+      border: 1px solid var(--bd);
       backdrop-filter: blur(12px);
     }
     .ov-ring-wrap {
@@ -117,8 +122,8 @@
     .ov-btn {
       width: 24px; height: 24px;
       display: flex; align-items: center; justify-content: center;
-      border-radius: 50%;
-      border: 0.5px solid var(--bd);
+      border-radius: 7px;
+      border: 1px solid var(--bd);
       background: var(--sf);
       color: var(--t2); cursor: pointer;
       transition: all 150ms ease; padding: 0;
@@ -134,9 +139,9 @@
     .ov-bar {
       gap: 8px;
       padding: 6px 12px;
-      background: var(--bg);
+      background: linear-gradient(180deg, #15151B, var(--bg));
       border-radius: 10px;
-      border: 0.5px solid var(--bd);
+      border: 1px solid var(--bd);
       backdrop-filter: blur(12px);
     }
     .ov-bar-logo {
@@ -145,7 +150,9 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 9px; font-weight: 600; color: #fff;
       flex-shrink: 0;
+      overflow: hidden;
     }
+    .ov-bar-logo img { width: 14px; height: 14px; object-fit: contain; }
     .ov-bar-time {
       font-family: 'JetBrains Mono', monospace;
       font-size: 14px; font-weight: 600; color: var(--t1);
@@ -180,10 +187,17 @@
     }
     .ov-bar-btn {
       color: var(--t2); font-size: 10px; cursor: pointer;
-      background: none; border: none; padding: 2px;
+      display: grid; place-items: center;
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: var(--sf); border: 1px solid var(--bd); padding: 2px;
       transition: color 150ms ease;
     }
-    .ov-bar-btn:hover { color: var(--t1); }
+    .ov-bar-btn:hover { color: var(--t1); border-color: var(--a); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ov, .ov *, .ov-flash { animation: none !important; transition: none !important; }
+    }
   </style>
 </head>
 <body>

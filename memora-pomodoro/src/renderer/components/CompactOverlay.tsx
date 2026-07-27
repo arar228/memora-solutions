@@ -3,6 +3,7 @@ import type { TimerTickPayload, OverlayMode, AppSettings, ThemeName } from '../.
 import { BREAK_COLOR, themeColors, contrastColor } from '../../shared/constants';
 
 function fmt(n: number): string { return String(n).padStart(2, '0'); }
+const OVERLAY_ICON_URL = new URL('../../../assets/icon.png', import.meta.url).href;
 
 // Two modes only — Фокус / Пауза (no short vs. long break anymore).
 const MODE_LABELS = {
@@ -32,6 +33,7 @@ export default function CompactOverlay() {
   const [tick, setTick] = useState<TimerTickPayload>({
     timeLeft: 25 * 60, totalTime: 25 * 60, mode: 'focus', status: 'idle', completedPomos: 0, countBackwards: true, type: 'timer', elapsed: 0,
   });
+  const [timerReady, setTimerReady] = useState(false);
   const [mode, setMode] = useState<OverlayMode>('compact');
   const [showBg, setShowBg] = useState(true);
   const [showSeconds, setShowSeconds] = useState(true);
@@ -44,8 +46,26 @@ export default function CompactOverlay() {
   const alertOnRef = useRef(true); // time_up_effect !== 'off'
 
   useEffect(() => {
-    const unsub = window.api.timer.onTick((data) => setTick(data));
-    return unsub;
+    let active = true;
+    let receivedLiveTick = false;
+    const unsub = window.api.timer.onTick((data) => {
+      receivedLiveTick = true;
+      setTick(data);
+      setTimerReady(true);
+    });
+    window.api.timer.getState()
+      .then(data => {
+        if (!active || receivedLiveTick) return;
+        setTick(data);
+        setTimerReady(true);
+      })
+      .catch(() => {
+        if (active) setTimerReady(true);
+      });
+    return () => {
+      active = false;
+      unsub();
+    };
   }, []);
 
   // Flash the widget when an interval finishes — the overlay is what the user
@@ -123,16 +143,24 @@ export default function CompactOverlay() {
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, [mode, showBg, showSeconds, showControls, overlaySize, lang]);
 
-  const shown = tick.countBackwards ? tick.timeLeft : tick.totalTime - tick.timeLeft;
+  const isStopwatch = tick.type === 'stopwatch';
+  const shown = isStopwatch
+    ? tick.elapsed
+    : tick.countBackwards ? tick.timeLeft : tick.totalTime - tick.timeLeft;
   const mins = Math.floor(shown / 60);
   const secs = shown % 60;
-  const timeStr = showSeconds ? `${fmt(mins)}:${fmt(secs)}` : `${fmt(mins)}`;
-  const progress = tick.totalTime > 0 ? 1 - tick.timeLeft / tick.totalTime : 0;
-  const pct = Math.round(progress * 100);
+  const timeStr = !timerReady ? '--:--' : showSeconds ? `${fmt(mins)}:${fmt(secs)}` : `${fmt(mins)}`;
+  const progress = isStopwatch
+    ? (tick.elapsed % 60) / 60
+    : tick.totalTime > 0 ? 1 - tick.timeLeft / tick.totalTime : 0;
+  const safeProgress = Math.min(1, Math.max(0, progress));
+  const pct = Math.round(safeProgress * 100);
   const isBreak = tick.mode !== 'focus';
   const color = isBreak ? BREAK_COLOR : themeColors(theme, customAccent).accent;
   const onColor = contrastColor(color); // readable icon/text on the colored fill
-  const modeLabel = tick.idle
+  const modeLabel = isStopwatch
+    ? (lang === 'ru' ? 'СЕКУНДОМЕР' : 'STOPWATCH')
+    : tick.idle
     ? (lang === 'ru' ? '⏸ ПАУЗА' : '⏸ IDLE')
     : MODE_LABELS[lang][tick.mode];
 
@@ -140,6 +168,11 @@ export default function CompactOverlay() {
   // auto-fits the scaled content via the measure effect above.
   const rootStyle = { WebkitAppRegion: 'drag', zoom: overlaySize / 100 } as React.CSSProperties;
   const expandTitle = lang === 'ru' ? 'Основной вид' : 'Main view';
+  const playTitle = tick.status === 'running'
+    ? (lang === 'ru' ? 'Пауза' : 'Pause')
+    : (lang === 'ru' ? 'Старт' : 'Start');
+  const skipTitle = lang === 'ru' ? 'Пропустить' : 'Skip';
+  const resetTitle = lang === 'ru' ? 'Сбросить' : 'Reset';
 
   const handlePlayPause = () => {
     if (tick.status === 'running') window.api.timer.pause();
@@ -152,22 +185,24 @@ export default function CompactOverlay() {
     const R = 9, C = 2 * Math.PI * R;
     return (
       <div ref={rootRef} className={`ov ov-pill ${showBg ? '' : 'no-bg'} ${flashing ? 'ov-flash' : ''}`} style={rootStyle}>
-        <div className="ov-pill-icon" style={{ background: color, color: onColor }}>M</div>
+        <div className="ov-pill-icon" style={{ background: color }}>
+          <img src={OVERLAY_ICON_URL} alt="" />
+        </div>
         <div className="ov-mini-ring">
           <svg viewBox="0 0 24 24" width="24" height="24">
             <circle cx="12" cy="12" r={R} fill="none" stroke="var(--sf2, #1E1E24)" strokeWidth="2.5" />
             <circle cx="12" cy="12" r={R} fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round"
-              strokeDasharray={C} strokeDashoffset={C * (1 - progress)}
+              strokeDasharray={C} strokeDashoffset={C * (1 - safeProgress)}
               style={{ transition: 'stroke-dashoffset 1s linear' }} transform="rotate(-90 12 12)" />
           </svg>
         </div>
         <span className="ov-pill-time">{timeStr}</span>
         {showControls && (
-          <button className="ov-pill-btn" onClick={handlePlayPause} style={NO_DRAG}>
+          <button className="ov-pill-btn" onClick={handlePlayPause} style={NO_DRAG} title={playTitle} aria-label={playTitle} disabled={!timerReady}>
             {tick.status === 'running' ? <PauseIcon /> : <PlayIcon />}
           </button>
         )}
-        <button className="ov-pill-btn" onClick={() => window.api.window.toMain()} style={NO_DRAG} title={expandTitle}>
+        <button className="ov-pill-btn" onClick={() => window.api.window.toMain()} style={NO_DRAG} title={expandTitle} aria-label={expandTitle}>
           <ExpandIcon />
         </button>
       </div>
@@ -178,7 +213,9 @@ export default function CompactOverlay() {
   if (mode === 'bar') {
     return (
       <div ref={rootRef} className={`ov ov-bar ${showBg ? '' : 'no-bg'} ${flashing ? 'ov-flash' : ''}`} style={rootStyle}>
-        <div className="ov-bar-logo" style={{ background: color, color: onColor }}>M</div>
+        <div className="ov-bar-logo" style={{ background: color }}>
+          <img src={OVERLAY_ICON_URL} alt="" />
+        </div>
         <span className="ov-bar-time">{timeStr}</span>
         <div className="ov-bar-progress">
           <div className="ov-bar-fill" style={{ width: `${pct}%`, background: color }} />
@@ -188,15 +225,17 @@ export default function CompactOverlay() {
         <div className="ov-bar-controls" style={NO_DRAG}>
           {showControls && (
             <>
-              <button className="ov-bar-btn" onClick={handlePlayPause}>
+              <button className="ov-bar-btn" onClick={handlePlayPause} title={playTitle} aria-label={playTitle} disabled={!timerReady}>
                 {tick.status === 'running' ? <PauseIcon /> : <PlayIcon />}
               </button>
-              <button className="ov-bar-btn" onClick={() => window.api.timer.skip()}>
-                <SkipIcon />
-              </button>
+              {!isStopwatch && (
+                <button className="ov-bar-btn" onClick={() => window.api.timer.skip()} title={skipTitle} aria-label={skipTitle}>
+                  <SkipIcon />
+                </button>
+              )}
             </>
           )}
-          <button className="ov-bar-btn" onClick={() => window.api.window.toMain()} title={expandTitle}>
+          <button className="ov-bar-btn" onClick={() => window.api.window.toMain()} title={expandTitle} aria-label={expandTitle}>
             <ExpandIcon />
           </button>
         </div>
@@ -212,7 +251,7 @@ export default function CompactOverlay() {
         <svg viewBox="0 0 36 36" width="36" height="36">
           <circle cx="18" cy="18" r={R} fill="none" stroke="var(--sf2, #1E1E24)" strokeWidth="3" />
           <circle cx="18" cy="18" r={R} fill="none" stroke={color} strokeWidth="3" strokeLinecap="round"
-            strokeDasharray={C} strokeDashoffset={C * (1 - progress)}
+            strokeDasharray={C} strokeDashoffset={C * (1 - safeProgress)}
             style={{ transition: 'stroke-dashoffset 1s linear' }} transform="rotate(-90 18 18)" />
         </svg>
         <span className="ov-pct" style={{ color }}>{pct}%</span>
@@ -224,14 +263,14 @@ export default function CompactOverlay() {
       <div className="ov-controls" style={NO_DRAG}>
         {showControls && (
           <>
-            <button className="ov-btn" onClick={() => window.api.timer.reset()}><ResetIcon /></button>
-            <button className="ov-btn ov-btn-play" onClick={handlePlayPause} style={{ background: color, color: onColor }}>
+            <button className="ov-btn" onClick={() => window.api.timer.reset()} title={resetTitle} aria-label={resetTitle}><ResetIcon /></button>
+            <button className="ov-btn ov-btn-play" onClick={handlePlayPause} style={{ background: color, color: onColor }} title={playTitle} aria-label={playTitle} disabled={!timerReady}>
               {tick.status === 'running' ? <PauseIcon /> : <PlayIcon />}
             </button>
-            <button className="ov-btn" onClick={() => window.api.timer.skip()}><SkipIcon /></button>
+            {!isStopwatch && <button className="ov-btn" onClick={() => window.api.timer.skip()} title={skipTitle} aria-label={skipTitle}><SkipIcon /></button>}
           </>
         )}
-        <button className="ov-btn" onClick={() => window.api.window.toMain()} title={expandTitle}><ExpandIcon /></button>
+        <button className="ov-btn" onClick={() => window.api.window.toMain()} title={expandTitle} aria-label={expandTitle}><ExpandIcon /></button>
       </div>
     </div>
   );

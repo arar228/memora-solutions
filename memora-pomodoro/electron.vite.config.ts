@@ -1,8 +1,17 @@
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
 import react from '@vitejs/plugin-react';
+import { loadEnv } from 'vite';
+import { randomBytes } from 'node:crypto';
 import { resolve } from 'path';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const sceneKey = loadEnv(mode, __dirname, 'MEMORA_').MEMORA_SCENE_KEY || process.env.MEMORA_SCENE_KEY;
+  if (!sceneKey) throw new Error('MEMORA_SCENE_KEY is required (use .env.local or a protected build secret).');
+  const sceneKeyBytes = Buffer.from(sceneKey, 'base64');
+  if (sceneKeyBytes.length !== 32) throw new Error('MEMORA_SCENE_KEY must decode to 32 bytes.');
+  const sceneKeyMask = randomBytes(32);
+  const sceneKeyMasked = Buffer.from(sceneKeyBytes.map((byte, index) => byte ^ sceneKeyMask[index]));
+  return {
   main: {
     plugins: [externalizeDepsPlugin()],
     build: {
@@ -27,6 +36,10 @@ export default defineConfig({
   },
   renderer: {
     plugins: [react()],
+    define: {
+      __MEMORA_SCENE_KEY_A__: JSON.stringify(sceneKeyMask.toString('base64')),
+      __MEMORA_SCENE_KEY_B__: JSON.stringify(sceneKeyMasked.toString('base64')),
+    },
     root: resolve(__dirname, 'src/renderer'),
     server: {
       port: 3333,
@@ -51,4 +64,5 @@ export default defineConfig({
       },
     },
   },
+  };
 });

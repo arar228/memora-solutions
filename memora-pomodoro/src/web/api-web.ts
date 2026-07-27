@@ -213,6 +213,7 @@ const noUnsub = () => () => { /* nothing to unsubscribe */ };
 
 export const webApi: ElectronAPI = {
   timer: {
+    getState: async () => payload(),
     start: async () => {
       if (timerType === 'stopwatch') {
         if (status === 'running') return { ok: true };

@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { NINJA_TOMATO_SPRITES_URL } from '../assets';
+import React, { useRef, useEffect, useState } from 'react';
+import { getNinjaTomatoSpritesUrl } from '../assets';
 
 // «Сцена» — ambient pixel-art animation under the timer.
 //
@@ -19,6 +19,7 @@ interface SceneProps {
   idle: boolean;   // pure-time auto-pause: the user is away from the keyboard
   accent: string;
   style?: string;  // 'ninja' | 'flight' | 'chart'
+  speed?: number;  // animation speed in percent
   status?: 'idle' | 'running' | 'paused' | 'completed' | 'waiting';
   lang?: 'ru' | 'en';
   // Bumped when an interval finishes: the chart scene then freezes and shows
@@ -45,7 +46,7 @@ const RED = '#D95757';
 interface Obstacle { x: number; gapY: number; gapH: number; w: number }
 interface Star { x: number; y: number; speed: number; tone: number }
 
-function CanvasScene({ mode, running, idle, accent, style = 'flight', summaryKey = 0 }: SceneProps) {
+function CanvasScene({ mode, running, idle, accent, style = 'flight', speed = 100, summaryKey = 0 }: SceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sim = useRef({
     shipY: H / 2, shipVy: 0, t: 0,
@@ -61,8 +62,8 @@ function CanvasScene({ mode, running, idle, accent, style = 'flight', summaryKey
     history: [] as number[],
     summary: null as null | { pts: number[]; avg: number; peak: number; active: number },
   });
-  const propsRef = useRef({ mode, running, idle, accent, style });
-  propsRef.current = { mode, running, idle, accent, style };
+  const propsRef = useRef({ mode, running, idle, accent, style, speed });
+  propsRef.current = { mode, running, idle, accent, style, speed };
 
   // Таймер отработал → замораживаем сцену и строим итоговый график.
   useEffect(() => {
@@ -279,19 +280,20 @@ function CanvasScene({ mode, running, idle, accent, style = 'flight', summaryKey
       last = now;
       if (document.hidden) return;
 
-      const { mode: m, running: run, idle: away, style: st } = propsRef.current;
+      const { mode: m, running: run, idle: away, style: st, speed: sceneSpeed } = propsRef.current;
+      const speedRate = Math.max(0.5, Math.min(2, sceneSpeed / 100));
       const px = canvas.width / W;
       ctx.imageSmoothingEnabled = false;
 
       if (st === 'chart') {
-        drawChart(px, dtn);
+        drawChart(px, dtn * speedRate);
         return;
       }
       // flight: freeze the WHOLE scene while the user is away (чистое время
       // paused the timer) — the world stops with them.
       if (away) return;
-      const speed = (run ? (m === 'focus' ? 1.6 : 0.7) : 0.25) * dtn;
-      drawFlight(px, speed);
+      const frameSpeed = (run ? (m === 'focus' ? 1.6 : 0.7) : 0.25) * dtn * speedRate;
+      drawFlight(px, frameSpeed);
     };
 
     raf = requestAnimationFrame(step);
@@ -339,11 +341,23 @@ function NinjaTomatoScene({
   idle,
   status = 'idle',
   lang = 'ru',
+  speed = 100,
 }: SceneProps) {
+  const [spriteUrl, setSpriteUrl] = useState('');
+  useEffect(() => {
+    let active = true;
+    getNinjaTomatoSpritesUrl()
+      .then(url => { if (active) setSpriteUrl(url); })
+      .catch(() => { /* protected scene remains hidden on a bad build key */ });
+    return () => { active = false; };
+  }, []);
+
   let state: NinjaState = 'inactive';
   if (status === 'paused') state = 'paused';
   else if (running && mode === 'break') state = 'break';
   else if (running && !idle) state = 'focus';
+  const baseDuration = state === 'focus' ? 0.65 : state === 'paused' || state === 'break' ? 1.25 : 1;
+  const speedRate = Math.max(0.5, Math.min(2, speed / 100));
 
   return (
     <div
@@ -353,7 +367,10 @@ function NinjaTomatoScene({
     >
       <span
         className="scene-ninja__sprite"
-        style={{ backgroundImage: `url("${NINJA_TOMATO_SPRITES_URL}")` }}
+        style={{
+          backgroundImage: spriteUrl ? `url("${spriteUrl}")` : undefined,
+          animationDuration: `${baseDuration / speedRate}s`,
+        }}
         aria-hidden="true"
       />
       <span className="scene-ninja__status">{NINJA_LABELS[lang][state]}</span>

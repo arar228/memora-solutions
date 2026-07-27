@@ -42,10 +42,9 @@ export function setTrayUpdater(fn: (status: TimerStatus, timeLeft: number, mode:
 // Active profile
 let profile: Profile = { ...DEFAULT_PROFILES[0] };
 
-// Broadcast tick to all windows
-function broadcastTick(): void {
+export function getTimerState(): TimerTickPayload {
   const isSW = timerType === 'stopwatch';
-  const payload: TimerTickPayload = {
+  return {
     timeLeft: isSW ? 0 : timeLeft,
     totalTime: isSW ? 0 : totalTime,
     mode,
@@ -56,11 +55,16 @@ function broadcastTick(): void {
     type: timerType,
     elapsed,
   };
+}
+
+// Broadcast tick to all windows
+function broadcastTick(): void {
+  const payload = getTimerState();
   BrowserWindow.getAllWindows().forEach((win) => {
     win.webContents.send(IPC.TIMER_TICK, payload);
   });
   // Update tray (stopwatch has no countdown — show elapsed instead).
-  if (trayUpdateFn) trayUpdateFn(status, isSW ? elapsed : timeLeft, mode);
+  if (trayUpdateFn) trayUpdateFn(status, timerType === 'stopwatch' ? elapsed : timeLeft, mode);
 }
 
 // Broadcast a completion event (used by the stopwatch when a session is saved,
@@ -417,6 +421,7 @@ export function timerSetMode(newMode: TimerMode): { ok: boolean } {
 
 // Register IPC handlers
 export function registerTimerIPC(): void {
+  ipcMain.handle(IPC.TIMER_GET_STATE, () => getTimerState());
   ipcMain.handle(IPC.TIMER_START, () => timerStart());
   ipcMain.handle(IPC.TIMER_PAUSE, () => timerPause());
   ipcMain.handle(IPC.TIMER_RESUME, () => timerResume());

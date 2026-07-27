@@ -4,6 +4,7 @@ import { IPC } from '../shared/ipc-channels';
 
 const api: ElectronAPI = {
   timer: {
+    getState: () => ipcRenderer.invoke(IPC.TIMER_GET_STATE),
     start:  () => ipcRenderer.invoke(IPC.TIMER_START),
     pause:  () => ipcRenderer.invoke(IPC.TIMER_PAUSE),
     resume: () => ipcRenderer.invoke(IPC.TIMER_RESUME),

@@ -21,7 +21,8 @@ extraResources:
   - from: assets
     to: assets
     filter:
-      - "**/*"
+      - "icon.png"
+      - "sounds/**/*"
 
 win:
   target:

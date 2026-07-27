@@ -4,13 +4,80 @@
 
 .settings-panel {
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
+  min-height: 100%;
   overflow-x: hidden;
   padding: 8px 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.settings-search {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.settings-search:focus-within {
+  border-color: var(--a);
+  box-shadow: 0 0 0 2px var(--a-dim);
+}
+
+.settings-search svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: var(--t3);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.settings-search input {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--t1);
+  font: 12px 'Outfit', sans-serif;
+}
+
+.settings-search input::placeholder { color: var(--t3); }
+.settings-search input::-webkit-search-cancel-button { display: none; }
+
+.settings-search button {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--sf3);
+  color: var(--t2);
+  cursor: pointer;
+}
+
+.settings-search-empty {
+  padding: 32px 12px;
+  color: var(--t3);
+  font-size: 12px;
+  text-align: center;
+}
+
+.search-hidden { display: none !important; }
+
+[data-setting-search]:not(.setting-row):not(.data-btn) {
+  display: contents;
 }
 
 .settings-back {
@@ -38,6 +105,10 @@
   margin-bottom: 12px;
 }
 
+.settings-section[hidden] {
+  display: none !important;
+}
+
 .settings-section-title {
   font-size: 10px;
   font-weight: 600;
@@ -46,7 +117,7 @@
   color: var(--t3);
   padding: 8px 0 6px;
   position: sticky;
-  top: 0;
+  top: 49px;
   background: var(--bg);
   backdrop-filter: blur(8px);
   z-index: 10;

@@ -118,6 +118,7 @@ export interface AppSettings {
   show_animation: boolean;
   scene_on: boolean;   // ambient pixel scene under the timer (mockup: «сцена»)
   scene_style: string; // which scene animation: 'flight' | (future: 'battle' | 'run' | 'focus')
+  scene_speed: number; // scene playback speed in percent (50–200)
   custom_accent: string;
   time_up_effect: TimeUpEffect;
   pure_time: boolean; // "чистое время" — auto-pause focus when the user is idle
@@ -128,6 +129,7 @@ export interface AppSettings {
 // === Electron API (exposed via preload) ===
 export interface ElectronAPI {
   timer: {
+    getState: () => Promise<TimerTickPayload>;
     start: () => Promise<{ ok: boolean }>;
     pause: () => Promise<{ ok: boolean }>;
     resume: () => Promise<{ ok: boolean }>;

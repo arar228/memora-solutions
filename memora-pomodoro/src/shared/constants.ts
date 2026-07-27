@@ -33,6 +33,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   show_animation: true,
   scene_on: true,
   scene_style: 'flight',
+  scene_speed: 100,
   custom_accent: '#E05A33',
   time_up_effect: 'flash',
   pure_time: true,

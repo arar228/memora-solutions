@@ -33,13 +33,16 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [sceneOn, setSceneOn] = useState(true);
   const [sceneStyle, setSceneStyle] = useState<SceneStyle>('ninja');
+  const [sceneSpeed, setSceneSpeed] = useState(100);
   // Time scrubbing: hold LMB on MM or SS and drag to spin that unit.
   // scrubPreview holds the previewed duration in SECONDS.
   const [scrubPreview, setScrubPreview] = useState<number | null>(null);
+  const scrubPreviewRef = useRef<number | null>(null);
   const heroTimeRef = useRef<HTMLSpanElement>(null);
   const scrubRef = useRef<{ startY: number; startTotal: number; unit: 60 | 1; field: 'work_time' | 'break_time' } | null>(null);
 
   // Timer state (received from main process via IPC)
+  const [timerReady, setTimerReady] = useState(false);
   const [timerState, setTimerState] = useState<TimerTickPayload>({
     timeLeft: 25 * 60,
     totalTime: 25 * 60,
@@ -57,10 +60,6 @@ export default function App() {
   const [activeProfile, setActiveProfile] = useState('Pomodoro');
   const [laps, setLaps] = useState<number[]>([]); // stopwatch lap snapshots (elapsed seconds), newest last
   const [activeProfileData, setActiveProfileData] = useState<Profile | null>(null);
-  const [volume, setVolume] = useState(70);
-  const [hotkey, setHotkey] = useState('CommandOrControl+Shift+P');
-  const [whiteNoise, setWhiteNoise] = useState('off'); // 'off' | 'rain'
-  const [ticking, setTicking] = useState('off');       // 'off' | 'low' | 'med' | 'high'
 
   // Load saved settings on mount
   useEffect(() => {
@@ -71,13 +70,10 @@ export default function App() {
       if (s.timer_font) setTimerFont(s.timer_font);
       if (typeof s.scene_on === 'boolean') setSceneOn(s.scene_on);
       if (isSceneStyle(s.scene_style)) setSceneStyle(s.scene_style);
+      if (typeof s.scene_speed === 'number') setSceneSpeed(s.scene_speed);
       if (s.time_up_effect) setTimeUpEffect(s.time_up_effect);
       if (typeof s.pure_time === 'boolean') setPureTime(s.pure_time);
       if (s.active_profile) setActiveProfile(s.active_profile);
-      if (typeof s.sound_volume === 'number') setVolume(s.sound_volume);
-      if (s.hotkey) setHotkey(s.hotkey);
-      if (s.white_noise) setWhiteNoise(s.white_noise);
-      if (s.ticking) setTicking(s.ticking);
     });
   }, []);
 
@@ -107,12 +103,9 @@ export default function App() {
       if (typeof s.timer_font === 'string') setTimerFont(s.timer_font);
       if (typeof s.scene_on === 'boolean') setSceneOn(s.scene_on);
       if (isSceneStyle(s.scene_style)) setSceneStyle(s.scene_style);
+      if (typeof s.scene_speed === 'number') setSceneSpeed(s.scene_speed);
       if (typeof s.time_up_effect === 'string') setTimeUpEffect(s.time_up_effect as TimeUpEffect);
       if (typeof s.pure_time === 'boolean') setPureTime(s.pure_time);
-      if (typeof s.sound_volume === 'number') setVolume(s.sound_volume);
-      if (typeof s.white_noise === 'string') setWhiteNoise(s.white_noise);
-      if (typeof s.ticking === 'string') setTicking(s.ticking);
-      if (typeof s.hotkey === 'string') setHotkey(s.hotkey);
       if (s.lang === 'ru' || s.lang === 'en') setLang(s.lang);
     });
     return unsub;
@@ -149,12 +142,31 @@ export default function App() {
     return unsub;
   }, []);
 
-  // Subscribe to timer ticks from main process
+  // Subscribe first, then request an explicit snapshot. The active profile is
+  // loaded before the Electron window exists, so its initial broadcast has no
+  // renderer recipient. Without this snapshot the UI briefly lies with 25:00
+  // and only reveals the stored duration after the first Start click.
   useEffect(() => {
+    let active = true;
+    let receivedLiveTick = false;
     const unsub = window.api.timer.onTick((data) => {
+      receivedLiveTick = true;
       setTimerState(data);
+      setTimerReady(true);
     });
-    return unsub;
+    window.api.timer.getState()
+      .then(data => {
+        if (!active || receivedLiveTick) return;
+        setTimerState(data);
+        setTimerReady(true);
+      })
+      .catch(() => {
+        if (active) setTimerReady(true);
+      });
+    return () => {
+      active = false;
+      unsub();
+    };
   }, []);
 
   // Subscribe to timer completions — refresh grid + fire the time-up alert.
@@ -233,7 +245,8 @@ export default function App() {
   // Timer display — the timer always counts DOWN (stopwatch counts up); the
   // old "count backwards" profile option is retired.
   const isStopwatch = timerState.type === 'stopwatch';
-  const shownSeconds = isStopwatch ? timerState.elapsed : timerState.timeLeft;
+  const engineSeconds = isStopwatch ? timerState.elapsed : timerState.timeLeft;
+  const shownSeconds = scrubPreview ?? engineSeconds;
   const minutes = Math.floor(shownSeconds / 60);
   const seconds = shownSeconds % 60;
   const hours = Math.floor(shownSeconds / 3600);
@@ -245,9 +258,11 @@ export default function App() {
   };
   // Stopwatch past an hour → H:MM:SS. The TIMER always stays MM:SS — 180
   // minutes must read «180:00», not «3:00:00» (and keep the fixed font).
-  const timeDisplay = isStopwatch && hours > 0
-    ? `${hours}:${pad(minutes % 60)}:${pad(seconds)}`
-    : `${pad(minutes)}:${pad(seconds)}`;
+  const timeDisplay = !timerReady
+    ? '--:--'
+    : isStopwatch && hours > 0
+      ? `${hours}:${pad(minutes % 60)}:${pad(seconds)}`
+      : `${pad(minutes)}:${pad(seconds)}`;
 
   // ONE fixed font size for every value: sized so the reference «180:00»
   // spans the column edge-to-edge (the size the manager approved). Shorter
@@ -258,18 +273,30 @@ export default function App() {
   React.useLayoutEffect(() => {
     const el = heroTimeRef.current; // inline digits wrapper
     if (!el) return;
-    const cs = getComputedStyle(el);
-    const probe = document.createElement('span');
-    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font-size:100px;';
-    probe.style.fontFamily = cs.fontFamily;
-    probe.style.fontWeight = cs.fontWeight;
-    probe.style.fontVariantNumeric = 'tabular-nums';
-    probe.textContent = fitRefText;
-    document.body.appendChild(probe);
-    const w = probe.getBoundingClientRect().width;
-    probe.remove();
-    const target = el.parentElement?.clientWidth || 480;
-    if (w > 0) el.style.fontSize = `${Math.floor(100 * (target / w) * 0.99)}px`;
+    let active = true;
+    const fit = () => {
+      if (!active) return;
+      const cs = getComputedStyle(el);
+      const probe = document.createElement('span');
+      probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font-size:100px;';
+      probe.style.fontFamily = cs.fontFamily;
+      probe.style.fontWeight = cs.fontWeight;
+      probe.style.fontVariantNumeric = 'tabular-nums';
+      probe.textContent = fitRefText;
+      document.body.appendChild(probe);
+      const w = probe.getBoundingClientRect().width;
+      probe.remove();
+      const target = el.parentElement?.clientWidth || 480;
+      if (w > 0) el.style.fontSize = `${Math.floor(100 * (target / w) * 0.99)}px`;
+    };
+    fit();
+    document.fonts?.ready.then(fit).catch(() => { /* fallback fit already ran */ });
+    const ro = new ResizeObserver(fit);
+    if (el.parentElement) ro.observe(el.parentElement);
+    return () => {
+      active = false;
+      ro.disconnect();
+    };
   }, [fitRefText, timerFont]);
   // Ring: timer shows remaining progress; stopwatch sweeps once per minute.
   const progress = isStopwatch
@@ -279,7 +306,7 @@ export default function App() {
   const accent = themeColors(theme, customAccent).accent;
   const ringColor = isBreak ? BREAK_COLOR : accent;
   // Mode/type/profile can only be switched while idle/waiting — lock otherwise.
-  const modesLocked = timerState.status !== 'idle' && timerState.status !== 'waiting';
+  const modesLocked = !timerReady || (timerState.status !== 'idle' && timerState.status !== 'waiting');
 
   // Stopwatch laps → rows (newest first) with per-lap split, running total, and
   // the fastest/slowest split flagged (classic stopwatch green/red).
@@ -337,27 +364,6 @@ export default function App() {
     setPureTime(prev => { const next = !prev; window.api.settings.set('pure_time', next); return next; });
   }, []);
 
-  // Side-panel controls.
-  const changeVolume = useCallback((v: number) => {
-    setVolume(v);
-    window.api.settings.set('sound_volume', v);
-  }, []);
-  const cycleTicking = useCallback(() => {
-    const order = ['off', 'low', 'med', 'high'];
-    setTicking(prev => {
-      const next = order[(order.indexOf(prev) + 1) % order.length];
-      window.api.settings.set('ticking', next);
-      return next;
-    });
-  }, []);
-  const cycleWhiteNoise = useCallback(() => {
-    const order = ['off', 'rain'];
-    setWhiteNoise(prev => {
-      const next = order[(order.indexOf(prev) + 1) % order.length];
-      window.api.settings.set('white_noise', next);
-      return next;
-    });
-  }, []);
   // Toggle the settings panel (">>" edge arrow) — the window widens by the
   // main-view width while it is open. The IPC call lives in an effect, NOT in
   // the setState updater: StrictMode double-invokes updaters, which stacked
@@ -385,7 +391,7 @@ export default function App() {
   // while the timer is not running.
   const scrubField: 'work_time' | 'break_time' =
     timerState.mode === 'focus' ? 'work_time' : 'break_time';
-  const canScrub = !modesLocked && timerState.type === 'timer' && !!activeProfileData;
+  const canScrub = timerReady && !modesLocked && timerState.type === 'timer' && !!activeProfileData;
 
   const onScrubDown = useCallback((unit: 60 | 1) => (e: React.PointerEvent<HTMLSpanElement>) => {
     if (!canScrub || e.button !== 0) return;
@@ -397,47 +403,43 @@ export default function App() {
       unit,
       field: scrubField,
     };
+    scrubPreviewRef.current = scrubRef.current.startTotal;
     setScrubPreview(scrubRef.current.startTotal);
   }, [canScrub, timerState.totalTime, scrubField]);
 
   const onScrubMove = useCallback((e: React.PointerEvent<HTMLSpanElement>) => {
     const sc = scrubRef.current;
     if (!sc) return;
-    // 6 px per step; dragging up increases. Step = the segment's unit.
-    const delta = Math.round((sc.startY - e.clientY) / 6) * sc.unit;
-    setScrubPreview(Math.max(10, Math.min(180 * 60, sc.startTotal + delta)));
+    // A dead zone and truncation prevent ±1 jitter around the grab point.
+    const delta = Math.trunc((sc.startY - e.clientY) / 8) * sc.unit;
+    const next = Math.max(10, Math.min(180 * 60, sc.startTotal + delta));
+    if (scrubPreviewRef.current !== next) {
+      scrubPreviewRef.current = next;
+      setScrubPreview(next);
+    }
   }, []);
 
   const onScrubUp = useCallback(() => {
     const sc = scrubRef.current;
+    const committed = scrubPreviewRef.current;
     scrubRef.current = null;
-    setScrubPreview(prev => {
-      if (sc && prev != null && prev !== sc.startTotal) {
-        // Merge into the FRESH profile (the side panel may have just edited
-        // other fields); fractional minutes keep the seconds.
-        window.api.profile.getActive().then(p => {
-          if (!p) return;
-          const updated = { ...p, [sc.field]: prev / 60 };
-          setActiveProfileData(updated);
-          window.api.profile.update(updated);
-        }).catch(() => { /* ignore */ });
-      }
-      return null;
-    });
+    scrubPreviewRef.current = null;
+    if (sc && committed != null && committed !== sc.startTotal) {
+      // Keep the committed number on screen while persistence and the main
+      // process catch up. This removes the one-frame jump back to the old value.
+      setTimerState(prev => ({ ...prev, timeLeft: committed, totalTime: committed }));
+      window.api.profile.getActive().then(p => {
+        if (!p) return;
+        const updated = { ...p, [sc.field]: committed / 60 };
+        setActiveProfileData(updated);
+        return window.api.profile.update(updated);
+      }).catch(() => {
+        window.api.timer.getState().then(setTimerState).catch(() => { /* ignore */ });
+      });
+    }
+    setScrubPreview(null);
   }, []);
 
-  // Side-panel display helpers.
-  const tickingLabel = (v: string) => lang === 'ru'
-    ? ({ off: 'Выкл', low: 'Низкое', med: 'Среднее', high: 'Высокое' }[v] ?? 'Выкл')
-    : ({ off: 'Off', low: 'Low', med: 'Medium', high: 'High' }[v] ?? 'Off');
-  const whiteNoiseLabel = (v: string) => lang === 'ru'
-    ? ({ off: 'Выкл', rain: 'Дождь' }[v] ?? 'Выкл')
-    : ({ off: 'Off', rain: 'Rain' }[v] ?? 'Off');
-  // Human keycaps for the global hotkey string.
-  const hotkeyCaps = hotkey.split('+').map(k => {
-    const map: Record<string, string> = { CommandOrControl: '⌘', Command: '⌘', Control: 'Ctrl', Ctrl: 'Ctrl', Shift: '⇧', Alt: 'Alt', Option: '⌥' };
-    return map[k] ?? k;
-  });
   const changeScene = useCallback((direction: -1 | 1) => {
     setSceneStyle(current => {
       const currentIndex = SCENE_STYLES.indexOf(current);
@@ -534,35 +536,28 @@ export default function App() {
         <div
           className={`hero2-time${canScrub ? ' scrubbable' : ''}${scrubPreview != null ? ' scrubbing' : ''}`}
           role="timer" aria-live="polite"
-          aria-label={`${minutes} ${lang === 'ru' ? 'минут' : 'minutes'} ${seconds} ${lang === 'ru' ? 'секунд' : 'seconds'}`}
+          aria-label={timerReady ? `${minutes} ${lang === 'ru' ? 'минут' : 'minutes'} ${seconds} ${lang === 'ru' ? 'секунд' : 'seconds'}` : (lang === 'ru' ? 'Таймер загружается' : 'Timer is loading')}
           title={canScrub ? (lang === 'ru' ? 'Зажми минуты или секунды и тяни' : 'Hold minutes or seconds and drag') : undefined}
         >
-          <span className="hero2-digits" ref={heroTimeRef}>
-            {canScrub ? (
-              // Two independent scrub segments: minutes and seconds.
-              <>
-                <span
-                  className="scrub-seg"
-                  onPointerDown={onScrubDown(60)}
-                  onPointerMove={onScrubMove}
-                  onPointerUp={onScrubUp}
-                  onPointerCancel={onScrubUp}
-                >
-                  {pad(scrubPreview != null ? Math.floor(scrubPreview / 60) : minutes)}
-                </span>
-                :
-                <span
-                  className="scrub-seg"
-                  onPointerDown={onScrubDown(1)}
-                  onPointerMove={onScrubMove}
-                  onPointerUp={onScrubUp}
-                  onPointerCancel={onScrubUp}
-                >
-                  {pad(scrubPreview != null ? scrubPreview % 60 : seconds)}
-                </span>
-              </>
-            ) : timeDisplay}
-          </span>
+          <span className="hero2-digits" ref={heroTimeRef}>{timeDisplay}</span>
+          {canScrub && (
+            <span className="scrub-zones" aria-hidden="true">
+              <span
+                className="scrub-hit scrub-hit--minutes"
+                onPointerDown={onScrubDown(60)}
+                onPointerMove={onScrubMove}
+                onPointerUp={onScrubUp}
+                onPointerCancel={onScrubUp}
+              />
+              <span
+                className="scrub-hit scrub-hit--seconds"
+                onPointerDown={onScrubDown(1)}
+                onPointerMove={onScrubMove}
+                onPointerUp={onScrubUp}
+                onPointerCancel={onScrubUp}
+              />
+            </span>
+          )}
         </div>
         <div className="hero2-track" aria-hidden="true">
           <span
@@ -598,7 +593,7 @@ export default function App() {
               {lang === 'ru' ? 'Сброс' : 'Reset'}
             </button>
           )}
-          <button className="ctrl-rect ctrl-rect--play" onClick={handlePlayPause}
+            <button className="ctrl-rect ctrl-rect--play" onClick={handlePlayPause} disabled={!timerReady}
             style={{ background: accent, borderColor: accent, color: contrastColor(accent) }}>
             {timerState.status === 'running'
               ? <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
@@ -608,18 +603,18 @@ export default function App() {
         </div>
       ) : (
         <div className="controls-rect app-no-drag">
-          <button className="ctrl-rect" onClick={handleReset}>
+          <button className="ctrl-rect" onClick={handleReset} disabled={!timerReady}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 1 9 9"/><polyline points="1 17 3 21 7 19"/></svg>
             {lang === 'ru' ? 'Сброс' : 'Reset'}
           </button>
-          <button className="ctrl-rect ctrl-rect--play" onClick={handlePlayPause}
+          <button className="ctrl-rect ctrl-rect--play" onClick={handlePlayPause} disabled={!timerReady}
             style={{ background: accent, borderColor: accent, color: contrastColor(accent) }}>
             {timerState.status === 'running'
               ? <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
               : <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>}
             {timerState.status === 'running' ? (lang === 'ru' ? 'Пауза' : 'Pause') : (lang === 'ru' ? 'Старт' : 'Start')}
           </button>
-          <button className="ctrl-rect" onClick={handleSkip}>
+          <button className="ctrl-rect" onClick={handleSkip} disabled={!timerReady}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,4 15,12 5,20"/><rect x="15" y="4" width="4" height="16" rx="1"/></svg>
             {lang === 'ru' ? 'Пропустить' : 'Skip'}
           </button>
@@ -658,6 +653,7 @@ export default function App() {
             idle={!!timerState.idle}
             accent={accent}
             style={sceneStyle}
+            speed={sceneSpeed}
             summaryKey={summaryKey}
             status={timerState.status}
             lang={lang}
@@ -728,32 +724,6 @@ export default function App() {
         {/* === Settings panel — same width as the main view === */}
         {settingsOpen && (
           <aside className="settings-side app-no-drag">
-            {/* Quick controls strip on top, full settings below. */}
-            <section className="side-sec side-sec--quick">
-              <div className="side-sec__head">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
-                {lang === 'ru' ? 'Громкость' : 'Volume'}
-                <span className="side-sec__aside">{volume}%</span>
-              </div>
-              <input type="range" min={0} max={100} value={volume}
-                onChange={e => changeVolume(Number(e.target.value))}
-                className="side-slider" style={{ accentColor: accent }} />
-              <button className="side-row side-row--btn" onClick={cycleTicking}>
-                <span>{lang === 'ru' ? 'Тикание' : 'Ticking'}</span>
-                <span className="side-row__val side-chev">{tickingLabel(ticking)} ›</span>
-              </button>
-              <button className="side-row side-row--btn" onClick={cycleWhiteNoise}>
-                <span>{lang === 'ru' ? 'Белый шум' : 'White noise'}</span>
-                <span className="side-row__val side-chev">{whiteNoiseLabel(whiteNoise)} ›</span>
-              </button>
-              <div className="side-row">
-                <span>{lang === 'ru' ? 'Горячая клавиша' : 'Hotkey'}</span>
-                <span className="keycaps">
-                  {hotkeyCaps.map((k, i) => <kbd key={i} className="keycap">{k}</kbd>)}
-                </span>
-              </div>
-            </section>
-
             <Settings lang={lang} />
           </aside>
         )}

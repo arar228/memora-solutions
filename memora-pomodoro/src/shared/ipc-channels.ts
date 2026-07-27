@@ -7,6 +7,7 @@ export const IPC = {
   TIMER_SKIP:     'timer:skip',
   TIMER_SET_MODE: 'timer:set-mode',
   TIMER_SET_TYPE: 'timer:set-type',
+  TIMER_GET_STATE:'timer:get-state',
 
   // Timer events (Main → Renderer/Overlay)
   TIMER_TICK:     'timer:tick',

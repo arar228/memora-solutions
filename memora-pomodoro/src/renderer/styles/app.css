@@ -1011,6 +1011,7 @@
   margin-top: 8px;
 }
 .hero2-time {
+  position: relative;
   font-family: var(--timer-font, 'JetBrains Mono'), monospace;
   font-size: clamp(72px, 10vw, 104px);
   line-height: 0.92;
@@ -1284,6 +1285,19 @@
 /* Scrubbable digits */
 .hero2-time.scrubbable { cursor: ns-resize; touch-action: none; user-select: none; }
 .hero2-time.scrubbing { color: var(--a); text-shadow: 0 0 24px var(--a-glow); }
+.scrub-zones {
+  position: absolute;
+  inset: -8px 0;
+  display: grid;
+  grid-template-columns: 1fr 0.86fr;
+  z-index: 2;
+}
+.scrub-hit {
+  display: block;
+  min-width: 0;
+  cursor: ns-resize;
+  touch-action: none;
+}
 
 /* Scene */
 .scene-box {
@@ -1295,6 +1309,9 @@
   border-radius: 12px;
   overflow: hidden;
   background: #14141c;
+  height: var(--mp-scene-h, 185px);
+  min-height: var(--mp-scene-h, 185px);
+  flex: 0 0 var(--mp-scene-h, 185px);
 }
 .scene-arrow {
   position: absolute;
@@ -1372,14 +1389,16 @@
 .scene-canvas {
   display: block;
   width: 100%;
-  aspect-ratio: 8 / 3;
+  height: 100%;
+  aspect-ratio: auto;
   image-rendering: pixelated;
 }
 .scene-ninja {
   position: relative;
   display: grid;
   width: 100%;
-  min-height: 190px;
+  height: 100%;
+  min-height: 0;
   place-items: center;
   overflow: hidden;
   background:
@@ -1401,9 +1420,9 @@
   width: min(44%, 220px);
   aspect-ratio: 1;
   background-repeat: no-repeat;
-  background-size: 800% 400%;
+  background-size: 1000% 400%;
   filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.36));
-  animation: ninja-tomato-frames 1s steps(8, end) infinite;
+  animation: ninja-tomato-frames 1s steps(10, end) infinite;
   will-change: background-position;
 }
 .scene-ninja--inactive .scene-ninja__sprite {
@@ -1444,7 +1463,7 @@
 }
 @keyframes ninja-tomato-frames {
   from { background-position-x: 0%; }
-  to { background-position-x: 114.2857%; }
+  to { background-position-x: 111.1111%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .scene-ninja__sprite { animation: none; }
@@ -1766,6 +1785,7 @@
     --mp-pad-x: 15px;     /* боковые поля */
     --mp-pad-y: 12px;     /* верхнее поле */
     --mp-scene-ratio: 2.6; /* пропорции сцены (ширина / высота) */
+    --mp-scene-h: 185px;   /* единая высота всех сцен */
 }
 
 .main-col { gap: var(--mp-gap); padding: var(--mp-pad-y) var(--mp-pad-x) calc(var(--mp-pad-y) + 4px); }
@@ -1787,6 +1807,6 @@
 .box-btn { height: var(--mp-row-h); border-radius: var(--mp-radius); }
 .ctrl-rect { height: var(--mp-ctrl-h); border-radius: var(--mp-radius); }
 .scene-box { margin: var(--mp-gap) auto; border-radius: calc(var(--mp-radius) + 2px); }
-.scene-canvas { aspect-ratio: var(--mp-scene-ratio); }
+.scene-canvas { aspect-ratio: auto; }
 .stats-box,
 .color-row { margin-top: var(--mp-gap); border-radius: calc(var(--mp-radius) + 2px); }

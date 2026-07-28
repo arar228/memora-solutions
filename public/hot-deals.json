@@ -1,28 +1,50 @@
 {
-  "updatedAt": "2026-07-28T03:37:52.275Z",
+  "updatedAt": "2026-07-28T09:06:37.697Z",
   "marker": "748397",
   "deals": [
     {
-      "type": "flight",
+      "type": "tour",
       "from": {
-        "name": "Москва",
-        "code": "MOW"
+        "name": "Санкт-Петербург",
+        "code": "LED"
       },
       "to": {
-        "name": "Анталия",
-        "code": "AYT"
+        "name": "Мармарис",
+        "code": "DLM"
       },
-      "price": 5500,
-      "oldPrice": 14165,
-      "savings": 8665,
-      "discount": 0.61,
-      "oneway": true,
+      "price": 34100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
       "nights": null,
-      "departDate": null,
-      "date": "2026-07-28T03:25:46+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2708AYT1?marker=748397&currency=rub",
-      "text": "Москва — Анталья от 5500₽ в одну сторону, вылет завтра днём, рейсы прямые, с багажом"
+      "departDate": "2026-07-29",
+      "date": "2026-07-28T08:31:53+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/0H7VCq",
+      "text": "🔥 в Мармарис (Турция) на неделю с вылетом 29 июля от 34 100/чел с топливными сборами, мало мест! https://www.turscanner.ru/-/0H7VCq (скидка по промокоду 350Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED"
+      },
+      "to": {
+        "name": "Тунис",
+        "code": "TUN"
+      },
+      "price": 37800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": 13,
+      "departDate": "2026-07-31",
+      "date": "2026-07-28T08:31:53+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/9YKkdy",
+      "text": "🔥 в Тунис на 6-9-13 ночей с вылетом 31 июля от 37 800/чел с питанием, виза не нужна https://www.turscanner.ru/-/9YKkdy (+ есть вылеты в августе, но пока дороже, проверяйте свои даты)"
     },
     {
       "type": "flight",
@@ -31,20 +53,196 @@
         "code": "MOW"
       },
       "to": {
-        "name": "Анталия",
-        "code": "AYT"
+        "name": "Даламан",
+        "code": "DLM"
       },
-      "price": 16600,
+      "price": 16100,
       "oldPrice": null,
       "savings": null,
       "discount": null,
       "oneway": false,
       "nights": null,
       "departDate": null,
-      "date": "2026-07-28T03:25:46+00:00",
+      "date": "2026-07-28T08:31:10+00:00",
       "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2708AYT1?marker=748397&currency=rub",
-      "text": "Москва — Анталья от 16600₽ в обе стороны, вылет завтра днём, рейсы прямые, с багажом"
+      "link": "https://www.aviasales.ru/search/MOW2708DLM1?marker=748397&currency=rub",
+      "text": "Москва — Даламан от 16100₽ в обе стороны, вылет рано утром, рейсы прямые, с багажом"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Новосибирск",
+        "code": "OVB"
+      },
+      "to": {
+        "name": "Анталия",
+        "code": "AYT"
+      },
+      "price": 8000,
+      "oldPrice": 28642,
+      "savings": 20642,
+      "discount": 0.72,
+      "oneway": true,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-28T08:25:28+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/OVB2708AYT1?marker=748397&currency=rub",
+      "text": "Новосибирск — Анталья от 8000₽ в одну сторону, вылет завтра, рейсы прямые, с багажом"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX"
+      },
+      "to": {
+        "name": "Анталия",
+        "code": "AYT"
+      },
+      "price": 6000,
+      "oldPrice": 20564,
+      "savings": 14564,
+      "discount": 0.71,
+      "oneway": true,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-28T08:25:28+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SVX2708AYT1?marker=748397&currency=rub",
+      "text": "Екатеринбург — Анталья от 6000₽ в одну сторону, вылет завтра, рейсы прямые, с багажом"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Волгоград",
+        "code": "VOG"
+      },
+      "to": {
+        "name": "Анталия",
+        "code": "AYT"
+      },
+      "price": 6900,
+      "oldPrice": 27061,
+      "savings": 20161,
+      "discount": 0.75,
+      "oneway": false,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-28T08:17:55+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/VOG2708AYT1?marker=748397&currency=rub",
+      "text": "из Волгограда в Анталью 🇹🇷 за 6 900 р. OW (на этой неделе)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER"
+      },
+      "to": {
+        "name": "Анталия",
+        "code": "AYT"
+      },
+      "price": 6500,
+      "oldPrice": 19426,
+      "savings": 12926,
+      "discount": 0.67,
+      "oneway": false,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-28T08:17:55+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER2708AYT1?marker=748397&currency=rub",
+      "text": "из Сочи в Анталью 🇹🇷 за 6 500 р. OW (на этой неделе)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM"
+      },
+      "price": 16000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-28T08:17:55+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2708DLM1?marker=748397&currency=rub",
+      "text": "из Москвы в Даламан 🇹🇷 за 16 000 р. RT (июль-август)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Батуми",
+        "code": "BUS"
+      },
+      "price": 32500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": "2026-10",
+      "date": "2026-07-28T08:05:44+00:00",
+      "source": "luckywings",
+      "link": "https://www.aviasales.ru/search/MOW2708BUS1?marker=748397&currency=rub",
+      "text": "🔥 в Грузию (Батуми) на неделю в октябре от 32 500/чел, виза не нужна https://www.turscanner.ru/-/wQC4DZ или варианты на подольше https://www.turscanner.ru/-/hbS2CB (туры на прямых рейсах)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Астана",
+        "code": "NQZ"
+      },
+      "price": 34100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": "2026-09",
+      "date": "2026-07-28T08:05:44+00:00",
+      "source": "luckywings",
+      "link": "https://www.aviasales.ru/search/MOW2708NQZ1?marker=748397&currency=rub",
+      "text": "🔥 в Казахстан (Астана) на неделю в сентябре от 34 100/чел, виза не нужна https://www.turscanner.ru/-/7fNLrS (туры на прямых рейсах)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED"
+      },
+      "to": {
+        "name": "Минск",
+        "code": "MSQ"
+      },
+      "price": 14800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": "2026-10",
+      "date": "2026-07-28T07:44:27+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/G72Ndd",
+      "text": "🔥 в Беларусь (Минск) коротким туром в конце октября от 14 800/чел https://www.turscanner.ru/-/G72Ndd или варианты на неделю https://www.turscanner.ru/-/B7nT2t"
     },
     {
       "type": "tour",
@@ -53,20 +251,108 @@
         "code": "MOW"
       },
       "to": {
-        "name": "Паттайя",
-        "code": "UTP"
+        "name": "Пхукет",
+        "code": "HKT"
       },
-      "price": 181000,
+      "price": 166000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": 7,
+      "departDate": null,
+      "date": "2026-07-28T06:55:14+00:00",
+      "source": "travelradar",
+      "link": "https://travelradar.ru/t/MupFI?s=tg&erid=2VtzqwgjJHU",
+      "text": "🇹🇭 о. Пхукет, Naithonburi Beach Resort 4★ — завтраки\n\n• 7 ночей\n• питание — завтраки\n• ~166.000 рублей за двоих\n• вылет 27.08.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэрофлот,"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Бангкок",
+        "code": "BKK"
+      },
+      "price": 67300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": "2026-12-28",
+      "date": "2026-07-28T06:41:31+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2812BKK1?marker=748397&currency=rub",
+      "text": "Москва — Бангкок от 67300₽ в обе стороны, вылет 28 декабря, вменяемые стыковки в Шымкенте, ручная кладь. Билет с багажом обойдётся дороже на 4800₽."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED"
+      },
+      "to": {
+        "name": "Тунис",
+        "code": "TUN"
+      },
+      "price": 40700,
       "oldPrice": null,
       "savings": null,
       "discount": null,
       "oneway": false,
       "nights": 10,
+      "departDate": "2026-07-31",
+      "date": "2026-07-28T06:30:05+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://onlinetours.tpx.lu/entpXZH4",
+      "text": "⚡️Тунис на 10 ночей с 31 июля от 40.700 руб/чел, виза не нужна\n\n➡️ https://onlinetours.tpx.lu/entpXZH4"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Мальдивы",
+        "code": "MLE"
+      },
+      "price": 17500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
       "departDate": null,
-      "date": "2026-07-27T18:40:22+00:00",
+      "date": "2026-07-28T06:27:46+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2708MLE1?marker=748397&currency=rub",
+      "text": "из Москвы на Мальдивы 🇲🇻 за 17 500 р. OW (сегодня вечером)\nАэрофлот, прямой рейс\nhttps://smkt.us/kpyhd"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Мале",
+        "code": "MLE"
+      },
+      "price": 17600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-28T05:33:46+00:00",
       "source": "travelradar",
-      "link": "https://travelradar.ru/t/bVGhZ?s=tg&erid=2VtzqwgjJHU",
-      "text": "🇹🇭 Паттайя, Welcome World Beachfront Resort 4★ — завтраки\n\n• 10 ночей\n• питание — завтраки\n• ~181.000 рублей за двоих\n• вылет 03.09.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэр"
+      "link": "https://www.aviasales.ru/search/MOW2708MLE1?marker=748397&currency=rub",
+      "text": "Москва — Мале от 17600₽ в одну сторону, вылет вечером, рейсы прямые, с багажом"
     },
     {
       "type": "flight",
@@ -79,9 +365,9 @@
         "code": "AYT"
       },
       "price": 3850,
-      "oldPrice": 18421,
-      "savings": 14571,
-      "discount": 0.79,
+      "oldPrice": 19426,
+      "savings": 15576,
+      "discount": 0.8,
       "oneway": false,
       "nights": null,
       "departDate": "2027-07-27",
@@ -101,8 +387,8 @@
         "code": "DLM"
       },
       "price": 10000,
-      "oldPrice": 15778,
-      "savings": 5778,
+      "oldPrice": 15827,
+      "savings": 5827,
       "discount": 0.37,
       "oneway": false,
       "nights": null,
@@ -167,9 +453,9 @@
         "code": "CMN"
       },
       "price": 22300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 36397,
+      "savings": 14097,
+      "discount": 0.39,
       "oneway": false,
       "nights": null,
       "departDate": null,
@@ -251,28 +537,6 @@
         "code": "MOW"
       },
       "to": {
-        "name": "Даламан",
-        "code": "DLM"
-      },
-      "price": 5000,
-      "oldPrice": 15778,
-      "savings": 10778,
-      "discount": 0.68,
-      "oneway": true,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T14:06:09+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2708DLM1?marker=748397&currency=rub",
-      "text": "Москва — Даламан от 5000₽ в одну сторону, вылет ночью и утром, рейсы прямые, с багажом"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
         "name": "Пекин",
         "code": "PEK"
       },
@@ -299,9 +563,9 @@
         "code": "AYT"
       },
       "price": 25400,
-      "oldPrice": 27031,
-      "savings": 1631,
-      "discount": 0.06,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "nights": null,
       "departDate": null,
@@ -309,28 +573,6 @@
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED2708AYT1?marker=748397&currency=rub",
       "text": "✈️Горят билеты на прямые рейсы из СПб в Анталью за 25.400 рублей туда-обратно \n\n➡️ https://aviasales.tpx.lu/EpGKuFxQ"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Анталия",
-        "code": "AYT"
-      },
-      "price": 8200,
-      "oldPrice": 27031,
-      "savings": 18831,
-      "discount": 0.7,
-      "oneway": true,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T12:25:03+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/LED2708AYT1?marker=748397&currency=rub",
-      "text": "Санкт-Петербург — Анталья от 8200₽ в одну сторону, вылет в среду, рейсы прямые, с багажом"
     },
     {
       "type": "flight",
@@ -365,9 +607,9 @@
         "code": "CTU"
       },
       "price": 40100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 41415,
+      "savings": 1315,
+      "discount": 0.03,
       "oneway": false,
       "nights": null,
       "departDate": "2026-11",
@@ -387,9 +629,9 @@
         "code": "AYT"
       },
       "price": 8100,
-      "oldPrice": 27031,
-      "savings": 18931,
-      "discount": 0.7,
+      "oldPrice": 22945,
+      "savings": 14845,
+      "discount": 0.65,
       "oneway": false,
       "nights": null,
       "departDate": null,
@@ -397,28 +639,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/LED2708AYT1?marker=748397&currency=rub",
       "text": "из Петербурга в Анталью 🇹🇷 за 8 100 р. OW (июль)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX"
-      },
-      "to": {
-        "name": "Батуми",
-        "code": "BUS"
-      },
-      "price": 23200,
-      "oldPrice": 23254,
-      "savings": 54,
-      "discount": 0,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T10:52:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SVX2708BUS1?marker=748397&currency=rub",
-      "text": "из Екатеринбурга в Батуми 🇬🇪 за 23 200 р. RT (осенью)"
     },
     {
       "type": "flight",
@@ -431,8 +651,8 @@
         "code": "BUS"
       },
       "price": 9900,
-      "oldPrice": 9940,
-      "savings": 40,
+      "oldPrice": 9949,
+      "savings": 49,
       "discount": 0,
       "oneway": false,
       "nights": null,
@@ -441,6 +661,28 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/AER2708BUS1?marker=748397&currency=rub",
       "text": "из Сочи в Батуми 🇬🇪 за 9 900 р. RT (в августе и осенью)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX"
+      },
+      "to": {
+        "name": "Батуми",
+        "code": "BUS"
+      },
+      "price": 23200,
+      "oldPrice": 23248,
+      "savings": 48,
+      "discount": 0,
+      "oneway": false,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-27T10:52:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX2708BUS1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Батуми 🇬🇪 за 23 200 р. RT (осенью)"
     },
     {
       "type": "flight",
@@ -467,50 +709,6 @@
     {
       "type": "tour",
       "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Бодрум",
-        "code": "BJV"
-      },
-      "price": 41100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T09:16:04+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/KmKwd3",
-      "text": "🔥 с вылетом в ближайшие дни - на неделю в 4-5* от 41 100/чел, все включено, с топливными сборами https://www.turscanner.ru/-/KmKwd3 (скидка по промокоду 1700Lucky) + есть варианты в Бодрум https://ww"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Гуанчжоу",
-        "code": "CAN"
-      },
-      "price": 39800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T09:04:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED2708CAN1?marker=748397&currency=rub",
-      "text": "из Петербурга в Гуанчжоу 🇨🇳 за 39 800 р. RT (осенью)"
-    },
-    {
-      "type": "tour",
-      "from": {
         "name": "Москва",
         "code": "MOW"
       },
@@ -529,248 +727,6 @@
       "source": "vandroukiru",
       "link": "https://vandrouki.ru/tury/13-nochej-na-zanzibare-s-vyletom-iz-moskvy/",
       "text": "Посудите сами: \n\nLebanese cuisine\nOpen buffet\nShisha lounge\nTasty things inside\n\nЭто тур на Занзибар на 13 ночей с вылетом из Москвы 30 июля за 66700 рублей с человека!\n\nМай френд, гуд прайс: \nhttps:/"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
-        "name": "Анталия",
-        "code": "AYT"
-      },
-      "price": 4900,
-      "oldPrice": 14165,
-      "savings": 9265,
-      "discount": 0.65,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T08:17:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2708AYT1?marker=748397&currency=rub",
-      "text": "из Москвы в Анталью 🇹🇷 за 4 900 р. OW (на этой неделе)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Сочи",
-        "code": "AER"
-      },
-      "to": {
-        "name": "Даламан",
-        "code": "DLM"
-      },
-      "price": 5500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T08:17:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/AER2708DLM1?marker=748397&currency=rub",
-      "text": "из Сочи в Даламан 🇹🇷 за 5 500 р. OW (завтра)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
-        "name": "Измир",
-        "code": "ADB"
-      },
-      "price": 7100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T08:17:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2708ADB1?marker=748397&currency=rub",
-      "text": "из Москвы в Измир 🇹🇷 за 7 100 р. OW (завтра)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Эр-Рияд",
-        "code": "RUH"
-      },
-      "price": 9300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T07:14:11+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://aviasales.tpx.lu/PLN1YLJu",
-      "text": "Эр-Рияд - Трабзон 9.300 руб"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Джидда",
-        "code": "JED"
-      },
-      "price": 10900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T07:14:11+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://aviasales.tpx.lu/PLN1YLJu",
-      "text": "Джидда - Аддис-Абеба 10.900 руб"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Баку",
-        "code": "GYD"
-      },
-      "price": 12200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T07:14:11+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://aviasales.tpx.lu/PLN1YLJu",
-      "text": "Баку - Эр-Рияд 12.200 руб"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Чэнду",
-        "code": "CTU"
-      },
-      "price": 39500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-27T07:05:51+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED2708CTU1?marker=748397&currency=rub",
-      "text": "✈️Полеты в Санью осенью туда-обратно от 39.500 руб, стыковки в Чэнду\n\n➡️ https://aviasales.tpx.lu/CFLANswh\n➡️ https://aviasales.tpx.lu/F35YPp9F\n➡️ https://aviasales.tpx.lu/uP8OKLSC"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN"
-      },
-      "price": 40300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": 13,
-      "departDate": "2026-07-31",
-      "date": "2026-07-26T16:54:04+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/9YKkdy",
-      "text": "🔥 в Тунис на 6-9-13 ночей с вылетом в июле от 40 300/чел с питанием, виза не нужна https://www.turscanner.ru/-/9YKkdy (вылеты 28, 31 июля)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK"
-      },
-      "price": 65700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": 8,
-      "departDate": "2026-08-30",
-      "date": "2026-07-26T16:54:04+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/r4FPsG",
-      "text": "🔥 в Таиланд (Пхукет) на 8 ночей с вылетом в конце августа от 65 700/чел https://www.turscanner.ru/-/r4FPsG (например, с вылетом 30 августа; скидка по промокоду 2500Lucky)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
-        "name": "Занзибар",
-        "code": "ZNZ"
-      },
-      "price": 58700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": 11,
-      "departDate": "2026-07",
-      "date": "2026-07-26T16:38:55+00:00",
-      "source": "luckywings",
-      "link": "https://www.aviasales.ru/search/MOW2708ZNZ1?marker=748397&currency=rub",
-      "text": "Горящие туры из Москвы, перелеты включены:\n\n🔥 в Танзанию (на Занзибар) на 10-11 ночей в конце июля от 58 700/чел https://www.turscanner.ru/-/Dp4NDa (скидка по промокоду 2500Lucky ; виза по прибытии 5"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Мармарис",
-        "code": "DLM"
-      },
-      "price": 39000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": "2026-07-29",
-      "date": "2026-07-26T07:47:42+00:00",
-      "source": "luckywings",
-      "link": "https://www.aviasales.ru/search/LED2907DLM1?marker=748397&currency=rub",
-      "text": "Горящие туры из Петербурга, перелеты включены:\n\n🔥 в Мармарис (Турция) на неделю с вылетом 29 июля от 39 000/чел с топливными сборами https://www.turscanner.ru/-/V34Lsj или можно на 2 недели https://w"
     },
     {
       "type": "flight",

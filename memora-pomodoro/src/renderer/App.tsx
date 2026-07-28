@@ -176,7 +176,7 @@ export default function App() {
       if (!payload?.natural) return; // a manual skip shouldn't alert
       // Досидел интервал до конца → сцена «График активности» показывает
       // итоговый график за весь отрезок.
-      setSummaryKey(k => k + 1);
+      if (payload.mode === 'focus') setSummaryKey(k => k + 1);
       const eff = timeUpEffectRef.current;
       if (eff === 'flash' || eff === 'both') setFlashing(true);
       if (eff === 'tomatoes' || eff === 'both') setBurstKey(k => k + 1);

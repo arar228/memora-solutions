@@ -46,24 +46,107 @@ const RED = '#D95757';
 interface Obstacle { x: number; gapY: number; gapH: number; w: number }
 interface Star { x: number; y: number; speed: number; tone: number }
 
-function CanvasScene({ mode, running, idle, accent, style = 'flight', speed = 100, summaryKey = 0 }: SceneProps) {
+type ActivityState = 1 | 0 | -1; // active | idle | manually paused
+
+interface ActivityMetrics {
+  samples: number;
+  focus: number;
+  activeSeconds: number;
+  idleSeconds: number;
+  pausedSeconds: number;
+  interruptions: number;
+  longestStreak: number;
+}
+
+const EMPTY_METRICS: ActivityMetrics = {
+  samples: 0,
+  focus: 0,
+  activeSeconds: 0,
+  idleSeconds: 0,
+  pausedSeconds: 0,
+  interruptions: 0,
+  longestStreak: 0,
+};
+
+function metricsFromHistory(history: ActivityState[]): ActivityMetrics {
+  let activeSeconds = 0;
+  let idleSeconds = 0;
+  let pausedSeconds = 0;
+  let interruptions = 0;
+  let currentStreak = 0;
+  let longestStreak = 0;
+  let wasInterrupted = false;
+
+  for (const state of history) {
+    if (state === 1) {
+      activeSeconds++;
+      currentStreak++;
+      longestStreak = Math.max(longestStreak, currentStreak);
+      wasInterrupted = false;
+    } else {
+      if (!wasInterrupted && (idleSeconds + pausedSeconds > 0 || activeSeconds > 0)) interruptions++;
+      wasInterrupted = true;
+      currentStreak = 0;
+      if (state === 0) idleSeconds++;
+      else pausedSeconds++;
+    }
+  }
+
+  const measured = activeSeconds + idleSeconds;
+  return {
+    samples: history.length,
+    focus: measured ? activeSeconds / measured : 0,
+    activeSeconds,
+    idleSeconds,
+    pausedSeconds,
+    interruptions,
+    longestStreak,
+  };
+}
+
+const formatShortTime = (seconds: number) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+};
+
+const colorWithAlpha = (color: string, alpha: number) => {
+  const hex = color.replace('#', '');
+  if (/^[\da-f]{6}$/i.test(hex)) {
+    const value = Number.parseInt(hex, 16);
+    return `rgba(${(value >> 16) & 255},${(value >> 8) & 255},${value & 255},${alpha})`;
+  }
+  return color;
+};
+
+function CanvasScene({
+  mode,
+  running,
+  idle,
+  accent,
+  style = 'flight',
+  speed = 100,
+  summaryKey = 0,
+  status = 'idle',
+  lang = 'ru',
+}: SceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [activityMetrics, setActivityMetrics] = useState<ActivityMetrics>(EMPTY_METRICS);
   const sim = useRef({
     shipY: H / 2, shipVy: 0, t: 0,
     obstacles: [] as Obstacle[],
     stars: [] as Star[],
     nextSpawn: 60,
-    // activity chart: scrolling series of 0..1 levels
-    level: 0.35,
+    // Activity is sampled independently from animation. Values are real timer
+    // states; the curve is a rolling 60-second focus ratio.
     points: [] as number[],
-    pushAcc: 0,
-    // Полная история активности за интервал (не обрезается, в отличие от
-    // points): по окончании таймера она ужимается по ширине модуля.
-    history: [] as number[],
-    summary: null as null | { pts: number[]; avg: number; peak: number; active: number },
+    history: [] as ActivityState[],
+    lastSampleAt: 0,
+    summary: null as null | { pts: number[]; metrics: ActivityMetrics },
   });
-  const propsRef = useRef({ mode, running, idle, accent, style, speed });
-  propsRef.current = { mode, running, idle, accent, style, speed };
+  const propsRef = useRef({ mode, running, idle, accent, style, speed, status, lang });
+  propsRef.current = { mode, running, idle, accent, style, speed, status, lang };
+  const previousStatus = useRef(status);
 
   // Таймер отработал → замораживаем сцену и строим итоговый график.
   useEffect(() => {
@@ -74,28 +157,37 @@ function CanvasScene({ mode, running, idle, accent, style = 'flight', speed = 10
     // «По-умному ужать»: делим всю историю на W-2 колонок и берём максимум в
     // каждой корзине — так всплески активности не теряются при сжатии
     // (усреднение бы их сгладило), а провалы простоя остаются видны.
-    const cols = W - 2;
+    const cols = 72;
     const per = h.length / cols;
     const pts: number[] = [];
+    let previous = 0.5;
     for (let i = 0; i < cols; i++) {
       const from = Math.floor(i * per);
       const to = Math.max(from + 1, Math.floor((i + 1) * per));
-      let peak = 0;
-      for (let j = from; j < to && j < h.length; j++) peak = Math.max(peak, h[j]);
-      pts.push(peak);
+      const measured = h.slice(from, Math.min(to, h.length)).filter(v => v >= 0);
+      if (measured.length) previous = measured.reduce<number>((a, b) => a + b, 0) / measured.length;
+      pts.push(previous);
     }
-    const avg = h.reduce((a, b) => a + b, 0) / h.length;
+    const metrics = metricsFromHistory(h);
     s.summary = {
-      pts, avg,
-      peak: Math.max(...h),
-      active: h.filter(v => v > 0.5).length / h.length, // доля времени «в работе»
+      pts, metrics,
     };
   }, [summaryKey]);
 
   // Новый запуск — сбрасываем итог и копим историю заново.
   useEffect(() => {
-    if (running) { sim.current.summary = null; sim.current.history = []; }
-  }, [running]);
+    const previous = previousStatus.current;
+    const beginsNewInterval = status === 'running'
+      && (previous === 'idle' || previous === 'waiting' || previous === 'completed');
+    if (beginsNewInterval) {
+      sim.current.summary = null;
+      sim.current.history = [];
+      sim.current.points = [];
+      sim.current.lastSampleAt = 0;
+      setActivityMetrics(EMPTY_METRICS);
+    }
+    previousStatus.current = status;
+  }, [status]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -179,98 +271,116 @@ function CanvasScene({ mode, running, idle, accent, style = 'flight', speed = 10
       }
     };
 
-    // Итоговый график за весь отработанный интервал: вся история ужата по
-    // ширине модуля, снизу — заливка, сверху — подпись со сводкой.
-    const drawSummary = (px: number) => {
-      const sum = s.summary;
-      if (!sum) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // сетка
-      ctx.fillStyle = '#23232f';
-      for (let gy = 12; gy < H; gy += 16) {
-        for (let gx = 2; gx < W; gx += 8) ctx.fillRect(gx * px, gy * px, px, px);
-      }
-      const top = 14; // место под подпись
-      const yOf = (v: number) => Math.floor(top + (1 - v) * (H - top - 6));
-      // столбики-заливка + линия поверх
-      sum.pts.forEach((v, i) => {
-        const x = (i + 1) * px;
-        const y = yOf(v);
-        ctx.fillStyle = 'rgba(63,174,121,0.16)';
-        ctx.fillRect(x, y * 1, px, canvas.height - y);
-        ctx.fillStyle = v >= sum.avg ? GREEN : '#7d7d92';
-        ctx.fillRect(x, y, px, px * 2);
-      });
-      // средняя линия — пунктиром
-      const avgY = yOf(sum.avg);
-      ctx.fillStyle = 'rgba(255,255,255,0.35)';
-      for (let x = 1; x < W - 1; x += 4) ctx.fillRect(x * px, avgY * px, px * 2, px);
-      // подпись: доля активного времени и пик
-      ctx.fillStyle = '#d8d8e4';
-      ctx.font = `${Math.round(px * 7)}px ui-monospace, monospace`;
-      ctx.textBaseline = 'top';
-      ctx.fillText(
-        `ИТОГ: в работе ${Math.round(sum.active * 100)}%  ·  пик ${Math.round(sum.peak * 100)}%`,
-        2 * px, 3 * px,
-      );
-    };
+    const drawChart = (px: number, now: number) => {
+      const {
+        mode: currentMode,
+        running: isRunning,
+        idle: isAway,
+        status: currentStatus,
+        accent: currentAccent,
+      } = propsRef.current;
 
-    const drawChart = (px: number, dtn: number) => {
-      const { running: run, idle: away } = propsRef.current;
-      // Интервал закончился — показываем застывший итог, а не живую ленту.
-      if (s.summary && !run) { drawSummary(px); return; }
-      const active = run && !away;
-      // Level climbs while the user works, sinks while they are away (or the
-      // timer is stopped it drifts to the baseline).
-      const target = active ? 1 : run ? 0.05 : 0.35;
-      const rate = active ? 0.0045 : run ? 0.006 : 0.002;
-      s.level += (target - s.level) * rate * dtn * (0.7 + Math.random() * 0.6);
-      s.level = Math.max(0.03, Math.min(0.97, s.level));
-      // Push a new point a few times a second → the line scrolls left.
-      s.pushAcc += dtn;
-      if (s.pushAcc >= 3) {
-        s.pushAcc = 0;
-        const v = s.level + (Math.random() - 0.5) * 0.03;
-        s.points.push(v);
-        if (s.points.length > 64) s.points.shift();
-        // История за весь интервал — источник для итогового графика.
-        if (run) s.history.push(Math.max(0, Math.min(1, v)));
+      if (currentMode === 'focus'
+        && (isRunning || currentStatus === 'paused')
+        && now - s.lastSampleAt >= 1000) {
+        const state: ActivityState = isRunning ? (isAway ? 0 : 1) : (isAway ? 0 : -1);
+        s.history.push(state);
+        s.lastSampleAt = now;
+
+        const measuredTail = s.history.filter(v => v >= 0).slice(-60);
+        const ratio = measuredTail.length
+          ? measuredTail.filter(v => v === 1).length / measuredTail.length
+          : 0;
+        s.points.push(ratio);
+        if (s.points.length > 72) s.points.shift();
+        setActivityMetrics(metricsFromHistory(s.history));
       }
 
+      let points = s.summary && !isRunning ? s.summary.pts : s.points;
+      if (currentMode === 'break') {
+        points = Array.from({ length: 48 }, (_, i) => 0.55 + Math.sin(i * 0.24 + now * 0.001) * 0.08);
+      }
+      if (!points.length) points = [0.5, 0.5];
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // dotted grid
-      ctx.fillStyle = '#23232f';
-      for (let gy = 12; gy < H; gy += 16) {
-        for (let gx = 2; gx < W; gx += 8) ctx.fillRect(gx * px, gy * px, px, px);
+      ctx.save();
+      ctx.scale(px, px);
+      ctx.imageSmoothingEnabled = true;
+
+      const chartTop = 27;
+      const chartBottom = 61;
+      const chartLeft = 6;
+      const chartRight = W - 6;
+      const yOf = (value: number) => chartBottom - value * (chartBottom - chartTop);
+      const xOf = (index: number) => chartLeft
+        + (index / Math.max(1, points.length - 1)) * (chartRight - chartLeft);
+
+      ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+      ctx.lineWidth = 0.5;
+      for (const y of [chartTop, (chartTop + chartBottom) / 2, chartBottom]) {
+        ctx.beginPath();
+        ctx.moveTo(chartLeft, y);
+        ctx.lineTo(chartRight, y);
+        ctx.stroke();
       }
-      // trend of the visible tail decides the color and the arrow
-      const tail = s.points.slice(-8);
-      const rising = tail[tail.length - 1] >= tail[0];
-      const col = rising ? GREEN : RED;
-      // line: one pixel column per point, 3px thick, with a soft fill below
-      const step = W / 64;
-      let prevY = 0;
-      s.points.forEach((v, i) => {
-        const x = Math.floor(i * step);
-        const y = Math.floor(6 + (1 - v) * (H - 16));
-        ctx.fillStyle = 'rgba(255,255,255,0.05)';
-        ctx.fillRect(x * px, (y + 2) * px, Math.ceil(step) * px, (H - y - 2) * px);
-        ctx.fillStyle = i > 48 ? col : '#7d7d92';
-        const from = i ? Math.min(prevY, y) : y;
-        const to = i ? Math.max(prevY, y) : y;
-        ctx.fillRect(x * px, from * px, Math.ceil(step) * px, Math.max(px, (to - from + 1) * px));
-        prevY = y;
-      });
-      // arrow head at the line's end: ▲ green when growing, ▼ red when not
-      const headY = Math.floor(6 + (1 - s.points[s.points.length - 1]) * (H - 16));
-      const ax = W - 14;
-      const ay = Math.max(8, Math.min(H - 10, headY));
-      ctx.fillStyle = col;
-      for (let r = 0; r < 4; r++) {
-        const w2 = 7 - r * 2;
-        const yy = rising ? ay - r : ay + r;
-        ctx.fillRect((ax - Math.floor(w2 / 2)) * px, yy * px, w2 * px, px);
+
+      const trace = () => {
+        ctx.beginPath();
+        ctx.moveTo(xOf(0), yOf(points[0]));
+        for (let i = 1; i < points.length; i++) {
+          const x = xOf(i);
+          const y = yOf(points[i]);
+          const previousX = xOf(i - 1);
+          const previousY = yOf(points[i - 1]);
+          const middleX = (previousX + x) / 2;
+          ctx.quadraticCurveTo(previousX, previousY, middleX, (previousY + y) / 2);
+          if (i === points.length - 1) ctx.quadraticCurveTo(x, y, x, y);
+        }
+      };
+
+      trace();
+      ctx.lineTo(chartRight, chartBottom);
+      ctx.lineTo(chartLeft, chartBottom);
+      ctx.closePath();
+      const fill = ctx.createLinearGradient(0, chartTop, 0, chartBottom);
+      fill.addColorStop(0, colorWithAlpha(currentAccent, currentMode === 'break' ? 0.08 : 0.13));
+      fill.addColorStop(1, colorWithAlpha(currentAccent, 0));
+      ctx.fillStyle = fill;
+      ctx.fill();
+
+      trace();
+      ctx.strokeStyle = currentAccent;
+      ctx.lineWidth = 0.9;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.shadowColor = currentAccent;
+      ctx.shadowBlur = 1.5;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      const lastX = xOf(points.length - 1);
+      const lastY = yOf(points[points.length - 1]);
+      ctx.beginPath();
+      ctx.arc(lastX, lastY, 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = colorWithAlpha(currentAccent, 0.12);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(lastX, lastY, 0.9, 0, Math.PI * 2);
+      ctx.fillStyle = currentAccent;
+      ctx.fill();
+
+      const rail = s.history.slice(-96);
+      if (currentMode === 'focus' && rail.length) {
+        const railWidth = chartRight - chartLeft;
+        const segment = railWidth / rail.length;
+        rail.forEach((state, index) => {
+          ctx.fillStyle = state === 1 ? currentAccent : state === 0 ? '#8a7257' : '#5c6069';
+          ctx.globalAlpha = state === 1 ? 0.82 : 0.55;
+          ctx.fillRect(chartLeft + index * segment, 60, Math.max(0.8, segment), 1.5);
+        });
+        ctx.globalAlpha = 1;
       }
+      ctx.restore();
     };
 
     const step = (now: number) => {
@@ -286,7 +396,7 @@ function CanvasScene({ mode, running, idle, accent, style = 'flight', speed = 10
       ctx.imageSmoothingEnabled = false;
 
       if (st === 'chart') {
-        drawChart(px, dtn * speedRate);
+        drawChart(px, now);
         return;
       }
       // flight: freeze the WHOLE scene while the user is away (чистое время
@@ -314,6 +424,84 @@ function CanvasScene({ mode, running, idle, accent, style = 'flight', speed = 10
     ro.observe(canvas);
     return () => ro.disconnect();
   }, []);
+
+  if (style === 'chart') {
+    const isSummary = Boolean(sim.current.summary && !running);
+    const isBreak = mode === 'break';
+    const copy = lang === 'ru'
+      ? {
+          title: isBreak ? 'Восстановление' : isSummary ? 'Итоги фокуса' : idle ? 'Фокус приостановлен' : 'Фокус в реальном времени',
+          live: isSummary ? 'ИТОГ' : isBreak ? 'REST' : idle ? 'НЕТ АКТИВНОСТИ' : running ? 'LIVE' : status === 'paused' ? 'ПАУЗА' : 'ГОТОВ',
+          focus: 'фокус',
+          clean: 'чистое время',
+          streak: 'лучшая серия',
+          pauses: 'паузы',
+          idle: 'бездействия',
+          breakHint: 'Ровный ритм для качественного отдыха',
+        }
+      : {
+          title: isBreak ? 'Recovery' : isSummary ? 'Focus summary' : idle ? 'Focus suspended' : 'Focus in real time',
+          live: isSummary ? 'SUMMARY' : isBreak ? 'REST' : idle ? 'IDLE' : running ? 'LIVE' : status === 'paused' ? 'PAUSED' : 'READY',
+          focus: 'focus',
+          clean: 'clean time',
+          streak: 'best streak',
+          pauses: 'interruptions',
+          idle: 'idle',
+          breakHint: 'A calm rhythm for a better recovery',
+        };
+
+    return (
+      <div className={`scene-activity${isBreak ? ' scene-activity--break' : ''}`}>
+        <canvas ref={canvasRef} className="scene-canvas scene-canvas--activity" aria-hidden="true" />
+        <div className="scene-activity__head">
+          <span className="scene-activity__title">{copy.title}</span>
+          <span className={`scene-activity__badge${running && !idle ? ' is-live' : ''}`}>
+            <i aria-hidden="true" />
+            {copy.live}
+          </span>
+        </div>
+        {isBreak ? (
+          <div className="scene-activity__recovery">
+            <strong>{copy.breakHint}</strong>
+          </div>
+        ) : (
+          <div className="scene-activity__metrics">
+            <div className="scene-activity__metric scene-activity__metric--primary">
+              <strong>
+                {activityMetrics.samples
+                  ? <>{Math.round(activityMetrics.focus * 100)}<small>%</small></>
+                  : '—'}
+              </strong>
+              <span>{copy.focus}</span>
+            </div>
+            <div className="scene-activity__metric">
+              <strong>{formatShortTime(activityMetrics.activeSeconds)}</strong>
+              <span>{copy.clean}</span>
+            </div>
+            <div className="scene-activity__metric">
+              <strong>{formatShortTime(activityMetrics.longestStreak)}</strong>
+              <span>{copy.streak}</span>
+            </div>
+          </div>
+        )}
+        <div className="scene-activity__foot">
+          {isBreak ? (
+            <span className="scene-activity__legend"><i className="is-rest" /> {copy.live}</span>
+          ) : (
+            <>
+              <span>{copy.pauses} <b>{activityMetrics.interruptions}</b></span>
+              <span><b>{formatShortTime(activityMetrics.idleSeconds)}</b> {copy.idle}</span>
+              <span className="scene-activity__legend">
+                <i className="is-focus" />
+                <i className="is-idle" />
+                <i className="is-paused" />
+              </span>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return <canvas ref={canvasRef} className="scene-canvas" aria-hidden="true" />;
 }

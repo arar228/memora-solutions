@@ -26,7 +26,18 @@ import {
   getStoreStatus,
   setState,
 } from './server/admin-store.js';
-import { closeBdayStore, getBdayDashboard } from './server/bday-store.js';
+import {
+  closeBdayStore,
+  deleteBdayUser,
+  disableBdaySubscription,
+  getBdayDashboard,
+  getBdayRecipientCount,
+  previewBdayBroadcast,
+  sendBdayBroadcast,
+  sendBdayMessage,
+  setBdayUserBlocked,
+  updateBdaySubscription,
+} from './server/bday-store.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, 'dist');
@@ -135,13 +146,84 @@ function validateKanbanTasks(input) {
   return clean;
 }
 
-async function handleAdminApi(req, res, pathname) {
+async function handleBdayAdminApi(req, res, pathname, url) {
+  if (pathname === '/api/admin/bdaybot' && req.method === 'GET') {
+    return sendJson(res, 200, await getBdayDashboard());
+  }
+  if (pathname === '/api/admin/bdaybot/recipient-count' && req.method === 'GET') {
+    return sendJson(
+      res,
+      200,
+      await getBdayRecipientCount(url.searchParams.get('filter') || 'all'),
+    );
+  }
+
+  if (!mutationIsSameOrigin(req)) {
+    return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+  }
+
+  let body = {};
+  if (req.method !== 'DELETE') {
+    try {
+      body = await readJson(req);
+    } catch (error) {
+      return sendJson(
+        res,
+        error.message === 'PAYLOAD_TOO_LARGE' ? 413 : 400,
+        { error: error.message === 'PAYLOAD_TOO_LARGE' ? 'Запрос слишком большой' : 'Некорректный JSON' },
+      );
+    }
+  }
+
+  try {
+    if (pathname === '/api/admin/bdaybot/messages' && req.method === 'POST') {
+      return sendJson(res, 200, await sendBdayMessage(body));
+    }
+    if (pathname === '/api/admin/bdaybot/broadcast-preview' && req.method === 'POST') {
+      return sendJson(res, 200, await previewBdayBroadcast(body));
+    }
+    if (pathname === '/api/admin/bdaybot/broadcasts' && req.method === 'POST') {
+      return sendJson(res, 200, await sendBdayBroadcast(body));
+    }
+
+    const userMatch = pathname.match(
+      /^\/api\/admin\/bdaybot\/users\/(\d+)(?:\/(subscription|block|unblock|disable-subscription))?$/,
+    );
+    if (!userMatch) return sendJson(res, 404, { error: 'Not found' });
+    const [, telegramId, action] = userMatch;
+
+    if (!action && req.method === 'DELETE') {
+      return sendJson(res, 200, await deleteBdayUser(telegramId));
+    }
+    if (action === 'subscription' && req.method === 'PUT') {
+      return sendJson(res, 200, await updateBdaySubscription(telegramId, body));
+    }
+    if (action === 'disable-subscription' && req.method === 'POST') {
+      return sendJson(res, 200, await disableBdaySubscription(telegramId));
+    }
+    if (action === 'block' && req.method === 'POST') {
+      return sendJson(res, 200, await setBdayUserBlocked(telegramId, true));
+    }
+    if (action === 'unblock' && req.method === 'POST') {
+      return sendJson(res, 200, await setBdayUserBlocked(telegramId, false));
+    }
+    return sendJson(res, 405, { error: 'Method not allowed' });
+  } catch (error) {
+    console.error('BdayBot admin API:', error);
+    const databaseError = typeof error.code === 'string' && /^[0-9A-Z]{5}$/.test(error.code);
+    return sendJson(res, databaseError ? 500 : 400, {
+      error: databaseError ? 'Не удалось выполнить операцию с базой BdayBot' : error.message,
+    });
+  }
+}
+
+async function handleAdminApi(req, res, pathname, url) {
   if (pathname === '/api/admin/status' && req.method === 'GET') {
     return sendJson(res, 200, { storage: await getStoreStatus() });
   }
 
-  if (pathname === '/api/admin/bdaybot' && req.method === 'GET') {
-    return sendJson(res, 200, await getBdayDashboard());
+  if (pathname === '/api/admin/bdaybot' || pathname.startsWith('/api/admin/bdaybot/')) {
+    return handleBdayAdminApi(req, res, pathname, url);
   }
 
   const match = pathname.match(/^\/api\/admin\/state\/(pomodoro_tokens|kanban_tasks)$/);
@@ -258,7 +340,7 @@ const server = createServer(async (req, res) => {
 
     if (pathname.startsWith('/api/admin/')) {
       if (!admin) return sendJson(res, 404, { error: 'Not found' });
-      return await handleAdminApi(req, res, pathname);
+      return await handleAdminApi(req, res, pathname, url);
     }
 
     // На основном домене админки нет — она живёт только на поддомене.

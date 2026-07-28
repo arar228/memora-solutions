@@ -25,5 +25,34 @@ export const adminApi = {
     body: JSON.stringify({ value }),
   }),
   getBdayBot: () => request('/api/admin/bdaybot'),
+  getBdayRecipientCount: (filter) => request(`/api/admin/bdaybot/recipient-count?filter=${encodeURIComponent(filter)}`),
+  sendBdayMessage: (payload) => request('/api/admin/bdaybot/messages', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  }),
+  previewBdayBroadcast: (payload) => request('/api/admin/bdaybot/broadcast-preview', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  }),
+  sendBdayBroadcast: (payload) => request('/api/admin/bdaybot/broadcasts', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  }),
+  setBdayUserBlocked: (telegramId, blocked) => request(
+    `/api/admin/bdaybot/users/${encodeURIComponent(telegramId)}/${blocked ? 'block' : 'unblock'}`,
+    { method: 'POST', body: '{}' },
+  ),
+  updateBdaySubscription: (telegramId, payload) => request(
+    `/api/admin/bdaybot/users/${encodeURIComponent(telegramId)}/subscription`,
+    { method: 'PUT', body: JSON.stringify(payload) },
+  ),
+  disableBdaySubscription: (telegramId) => request(
+    `/api/admin/bdaybot/users/${encodeURIComponent(telegramId)}/disable-subscription`,
+    { method: 'POST', body: '{}' },
+  ),
+  deleteBdayUser: (telegramId) => request(
+    `/api/admin/bdaybot/users/${encodeURIComponent(telegramId)}`,
+    { method: 'DELETE' },
+  ),
   getStatus: () => request('/api/admin/status'),
 };

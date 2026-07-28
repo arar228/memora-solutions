@@ -27,7 +27,10 @@ Required environment variables:
 - `DATABASE_URL` or `DATABASE_PUBLIC_URL` — PostgreSQL used by the shared
   Kanban and Pomodoro settings;
 - `BDAY_DATABASE_URL` — BdayBot PostgreSQL connection for the centralized
-  read-only dashboard;
+  management panel;
+- `BDAY_BOT_TOKEN` — Telegram token used by the centralized panel for bot
+  health checks, personal messages, previews, and broadcasts;
+- `BDAY_ADMIN_ID` — Telegram ID that receives broadcast previews;
 - `BDAY_ADMIN_URL` — optional link to the legacy BdayBot control panel.
 
 Pomodoro uses one renderer source for desktop and web. After renderer changes,

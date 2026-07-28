@@ -97,7 +97,7 @@ export default function TravelPanel() {
 
 function Stat({ title, value, sub }) {
     return (
-        <div className="rounded-control border border-line bg-black/20 p-4">
+        <div className="rounded-control border border-line bg-surface-2 p-4">
             <div className="text-ui-sm text-ink-3">{title}</div>
             <div className="mt-1 text-2xl font-extrabold tabular-nums text-ink">{value}</div>
             <div className="mt-1 text-ui-sm text-ink-3">{sub}</div>

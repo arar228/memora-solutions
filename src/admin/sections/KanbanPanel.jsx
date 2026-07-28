@@ -138,7 +138,7 @@ export default function KanbanPanel() {
                             <CardContent className="flex flex-col gap-2">
                                 {list.length === 0 && <p className="m-0 text-ui-sm text-ink-3">Пусто</p>}
                                 {list.map(t => (
-                                    <div key={t.id} className="rounded-control border border-line bg-black/20 p-3">
+                                    <div key={t.id} className="rounded-control border border-line bg-surface-2 p-3">
                                         <div className="flex items-start justify-between gap-2">
                                             <strong className="text-ui">{t.title}</strong>
                                             <button

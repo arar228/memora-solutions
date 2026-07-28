@@ -5,11 +5,56 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Админка всегда тёмная, независимо от темы сайта. */
+/* Админка использует самостоятельную светлую рабочую тему независимо от сайта. */
 .admin-root {
     font-family: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    color-scheme: light;
+    background:
+        radial-gradient(circle at 88% -10%, rgba(7, 135, 154, 0.12), transparent 30rem),
+        linear-gradient(180deg, #f8fbfc 0, #f3f7f8 26rem);
+}
+.admin-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 1px 0 rgba(22, 49, 60, 0.04);
+    backdrop-filter: blur(18px);
+}
+.admin-layout {
+    width: min(100%, 1800px);
+    margin-inline: auto;
+}
+.admin-nav {
+    align-self: flex-start;
+    position: sticky;
+    top: 88px;
+    padding: 10px;
+    border: 1px solid rgba(22, 49, 60, 0.1);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 10px 28px rgba(24, 55, 66, 0.06);
+    backdrop-filter: blur(14px);
+}
+.admin-main {
+    padding-bottom: 40px;
+}
+.admin-root input,
+.admin-root select,
+.admin-root textarea {
+    color-scheme: light;
+}
+.admin-root ::selection {
+    color: #fff;
+    background: #06798a;
 }
 .admin-root code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 12.5px;
+}
+@media (max-width: 767px) {
+    .admin-nav {
+        position: static;
+        width: auto;
+    }
 }

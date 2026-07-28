@@ -18,8 +18,8 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default: 'bg-brand text-[#06131a] hover:brightness-110',
-                outline: 'border border-line text-ink-2 hover:text-ink hover:border-line-strong bg-transparent',
-                ghost: 'text-ink-2 hover:text-ink hover:bg-white/5 border-none bg-transparent',
+                outline: 'border border-line text-ink-2 hover:text-ink hover:border-line-strong bg-white',
+                ghost: 'text-ink-2 hover:text-ink hover:bg-black/5 border-none bg-transparent',
                 danger: 'bg-danger text-white hover:brightness-110',
             },
             size: {
@@ -59,7 +59,7 @@ export const Input = forwardRef(function Input({ className, ...props }, ref) {
         <input
             ref={ref}
             className={cn(
-                'h-10 w-full rounded-control border border-line bg-black/25 px-3 text-ui text-ink outline-none transition-colors',
+                'h-10 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-none transition-colors',
                 'placeholder:text-ink-3 focus:border-brand',
                 className,
             )}
@@ -77,7 +77,7 @@ export const Select = forwardRef(function Select({ className, ...props }, ref) {
         <select
             ref={ref}
             className={cn(
-                'h-10 w-full rounded-control border border-line bg-black/25 px-3 text-ui text-ink outline-none focus:border-brand',
+                'h-10 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-none focus:border-brand',
                 className,
             )}
             {...props}

@@ -187,7 +187,7 @@ export default function PomodoroPanel() {
                             </Button>
                         </div>
 
-                        <details className="rounded-control border border-line bg-black/20 p-3">
+                        <details className="rounded-control border border-line bg-surface-2 p-3">
                             <summary className="cursor-pointer text-ui-sm text-ink-2">Показать JSON</summary>
                             <pre className="m-0 mt-2 overflow-x-auto text-ui-sm text-ink-2">{json}</pre>
                         </details>

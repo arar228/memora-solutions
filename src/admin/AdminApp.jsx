@@ -34,7 +34,7 @@ export default function AdminApp() {
 
     return (
         <div className="admin-root min-h-screen bg-bg text-ink text-ui">
-            <header className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
+            <header className="admin-header flex items-center justify-between gap-4 border-b border-line px-6 py-4">
                 <div className="flex items-center gap-3">
                     <span className="grid h-8 w-8 place-items-center rounded-control bg-brand-dim text-brand font-extrabold">M</span>
                     <div>
@@ -45,8 +45,8 @@ export default function AdminApp() {
                 <Badge variant="ok">вход по паролю</Badge>
             </header>
 
-            <div className="flex flex-col gap-6 p-6 md:flex-row">
-                <nav className="flex shrink-0 flex-row flex-wrap gap-1 md:w-56 md:flex-col">
+            <div className="admin-layout flex flex-col gap-6 p-6 md:flex-row">
+                <nav className="admin-nav flex shrink-0 flex-row flex-wrap gap-1 md:w-56 md:flex-col">
                     {SECTIONS.map(({ id, label, icon: Icon }) => (
                         <button
                             key={id}
@@ -55,7 +55,7 @@ export default function AdminApp() {
                                 'flex items-center gap-2.5 rounded-control px-3 py-2.5 text-left text-ui transition-colors border-none cursor-pointer',
                                 active === id
                                     ? 'bg-brand-dim text-brand font-semibold'
-                                    : 'bg-transparent text-ink-2 hover:bg-white/5 hover:text-ink',
+                                    : 'bg-transparent text-ink-2 hover:bg-black/5 hover:text-ink',
                             ].join(' ')}
                         >
                             <Icon size={16} aria-hidden="true" /> {label}
@@ -71,7 +71,7 @@ export default function AdminApp() {
                     </a>
                 </nav>
 
-                <main className="min-w-0 flex-1">
+                <main className="admin-main min-w-0 flex-1">
                     <Current />
                 </main>
             </div>

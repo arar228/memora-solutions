@@ -364,7 +364,7 @@ function OverviewTab({ data, stats }) {
                         <CardDescription>Проверка выполняется через Telegram API, а не по локальному PID.</CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col gap-3">
-                        <div className="flex items-center justify-between rounded-control border border-line bg-black/20 px-3 py-3">
+                        <div className="flex items-center justify-between rounded-control border border-line bg-surface-2 px-3 py-3">
                             <span className="text-ink-2">Состояние</span>
                             <Badge variant={data.bot?.online ? 'ok' : 'warn'}>
                                 {data.bot?.online ? 'онлайн' : 'нет ответа'}
@@ -375,7 +375,7 @@ function OverviewTab({ data, stats }) {
                                 href={`https://t.me/${data.bot.username}`}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="rounded-control border border-line bg-black/20 px-3 py-3 text-brand no-underline"
+                                className="rounded-control border border-line bg-surface-2 px-3 py-3 text-brand no-underline"
                             >
                                 @{data.bot.username}
                             </a>
@@ -392,7 +392,7 @@ function OverviewTab({ data, stats }) {
                 </CardHeader>
                 <CardContent className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                     {(data.plans || []).map(plan => (
-                        <div key={plan.id} className="rounded-control border border-line bg-black/20 p-4">
+                        <div key={plan.id} className="rounded-control border border-line bg-surface-2 p-4">
                             <div className="flex items-start justify-between gap-3">
                                 <div>
                                     <strong className="text-ink">{plan.display_name}</strong>
@@ -464,7 +464,7 @@ function DetailedActivity({ stats }) {
                     <div className="grid grid-cols-7 gap-2" aria-label="Активность за последние 7 дней">
                         {dailyStats.map(day => (
                             <div key={day.date} className="flex min-w-0 flex-col items-center gap-2">
-                                <div className="flex h-20 w-full items-end justify-center gap-1 rounded-control bg-black/20 px-1.5 pt-2">
+                                <div className="flex h-20 w-full items-end justify-center gap-1 rounded-control bg-surface-2 px-1.5 pt-2">
                                     <span
                                         className="w-2 rounded-t bg-brand/80"
                                         style={{ height: `${Math.max(3, (Number(day.generations) / dailyMax) * 100)}%` }}
@@ -493,12 +493,12 @@ function DetailedActivity({ stats }) {
 function ProgressMetric({ label, started, completed, rate }) {
     const safeRate = Math.max(0, Math.min(100, Number(rate) || 0));
     return (
-        <div className="rounded-control border border-line bg-black/20 p-4">
+        <div className="rounded-control border border-line bg-surface-2 p-4">
             <div className="flex items-center justify-between gap-3">
                 <strong className="text-ink">{label}</strong>
                 <span className="font-bold tabular-nums text-brand">{safeRate}%</span>
             </div>
-            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/5">
+            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-black/5">
                 <div className="h-full rounded-full bg-brand" style={{ width: `${safeRate}%` }} />
             </div>
             <div className="mt-3 flex justify-between text-ui-sm text-ink-3">
@@ -633,7 +633,7 @@ function MessageComposer({ users, recipient, setRecipient, draft, setDraft, busy
                             rows={10}
                             maxLength={4096}
                             placeholder="Текст сообщения. Поддерживается Telegram HTML."
-                            className="w-full resize-y rounded-control border border-line bg-black/25 p-3 text-ui text-ink outline-none placeholder:text-ink-3 focus:border-brand"
+                            className="w-full resize-y rounded-control border border-line bg-surface-2 p-3 text-ui text-ink outline-none placeholder:text-ink-3 focus:border-brand"
                         />
                     </Field>
                     <Field label="Ссылка на изображение — необязательно">
@@ -686,7 +686,7 @@ function BroadcastComposer({ draft, setDraft, recipientCount, busy, onPreview, o
                             rows={11}
                             maxLength={4096}
                             placeholder="Текст рассылки. Поддерживается Telegram HTML."
-                            className="w-full resize-y rounded-control border border-line bg-black/25 p-3 text-ui text-ink outline-none placeholder:text-ink-3 focus:border-brand"
+                            className="w-full resize-y rounded-control border border-line bg-surface-2 p-3 text-ui text-ink outline-none placeholder:text-ink-3 focus:border-brand"
                         />
                     </Field>
                     <Field label="Ссылка на изображение — необязательно">
@@ -716,7 +716,7 @@ function BroadcastComposer({ draft, setDraft, recipientCount, busy, onPreview, o
 
 function ComposerHint({ broadcast = false }) {
     return (
-        <div className="rounded-control border border-line bg-black/20 p-4 text-ui-sm text-ink-2">
+        <div className="rounded-control border border-line bg-surface-2 p-4 text-ui-sm text-ink-2">
             <strong className="text-ink">Перед отправкой</strong>
             <ul className="mb-0 mt-3 flex flex-col gap-2 pl-5">
                 <li>Проверьте ссылки и разметку HTML.</li>
@@ -795,7 +795,7 @@ function TableHead({ children }) {
 
 function MiniStat({ label, value }) {
     return (
-        <div className="rounded-control border border-line bg-black/20 p-3">
+        <div className="rounded-control border border-line bg-surface-2 p-3">
             <div className="text-ui-sm text-ink-3">{label}</div>
             <div className="mt-1 text-xl font-bold tabular-nums text-ink">{value ?? '—'}</div>
         </div>

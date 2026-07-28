@@ -302,6 +302,9 @@ export default function App() {
   const progress = isStopwatch
     ? (timerState.elapsed % 60) / 60
     : (timerState.totalTime ? 1 - timerState.timeLeft / timerState.totalTime : 0);
+  const sceneElapsedSeconds = isStopwatch
+    ? timerState.elapsed
+    : Math.max(0, timerState.totalTime - timerState.timeLeft);
   const isBreak = !isStopwatch && timerState.mode !== 'focus';
   const accent = themeColors(theme, customAccent).accent;
   const ringColor = isBreak ? BREAK_COLOR : accent;
@@ -662,6 +665,7 @@ export default function App() {
             status={timerState.status}
             lang={lang}
             progress={progress}
+            elapsedSeconds={sceneElapsedSeconds}
           />
           {(sceneStyle === 'ninja' || sceneStyle === 'chart') && (
             <span className="scene-style-label" aria-live="polite">{sceneLabel}</span>

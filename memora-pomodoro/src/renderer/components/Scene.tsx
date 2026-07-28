@@ -28,6 +28,9 @@ export interface SceneProps {
   // the WHOLE session compressed to the module width (см. summary ниже).
   summaryKey?: number;
   progress?: number;
+  // Real seconds reported by the timer engine. The activity chart uses this
+  // instead of its own interval so its clean time cannot run one tick ahead.
+  elapsedSeconds?: number;
 }
 
 const W = 192;
@@ -132,6 +135,7 @@ function CanvasScene({
   summaryKey = 0,
   status = 'idle',
   lang = 'ru',
+  elapsedSeconds = 0,
 }: SceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activityMetrics, setActivityMetrics] = useState<ActivityMetrics>(EMPTY_METRICS);
@@ -140,15 +144,36 @@ function CanvasScene({
     obstacles: [] as Obstacle[],
     stars: [] as Star[],
     nextSpawn: 60,
-    // Activity is sampled independently from animation. Values are real timer
-    // states; the curve is a rolling 60-second focus ratio.
-    points: [] as number[],
+    // Active seconds come from the timer engine; idle/pause context is sampled
+    // around them. The curve is a rolling 60-second focus ratio.
+    points: [0] as number[],
     history: [] as ActivityState[],
     lastSampleAt: 0,
+    lastEngineSecond: 0,
     summary: null as null | { pts: number[]; metrics: ActivityMetrics },
   });
-  const propsRef = useRef({ mode, running, idle, accent, style, speed, status, lang });
-  propsRef.current = { mode, running, idle, accent, style, speed, status, lang };
+  const propsRef = useRef({
+    mode,
+    running,
+    idle,
+    accent,
+    style,
+    speed,
+    status,
+    lang,
+    elapsedSeconds,
+  });
+  propsRef.current = {
+    mode,
+    running,
+    idle,
+    accent,
+    style,
+    speed,
+    status,
+    lang,
+    elapsedSeconds,
+  };
   const previousStatus = useRef(status);
 
   // Таймер отработал → замораживаем сцену и строим итоговый график.
@@ -185,8 +210,11 @@ function CanvasScene({
     if (beginsNewInterval) {
       sim.current.summary = null;
       sim.current.history = [];
-      sim.current.points = [];
-      sim.current.lastSampleAt = 0;
+      // A real zero point keeps both the line and all counters at 00:00 until
+      // the engine reports its first completed second.
+      sim.current.points = [0];
+      sim.current.lastSampleAt = performance.now();
+      sim.current.lastEngineSecond = 0;
       setActivityMetrics(EMPTY_METRICS);
     }
     previousStatus.current = status;
@@ -204,10 +232,6 @@ function CanvasScene({
         s.stars.push({ x: Math.random() * W, y: Math.random() * H, speed: 0.2 + Math.random() * 0.9, tone: Math.random() });
       }
     }
-    if (s.points.length === 0) {
-      for (let i = 0; i < 64; i++) s.points.push(0.35);
-    }
-
     let raf = 0;
     let last = performance.now();
 
@@ -281,21 +305,41 @@ function CanvasScene({
         idle: isAway,
         status: currentStatus,
         accent: currentAccent,
+        elapsedSeconds: currentElapsedSeconds,
       } = propsRef.current;
 
-      if (currentMode === 'focus'
-        && (isRunning || currentStatus === 'paused')
-        && now - s.lastSampleAt >= 1000) {
-        const state: ActivityState = isRunning ? (isAway ? 0 : 1) : (isAway ? 0 : -1);
+      const appendActivity = (state: ActivityState) => {
         s.history.push(state);
-        s.lastSampleAt = now;
-
         const measuredTail = s.history.filter(v => v >= 0).slice(-60);
         const ratio = measuredTail.length
           ? measuredTail.filter(v => v === 1).length / measuredTail.length
           : 0;
         s.points.push(ratio);
         if (s.points.length > 72) s.points.shift();
+      };
+
+      let metricsChanged = false;
+      if (currentMode === 'focus') {
+        const engineSecond = Math.max(0, Math.floor(currentElapsedSeconds));
+        const completedSeconds = Math.max(0, engineSecond - s.lastEngineSecond);
+        for (let i = 0; i < completedSeconds; i++) appendActivity(1);
+        if (completedSeconds > 0) {
+          s.lastEngineSecond = engineSecond;
+          s.lastSampleAt = now;
+          metricsChanged = true;
+        }
+      }
+      if (currentMode === 'focus'
+        && !(isRunning && !isAway)
+        && (isRunning || currentStatus === 'paused')
+        && now - s.lastSampleAt >= 1000) {
+        // Idle and manual-pause spans are wall-clock context around the clean
+        // engine time. They never increment the clean-time counter itself.
+        appendActivity(isAway ? 0 : -1);
+        s.lastSampleAt = now;
+        metricsChanged = true;
+      }
+      if (metricsChanged) {
         setActivityMetrics(metricsFromHistory(s.history));
       }
 
@@ -303,7 +347,7 @@ function CanvasScene({
       if (currentMode === 'break' && !(s.summary && !isRunning)) {
         points = Array.from({ length: 48 }, (_, i) => 0.55 + Math.sin(i * 0.24 + now * 0.001) * 0.08);
       }
-      if (!points.length) points = [0.5, 0.5];
+      if (!points.length) points = [0, 0];
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();

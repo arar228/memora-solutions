@@ -4,11 +4,12 @@ import {
     Button, Card, CardContent, CardHeader, CardTitle, CardDescription,
     Input, Select, Badge, Label,
 } from '../../ui';
+import { adminApi } from '../api';
 
 /**
  * Задачи — переехавший сюда старый /admin с основного сайта (там он висел
- * без пароля). Хранение прежнее: localStorage браузера, ключ memora-kanban,
- * поэтому уже заведённые задачи никуда не делись.
+ * без пароля). Теперь задачи хранятся в общей базе; старые локальные задачи
+ * один раз импортируются, если общая доска ещё пустая.
  */
 const LS_KEY = 'memora-kanban';
 const COLUMNS = [
@@ -18,14 +19,52 @@ const COLUMNS = [
 ];
 
 export default function KanbanPanel() {
-    const [tasks, setTasks] = useState(() => {
-        try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; }
-    });
+    const [tasks, setTasks] = useState([]);
     const [draft, setDraft] = useState({ title: '', desc: '', column: 'inProgress' });
+    const [loaded, setLoaded] = useState(false);
+    const [syncState, setSyncState] = useState('loading');
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        localStorage.setItem(LS_KEY, JSON.stringify(tasks));
-    }, [tasks]);
+        adminApi.getState('kanban_tasks')
+            .then(async ({ value }) => {
+                let shared = Array.isArray(value) ? value : [];
+                if (!shared.length) {
+                    try {
+                        const local = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+                        if (Array.isArray(local) && local.length) {
+                            shared = local;
+                            await adminApi.setState('kanban_tasks', shared);
+                        }
+                    } catch { /* повреждённый localStorage просто пропускаем */ }
+                }
+                setTasks(shared);
+                setLoaded(true);
+                setSyncState('saved');
+            })
+            .catch(err => {
+                setError(err.message);
+                setSyncState('error');
+            });
+    }, []);
+
+    useEffect(() => {
+        if (!loaded) return undefined;
+        setSyncState('saving');
+        const timer = setTimeout(() => {
+            adminApi.setState('kanban_tasks', tasks)
+                .then(() => {
+                    localStorage.setItem(LS_KEY, JSON.stringify(tasks));
+                    setSyncState('saved');
+                    setError('');
+                })
+                .catch(err => {
+                    setError(err.message);
+                    setSyncState('error');
+                });
+        }, 350);
+        return () => clearTimeout(timer);
+    }, [tasks, loaded]);
 
     const add = () => {
         if (!draft.title.trim()) return;
@@ -42,9 +81,14 @@ export default function KanbanPanel() {
                 <CardHeader>
                     <CardTitle>Задачи</CardTitle>
                     <CardDescription>
-                        Рабочая доска команды. Задачи сохраняются в этом браузере — общей базы пока нет,
-                        поэтому у каждого свой список. Общая доска появится, когда подключим хранилище.
+                        Общая рабочая доска команды. Изменения сохраняются автоматически
+                        и видны всем, кто вошёл в панель.
                     </CardDescription>
+                    <div>
+                        <Badge variant={syncState === 'error' ? 'warn' : syncState === 'saved' ? 'ok' : 'muted'}>
+                            {syncState === 'loading' ? 'загрузка…' : syncState === 'saving' ? 'сохранение…' : syncState === 'error' ? 'ошибка' : 'сохранено'}
+                        </Badge>
+                    </div>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-3">
                     <div className="grid gap-3 md:grid-cols-[1.2fr_1.6fr_auto_auto]">
@@ -73,6 +117,12 @@ export default function KanbanPanel() {
                     </div>
                 </CardContent>
             </Card>
+
+            {error && (
+                <div className="rounded-control border border-danger/40 bg-danger/10 px-4 py-3 text-ui-sm text-danger">
+                    {error}
+                </div>
+            )}
 
             <div className="grid gap-4 lg:grid-cols-3">
                 {COLUMNS.map(col => {

@@ -18,7 +18,15 @@ import { readFile, stat } from 'node:fs/promises';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
-import { timingSafeEqual } from 'node:crypto';
+import { randomUUID, timingSafeEqual } from 'node:crypto';
+import {
+  DEFAULT_POMODORO_TOKENS,
+  closeAdminStore,
+  getState,
+  getStoreStatus,
+  setState,
+} from './server/admin-store.js';
+import { closeBdayStore, getBdayDashboard } from './server/bday-store.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, 'dist');
@@ -52,6 +60,121 @@ const MIME = {
 };
 
 const isAdminHost = (host = '') => host.toLowerCase().startsWith('admin.');
+
+function sendJson(res, status, body, extraHeaders = {}) {
+  const payload = Buffer.from(JSON.stringify(body));
+  res.writeHead(status, {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Content-Length': payload.byteLength,
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
+    ...extraHeaders,
+  });
+  res.end(payload);
+}
+
+async function readJson(req, limit = 256 * 1024) {
+  const chunks = [];
+  let size = 0;
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size > limit) throw new Error('PAYLOAD_TOO_LARGE');
+    chunks.push(chunk);
+  }
+  if (!chunks.length) return {};
+  return JSON.parse(Buffer.concat(chunks).toString('utf8'));
+}
+
+function mutationIsSameOrigin(req) {
+  const fetchSite = req.headers['sec-fetch-site'];
+  if (fetchSite && !['same-origin', 'none'].includes(fetchSite)) return false;
+  return req.headers['x-memora-admin'] === '1';
+}
+
+const TOKEN_RULES = {
+  'mp-col': [/^\d+(?:\.\d+)?px$/, 320, 540],
+  'mp-gap': [/^\d+(?:\.\d+)?px$/, 0, 24],
+  'mp-row-h': [/^\d+(?:\.\d+)?px$/, 30, 64],
+  'mp-ctrl-h': [/^\d+(?:\.\d+)?px$/, 32, 72],
+  'mp-radius': [/^\d+(?:\.\d+)?px$/, 0, 24],
+  'mp-pad-x': [/^\d+(?:\.\d+)?px$/, 4, 48],
+  'mp-pad-y': [/^\d+(?:\.\d+)?px$/, 4, 48],
+  'mp-scene-ratio': [/^\d+(?:\.\d+)?$/, 1.4, 4],
+  'mp-scene-h': [/^\d+(?:\.\d+)?px$/, 100, 320],
+};
+
+function validatePomodoroTokens(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return null;
+  const result = {};
+  for (const [key, [pattern, min, max]] of Object.entries(TOKEN_RULES)) {
+    const value = input[key] ?? DEFAULT_POMODORO_TOKENS[key];
+    if (typeof value !== 'string' || !pattern.test(value)) return null;
+    const number = Number.parseFloat(value);
+    if (!Number.isFinite(number) || number < min || number > max) return null;
+    result[key] = value;
+  }
+  return result;
+}
+
+function validateKanbanTasks(input) {
+  if (!Array.isArray(input) || input.length > 500) return null;
+  const columns = new Set(['inProgress', 'testing', 'done']);
+  const clean = [];
+  for (const task of input) {
+    if (!task || typeof task !== 'object') return null;
+    const title = String(task.title || '').trim().slice(0, 160);
+    const desc = String(task.desc || '').trim().slice(0, 2000);
+    if (!title || !columns.has(task.column)) return null;
+    clean.push({
+      id: String(task.id || randomUUID()).slice(0, 80),
+      title,
+      desc,
+      column: task.column,
+    });
+  }
+  return clean;
+}
+
+async function handleAdminApi(req, res, pathname) {
+  if (pathname === '/api/admin/status' && req.method === 'GET') {
+    return sendJson(res, 200, { storage: await getStoreStatus() });
+  }
+
+  if (pathname === '/api/admin/bdaybot' && req.method === 'GET') {
+    return sendJson(res, 200, await getBdayDashboard());
+  }
+
+  const match = pathname.match(/^\/api\/admin\/state\/(pomodoro_tokens|kanban_tasks)$/);
+  if (!match) return sendJson(res, 404, { error: 'Not found' });
+  const key = match[1];
+  const fallback = key === 'pomodoro_tokens' ? DEFAULT_POMODORO_TOKENS : [];
+
+  if (req.method === 'GET') {
+    return sendJson(res, 200, { key, value: await getState(key, fallback) });
+  }
+  if (req.method !== 'PUT') {
+    return sendJson(res, 405, { error: 'Method not allowed' }, { Allow: 'GET, PUT' });
+  }
+  if (!mutationIsSameOrigin(req)) {
+    return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+  }
+
+  let body;
+  try {
+    body = await readJson(req);
+  } catch (error) {
+    return sendJson(
+      res,
+      error.message === 'PAYLOAD_TOO_LARGE' ? 413 : 400,
+      { error: error.message === 'PAYLOAD_TOO_LARGE' ? 'Запрос слишком большой' : 'Некорректный JSON' },
+    );
+  }
+  const value = key === 'pomodoro_tokens'
+    ? validatePomodoroTokens(body.value)
+    : validateKanbanTasks(body.value);
+  if (!value) return sendJson(res, 400, { error: 'Некорректные данные' });
+  return sendJson(res, 200, await setState(key, value));
+}
 
 // Сравнение постоянного времени — чтобы по скорости ответа нельзя было
 // подбирать пароль посимвольно.
@@ -123,7 +246,20 @@ const server = createServer(async (req, res) => {
       }));
     }
 
+    if (pathname === '/api/pomodoro/tokens' && req.method === 'GET') {
+      const tokens = await getState('pomodoro_tokens', DEFAULT_POMODORO_TOKENS);
+      return sendJson(res, 200, tokens, {
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'public, max-age=60, stale-while-revalidate=300',
+      });
+    }
+
     if (admin && !checkAuth(req)) return requireAuth(res);
+
+    if (pathname.startsWith('/api/admin/')) {
+      if (!admin) return sendJson(res, 404, { error: 'Not found' });
+      return await handleAdminApi(req, res, pathname);
+    }
 
     // На основном домене админки нет — она живёт только на поддомене.
     if (!admin && (pathname === '/admin' || pathname.startsWith('/admin/'))) {
@@ -159,16 +295,17 @@ server.listen(PORT, () => {
     : 'ВНИМАНИЕ: ADMIN_PASSWORD не задан — админка отдаёт 401 всем');
 });
 
-function shutdown(signal) {
+async function shutdown(signal) {
   if (isShuttingDown) return;
   isShuttingDown = true;
   console.log(`${signal}: stopping gracefully`);
 
-  server.close((err) => {
+  server.close(async (err) => {
     if (err) {
       console.error('Graceful shutdown failed', err);
       process.exit(1);
     }
+    await Promise.allSettled([closeAdminStore(), closeBdayStore()]);
     process.exit(0);
   });
 

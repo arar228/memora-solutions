@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { RotateCcw, Copy, Download, Check } from 'lucide-react';
+import { RotateCcw, Copy, Download, Check, Save } from 'lucide-react';
 import {
     Button, Card, CardContent, CardHeader, CardTitle, CardDescription,
     Label, Slider, Badge,
 } from '../../ui';
+import { adminApi } from '../api';
 
 /**
  * Панель Помодоро: крутим раскладку приложения ползунками и сразу видим
@@ -11,8 +12,8 @@ import {
  *
  * Как это работает: приложение размечено CSS-переменными («токенами»).
  * Панель меняет их прямо в превью, поэтому изменения видно мгновенно, без
- * пересборки. Чтобы значения попали к пользователям, их нужно сохранить в
- * memora-pomodoro/src/shared/tokens.json — кнопки ниже дают готовый файл.
+ * пересборки. Кнопка публикации сохраняет значения в общее хранилище:
+ * их сразу получают и web, и подключённые к интернету desktop-клиенты.
  */
 
 // Дефолты обязаны совпадать с tokens.json и :root в app.css.
@@ -25,6 +26,7 @@ const DEFAULTS = {
     'mp-pad-x': 15,
     'mp-pad-y': 12,
     'mp-scene-ratio': 2.6,
+    'mp-scene-h': 185,
 };
 
 const CONTROLS = [
@@ -36,22 +38,40 @@ const CONTROLS = [
     { key: 'mp-pad-x', label: 'Боковые поля', min: 4, max: 48, step: 1, unit: 'px', hint: 'Отступ от краёв окна до содержимого.' },
     { key: 'mp-pad-y', label: 'Верхнее поле', min: 4, max: 48, step: 1, unit: 'px', hint: 'Отступ под шапкой.' },
     { key: 'mp-scene-ratio', label: 'Пропорции сцены', min: 1.4, max: 4, step: 0.1, unit: '', hint: 'Ширина ÷ высота блока с анимацией. Больше — сцена ниже.' },
+    { key: 'mp-scene-h', label: 'Высота окна сцены', min: 100, max: 320, step: 5, unit: 'px', hint: 'Фиксированная высота всех сцен: соседние элементы не смещаются при переключении.' },
 ];
 
-const LS_KEY = 'memora-admin:pomodoro-tokens';
 const APP_URL = '/app/pomodoro/index.html';
 
 const toCss = (key, value) => (key === 'mp-scene-ratio' ? String(value) : `${value}px`);
+const fromCss = (tokens) => Object.fromEntries(
+    Object.entries(DEFAULTS).map(([key, fallback]) => {
+        const parsed = Number.parseFloat(tokens?.[key]);
+        return [key, Number.isFinite(parsed) ? parsed : fallback];
+    }),
+);
 
 export default function PomodoroPanel() {
-    const [values, setValues] = useState(() => {
-        try {
-            const saved = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
-            return saved ? { ...DEFAULTS, ...saved } : { ...DEFAULTS };
-        } catch { return { ...DEFAULTS }; }
-    });
+    const [values, setValues] = useState({ ...DEFAULTS });
+    const [published, setPublished] = useState({ ...DEFAULTS });
     const [copied, setCopied] = useState(false);
+    const [saveState, setSaveState] = useState('loading');
+    const [error, setError] = useState('');
     const frameRef = useRef(null);
+
+    useEffect(() => {
+        adminApi.getState('pomodoro_tokens')
+            .then(({ value }) => {
+                const loaded = fromCss(value);
+                setValues(loaded);
+                setPublished(loaded);
+                setSaveState('saved');
+            })
+            .catch(err => {
+                setError(err.message);
+                setSaveState('error');
+            });
+    }, []);
 
     // Применяем токены в превью. Фрейм с того же домена, поэтому переменные
     // ставятся напрямую — без пересборки и без перезагрузки приложения.
@@ -65,7 +85,6 @@ export default function PomodoroPanel() {
 
     useEffect(() => {
         applyToPreview(values);
-        localStorage.setItem(LS_KEY, JSON.stringify(values));
     }, [values, applyToPreview]);
 
     const json = JSON.stringify(
@@ -73,7 +92,20 @@ export default function PomodoroPanel() {
         null, 2,
     ) + '\n';
 
-    const changed = Object.keys(DEFAULTS).filter(k => values[k] !== DEFAULTS[k]);
+    const changed = Object.keys(DEFAULTS).filter(k => values[k] !== published[k]);
+
+    const publish = async () => {
+        setSaveState('saving');
+        setError('');
+        try {
+            await adminApi.setState('pomodoro_tokens', JSON.parse(json));
+            setPublished({ ...values });
+            setSaveState('saved');
+        } catch (err) {
+            setError(err.message);
+            setSaveState('error');
+        }
+    };
 
     const copyJson = async () => {
         try {
@@ -103,11 +135,17 @@ export default function PomodoroPanel() {
                     <CardDescription>
                         Двигайте ползунки — приложение справа меняется сразу. Это та же сборка,
                         что стоит на сайте и в десктопе, поэтому вы видите реальный результат,
-                        а не макет. Чтобы изменения увидели пользователи, сохраните файл
-                        (кнопки внизу) в <code className="text-ink-2">memora-pomodoro/src/shared/tokens.json</code> и выложите обновление.
+                        а не макет. Нажмите «Опубликовать», и новые значения сразу получат
+                        веб-версия и desktop-приложение при следующем запуске с интернетом.
                     </CardDescription>
                 </CardHeader>
             </Card>
+
+            {error && (
+                <div className="rounded-control border border-danger/40 bg-danger/10 px-4 py-3 text-ui-sm text-danger">
+                    {error}
+                </div>
+            )}
 
             <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_auto]">
                 <Card>
@@ -133,15 +171,19 @@ export default function PomodoroPanel() {
                         ))}
 
                         <div className="flex flex-wrap gap-2 border-t border-line pt-4">
-                            <Button variant="outline" onClick={() => setValues({ ...DEFAULTS })}>
-                                <RotateCcw size={15} /> Сбросить
+                            <Button onClick={publish} disabled={!changed.length || saveState === 'saving'}>
+                                {saveState === 'saving' ? <RotateCcw className="animate-spin" size={15} /> : <Save size={15} />}
+                                {saveState === 'saving' ? 'Сохраняю…' : 'Опубликовать'}
+                            </Button>
+                            <Button variant="outline" onClick={() => setValues({ ...published })}>
+                                <RotateCcw size={15} /> Отменить правки
                             </Button>
                             <Button onClick={copyJson}>
                                 {copied ? <Check size={15} /> : <Copy size={15} />}
                                 {copied ? 'Скопировано' : 'Скопировать JSON'}
                             </Button>
                             <Button variant="outline" onClick={downloadJson}>
-                                <Download size={15} /> Скачать tokens.json
+                                <Download size={15} /> Скачать для репозитория
                             </Button>
                         </div>
 

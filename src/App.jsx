@@ -102,11 +102,14 @@ export default function App() {
   // ни маршрутов — только панель управления.
   if (IS_ADMIN_HOST) {
     return (
-      <ErrorBoundary>
-        <Suspense fallback={<LoadingFallback />}>
-          <AdminApp />
-        </Suspense>
-      </ErrorBoundary>
+      <>
+        <GlobalLoaderHider />
+        <ErrorBoundary>
+          <Suspense fallback={<LoadingFallback />}>
+            <AdminApp />
+          </Suspense>
+        </ErrorBoundary>
+      </>
     );
   }
 

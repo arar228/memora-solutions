@@ -12,7 +12,7 @@ import { APP_ICON_URL } from './assets';
 import './styles/app.css';
 import './styles/settings.css';
 
-const SCENE_STYLES = ['ninja', 'chart'] as const;
+const SCENE_STYLES = ['ninja', 'chart', 'orbit', 'garden'] as const;
 type SceneStyle = (typeof SCENE_STYLES)[number];
 const isSceneStyle = (value: unknown): value is SceneStyle =>
   typeof value === 'string' && SCENE_STYLES.includes(value as SceneStyle);
@@ -449,9 +449,13 @@ export default function App() {
       return next;
     });
   }, []);
-  const sceneLabel = sceneStyle === 'ninja'
-    ? (lang === 'ru' ? 'Ниндзя-помидорка' : 'Tomato ninja')
-    : (lang === 'ru' ? 'График активности' : 'Activity chart');
+  const sceneLabels: Record<SceneStyle, { ru: string; en: string }> = {
+    ninja: { ru: 'Ниндзя-помидорка', en: 'Tomato ninja' },
+    chart: { ru: 'График активности', en: 'Activity chart' },
+    orbit: { ru: 'Орбита фокуса', en: 'Focus orbit' },
+    garden: { ru: 'Световой сад', en: 'Light garden' },
+  };
+  const sceneLabel = sceneLabels[sceneStyle][lang];
 
   return (
     <div className="app app-wide anim">
@@ -657,8 +661,11 @@ export default function App() {
             summaryKey={summaryKey}
             status={timerState.status}
             lang={lang}
+            progress={progress}
           />
-          <span className="scene-style-label" aria-live="polite">{sceneLabel}</span>
+          {(sceneStyle === 'ninja' || sceneStyle === 'chart') && (
+            <span className="scene-style-label" aria-live="polite">{sceneLabel}</span>
+          )}
           <button
             className="scene-arrow scene-arrow--next"
             onClick={() => changeScene(1)}

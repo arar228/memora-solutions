@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { getNinjaTomatoSpritesUrl } from '../assets';
+import FocusOrbitScene from './FocusOrbitScene';
+import LightGardenScene from './LightGardenScene';
 
 // «Сцена» — ambient pixel-art animation under the timer.
 //
@@ -13,7 +15,7 @@ import { getNinjaTomatoSpritesUrl } from '../assets';
 //
 // Rendering: a tiny logical grid scaled up with smoothing off — chunky pixels.
 
-interface SceneProps {
+export interface SceneProps {
   mode: 'focus' | 'break';
   running: boolean;
   idle: boolean;   // pure-time auto-pause: the user is away from the keyboard
@@ -25,6 +27,7 @@ interface SceneProps {
   // Bumped when an interval finishes: the chart scene then freezes and shows
   // the WHOLE session compressed to the module width (см. summary ниже).
   summaryKey?: number;
+  progress?: number;
 }
 
 const W = 192;
@@ -157,7 +160,7 @@ function CanvasScene({
     // «По-умному ужать»: делим всю историю на W-2 колонок и берём максимум в
     // каждой корзине — так всплески активности не теряются при сжатии
     // (усреднение бы их сгладило), а провалы простоя остаются видны.
-    const cols = 72;
+    const cols = Math.min(72, h.length);
     const per = h.length / cols;
     const pts: number[] = [];
     let previous = 0.5;
@@ -297,7 +300,7 @@ function CanvasScene({
       }
 
       let points = s.summary && !isRunning ? s.summary.pts : s.points;
-      if (currentMode === 'break') {
+      if (currentMode === 'break' && !(s.summary && !isRunning)) {
         points = Array.from({ length: 48 }, (_, i) => 0.55 + Math.sin(i * 0.24 + now * 0.001) * 0.08);
       }
       if (!points.length) points = [0.5, 0.5];
@@ -427,11 +430,11 @@ function CanvasScene({
 
   if (style === 'chart') {
     const isSummary = Boolean(sim.current.summary && !running);
-    const isBreak = mode === 'break';
+    const isBreak = mode === 'break' && !isSummary;
     const copy = lang === 'ru'
       ? {
-          title: isBreak ? 'Восстановление' : isSummary ? 'Итоги фокуса' : idle ? 'Фокус приостановлен' : 'Фокус в реальном времени',
-          live: isSummary ? 'ИТОГ' : isBreak ? 'REST' : idle ? 'НЕТ АКТИВНОСТИ' : running ? 'LIVE' : status === 'paused' ? 'ПАУЗА' : 'ГОТОВ',
+          title: isSummary ? 'Фокус завершён' : isBreak ? 'Пауза' : idle ? 'Фокус приостановлен' : 'Фокус в реальном времени',
+          live: idle ? 'НЕТ АКТИВНОСТИ' : running ? 'LIVE' : status === 'paused' ? 'ПАУЗА' : 'ГОТОВ',
           focus: 'фокус',
           clean: 'чистое время',
           streak: 'лучшая серия',
@@ -440,8 +443,8 @@ function CanvasScene({
           breakHint: 'Ровный ритм для качественного отдыха',
         }
       : {
-          title: isBreak ? 'Recovery' : isSummary ? 'Focus summary' : idle ? 'Focus suspended' : 'Focus in real time',
-          live: isSummary ? 'SUMMARY' : isBreak ? 'REST' : idle ? 'IDLE' : running ? 'LIVE' : status === 'paused' ? 'PAUSED' : 'READY',
+          title: isSummary ? 'Focus complete' : isBreak ? 'Break' : idle ? 'Focus suspended' : 'Focus in real time',
+          live: idle ? 'IDLE' : running ? 'LIVE' : status === 'paused' ? 'PAUSED' : 'READY',
           focus: 'focus',
           clean: 'clean time',
           streak: 'best streak',
@@ -455,10 +458,12 @@ function CanvasScene({
         <canvas ref={canvasRef} className="scene-canvas scene-canvas--activity" aria-hidden="true" />
         <div className="scene-activity__head">
           <span className="scene-activity__title">{copy.title}</span>
-          <span className={`scene-activity__badge${running && !idle ? ' is-live' : ''}`}>
-            <i aria-hidden="true" />
-            {copy.live}
-          </span>
+          {!isSummary && !isBreak && (
+            <span className={`scene-activity__badge${running && !idle ? ' is-live' : ''}`}>
+              <i aria-hidden="true" />
+              {copy.live}
+            </span>
+          )}
         </div>
         {isBreak ? (
           <div className="scene-activity__recovery">
@@ -484,10 +489,8 @@ function CanvasScene({
             </div>
           </div>
         )}
-        <div className="scene-activity__foot">
-          {isBreak ? (
-            <span className="scene-activity__legend"><i className="is-rest" /> {copy.live}</span>
-          ) : (
+        {!isBreak && (
+          <div className="scene-activity__foot">
             <>
               <span>{copy.pauses} <b>{activityMetrics.interruptions}</b></span>
               <span><b>{formatShortTime(activityMetrics.idleSeconds)}</b> {copy.idle}</span>
@@ -497,8 +500,8 @@ function CanvasScene({
                 <i className="is-paused" />
               </span>
             </>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -568,5 +571,7 @@ function NinjaTomatoScene({
 
 export default function Scene(props: SceneProps) {
   if (props.style === 'ninja') return <NinjaTomatoScene {...props} />;
+  if (props.style === 'orbit') return <FocusOrbitScene {...props} />;
+  if (props.style === 'garden') return <LightGardenScene {...props} />;
   return <CanvasScene {...props} />;
 }

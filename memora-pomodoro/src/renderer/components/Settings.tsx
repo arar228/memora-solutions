@@ -211,11 +211,17 @@ export default function Settings({ lang }: SettingsProps) {
             onChange={v => updateSetting('scene_on', v)}
           />
         </div>
-        <div className="setting-row" data-setting-search="выбранная сцена ниндзя график selected scene ninja chart">
+        <div className="setting-row" data-setting-search="выбранная сцена ниндзя график орбита сад selected scene ninja chart orbit garden">
           <span className="setting-label">{t.sceneStyle}</span>
-          <select className="setting-select" value={settings.scene_style === 'chart' ? 'chart' : 'ninja'} onChange={e => updateSetting('scene_style', e.target.value)}>
+          <select
+            className="setting-select"
+            value={['ninja', 'chart', 'orbit', 'garden'].includes(settings.scene_style) ? settings.scene_style : 'ninja'}
+            onChange={e => updateSetting('scene_style', e.target.value)}
+          >
             <option value="ninja">{lang === 'ru' ? 'Ниндзя-помидорка' : 'Tomato ninja'}</option>
             <option value="chart">{lang === 'ru' ? 'График активности' : 'Activity chart'}</option>
+            <option value="orbit">{lang === 'ru' ? 'Орбита фокуса' : 'Focus orbit'}</option>
+            <option value="garden">{lang === 'ru' ? 'Световой сад' : 'Light garden'}</option>
           </select>
         </div>
         <div data-setting-search="сцена анимация скорость speed animation scene">

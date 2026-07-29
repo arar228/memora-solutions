@@ -12,7 +12,7 @@ import { APP_ICON_URL } from './assets';
 import './styles/app.css';
 import './styles/settings.css';
 
-const SCENE_STYLES = ['ninja', 'chart', 'orbit', 'garden'] as const;
+const SCENE_STYLES = ['ninja', 'chart', 'orbit', 'garden', 'tree'] as const;
 type SceneStyle = (typeof SCENE_STYLES)[number];
 const isSceneStyle = (value: unknown): value is SceneStyle =>
   typeof value === 'string' && SCENE_STYLES.includes(value as SceneStyle);
@@ -457,6 +457,7 @@ export default function App() {
     chart: { ru: 'График активности', en: 'Activity chart' },
     orbit: { ru: 'Орбита фокуса', en: 'Focus orbit' },
     garden: { ru: 'Световой сад', en: 'Light garden' },
+    tree: { ru: 'Дерево фокуса', en: 'Focus tree' },
   };
   const sceneLabel = sceneLabels[sceneStyle][lang];
 
@@ -667,7 +668,7 @@ export default function App() {
             progress={progress}
             elapsedSeconds={sceneElapsedSeconds}
           />
-          {(sceneStyle === 'ninja' || sceneStyle === 'chart') && (
+          {sceneStyle === 'chart' && (
             <span className="scene-style-label" aria-live="polite">{sceneLabel}</span>
           )}
           <button

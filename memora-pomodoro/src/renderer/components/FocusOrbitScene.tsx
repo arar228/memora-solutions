@@ -178,12 +178,10 @@ export default function FocusOrbitScene({
   const copy = lang === 'ru'
     ? {
         title: 'Орбита фокуса',
-        hint: mode === 'break' ? 'Орбита замедляется' : 'Двигайте курсор · нажмите для импульса',
         state: idle ? 'нет активности' : running ? 'синхронизация' : status === 'paused' ? 'пауза' : 'готова',
       }
     : {
         title: 'Focus orbit',
-        hint: mode === 'break' ? 'The orbit is slowing down' : 'Move the pointer · press for a pulse',
         state: idle ? 'idle' : running ? 'synchronized' : status === 'paused' ? 'paused' : 'ready',
       };
 
@@ -220,7 +218,6 @@ export default function FocusOrbitScene({
         <strong>{copy.title}</strong>
         <span>{copy.state}</span>
       </div>
-      <div className="scene-orbit__hint">{copy.hint}</div>
       <div className="scene-orbit__progress">
         <i style={{ width: `${Math.max(4, Math.min(100, progress * 100))}%` }} />
       </div>

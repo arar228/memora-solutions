@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { getNinjaTomatoSpritesUrl } from '../assets';
 import FocusOrbitScene from './FocusOrbitScene';
 import LightGardenScene from './LightGardenScene';
+import FocusTreeScene from './FocusTreeScene';
 
 // «Сцена» — ambient pixel-art animation under the timer.
 //
@@ -608,7 +609,6 @@ function NinjaTomatoScene({
         }}
         aria-hidden="true"
       />
-      <span className="scene-ninja__status">{NINJA_LABELS[lang][state]}</span>
     </div>
   );
 }
@@ -617,5 +617,6 @@ export default function Scene(props: SceneProps) {
   if (props.style === 'ninja') return <NinjaTomatoScene {...props} />;
   if (props.style === 'orbit') return <FocusOrbitScene {...props} />;
   if (props.style === 'garden') return <LightGardenScene {...props} />;
+  if (props.style === 'tree') return <FocusTreeScene {...props} />;
   return <CanvasScene {...props} />;
 }

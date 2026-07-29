@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Download, CheckCircle2, Timer, Play, Maximize2 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
-import PomodoroShowcase from '../../shared/PomodoroShowcase';
 import './PomodoroPage.css';
 
 // Permanent, version-less URL (electron-builder artifactName is stable).
@@ -146,8 +145,8 @@ export default function PomodoroPage() {
                         </div>
                         <p className="pomodoro-live__lead">
                             {ru
-                                ? 'Полноценная веб-версия: те же два режима, прокрутка цифр, сцены и статистика. Данные хранятся в этом браузере. Оверлей, трей и горячие клавиши — только в десктопной версии.'
-                                : 'A full web version: the same two modes, digit scrubbing, scenes and stats. Data is stored in this browser. Overlay, tray and global hotkeys are desktop-only.'}
+                                ? 'Таймер, секундомер, сцены и статистика. Данные сохраняются только в этом браузере.'
+                                : 'Timer, stopwatch, scenes, and stats. Data stays in this browser.'}
                         </p>
                         <div className="pomodoro-live__frame">
                             <iframe
@@ -157,10 +156,6 @@ export default function PomodoroPage() {
                             />
                         </div>
                     </section>
-                </AnimatedSection>
-
-                <AnimatedSection>
-                    <PomodoroShowcase t={t} />
                 </AnimatedSection>
 
                 <div className="pomodoro-bento">

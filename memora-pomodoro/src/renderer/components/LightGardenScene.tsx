@@ -23,36 +23,26 @@ export default function LightGardenScene({
   const measuredProgress = Math.max(0, Math.min(1, progress));
   const growth = mode === 'break' ? 1 : 0.18 + measuredProgress * 0.82;
   const speedSeconds = 10 / Math.max(0.5, Math.min(2, speed / 100));
+  const haloScale = mode === 'break' ? 1.18 : 1.1 + measuredProgress * 0.08;
   const copy = lang === 'ru'
     ? {
         title: 'Световой сад',
-        hint: mode === 'break'
-          ? 'Сад сохраняет энергию фокуса'
-          : running && !idle
-            ? 'Каждая минута раскрывает новый свет'
-            : status === 'paused' || idle
-              ? 'Рост приостановлен'
-              : 'Сад готов расти вместе с фокусом',
+        state: mode === 'break' ? 'покой' : running && !idle ? `${Math.round(measuredProgress * 100)}%` : status === 'paused' || idle ? 'пауза' : 'готов',
       }
     : {
         title: 'Light garden',
-        hint: mode === 'break'
-          ? 'The garden holds your focus energy'
-          : running && !idle
-            ? 'Every minute reveals a new light'
-            : status === 'paused' || idle
-              ? 'Growth is suspended'
-              : 'The garden is ready to grow with your focus',
+        state: mode === 'break' ? 'rest' : running && !idle ? `${Math.round(measuredProgress * 100)}%` : status === 'paused' || idle ? 'paused' : 'ready',
       };
 
   return (
     <div
       className={`scene-garden${mode === 'break' ? ' scene-garden--break' : ''}`}
       role="img"
-      aria-label={`${copy.title}. ${copy.hint}`}
+      aria-label={`${copy.title}. ${copy.state}`}
       style={{
         '--scene-accent': accent,
         '--garden-speed': `${speedSeconds}s`,
+        '--garden-halo-scale': haloScale,
       } as React.CSSProperties}
     >
       <div className="scene-garden__aurora scene-garden__aurora--one" aria-hidden="true" />
@@ -123,10 +113,17 @@ export default function LightGardenScene({
                   transform: `translate(${stem.tipX}px, ${stem.tipY}px) scale(${0.5 + bloom * 0.5})`,
                 }}
               >
-                <ellipse rx="13" ry="4.5" transform={`rotate(${index % 2 ? 26 : -24})`} />
-                <ellipse rx="13" ry="4.5" transform={`rotate(${index % 2 ? 116 : 66})`} />
-                <circle r="15" fill="url(#garden-bloom)" filter="url(#garden-soft-glow)" />
-                <circle r="2.1" className="scene-garden__seed" />
+                <g
+                  className="scene-garden__flower-motion"
+                  style={{ animationDelay: `${index * -1.35}s` }}
+                >
+                  <circle r="20" className="scene-garden__halo" />
+                  <circle r="14.5" className="scene-garden__halo scene-garden__halo--inner" />
+                  <ellipse rx="13" ry="4.5" transform={`rotate(${index % 2 ? 26 : -24})`} />
+                  <ellipse rx="13" ry="4.5" transform={`rotate(${index % 2 ? 116 : 66})`} />
+                  <circle r="15" fill="url(#garden-bloom)" filter="url(#garden-soft-glow)" />
+                  <circle r="2.1" className="scene-garden__seed" />
+                </g>
               </g>
             </g>
           );
@@ -144,9 +141,8 @@ export default function LightGardenScene({
 
       <div className="scene-garden__head">
         <strong>{copy.title}</strong>
-        <span>{mode === 'break' ? (lang === 'ru' ? 'покой' : 'rest') : `${Math.round(measuredProgress * 100)}%`}</span>
+        <span>{copy.state}</span>
       </div>
-      <div className="scene-garden__caption">{copy.hint}</div>
     </div>
   );
 }

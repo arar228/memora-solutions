@@ -1570,7 +1570,8 @@
   .scene-activity__badge.is-live i { animation: none; }
 }
 .scene-orbit,
-.scene-garden {
+.scene-garden,
+.scene-tree {
   position: relative;
   width: 100%;
   height: 100%;
@@ -1589,7 +1590,8 @@
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--scene-accent) 62%, transparent);
 }
 .scene-orbit::before,
-.scene-garden::before {
+.scene-garden::before,
+.scene-tree::before {
   position: absolute;
   z-index: 0;
   inset: 0;
@@ -1602,7 +1604,8 @@
   content: '';
 }
 .scene-orbit__canvas,
-.scene-garden__art {
+.scene-garden__art,
+.scene-tree__art {
   position: absolute;
   z-index: 1;
   inset: 0;
@@ -1611,7 +1614,8 @@
   height: 100%;
 }
 .scene-orbit__head,
-.scene-garden__head {
+.scene-garden__head,
+.scene-tree__head {
   position: absolute;
   z-index: 2;
   top: 14px;
@@ -1623,13 +1627,15 @@
   pointer-events: none;
 }
 .scene-orbit__head strong,
-.scene-garden__head strong {
+.scene-garden__head strong,
+.scene-tree__head strong {
   font-size: 12px;
   font-weight: 720;
   letter-spacing: 0.025em;
 }
 .scene-orbit__head span,
-.scene-garden__head span {
+.scene-garden__head span,
+.scene-tree__head span {
   color: color-mix(in srgb, var(--scene-accent) 74%, #fff);
   font-size: 12px;
   font-weight: 680;
@@ -1747,6 +1753,25 @@
   transform-origin: 0 0;
   transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.scene-garden__flower-motion {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: garden-flower-sway calc(var(--garden-speed, 10s) * 1.15) ease-in-out infinite alternate;
+}
+.scene-garden__halo {
+  fill: none;
+  stroke: color-mix(in srgb, var(--scene-accent) 55%, #fff);
+  stroke-width: 0.75;
+  opacity: 0.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: garden-halo calc(var(--garden-speed, 10s) * 0.72) ease-in-out infinite;
+  vector-effect: non-scaling-stroke;
+}
+.scene-garden__halo--inner {
+  opacity: 0.12;
+  animation-delay: calc(var(--garden-speed, 10s) * -0.34);
+}
 .scene-garden__seed {
   fill: color-mix(in srgb, var(--scene-accent) 72%, #fff);
 }
@@ -1773,21 +1798,29 @@
   from { opacity: 0.08; transform: translateY(3px) scale(0.8); }
   to { opacity: 0.52; transform: translateY(-5px) scale(1.16); }
 }
+@keyframes garden-flower-sway {
+  from { transform: rotate(-1.8deg) translateY(0); }
+  to { transform: rotate(1.8deg) translateY(-1.5px); }
+}
+@keyframes garden-halo {
+  0%, 100% { opacity: 0.11; transform: scale(0.9); }
+  50% { opacity: 0.34; transform: scale(var(--garden-halo-scale, 1.12)); }
+}
 @media (prefers-reduced-motion: reduce) {
   .scene-garden__aurora,
   .scene-garden__crown,
-  .scene-garden__motes circle { animation: none; }
+  .scene-garden__motes circle,
+  .scene-garden__flower-motion,
+  .scene-garden__halo { animation: none; }
   .scene-garden__stem,
   .scene-garden__flower,
   .scene-orbit__progress i { transition: none; }
 }
 .scene-ninja {
   position: relative;
-  display: grid;
   width: 100%;
   height: 100%;
   min-height: 0;
-  place-items: center;
   overflow: hidden;
   background:
     radial-gradient(circle at 50% 70%, color-mix(in srgb, var(--a) 14%, transparent), transparent 42%),
@@ -1803,14 +1836,18 @@
   content: '';
 }
 .scene-ninja__sprite {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
   z-index: 1;
   display: block;
-  width: min(44%, 220px);
+  width: min(49%, 224px);
   aspect-ratio: 1;
   background-repeat: no-repeat;
   background-size: 1000% 400%;
   filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.36));
   animation: ninja-tomato-frames 1s steps(10, end) infinite;
+  transform: translate3d(-50%, 0, 0);
   will-change: background-position;
 }
 .scene-ninja--inactive .scene-ninja__sprite {
@@ -1822,7 +1859,6 @@
   animation-duration: 1.25s;
 }
 .scene-ninja--focus .scene-ninja__sprite {
-  width: min(49%, 244px);
   background-position-y: 66.6667%;
   animation-duration: 0.65s;
 }
@@ -1830,31 +1866,129 @@
   background-position-y: 100%;
   animation-duration: 1.25s;
 }
-.scene-ninja__status {
-  position: absolute;
-  z-index: 2;
-  bottom: 9px;
-  left: 50%;
-  max-width: calc(100% - 88px);
-  padding: 5px 9px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  color: rgba(255, 255, 255, 0.68);
-  background: rgba(10, 10, 14, 0.7);
-  font-size: 9px;
-  letter-spacing: 0.02em;
-  text-overflow: ellipsis;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  backdrop-filter: blur(8px);
-}
 @keyframes ninja-tomato-frames {
   from { background-position-x: 0%; }
   to { background-position-x: 111.1111%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .scene-ninja__sprite { animation: none; }
+}
+
+/* Focus tree — progress grows the trunk, branches and canopy without remounting,
+   so its quiet motion continues seamlessly into the break. */
+.scene-tree {
+  pointer-events: none;
+}
+.scene-tree__light {
+  position: absolute;
+  z-index: 0;
+  top: -72px;
+  left: 50%;
+  width: 280px;
+  height: 190px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--scene-accent) 10%, transparent);
+  filter: blur(48px);
+  opacity: calc(0.22 + var(--tree-growth, 0) * 0.28);
+  transform: translateX(-50%);
+  transition: opacity 1.2s ease;
+}
+.scene-tree__ground {
+  fill: none;
+  stroke: color-mix(in srgb, var(--scene-accent) 42%, transparent);
+  stroke-width: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+.scene-tree__root-glow {
+  fill: var(--scene-accent);
+  opacity: calc(0.04 + var(--tree-growth, 0) * 0.12);
+  filter: blur(5px);
+  transition: opacity 1s ease;
+}
+.scene-tree__seed-ring {
+  fill: none;
+  stroke: var(--scene-accent);
+  stroke-width: 0.8;
+  opacity: calc(0.34 - var(--tree-growth, 0) * 0.24);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tree-seed-pulse calc(var(--tree-speed, 12s) * 0.54) ease-in-out infinite;
+  transition: opacity 1s ease;
+  vector-effect: non-scaling-stroke;
+}
+.scene-tree__seed {
+  fill: color-mix(in srgb, var(--scene-accent) 56%, #fff);
+  opacity: calc(0.86 - var(--tree-growth, 0) * 0.46);
+  transition: opacity 1s ease;
+}
+.scene-tree__sway {
+  transform-box: view-box;
+  transform-origin: 240px 168px;
+  animation: tree-sway var(--tree-speed, 12s) ease-in-out infinite alternate;
+}
+.scene-tree__branch {
+  fill: none;
+  stroke: url(#tree-trunk);
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  transition: stroke-dashoffset 1.1s cubic-bezier(0.22, 0.72, 0.2, 1);
+}
+.scene-tree__branch--glow {
+  stroke: var(--scene-accent);
+  stroke-width: 7;
+  opacity: 0.08;
+  filter: blur(2.6px);
+}
+.scene-tree__leaf {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  transition: opacity 0.9s ease, transform 1.15s cubic-bezier(0.18, 0.78, 0.18, 1);
+}
+.scene-tree__leaf > circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tree-leaf-breathe calc(var(--tree-speed, 12s) * 0.68) ease-in-out infinite alternate;
+}
+.scene-tree__spark {
+  fill: color-mix(in srgb, var(--scene-accent) 42%, #fff);
+  opacity: 0.72;
+}
+.scene-tree__motes {
+  fill: color-mix(in srgb, var(--scene-accent) 58%, #fff);
+}
+.scene-tree__motes circle {
+  opacity: calc(0.06 + var(--tree-growth, 0) * 0.38);
+  animation: tree-mote calc(var(--tree-speed, 12s) * 0.74) ease-in-out infinite;
+}
+.scene-tree--break .scene-tree__sway {
+  animation-duration: calc(var(--tree-speed, 12s) * 1.25);
+}
+@keyframes tree-sway {
+  from { transform: rotate(-0.7deg); }
+  to { transform: rotate(0.7deg); }
+}
+@keyframes tree-leaf-breathe {
+  from { transform: scale(0.94); opacity: 0.72; }
+  to { transform: scale(1.05); opacity: 1; }
+}
+@keyframes tree-mote {
+  0%, 100% { transform: translateY(5px); opacity: 0.08; }
+  50% { transform: translateY(-8px); opacity: 0.42; }
+}
+@keyframes tree-seed-pulse {
+  0%, 100% { transform: scale(0.8); }
+  50% { transform: scale(1.22); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-tree__sway,
+  .scene-tree__leaf > circle,
+  .scene-tree__motes circle,
+  .scene-tree__seed-ring { animation: none; }
+  .scene-tree__branch,
+  .scene-tree__leaf,
+  .scene-tree__light,
+  .scene-tree__root-glow { transition: none; }
 }
 .scene-chips {
   display: flex;

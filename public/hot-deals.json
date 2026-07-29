@@ -1,7 +1,117 @@
 {
-  "updatedAt": "2026-07-29T08:31:05.327Z",
+  "updatedAt": "2026-07-29T09:10:39.081Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH"
+      },
+      "price": 8700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "nights": null,
+      "departDate": "2026-07-30",
+      "date": "2026-07-29T08:43:41+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW3007SSH1?marker=748397&currency=rub",
+      "text": "Москва — Шарм-эш-Шейх от 8700₽ в одну сторону, вылет ночью, рейсы прямые, с багажом\n— 30.07 - 8700₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "price": 9300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "nights": null,
+      "departDate": "2026-08-04",
+      "date": "2026-07-29T08:43:41+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SSH0408MOW1?marker=748397&currency=rub",
+      "text": "Шарм-эш-Шейх — Москва от 9300₽ в одну сторону, вылет 4 августа, рейсы прямые, с багажом\n— 04.08 - 9300₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH"
+      },
+      "price": 23500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": "2026-07-29",
+      "date": "2026-07-29T08:43:41+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2907SSH1?marker=748397&currency=rub",
+      "text": "Москва — Шарм-эш-Шейх от 23500₽ в обе стороны, вылет ночью, рейсы прямые, с багажом  — 29.07 - 04.08 - 23500₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Чэнду",
+        "code": "CTU"
+      },
+      "price": 17500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-29T08:39:09+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2808CTU1?marker=748397&currency=rub",
+      "text": "2 в 1! из Москвы в Чэнду 🇨🇳 и Гонконг 🇭🇰 за 17 500 р. OW (сентябрь-октябрь)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW"
+      },
+      "to": {
+        "name": "Филиппины",
+        "code": "MNL"
+      },
+      "price": 43000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-07-29T08:39:09+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2808MNL1?marker=748397&currency=rub",
+      "text": "из Москвы на Филиппины 🇵🇭 за 43 000 р. RT (август-октябрь)"
+    },
     {
       "type": "flight",
       "from": {
@@ -89,28 +199,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/LED2808AKL1?marker=748397&currency=rub",
       "text": "из Петербурга в Новую Зеландию 🇳🇿 за 75 900 р. RT (есть даже Рождество)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH"
-      },
-      "price": 23500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": "2026-07-29",
-      "date": "2026-07-29T07:45:18+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2907SSH1?marker=748397&currency=rub",
-      "text": "Москва — Шарм-эш-Шейх от 23500₽ в обе стороны, вылет ночью, рейсы прямые, с багажом\n— 29.07 - 04.08 - 23500₽"
     },
     {
       "type": "flight",
@@ -871,8 +959,8 @@
         "code": "HRG"
       },
       "price": 4485,
-      "oldPrice": 53080,
-      "savings": 48595,
+      "oldPrice": 53450,
+      "savings": 48965,
       "discount": 0.92,
       "oneway": false,
       "nights": null,
@@ -893,8 +981,8 @@
         "code": "AYT"
       },
       "price": 5900,
-      "oldPrice": 22027,
-      "savings": 16127,
+      "oldPrice": 22181,
+      "savings": 16281,
       "discount": 0.73,
       "oneway": false,
       "nights": null,
@@ -915,8 +1003,8 @@
         "code": "AYT"
       },
       "price": 5700,
-      "oldPrice": 18823,
-      "savings": 13123,
+      "oldPrice": 18998,
+      "savings": 13298,
       "discount": 0.7,
       "oneway": false,
       "nights": null,
@@ -937,8 +1025,8 @@
         "code": "AYT"
       },
       "price": 7900,
-      "oldPrice": 18823,
-      "savings": 10923,
+      "oldPrice": 18998,
+      "savings": 11098,
       "discount": 0.58,
       "oneway": false,
       "nights": null,
@@ -1025,8 +1113,8 @@
         "code": "AYT"
       },
       "price": 8000,
-      "oldPrice": 36359,
-      "savings": 28359,
+      "oldPrice": 36613,
+      "savings": 28613,
       "discount": 0.78,
       "oneway": true,
       "nights": null,
@@ -1047,8 +1135,8 @@
         "code": "AYT"
       },
       "price": 6000,
-      "oldPrice": 22027,
-      "savings": 16027,
+      "oldPrice": 22181,
+      "savings": 16181,
       "discount": 0.73,
       "oneway": true,
       "nights": null,
@@ -1135,9 +1223,9 @@
         "code": "AYT"
       },
       "price": 6900,
-      "oldPrice": 24052,
-      "savings": 17152,
-      "discount": 0.71,
+      "oldPrice": 30057,
+      "savings": 23157,
+      "discount": 0.77,
       "oneway": false,
       "nights": null,
       "departDate": null,
@@ -1465,8 +1553,8 @@
         "code": "AYT"
       },
       "price": 5500,
-      "oldPrice": 18823,
-      "savings": 13323,
+      "oldPrice": 18998,
+      "savings": 13498,
       "discount": 0.71,
       "oneway": true,
       "nights": null,
@@ -1487,9 +1575,9 @@
         "code": "AYT"
       },
       "price": 16600,
-      "oldPrice": 18823,
-      "savings": 2223,
-      "discount": 0.12,
+      "oldPrice": 18998,
+      "savings": 2398,
+      "discount": 0.13,
       "oneway": false,
       "nights": null,
       "departDate": "2026-07-29",
@@ -1519,28 +1607,6 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/1d3Zp8",
       "text": "🔥 в Кавминводы на выходные (с 31 июля на 4 ночи) от 23 600/чел https://www.turscanner.ru/-/1d3Zp8 (скидка по промокоду 550Lucky ; туры без группового трансфера из аэропорта Минеральных Вод до отеля, "
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
-        "name": "Кемер",
-        "code": "AYT"
-      },
-      "price": 144000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": 7,
-      "departDate": "2026-08-26",
-      "date": "2026-07-27T18:41:59+00:00",
-      "source": "travelradar",
-      "link": "https://travelradar.ru/t/qWESK?s=tg&erid=2VtzqwgjJHU",
-      "text": "🇹🇷 Кемер, Rose Resort Hotel (Adults Only 14+) 4★ — All Inclusive\n\n• 7 ночей\n• питание — All Inclusive\n• ~144.000 рублей за двоих\n• вылет 26.08.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включ"
     },
     {
       "type": "tour",
@@ -2113,28 +2179,6 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/KmKwd3",
       "text": "🔥 с вылетом в ближайшие дни - на неделю в 4-5* от 41 100/чел, все включено, с топливными сборами https://www.turscanner.ru/-/KmKwd3 (скидка по промокоду 1700Lucky) + есть варианты в Бодрум https://ww"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
-        "name": "Занзибар",
-        "code": "ZNZ"
-      },
-      "price": 66700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": 13,
-      "departDate": "2026-07-30",
-      "date": "2026-07-27T08:40:03+00:00",
-      "source": "vandroukiru",
-      "link": "https://vandrouki.ru/tury/13-nochej-na-zanzibare-s-vyletom-iz-moskvy/",
-      "text": "Это тур на Занзибар на 13 ночей с вылетом из Москвы 30 июля за 66700 рублей с человека!"
     }
   ]
 }

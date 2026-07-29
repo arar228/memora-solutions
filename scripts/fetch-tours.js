@@ -11,7 +11,7 @@
 
 import { writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_PATH = join(__dirname, '..', 'public', 'tours.json');
@@ -23,14 +23,23 @@ const CHANNELS = [
     'travelradar',
     'nachemodanahspb',
     'luckywings',
-    'turscanner_msk_spb',
-    'onlinetours_russia',
-    'travelataru',
+    'onlinetours',
+    'travelata',
     'leveltravel',
 ];
 
-const PER_CHANNEL = 8;       // newest posts to keep per channel
-const TOTAL_CAP = 80;        // hard cap on the combined feed
+// Historical handles from the original brief. They must not be fetched as
+// separate sources: two have moved, one duplicates luckywings, and one is stale.
+const SOURCE_ALIASES = {
+    turscanner_msk_spb: 'luckywings',
+    onlinetours_russia: 'onlinetours',
+    travelataru: 'travelata',
+    checkinticket: null,
+};
+
+const PER_CHANNEL = 20;      // busy channels can publish many non-deal posts
+const TOTAL_CAP = 160;       // hard cap on the combined fresh feed
+const MAX_POST_AGE_HOURS = 48;
 const MIN_TEXT_LEN = 30;     // skip near-empty / service posts
 
 const UA =
@@ -139,7 +148,11 @@ async function fetchChannel(channel) {
 
 async function main() {
     const results = await Promise.all(CHANNELS.map(fetchChannel));
-    const all = results.flat();
+    const cutoff = Date.now() - MAX_POST_AGE_HOURS * 60 * 60 * 1000;
+    const all = results.flat().filter((item) => {
+        const timestamp = Date.parse(item.date || '');
+        return Number.isFinite(timestamp) && timestamp >= cutoff;
+    });
 
     all.sort((a, b) => {
         const ta = a.date ? Date.parse(a.date) : 0;
@@ -150,6 +163,7 @@ async function main() {
     const payload = {
         updatedAt: new Date().toISOString(),
         sources: CHANNELS,
+        sourceAliases: SOURCE_ALIASES,
         items: all.slice(0, TOTAL_CAP),
     };
 
@@ -162,4 +176,10 @@ async function main() {
     }
 }
 
-main();
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+
+if (isMain) {
+    main();
+}
+
+export { CHANNELS, MAX_POST_AGE_HOURS, SOURCE_ALIASES, fetchChannel, parseChannel };

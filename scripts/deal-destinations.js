@@ -40,6 +40,8 @@ const EXTRA_DESTINATIONS = [
     ['PAR', 'Франция', ['франц', 'france']],
     ['PAR', 'Париж', ['париж', 'paris']],
     ['NCE', 'Ницца', ['ницц', 'nice']],
+    ['BTS', 'Братислава', ['братислав', 'bratislava']],
+    ['BIO', 'Бильбао', ['бильбао', 'bilbao']],
     ['ROM', 'Италия', ['итал', 'italy']],
     ['ROM', 'Рим', ['риме', 'рим ', 'rome']],
     ['MIL', 'Милан', ['милан', 'milan']],
@@ -115,6 +117,14 @@ const EXTRA_DESTINATIONS = [
     ['DUB', 'Дублин', ['дублин', 'dublin']],
 
     // East, South and South-East Asia
+    ['AYT', 'Анталья', ['анталь', 'antalya']],
+    ['SEZ', 'Маэ', ['маэ', 'mahe']],
+    ['SYX', 'Хайнань', ['хайнан', 'hainan']],
+    ['KWI', 'Кувейт', ['кувейт', 'kuwait']],
+    ['RUH', 'Саудовская Аравия', ['саудовск арав', 'кса', 'saudi arabia']],
+    ['HRG', 'Египет', ['египт', 'египетск', 'egypt']],
+    ['SUI', 'Абхазия', ['абхаз', 'abkhazia']],
+    ['AYT', 'Кемер', ['кемер', 'kemer']],
     ['TYO', 'Япония', ['япони', 'japan']],
     ['TYO', 'Токио', ['токио', 'tokyo']],
     ['OSA', 'Осака', ['осак', 'osaka']],
@@ -140,6 +150,7 @@ const EXTRA_DESTINATIONS = [
     // Americas
     ['NYC', 'США', ['сша', 'соединенн штат', 'united states', 'usa']],
     ['NYC', 'Нью-Йорк', ['нью-йорк', 'нью йорк', 'new york']],
+    ['WAS', 'Вашингтон', ['вашингтон', 'washington']],
     ['LAX', 'Лос-Анджелес', ['лос-анджелес', 'лос анджелес', 'los angeles']],
     ['MIA', 'Майами', ['майами', 'miami']],
     ['SFO', 'Сан-Франциско', ['сан-франциско', 'сан франциско', 'san francisco']],
@@ -160,8 +171,13 @@ const EXTRA_DESTINATIONS = [
     ['BOG', 'Колумбия', ['колумби', 'colombia']],
     ['BOG', 'Богота', ['богот', 'bogota']],
     ['CTG', 'Картахена', ['картахен', 'cartagena']],
+    ['FLN', 'Флорианополис', ['флорианополис', 'florianopolis']],
 
     // Africa and the Middle East
+    ['SSH', 'Шарм-эль-Шейх', ['шарм-эш-шейх', 'шарм эш шейх', 'шарм-эль-шейх', 'шарм эль шейх']],
+    ['RAI', 'Кабо-Верде', ['кабо-верде', 'кабо верде', 'cape verde']],
+    ['DXB', 'ОАЭ', ['эмират', 'оаэ', 'uae']],
+    ['HAK', 'Хайкоу', ['хайкоу', 'haikou']],
     ['CPT', 'ЮАР', ['юар', 'южн африк', 'south africa']],
     ['CPT', 'Кейптаун', ['кейптаун', 'cape town']],
     ['JNB', 'Йоханнесбург', ['йоханнесбург', 'johannesburg']],
@@ -195,7 +211,7 @@ const seen = new Set();
 
 function add(stem, code, name) {
     const normalized = normalize(stem);
-    if (normalized.length < 4) return;
+    if (normalized.length < 3) return;
     const key = `${normalized}:${code}`;
     if (seen.has(key)) return;
     seen.add(key);

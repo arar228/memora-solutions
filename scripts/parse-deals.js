@@ -31,60 +31,115 @@ const MARKER = '748397';
 // City name-stem → IATA. RF origins + popular destinations. Stems are matched
 // case-insensitively so Russian declensions ("из Москвы") still hit.
 const RF_ORIGINS = [
-  ['москв', 'MOW', 'Москва'], ['петербург', 'LED', 'Санкт-Петербург'], ['питер', 'LED', 'Санкт-Петербург'],
+  ['москв', 'MOW', 'Москва'], ['петербург', 'LED', 'Санкт-Петербург'], ['петербуржц', 'LED', 'Санкт-Петербург'], ['питер', 'LED', 'Санкт-Петербург'],
   ['спб', 'LED', 'Санкт-Петербург'], ['сочи', 'AER', 'Сочи'], ['екатеринбург', 'SVX', 'Екатеринбург'],
   ['казан', 'KZN', 'Казань'], ['новосибирск', 'OVB', 'Новосибирск'], ['красноярск', 'KJA', 'Красноярск'],
   ['уфы', 'UFA', 'Уфа'], ['уфа', 'UFA', 'Уфа'], ['самар', 'KUF', 'Самара'], ['челябинск', 'CEK', 'Челябинск'],
-  ['перм', 'PEE', 'Пермь'], ['нижн', 'GOJ', 'Нижний Новгород'], ['калининград', 'KGD', 'Калининград'],
+  ['перм', 'PEE', 'Пермь'], ['нижнег новгород', 'GOJ', 'Нижний Новгород'], ['нижнем новгород', 'GOJ', 'Нижний Новгород'], ['нижн новгород', 'GOJ', 'Нижний Новгород'], ['калининград', 'KGD', 'Калининград'],
   ['владивосток', 'VVO', 'Владивосток'], ['тюмен', 'TJM', 'Тюмень'], ['иркутск', 'IKT', 'Иркутск'],
   ['краснодар', 'KRR', 'Краснодар'], ['ростов', 'ROV', 'Ростов-на-Дону'], ['минеральн', 'MRV', 'Минеральные Воды'],
   ['махачкал', 'MCX', 'Махачкала'], ['омск', 'OMS', 'Омск'], ['волгоград', 'VOG', 'Волгоград'],
+  ['оренбург', 'REN', 'Оренбург'], ['саратов', 'GSV', 'Саратов'], ['ульяновск', 'ULV', 'Ульяновск'],
+  ['барнаул', 'BAX', 'Барнаул'], ['томск', 'TOF', 'Томск'], ['кемеров', 'KEJ', 'Кемерово'],
+  ['новокузнецк', 'NOZ', 'Новокузнецк'], ['хабаровск', 'KHV', 'Хабаровск'], ['якутск', 'YKS', 'Якутск'],
+  ['сургут', 'SGC', 'Сургут'], ['мурманск', 'MMK', 'Мурманск'], ['архангельск', 'ARH', 'Архангельск'],
+  ['петрозаводск', 'PES', 'Петрозаводск'], ['астрахан', 'ASF', 'Астрахань'], ['ставропол', 'STW', 'Ставрополь'],
+  ['грозн', 'GRV', 'Грозный'], ['владикавказ', 'OGZ', 'Владикавказ'], ['нальчик', 'NAL', 'Нальчик'],
+  ['воронеж', 'VOZ', 'Воронеж'], ['чита', 'HTA', 'Чита'], ['благовещенск', 'BQS', 'Благовещенск'],
+  ['южно-сахалинск', 'UUS', 'Южно-Сахалинск'], ['петропавловск-камчатск', 'PKC', 'Петропавловск-Камчатский'],
+  ['магадан', 'GDX', 'Магадан'], ['горно-алтайск', 'RGK', 'Горно-Алтайск'],
 ];
 const ORIG = [...RF_ORIGINS];
 const DEST = DEAL_DESTINATIONS;
+const PLACES = [...RF_ORIGINS, ...DEAL_DESTINATIONS];
+
+const DECLENSION_ENDINGS = new Set([
+  '', 'а', 'я', 'ы', 'и', 'е', 'у', 'ю', 'о', 'й', 'ь',
+  'ом', 'ем', 'ам', 'ям', 'ах', 'ях', 'ой', 'ей', 'ов', 'ев',
+  'ию', 'ии', 'ия', 'ией', 'ием', 'ью', 'ье', 'ьи', 'ья',
+  'ами', 'ями',
+]);
+
+function findCities(text, table) {
+  const t = text.toLowerCase();
+  const matches = new Map();
+
+  for (const [stem, code, name] of table) {
+    let idx = t.indexOf(stem);
+    while (idx !== -1) {
+      const startsInsideWord = idx > 0 && /[\p{L}\p{N}]/u.test(t[idx - 1]);
+      const tail = t.slice(idx + stem.length).match(/^[\p{L}\p{N}]*/u)?.[0] || '';
+      if (!startsInsideWord && DECLENSION_ENDINGS.has(tail)) {
+        const prefixed = /(^|[\s(«"])(?:из|с)\s+$/.test(t.slice(Math.max(0, idx - 14), idx));
+        const key = `${code}:${idx}`;
+        const current = matches.get(key);
+        if (!current || stem.length > current.stemLength) {
+          matches.set(key, { code, name, pos: idx, prefixed, stemLength: stem.length });
+        }
+      }
+      idx = t.indexOf(stem, idx + 1);
+    }
+  }
+
+  return [...matches.values()].sort((a, b) => a.pos - b.pos || b.stemLength - a.stemLength);
+}
 
 // Find a city hit in text, honoring an "из <city>" marker when asked: for
 // origins we prefer the stem right after "из " so "Прямой из Туниса в Москву"
 // doesn't become Москва→Тунис.
 function findCity(text, table, { afterIz = false } = {}) {
-  const t = text.toLowerCase();
-  let best = null;
-  const declensionEndings = new Set([
-    '', 'а', 'я', 'ы', 'и', 'е', 'у', 'ю', 'о', 'й', 'ь',
-    'ом', 'ем', 'ам', 'ям', 'ах', 'ях', 'ой', 'ей', 'ов', 'ев',
-    'ию', 'ии', 'ия', 'ией', 'ием', 'ью', 'ье', 'ьи', 'ья',
-    'ами', 'ями',
-  ]);
-  for (const [stem, code, name] of table) {
-    let idx = t.indexOf(stem);
-    while (idx !== -1) {
-      // A stem must start at a word boundary. Without this guard "бурга"
-      // (Бургас) also matches "Петербурга" and corrupts the destination.
-      if (idx > 0 && /[\p{L}\p{N}]/u.test(t[idx - 1])) {
-        idx = t.indexOf(stem, idx + 1);
-        continue;
-      }
-      const tail = t.slice(idx + stem.length).match(/^[\p{L}\p{N}]*/u)?.[0] || '';
-      if (!declensionEndings.has(tail)) {
-        idx = t.indexOf(stem, idx + 1);
-        continue;
-      }
-      const prefixed = /(^|[\s(«"])из\s+$/.test(t.slice(Math.max(0, idx - 12), idx));
-      const cand = { code, name, pos: idx, prefixed };
-      if (afterIz) {
-        if (prefixed && (!best || idx < best.pos)) best = cand;
-      } else if (!best || idx < best.pos) best = cand;
-      idx = t.indexOf(stem, idx + 1);
-    }
-  }
-  return best;
+  const matches = findCities(text, table);
+  return afterIz ? matches.find((match) => match.prefixed) || null : matches[0] || null;
 }
 
-const TOUR_RE = /\bтур|отел|ночей|ночи\b|звёзд|звезд|all\s*inclusive|всё включено|все включено|пляжн|круиз/i;
-const FLIGHT_RE = /билет|перелёт|перелет|авиа|в одну сторону|туда[- ]обратно|\brt\b|рейс/i;
+function resolveRoute(text, fallbackOrigin = null, fallbackDestination = null) {
+  const all = findCities(text, PLACES);
+  const withoutAirportAliases = all.filter((place, index) =>
+    index === all.findIndex((candidate) =>
+      candidate.pos === place.pos && candidate.name === place.name));
+  const places = withoutAirportAliases.filter((place, index) =>
+    index === withoutAirportAliases.findIndex((candidate) => candidate.code === place.code));
+  const explicitFrom = places.find((place) => place.prefixed);
+
+  if (explicitFrom) {
+    const others = places.filter((place) => place.code !== explicitFrom.code);
+    const afterPlaces = others.filter((place) => place.pos > explicitFrom.pos);
+    const destinationPrefixed = afterPlaces.find((place) =>
+      /(^|[\s,(])(?:в|во|на)\s+$/i.test(text.slice(Math.max(0, place.pos - 16), place.pos)));
+    const after = destinationPrefixed || afterPlaces[0];
+    const to = after || others[0] || fallbackDestination;
+    return to ? { from: explicitFrom, to } : null;
+  }
+
+  if (places.length >= 2) {
+    const from = places[0];
+    const to = places.slice(1).find((candidate) => {
+      const between = text.slice(from.pos + from.stemLength, candidate.pos);
+      return between.length <= 40
+        && /[—–→]|->|\s-\s/.test(between)
+        && !/\d|₽|руб/i.test(between);
+    });
+    if (to) return { from, to };
+  }
+
+  if (fallbackOrigin) {
+    const mentionedOrigin = places.find((place) => place.code === fallbackOrigin.code);
+    const to = places.find((place) => place.code !== fallbackOrigin.code) || fallbackDestination;
+    if (to) {
+      return {
+        from: mentionedOrigin ? { ...fallbackOrigin, pos: mentionedOrigin.pos } : fallbackOrigin,
+        to,
+      };
+    }
+  }
+
+  return null;
+}
+
+const TOUR_RE = /(?:^|[^\p{L}])тур(?:ы|а|ов|ом|е|у)?(?!\p{L})|турпакет|отел|(?:\d{1,2}|несколько)\s*ноч(?:ь|и|ей)?(?!\p{L})|звёзд|звезд|all\s*inclusive|всё включено|все включено|пляжн|круиз/iu;
 // Price: "12 990 ₽ / руб / р." OR "от 17 000" (channels often omit the currency
 // after "от", e.g. "3 ночи от 17 000/чел").
-const PRICE_CUR_RE = /(\d{1,3}(?:[\s.]\d{3})+|\d{4,7})\s*(?:₽|руб|р\.|р\b)/i;
+const PRICE_CUR_RE = /(\d{1,3}(?:[\s.]\d{3})+|\d{4,7})\s*(?:₽|руб(?:\.|ля|лей)?|р\.?)(?![\p{L}\p{N}])/iu;
 const PRICE_OT_RE = /от\s+(\d{1,3}(?:[\s.]\d{3})+|\d{4,7})(?!\s*(?:%|зв|\*|ноч))/i;
 const OLD_RE = /вместо\s*(\d[\d\s.]{2,})/i;
 const PCT_RE = /скидк\w*\s*(?:до\s*)?[-−]?\s*(\d{1,2})\s*%|[-−]\s*(\d{1,2})\s*%/i;
@@ -102,8 +157,14 @@ function parseDepartDate(text, refIso) {
   const t = text.toLowerCase();
   const ref = refIso ? new Date(refIso) : new Date();
   let day = null, mon = null, year = null;
+  const numeric = t.match(/(?:^|[\s—–-])(\d{1,2})\.(\d{1,2})(?:\.(\d{2,4}))?(?=$|[\s—–-])/);
   const dm = t.match(/(?:с|со)?\s*(\d{1,2})\s+(январ|феврал|март|апрел|ма[яй]|июн|июл|август|сентябр|октябр|ноябр|декабр)\w*\s*(\d{4})?/);
-  if (dm) {
+  if (numeric) {
+    day = Number(numeric[1]);
+    mon = Number(numeric[2]);
+    year = numeric[3] ? Number(numeric[3]) : null;
+    if (year && year < 100) year += 2000;
+  } else if (dm) {
     day = Number(dm[1]);
     mon = MONTHS[dm[2].startsWith('ма') ? 'ма' : dm[2]];
     year = dm[3] ? Number(dm[3]) : null;
@@ -115,7 +176,9 @@ function parseDepartDate(text, refIso) {
   if (!year) {
     year = ref.getFullYear();
     const cand = new Date(Date.UTC(year, mon - 1, day || 28));
-    if (cand < ref) year += 1;
+    const rolloverThreshold = new Date(ref);
+    rolloverThreshold.setUTCDate(rolloverThreshold.getUTCDate() - 45);
+    if (cand < rolloverThreshold) year += 1;
   }
   const p = (n) => String(n).padStart(2, '0');
   return day ? `${year}-${p(mon)}-${p(day)}` : `${year}-${p(mon)}`;
@@ -147,26 +210,14 @@ function parseSegment(seg, postCtx) {
   const price = num(priceM[1]);
 
   const isTour = TOUR_RE.test(seg) || postCtx.tourish;
-  const isFlight = FLIGHT_RE.test(seg);
-  const type = isTour && !isFlight ? 'tour' : 'flight';
+  const type = isTour ? 'tour' : 'flight';
   if (type === 'flight' && (price < 1500 || price > 400000)) return null;
   if (type === 'tour' && (price < 8000 || price > 2000000)) return null;
 
-  // Origin: prefer an explicit "из <RF-city>" in the segment, then any RF stem
-  // in the segment, then the post-level origin, then the channel default.
-  const fromInSeg = findCity(seg, ORIG, { afterIz: true }) || findCity(seg, ORIG);
-  const from = fromInSeg || postCtx.origin;
-  const to = findCity(seg, DEST);
-  if (!from || !to || from.code === to.code) return null;
-  // A channel default must not turn an explicitly foreign departure
-  // ("из Касабланки в Кабо-Верде") into a flight from its home city.
-  if (!fromInSeg && to.prefixed) return null;
-  // Direction guard: a legit "from RF" offer reads either "Москва → Пхукет"
-  // (RF city first) or "в Хургаду из Москвы" (RF city carries "из"). An RF
-  // city that appears AFTER the destination without "из" is the ARRIVAL city
-  // ("из Туниса в Москву") — that's an inbound leg, not our product. Only
-  // applicable when the RF city was found in this segment.
-  if (fromInSeg && !fromInSeg.prefixed && fromInSeg.pos > to.pos) return null;
+  const fallbackOrigin = postCtx.origin || (isTour ? UNKNOWN_ORIGIN : null);
+  const route = resolveRoute(seg, fallbackOrigin, postCtx.destination);
+  if (!route || route.from.code === route.to.code) return null;
+  const { from, to } = route;
 
   const oldM = seg.match(OLD_RE);
   let oldPrice = oldM ? num(oldM[1]) : null;
@@ -209,9 +260,16 @@ function parseSegment(seg, postCtx) {
 }
 
 // Channels tied to one home city — last-resort origin fallback.
+const UNKNOWN_ORIGIN = {
+  code: 'ANY', name: 'Город вылета уточняется', pos: 1e9, prefixed: false,
+};
+
 const CHANNEL_ORIGIN = {
   nachemodanahspb: { code: 'LED', name: 'Санкт-Петербург', pos: 1e9, prefixed: false },
   turscanner_msk_spb: null,
+  travelata: UNKNOWN_ORIGIN,
+  leveltravel: UNKNOWN_ORIGIN,
+  onlinetours: UNKNOWN_ORIGIN,
 };
 
 function structure(post) {
@@ -223,25 +281,36 @@ function structure(post) {
   // the header only counts as the DEPARTURE city if it carries "из" or comes
   // before the destination ("из Туниса … в Москву" must NOT yield Москва).
   const head = lines.slice(0, 2).join(' ');
+  const headDest = findCity(head, DEST);
   let headOrigin = findCity(head, ORIG, { afterIz: true });
   if (!headOrigin) {
     const rf = findCity(head, ORIG);
-    const headDest = findCity(head, DEST);
     if (rf && (!headDest || rf.pos < headDest.pos)) headOrigin = rf;
   }
   headOrigin = headOrigin || CHANNEL_ORIGIN[post.channel] || null;
   const postCtx = {
     origin: headOrigin,
-    tourish: TOUR_RE.test(lines[0] || '') || /круиз|тур/i.test(post.channelTitle || ''),
+    destination: headDest,
+    tourish: TOUR_RE.test(lines[0] || ''),
     date: post.date, channel: post.channel, link: post.link, links: post.links,
   };
 
-  // Multi-offer post → one deal per price-bearing line; single-price post →
-  // parse the whole text (route parts may sit on different lines).
-  const segments = priceLines.length > 1 ? priceLines : [text];
+  // A route line starts an offer group; following date/price lines belong to
+  // that route. This preserves "Нячанг — Москва ...\n— 05.08 — 17600₽" as one
+  // deal while still splitting posts that contain several different routes.
+  const grouped = [];
+  for (const line of lines) {
+    if (!PRICE_CUR_RE.test(line) && !PRICE_OT_RE.test(line)) continue;
+    if (findCities(line, PLACES).length > 0) {
+      grouped.push(line);
+    } else if (grouped.length > 0) {
+      grouped[grouped.length - 1] += `\n${line}`;
+    }
+  }
+  const segments = grouped.length > 0 ? grouped : priceLines.length > 1 ? priceLines : [text];
   const out = [];
   for (const seg of segments) {
-    const d = parseSegment(seg, postCtx);
+    const d = parseSegment(seg, grouped.length > 1 ? { ...postCtx, destination: null } : postCtx);
     if (d) out.push(d);
   }
   return out;
@@ -270,6 +339,12 @@ function publishedAt(deal) {
   return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
+function isExpired(deal, now = Date.now()) {
+  if (!deal.departDate || deal.departDate.length !== 10) return false;
+  const endOfDepartureDay = Date.parse(`${deal.departDate}T23:59:59.999Z`);
+  return Number.isFinite(endOfDepartureDay) && endOfDepartureDay < now;
+}
+
 async function main() {
   const raw = JSON.parse(await readFile(join(ROOT, 'public', 'tours.json'), 'utf8'));
   const refPrices = await loadRefPrices();
@@ -277,6 +352,7 @@ async function main() {
   const deals = [];
   for (const post of raw.items || []) {
     for (const d of structure(post)) {
+      if (isExpired(d)) continue;
       const key = `${d.type}-${d.from.code}-${d.to.code}-${d.price}`;
       if (seen.has(key)) continue;
       seen.add(key);
@@ -316,4 +392,4 @@ if (isMain) {
   main();
 }
 
-export { findCity, parseSegment, structure };
+export { findCities, findCity, isExpired, parseSegment, resolveRoute, structure };

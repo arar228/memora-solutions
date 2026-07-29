@@ -41,9 +41,61 @@ for (const [text, destination] of worldRoutes) {
 }
 
 assert.deepEqual(parse('Реклама сервиса: скидка 20%, подробности по ссылке'), []);
-assert.deepEqual(
-  parse('Полеты из Касабланки в Кабо-Верде за 22.300 руб туда-обратно', 'nachemodanahspb'),
-  [],
+
+const inbound = parse(
+  'Нячанг — Москва от 17600₽ в одну сторону, вылеты 5 августа\n— 05.08 — 17600₽\n'
+  + 'Нячанг — Екатеринбург от 21900₽ в одну сторону\n— 31.07 — 21900₽',
+  'travelradar',
 );
+assert.deepEqual(
+  inbound.map((deal) => [deal.from.code, deal.to.code, deal.price, deal.departDate]),
+  [
+    ['CXR', 'MOW', 17600, '2026-08-05'],
+    ['CXR', 'SVX', 21900, '2026-07-31'],
+  ],
+);
+assert.ok(inbound.every((deal) => deal.type === 'flight'));
+
+const thailandInbound = parse(
+  'Бангкок (Таиланд) — Екатеринбург от 22200Р в одну сторону\n'
+  + '— 27.09 — 22200Р\n— 01.10 — 26600Р\n'
+  + 'Пхукет (Таиланд) — Екатеринбург от 26600Р в одну сторону\n— 01.01 — 26600Р',
+  'travelradar',
+);
+assert.deepEqual(
+  thailandInbound.map((deal) => [deal.from.code, deal.to.code, deal.price]),
+  [['BKK', 'SVX', 22200], ['HKT', 'SVX', 26600]],
+);
+
+const sharm = parse('Москва — Шарм-эш-Шейх от 23500₽ в обе стороны\n— 29.07 — 23500₽');
+assert.equal(sharm[0].from.code, 'MOW');
+assert.equal(sharm[0].to.code, 'SSH');
+assert.equal(sharm[0].type, 'flight');
+
+const foreign = parse('Полеты из Касабланки в Кабо-Верде за 22.300 руб туда-обратно');
+assert.equal(foreign[0].from.code, 'CMN');
+assert.equal(foreign[0].to.code, 'RAI');
+
+const foreignList = parse('Каир - Эр-Рияд за 5.300 руб', 'nachemodanahspb');
+assert.equal(foreignList[0].from.code, 'CAI');
+assert.equal(foreignList[0].to.code, 'RUH');
+
+const multipleOrigins = parse('Прямые рейсы из Москвы, Уфы и Казани в Турцию от 4999 рублей');
+assert.equal(multipleOrigins[0].from.code, 'MOW');
+assert.equal(multipleOrigins[0].to.code, 'IST');
+
+const cityContext = parse(
+  'Петербуржцы летят отдыхать в Тунис:\n10 ночей с 31 июля за 40700 рублей с человека',
+);
+assert.equal(cityContext[0].from.code, 'LED');
+assert.equal(cityContext[0].to.code, 'TUN');
+
+const unknownOriginTour = parse(
+  '9 ночей на 1-й линии в Турции, туры от 60 344 ₽ с человека',
+  'travelata',
+);
+assert.equal(unknownOriginTour[0].from.code, 'ANY');
+assert.equal(unknownOriginTour[0].to.code, 'IST');
+assert.equal(unknownOriginTour[0].type, 'tour');
 
 console.log('deal parser: all destination checks passed');

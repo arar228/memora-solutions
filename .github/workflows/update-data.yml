@@ -5,7 +5,9 @@ name: Update public travel data
 
 on:
   schedule:
-    - cron: '15 */3 * * *'
+    # Every 15 minutes, shifted away from the top of the hour where scheduled
+    # GitHub Actions runs are most likely to be delayed.
+    - cron: '7,22,37,52 * * * *'
   workflow_dispatch: {}
 
 permissions:

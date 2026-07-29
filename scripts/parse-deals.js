@@ -21,8 +21,8 @@
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-import { VISA_DESTINATIONS } from '../src/pages/TravelRadar3/visaDestinations.js';
+import { dirname, join, resolve } from 'node:path';
+import { DEAL_DESTINATIONS } from './deal-destinations.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -40,23 +40,8 @@ const RF_ORIGINS = [
   ['краснодар', 'KRR', 'Краснодар'], ['ростов', 'ROV', 'Ростов-на-Дону'], ['минеральн', 'MRV', 'Минеральные Воды'],
   ['махачкал', 'MCX', 'Махачкала'], ['омск', 'OMS', 'Омск'], ['волгоград', 'VOG', 'Волгоград'],
 ];
-// Destination stems from the visa catalog (city + country names).
-const DEST_STEMS = [];
-for (const d of Object.values(VISA_DESTINATIONS)) {
-  const push = (s) => { if (s && s.length >= 4) DEST_STEMS.push([s.toLowerCase(), d.code, d.city.ru]); };
-  push(d.city.ru.slice(0, Math.max(5, d.city.ru.length - 1)));
-}
-// A few common extra destination stems the deals mention.
-const EXTRA_DEST = [
-  ['нячанг', 'CXR', 'Нячанг'], ['пхукет', 'HKT', 'Пхукет'], ['бангкок', 'BKK', 'Бангкок'],
-  ['таиланд', 'BKK', 'Таиланд'], ['шри-ланк', 'CMB', 'Шри-Ланка'], ['мармарис', 'DLM', 'Мармарис'],
-  ['анталь', 'AYT', 'Анталия'], ['стамбул', 'IST', 'Стамбул'], ['дубай', 'DXB', 'Дубай'],
-  ['занзибар', 'ZNZ', 'Занзибар'], ['хургад', 'HRG', 'Хургада'], ['шарм', 'SSH', 'Шарм-эль-Шейх'],
-  ['египет', 'HRG', 'Египет'], ['турци', 'AYT', 'Турция'], ['вьетнам', 'CXR', 'Вьетнам'],
-  ['мальдив', 'MLE', 'Мальдивы'], ['куб', 'VRA', 'Куба'], ['абхази', 'GDX0', 'Абхазия'],
-];
 const ORIG = [...RF_ORIGINS];
-const DEST = [...EXTRA_DEST, ...DEST_STEMS];
+const DEST = DEAL_DESTINATIONS;
 
 // Find a city hit in text, honoring an "из <city>" marker when asked: for
 // origins we prefer the stem right after "из " so "Прямой из Туниса в Москву"
@@ -64,9 +49,26 @@ const DEST = [...EXTRA_DEST, ...DEST_STEMS];
 function findCity(text, table, { afterIz = false } = {}) {
   const t = text.toLowerCase();
   let best = null;
+  const declensionEndings = new Set([
+    '', 'а', 'я', 'ы', 'и', 'е', 'у', 'ю', 'о', 'й', 'ь',
+    'ом', 'ем', 'ам', 'ям', 'ах', 'ях', 'ой', 'ей', 'ов', 'ев',
+    'ию', 'ии', 'ия', 'ией', 'ием', 'ью', 'ье', 'ьи', 'ья',
+    'ами', 'ями',
+  ]);
   for (const [stem, code, name] of table) {
     let idx = t.indexOf(stem);
     while (idx !== -1) {
+      // A stem must start at a word boundary. Without this guard "бурга"
+      // (Бургас) also matches "Петербурга" and corrupts the destination.
+      if (idx > 0 && /[\p{L}\p{N}]/u.test(t[idx - 1])) {
+        idx = t.indexOf(stem, idx + 1);
+        continue;
+      }
+      const tail = t.slice(idx + stem.length).match(/^[\p{L}\p{N}]*/u)?.[0] || '';
+      if (!declensionEndings.has(tail)) {
+        idx = t.indexOf(stem, idx + 1);
+        continue;
+      }
       const prefixed = /(^|[\s(«"])из\s+$/.test(t.slice(Math.max(0, idx - 12), idx));
       const cand = { code, name, pos: idx, prefixed };
       if (afterIz) {
@@ -156,6 +158,9 @@ function parseSegment(seg, postCtx) {
   const from = fromInSeg || postCtx.origin;
   const to = findCity(seg, DEST);
   if (!from || !to || from.code === to.code) return null;
+  // A channel default must not turn an explicitly foreign departure
+  // ("из Касабланки в Кабо-Верде") into a flight from its home city.
+  if (!fromInSeg && to.prefixed) return null;
   // Direction guard: a legit "from RF" offer reads either "Москва → Пхукет"
   // (RF city first) or "в Хургаду из Москвы" (RF city carries "из"). An RF
   // city that appears AFTER the destination without "из" is the ARRIVAL city
@@ -305,4 +310,10 @@ async function main() {
     + ` · ${d.source}`
   ));
 }
-main();
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+
+if (isMain) {
+  main();
+}
+
+export { findCity, parseSegment, structure };

@@ -14,6 +14,7 @@
         "start": "node server.js",
         "optimize-images": "node scripts/optimize-images.js",
         "fetch-tours": "node scripts/fetch-tours.js",
+        "test:deals": "node scripts/test-parse-deals.js",
         "validate-feeds": "node scripts/validate-feeds.js"
     },
     "dependencies": {

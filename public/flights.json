@@ -1,7 +1,36 @@
 {
-  "updatedAt": "2026-07-30T13:19:40.223Z",
+  "updatedAt": "2026-07-30T15:29:23.981Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
-  "items": []
+  "items": [
+    {
+      "origin": "BEG",
+      "destination": "STO",
+      "depart_date": "2026-08-27",
+      "return_date": "2026-09-01",
+      "price": 3999,
+      "median": 9667.5,
+      "discount": 0.5863460046547712,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-07-30T14:55:38",
+      "link": "https://www.aviasales.ru/search/BEG2708STO01091?marker=748397&currency=rub",
+      "key": "BEG-STO-2026-08-27-3999"
+    },
+    {
+      "origin": "TAS",
+      "destination": "OSS",
+      "depart_date": "2026-08-19",
+      "return_date": "2026-08-27",
+      "price": 6839,
+      "median": 12087.5,
+      "discount": 0.4342088934850052,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-07-30T14:57:39",
+      "link": "https://www.aviasales.ru/search/TAS1908OSS27081?marker=748397&currency=rub",
+      "key": "TAS-OSS-2026-08-19-6839"
+    }
+  ]
 }

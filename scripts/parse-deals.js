@@ -107,7 +107,12 @@ function resolveRoute(text, fallbackOrigin = null, fallbackDestination = null) {
     const destinationPrefixed = afterPlaces.find((place) =>
       /(^|[\s,(])(?:в|во|на)\s+$/i.test(text.slice(Math.max(0, place.pos - 16), place.pos)));
     const after = destinationPrefixed || afterPlaces[0];
-    const to = after || others[0] || fallbackDestination;
+    // Home-city channels often shorten inbound offers to “возврат из Бангкока”.
+    // In that form the channel's city is the implicit destination.
+    const homeDestination = fallbackOrigin?.code !== explicitFrom.code
+      ? fallbackOrigin
+      : null;
+    const to = after || others[0] || homeDestination || fallbackDestination;
     return to ? { from: explicitFrom, to } : null;
   }
 
@@ -169,7 +174,7 @@ function parseDepartDate(text, refIso) {
     mon = MONTHS[dm[2].startsWith('ма') ? 'ма' : dm[2]];
     year = dm[3] ? Number(dm[3]) : null;
   } else {
-    const mm = t.match(/в\s+(?:начале|середине|конце)?\s*(январ|феврал|март|апрел|ма[еи]|июн|июл|август|сентябр|октябр|ноябр|декабр)\w*/);
+    const mm = t.match(/(?:в|на)\s+(?:начале|начало|середине|середину|конце|конец)?\s*(январ|феврал|март|апрел|ма[еи]|июн|июл|август|сентябр|октябр|ноябр|декабр)\w*/);
     if (mm) mon = MONTHS[mm[1].startsWith('ма') ? 'ма' : mm[1]];
   }
   if (!mon) return null;
@@ -189,6 +194,9 @@ function aviaLink(from, to, departDate) {
   if (departDate && departDate.length === 10) {
     const [, m, d] = departDate.split('-');
     ddmm = d + m;
+  } else if (departDate && departDate.length === 7) {
+    const [, m] = departDate.split('-');
+    ddmm = `01${m}`;
   } else {
     const dt = new Date(Date.now() + 30 * 864e5);
     const p = (n) => String(n).padStart(2, '0');
@@ -241,8 +249,15 @@ function parseSegment(seg, postCtx) {
   // Flights → OUR Aviasales link (intercept). Tours → the booking link found
   // inside this very segment, else the post's first link, else the post.
   const segUrl = seg.match(URL_RE)?.[0]?.replace(/[),.]+$/, '');
+  const displayText = seg
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/\n{2,}/g, '\n')
+    .trim();
+  const hasIataRoute = /^[A-Z]{3}$/.test(from.code) && /^[A-Z]{3}$/.test(to.code);
   const link = type === 'flight'
-    ? aviaLink(from.code, to.code, departDate)
+    ? hasIataRoute
+      ? aviaLink(from.code, to.code, departDate)
+      : segUrl || postCtx.links?.[0] || postCtx.link
     : segUrl || postCtx.links?.[0] || postCtx.link;
 
   return {
@@ -255,7 +270,7 @@ function parseSegment(seg, postCtx) {
     date: postCtx.date || null,
     source: postCtx.channel,
     link,
-    text: seg.trim().slice(0, 200),
+    text: displayText.slice(0, 200),
   };
 }
 
@@ -281,11 +296,14 @@ function structure(post) {
   // the header only counts as the DEPARTURE city if it carries "из" or comes
   // before the destination ("из Туниса … в Москву" must NOT yield Москва).
   const head = lines.slice(0, 2).join(' ');
-  const headDest = findCity(head, DEST);
+  const headPlaces = findCities(head, PLACES);
+  const directionalDestination = headPlaces.find((place) =>
+    /(^|[\s,(])(?:в|во|на)\s+$/i.test(head.slice(Math.max(0, place.pos - 16), place.pos)));
+  const headDest = directionalDestination || findCity(head, DEST);
   let headOrigin = findCity(head, ORIG, { afterIz: true });
   if (!headOrigin) {
     const rf = findCity(head, ORIG);
-    if (rf && (!headDest || rf.pos < headDest.pos)) headOrigin = rf;
+    if (rf && rf.code !== headDest?.code && (!headDest || rf.pos < headDest.pos)) headOrigin = rf;
   }
   headOrigin = headOrigin || CHANNEL_ORIGIN[post.channel] || null;
   const postCtx = {
@@ -300,10 +318,16 @@ function structure(post) {
   // deal while still splitting posts that contain several different routes.
   const grouped = [];
   for (const line of lines) {
-    if (!PRICE_CUR_RE.test(line) && !PRICE_OT_RE.test(line)) continue;
-    if (findCities(line, PLACES).length > 0) {
-      grouped.push(line);
-    } else if (grouped.length > 0) {
+    const hasPrice = PRICE_CUR_RE.test(line) || PRICE_OT_RE.test(line);
+    if (hasPrice) {
+      if (findCities(line, PLACES).length > 0) {
+        grouped.push(line);
+      } else if (grouped.length > 0) {
+        grouped[grouped.length - 1] += `\n${line}`;
+      }
+    } else if (grouped.length > 0 && URL_RE.test(line)) {
+      // Keep the booking link with the route line that precedes it. This is
+      // essential for regional airports that use Aviasales internal codes.
       grouped[grouped.length - 1] += `\n${line}`;
     }
   }

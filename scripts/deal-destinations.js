@@ -24,6 +24,11 @@ const EXTRA_DESTINATIONS = [
     ['UUS', 'Сахалин', ['сахалин', 'южно-сахалинск']],
     ['PKC', 'Камчатка', ['камчат', 'петропавловск-камчатский']],
     ['VVO', 'Владивосток', ['владивосток', 'приморье']],
+    // Regional Aviasales codes used for subsidized flights inside Magadan Oblast.
+    // These airports have no IATA code; Aviasales uses Russian internal codes.
+    ['СМЧ', 'Сеймчан', ['сеймчан']],
+    ['ЯГО', 'Ягодное', ['ягодн']],
+    ['СНГ', 'Синегорье', ['синегор']],
 
     // Oceania
     ['AKL', 'Новая Зеландия', ['новая зеландия', 'новой зеландии', 'новую зеландию', 'зеланд', 'new zealand']],

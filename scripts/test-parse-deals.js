@@ -90,6 +90,49 @@ const cityContext = parse(
 assert.equal(cityContext[0].from.code, 'LED');
 assert.equal(cityContext[0].to.code, 'TUN');
 
+const magadanRegional = parse(
+  '✈️Полетать по Магаданской области. Рейсы из Магадана туда-обратно:\n\n'
+  + 'В Сеймчан 4.300 руб\n➡️ https://aviasales.tpx.lu/tXcdMFbR\n\n'
+  + 'В Ягодное 6.400 руб\n➡️ https://aviasales.tpx.lu/qzoICave\n\n'
+  + 'В Синегорье 6.600 руб\n➡️ https://aviasales.tpx.lu/mDHOw8Zm',
+  'nachemodanahspb',
+);
+assert.deepEqual(
+  magadanRegional.map((deal) => [deal.from.code, deal.to.code, deal.price]),
+  [['GDX', 'СМЧ', 4300], ['GDX', 'ЯГО', 6400], ['GDX', 'СНГ', 6600]],
+);
+assert.deepEqual(
+  magadanRegional.map((deal) => deal.link),
+  [
+    'https://aviasales.tpx.lu/tXcdMFbR',
+    'https://aviasales.tpx.lu/qzoICave',
+    'https://aviasales.tpx.lu/mDHOw8Zm',
+  ],
+);
+assert.ok(magadanRegional.every((deal) => !deal.text.includes('https://')));
+
+const toMoscow = parse(
+  '✈️Полеты в Москву Аэрофлотом за 5.600 руб туда-обратно. Много дат в августе-декабре',
+  'nachemodanahspb',
+);
+assert.deepEqual(
+  toMoscow.map((deal) => [deal.from.code, deal.to.code, deal.price]),
+  [['LED', 'MOW', 5600]],
+);
+assert.equal(toMoscow[0].departDate, '2026-08');
+assert.match(toMoscow[0].link, /LED0108MOW1/);
+
+const returnFromBangkok = parse(
+  '✈️Возврат из Бангкока за 22.300 руб на начало октября, прямой рейс Аэрофлота',
+  'nachemodanahspb',
+);
+assert.deepEqual(
+  returnFromBangkok.map((deal) => [deal.from.code, deal.to.code, deal.price]),
+  [['BKK', 'LED', 22300]],
+);
+assert.equal(returnFromBangkok[0].departDate, '2026-10');
+assert.match(returnFromBangkok[0].link, /BKK0110LED1/);
+
 const unknownOriginTour = parse(
   '9 ночей на 1-й линии в Турции, туры от 60 344 ₽ с человека',
   'travelata',

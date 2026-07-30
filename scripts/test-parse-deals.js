@@ -112,7 +112,9 @@ assert.deepEqual(
 assert.ok(magadanRegional.every((deal) => !deal.text.includes('https://')));
 
 const toMoscow = parse(
-  '✈️Полеты в Москву Аэрофлотом за 5.600 руб туда-обратно. Много дат в августе-декабре',
+  '✈️Полеты в Москву Аэрофлотом за 5.600 руб туда-обратно. Много дат в августе-декабре\n\n'
+  + '⏩ https://aviasales.tpx.lu/MaECEOB3\n'
+  + '⏩ https://aviasales.tpx.lu/XVQTchYO',
   'nachemodanahspb',
 );
 assert.deepEqual(
@@ -121,6 +123,10 @@ assert.deepEqual(
 );
 assert.equal(toMoscow[0].departDate, '2026-08');
 assert.match(toMoscow[0].link, /LED0108MOW1/);
+assert.equal(
+  toMoscow[0].text,
+  '✈️Полеты в Москву Аэрофлотом за 5.600 руб туда-обратно. Много дат в августе-декабре',
+);
 
 const returnFromBangkok = parse(
   '✈️Возврат из Бангкока за 22.300 руб на начало октября, прямой рейс Аэрофлота',

@@ -251,6 +251,7 @@ function parseSegment(seg, postCtx) {
   const segUrl = seg.match(URL_RE)?.[0]?.replace(/[),.]+$/, '');
   const displayText = seg
     .replace(/https?:\/\/\S+/g, '')
+    .replace(/^[\s\p{Extended_Pictographic}\uFE0F]+$/gmu, '')
     .replace(/\n{2,}/g, '\n')
     .trim();
   const hasIataRoute = /^[A-Z]{3}$/.test(from.code) && /^[A-Z]{3}$/.test(to.code);

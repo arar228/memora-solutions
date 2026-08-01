@@ -3,7 +3,10 @@ import { useTranslation } from 'react-i18next';
 import {
     ArrowRight,
     BedDouble,
+    Bell,
     CalendarDays,
+    CheckCircle2,
+    CreditCard,
     ExternalLink,
     Flame,
     LayoutGrid,
@@ -11,6 +14,7 @@ import {
     Plane,
     RefreshCw,
     Search,
+    Send,
     Sparkles,
     TableProperties,
     Ticket,
@@ -28,7 +32,9 @@ const COPY = {
         all: 'Все',
         flights: 'Билеты',
         tours: 'Туры',
-        allCities: 'Все города',
+        allOrigins: 'Откуда угодно',
+        allDestinations: 'Куда угодно',
+        countryPrefix: 'Страна',
         search: 'Страна, город или канал',
         from: 'из',
         oneWay: 'в одну сторону',
@@ -66,6 +72,25 @@ const COPY = {
         usefulLead: 'Когда предложение найдено, здесь можно подобрать жильё, экскурсии и проверить другие варианты.',
         disclosure: 'Часть ссылок партнёрские: сервис может выплатить нам комиссию, но цена для вас не меняется.',
         freshNote: 'Цены быстро меняются. Проверяйте итоговую стоимость и условия на странице продавца.',
+        alertsEyebrow: 'Персональный радар',
+        alertsTitle: 'Уведомления о подходящих предложениях',
+        alertsLead: 'Задайте маршрут и бюджет. Как только в каналах появится подходящее предложение, бот пришлёт его в Telegram.',
+        maxPrice: 'Цена не выше, ₽',
+        minDiscount: 'Скидка от, %',
+        email: 'Email для оплаты и чека',
+        consent: 'Согласен на списание 300 ₽ каждые 30 дней. Автопродление можно отключить в любой момент.',
+        connect: 'Настроить уведомления',
+        openTelegram: 'Подключить Telegram',
+        telegramHint: 'Откройте бота и нажмите Start, затем вернитесь на эту страницу.',
+        pay: 'Оплатить 300 ₽',
+        activeAlert: 'Уведомления активны',
+        activeUntil: 'Оплачено до',
+        cancelRenewal: 'Отключить автопродление',
+        editAlerts: 'Изменить фильтры',
+        saveAlerts: 'Сохранить фильтры',
+        cancellationScheduled: 'Автопродление отключено',
+        alertsUnavailable: 'Подписка готова технически и появится после подключения Telegram-бота и платёжного магазина.',
+        paymentNote: '300 ₽ за 30 дней · безопасная оплата через YooKassa · автопродление',
     },
     en: {
         eyebrow: 'Live finds from Telegram',
@@ -75,7 +100,9 @@ const COPY = {
         all: 'All',
         flights: 'Flights',
         tours: 'Tours',
-        allCities: 'All cities',
+        allOrigins: 'From anywhere',
+        allDestinations: 'To anywhere',
+        countryPrefix: 'Country',
         search: 'Country, city or channel',
         from: 'from',
         oneWay: 'one way',
@@ -113,6 +140,25 @@ const COPY = {
         usefulLead: 'Once you find a deal, use these links to choose a stay, activities and compare alternatives.',
         disclosure: 'Some links are affiliate links. We may receive a commission, while your price stays the same.',
         freshNote: 'Prices change quickly. Confirm the final price and terms on the seller page.',
+        alertsEyebrow: 'Personal radar',
+        alertsTitle: 'Alerts for matching deals',
+        alertsLead: 'Set your route and budget. The bot will send a Telegram alert as soon as a matching deal appears.',
+        maxPrice: 'Maximum price, RUB',
+        minDiscount: 'Minimum discount, %',
+        email: 'Email for payment receipt',
+        consent: 'I agree to a 300 RUB charge every 30 days. Auto-renewal can be disabled at any time.',
+        connect: 'Configure alerts',
+        openTelegram: 'Connect Telegram',
+        telegramHint: 'Open the bot and press Start, then return to this page.',
+        pay: 'Pay 300 RUB',
+        activeAlert: 'Alerts are active',
+        activeUntil: 'Paid until',
+        cancelRenewal: 'Disable auto-renewal',
+        editAlerts: 'Edit filters',
+        saveAlerts: 'Save filters',
+        cancellationScheduled: 'Auto-renewal disabled',
+        alertsUnavailable: 'The subscription flow is ready and will appear after the Telegram bot and payment shop are connected.',
+        paymentNote: '300 RUB for 30 days · secure YooKassa checkout · auto-renewal',
     },
 };
 
@@ -430,6 +476,274 @@ function DealTable({ deals, lang, copy }) {
     );
 }
 
+function buildPlaceOptions(deals, side, lang, copy) {
+    const cities = new Map();
+    const countries = new Map();
+    deals.forEach((deal) => {
+        const place = deal[side];
+        if (!place?.code || place.code === 'ANY' || !place.name) return;
+        const country = place.country?.[lang] || place.country?.ru || '';
+        const countryKey = place.country?.ru || country;
+        if (countryKey) countries.set(countryKey, country);
+        if (place.kind !== 'country') {
+            cities.set(place.code, {
+                value: `city:${place.code}`,
+                label: country ? `${place.name} — ${country}` : place.name,
+            });
+        }
+    });
+    return [
+        ...[...countries.entries()]
+            .sort((a, b) => a[1].localeCompare(b[1], lang))
+            .map(([value, label]) => ({ value: `country:${value}`, label: `${copy.countryPrefix}: ${label}` })),
+        ...[...cities.values()].sort((a, b) => a.label.localeCompare(b.label, lang)),
+    ];
+}
+
+function selectedPlaceMatches(place, selected) {
+    if (selected === 'all') return true;
+    const separator = selected.indexOf(':');
+    const kind = selected.slice(0, separator);
+    const value = selected.slice(separator + 1);
+    if (kind === 'city') return place?.code === value;
+    return [place?.country?.ru, place?.country?.en].includes(value);
+}
+
+function filterPayload(selected) {
+    if (selected === 'all') return { kind: 'all', value: '' };
+    const separator = selected.indexOf(':');
+    return { kind: selected.slice(0, separator), value: selected.slice(separator + 1) };
+}
+
+function filterValue(filter) {
+    return !filter || filter.kind === 'all' ? 'all' : `${filter.kind}:${filter.value}`;
+}
+
+function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOrigin, defaultDestination, dealType }) {
+    const [capabilities, setCapabilities] = useState(null);
+    const [token, setToken] = useState(() => localStorage.getItem('memora_travel_subscription_token') || '');
+    const [subscription, setSubscription] = useState(null);
+    const [telegramUrl, setTelegramUrl] = useState('');
+    const [form, setForm] = useState({
+        origin: defaultOrigin,
+        destination: defaultDestination,
+        dealType,
+        maxPrice: '',
+        minDiscount: '',
+        email: '',
+        consent: false,
+    });
+    const [busy, setBusy] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        fetch('/api/travel/capabilities')
+            .then((response) => response.ok ? response.json() : Promise.reject())
+            .then(setCapabilities)
+            .catch(() => setCapabilities({ subscriptionsAvailable: false }));
+    }, []);
+
+    useEffect(() => {
+        if (!token) return undefined;
+        let cancelled = false;
+        const check = () => fetch(`/api/travel/subscriptions?token=${encodeURIComponent(token)}`, { cache: 'no-store' })
+            .then((response) => response.ok ? response.json() : Promise.reject())
+            .then((data) => { if (!cancelled) setSubscription(data.subscription); })
+            .catch(() => {});
+        check();
+        if (['active', 'canceling', 'canceled', 'past_due'].includes(subscription?.status)) {
+            return () => { cancelled = true; };
+        }
+        const timer = setInterval(check, 3_000);
+        return () => { cancelled = true; clearInterval(timer); };
+    }, [subscription?.status, token]);
+
+    useEffect(() => {
+        if (!subscription?.filters || editing) return;
+        setForm((current) => ({
+            ...current,
+            origin: filterValue(subscription.filters.origin),
+            destination: filterValue(subscription.filters.destination),
+            dealType: subscription.filters.dealType || 'all',
+            maxPrice: subscription.filters.maxPrice || '',
+            minDiscount: subscription.filters.minDiscount || '',
+        }));
+    }, [editing, subscription?.filters]);
+
+    const submit = async () => {
+        setBusy(true);
+        setError('');
+        try {
+            const response = await fetch('/api/travel/subscriptions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: form.email,
+                    consent: form.consent,
+                    filters: {
+                        origin: filterPayload(form.origin),
+                        destination: filterPayload(form.destination),
+                        dealType: form.dealType,
+                        maxPrice: form.maxPrice,
+                        minDiscount: form.minDiscount,
+                    },
+                }),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error);
+            localStorage.setItem('memora_travel_subscription_token', data.token);
+            setToken(data.token);
+            setSubscription(data.subscription);
+            setTelegramUrl(data.telegramUrl);
+        } catch (requestError) {
+            setError(requestError.message || 'Не удалось создать подписку');
+        } finally {
+            setBusy(false);
+        }
+    };
+
+    const checkout = async () => {
+        setBusy(true);
+        setError('');
+        try {
+            const response = await fetch('/api/travel/subscriptions/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token }),
+            });
+            const data = await response.json();
+            if (!response.ok || !data.confirmationUrl) throw new Error(data.error || 'Платёж не создан');
+            window.location.assign(data.confirmationUrl);
+        } catch (requestError) {
+            setError(requestError.message || 'Не удалось перейти к оплате');
+            setBusy(false);
+        }
+    };
+
+    const cancel = async () => {
+        setBusy(true);
+        setError('');
+        try {
+            const response = await fetch('/api/travel/subscriptions/cancel', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token }),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error);
+            setSubscription(data.subscription);
+        } catch (requestError) {
+            setError(requestError.message || 'Не удалось изменить подписку');
+        } finally {
+            setBusy(false);
+        }
+    };
+
+    const saveSettings = async () => {
+        setBusy(true);
+        setError('');
+        try {
+            const response = await fetch('/api/travel/subscriptions/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    token,
+                    filters: {
+                        origin: filterPayload(form.origin),
+                        destination: filterPayload(form.destination),
+                        dealType: form.dealType,
+                        maxPrice: form.maxPrice,
+                        minDiscount: form.minDiscount,
+                    },
+                }),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error);
+            setSubscription(data.subscription);
+            setEditing(false);
+        } catch (requestError) {
+            setError(requestError.message || 'Не удалось сохранить фильтры');
+        } finally {
+            setBusy(false);
+        }
+    };
+
+    const status = subscription?.status;
+    const isActive = ['active', 'canceling'].includes(status);
+    const connectTelegramUrl = telegramUrl || (capabilities?.telegramUsername && token
+        ? `https://t.me/${capabilities.telegramUsername}?start=radar_${token}`
+        : '');
+    return (
+        <AnimatedSection delay={0.07}>
+            <section className="travel-alerts" aria-labelledby="travel-alerts-title">
+                <div className="travel-alerts__intro">
+                    <span className="travel-feed__eyebrow"><Bell size={16} aria-hidden="true" />{copy.alertsEyebrow}</span>
+                    <h2 id="travel-alerts-title">{copy.alertsTitle}</h2>
+                    <p>{copy.alertsLead}</p>
+                    <div className="travel-alerts__price">300 ₽ <span>/ 30 дней</span></div>
+                    <p className="travel-alerts__note">{copy.paymentNote}</p>
+                </div>
+
+                {!capabilities?.subscriptionsAvailable ? (
+                    <div className="travel-alerts__unavailable">{copy.alertsUnavailable}</div>
+                ) : isActive ? (
+                    <div className="travel-alerts__status">
+                        <CheckCircle2 size={26} aria-hidden="true" />
+                        <div>
+                            <strong>{copy.activeAlert}</strong>
+                            <span>{copy.activeUntil}: {new Date(subscription.currentPeriodEnd).toLocaleDateString(lang)}</span>
+                        </div>
+                        {subscription.autoRenew ? (
+                            <button type="button" disabled={busy} onClick={cancel}>{copy.cancelRenewal}</button>
+                        ) : <span className="travel-alerts__canceled">{copy.cancellationScheduled}</span>}
+                        <button type="button" disabled={busy} onClick={() => setEditing(!editing)}>{copy.editAlerts}</button>
+                        {editing ? (
+                            <div className="travel-alerts__form travel-alerts__form--settings">
+                                <label><span>{copy.origin}</span><select value={form.origin} onChange={(e) => setForm({ ...form, origin: e.target.value })}><option value="all">{copy.allOrigins}</option>{originOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
+                                <label><span>{copy.destination}</span><select value={form.destination} onChange={(e) => setForm({ ...form, destination: e.target.value })}><option value="all">{copy.allDestinations}</option>{destinationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
+                                <label><span>{copy.dealType}</span><select value={form.dealType} onChange={(e) => setForm({ ...form, dealType: e.target.value })}><option value="all">{copy.all}</option><option value="flight">{copy.flights}</option><option value="tour">{copy.tours}</option></select></label>
+                                <label><span>{copy.maxPrice}</span><input type="number" min="0" max="2000000" value={form.maxPrice} onChange={(e) => setForm({ ...form, maxPrice: e.target.value })} /></label>
+                                <label><span>{copy.minDiscount}</span><input type="number" min="0" max="90" value={form.minDiscount} onChange={(e) => setForm({ ...form, minDiscount: e.target.value })} /></label>
+                                <button className="travel-alerts__primary" type="button" disabled={busy} onClick={saveSettings}>{copy.saveAlerts}</button>
+                            </div>
+                        ) : null}
+                    </div>
+                ) : token ? (
+                    <div className="travel-alerts__steps">
+                        {!subscription?.telegramConnected ? (
+                            <>
+                                {connectTelegramUrl ? (
+                                    <a className="travel-alerts__primary" href={connectTelegramUrl} target="_blank" rel="noopener noreferrer">
+                                        <Send size={17} aria-hidden="true" />{copy.openTelegram}
+                                    </a>
+                                ) : null}
+                                <p>{copy.telegramHint}</p>
+                            </>
+                        ) : (
+                            <button className="travel-alerts__primary" type="button" disabled={busy} onClick={checkout}>
+                                <CreditCard size={17} aria-hidden="true" />{copy.pay}
+                            </button>
+                        )}
+                    </div>
+                ) : (
+                    <div className="travel-alerts__form">
+                        <label><span>{copy.origin}</span><select value={form.origin} onChange={(e) => setForm({ ...form, origin: e.target.value })}><option value="all">{copy.allOrigins}</option>{originOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
+                        <label><span>{copy.destination}</span><select value={form.destination} onChange={(e) => setForm({ ...form, destination: e.target.value })}><option value="all">{copy.allDestinations}</option>{destinationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
+                        <label><span>{copy.dealType}</span><select value={form.dealType} onChange={(e) => setForm({ ...form, dealType: e.target.value })}><option value="all">{copy.all}</option><option value="flight">{copy.flights}</option><option value="tour">{copy.tours}</option></select></label>
+                        <label><span>{copy.maxPrice}</span><input type="number" min="0" max="2000000" value={form.maxPrice} onChange={(e) => setForm({ ...form, maxPrice: e.target.value })} /></label>
+                        <label><span>{copy.minDiscount}</span><input type="number" min="0" max="90" value={form.minDiscount} onChange={(e) => setForm({ ...form, minDiscount: e.target.value })} /></label>
+                        <label><span>{copy.email}</span><input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></label>
+                        <label className="travel-alerts__consent"><input type="checkbox" checked={form.consent} onChange={(e) => setForm({ ...form, consent: e.target.checked })} /><span>{copy.consent}</span></label>
+                        <button className="travel-alerts__primary" type="button" disabled={busy || !form.consent || !form.email} onClick={submit}><Bell size={17} aria-hidden="true" />{copy.connect}</button>
+                    </div>
+                )}
+                {error ? <p className="travel-alerts__error" role="alert">{error}</p> : null}
+            </section>
+        </AnimatedSection>
+    );
+}
+
 export default function TravelRadar3Page() {
     const { i18n } = useTranslation();
     const lang = i18n.language === 'ru' ? 'ru' : 'en';
@@ -437,48 +751,56 @@ export default function TravelRadar3Page() {
     const [feed, setFeed] = useState({ deals: [], updatedAt: '' });
     const [loading, setLoading] = useState(true);
     const [type, setType] = useState('all');
-    const [city, setCity] = useState('all');
+    const [origin, setOrigin] = useState('all');
+    const [destination, setDestination] = useState('all');
     const [query, setQuery] = useState('');
     const [view, setView] = useState('table');
     const [sort, setSort] = useState('published-desc');
 
     useEffect(() => {
         let cancelled = false;
-        fetch('/hot-deals.json', { cache: 'no-cache' })
+        fetch('/api/travel/deals', { cache: 'no-cache' })
             .then((response) => (response.ok ? response.json() : Promise.reject(new Error('feed unavailable'))))
             .then((data) => {
                 if (!cancelled) setFeed({ deals: data.deals || [], updatedAt: data.updatedAt || '' });
             })
-            .catch(() => {
-                if (!cancelled) setFeed({ deals: [], updatedAt: '' });
-            })
+            .catch(() => fetch('/hot-deals.json', { cache: 'no-cache' })
+                .then((response) => response.ok ? response.json() : Promise.reject())
+                .then((data) => { if (!cancelled) setFeed({ deals: data.deals || [], updatedAt: data.updatedAt || '' }); })
+                .catch(() => { if (!cancelled) setFeed({ deals: [], updatedAt: '' }); }))
             .finally(() => {
                 if (!cancelled) setLoading(false);
             });
         return () => { cancelled = true; };
     }, []);
 
-    const cities = useMemo(() => {
-        const result = new Map();
-        feed.deals.forEach((deal) => {
-            if (deal.from?.code && deal.from?.name) result.set(deal.from.code, deal.from.name);
-        });
-        return [...result.entries()].sort((a, b) => a[1].localeCompare(b[1], lang));
-    }, [feed.deals, lang]);
+    const originOptions = useMemo(
+        () => buildPlaceOptions(feed.deals, 'from', lang, copy),
+        [copy, feed.deals, lang],
+    );
+    const destinationOptions = useMemo(
+        () => buildPlaceOptions(feed.deals, 'to', lang, copy),
+        [copy, feed.deals, lang],
+    );
 
     const visibleDeals = useMemo(() => {
         const normalizedQuery = query.trim().toLocaleLowerCase(lang);
         const filtered = feed.deals
             .filter((deal) => {
                 if (type !== 'all' && deal.type !== type) return false;
-                if (city !== 'all' && deal.from?.code !== city) return false;
+                if (!selectedPlaceMatches(deal.from, origin)) return false;
+                if (!selectedPlaceMatches(deal.to, destination)) return false;
                 if (!normalizedQuery) return true;
-                return [deal.from?.name, deal.to?.name, deal.source, deal.text]
+                return [
+                    deal.from?.name, deal.from?.country?.ru, deal.from?.country?.en,
+                    deal.to?.name, deal.to?.country?.ru, deal.to?.country?.en,
+                    deal.source, deal.text,
+                ]
                     .filter(Boolean)
                     .some((value) => value.toLocaleLowerCase(lang).includes(normalizedQuery));
             });
         return sortDeals(filtered, sort, lang);
-    }, [city, feed.deals, lang, query, sort, type]);
+    }, [destination, feed.deals, lang, origin, query, sort, type]);
 
     const sortOptions = [
         ['published-desc', copy.sortNewest],
@@ -539,9 +861,17 @@ export default function TravelRadar3Page() {
 
                             <label className="travel-feed__city">
                                 <MapPin size={16} aria-hidden="true" />
-                                <select value={city} onChange={(event) => setCity(event.target.value)} aria-label={copy.allCities}>
-                                    <option value="all">{copy.allCities}</option>
-                                    {cities.map(([code, name]) => <option key={code} value={code}>{name}</option>)}
+                                <select value={origin} onChange={(event) => setOrigin(event.target.value)} aria-label={copy.origin}>
+                                    <option value="all">{copy.allOrigins}</option>
+                                    {originOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                                </select>
+                            </label>
+
+                            <label className="travel-feed__city">
+                                <MapPin size={16} aria-hidden="true" />
+                                <select value={destination} onChange={(event) => setDestination(event.target.value)} aria-label={copy.destination}>
+                                    <option value="all">{copy.allDestinations}</option>
+                                    {destinationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
                                 </select>
                             </label>
                         </div>
@@ -604,6 +934,16 @@ export default function TravelRadar3Page() {
                         <p className="travel-feed__fresh-note">{copy.freshNote}</p>
                     </section>
                 </AnimatedSection>
+
+                <TravelAlerts
+                    copy={copy}
+                    lang={lang}
+                    originOptions={originOptions}
+                    destinationOptions={destinationOptions}
+                    defaultOrigin={origin}
+                    defaultDestination={destination}
+                    dealType={type}
+                />
 
                 <AnimatedSection delay={0.08}>
                     <section className="travel-feed__useful">

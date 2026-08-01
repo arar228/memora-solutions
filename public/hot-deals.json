@@ -1,21 +1,95 @@
 {
-  "updatedAt": "2026-08-01T21:08:16.665Z",
+  "updatedAt": "2026-08-01T21:59:47.937Z",
   "marker": "748397",
   "deals": [
     {
       "type": "flight",
       "from": {
-        "name": "Сочи",
-        "code": "AER"
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 7700,
+      "oldPrice": 17867,
+      "savings": 10167,
+      "discount": 0.57,
+      "oneway": true,
+      "nights": null,
+      "departDate": "2026-08-02",
+      "date": "2026-08-01T21:44:21+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KUF0208AYT1?marker=748397&currency=rub",
+      "text": "Самара — Анталья (Турция) от 7700Р в одну сторону в ближайшие дни или от 16700Р туда и обратно, прямые с багажом\n— 02.08 — 9900Р\n— 03.08 — 10800Р\n— 04.08 — 7700Р ↗️\n— 05.08 — 10100Р\n— 03-09.08 — 16700"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 6100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "nights": null,
+      "departDate": "2026-08-05",
+      "date": "2026-08-01T21:44:21+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AYT0508KUF1?marker=748397&currency=rub",
+      "text": "Обратно: Анталья (Турция) — Самара от 6100Р в одну сторону, прямые с багажом\n— 05.08 — 9100Р\n— 06.08 — 8100Р\n— 09.08 — 9100Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 7100,
-      "oldPrice": 15146,
-      "savings": 8046,
-      "discount": 0.53,
+      "oldPrice": 20742,
+      "savings": 13642,
+      "discount": 0.66,
       "oneway": true,
       "nights": null,
       "departDate": "2026-08-04",
@@ -28,11 +102,21 @@
       "type": "flight",
       "from": {
         "name": "Кавказские Минеральные Воды",
-        "code": "MRV"
+        "code": "MRV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Хургада",
-        "code": "HRG"
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
       },
       "price": 11000,
       "oldPrice": null,
@@ -50,11 +134,21 @@
       "type": "flight",
       "from": {
         "name": "Кавказские Минеральные Воды",
-        "code": "MRV"
+        "code": "MRV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Нячанг",
-        "code": "CXR"
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
       },
       "price": 22900,
       "oldPrice": null,
@@ -72,11 +166,21 @@
       "type": "flight",
       "from": {
         "name": "Нячанг",
-        "code": "CXR"
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Кавказские Минеральные Воды",
-        "code": "MRV"
+        "code": "MRV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 22900,
       "oldPrice": null,
@@ -94,16 +198,26 @@
       "type": "flight",
       "from": {
         "name": "Калининград",
-        "code": "KGD"
+        "code": "KGD",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 11600,
-      "oldPrice": 23525,
-      "savings": 11925,
-      "discount": 0.51,
+      "oldPrice": 28800,
+      "savings": 17200,
+      "discount": 0.6,
       "oneway": true,
       "nights": null,
       "departDate": "2026-08-04",
@@ -116,11 +230,21 @@
       "type": "flight",
       "from": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Калининград",
-        "code": "KGD"
+        "code": "KGD",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 10400,
       "oldPrice": null,
@@ -138,11 +262,21 @@
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Турция",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
       },
       "price": 50600,
       "oldPrice": null,
@@ -160,11 +294,21 @@
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Тунис",
-        "code": "TUN"
+        "code": "TUN",
+        "country": {
+          "ru": "Тунис",
+          "en": "Tunisia"
+        },
+        "kind": "country"
       },
       "price": 56700,
       "oldPrice": null,
@@ -182,11 +326,21 @@
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Хайнань",
-        "code": "SYX"
+        "code": "SYX",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
       },
       "price": 73500,
       "oldPrice": null,
@@ -204,11 +358,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Окленд",
-        "code": "AKL"
+        "code": "AKL",
+        "country": {
+          "ru": "Новая Зеландия",
+          "en": "New Zealand"
+        },
+        "kind": "city"
       },
       "price": 72900,
       "oldPrice": null,
@@ -226,11 +390,21 @@
       "type": "flight",
       "from": {
         "name": "Екатеринбург",
-        "code": "SVX"
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Нячанг",
-        "code": "CXR"
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
       },
       "price": 22500,
       "oldPrice": null,
@@ -248,11 +422,21 @@
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Стамбул",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 31200,
       "oldPrice": null,
@@ -263,18 +447,28 @@
       "departDate": null,
       "date": "2026-08-01T14:18:54+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108IST1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109IST1?marker=748397&currency=rub",
       "text": "из Петербурга в Саудовскую Аравию 🇸🇦 за 31 200 р. RT (август-октябрь)\nAjet, через Стамбул - \nВсе даты:"
     },
     {
       "type": "flight",
       "from": {
         "name": "Владивосток",
-        "code": "VVO"
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Пекин",
-        "code": "PEK"
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
       },
       "price": 6900,
       "oldPrice": null,
@@ -285,18 +479,28 @@
       "departDate": null,
       "date": "2026-08-01T13:24:33+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/VVO3108PEK1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/VVO0109PEK1?marker=748397&currency=rub",
       "text": "из Владивостока в Пекин 🇨🇳 за 6 900 р. OW (август-октябрь)\nHainan Airlines, прямой рейс с багажом -"
     },
     {
       "type": "tour",
       "from": {
         "name": "Владивосток",
-        "code": "VVO"
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Пекин",
-        "code": "PEK"
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
       },
       "price": 8000,
       "oldPrice": null,
@@ -314,11 +518,21 @@
       "type": "flight",
       "from": {
         "name": "Хабаровск",
-        "code": "KHV"
+        "code": "KHV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Владивосток",
-        "code": "VVO"
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 11000,
       "oldPrice": null,
@@ -336,33 +550,53 @@
       "type": "flight",
       "from": {
         "name": "Краснодар",
-        "code": "KRR"
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 7600,
-      "oldPrice": 17392,
-      "savings": 9792,
+      "oldPrice": 17298,
+      "savings": 9698,
       "discount": 0.56,
       "oneway": false,
       "nights": null,
       "departDate": null,
       "date": "2026-08-01T13:12:23+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KRR3108AYT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/KRR0109AYT1?marker=748397&currency=rub",
       "text": "из Краснодара в Анталью 🇹🇷 за 7 600 р. OW (летом)\nАзимут, прямой рейс -"
     },
     {
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Ульяновск",
-        "code": "ULV"
+        "code": "ULV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 7300,
       "oldPrice": null,
@@ -373,18 +607,28 @@
       "departDate": null,
       "date": "2026-08-01T13:12:23+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW3108ULV1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/MOW0109ULV1?marker=748397&currency=rub",
       "text": "из Москвы в Ульяновск 🇷🇺 за 7 300 р. RT (август)\nПобеда, прямые рейсы -"
     },
     {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Тунис",
-        "code": "TUN"
+        "code": "TUN",
+        "country": {
+          "ru": "Тунис",
+          "en": "Tunisia"
+        },
+        "kind": "country"
       },
       "price": 214446,
       "oldPrice": null,
@@ -402,11 +646,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 24200,
       "oldPrice": null,
@@ -424,11 +678,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Нячанг",
-        "code": "CXR"
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
       },
       "price": 64200,
       "oldPrice": null,
@@ -446,11 +710,21 @@
       "type": "flight",
       "from": {
         "name": "Нячанг",
-        "code": "CXR"
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Екатеринбург",
-        "code": "SVX"
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 13200,
       "oldPrice": null,
@@ -468,11 +742,21 @@
       "type": "flight",
       "from": {
         "name": "Нячанг",
-        "code": "CXR"
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 17600,
       "oldPrice": null,
@@ -490,11 +774,21 @@
       "type": "flight",
       "from": {
         "name": "Бангкок",
-        "code": "BKK"
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Иркутск",
-        "code": "IKT"
+        "code": "IKT",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 7700,
       "oldPrice": null,
@@ -512,11 +806,21 @@
       "type": "flight",
       "from": {
         "name": "Бангкок",
-        "code": "BKK"
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Новосибирск",
-        "code": "OVB"
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 9500,
       "oldPrice": null,
@@ -534,11 +838,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Сеул",
-        "code": "SEL"
+        "code": "SEL",
+        "country": {
+          "ru": "Южная Корея",
+          "en": "South Korea"
+        },
+        "kind": "city"
       },
       "price": 40500,
       "oldPrice": null,
@@ -549,45 +863,33 @@
       "departDate": null,
       "date": "2026-08-01T10:43:54+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW3108SEL1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/MOW0109SEL1?marker=748397&currency=rub",
       "text": "из Москвы в Сеул 🇰🇷 за 40 500 р. RT (осенью и зимой)\nSCAT, пересадки в Шымкенте - \nВсе даты:"
     },
     {
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST"
-      },
-      "price": 7600,
-      "oldPrice": 19112,
-      "savings": 11512,
-      "discount": 0.6,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-01T10:07:27+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW3108IST1?marker=748397&currency=rub",
-      "text": "из Москвы в Стамбул 🇹🇷 за 7 600 р. OW (осенью)\nSouthwind, прямой рейс -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 8600,
-      "oldPrice": 16676,
-      "savings": 8076,
-      "discount": 0.48,
+      "oldPrice": 23461,
+      "savings": 14861,
+      "discount": 0.63,
       "oneway": false,
       "nights": null,
       "departDate": "2026-08",
@@ -597,14 +899,56 @@
       "text": "из Москвы в Анталью 🇹🇷 за 8 600 р. OW (в конце августа)\nSouthwind, прямой рейс -"
     },
     {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Стамбул",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 7600,
+      "oldPrice": 19256,
+      "savings": 11656,
+      "discount": 0.61,
+      "oneway": false,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-01T10:07:27+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0109IST1?marker=748397&currency=rub",
+      "text": "из Москвы в Стамбул 🇹🇷 за 7 600 р. OW (осенью)\nSouthwind, прямой рейс -"
+    },
+    {
       "type": "tour",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 10900,
       "oldPrice": null,
@@ -622,11 +966,21 @@
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Турция",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
       },
       "price": 42000,
       "oldPrice": null,
@@ -644,11 +998,21 @@
       "type": "tour",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Турция",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
       },
       "price": 42100,
       "oldPrice": null,
@@ -666,11 +1030,21 @@
       "type": "tour",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Стамбул",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 44800,
       "oldPrice": null,
@@ -688,11 +1062,21 @@
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Турция",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
       },
       "price": 286773,
       "oldPrice": null,
@@ -710,11 +1094,21 @@
       "type": "tour",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Паттайя",
-        "code": "UTP"
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "price": 168000,
       "oldPrice": null,
@@ -732,11 +1126,21 @@
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Паттайя",
-        "code": "UTP"
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "price": 182815,
       "oldPrice": null,
@@ -754,11 +1158,21 @@
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Паттайя",
-        "code": "UTP"
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "price": 191050,
       "oldPrice": null,
@@ -776,11 +1190,21 @@
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Паттайя",
-        "code": "UTP"
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "price": 225257,
       "oldPrice": null,
@@ -798,11 +1222,21 @@
       "type": "tour",
       "from": {
         "name": "Сочи",
-        "code": "AER"
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Турция",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
       },
       "price": 19800,
       "oldPrice": null,
@@ -820,33 +1254,53 @@
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Минск",
-        "code": "MSQ"
+        "code": "MSQ",
+        "country": {
+          "ru": "Беларусь",
+          "en": "Belarus"
+        },
+        "kind": "city"
       },
       "price": 3700,
-      "oldPrice": 7925,
-      "savings": 4225,
+      "oldPrice": 7798,
+      "savings": 4098,
       "discount": 0.53,
       "oneway": false,
       "nights": null,
       "departDate": null,
       "date": "2026-08-01T08:16:22+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108MSQ1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109MSQ1?marker=748397&currency=rub",
       "text": "из Петербурга в Минск 🇧🇾 за 3 700 р. OW (осенью)\nПобеда, прямой рейс -"
     },
     {
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Баку",
-        "code": "GYD"
+        "code": "GYD",
+        "country": {
+          "ru": "Азербайджан",
+          "en": "Azerbaijan"
+        },
+        "kind": "city"
       },
       "price": 9500,
       "oldPrice": null,
@@ -864,11 +1318,21 @@
       "type": "flight",
       "from": {
         "name": "Сочи",
-        "code": "AER"
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Батуми",
-        "code": "BUS"
+        "code": "BUS",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
       },
       "price": 10100,
       "oldPrice": null,
@@ -879,18 +1343,28 @@
       "departDate": null,
       "date": "2026-08-01T08:16:22+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/AER3108BUS1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/AER0109BUS1?marker=748397&currency=rub",
       "text": "из Сочи в Батуми 🇬🇪 за 10 100 р. RT (осенью)\nRed Wings, прямые рейсы -"
     },
     {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Мальдивы",
-        "code": "MLE"
+        "code": "MLE",
+        "country": {
+          "ru": "Мальдивы",
+          "en": "Maldives"
+        },
+        "kind": "country"
       },
       "price": 142564,
       "oldPrice": null,
@@ -908,11 +1382,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Новосибирск",
-        "code": "OVB"
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "price": 4200,
       "oldPrice": null,
@@ -930,11 +1414,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Коломбо",
-        "code": "CMB"
+        "code": "CMB",
+        "country": {
+          "ru": "Шри-Ланка",
+          "en": "Sri Lanka"
+        },
+        "kind": "city"
       },
       "price": 42400,
       "oldPrice": null,
@@ -952,11 +1446,21 @@
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Китай",
-        "code": "PEK"
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "country"
       },
       "price": 213283,
       "oldPrice": null,
@@ -974,33 +1478,53 @@
       "type": "flight",
       "from": {
         "name": "Владивосток",
-        "code": "VVO"
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Таиланд",
-        "code": "BKK"
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "country"
       },
       "price": 25800,
-      "oldPrice": 25970,
-      "savings": 170,
+      "oldPrice": 25963,
+      "savings": 163,
       "discount": 0.01,
       "oneway": false,
       "nights": null,
       "departDate": null,
       "date": "2026-07-31T17:19:55+00:00",
       "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/VVO3108BKK1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/VVO0109BKK1?marker=748397&currency=rub",
       "text": "Прямые осенние рейсы в Таиланд от 25800 рублей туда-обратно!"
     },
     {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Паттайя",
-        "code": "UTP"
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "price": 175878,
       "oldPrice": null,
@@ -1018,11 +1542,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Токио",
-        "code": "TYO"
+        "code": "TYO",
+        "country": {
+          "ru": "Япония",
+          "en": "Japan"
+        },
+        "kind": "city"
       },
       "price": 52700,
       "oldPrice": null,
@@ -1040,11 +1574,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Токио",
-        "code": "TYO"
+        "code": "TYO",
+        "country": {
+          "ru": "Япония",
+          "en": "Japan"
+        },
+        "kind": "city"
       },
       "price": 58900,
       "oldPrice": null,
@@ -1062,11 +1606,21 @@
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Лондон",
-        "code": "LON"
+        "code": "LON",
+        "country": {
+          "ru": "Великобритания",
+          "en": "United Kingdom"
+        },
+        "kind": "city"
       },
       "price": 22500,
       "oldPrice": null,
@@ -1084,11 +1638,21 @@
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Йоханнесбург",
-        "code": "JNB"
+        "code": "JNB",
+        "country": {
+          "ru": "ЮАР",
+          "en": "South Africa"
+        },
+        "kind": "city"
       },
       "price": 61700,
       "oldPrice": null,
@@ -1106,11 +1670,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Даламан",
-        "code": "DLM"
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 25300,
       "oldPrice": null,
@@ -1128,33 +1702,53 @@
       "type": "flight",
       "from": {
         "name": "Новосибирск",
-        "code": "OVB"
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Астана",
-        "code": "NQZ"
+        "code": "NQZ",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
       },
       "price": 11700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 14958,
+      "savings": 3258,
+      "discount": 0.22,
       "oneway": false,
       "nights": null,
       "departDate": null,
       "date": "2026-07-31T12:55:00+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/OVB3108NQZ1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/OVB0109NQZ1?marker=748397&currency=rub",
       "text": "из Новосибирска в Астану 🇰🇿 за 11 700 р. RT (осенью)\nVietjet Qazaqstan, прямые рейсы -"
     },
     {
       "type": "flight",
       "from": {
         "name": "Новосибирск",
-        "code": "OVB"
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Бишкек",
-        "code": "FRU"
+        "code": "FRU",
+        "country": {
+          "ru": "Киргизия",
+          "en": "Kyrgyzstan"
+        },
+        "kind": "city"
       },
       "price": 16800,
       "oldPrice": null,
@@ -1165,18 +1759,28 @@
       "departDate": null,
       "date": "2026-07-31T12:55:00+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/OVB3108FRU1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/OVB0109FRU1?marker=748397&currency=rub",
       "text": "из Новосибирска в Бишкек 🇰🇬 за 16 800 р. RT (осенью)\nS7, прямые рейсы -"
     },
     {
       "type": "flight",
       "from": {
         "name": "Иркутск",
-        "code": "IKT"
+        "code": "IKT",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Шанхай",
-        "code": "PVG"
+        "code": "PVG",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
       },
       "price": 20800,
       "oldPrice": null,
@@ -1187,18 +1791,28 @@
       "departDate": null,
       "date": "2026-07-31T12:55:00+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/IKT3108PVG1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/IKT0109PVG1?marker=748397&currency=rub",
       "text": "из Иркутска в Шанхай 🇨🇳 за 20 800 р. RT (до конца года)\nS7, прямые рейсы -"
     },
     {
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Бодрум",
-        "code": "BJV"
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 25200,
       "oldPrice": null,
@@ -1216,11 +1830,21 @@
       "type": "tour",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Турция",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
       },
       "price": 43100,
       "oldPrice": null,
@@ -1238,11 +1862,21 @@
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Турция",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
       },
       "price": 47000,
       "oldPrice": null,
@@ -1260,11 +1894,21 @@
       "type": "tour",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Танзания",
-        "code": "ZNZ"
+        "code": "ZNZ",
+        "country": {
+          "ru": "Танзания",
+          "en": "Tanzania"
+        },
+        "kind": "country"
       },
       "price": 81400,
       "oldPrice": null,
@@ -1281,34 +1925,22 @@
     {
       "type": "flight",
       "from": {
-        "name": "Самара",
-        "code": "KUF"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT"
-      },
-      "price": 17600,
-      "oldPrice": 22384,
-      "savings": 4784,
-      "discount": 0.21,
-      "oneway": false,
-      "nights": null,
-      "departDate": "2026-08-01",
-      "date": "2026-07-31T12:15:17+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/KUF0108AYT1?marker=748397&currency=rub",
-      "text": "Самара — Анталья от 17600₽ в обе стороны, вылет завтра вечером, рейсы прямые, с багажом\n— 01.08 - 06.08 - 17600₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Сейшелы",
-        "code": "SEZ"
+        "code": "SEZ",
+        "country": {
+          "ru": "Сейшелы",
+          "en": "Seychelles"
+        },
+        "kind": "country"
       },
       "price": 62800,
       "oldPrice": null,
@@ -1319,18 +1951,28 @@
       "departDate": null,
       "date": "2026-07-31T12:02:56+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108SEZ1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109SEZ1?marker=748397&currency=rub",
       "text": "из Петербурга на Сейшелы 🇸🇨 за 62 800 р. RT (ноябрь-март)\nEtihad, пересадки в Абу-Даби - \nВсе даты:"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Бали",
-        "code": "DPS"
+        "code": "DPS",
+        "country": {
+          "ru": "Индонезия",
+          "en": "Indonesia"
+        },
+        "kind": "city"
       },
       "price": 60800,
       "oldPrice": null,
@@ -1348,11 +1990,21 @@
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Сингапур",
-        "code": "SIN"
+        "code": "SIN",
+        "country": {
+          "ru": "Сингапур",
+          "en": "Singapore"
+        },
+        "kind": "country"
       },
       "price": 51400,
       "oldPrice": null,
@@ -1363,18 +2015,28 @@
       "departDate": null,
       "date": "2026-07-31T11:45:14+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108SIN1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109SIN1?marker=748397&currency=rub",
       "text": "В Сингапур 51.400 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Бангкок",
-        "code": "BKK"
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "price": 52900,
       "oldPrice": null,
@@ -1385,18 +2047,28 @@
       "departDate": null,
       "date": "2026-07-31T11:45:14+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108BKK1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109BKK1?marker=748397&currency=rub",
       "text": "В Бангкок 52.900 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Гонконг",
-        "code": "HKG"
+        "code": "HKG",
+        "country": {
+          "ru": "Гонконг",
+          "en": "Hong Kong"
+        },
+        "kind": "country"
       },
       "price": 53200,
       "oldPrice": null,
@@ -1407,18 +2079,28 @@
       "departDate": null,
       "date": "2026-07-31T11:45:14+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108HKG1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109HKG1?marker=748397&currency=rub",
       "text": "В Гонконг 53.200 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Сеул",
-        "code": "SEL"
+        "code": "SEL",
+        "country": {
+          "ru": "Южная Корея",
+          "en": "South Korea"
+        },
+        "kind": "city"
       },
       "price": 54000,
       "oldPrice": null,
@@ -1429,18 +2111,28 @@
       "departDate": null,
       "date": "2026-07-31T11:45:14+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108SEL1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109SEL1?marker=748397&currency=rub",
       "text": "В Сеул 54.000 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Пхукет",
-        "code": "HKT"
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
       },
       "price": 56500,
       "oldPrice": null,
@@ -1451,18 +2143,28 @@
       "departDate": null,
       "date": "2026-07-31T11:45:14+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108HKT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109HKT1?marker=748397&currency=rub",
       "text": "На Пхукет 56.500 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Куала-Лумпур",
-        "code": "KUL"
+        "code": "KUL",
+        "country": {
+          "ru": "Малайзия",
+          "en": "Malaysia"
+        },
+        "kind": "city"
       },
       "price": 57400,
       "oldPrice": null,
@@ -1473,18 +2175,28 @@
       "departDate": null,
       "date": "2026-07-31T11:45:14+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108KUL1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109KUL1?marker=748397&currency=rub",
       "text": "В Куала-Лумпур 57.400 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Джакарта",
-        "code": "CGK"
+        "code": "CGK",
+        "country": {
+          "ru": "Индонезия",
+          "en": "Indonesia"
+        },
+        "kind": "city"
       },
       "price": 57900,
       "oldPrice": null,
@@ -1495,18 +2207,28 @@
       "departDate": null,
       "date": "2026-07-31T11:45:14+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108CGK1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109CGK1?marker=748397&currency=rub",
       "text": "В Джакарту 57.900 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Йоханнесбург",
-        "code": "JNB"
+        "code": "JNB",
+        "country": {
+          "ru": "ЮАР",
+          "en": "South Africa"
+        },
+        "kind": "city"
       },
       "price": 59100,
       "oldPrice": null,
@@ -1517,18 +2239,28 @@
       "departDate": null,
       "date": "2026-07-31T11:45:14+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108JNB1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109JNB1?marker=748397&currency=rub",
       "text": "В Йоханнесбург 59.100 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Шарм-эль-Шейх",
-        "code": "SSH"
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
       },
       "price": 19700,
       "oldPrice": null,
@@ -1546,11 +2278,21 @@
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Мумбаи",
-        "code": "BOM"
+        "code": "BOM",
+        "country": {
+          "ru": "Индия",
+          "en": "India"
+        },
+        "kind": "city"
       },
       "price": 29900,
       "oldPrice": null,
@@ -1561,18 +2303,28 @@
       "departDate": null,
       "date": "2026-07-31T10:39:01+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW3108BOM1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/MOW0109BOM1?marker=748397&currency=rub",
       "text": "из Москвы в Мумбаи🇮🇳  за 29 900 р. RT (осенью и зимой)\nAZAL, через Баку - \nВсе даты:"
     },
     {
       "type": "flight",
       "from": {
         "name": "Екатеринбург",
-        "code": "SVX"
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Нячанг",
-        "code": "CXR"
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
       },
       "price": 36800,
       "oldPrice": null,
@@ -1583,18 +2335,28 @@
       "departDate": null,
       "date": "2026-07-31T10:39:01+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SVX3108CXR1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/SVX0109CXR1?marker=748397&currency=rub",
       "text": "из Екатеринбурга в Нячанг 🇻🇳 за 36 800 р. RT (август)\nRed Wings, прямые рейсы с багажом - \nВсе даты:"
     },
     {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
-        "code": "ANY"
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Египет",
-        "code": "HRG"
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
       },
       "price": 73385,
       "oldPrice": null,
@@ -1612,11 +2374,21 @@
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Турция",
-        "code": "IST"
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
       },
       "price": 15100,
       "oldPrice": 24530,
@@ -1627,40 +2399,60 @@
       "departDate": null,
       "date": "2026-07-31T10:00:32+00:00",
       "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/LED3108IST1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109IST1?marker=748397&currency=rub",
       "text": "Прямые рейсы в Турцию за 15100 рублей туда-обратно!"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 7100,
-      "oldPrice": 18691,
-      "savings": 11591,
-      "discount": 0.62,
+      "oldPrice": 22667,
+      "savings": 15567,
+      "discount": 0.69,
       "oneway": false,
       "nights": null,
       "departDate": null,
       "date": "2026-07-31T09:46:16+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108AYT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109AYT1?marker=748397&currency=rub",
       "text": "из Петербурга в Анталью 🇹🇷 за 7 100 р. OW (в воскресенье)\nCorendon, прямой рейс с багажом -"
     },
     {
       "type": "tour",
       "from": {
         "name": "Самара",
-        "code": "KUF"
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 9600,
       "oldPrice": null,
@@ -1678,11 +2470,21 @@
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Маскат",
-        "code": "MCT"
+        "code": "MCT",
+        "country": {
+          "ru": "Оман",
+          "en": "Oman"
+        },
+        "kind": "city"
       },
       "price": 33900,
       "oldPrice": null,
@@ -1693,18 +2495,28 @@
       "departDate": null,
       "date": "2026-07-31T09:25:43+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108MCT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109MCT1?marker=748397&currency=rub",
       "text": "✈️В Маскат осенью от 33.900 руб туда-обратно, стыковки в Стамбуле"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "ЮАР",
-        "code": "CPT"
+        "code": "CPT",
+        "country": {
+          "ru": "ЮАР",
+          "en": "South Africa"
+        },
+        "kind": "country"
       },
       "price": 55100,
       "oldPrice": null,
@@ -1715,40 +2527,60 @@
       "departDate": null,
       "date": "2026-07-31T09:25:18+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108CPT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109CPT1?marker=748397&currency=rub",
       "text": "из Петербурга в ЮАР 🇿🇦 за 55 100 р. RT (осенью и зимой)\nEtihad, через Абу-Даби - \nВсе даты:"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Анталья",
-        "code": "AYT"
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
       },
       "price": 7200,
-      "oldPrice": 18691,
-      "savings": 11491,
-      "discount": 0.61,
+      "oldPrice": 22667,
+      "savings": 15467,
+      "discount": 0.68,
       "oneway": false,
       "nights": null,
       "departDate": null,
       "date": "2026-07-31T09:24:35+00:00",
       "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED3108AYT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109AYT1?marker=748397&currency=rub",
       "text": "✈️Горят билеты в Анталью от 7.200 руб"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Сингапур",
-        "code": "SIN"
+        "code": "SIN",
+        "country": {
+          "ru": "Сингапур",
+          "en": "Singapore"
+        },
+        "kind": "country"
       },
       "price": 48100,
       "oldPrice": null,
@@ -1759,18 +2591,28 @@
       "departDate": null,
       "date": "2026-07-31T09:08:59+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108SIN1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109SIN1?marker=748397&currency=rub",
       "text": "из Петербурга в Сингапур 🇸🇬 за 48 100 р. RT (осенью)\nEtihad, через Абу-Даби -"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Гонконг",
-        "code": "HKG"
+        "code": "HKG",
+        "country": {
+          "ru": "Гонконг",
+          "en": "Hong Kong"
+        },
+        "kind": "country"
       },
       "price": 49700,
       "oldPrice": null,
@@ -1781,18 +2623,28 @@
       "departDate": null,
       "date": "2026-07-31T09:08:59+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108HKG1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109HKG1?marker=748397&currency=rub",
       "text": "из Петербурга в Гонконг 🇭🇰 за 49 700 р. RT (осенью)\nEtihad, пересадки в Абу-Даби -"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Сеул",
-        "code": "SEL"
+        "code": "SEL",
+        "country": {
+          "ru": "Южная Корея",
+          "en": "South Korea"
+        },
+        "kind": "city"
       },
       "price": 50000,
       "oldPrice": null,
@@ -1803,18 +2655,28 @@
       "departDate": null,
       "date": "2026-07-31T09:08:59+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108SEL1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109SEL1?marker=748397&currency=rub",
       "text": "из Петербурга в Сеул 🇰🇷 за 50 000 р. RT (осенью)\nEtihad, стыковки в Абу-Даби -"
     },
     {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Сеул",
-        "code": "SEL"
+        "code": "SEL",
+        "country": {
+          "ru": "Южная Корея",
+          "en": "South Korea"
+        },
+        "kind": "city"
       },
       "price": 51087,
       "oldPrice": null,
@@ -1825,18 +2687,28 @@
       "departDate": null,
       "date": "2026-07-31T09:08:59+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED3108SEL1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0109SEL1?marker=748397&currency=rub",
       "text": "Авиабилеты Санкт-Петербург → Сеул туда-обратно от 51 087 ₽, Rossiya Airlines. Сравнение цен с историей сделок из @samokatus."
     },
     {
       "type": "flight",
       "from": {
         "name": "Москва",
-        "code": "MOW"
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Индия",
-        "code": "DEL"
+        "code": "DEL",
+        "country": {
+          "ru": "Индия",
+          "en": "India"
+        },
+        "kind": "country"
       },
       "price": 29300,
       "oldPrice": null,
@@ -1854,11 +2726,21 @@
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
-        "code": "LED"
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
       },
       "to": {
         "name": "Минск",
-        "code": "MSQ"
+        "code": "MSQ",
+        "country": {
+          "ru": "Беларусь",
+          "en": "Belarus"
+        },
+        "kind": "city"
       },
       "price": 17400,
       "oldPrice": null,
@@ -1871,6 +2753,88 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/r3gw6F",
       "text": "🔥 в Минск (Беларусь) на 3-4 ночи в августе от 17 400/чел \n🔥 или дешевле в сентябре"
+    }
+  ],
+  "health": [
+    {
+      "channel": "vandroukiru",
+      "status": "ok",
+      "checkedAt": "2026-08-01T21:59:47.648Z",
+      "fetchedPosts": 17,
+      "freshPosts": 12,
+      "latestPostAt": "2026-08-01T10:52:48+00:00",
+      "reusedPrevious": false,
+      "error": null
+    },
+    {
+      "channel": "samokatus",
+      "status": "ok",
+      "checkedAt": "2026-08-01T21:59:47.649Z",
+      "fetchedPosts": 15,
+      "freshPosts": 15,
+      "latestPostAt": "2026-08-01T14:18:54+00:00",
+      "reusedPrevious": false,
+      "error": null
+    },
+    {
+      "channel": "travelradar",
+      "status": "ok",
+      "checkedAt": "2026-08-01T21:59:47.649Z",
+      "fetchedPosts": 20,
+      "freshPosts": 20,
+      "latestPostAt": "2026-08-01T21:44:21+00:00",
+      "reusedPrevious": false,
+      "error": null
+    },
+    {
+      "channel": "nachemodanahspb",
+      "status": "ok",
+      "checkedAt": "2026-08-01T21:59:47.649Z",
+      "fetchedPosts": 20,
+      "freshPosts": 5,
+      "latestPostAt": "2026-07-31T11:58:53+00:00",
+      "reusedPrevious": false,
+      "error": null
+    },
+    {
+      "channel": "luckywings",
+      "status": "ok",
+      "checkedAt": "2026-08-01T21:59:47.649Z",
+      "fetchedPosts": 20,
+      "freshPosts": 5,
+      "latestPostAt": "2026-08-01T18:58:12+00:00",
+      "reusedPrevious": false,
+      "error": null
+    },
+    {
+      "channel": "onlinetours",
+      "status": "idle",
+      "checkedAt": "2026-08-01T21:59:47.649Z",
+      "fetchedPosts": 16,
+      "freshPosts": 0,
+      "latestPostAt": "2026-07-30T10:53:01+00:00",
+      "reusedPrevious": false,
+      "error": null
+    },
+    {
+      "channel": "travelata",
+      "status": "ok",
+      "checkedAt": "2026-08-01T21:59:47.649Z",
+      "fetchedPosts": 8,
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-01T10:17:57+00:00",
+      "reusedPrevious": false,
+      "error": null
+    },
+    {
+      "channel": "leveltravel",
+      "status": "ok",
+      "checkedAt": "2026-08-01T21:59:47.650Z",
+      "fetchedPosts": 7,
+      "freshPosts": 7,
+      "latestPostAt": "2026-08-01T13:05:16+00:00",
+      "reusedPrevious": false,
+      "error": null
     }
   ]
 }

@@ -33,6 +33,25 @@ Required environment variables:
 - `BDAY_ADMIN_ID` — Telegram ID that receives broadcast previews;
 - `BDAY_ADMIN_URL` — optional link to the legacy BdayBot control panel.
 
+Travel Radar runs its Telegram-channel parser inside the production server
+every 30 minutes; a separate GitHub Actions workflow refreshes the same public
+files twice per hour as a fallback. Paid alerts require:
+
+- `RADAR_TELEGRAM_BOT_TOKEN` — token issued by BotFather;
+- `RADAR_TELEGRAM_BOT_USERNAME` — bot username without `@`;
+- `RADAR_TELEGRAM_WEBHOOK_SECRET` — random 1–256 character webhook secret;
+- `YOOKASSA_SHOP_ID` and `YOOKASSA_SECRET_KEY` — YooKassa API credentials;
+- `PUBLIC_BASE_URL` — normally `https://memorasolutions.ru`;
+- `YOOKASSA_RECEIPTS_ENABLED=true` if YooKassa must receive receipt data;
+- `YOOKASSA_VAT_CODE` — receipt VAT code (defaults to `1`).
+
+The YooKassa shop must have recurring payments enabled. Configure its webhook
+as `https://memorasolutions.ru/api/travel/payments/yookassa` for the
+`payment.succeeded` and `payment.canceled` events. The Telegram webhook is registered automatically on
+server startup when all three `RADAR_TELEGRAM_*` variables are present. Bot
+commands `/status` and `/cancel` let a subscriber check the paid period or stop
+auto-renewal even if browser storage was cleared.
+
 Pomodoro uses one renderer source for desktop and web. After renderer changes,
 run `npm run build:web` inside `memora-pomodoro`; this updates
 `public/app/pomodoro` and `public/pomodoro-version.json`. A desktop release is

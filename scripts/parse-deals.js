@@ -23,6 +23,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import { DEAL_DESTINATIONS } from './deal-destinations.js';
+import { placeMeta } from './travel-place-meta.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -261,10 +262,12 @@ function parseSegment(seg, postCtx) {
       : segUrl || postCtx.links?.[0] || postCtx.link
     : segUrl || postCtx.links?.[0] || postCtx.link;
 
+  const fromMeta = placeMeta(from.code, from.name);
+  const toMeta = placeMeta(to.code, to.name);
   return {
     type,
-    from: { name: from.name, code: from.code },
-    to: { name: to.name, code: to.code },
+    from: { name: from.name, code: from.code, ...fromMeta },
+    to: { name: to.name, code: to.code, ...toMeta },
     price, oldPrice, savings, discount, oneway,
     nights: nightsM ? Number(nightsM[1]) : null,
     departDate,
@@ -370,12 +373,10 @@ function isExpired(deal, now = Date.now()) {
   return Number.isFinite(endOfDepartureDay) && endOfDepartureDay < now;
 }
 
-async function main() {
-  const raw = JSON.parse(await readFile(join(ROOT, 'public', 'tours.json'), 'utf8'));
-  const refPrices = await loadRefPrices();
+function buildDeals(items, refPrices = new Map()) {
   const seen = new Set();
   const deals = [];
-  for (const post of raw.items || []) {
+  for (const post of items || []) {
     for (const d of structure(post)) {
       if (isExpired(d)) continue;
       const key = `${d.type}-${d.from.code}-${d.to.code}-${d.price}`;
@@ -400,7 +401,16 @@ async function main() {
     || (b.discount || 0) - (a.discount || 0)
     || a.price - b.price);
 
-  const payload = { updatedAt: new Date().toISOString(), marker: MARKER, deals };
+  return deals;
+}
+
+async function main() {
+  const raw = JSON.parse(await readFile(join(ROOT, 'public', 'tours.json'), 'utf8'));
+  const refPrices = await loadRefPrices();
+  const deals = buildDeals(raw.items, refPrices);
+  const payload = {
+    updatedAt: new Date().toISOString(), marker: MARKER, deals, health: raw.health || [],
+  };
   await writeFile(join(ROOT, 'public', 'hot-deals.json'), JSON.stringify(payload, null, 2) + '\n', 'utf8');
   const tours = deals.filter((d) => d.type === 'tour').length;
   console.log(`structured ${deals.length} deals (${tours} tours, ${deals.length - tours} flights) from ${raw.items.length} posts`);
@@ -417,4 +427,6 @@ if (isMain) {
   main();
 }
 
-export { findCities, findCity, isExpired, parseSegment, resolveRoute, structure };
+export {
+  buildDeals, findCities, findCity, isExpired, loadRefPrices, parseSegment, resolveRoute, structure,
+};

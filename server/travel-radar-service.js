@@ -1,0 +1,587 @@
+import { createHash, randomBytes, randomUUID } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  getState, getStoreStatus, setState, updateState,
+} from './admin-store.js';
+import { fetchAllChannels } from '../scripts/fetch-tours.js';
+import { buildDeals, loadRefPrices } from '../scripts/parse-deals.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(__dirname, '..');
+const FEED_KEY = 'travel_radar_feed_v1';
+const SUBSCRIPTIONS_KEY = 'travel_radar_subscriptions_v1';
+const PRICE_RUB = 300;
+const PERIOD_MS = 30 * 24 * 60 * 60 * 1000;
+const REFRESH_MS = 30 * 60 * 1000;
+const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || 'https://memorasolutions.ru').replace(/\/$/, '');
+const TELEGRAM_TOKEN = process.env.RADAR_TELEGRAM_BOT_TOKEN || '';
+const TELEGRAM_USERNAME = String(process.env.RADAR_TELEGRAM_BOT_USERNAME || '').replace(/^@/, '');
+const TELEGRAM_WEBHOOK_SECRET = process.env.RADAR_TELEGRAM_WEBHOOK_SECRET || '';
+const YOOKASSA_SHOP_ID = process.env.YOOKASSA_SHOP_ID || '';
+const YOOKASSA_SECRET_KEY = process.env.YOOKASSA_SECRET_KEY || '';
+
+let refreshTimer;
+let renewalTimer;
+let refreshRunning = false;
+let renewalRunning = false;
+
+const hashToken = (token) => createHash('sha256').update(String(token)).digest('hex');
+const dealKey = (deal) => createHash('sha256').update([
+  deal.source, deal.link, deal.type, deal.from?.code, deal.to?.code, deal.price,
+].join('|')).digest('hex').slice(0, 24);
+
+function cleanEmail(value) {
+  const email = String(value || '').trim().toLowerCase().slice(0, 254);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '';
+}
+
+function cleanFilter(value) {
+  if (!value || typeof value !== 'object') return { kind: 'all', value: '' };
+  const kind = ['all', 'city', 'country'].includes(value.kind) ? value.kind : 'all';
+  const cleanValue = String(value.value || '').trim().slice(0, 120);
+  return kind === 'all' || !cleanValue ? { kind: 'all', value: '' } : { kind, value: cleanValue };
+}
+
+function sanitizeSubscription(subscription) {
+  if (!subscription) return null;
+  return {
+    id: subscription.id,
+    status: subscription.status,
+    telegramConnected: Boolean(subscription.telegramChatId),
+    filters: subscription.filters,
+    autoRenew: subscription.autoRenew,
+    priceRub: PRICE_RUB,
+    currentPeriodEnd: subscription.currentPeriodEnd || null,
+    createdAt: subscription.createdAt,
+    lastPaymentError: subscription.lastPaymentError || null,
+  };
+}
+
+async function readStaticFeed() {
+  try {
+    return JSON.parse(await readFile(join(ROOT, 'public', 'hot-deals.json'), 'utf8'));
+  } catch {
+    return { updatedAt: '', deals: [], health: [] };
+  }
+}
+
+async function readRawItems() {
+  try {
+    return JSON.parse(await readFile(join(ROOT, 'public', 'tours.json'), 'utf8')).items || [];
+  } catch {
+    return [];
+  }
+}
+
+export function travelCapabilities() {
+  const telegram = Boolean(TELEGRAM_TOKEN && TELEGRAM_USERNAME && TELEGRAM_WEBHOOK_SECRET);
+  const payments = Boolean(YOOKASSA_SHOP_ID && YOOKASSA_SECRET_KEY);
+  return {
+    priceRub: PRICE_RUB,
+    periodDays: 30,
+    telegram,
+    telegramUsername: telegram ? TELEGRAM_USERNAME : null,
+    payments,
+    subscriptionsAvailable: telegram && payments,
+  };
+}
+
+export async function getTravelFeed() {
+  return getState(FEED_KEY, await readStaticFeed());
+}
+
+export async function createTravelSubscription(input) {
+  const storage = await getStoreStatus();
+  if (!storage.persistent) throw new Error('STORAGE_UNAVAILABLE');
+  if (!travelCapabilities().subscriptionsAvailable) throw new Error('SUBSCRIPTIONS_NOT_CONFIGURED');
+  const email = cleanEmail(input.email);
+  if (!email) throw new Error('INVALID_EMAIL');
+  if (input.consent !== true) throw new Error('CONSENT_REQUIRED');
+
+  const token = randomBytes(24).toString('base64url');
+  const now = new Date().toISOString();
+  const subscription = {
+    id: randomUUID(),
+    tokenHash: hashToken(token),
+    email,
+    telegramChatId: null,
+    telegramUsername: null,
+    status: 'awaiting_telegram',
+    filters: {
+      origin: cleanFilter(input.filters?.origin),
+      destination: cleanFilter(input.filters?.destination),
+      dealType: ['flight', 'tour'].includes(input.filters?.dealType) ? input.filters.dealType : 'all',
+      maxPrice: Math.max(0, Math.min(2_000_000, Number(input.filters?.maxPrice) || 0)),
+      minDiscount: Math.max(0, Math.min(90, Number(input.filters?.minDiscount) || 0)),
+    },
+    autoRenew: true,
+    consentAt: now,
+    createdAt: now,
+    updatedAt: now,
+    currentPeriodEnd: null,
+    paymentMethodId: null,
+    pendingPaymentId: null,
+    appliedPaymentIds: [],
+    renewalStartedAt: null,
+    notifiedDealIds: [],
+  };
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => {
+    subscriptions.push(subscription);
+    return subscriptions.slice(-10_000);
+  });
+  return {
+    token,
+    subscription: sanitizeSubscription(subscription),
+    telegramUrl: `https://t.me/${TELEGRAM_USERNAME}?start=radar_${token}`,
+  };
+}
+
+async function findSubscription(token) {
+  const tokenHash = hashToken(token);
+  const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
+  return subscriptions.find((item) => item.tokenHash === tokenHash) || null;
+}
+
+export async function getTravelSubscription(token) {
+  return sanitizeSubscription(await findSubscription(token));
+}
+
+function paymentAuth() {
+  return `Basic ${Buffer.from(`${YOOKASSA_SHOP_ID}:${YOOKASSA_SECRET_KEY}`).toString('base64')}`;
+}
+
+async function yookassaRequest(path, { method = 'GET', body, idempotenceKey } = {}) {
+  const response = await fetch(`https://api.yookassa.ru/v3${path}`, {
+    method,
+    headers: {
+      Authorization: paymentAuth(),
+      'Content-Type': 'application/json',
+      ...(idempotenceKey ? { 'Idempotence-Key': idempotenceKey } : {}),
+    },
+    ...(body ? { body: JSON.stringify(body) } : {}),
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = new Error(payload.description || `YooKassa HTTP ${response.status}`);
+    error.code = 'PAYMENT_PROVIDER_ERROR';
+    throw error;
+  }
+  return payload;
+}
+
+function receiptFor(subscription) {
+  if (process.env.YOOKASSA_RECEIPTS_ENABLED !== 'true') return {};
+  return {
+    receipt: {
+      customer: { email: subscription.email },
+      items: [{
+        description: 'Подписка на уведомления Радара путешествий, 30 дней',
+        quantity: '1.00',
+        amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
+        vat_code: Number(process.env.YOOKASSA_VAT_CODE) || 1,
+        payment_subject: 'service',
+        payment_mode: 'full_payment',
+      }],
+    },
+  };
+}
+
+export async function createTravelCheckout(token) {
+  const subscription = await findSubscription(token);
+  if (!subscription) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  if (!subscription.telegramChatId) throw new Error('TELEGRAM_NOT_CONNECTED');
+  if (subscription.status === 'active' && Date.parse(subscription.currentPeriodEnd) > Date.now()) {
+    throw new Error('ALREADY_ACTIVE');
+  }
+
+  const payment = await yookassaRequest('/payments', {
+    method: 'POST',
+    idempotenceKey: randomUUID(),
+    body: {
+      amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
+      capture: true,
+      save_payment_method: true,
+      confirmation: {
+        type: 'redirect',
+        return_url: `${PUBLIC_BASE_URL}/travel-radar?subscription=payment-return`,
+      },
+      description: 'Уведомления Радара путешествий — 30 дней',
+      metadata: { subscription_id: subscription.id, payment_kind: 'initial' },
+      ...receiptFor(subscription),
+    },
+  });
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => (
+    item.id === subscription.id
+      && !(item.appliedPaymentIds || []).includes(payment.id)
+      ? {
+        ...item,
+        status: 'awaiting_payment',
+        pendingPaymentId: payment.id,
+        updatedAt: new Date().toISOString(),
+      }
+      : item
+  )));
+  return { confirmationUrl: payment.confirmation?.confirmation_url || null };
+}
+
+async function applyVerifiedPayment(payment) {
+  if (!payment?.id || payment.status !== 'succeeded') return false;
+  if (payment.amount?.currency !== 'RUB' || Number(payment.amount?.value) !== PRICE_RUB) return false;
+  const subscriptionId = String(payment.metadata?.subscription_id || '');
+  if (!subscriptionId) return false;
+
+  const now = Date.now();
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
+    if (item.id !== subscriptionId) return item;
+    if ((item.appliedPaymentIds || []).includes(payment.id)) return item;
+    const base = Math.max(now, Date.parse(item.currentPeriodEnd || '') || 0);
+    return {
+      ...item,
+      status: 'active',
+      autoRenew: payment.payment_method?.saved === true ? item.autoRenew : false,
+      paymentMethodId: payment.payment_method?.saved ? payment.payment_method.id : item.paymentMethodId,
+      pendingPaymentId: null,
+      renewalStartedAt: null,
+      lastPaymentError: null,
+      appliedPaymentIds: [...(item.appliedPaymentIds || []), payment.id].slice(-60),
+      currentPeriodEnd: new Date(base + PERIOD_MS).toISOString(),
+      activatedAt: item.activatedAt || new Date(now).toISOString(),
+      updatedAt: new Date(now).toISOString(),
+    };
+  }));
+  return true;
+}
+
+export async function handleYookassaWebhook(input) {
+  const paymentId = String(input?.object?.id || '');
+  if (!paymentId || !['payment.succeeded', 'payment.canceled'].includes(input?.event)) {
+    return { accepted: true };
+  }
+  const payment = await yookassaRequest(`/payments/${encodeURIComponent(paymentId)}`);
+  if (input.event === 'payment.canceled' && payment.status === 'canceled') {
+    const subscriptionId = String(payment.metadata?.subscription_id || '');
+    await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
+      if (item.id !== subscriptionId || item.pendingPaymentId !== payment.id) return item;
+      const expired = item.currentPeriodEnd && Date.parse(item.currentPeriodEnd) <= Date.now();
+      const renewal = payment.metadata?.payment_kind === 'renewal';
+      return {
+        ...item,
+        status: expired
+          ? 'past_due'
+          : renewal
+            ? 'active'
+            : item.telegramChatId ? 'awaiting_payment' : 'awaiting_telegram',
+        pendingPaymentId: null,
+        renewalStartedAt: null,
+        lastPaymentError: payment.cancellation_details?.reason || 'payment_canceled',
+        updatedAt: new Date().toISOString(),
+      };
+    }));
+    return { accepted: true };
+  }
+  return { accepted: await applyVerifiedPayment(payment) };
+}
+
+export async function cancelTravelSubscription(token) {
+  const tokenHash = hashToken(token);
+  let found = false;
+  let result = null;
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
+    if (item.tokenHash !== tokenHash) return item;
+    found = true;
+    result = {
+      ...item,
+      autoRenew: false,
+      status: item.status === 'active' ? 'canceling' : 'canceled',
+      updatedAt: new Date().toISOString(),
+    };
+    return result;
+  }));
+  if (!found) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  return sanitizeSubscription(result);
+}
+
+export async function updateTravelSubscription(token, input) {
+  const tokenHash = hashToken(token);
+  let result = null;
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
+    if (item.tokenHash !== tokenHash) return item;
+    result = {
+      ...item,
+      filters: {
+        origin: cleanFilter(input.filters?.origin),
+        destination: cleanFilter(input.filters?.destination),
+        dealType: ['flight', 'tour'].includes(input.filters?.dealType) ? input.filters.dealType : 'all',
+        maxPrice: Math.max(0, Math.min(2_000_000, Number(input.filters?.maxPrice) || 0)),
+        minDiscount: Math.max(0, Math.min(90, Number(input.filters?.minDiscount) || 0)),
+      },
+      updatedAt: new Date().toISOString(),
+    };
+    return result;
+  }));
+  if (!result) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  return sanitizeSubscription(result);
+}
+
+async function telegramRequest(method, body) {
+  const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/${method}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok || !payload.ok) throw new Error(payload.description || `Telegram HTTP ${response.status}`);
+  return payload.result;
+}
+
+const escapeHtml = (value) => String(value || '').replace(/[&<>]/g, (char) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;',
+}[char]));
+
+export async function handleTravelTelegramUpdate(update, secretHeader) {
+  if (!TELEGRAM_WEBHOOK_SECRET || secretHeader !== TELEGRAM_WEBHOOK_SECRET) {
+    throw new Error('INVALID_TELEGRAM_SECRET');
+  }
+  const message = update?.message;
+  const chatId = message?.chat?.id ? String(message.chat.id) : '';
+  const command = String(message?.text || '').trim().split(/\s+/)[0].replace(/@\w+$/, '');
+  if (chatId && command === '/cancel') {
+    let changed = false;
+    await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
+      if (item.telegramChatId !== chatId || !['active', 'canceling'].includes(item.status)) return item;
+      changed = true;
+      return {
+        ...item,
+        autoRenew: false,
+        status: item.status === 'active' ? 'canceling' : item.status,
+        updatedAt: new Date().toISOString(),
+      };
+    }));
+    await telegramRequest('sendMessage', {
+      chat_id: chatId,
+      text: changed
+        ? 'Автопродление отключено. Уведомления продолжат работать до конца оплаченного периода.'
+        : 'Активная подписка для этого чата не найдена.',
+    });
+    return { accepted: true };
+  }
+  if (chatId && command === '/status') {
+    const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
+    const subscription = subscriptions.find((item) => item.telegramChatId === chatId
+      && ['active', 'canceling'].includes(item.status));
+    await telegramRequest('sendMessage', {
+      chat_id: chatId,
+      text: subscription
+        ? `Подписка ${subscription.status === 'active' ? 'активна' : 'не продлевается'}. Оплачено до ${new Date(subscription.currentPeriodEnd).toLocaleDateString('ru-RU')}.`
+        : 'Активная подписка для этого чата не найдена.',
+    });
+    return { accepted: true };
+  }
+  const match = String(message?.text || '').match(/^\/start(?:@\w+)?\s+radar_([A-Za-z0-9_-]{20,64})$/);
+  if (!message?.chat?.id || !match) return { accepted: true };
+  const tokenHash = hashToken(match[1]);
+  let linked = false;
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
+    if (item.tokenHash !== tokenHash) return item;
+    linked = true;
+    return {
+      ...item,
+      telegramChatId: String(message.chat.id),
+      telegramUsername: message.from?.username || null,
+      status: item.status === 'awaiting_telegram' ? 'awaiting_payment' : item.status,
+      updatedAt: new Date().toISOString(),
+    };
+  }));
+  await telegramRequest('sendMessage', {
+    chat_id: message.chat.id,
+    text: linked
+      ? 'Радар подключён. Вернитесь на сайт, оплатите подписку — и я начну присылать подходящие предложения.'
+      : 'Ссылка подключения устарела. Создайте подписку заново на сайте Радара путешествий.',
+  });
+  return { accepted: true };
+}
+
+function placeMatches(place, filter) {
+  if (!filter || filter.kind === 'all') return true;
+  if (filter.kind === 'city') return place?.code === filter.value;
+  return [place?.country?.ru, place?.country?.en].includes(filter.value);
+}
+
+function dealMatches(deal, filters) {
+  if (filters.dealType !== 'all' && deal.type !== filters.dealType) return false;
+  if (!placeMatches(deal.from, filters.origin) || !placeMatches(deal.to, filters.destination)) return false;
+  if (filters.maxPrice && deal.price > filters.maxPrice) return false;
+  return !filters.minDiscount || Math.round((deal.discount || 0) * 100) >= filters.minDiscount;
+}
+
+async function sendMatchingNotifications(deals) {
+  if (!TELEGRAM_TOKEN) return;
+  const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
+  for (const subscription of subscriptions) {
+    if (subscription.status !== 'active' || !subscription.telegramChatId) continue;
+    if (Date.parse(subscription.currentPeriodEnd || '') <= Date.now()) continue;
+    const sent = new Set(subscription.notifiedDealIds || []);
+    const activatedAt = Date.parse(subscription.activatedAt || subscription.createdAt || '') || 0;
+    const matches = deals.filter((deal) => {
+      const published = Date.parse(deal.date || '') || 0;
+      return published >= activatedAt - 5 * 60 * 1000
+        && !sent.has(dealKey(deal))
+        && dealMatches(deal, subscription.filters);
+    }).slice(0, 5);
+    if (!matches.length) continue;
+
+    const reservedIds = [];
+    await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => {
+      if (item.id !== subscription.id) return item;
+      const existing = new Set(item.notifiedDealIds || []);
+      for (const deal of matches) {
+        const key = dealKey(deal);
+        if (!existing.has(key)) {
+          existing.add(key);
+          reservedIds.push(key);
+        }
+      }
+      return { ...item, notifiedDealIds: [...existing].slice(-300) };
+    }));
+    const reservedMatches = matches.filter((deal) => reservedIds.includes(dealKey(deal)));
+    if (!reservedMatches.length) continue;
+    const reservedText = reservedMatches.map((deal) => {
+      const discount = deal.discount ? ` · −${Math.round(deal.discount * 100)}%` : '';
+      return `✈️ <b>${escapeHtml(deal.from?.name)} → ${escapeHtml(deal.to?.name)}</b>\n`
+        + `${Number(deal.price).toLocaleString('ru-RU')} ₽${discount}\n`
+        + `<a href="${escapeHtml(deal.link)}">Открыть предложение</a>`;
+    }).join('\n\n');
+    try {
+      await telegramRequest('sendMessage', {
+        chat_id: subscription.telegramChatId,
+        text: reservedText,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      });
+    } catch (error) {
+      console.error(`Travel notification ${subscription.id}:`, error.message);
+      await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => (
+        item.id === subscription.id
+          ? { ...item, notifiedDealIds: (item.notifiedDealIds || []).filter((id) => !reservedIds.includes(id)) }
+          : item
+      )));
+    }
+  }
+}
+
+export async function refreshTravelRadar({ force = false } = {}) {
+  if (refreshRunning) return { skipped: true, reason: 'already-running' };
+  refreshRunning = true;
+  try {
+    const previousFeed = await getTravelFeed();
+    if (!force && Date.now() - Date.parse(previousFeed.updatedAt || '') < 25 * 60 * 1000) {
+      return { skipped: true, reason: 'fresh' };
+    }
+    const previousRaw = previousFeed.rawItems || await readRawItems();
+    const raw = await fetchAllChannels(previousRaw);
+    const deals = buildDeals(raw.items, await loadRefPrices());
+    const feed = {
+      updatedAt: raw.updatedAt,
+      marker: '748397',
+      deals,
+      health: raw.health,
+      rawItems: raw.items,
+    };
+    await setState(FEED_KEY, feed);
+    await sendMatchingNotifications(deals);
+    console.log(`Travel Radar: ${deals.length} deals from ${raw.items.length} fresh posts`);
+    return { skipped: false, deals: deals.length, health: raw.health };
+  } finally {
+    refreshRunning = false;
+  }
+}
+
+async function renewSubscriptions() {
+  if (renewalRunning || !travelCapabilities().payments) return;
+  renewalRunning = true;
+  try {
+    await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => {
+      if (!item.currentPeriodEnd || Date.parse(item.currentPeriodEnd) > Date.now()) return item;
+      if (item.status === 'canceling') return { ...item, status: 'canceled', updatedAt: new Date().toISOString() };
+      if (item.status === 'active' && (!item.autoRenew || !item.paymentMethodId)) {
+        return { ...item, status: 'past_due', updatedAt: new Date().toISOString() };
+      }
+      return item;
+    }));
+    const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
+    const due = subscriptions.filter((item) => item.status === 'active'
+      && item.autoRenew && item.paymentMethodId
+      && !item.pendingPaymentId
+      && Date.parse(item.currentPeriodEnd || '') <= Date.now() + 12 * 60 * 60 * 1000
+      && (!item.renewalStartedAt || Date.now() - Date.parse(item.renewalStartedAt) > 6 * 60 * 60 * 1000));
+    for (const subscription of due) {
+      const startedAt = new Date().toISOString();
+      await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => (
+        item.id === subscription.id ? { ...item, renewalStartedAt: startedAt } : item
+      )));
+      try {
+        const payment = await yookassaRequest('/payments', {
+          method: 'POST',
+          idempotenceKey: randomUUID(),
+          body: {
+            amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
+            capture: true,
+            payment_method_id: subscription.paymentMethodId,
+            description: 'Продление уведомлений Радара путешествий',
+            metadata: { subscription_id: subscription.id, payment_kind: 'renewal' },
+            ...receiptFor(subscription),
+          },
+        });
+        await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => (
+          item.id === subscription.id ? { ...item, pendingPaymentId: payment.id } : item
+        )));
+        if (payment.status === 'succeeded') await applyVerifiedPayment(payment);
+      } catch (error) {
+        await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => (
+          item.id === subscription.id
+            ? { ...item, lastPaymentError: error.message, updatedAt: new Date().toISOString() }
+            : item
+        )));
+      }
+    }
+  } finally {
+    renewalRunning = false;
+  }
+}
+
+async function configureTelegramWebhook() {
+  if (!travelCapabilities().telegram) return;
+  try {
+    await telegramRequest('setWebhook', {
+      url: `${PUBLIC_BASE_URL}/api/travel/telegram/webhook`,
+      secret_token: TELEGRAM_WEBHOOK_SECRET,
+      allowed_updates: ['message'],
+    });
+    console.log('Travel Radar: Telegram webhook configured');
+  } catch (error) {
+    console.error('Travel Radar Telegram webhook:', error.message);
+  }
+}
+
+export function startTravelRadarServices() {
+  setTimeout(() => refreshTravelRadar().catch((error) => {
+    console.error('Travel Radar initial refresh:', error);
+  }), 5_000).unref();
+  refreshTimer = setInterval(() => refreshTravelRadar({ force: true }).catch((error) => {
+    console.error('Travel Radar scheduled refresh:', error);
+  }), REFRESH_MS);
+  renewalTimer = setInterval(() => renewSubscriptions().catch((error) => {
+    console.error('Travel Radar renewals:', error);
+  }), 60 * 60 * 1000);
+  refreshTimer.unref();
+  renewalTimer.unref();
+  configureTelegramWebhook();
+  renewSubscriptions().catch((error) => console.error('Travel Radar renewals:', error));
+}
+
+export function stopTravelRadarServices() {
+  if (refreshTimer) clearInterval(refreshTimer);
+  if (renewalTimer) clearInterval(renewalTimer);
+}

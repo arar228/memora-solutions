@@ -20,6 +20,9 @@ assert.equal(newZealand.length, 1);
 assert.equal(newZealand[0].from.code, 'LED');
 assert.equal(newZealand[0].to.code, 'AKL');
 assert.equal(newZealand[0].to.name, 'Новая Зеландия');
+assert.deepEqual(newZealand[0].to.country, { ru: 'Новая Зеландия', en: 'New Zealand' });
+assert.equal(newZealand[0].to.kind, 'country');
+assert.deepEqual(newZealand[0].from.country, { ru: 'Россия', en: 'Russia' });
 assert.equal(newZealand[0].price, 80500);
 
 const worldRoutes = [
@@ -71,6 +74,8 @@ const sharm = parse('Москва — Шарм-эш-Шейх от 23500₽ в о
 assert.equal(sharm[0].from.code, 'MOW');
 assert.equal(sharm[0].to.code, 'SSH');
 assert.equal(sharm[0].type, 'flight');
+assert.deepEqual(sharm[0].to.country, { ru: 'Египет', en: 'Egypt' });
+assert.equal(sharm[0].to.kind, 'city');
 
 const foreign = parse('Полеты из Касабланки в Кабо-Верде за 22.300 руб туда-обратно');
 assert.equal(foreign[0].from.code, 'CMN');

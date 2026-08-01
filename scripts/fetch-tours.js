@@ -9,7 +9,7 @@
  * scrape on the client (CORS + reliability), only at build/cron time.
  */
 
-import { writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 
@@ -128,33 +128,74 @@ function parseChannel(html, channel) {
     return items.reverse().slice(0, PER_CHANNEL);
 }
 
-async function fetchChannel(channel) {
+async function fetchChannelReport(channel) {
     const url = `https://t.me/s/${channel}`;
     try {
         const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Language': 'ru,en' } });
         if (!res.ok) {
             console.warn(`[skip] ${channel}: HTTP ${res.status}`);
-            return [];
+            return { channel, status: 'error', items: [], error: `HTTP ${res.status}` };
         }
         const html = await res.text();
         const items = parseChannel(html, channel);
-        console.log(`[ok]   ${channel}: ${items.length} posts`);
-        return items;
+        const status = items.length > 0 ? 'ok' : 'degraded';
+        console.log(`[${status}] ${channel}: ${items.length} posts`);
+        return {
+            channel,
+            status,
+            items,
+            error: items.length > 0 ? null : 'В публичной ленте не найдено сообщений',
+        };
     } catch (err) {
         console.warn(`[skip] ${channel}: ${err.message}`);
-        return [];
+        return { channel, status: 'error', items: [], error: err.message };
     }
 }
 
-async function main() {
-    const results = await Promise.all(CHANNELS.map(fetchChannel));
+async function fetchChannel(channel) {
+    return (await fetchChannelReport(channel)).items;
+}
+
+async function fetchAllChannels(previousItems = []) {
+    const reports = await Promise.all(CHANNELS.map(fetchChannelReport));
     const cutoff = Date.now() - MAX_POST_AGE_HOURS * 60 * 60 * 1000;
-    const all = results.flat().filter((item) => {
+    const all = [];
+    const health = [];
+
+    for (const report of reports) {
+        const fresh = report.items.filter((item) => {
+            const timestamp = Date.parse(item.date || '');
+            return Number.isFinite(timestamp) && timestamp >= cutoff;
+        });
+        const previous = previousItems.filter((item) => item.channel === report.channel).filter((item) => {
+            const timestamp = Date.parse(item.date || '');
+            return Number.isFinite(timestamp) && timestamp >= cutoff;
+        });
+        const reused = report.status !== 'ok' && fresh.length === 0 && previous.length > 0;
+        all.push(...(reused ? previous : fresh));
+        const healthStatus = reused
+            ? 'stale'
+            : report.status === 'ok' && fresh.length === 0
+                ? 'idle'
+                : report.status;
+        health.push({
+            channel: report.channel,
+            status: healthStatus,
+            checkedAt: new Date().toISOString(),
+            fetchedPosts: report.items.length,
+            freshPosts: reused ? previous.length : fresh.length,
+            latestPostAt: (reused ? previous : fresh)[0]?.date || report.items[0]?.date || null,
+            reusedPrevious: reused,
+            error: report.error,
+        });
+    }
+
+    const freshAll = all.filter((item) => {
         const timestamp = Date.parse(item.date || '');
         return Number.isFinite(timestamp) && timestamp >= cutoff;
     });
 
-    all.sort((a, b) => {
+    freshAll.sort((a, b) => {
         const ta = a.date ? Date.parse(a.date) : 0;
         const tb = b.date ? Date.parse(b.date) : 0;
         return tb - ta;
@@ -164,8 +205,19 @@ async function main() {
         updatedAt: new Date().toISOString(),
         sources: CHANNELS,
         sourceAliases: SOURCE_ALIASES,
-        items: all.slice(0, TOTAL_CAP),
+        health,
+        items: freshAll.slice(0, TOTAL_CAP),
     };
+
+    return payload;
+}
+
+async function main() {
+    let previousItems = [];
+    try {
+        previousItems = JSON.parse(await readFile(OUT_PATH, 'utf8')).items || [];
+    } catch { /* first run */ }
+    const payload = await fetchAllChannels(previousItems);
 
     await mkdir(dirname(OUT_PATH), { recursive: true });
     await writeFile(OUT_PATH, JSON.stringify(payload, null, 2) + '\n', 'utf8');
@@ -182,4 +234,7 @@ if (isMain) {
     main();
 }
 
-export { CHANNELS, MAX_POST_AGE_HOURS, SOURCE_ALIASES, fetchChannel, parseChannel };
+export {
+    CHANNELS, MAX_POST_AGE_HOURS, SOURCE_ALIASES,
+    fetchAllChannels, fetchChannel, fetchChannelReport, parseChannel,
+};

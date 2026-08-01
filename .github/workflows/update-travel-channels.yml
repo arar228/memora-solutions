@@ -1,0 +1,58 @@
+name: Update Travel Radar channels
+
+on:
+  schedule:
+    # Every 30 minutes, shifted away from the top of the hour.
+    - cron: '7,37 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-travel-radar-channels
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch every Telegram channel
+        run: node scripts/fetch-tours.js
+
+      - name: Structure deals
+        run: node scripts/parse-deals.js
+
+      - name: Test parser
+        run: npm run test:deals
+
+      - name: Validate Telegram feeds
+        run: node scripts/validate-feeds.js tours hot-deals
+
+      - name: Commit refreshed feeds
+        run: |
+          if [[ -z "$(git status --porcelain public/tours.json public/hot-deals.json)" ]]; then
+            echo "No data changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/tours.json public/hot-deals.json
+          git commit -m "chore(data): refresh Travel Radar channels [skip ci]"
+
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin master && git push && exit 0
+            echo "push attempt $i rejected; rebasing and retrying"
+            sleep $((RANDOM % 5 + 3))
+          done
+
+          echo "failed to push refreshed channels after 5 attempts" >&2
+          exit 1

@@ -50,6 +50,19 @@ import {
   validClientId,
   validateKanbanBoard,
 } from './server/kanban-store.js';
+import {
+  cancelTravelSubscription,
+  createTravelCheckout,
+  createTravelSubscription,
+  getTravelFeed,
+  getTravelSubscription,
+  handleTravelTelegramUpdate,
+  handleYookassaWebhook,
+  startTravelRadarServices,
+  stopTravelRadarServices,
+  travelCapabilities,
+  updateTravelSubscription,
+} from './server/travel-radar-service.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, 'dist');
@@ -450,6 +463,110 @@ function recordKanbanMessage(rate) {
   }
 }
 
+const travelMutationTimestamps = new Map();
+
+function checkTravelMutationRate(req) {
+  const key = requestIp(req);
+  const now = Date.now();
+  const recent = (travelMutationTimestamps.get(key) || [])
+    .filter((timestamp) => now - timestamp < 15 * 60 * 1000);
+  if (recent.length >= 8) return false;
+  travelMutationTimestamps.set(key, [...recent, now]);
+  return true;
+}
+
+const TRAVEL_ERROR_STATUS = {
+  INVALID_EMAIL: 400,
+  CONSENT_REQUIRED: 400,
+  SUBSCRIPTION_NOT_FOUND: 404,
+  TELEGRAM_NOT_CONNECTED: 409,
+  ALREADY_ACTIVE: 409,
+  STORAGE_UNAVAILABLE: 503,
+  SUBSCRIPTIONS_NOT_CONFIGURED: 503,
+  PAYMENT_PROVIDER_ERROR: 502,
+  INVALID_TELEGRAM_SECRET: 403,
+};
+
+async function handlePublicTravelApi(req, res, pathname, url) {
+  if (pathname === '/api/travel/deals' && req.method === 'GET') {
+    const feed = await getTravelFeed();
+    const { rawItems: _rawItems, ...publicFeed } = feed;
+    return sendJson(res, 200, publicFeed, { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' });
+  }
+  if (pathname === '/api/travel/capabilities' && req.method === 'GET') {
+    return sendJson(res, 200, travelCapabilities(), { 'Cache-Control': 'public, max-age=60' });
+  }
+  if (pathname === '/api/travel/subscriptions' && req.method === 'GET') {
+    const subscription = await getTravelSubscription(url.searchParams.get('token') || '');
+    return subscription
+      ? sendJson(res, 200, { subscription })
+      : sendJson(res, 404, { error: 'Подписка не найдена' });
+  }
+
+  let body;
+  try {
+    body = await readJson(req, 64 * 1024);
+  } catch (error) {
+    return sendJson(res, error.message === 'PAYLOAD_TOO_LARGE' ? 413 : 400, {
+      error: error.message === 'PAYLOAD_TOO_LARGE' ? 'Запрос слишком большой' : 'Некорректный JSON',
+    });
+  }
+
+  try {
+    if (pathname === '/api/travel/telegram/webhook' && req.method === 'POST') {
+      const result = await handleTravelTelegramUpdate(
+        body,
+        String(req.headers['x-telegram-bot-api-secret-token'] || ''),
+      );
+      return sendJson(res, 200, result);
+    }
+    if (pathname === '/api/travel/payments/yookassa' && req.method === 'POST') {
+      return sendJson(res, 200, await handleYookassaWebhook(body));
+    }
+
+    if (!['/api/travel/subscriptions', '/api/travel/subscriptions/checkout', '/api/travel/subscriptions/cancel', '/api/travel/subscriptions/settings'].includes(pathname)) {
+      return sendJson(res, 404, { error: 'Not found' });
+    }
+    if (req.method !== 'POST') return sendJson(res, 405, { error: 'Method not allowed' });
+    if (!publicMutationIsSameOrigin(req)) {
+      return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+    }
+    if (!checkTravelMutationRate(req)) {
+      return sendJson(res, 429, { error: 'Слишком много запросов. Попробуйте позднее.' }, { 'Retry-After': '900' });
+    }
+
+    if (pathname === '/api/travel/subscriptions') {
+      return sendJson(res, 201, await createTravelSubscription(body));
+    }
+    if (pathname === '/api/travel/subscriptions/checkout') {
+      return sendJson(res, 200, await createTravelCheckout(String(body.token || '')));
+    }
+    if (pathname === '/api/travel/subscriptions/settings') {
+      return sendJson(res, 200, {
+        subscription: await updateTravelSubscription(String(body.token || ''), body),
+      });
+    }
+    return sendJson(res, 200, {
+      subscription: await cancelTravelSubscription(String(body.token || '')),
+    });
+  } catch (error) {
+    const status = TRAVEL_ERROR_STATUS[error.code || error.message] || 500;
+    if (status >= 500) console.error('Travel Radar API:', error);
+    const messages = {
+      INVALID_EMAIL: 'Укажите корректный email',
+      CONSENT_REQUIRED: 'Нужно подтвердить условия автопродления',
+      SUBSCRIPTION_NOT_FOUND: 'Подписка не найдена',
+      TELEGRAM_NOT_CONNECTED: 'Сначала подключите Telegram-бота',
+      ALREADY_ACTIVE: 'Подписка уже активна',
+      STORAGE_UNAVAILABLE: 'Хранилище подписок временно недоступно',
+      SUBSCRIPTIONS_NOT_CONFIGURED: 'Платные уведомления ещё не подключены',
+      PAYMENT_PROVIDER_ERROR: 'Платёжный сервис временно недоступен',
+      INVALID_TELEGRAM_SECRET: 'Forbidden',
+    };
+    return sendJson(res, status, { error: messages[error.code || error.message] || 'Не удалось выполнить запрос' });
+  }
+}
+
 async function handlePublicKanbanApi(req, res, pathname, url) {
   if (pathname === '/api/kanban/board' && req.method === 'GET') {
     return sendJson(res, 200, { board: await getKanbanBoard() }, {
@@ -560,6 +677,10 @@ const server = createServer(async (req, res) => {
       });
     }
 
+    if (!admin && pathname.startsWith('/api/travel/')) {
+      return await handlePublicTravelApi(req, res, pathname, url);
+    }
+
     if (!admin && (pathname === '/api/kanban/board' || pathname === '/api/kanban/messages')) {
       return await handlePublicKanbanApi(req, res, pathname, url);
     }
@@ -603,6 +724,7 @@ server.listen(PORT, () => {
   console.log(ADMIN_PASSWORD
     ? 'admin.* защищён Basic Auth'
     : 'ВНИМАНИЕ: ADMIN_PASSWORD не задан — админка отдаёт 401 всем');
+  startTravelRadarServices();
 });
 
 async function shutdown(signal) {
@@ -615,6 +737,7 @@ async function shutdown(signal) {
       console.error('Graceful shutdown failed', err);
       process.exit(1);
     }
+    stopTravelRadarServices();
     await Promise.allSettled([closeAdminStore(), closeBdayStore()]);
     process.exit(0);
   });

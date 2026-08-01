@@ -11,7 +11,7 @@ import {
 const FATAL_MARKER = '.feed-validation-fatal';
 if (existsSync(FATAL_MARKER)) unlinkSync(FATAL_MARKER);
 
-const FEEDS = [
+const ALL_FEEDS = [
   {
     path: 'public/radar.json',
     arrays: { hotFlights: 5, cheapFrom: 20, calendars: 20 },
@@ -32,6 +32,17 @@ const FEEDS = [
     arrays: { items: 0 },
   },
 ];
+
+const requestedFeeds = new Set(process.argv.slice(2));
+const FEEDS = requestedFeeds.size === 0
+  ? ALL_FEEDS
+  : ALL_FEEDS.filter((feed) => requestedFeeds.has(feed.path.split('/').at(-1).replace('.json', '')));
+
+if (requestedFeeds.size > 0 && FEEDS.length !== requestedFeeds.size) {
+  const known = ALL_FEEDS.map((feed) => feed.path.split('/').at(-1).replace('.json', ''));
+  console.error(`Unknown feed name. Available: ${known.join(', ')}`);
+  process.exit(2);
+}
 
 function parseFile(path) {
   return JSON.parse(readFileSync(path, 'utf8'));

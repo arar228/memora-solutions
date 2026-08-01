@@ -1,13 +1,12 @@
 name: Update public travel data
 
-# Refresh all public travel feeds in one run and one commit. Keeping the feeds
-# together avoids three separate Railway deployments for the same data cycle.
+# Refresh rate-limited Travelpayouts feeds separately from Telegram channels.
 
 on:
   schedule:
-    # Every 15 minutes, shifted away from the top of the hour where scheduled
-    # GitHub Actions runs are most likely to be delayed.
-    - cron: '7,22,37,52 * * * *'
+    # The provider rate-limits the large route matrix; a three-hour cycle is
+    # sufficient for reference prices and no longer blocks the live deal feed.
+    - cron: '17 */3 * * *'
   workflow_dispatch: {}
 
 permissions:
@@ -59,20 +58,10 @@ jobs:
           fi
           node scripts/fetch-flights.js
 
-      - name: Fetch tours
-        id: tours
-        continue-on-error: true
-        run: node scripts/fetch-tours.js
-
-      - name: Structure deals
-        id: deals
-        continue-on-error: true
-        run: node scripts/parse-deals.js
-
       - name: Validate generated feeds
         id: validate
         continue-on-error: true
-        run: node scripts/validate-feeds.js
+        run: node scripts/validate-feeds.js radar flights
 
       - name: Commit refreshed feeds
         if: always()
@@ -82,14 +71,14 @@ jobs:
             exit 1
           fi
 
-          if [[ -z "$(git status --porcelain public/flights.json public/radar.json public/tours.json public/hot-deals.json)" ]]; then
+          if [[ -z "$(git status --porcelain public/flights.json public/radar.json)" ]]; then
             echo "No data changes."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/flights.json public/radar.json public/tours.json public/hot-deals.json
+          git add public/flights.json public/radar.json
           git commit -m "chore(data): refresh travel feeds [skip ci]"
 
           for i in 1 2 3 4 5; do
@@ -102,7 +91,7 @@ jobs:
           exit 1
 
       - name: Report partial failures
-        if: always() && (steps.radar.outcome == 'failure' || steps.flights.outcome == 'failure' || steps.tours.outcome == 'failure' || steps.deals.outcome == 'failure' || steps.validate.outcome == 'failure')
+        if: always() && (steps.radar.outcome == 'failure' || steps.flights.outcome == 'failure' || steps.validate.outcome == 'failure')
         run: |
           echo "One or more feed refresh or validation steps failed. Valid feeds were still committed; invalid feeds were restored."
           exit 1

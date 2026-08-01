@@ -1,4 +1,5 @@
 import pg from 'pg';
+import { cloneDefaultKanbanBoard } from '../src/data/kanbanConfig.js';
 
 const { Pool } = pg;
 
@@ -22,6 +23,8 @@ const DATABASE_URL = process.env.ADMIN_DATABASE_URL
 const memory = new Map([
   ['pomodoro_tokens', DEFAULT_POMODORO_TOKENS],
   ['kanban_tasks', []],
+  ['kanban_board_v2', cloneDefaultKanbanBoard()],
+  ['kanban_messages_v1', []],
 ]);
 
 let pool;
@@ -88,6 +91,52 @@ export async function setState(key, value) {
     updatedAt: result.rows[0].updated_at,
     persistent: true,
   };
+}
+
+export async function updateState(key, fallback, updater) {
+  if (!await ensureStore()) {
+    const current = memory.has(key) ? memory.get(key) : fallback;
+    const value = updater(structuredClone(current));
+    memory.set(key, value);
+    return { value, updatedAt: new Date().toISOString(), persistent: false };
+  }
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    // Create the row before locking it. SELECT ... FOR UPDATE cannot lock a
+    // missing row, so two first-time messages could otherwise overwrite each
+    // other while both transactions were starting from the fallback value.
+    await client.query(`
+      INSERT INTO memora_admin_state (key, value, updated_at)
+      VALUES ($1, $2::jsonb, NOW())
+      ON CONFLICT (key) DO NOTHING
+    `, [key, JSON.stringify(fallback)]);
+    const currentResult = await client.query(
+      'SELECT value FROM memora_admin_state WHERE key = $1 FOR UPDATE',
+      [key],
+    );
+    const current = currentResult.rows[0].value;
+    const value = updater(structuredClone(current));
+    const result = await client.query(`
+      INSERT INTO memora_admin_state (key, value, updated_at)
+      VALUES ($1, $2::jsonb, NOW())
+      ON CONFLICT (key)
+      DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()
+      RETURNING value, updated_at
+    `, [key, JSON.stringify(value)]);
+    await client.query('COMMIT');
+    return {
+      value: result.rows[0].value,
+      updatedAt: result.rows[0].updated_at,
+      persistent: true,
+    };
+  } catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  } finally {
+    client.release();
+  }
 }
 
 export async function getStoreStatus() {

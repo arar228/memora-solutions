@@ -40,6 +40,16 @@ import {
   setBdayUserBlocked,
   updateBdaySubscription,
 } from './server/bday-store.js';
+import {
+  KANBAN_BOARD_KEY,
+  KANBAN_MESSAGE_MODES,
+  appendKanbanMessage,
+  deleteKanbanMessage,
+  getKanbanBoard,
+  getKanbanMessages,
+  validClientId,
+  validateKanbanBoard,
+} from './server/kanban-store.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, 'dist');
@@ -228,6 +238,63 @@ async function handleAdminApi(req, res, pathname, url) {
     return handleBdayAdminApi(req, res, pathname, url);
   }
 
+  if (pathname === '/api/admin/kanban' && req.method === 'GET') {
+    return sendJson(res, 200, {
+      board: await getKanbanBoard(),
+      messages: await getKanbanMessages('general', '', true),
+    });
+  }
+
+  if (pathname === '/api/admin/kanban/board') {
+    if (req.method !== 'PUT') {
+      return sendJson(res, 405, { error: 'Method not allowed' }, { Allow: 'PUT' });
+    }
+    if (!mutationIsSameOrigin(req)) {
+      return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+    }
+    let body;
+    try {
+      body = await readJson(req);
+    } catch (error) {
+      return sendJson(res, error.message === 'PAYLOAD_TOO_LARGE' ? 413 : 400, {
+        error: error.message === 'PAYLOAD_TOO_LARGE' ? 'Запрос слишком большой' : 'Некорректный JSON',
+      });
+    }
+    const board = validateKanbanBoard(body.board);
+    if (!board) return sendJson(res, 400, { error: 'Некорректная доска или превышен лимит колонок' });
+    return sendJson(res, 200, await setState(KANBAN_BOARD_KEY, board));
+  }
+
+  if (pathname === '/api/admin/kanban/messages' && req.method === 'POST') {
+    if (!mutationIsSameOrigin(req)) {
+      return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+    }
+    try {
+      const body = await readJson(req, 16 * 1024);
+      const message = await appendKanbanMessage({
+        mode: body.mode,
+        conversationId: body.conversationId,
+        text: body.text,
+        author: 'manager',
+      });
+      return sendJson(res, 201, { message });
+    } catch (error) {
+      const invalid = ['INVALID_MODE', 'INVALID_CLIENT', 'INVALID_MESSAGE'].includes(error.message);
+      if (!invalid && error.message !== 'PAYLOAD_TOO_LARGE') console.error('Kanban admin reply:', error);
+      return sendJson(res, invalid || error.message === 'PAYLOAD_TOO_LARGE' ? 400 : 500, {
+        error: invalid ? 'Проверьте ответ и выбранный диалог' : error.message === 'PAYLOAD_TOO_LARGE' ? 'Ответ слишком большой' : 'Не удалось отправить ответ',
+      });
+    }
+  }
+
+  const kanbanMessageMatch = pathname.match(/^\/api\/admin\/kanban\/messages\/([a-zA-Z0-9-]{1,80})$/);
+  if (kanbanMessageMatch && req.method === 'DELETE') {
+    if (!mutationIsSameOrigin(req)) {
+      return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+    }
+    return sendJson(res, 200, await deleteKanbanMessage(kanbanMessageMatch[1]));
+  }
+
   const match = pathname.match(/^\/api\/admin\/state\/(pomodoro_tokens|kanban_tasks)$/);
   if (!match) return sendJson(res, 404, { error: 'Not found' });
   const key = match[1];
@@ -317,6 +384,155 @@ async function sendFile(res, path, status = 200) {
   await pipeline(createReadStream(path, { highWaterMark: 8 * 1024 }), res);
 }
 
+const KANBAN_CLIENT_RATE_LIMIT = 5;
+const KANBAN_IP_RATE_LIMIT = 12;
+const KANBAN_RATE_WINDOW_MS = 15 * 60 * 1000;
+const KANBAN_MIN_INTERVAL_MS = 3_000;
+const kanbanRateState = new Map();
+
+function requestIp(req) {
+  const forwarded = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'];
+  return String(Array.isArray(forwarded) ? forwarded[0] : forwarded || req.socket.remoteAddress || '')
+    .split(',')[0]
+    .trim()
+    .slice(0, 80);
+}
+
+function publicMutationIsSameOrigin(req) {
+  const fetchSite = req.headers['sec-fetch-site'];
+  if (fetchSite && !['same-origin', 'none'].includes(fetchSite)) return false;
+  return String(req.headers['content-type'] || '').toLowerCase().includes('application/json');
+}
+
+function checkKanbanRate(req, clientId) {
+  const now = Date.now();
+  const ip = requestIp(req);
+  const clientKey = `client:${ip}:${clientId}`;
+  const ipKey = `ip:${ip}`;
+  const clientTimestamps = (kanbanRateState.get(clientKey) || [])
+    .filter(timestamp => now - timestamp < KANBAN_RATE_WINDOW_MS);
+  const ipTimestamps = (kanbanRateState.get(ipKey) || [])
+    .filter(timestamp => now - timestamp < KANBAN_RATE_WINDOW_MS);
+  const sinceLast = clientTimestamps.length ? now - clientTimestamps.at(-1) : Infinity;
+  const clientLimited = clientTimestamps.length >= KANBAN_CLIENT_RATE_LIMIT;
+  const ipLimited = ipTimestamps.length >= KANBAN_IP_RATE_LIMIT;
+  const limited = clientLimited || ipLimited || sinceLast < KANBAN_MIN_INTERVAL_MS;
+  const retryCandidates = [Math.max(0, KANBAN_MIN_INTERVAL_MS - sinceLast)];
+  if (clientLimited) {
+    retryCandidates.push(KANBAN_RATE_WINDOW_MS - (now - clientTimestamps[0]));
+  }
+  if (ipLimited) {
+    retryCandidates.push(KANBAN_RATE_WINDOW_MS - (now - ipTimestamps[0]));
+  }
+  return {
+    clientKey,
+    ipKey,
+    clientTimestamps,
+    ipTimestamps,
+    limited,
+    remaining: Math.max(0, Math.min(
+      KANBAN_CLIENT_RATE_LIMIT - clientTimestamps.length,
+      KANBAN_IP_RATE_LIMIT - ipTimestamps.length,
+    )),
+    retryAfterSeconds: Math.max(1, Math.ceil(Math.max(...retryCandidates) / 1000)),
+  };
+}
+
+function recordKanbanMessage(rate) {
+  const now = Date.now();
+  kanbanRateState.set(rate.clientKey, [...rate.clientTimestamps, now]);
+  kanbanRateState.set(rate.ipKey, [...rate.ipTimestamps, now]);
+  if (kanbanRateState.size > 2_000) {
+    const cutoff = Date.now() - KANBAN_RATE_WINDOW_MS;
+    for (const [key, timestamps] of kanbanRateState) {
+      if (!timestamps.some(timestamp => timestamp > cutoff)) kanbanRateState.delete(key);
+    }
+  }
+}
+
+async function handlePublicKanbanApi(req, res, pathname, url) {
+  if (pathname === '/api/kanban/board' && req.method === 'GET') {
+    return sendJson(res, 200, { board: await getKanbanBoard() }, {
+      'Cache-Control': 'no-cache',
+    });
+  }
+
+  if (pathname !== '/api/kanban/messages') {
+    return sendJson(res, 404, { error: 'Not found' });
+  }
+
+  if (req.method === 'GET') {
+    const mode = url.searchParams.get('mode') || 'general';
+    const clientId = url.searchParams.get('clientId') || '';
+    if (!KANBAN_MESSAGE_MODES.has(mode)
+      || (mode === 'personal' && !validClientId(clientId))) {
+      return sendJson(res, 400, { error: 'Некорректный режим чата' });
+    }
+    return sendJson(res, 200, {
+      messages: await getKanbanMessages(mode, clientId),
+    });
+  }
+
+  if (req.method !== 'POST') {
+    return sendJson(res, 405, { error: 'Method not allowed' }, { Allow: 'GET, POST' });
+  }
+  if (!publicMutationIsSameOrigin(req)) {
+    return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+  }
+
+  let body;
+  try {
+    body = await readJson(req, 16 * 1024);
+  } catch (error) {
+    return sendJson(res, error.message === 'PAYLOAD_TOO_LARGE' ? 413 : 400, {
+      error: error.message === 'PAYLOAD_TOO_LARGE' ? 'Сообщение слишком большое' : 'Некорректный JSON',
+    });
+  }
+
+  const clientId = String(body.clientId || '');
+  const mode = String(body.mode || 'general');
+  const startedAt = Number(body.startedAt);
+  if (!validClientId(clientId) || !KANBAN_MESSAGE_MODES.has(mode)) {
+    return sendJson(res, 400, { error: 'Некорректные параметры сообщения' });
+  }
+  // Honeypot + minimum fill time block simple form bots before touching storage.
+  if (body.website || !Number.isFinite(startedAt)
+    || Date.now() - startedAt < 800
+    || Date.now() - startedAt > 2 * 60 * 60 * 1000) {
+    return sendJson(res, 400, { error: 'Не удалось отправить сообщение' });
+  }
+
+  const rate = checkKanbanRate(req, clientId);
+  if (rate.limited) {
+    return sendJson(res, 429, {
+      error: 'Слишком много сообщений. Немного подождите.',
+      retryAfterSeconds: rate.retryAfterSeconds,
+      remaining: rate.remaining,
+    }, { 'Retry-After': rate.retryAfterSeconds });
+  }
+
+  try {
+    const message = await appendKanbanMessage({
+      mode,
+      conversationId: mode === 'personal' ? clientId : '',
+      text: body.text,
+      name: body.name,
+      author: 'visitor',
+    });
+    recordKanbanMessage(rate);
+    return sendJson(res, 201, {
+      message,
+      remaining: Math.max(0, rate.remaining - 1),
+    });
+  } catch (error) {
+    const invalid = ['INVALID_MODE', 'INVALID_CLIENT', 'INVALID_MESSAGE'].includes(error.message);
+    if (!invalid) console.error('Kanban message:', error);
+    return sendJson(res, invalid ? 400 : 500, {
+      error: invalid ? 'Проверьте текст сообщения' : 'Не удалось сохранить сообщение',
+    });
+  }
+}
+
 const server = createServer(async (req, res) => {
   try {
     const host = req.headers.host || '';
@@ -342,6 +558,10 @@ const server = createServer(async (req, res) => {
         'Access-Control-Allow-Origin': '*',
         'Cache-Control': 'public, max-age=60, stale-while-revalidate=300',
       });
+    }
+
+    if (!admin && (pathname === '/api/kanban/board' || pathname === '/api/kanban/messages')) {
+      return await handlePublicKanbanApi(req, res, pathname, url);
     }
 
     if (admin && !checkAuth(req)) return requireAuth(res);

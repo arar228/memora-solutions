@@ -23,7 +23,7 @@ import './admin.css';
 const SECTIONS = [
     { id: 'overview', label: 'Обзор', icon: LayoutDashboard, Component: Overview },
     { id: 'pomodoro', label: 'Помодоро', icon: Timer, Component: PomodoroPanel },
-    { id: 'kanban', label: 'Задачи', icon: KanbanSquare, Component: KanbanPanel },
+    { id: 'kanban', label: 'Задать вопрос', icon: KanbanSquare, Component: KanbanPanel },
     { id: 'bdaybot', label: 'BdayBot', icon: Cake, Component: BdayBotPanel },
     { id: 'travel', label: 'Радар путешествий', icon: Plane, Component: TravelPanel },
 ];

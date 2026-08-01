@@ -12,7 +12,6 @@ const LINKS_BEFORE = [
 ];
 const LINKS_AFTER = [
     { to: '/kanban', key: 'kanban' },
-    { to: '/internal', key: 'internal' },
     { to: '/creator', key: 'creator' },
 ];
 // Grouped under the "Products" dropdown.

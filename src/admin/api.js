@@ -19,6 +19,19 @@ async function request(path, options = {}) {
 }
 
 export const adminApi = {
+  getKanban: () => request('/api/admin/kanban'),
+  saveKanbanBoard: (board) => request('/api/admin/kanban/board', {
+    method: 'PUT',
+    body: JSON.stringify({ board }),
+  }),
+  replyKanban: (payload) => request('/api/admin/kanban/messages', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  }),
+  deleteKanbanMessage: (messageId) => request(
+    `/api/admin/kanban/messages/${encodeURIComponent(messageId)}`,
+    { method: 'DELETE' },
+  ),
   getState: (key) => request(`/api/admin/state/${encodeURIComponent(key)}`),
   setState: (key, value) => request(`/api/admin/state/${encodeURIComponent(key)}`, {
     method: 'PUT',

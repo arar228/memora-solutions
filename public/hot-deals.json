@@ -1,7 +1,51 @@
 {
-  "updatedAt": "2026-08-01T14:04:31.968Z",
+  "updatedAt": "2026-08-01T15:15:03.463Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR"
+      },
+      "price": 22500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "nights": null,
+      "departDate": "2026-08-05",
+      "date": "2026-08-01T14:45:09+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SVX0508CXR1?marker=748397&currency=rub",
+      "text": "Екатеринбург — Нячанг (Вьетнам) за 22500Р в одну сторону, вылет 05 августа, рейс прямой с багажом, один билет\n—"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED"
+      },
+      "to": {
+        "name": "Стамбул",
+        "code": "IST"
+      },
+      "price": 31200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-01T14:18:54+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED3108IST1?marker=748397&currency=rub",
+      "text": "из Петербурга в Саудовскую Аравию 🇸🇦 за 31 200 р. RT (август-октябрь)\nAjet, через Стамбул - \nВсе даты:"
+    },
     {
       "type": "flight",
       "from": {
@@ -299,8 +343,8 @@
         "code": "IST"
       },
       "price": 7600,
-      "oldPrice": 19112,
-      "savings": 11512,
+      "oldPrice": 18941,
+      "savings": 11341,
       "discount": 0.6,
       "oneway": false,
       "nights": null,
@@ -321,9 +365,9 @@
         "code": "AYT"
       },
       "price": 8600,
-      "oldPrice": 18341,
-      "savings": 9741,
-      "discount": 0.53,
+      "oldPrice": 16737,
+      "savings": 8137,
+      "discount": 0.49,
       "oneway": false,
       "nights": null,
       "departDate": "2026-08",
@@ -1443,8 +1487,8 @@
         "code": "AYT"
       },
       "price": 7100,
-      "oldPrice": 17884,
-      "savings": 10784,
+      "oldPrice": 17881,
+      "savings": 10781,
       "discount": 0.6,
       "oneway": false,
       "nights": null,
@@ -1531,8 +1575,8 @@
         "code": "AYT"
       },
       "price": 7200,
-      "oldPrice": 17884,
-      "savings": 10684,
+      "oldPrice": 17881,
+      "savings": 10681,
       "discount": 0.6,
       "oneway": false,
       "nights": null,
@@ -1633,50 +1677,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT"
-      },
-      "price": 7500,
-      "oldPrice": 17884,
-      "savings": 10384,
-      "discount": 0.58,
-      "oneway": true,
-      "nights": null,
-      "departDate": "2026-08-02",
-      "date": "2026-07-31T08:50:01+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/LED0208AYT1?marker=748397&currency=rub",
-      "text": "Санкт-Петербург — Анталья от 7500₽ в одну сторону, вылеты в августе, рейсы прямые, с багажом\n— 02.08 - 7500₽\n— 04.08 - 9500₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Анталья",
-        "code": "AYT"
-      },
-      "to": {
-        "name": "Санкт-Петербург",
-        "code": "LED"
-      },
-      "price": 14800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "nights": null,
-      "departDate": "2026-08-08",
-      "date": "2026-07-31T08:50:01+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AYT0808LED1?marker=748397&currency=rub",
-      "text": "Анталья — Санкт-Петербург от 14800₽ в одну сторону, вылеты в августе, рейсы прямые, с багажом\n— 08.08 - 15000₽\n— 10.08 - 14800₽\n— 12.08 - 14800₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Москва",
         "code": "MOW"
       },
@@ -1695,28 +1695,6 @@
       "source": "vandroukiru",
       "link": "https://www.aviasales.ru/search/MOW0111DEL1?marker=748397&currency=rub",
       "text": "Полёты из Москвы в Индию в ноябре-марте за 29300 рублей туда-обратно!"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "to": {
-        "name": "Чэнду",
-        "code": "CTU"
-      },
-      "price": 45200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": null,
-      "date": "2026-07-31T08:22:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW3108CTU1?marker=748397&currency=rub",
-      "text": "из Москвы на Пенанг 🇲🇾 за 45 200 р. RT (осенью)\nSichuan Airlines, пересадка в Чэнду - \nВсе даты:"
     },
     {
       "type": "tour",
@@ -1783,72 +1761,6 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/vD0pjn",
       "text": "🔥 в Кавминводы на неделю в августе от 20 800/чел  (туры без группового трансфера из аэропорта Минеральных Вод до отеля, индивидуальный - за доплату)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Петрозаводск",
-        "code": "PES"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "price": 59200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": 7,
-      "departDate": "2026-08-30",
-      "date": "2026-07-30T14:42:39+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/4pvJLV",
-      "text": "🔹 с 30 августа на 7 ночей (круиз с Российской Академией Художеств) - Москва - Дубна - Ярославль - Плес - Кинешма - Кострома - Тутаев - Рыбинск - Углич - Москва - от 59 200/чел  (питание и экскурсии в"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Петрозаводск",
-        "code": "PES"
-      },
-      "to": {
-        "name": "Казань",
-        "code": "KZN"
-      },
-      "price": 62800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": 6,
-      "departDate": "2026-08-13",
-      "date": "2026-07-30T14:42:39+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/wya7XR",
-      "text": "🔹 с 13 августа на 6 ночей - Казань - Чебоксары - Нижний Новгород - Городец - Ярославль - Тутаев - Рыбинск - Углич - Калязин - Москва - от 62 800/чел  (питание и экскурсии включены)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Петрозаводск",
-        "code": "PES"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW"
-      },
-      "price": 86600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": 6,
-      "departDate": "2026-08-02",
-      "date": "2026-07-30T14:42:39+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/jqJmJ1",
-      "text": "🔹 со 2 августа на 6 ночей (Русский север!): Санкт-Петербург - Старая Ладога - Тихвин - Кижи - Соловецкий Архипелаг - Кузова - Архангельск - от 86 600/чел  (питание включено, последняя каюта) + есть в"
     }
   ]
 }

@@ -383,9 +383,6 @@ async function sendFile(res, path, status = 200) {
   const etag = `W/"${info.size.toString(16)}-${Math.floor(info.mtimeMs).toString(16)}"`;
   res.writeHead(status, {
     'Content-Type': MIME[ext] || 'application/octet-stream',
-    // Stream large bundles instead of handing the proxy one multi-megabyte
-    // write. Railway/Cloudflare can otherwise forward the first chunk and keep
-    // the browser waiting indefinitely for the rest of the module.
     'Content-Length': info.size,
     'Cache-Control': immutable ? 'public, max-age=31536000, immutable' : 'no-cache',
     'Last-Modified': info.mtime.toUTCString(),
@@ -393,8 +390,20 @@ async function sendFile(res, path, status = 200) {
     'Accept-Ranges': 'bytes',
     'X-Content-Type-Options': 'nosniff',
   });
+
+  if (res.req?.method === 'HEAD') {
+    return res.end();
+  }
+
+  // Railway's edge may buffer tiny stream chunks and leave module responses
+  // open after forwarding only the first group. Keep application bundles in a
+  // single response write; reserve streaming for genuinely large data files.
+  if (info.size <= 1024 * 1024) {
+    return res.end(await readFile(path));
+  }
+
   res.flushHeaders();
-  await pipeline(createReadStream(path, { highWaterMark: 8 * 1024 }), res);
+  await pipeline(createReadStream(path, { highWaterMark: 256 * 1024 }), res);
 }
 
 const KANBAN_CLIENT_RATE_LIMIT = 5;

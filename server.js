@@ -313,7 +313,8 @@ async function sendFile(res, path, status = 200) {
     'Accept-Ranges': 'bytes',
     'X-Content-Type-Options': 'nosniff',
   });
-  await pipeline(createReadStream(path), res);
+  res.flushHeaders();
+  await pipeline(createReadStream(path, { highWaterMark: 8 * 1024 }), res);
 }
 
 const server = createServer(async (req, res) => {

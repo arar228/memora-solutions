@@ -1710,9 +1710,13 @@
   fill: color-mix(in srgb, var(--scene-accent) 66%, #fff);
 }
 .scene-garden__motes circle {
-  opacity: 0.18;
+  opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
+  transition: opacity 1.2s ease;
+}
+.scene-garden__motes.is-mature circle {
+  opacity: 0.18;
   animation: garden-mote calc(var(--garden-speed, 10s) * 0.72) ease-in-out infinite alternate;
 }
 .scene-garden__seeds {
@@ -1725,14 +1729,6 @@
   fill: var(--scene-accent);
   opacity: 0.07;
   filter: blur(2px);
-}
-.scene-garden__stem-guide {
-  fill: none;
-  stroke: var(--scene-accent);
-  stroke-width: 0.7;
-  stroke-dasharray: 2 5;
-  opacity: 0.07;
-  vector-effect: non-scaling-stroke;
 }
 .scene-garden__stem {
   fill: none;
@@ -1747,6 +1743,14 @@
   opacity: 0.09;
   filter: blur(2px);
 }
+.scene-garden__bud {
+  fill: color-mix(in srgb, var(--scene-accent) 70%, #fff);
+  stroke: color-mix(in srgb, var(--scene-accent) 82%, #fff);
+  stroke-width: 0.55;
+  transform-box: view-box;
+  transform-origin: 0 0;
+  transition: opacity 0.65s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
 .scene-garden__flower {
   fill: color-mix(in srgb, var(--scene-accent) 34%, transparent);
   transform-box: view-box;
@@ -1756,20 +1760,23 @@
 .scene-garden__flower-motion {
   transform-box: fill-box;
   transform-origin: center;
+}
+.scene-garden__flower-motion.is-mature {
   animation: garden-flower-sway calc(var(--garden-speed, 10s) * 1.15) ease-in-out infinite alternate;
 }
 .scene-garden__halo {
   fill: none;
   stroke: color-mix(in srgb, var(--scene-accent) 55%, #fff);
   stroke-width: 0.75;
-  opacity: 0.2;
+  opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
-  animation: garden-halo calc(var(--garden-speed, 10s) * 0.72) ease-in-out infinite;
   vector-effect: non-scaling-stroke;
 }
+.scene-garden__flower-motion.is-mature .scene-garden__halo {
+  animation: garden-halo calc(var(--garden-speed, 10s) * 0.72) ease-in-out infinite;
+}
 .scene-garden__halo--inner {
-  opacity: 0.12;
   animation-delay: calc(var(--garden-speed, 10s) * -0.34);
 }
 .scene-garden__seed {
@@ -1781,8 +1788,10 @@
   stroke-width: 0.8;
   transform-box: fill-box;
   transform-origin: center;
-  animation: garden-crown var(--garden-speed, 10s) linear infinite;
   transition: opacity 1s ease;
+}
+.scene-garden__crown.is-mature {
+  animation: garden-crown var(--garden-speed, 10s) linear infinite;
 }
 .scene-garden--break .scene-garden__crown {
   animation-duration: calc(var(--garden-speed, 10s) * 1.8);
@@ -1924,6 +1933,8 @@
 .scene-tree__sway {
   transform-box: view-box;
   transform-origin: 240px 168px;
+}
+.scene-tree__sway.is-mature {
   animation: tree-sway var(--tree-speed, 12s) ease-in-out infinite alternate;
 }
 .scene-tree__branch {
@@ -1948,6 +1959,8 @@
 .scene-tree__leaf > circle {
   transform-box: fill-box;
   transform-origin: center;
+}
+.scene-tree__sway.is-mature .scene-tree__leaf > circle {
   animation: tree-leaf-breathe calc(var(--tree-speed, 12s) * 0.68) ease-in-out infinite alternate;
 }
 .scene-tree__spark {
@@ -1958,10 +1971,14 @@
   fill: color-mix(in srgb, var(--scene-accent) 58%, #fff);
 }
 .scene-tree__motes circle {
-  opacity: calc(0.06 + var(--tree-growth, 0) * 0.38);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.scene-tree__motes.is-mature circle {
+  opacity: calc(var(--tree-maturity, 0) * 0.44);
   animation: tree-mote calc(var(--tree-speed, 12s) * 0.74) ease-in-out infinite;
 }
-.scene-tree--break .scene-tree__sway {
+.scene-tree--break .scene-tree__sway.is-mature {
   animation-duration: calc(var(--tree-speed, 12s) * 1.25);
 }
 @keyframes tree-sway {

@@ -1,14 +1,58 @@
 import React from 'react';
 import type { SceneProps } from './Scene';
 
+type Point = readonly [number, number];
+
 const STEMS = [
-  { path: 'M82 166 C78 137 90 116 118 88', tipX: 118, tipY: 88, gate: 0.2 },
-  { path: 'M143 166 C151 126 144 101 163 66', tipX: 163, tipY: 66, gate: 0.36 },
-  { path: 'M212 166 C198 128 207 91 238 54', tipX: 238, tipY: 54, gate: 0.52 },
-  { path: 'M278 166 C295 132 288 102 312 77', tipX: 312, tipY: 77, gate: 0.68 },
-  { path: 'M344 166 C337 139 350 119 376 96', tipX: 376, tipY: 96, gate: 0.82 },
-  { path: 'M404 166 C414 146 417 127 409 111', tipX: 409, tipY: 111, gate: 0.92 },
-] as const;
+  { points: [[82, 166], [78, 137], [90, 116], [118, 88]], start: 0, stemEnd: 0.36, bloomEnd: 0.5 },
+  { points: [[143, 166], [151, 126], [144, 101], [163, 66]], start: 0.08, stemEnd: 0.44, bloomEnd: 0.58 },
+  { points: [[212, 166], [198, 128], [207, 91], [238, 54]], start: 0.16, stemEnd: 0.52, bloomEnd: 0.66 },
+  { points: [[278, 166], [295, 132], [288, 102], [312, 77]], start: 0.25, stemEnd: 0.61, bloomEnd: 0.75 },
+  { points: [[344, 166], [337, 139], [350, 119], [376, 96]], start: 0.34, stemEnd: 0.7, bloomEnd: 0.84 },
+  { points: [[404, 166], [414, 146], [417, 127], [409, 111]], start: 0.43, stemEnd: 0.79, bloomEnd: 0.93 },
+] as const satisfies ReadonlyArray<{
+  points: readonly [Point, Point, Point, Point];
+  start: number;
+  stemEnd: number;
+  bloomEnd: number;
+}>;
+
+const clamp01 = (value: number) => Math.max(0, Math.min(1, value));
+
+const smoothstep = (start: number, end: number, value: number) => {
+  const normalized = clamp01((value - start) / (end - start));
+  return normalized * normalized * (3 - 2 * normalized);
+};
+
+const cubicPoint = (points: readonly [Point, Point, Point, Point], progress: number) => {
+  const [start, controlOne, controlTwo, end] = points;
+  const inverse = 1 - progress;
+  const x = inverse ** 3 * start[0]
+    + 3 * inverse ** 2 * progress * controlOne[0]
+    + 3 * inverse * progress ** 2 * controlTwo[0]
+    + progress ** 3 * end[0];
+  const y = inverse ** 3 * start[1]
+    + 3 * inverse ** 2 * progress * controlOne[1]
+    + 3 * inverse * progress ** 2 * controlTwo[1]
+    + progress ** 3 * end[1];
+  return { x, y };
+};
+
+const pathFor = (points: readonly [Point, Point, Point, Point]) => {
+  const [start, controlOne, controlTwo, end] = points;
+  return `M${start[0]} ${start[1]} C${controlOne[0]} ${controlOne[1]} ${controlTwo[0]} ${controlTwo[1]} ${end[0]} ${end[1]}`;
+};
+
+const stagesFor = (stem: (typeof STEMS)[number], growth: number) => {
+  const stemGrowth = smoothstep(stem.start, stem.stemEnd, growth);
+  const stemDuration = stem.stemEnd - stem.start;
+  const budStart = stem.start + stemDuration * 0.48;
+  const bloomStart = stem.start + stemDuration * 0.56;
+  const bud = smoothstep(budStart, bloomStart + stemDuration * 0.18, growth);
+  const bloom = smoothstep(bloomStart, stem.bloomEnd, growth);
+  const resonance = smoothstep(stem.bloomEnd - 0.012, stem.bloomEnd, growth);
+  return { stemGrowth, bud, bloom, resonance };
+};
 
 export default function LightGardenScene({
   mode,
@@ -20,10 +64,13 @@ export default function LightGardenScene({
   status = 'idle',
   lang = 'ru',
 }: SceneProps) {
-  const measuredProgress = Math.max(0, Math.min(1, progress));
-  const growth = mode === 'break' ? 1 : 0.18 + measuredProgress * 0.82;
+  const measuredProgress = clamp01(progress);
+  const growth = mode === 'break' ? 1 : measuredProgress;
   const speedSeconds = 10 / Math.max(0.5, Math.min(2, speed / 100));
   const haloScale = mode === 'break' ? 1.18 : 1.1 + measuredProgress * 0.08;
+  const stages = STEMS.map(stem => stagesFor(stem, growth));
+  const gardenMature = stages.some(stage => stage.resonance >= 0.999);
+  const centerResonance = stages[2].resonance;
   const copy = lang === 'ru'
     ? {
         title: 'Световой сад',
@@ -74,7 +121,7 @@ export default function LightGardenScene({
             </g>
           ))}
         </g>
-        <g className="scene-garden__motes">
+        <g className={`scene-garden__motes${gardenMature ? ' is-mature' : ''}`}>
           {Array.from({ length: 18 }, (_, index) => (
             <circle
               key={index}
@@ -87,34 +134,45 @@ export default function LightGardenScene({
         </g>
 
         {STEMS.map((stem, index) => {
-          const localGrowth = Math.max(0, Math.min(1, (growth - stem.gate * 0.38) / (1 - stem.gate * 0.38)));
-          const bloom = Math.max(0, Math.min(1, (growth - stem.gate) / 0.16));
+          const { stemGrowth, bud, bloom, resonance } = stages[index];
+          const tip = cubicPoint(stem.points, stemGrowth);
+          const path = pathFor(stem.points);
+          const flowerScale = 0.16 + bloom * 0.84;
+          const mature = resonance >= 0.999;
           return (
-            <g key={stem.path}>
-              <path className="scene-garden__stem-guide" d={stem.path} />
+            <g key={path}>
               <path
                 className="scene-garden__stem scene-garden__stem--glow"
-                d={stem.path}
+                d={path}
                 pathLength="1"
                 strokeDasharray="1"
-                strokeDashoffset={1 - localGrowth}
+                strokeDashoffset={1 - stemGrowth}
               />
               <path
                 className="scene-garden__stem"
-                d={stem.path}
+                d={path}
                 pathLength="1"
                 strokeDasharray="1"
-                strokeDashoffset={1 - localGrowth}
+                strokeDashoffset={1 - stemGrowth}
               />
+              <g
+                className="scene-garden__bud"
+                style={{
+                  opacity: bud * (1 - bloom * 0.72),
+                  transform: `translate(${tip.x}px, ${tip.y}px) scale(${0.4 + bud * 0.6})`,
+                }}
+              >
+                <ellipse rx="3.1" ry="5.2" />
+              </g>
               <g
                 className="scene-garden__flower"
                 style={{
                   opacity: bloom,
-                  transform: `translate(${stem.tipX}px, ${stem.tipY}px) scale(${0.5 + bloom * 0.5})`,
+                  transform: `translate(${tip.x}px, ${tip.y}px) scale(${flowerScale})`,
                 }}
               >
                 <g
-                  className="scene-garden__flower-motion"
+                  className={`scene-garden__flower-motion${mature ? ' is-mature' : ''}`}
                   style={{ animationDelay: `${index * -1.35}s` }}
                 >
                   <circle r="20" className="scene-garden__halo" />
@@ -130,8 +188,8 @@ export default function LightGardenScene({
         })}
 
         <g
-          className="scene-garden__crown"
-          style={{ opacity: Math.max(0, (growth - 0.76) / 0.24) }}
+          className={`scene-garden__crown${centerResonance >= 0.999 ? ' is-mature' : ''}`}
+          style={{ opacity: centerResonance }}
         >
           <circle cx="238" cy="54" r="31" fill="none" />
           <circle cx="238" cy="54" r="21" fill="none" />

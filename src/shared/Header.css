@@ -52,6 +52,7 @@
 
 .header__nav {
     display: flex;
+    flex: 0 1 auto;
     align-items: center;
     gap: var(--space-lg);
     min-width: 0;
@@ -164,8 +165,10 @@
 
 .header__actions {
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
     gap: var(--space-sm);
+    margin-left: var(--space-sm);
 }
 
 .header__action-btn {
@@ -254,7 +257,7 @@
 
 /* === Responsive === */
 /* Tighten the nav before it would overflow at narrower desktop widths / zoom. */
-@media (max-width: 1140px) {
+@media (max-width: 1280px) {
     .header__nav {
         gap: var(--space-md);
     }
@@ -266,7 +269,7 @@
 }
 
 /* Below this the full nav can't fit cleanly — switch to the burger menu. */
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
     .header__nav {
         display: none;
     }
@@ -280,5 +283,24 @@
 @media (max-width: 380px) {
     .header__logo-text {
         display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .header__inner {
+        gap: var(--space-sm);
+    }
+
+    .header__actions {
+        gap: 2px;
+        margin-left: auto;
+    }
+
+    .header__action-btn {
+        padding: 7px 8px;
+    }
+
+    .header__burger {
+        padding: 8px;
     }
 }

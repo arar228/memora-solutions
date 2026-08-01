@@ -1,7 +1,39 @@
 {
-  "updatedAt": "2026-08-01T22:05:32.108Z",
+  "updatedAt": "2026-08-01T23:05:15.573Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Владивосток",
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бангкок",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 26000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "nights": null,
+      "departDate": "2026-09-22",
+      "date": "2026-08-01T22:12:58+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/VVO2209BKK1?marker=748397&currency=rub",
+      "text": "Билеты в Бангкок (Таиланд) от 26000Р туда и обратно в конце сентября, рейсы прямые, в цене ручная кладь 10 кг размером не более 55х23х40 см и небольшая сумка до 5 кг\n— 22.09-02.10 — 28100Р\n— 25.09-02."
+    },
     {
       "type": "flight",
       "from": {
@@ -1795,38 +1827,6 @@
       "text": "из Иркутска в Шанхай 🇨🇳 за 20 800 р. RT (до конца года)\nS7, прямые рейсы -"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бодрум",
-        "code": "BJV",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 25200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "nights": null,
-      "departDate": "2026-08-02",
-      "date": "2026-07-31T12:32:07+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW0208BJV1?marker=748397&currency=rub",
-      "text": "Москва — Бодрум от 25200₽ в обе стороны, вылеты 2 и 4 августа, рейсы прямые, с багажом\n— 02.08 - 12.08 - 25200₽\n— 04.08 - 12.08 - 25200₽"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Москва",
@@ -2759,7 +2759,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-01T22:05:31.980Z",
+      "checkedAt": "2026-08-01T23:05:15.443Z",
       "fetchedPosts": 17,
       "freshPosts": 12,
       "latestPostAt": "2026-08-01T10:52:48+00:00",
@@ -2769,7 +2769,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-01T22:05:31.980Z",
+      "checkedAt": "2026-08-01T23:05:15.443Z",
       "fetchedPosts": 15,
       "freshPosts": 15,
       "latestPostAt": "2026-08-01T14:18:54+00:00",
@@ -2779,17 +2779,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-01T22:05:31.980Z",
+      "checkedAt": "2026-08-01T23:05:15.443Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-01T21:44:21+00:00",
+      "latestPostAt": "2026-08-01T22:12:58+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-01T22:05:31.980Z",
+      "checkedAt": "2026-08-01T23:05:15.443Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-07-31T11:58:53+00:00",
@@ -2799,7 +2799,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-01T22:05:31.980Z",
+      "checkedAt": "2026-08-01T23:05:15.443Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-01T18:58:12+00:00",
@@ -2809,7 +2809,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-01T22:05:31.980Z",
+      "checkedAt": "2026-08-01T23:05:15.444Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-07-30T10:53:01+00:00",
@@ -2819,7 +2819,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-01T22:05:31.980Z",
+      "checkedAt": "2026-08-01T23:05:15.444Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-08-01T10:17:57+00:00",
@@ -2829,7 +2829,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-01T22:05:31.980Z",
+      "checkedAt": "2026-08-01T23:05:15.444Z",
       "fetchedPosts": 7,
       "freshPosts": 7,
       "latestPostAt": "2026-08-01T13:05:16+00:00",

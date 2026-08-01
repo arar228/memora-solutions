@@ -14,8 +14,10 @@
  * Зависимостей нет намеренно: меньше поверхности и нечего обновлять.
  */
 import { createServer } from 'node:http';
+import { createReadStream } from 'node:fs';
 import { readFile, stat } from 'node:fs/promises';
 import { join, extname, normalize } from 'node:path';
+import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 import { randomUUID, timingSafeEqual } from 'node:crypto';
@@ -293,20 +295,25 @@ function requireAuth(res) {
 }
 
 async function sendFile(res, path, status = 200) {
-  const body = await readFile(path);
+  const info = await stat(path);
   const ext = extname(path).toLowerCase();
-  const immutable = path.startsWith(join(DIST, 'static')) && ext !== '.html';
+  const normalizedPath = path.replaceAll('\\', '/');
+  const immutable = ext !== '.html'
+    && (normalizedPath.includes('/static/') || normalizedPath.includes('/assets/'));
+  const etag = `W/"${info.size.toString(16)}-${Math.floor(info.mtimeMs).toString(16)}"`;
   res.writeHead(status, {
     'Content-Type': MIME[ext] || 'application/octet-stream',
-    // An explicit length prevents intermediaries from waiting indefinitely for
-    // the end of a chunked response. This is especially important for
-    // Cloudflare in front of Railway: incomplete cached module responses leave
-    // the SPA stuck on its HTML loader.
-    'Content-Length': body.byteLength,
+    // Stream large bundles instead of handing the proxy one multi-megabyte
+    // write. Railway/Cloudflare can otherwise forward the first chunk and keep
+    // the browser waiting indefinitely for the rest of the module.
+    'Content-Length': info.size,
     'Cache-Control': immutable ? 'public, max-age=31536000, immutable' : 'no-cache',
+    'Last-Modified': info.mtime.toUTCString(),
+    ETag: etag,
+    'Accept-Ranges': 'bytes',
     'X-Content-Type-Options': 'nosniff',
   });
-  res.end(body);
+  await pipeline(createReadStream(path), res);
 }
 
 const server = createServer(async (req, res) => {

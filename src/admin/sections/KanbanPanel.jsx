@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-    LockKeyhole, MessageCircle, Plus, RefreshCw, Send, Trash2,
+    Check, LockKeyhole, MessageCircle, PencilLine, Plus, RefreshCw, Send, Trash2,
 } from 'lucide-react';
 import {
     Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle,
     Input, Label, Select,
 } from '../../ui';
 import { KANBAN_LIMITS, cloneDefaultKanbanBoard } from '../../data/kanbanConfig';
+import KanbanBoard from '../../shared/KanbanBoard';
 import { adminApi } from '../api';
 
 const COLUMNS = [
@@ -16,6 +17,21 @@ const COLUMNS = [
 ];
 
 const emptyDraft = { title: '', desc: '', report: '', priority: 'medium', column: 'potential' };
+
+const BOARD_LABELS = {
+    label: 'Рабочее пространство',
+    title: 'Что будет дальше',
+    description: 'Менеджер размещает до семи потенциальных и до трёх активных задач одновременно.',
+    potential: 'Потенциальные задачи',
+    potentialDescription: 'До 7 следующих задач',
+    inProgress: 'В работе',
+    inProgressDescription: 'До 3 задач в фокусе',
+    closed: 'Закрытые задачи',
+    closedDescription: 'Готовые результаты и отчёты',
+    empty: 'Следующая задача появится здесь.',
+    task: 'Задача',
+    result: 'Результат',
+};
 
 const formatTime = value => new Intl.DateTimeFormat('ru-RU', {
     day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
@@ -32,6 +48,7 @@ export default function KanbanPanel() {
     const [selectedConversation, setSelectedConversation] = useState('');
     const [reply, setReply] = useState('');
     const [replying, setReplying] = useState(false);
+    const [editingTask, setEditingTask] = useState('');
 
     const load = () => {
         setSyncState('loading');
@@ -96,7 +113,7 @@ export default function KanbanPanel() {
         if (!title) return;
         const column = COLUMNS.find(item => item.id === draft.column);
         if (column?.limit && board[column.id].length >= column.limit) {
-            setError(`В колонке «${column.label}» уже достигнут лимит ${column.limit}/${column.limit}.`);
+            setError(`Колонка «${column.label}» заполнена: ${column.limit}/${column.limit}.`);
             return;
         }
         const task = {
@@ -127,7 +144,7 @@ export default function KanbanPanel() {
     const moveTask = (from, id, to) => {
         const destination = COLUMNS.find(column => column.id === to);
         if (destination?.limit && board[to].length >= destination.limit) {
-            setError(`Нельзя перенести: лимит «${destination.label}» — ${destination.limit}/${destination.limit}.`);
+            setError(`Перенос станет доступен после освобождения места в колонке «${destination.label}» (${destination.limit}/${destination.limit}).`);
             return;
         }
         setBoard(current => {
@@ -229,59 +246,50 @@ export default function KanbanPanel() {
 
             {error && <div className="rounded-control border border-danger/40 bg-danger/10 px-4 py-3 text-ui-sm text-danger">{error}</div>}
 
-            <div className="grid gap-4 xl:grid-cols-3">
-                {COLUMNS.map(column => {
-                    const list = board[column.id] || [];
-                    const atLimit = column.limit && list.length >= column.limit;
-                    return (
-                        <Card key={column.id} className={atLimit ? 'ring-2 ring-warning/40' : ''}>
-                            <CardHeader className="pb-2">
-                                <div className="flex items-center justify-between gap-2">
-                                    <CardTitle className="text-ui">{column.label}</CardTitle>
-                                    <Badge variant={atLimit ? 'warn' : 'muted'}>
-                                        {column.limit ? `${list.length}/${column.limit}` : list.length}
-                                    </Badge>
-                                </div>
-                            </CardHeader>
-                            <CardContent className="flex max-h-[720px] flex-col gap-3 overflow-y-auto">
-                                {!list.length && <p className="m-0 rounded-control border border-dashed border-line p-5 text-center text-ui-sm text-ink-3">Пока пусто</p>}
-                                {list.map(task => (
-                                    <div key={task.id} className="rounded-control border border-line bg-surface-2 p-3">
-                                        <div className="flex items-start gap-2">
-                                            <Input value={task.title} aria-label="Название задачи"
-                                                onChange={event => updateTask(column.id, task.id, { title: event.target.value })} />
-                                            <button onClick={() => removeTask(column.id, task.id)} aria-label="Удалить задачу"
-                                                className="cursor-pointer border-none bg-transparent p-2 text-ink-3 hover:text-danger">
-                                                <Trash2 size={14} />
-                                            </button>
-                                        </div>
-                                        <textarea value={task.desc} aria-label="Описание задачи" placeholder="Описание"
-                                            onChange={event => updateTask(column.id, task.id, { desc: event.target.value })}
-                                            className="mt-2 min-h-20 w-full resize-y rounded-control border border-line bg-white px-3 py-2 text-ui-sm outline-none focus:border-brand" />
-                                        {column.id === 'closed' && (
-                                            <textarea value={task.report} aria-label="Итог закрытой задачи" placeholder="Что было сделано"
-                                                onChange={event => updateTask(column.id, task.id, { report: event.target.value })}
-                                                className="mt-2 min-h-28 w-full resize-y rounded-control border border-line bg-white px-3 py-2 text-ui-sm outline-none focus:border-brand" />
-                                        )}
-                                        <div className="mt-2 flex flex-wrap gap-1">
-                                            {COLUMNS.filter(item => item.id !== column.id).map(item => (
-                                                <Button key={item.id} variant="ghost" size="sm" onClick={() => moveTask(column.id, task.id, item.id)}>
-                                                    → {item.label}
-                                                </Button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
-                            </CardContent>
-                        </Card>
-                    );
-                })}
-            </div>
+            <KanbanBoard
+                board={board}
+                labels={BOARD_LABELS}
+                renderTaskControls={({ task, columnId }) => (
+                    <div className="memora-board__actions">
+                        <button className="memora-board__action" type="button"
+                            onClick={() => setEditingTask(current => current === `${columnId}:${task.id}` ? '' : `${columnId}:${task.id}`)}>
+                            <PencilLine size={12} /> Изменить
+                        </button>
+                        {COLUMNS.filter(item => item.id !== columnId).map(item => (
+                            <button key={item.id} className="memora-board__action" type="button"
+                                onClick={() => moveTask(columnId, task.id, item.id)}>
+                                → {item.label}
+                            </button>
+                        ))}
+                        <button className="memora-board__action is-danger" type="button"
+                            onClick={() => removeTask(columnId, task.id)}>
+                            <Trash2 size={12} /> Удалить
+                        </button>
+                    </div>
+                )}
+                renderTaskEditor={({ task, columnId }) => (
+                    editingTask === `${columnId}:${task.id}` && (
+                        <div className="memora-board__editor">
+                            <input value={task.title} aria-label="Название задачи"
+                                onChange={event => updateTask(columnId, task.id, { title: event.target.value })} />
+                            <textarea value={task.desc || ''} aria-label="Описание задачи" placeholder="Описание и ожидаемый результат"
+                                onChange={event => updateTask(columnId, task.id, { desc: event.target.value })} />
+                            {columnId === 'closed' && (
+                                <textarea value={task.report || ''} aria-label="Итог закрытой задачи" placeholder="Готовый результат"
+                                    onChange={event => updateTask(columnId, task.id, { report: event.target.value })} />
+                            )}
+                            <button className="memora-board__action" type="button" onClick={() => setEditingTask('')}>
+                                <Check size={12} /> Готово
+                            </button>
+                        </div>
+                    )
+                )}
+            />
 
             <Card>
                 <CardHeader>
                     <CardTitle>Диалоги с посетителями</CardTitle>
-                    <CardDescription>Общий чат виден всем. Персональные разговоры доступны только конкретному посетителю и менеджеру.</CardDescription>
+                    <CardDescription>Общий чат видят все посетители. Персональный разговор видят конкретный посетитель и менеджер.</CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-4">
                     <div className="flex flex-wrap gap-2">
@@ -295,7 +303,7 @@ export default function KanbanPanel() {
 
                     {chatMode === 'personal' && (
                         <div className="flex gap-2 overflow-x-auto pb-1">
-                            {!conversations.length && <span className="text-ui-sm text-ink-3">Персональных диалогов пока нет.</span>}
+                            {!conversations.length && <span className="text-ui-sm text-ink-3">Первый персональный диалог появится здесь.</span>}
                             {conversations.map((conversation, index) => (
                                 <Button key={conversation.id} size="sm"
                                     variant={selectedConversation === conversation.id ? 'default' : 'ghost'}
@@ -307,7 +315,7 @@ export default function KanbanPanel() {
                     )}
 
                     <div className="flex max-h-[440px] flex-col gap-2 overflow-y-auto rounded-control border border-line bg-surface-2 p-3">
-                        {!visibleMessages.length && <p className="m-0 py-8 text-center text-ui-sm text-ink-3">Сообщений пока нет.</p>}
+                        {!visibleMessages.length && <p className="m-0 py-8 text-center text-ui-sm text-ink-3">Первое сообщение появится здесь.</p>}
                         {visibleMessages.map(message => (
                             <div key={message.id} className={`max-w-[86%] rounded-control border p-3 ${message.author === 'manager' ? 'ml-auto border-brand/20 bg-brand-dim' : 'border-line bg-white'}`}>
                                 <div className="flex items-center justify-between gap-3 text-[11px] text-ink-3">

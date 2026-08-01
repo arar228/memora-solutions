@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence, motion } from 'framer-motion';
 import {
-    CheckCircle2, ChevronDown, Clock3, Lightbulb, LockKeyhole,
-    MessageCircle, Send,
+    LockKeyhole, MessageCircle, Send,
 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
-import { KANBAN_LIMITS, cloneDefaultKanbanBoard } from '../../data/kanbanConfig';
+import KanbanBoard from '../../shared/KanbanBoard';
+import { cloneDefaultKanbanBoard } from '../../data/kanbanConfig';
 import './KanbanPage.css';
 
 const CLIENT_KEY = 'memora-question-client';
@@ -33,46 +32,6 @@ async function jsonRequest(path, options) {
         throw error;
     }
     return body;
-}
-
-const localText = (task, field, lang) => {
-    if (lang === 'en') return task[`${field}En`] || task[field];
-    return task[field];
-};
-
-function TaskCard({ task, index, lang }) {
-    return (
-        <article className="question-task">
-            <span className="question-task__eyebrow">
-                {lang === 'ru' ? `Задача ${String(index + 1).padStart(2, '0')}` : `Task ${String(index + 1).padStart(2, '0')}`}
-            </span>
-            <h3>{localText(task, 'title', lang)}</h3>
-            {localText(task, 'desc', lang) && <p>{localText(task, 'desc', lang)}</p>}
-        </article>
-    );
-}
-
-function ClosedTask({ task, lang }) {
-    const [open, setOpen] = useState(false);
-    const result = localText(task, 'report', lang) || localText(task, 'desc', lang);
-    return (
-        <div className={`closed-task ${open ? 'is-open' : ''}`}>
-            <button className="closed-task__header" onClick={() => setOpen(value => !value)} aria-expanded={open}>
-                <CheckCircle2 size={21} aria-hidden="true" />
-                <span>{localText(task, 'title', lang)}</span>
-                <ChevronDown size={18} className="closed-task__toggle" aria-hidden="true" />
-            </button>
-            <AnimatePresence initial={false}>
-                {open && result && (
-                    <motion.div className="closed-task__content"
-                        initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.24 }}>
-                        <p>{result}</p>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
-    );
 }
 
 function ChatMessage({ message, lang }) {
@@ -177,10 +136,20 @@ export default function KanbanPage() {
         }
     };
 
-    const columns = [
-        { id: 'potential', icon: Lightbulb, limit: KANBAN_LIMITS.potential },
-        { id: 'inProgress', icon: Clock3, limit: KANBAN_LIMITS.inProgress },
-    ];
+    const boardLabels = {
+        label: t('kanban.boardLabel'),
+        title: t('kanban.boardTitle'),
+        description: t('kanban.boardDesc'),
+        potential: t('kanban.potential'),
+        potentialDescription: t('kanban.potentialDesc'),
+        inProgress: t('kanban.inProgress'),
+        inProgressDescription: t('kanban.inProgressDesc'),
+        closed: t('kanban.closedTitle'),
+        closedDescription: t('kanban.closedDesc'),
+        empty: t('kanban.emptyColumn'),
+        task: lang === 'ru' ? 'Задача' : 'Task',
+        result: lang === 'ru' ? 'Результат' : 'Result',
+    };
 
     return (
         <div className="kanban-page question-page">
@@ -258,48 +227,7 @@ export default function KanbanPage() {
                 </AnimatedSection>
 
                 <AnimatedSection delay={0.1}>
-                    <section className="question-board" aria-labelledby="question-board-title">
-                        <div className="question-board__intro">
-                            <span className="question-section-label">{t('kanban.boardLabel')}</span>
-                            <h2 id="question-board-title">{t('kanban.boardTitle')}</h2>
-                            <p>{t('kanban.boardDesc')}</p>
-                        </div>
-                        <div className="question-board__columns">
-                            {columns.map(({ id, icon: Icon, limit }) => {
-                                const tasks = board[id] || [];
-                                const full = tasks.length >= limit;
-                                return (
-                                    <div key={id} className={`question-column ${full ? 'is-full' : ''}`}>
-                                        <header>
-                                            <span className="question-column__icon"><Icon size={18} /></span>
-                                            <div>
-                                                <h3>{t(`kanban.${id}`)}</h3>
-                                                <p>{t(`kanban.${id}Desc`)}</p>
-                                            </div>
-                                            <strong>{tasks.length}/{limit}</strong>
-                                        </header>
-                                        <div className="question-column__tasks">
-                                            {!tasks.length && <p className="question-column__empty">{t('kanban.emptyColumn')}</p>}
-                                            {tasks.map((task, index) => <TaskCard key={task.id} task={task} index={index} lang={lang} />)}
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </section>
-                </AnimatedSection>
-
-                <AnimatedSection delay={0.15}>
-                    <section className="closed-section" aria-labelledby="closed-title">
-                        <div className="closed-section__intro">
-                            <span className="question-section-label">{t('kanban.archiveLabel')}</span>
-                            <h2 id="closed-title">{t('kanban.closedTitle')}</h2>
-                            <p>{t('kanban.closedDesc')}</p>
-                        </div>
-                        <div className="closed-section__list">
-                            {(board.closed || []).map(task => <ClosedTask key={task.id} task={task} lang={lang} />)}
-                        </div>
-                    </section>
+                    <KanbanBoard board={board} labels={boardLabels} lang={lang} />
                 </AnimatedSection>
             </div>
         </div>

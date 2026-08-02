@@ -25,8 +25,6 @@ export default defineConfig(({ command }) => {
             react: ['react', 'react-dom', 'react-router-dom'],
             i18n: ['i18next', 'react-i18next'],
             ui: ['lucide-react', 'class-variance-authority', 'clsx', 'tailwind-merge'],
-            three: ['three'],
-            gsap: ['gsap'],
             motion: ['framer-motion'],
           },
         },

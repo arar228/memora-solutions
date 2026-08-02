@@ -1,6 +1,22 @@
-# Cloudflare terminates public HTTPS on :443 and forwards these hosts to :8443.
-memorasolutions.ru:8443, admin.memorasolutions.ru:8443 {
-    tls internal
-    encode zstd gzip
+(memora_site) {
+    log {
+        output file /var/log/caddy/memora-access.log {
+            roll_size 20MiB
+            roll_keep 5
+        }
+        format json
+    }
     reverse_proxy 127.0.0.1:3020
+}
+
+# Keep :8443 during the Cloudflare-to-direct DNS transition. Both listeners use
+# the same publicly trusted certificate once the apex record resolves to the VPS.
+memorasolutions.ru, memorasolutions.ru:8443 {
+    import memora_site
+}
+
+# The admin hostname remains behind Cloudflare until its secrets are migrated.
+admin.memorasolutions.ru:8443 {
+    tls internal
+    import memora_site
 }

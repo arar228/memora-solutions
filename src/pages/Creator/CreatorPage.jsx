@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { staticAsset } from '../../shared/staticAsset';
 import {
     ArrowRight,
     Bot,
@@ -312,7 +313,7 @@ export default function CreatorPage() {
                     <div className="container">
                         <AnimatedSection className="portfolio-manager">
                             <figure className="portfolio-manager__photo">
-                                <img src="/sergey.jpg" alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" />
+                                <img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" />
                                 <figcaption>{c.managerRole}</figcaption>
                             </figure>
                             <div className="portfolio-manager__copy">

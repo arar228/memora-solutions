@@ -1,5 +1,6 @@
 import { Cake } from 'lucide-react';
 import ProductPage from '../../shared/ProductPage';
+import { staticAsset } from '../../shared/staticAsset';
 
 export default function BdayBotPage() {
     return (
@@ -7,7 +8,7 @@ export default function BdayBotPage() {
             productKey="bdayBot"
             pageVariant="bday"
             iconVariant="blue"
-            iconImg="/bdaybot-logo.png"
+            iconImg={staticAsset('/bdaybot-logo.png')}
             iconAlt="BDay Bot"
             botUrl="https://t.me/MemoraBDayBot"
             HeaderIcon={Cake}

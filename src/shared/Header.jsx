@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { staticAsset } from './staticAsset';
 import { Globe, Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Header.css';
@@ -57,7 +58,7 @@ export default function Header() {
         <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
             <div className="header__inner container">
                 <Link to="/" className="header__logo">
-                    <img src="/logo.png?v=2" alt="Memora Solutions" className="header__logo-img" />
+                    <img src={staticAsset('/logo.png?v=2')} alt="Memora Solutions" className="header__logo-img" />
                     <span className="header__logo-text">{t('brand')}</span>
                 </Link>
 

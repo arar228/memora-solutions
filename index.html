@@ -4,27 +4,6 @@
 <head>
   <meta charset="UTF-8" />
 
-  <!-- Travelpayouts Drive (affiliate monetization). It starts after the product UI
-       is interactive so the main application always receives network priority. -->
-  <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
-    (function () {
-      function loadTravelpayouts() {
-        var script = document.createElement("script");
-        script.async = 1;
-        script.src = 'https://emrld.ltd/NTQ3OTI3.js?t=547927';
-        document.head.appendChild(script);
-      }
-
-      window.addEventListener('load', function () {
-        if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(loadTravelpayouts, { timeout: 3000 });
-        } else {
-          window.setTimeout(loadTravelpayouts, 500);
-        }
-      }, { once: true });
-    })();
-  </script>
-
   <link rel="icon" type="image/png" href="/logo.png?v=2" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"

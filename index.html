@@ -4,15 +4,24 @@
 <head>
   <meta charset="UTF-8" />
 
-  <!-- Travelpayouts Drive (affiliate monetization). Loaded from emrld.ltd = Travelpayouts'
-       "Emerald" infrastructure. NTQ3OTI3 is base64 of project id 547927. Must load first /
-       not be deferred (per Travelpayouts guidance). -->
+  <!-- Travelpayouts Drive (affiliate monetization). It starts after the product UI
+       is interactive so the main application always receives network priority. -->
   <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
     (function () {
-      var script = document.createElement("script");
-      script.async = 1;
-      script.src = 'https://emrld.ltd/NTQ3OTI3.js?t=547927';
-      document.head.appendChild(script);
+      function loadTravelpayouts() {
+        var script = document.createElement("script");
+        script.async = 1;
+        script.src = 'https://emrld.ltd/NTQ3OTI3.js?t=547927';
+        document.head.appendChild(script);
+      }
+
+      window.addEventListener('load', function () {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadTravelpayouts, { timeout: 3000 });
+        } else {
+          window.setTimeout(loadTravelpayouts, 500);
+        }
+      }, { once: true });
     })();
   </script>
 

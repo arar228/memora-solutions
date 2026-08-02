@@ -4,4 +4,5 @@ After=network-online.target memora-solutions.service
 
 [Service]
 Type=oneshot
+EnvironmentFile=/etc/memora-solutions.env
 ExecStart=/usr/local/sbin/memora-update

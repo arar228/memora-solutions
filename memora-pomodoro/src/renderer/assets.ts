@@ -1,9 +1,12 @@
 import protectedNinjaScene from '../../assets/ninja-tomato.scene?raw';
-
-export const APP_ICON_URL = new URL('../../assets/icon.png', import.meta.url).href;
+import appIconUrl from '../../assets/icon.png?url';
+import { IS_WEB } from '../shared/target';
 
 declare const __MEMORA_SCENE_KEY_A__: string;
 declare const __MEMORA_SCENE_KEY_B__: string;
+declare const __WEB_NINJA_SCENE_URL__: string | undefined;
+
+export const APP_ICON_URL = appIconUrl;
 
 interface ProtectedScene {
   v: number;
@@ -14,13 +17,25 @@ interface ProtectedScene {
 
 let ninjaSceneUrl: Promise<string> | undefined;
 
+async function loadProtectedNinjaScene(): Promise<string> {
+  if (!IS_WEB) return protectedNinjaScene;
+
+  const sceneUrl = typeof __WEB_NINJA_SCENE_URL__ !== 'undefined'
+    ? __WEB_NINJA_SCENE_URL__
+    : '';
+  if (!sceneUrl) throw new Error('Web scene asset URL is missing');
+  const response = await fetch(sceneUrl, { cache: 'force-cache' });
+  if (!response.ok) throw new Error(`Scene asset request failed (${response.status})`);
+  return response.text();
+}
+
 function decodeBase64(value: string): ArrayBuffer {
   const binary = atob(value);
   return Uint8Array.from(binary, char => char.charCodeAt(0)).buffer as ArrayBuffer;
 }
 
 async function decryptNinjaScene(): Promise<string> {
-  const payload = JSON.parse(protectedNinjaScene) as ProtectedScene;
+  const payload = JSON.parse(await loadProtectedNinjaScene()) as ProtectedScene;
   if (payload.v !== 1) throw new Error('Unsupported protected scene version');
   const keyPartA = new Uint8Array(decodeBase64(__MEMORA_SCENE_KEY_A__));
   const keyPartB = new Uint8Array(decodeBase64(__MEMORA_SCENE_KEY_B__));

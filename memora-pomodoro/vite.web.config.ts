@@ -1,13 +1,22 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
-import { readFileSync, writeFileSync } from 'node:fs';
-import { randomBytes } from 'node:crypto';
+import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash, randomBytes } from 'node:crypto';
 
 // Web-сборка того же renderer'а: результат кладётся прямо в public/ сайта,
 // страница /pomodoro встраивает его во фрейм. Одна кодовая база на десктоп и
 // web — правка в renderer видна в обеих версиях после пересборки.
 const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf8'));
+const webOutDir = resolve(__dirname, '../public/app/pomodoro');
+const webSceneDir = resolve(webOutDir, 'assets');
+const protectedScenePath = resolve(__dirname, 'assets/ninja-tomato.scene');
+const protectedSceneHash = createHash('sha256')
+  .update(readFileSync(protectedScenePath))
+  .digest('hex')
+  .slice(0, 12);
+const webSceneFileName = `ninja-tomato-${protectedSceneHash}.scene`;
+const webScenePath = resolve(webSceneDir, webSceneFileName);
 
 export default defineConfig(({ mode }) => {
   const sceneKey = loadEnv(mode, __dirname, 'MEMORA_').MEMORA_SCENE_KEY || process.env.MEMORA_SCENE_KEY;
@@ -20,12 +29,23 @@ export default defineConfig(({ mode }) => {
   root: resolve(__dirname, 'src/web'),
   base: './',
   plugins: [
+    {
+      name: 'use-compact-web-icon',
+      enforce: 'pre',
+      resolveId(source, importer) {
+        if (source === '../../assets/icon.png?url' && importer?.endsWith('/src/renderer/assets.ts')) {
+          return `${resolve(__dirname, 'assets/icon-web.png')}?url`;
+        }
+      },
+    },
     react(),
     {
       // Страница /pomodoro читает этот файл и показывает номер и дату версии —
       // одна сборка обновляет и web-копию, и надпись о версии.
       name: 'emit-pomodoro-version',
       closeBundle() {
+        mkdirSync(webSceneDir, { recursive: true });
+        copyFileSync(protectedScenePath, webScenePath);
         writeFileSync(
           resolve(__dirname, '../public/pomodoro-version.json'),
           JSON.stringify({
@@ -40,11 +60,12 @@ export default defineConfig(({ mode }) => {
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
     __IS_WEB__: 'true',
+    __WEB_NINJA_SCENE_URL__: JSON.stringify(`./assets/${webSceneFileName}`),
     __MEMORA_SCENE_KEY_A__: JSON.stringify(sceneKeyMask.toString('base64')),
     __MEMORA_SCENE_KEY_B__: JSON.stringify(sceneKeyMasked.toString('base64')),
   },
   build: {
-    outDir: resolve(__dirname, '../public/app/pomodoro'),
+    outDir: webOutDir,
     emptyOutDir: true,
     target: 'es2020',
   },

@@ -32,6 +32,15 @@ let ready;
 
 function sslFor(connectionString) {
   if (!connectionString || connectionString.includes('.railway.internal')) return false;
+  try {
+    const { hostname, searchParams } = new URL(connectionString);
+    if (['localhost', '127.0.0.1', '::1'].includes(hostname)
+      || searchParams.get('sslmode') === 'disable') {
+      return false;
+    }
+  } catch {
+    // Let pg report malformed connection strings with its native error.
+  }
   return { rejectUnauthorized: false };
 }
 

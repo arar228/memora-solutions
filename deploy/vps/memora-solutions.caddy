@@ -1,0 +1,6 @@
+# Cloudflare terminates public HTTPS on :443 and forwards these hosts to :8443.
+memorasolutions.ru:8443, admin.memorasolutions.ru:8443 {
+    tls internal
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:3020
+}

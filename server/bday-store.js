@@ -15,14 +15,26 @@ const BROADCAST_FILTERS = new Set([
   'not_blocked',
 ]);
 
+function sslFor(connectionString) {
+  if (!connectionString || connectionString.includes('.railway.internal')) return false;
+  try {
+    const { hostname, searchParams } = new URL(connectionString);
+    if (['localhost', '127.0.0.1', '::1'].includes(hostname)
+      || searchParams.get('sslmode') === 'disable') {
+      return false;
+    }
+  } catch {
+    // Let pg report malformed connection strings with its native error.
+  }
+  return { rejectUnauthorized: false };
+}
+
 function getPool() {
   if (!BDAY_DATABASE_URL) return null;
   if (!pool) {
     pool = new Pool({
       connectionString: BDAY_DATABASE_URL,
-      ssl: BDAY_DATABASE_URL.includes('.railway.internal')
-        ? false
-        : { rejectUnauthorized: false },
+      ssl: sslFor(BDAY_DATABASE_URL),
       max: 3,
       idleTimeoutMillis: 30_000,
       connectionTimeoutMillis: 8_000,

@@ -1,0 +1,24 @@
+[Unit]
+Description=Memora Solutions website
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=memora
+Group=memora
+WorkingDirectory=/opt/memora-solutions
+Environment=NODE_ENV=production
+EnvironmentFile=/etc/memora-solutions.env
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGTERM
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

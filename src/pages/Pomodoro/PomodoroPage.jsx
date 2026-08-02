@@ -10,7 +10,9 @@ const WIN_INSTALLER = 'https://github.com/arar228/memora-solutions/releases/late
 const RELEASES_LATEST = 'https://github.com/arar228/memora-solutions/releases/latest';
 // Веб-копия приложения: та же кодовая база, что и у десктопа, собирается
 // командой `npm run build:web` в memora-pomodoro/ прямо в public/app/pomodoro.
-const WEB_APP_URL = '/app/pomodoro/index.html';
+const WEB_APP_URL = import.meta.env.DEV
+    ? '/app/pomodoro/index.html'
+    : 'https://arar228.github.io/memora-solutions/app/pomodoro/index.html';
 const FEATURES = ['f1', 'f2', 'f3', 'f4', 'f5'];
 const STEPS = ['step1', 'step2', 'step3', 'step4'];
 

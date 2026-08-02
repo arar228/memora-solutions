@@ -1,0 +1,7 @@
+[Unit]
+Description=Update Memora Solutions from GitHub
+After=network-online.target memora-solutions.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/memora-update

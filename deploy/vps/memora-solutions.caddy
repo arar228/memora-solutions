@@ -22,8 +22,7 @@ memorasolutions.ru, memorasolutions.ru:8443 {
     import memora_site
 }
 
-# The admin hostname remains behind Cloudflare until its secrets are migrated.
-admin.memorasolutions.ru:8443 {
-    tls internal
+# The admin hostname uses direct DNS and a publicly trusted certificate.
+admin.memorasolutions.ru, admin.memorasolutions.ru:8443 {
     import memora_site
 }

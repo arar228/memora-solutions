@@ -52,9 +52,123 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 12.5px;
 }
+
+.kanban-admin {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.kanban-admin__toolbar {
+    display: flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 7px 10px 7px 13px;
+    border: 1px solid rgba(22, 49, 60, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.kanban-admin__toolbar > div:first-child {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 9px;
+}
+
+.kanban-admin__toolbar strong {
+    color: #17313a;
+    font-size: 14px;
+}
+
+.kanban-admin__toolbar span {
+    color: #71838a;
+    font-size: 11px;
+}
+
+.kanban-admin__toolbar-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 6px;
+}
+
+.kanban-admin__create {
+    padding: 11px;
+    border: 1px solid rgba(22, 49, 60, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.kanban-admin__create-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1.5fr 0.8fr 0.8fr auto;
+    gap: 10px;
+}
+
+.kanban-admin__workspace {
+    height: clamp(440px, calc(100vh - 220px), 620px);
+}
+
+.kanban-admin__archive {
+    margin-top: 22px;
+}
+
+.kanban-admin__archive > header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.kanban-admin__archive > header span {
+    color: #078799;
+    font-size: 9px;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.kanban-admin__archive > header h2 {
+    margin: 2px 0 0;
+    color: #17313a;
+    font-size: 22px;
+    line-height: 1.1;
+}
+
+.kanban-admin__archive > header p {
+    margin: 0;
+    color: #71838a;
+    font-size: 11px;
+}
+
+.memora-board__action.is-active {
+    color: var(--board-text);
+    border-color: color-mix(in srgb, var(--board-accent) 48%, var(--board-line));
+    background: color-mix(in srgb, var(--board-accent) 12%, var(--board-bg));
+}
+
 @media (max-width: 767px) {
     .admin-nav {
         position: static;
         width: auto;
+    }
+
+    .kanban-admin__toolbar,
+    .kanban-admin__toolbar > div:first-child {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .kanban-admin__toolbar-actions {
+        flex-wrap: wrap;
+    }
+
+    .kanban-admin__create-grid {
+        grid-template-columns: 1fr;
     }
 }

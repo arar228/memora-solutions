@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-    LockKeyhole, MessageCircle, Send,
+    MessageCircle, Send,
 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import KanbanBoard from '../../shared/KanbanBoard';
+import KanbanChat from '../../shared/KanbanChat';
 import { cloneDefaultKanbanBoard } from '../../data/kanbanConfig';
 import './KanbanPage.css';
 
@@ -32,22 +33,6 @@ async function jsonRequest(path, options) {
         throw error;
     }
     return body;
-}
-
-function ChatMessage({ message, lang }) {
-    const manager = message.author === 'manager';
-    const time = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-US', {
-        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
-    }).format(new Date(message.createdAt));
-    return (
-        <div className={`question-message ${manager ? 'question-message--manager' : ''}`}>
-            <div className="question-message__meta">
-                <strong>{manager ? (lang === 'ru' ? 'Команда Memora' : 'Memora team') : message.name || (lang === 'ru' ? 'Посетитель' : 'Visitor')}</strong>
-                <time>{time}</time>
-            </div>
-            <p>{message.text}</p>
-        </div>
-    );
 }
 
 export default function KanbanPage() {
@@ -150,6 +135,17 @@ export default function KanbanPage() {
         task: lang === 'ru' ? 'Задача' : 'Task',
         result: lang === 'ru' ? 'Результат' : 'Result',
     };
+    const chatLabels = {
+        title: t('kanban.chatTitle'),
+        general: t('kanban.generalChat'),
+        personal: t('kanban.personalChat'),
+        generalDescription: t('kanban.generalChatDesc'),
+        personalDescription: t('kanban.personalChatDesc'),
+        loading: t('kanban.loading'),
+        empty: t('kanban.emptyChat'),
+        manager: lang === 'ru' ? 'Команда Memora' : 'Memora team',
+        visitor: lang === 'ru' ? 'Посетитель' : 'Visitor',
+    };
 
     return (
         <div className="kanban-page question-page">
@@ -163,76 +159,61 @@ export default function KanbanPage() {
                 </AnimatedSection>
 
                 <AnimatedSection delay={0.05}>
-                    <div className="question-workspace">
-                    <section className="question-chat question-chat--workspace" aria-labelledby="question-chat-title">
-                        <div className="question-chat__top">
-                            <div>
-                                <span className="question-section-label">{t('kanban.chatLabel')}</span>
-                                <h2 id="question-chat-title">{t('kanban.chatTitle')}</h2>
-                            </div>
-                            <div className="question-chat__tabs" role="tablist" aria-label={t('kanban.chatTitle')}>
-                                <button className={chatMode === 'general' ? 'is-active' : ''}
-                                    onClick={() => selectMode('general')} role="tab" aria-selected={chatMode === 'general'}>
-                                    <MessageCircle size={16} /> {t('kanban.generalChat')}
-                                </button>
-                                <button className={chatMode === 'personal' ? 'is-active' : ''}
-                                    onClick={() => selectMode('personal')} role="tab" aria-selected={chatMode === 'personal'}>
-                                    <LockKeyhole size={16} /> {t('kanban.personalChat')}
-                                </button>
-                            </div>
-                        </div>
-
-                        <p className="question-chat__context">
-                            {chatMode === 'general' ? t('kanban.generalChatDesc') : t('kanban.personalChatDesc')}
-                        </p>
-
-                        <div className="question-chat__messages" aria-live="polite">
-                            {chatLoading && <p className="question-chat__empty">{t('kanban.loading')}</p>}
-                            {!chatLoading && !messages.length && <p className="question-chat__empty">{t('kanban.emptyChat')}</p>}
-                            {messages.map(message => <ChatMessage key={message.id} message={message} lang={lang} />)}
-                            <div ref={chatEnd} />
-                        </div>
-
-                        <div className="question-chat__composer">
-                            <label>
-                                <span>{t('kanban.nameLabel')}</span>
-                                <input value={name} maxLength={40} placeholder={t('kanban.namePlaceholder')}
-                                    onChange={event => setName(event.target.value)} />
-                            </label>
-                            <label className="question-chat__text">
-                                <span>{t('kanban.messageLabel')}</span>
-                                <textarea value={text} maxLength={1200} placeholder={t('kanban.messagePlaceholder')}
-                                    onChange={event => setText(event.target.value)}
-                                    onKeyDown={event => {
-                                        if (event.key === 'Enter' && !event.shiftKey) {
-                                            event.preventDefault();
-                                            sendMessage();
-                                        }
-                                    }} />
-                            </label>
-                            <label className="question-chat__honeypot" aria-hidden="true">
-                                Website<input tabIndex={-1} autoComplete="off" value={website}
-                                    onChange={event => setWebsite(event.target.value)} />
-                            </label>
-                            <button className="btn btn-primary question-chat__send" onClick={sendMessage}
-                                disabled={sending || text.trim().length < 2}>
-                                <Send size={17} /> {sending ? t('kanban.sending') : t('kanban.send')}
-                            </button>
-                        </div>
-                        <div className="question-chat__status">
-                            <span>{text.length}/1200</span>
-                            {error && <strong className="is-error">{error}</strong>}
-                            {!error && notice && <strong>{notice}</strong>}
-                        </div>
-                    </section>
-                    <KanbanBoard
-                        board={board}
-                        labels={boardLabels}
-                        lang={lang}
-                        visibleColumns={['potential', 'inProgress']}
-                        showIntro={false}
-                        variant="workspace"
-                    />
+                    <div className="memora-workspace question-workspace">
+                        <KanbanChat
+                            labels={chatLabels}
+                            lang={lang}
+                            mode={chatMode}
+                            onModeChange={selectMode}
+                            messages={messages}
+                            loading={chatLoading}
+                            endRef={chatEnd}
+                            composer={(
+                                <>
+                                    <input
+                                        value={name}
+                                        maxLength={40}
+                                        aria-label={t('kanban.nameLabel')}
+                                        placeholder={t('kanban.namePlaceholder')}
+                                        onChange={event => setName(event.target.value)}
+                                    />
+                                    <textarea
+                                        value={text}
+                                        maxLength={1200}
+                                        aria-label={t('kanban.messageLabel')}
+                                        placeholder={t('kanban.messagePlaceholder')}
+                                        onChange={event => setText(event.target.value)}
+                                        onKeyDown={event => {
+                                            if (event.key === 'Enter' && !event.shiftKey) {
+                                                event.preventDefault();
+                                                sendMessage();
+                                            }
+                                        }}
+                                    />
+                                    <label className="memora-chat__honeypot" aria-hidden="true">
+                                        Website<input tabIndex={-1} autoComplete="off" value={website}
+                                            onChange={event => setWebsite(event.target.value)} />
+                                    </label>
+                                    <button type="button" onClick={sendMessage}
+                                        disabled={sending || text.trim().length < 2}>
+                                        <Send size={14} /> {sending ? t('kanban.sending') : t('kanban.send')}
+                                    </button>
+                                    <div className="memora-chat__status">
+                                        <span>{text.length}/1200</span>
+                                        {error && <strong className="is-error">{error}</strong>}
+                                        {!error && notice && <strong>{notice}</strong>}
+                                    </div>
+                                </>
+                            )}
+                        />
+                        <KanbanBoard
+                            board={board}
+                            labels={boardLabels}
+                            lang={lang}
+                            visibleColumns={['potential', 'inProgress']}
+                            showIntro={false}
+                            variant="workspace"
+                        />
                     </div>
                 </AnimatedSection>
 

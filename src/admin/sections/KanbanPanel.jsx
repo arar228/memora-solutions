@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-    Check, LockKeyhole, MessageCircle, PencilLine, Plus, RefreshCw, Send, Trash2,
+    Check, PencilLine, Plus, RefreshCw, Send, Trash2,
 } from 'lucide-react';
 import {
-    Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle,
-    Input, Label, Select,
+    Badge, Button, Input, Label, Select,
 } from '../../ui';
 import { KANBAN_LIMITS, cloneDefaultKanbanBoard } from '../../data/kanbanConfig';
 import KanbanBoard from '../../shared/KanbanBoard';
+import KanbanChat from '../../shared/KanbanChat';
 import { adminApi } from '../api';
 
 const COLUMNS = [
@@ -33,9 +33,17 @@ const BOARD_LABELS = {
     result: 'Результат',
 };
 
-const formatTime = value => new Intl.DateTimeFormat('ru-RU', {
-    day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
-}).format(new Date(value));
+const CHAT_LABELS = {
+    title: 'Разговор с командой',
+    general: 'Общий чат',
+    personal: 'Персональный',
+    generalDescription: 'Общие вопросы и ответы команды',
+    personalDescription: 'Диалоги с конкретными посетителями',
+    loading: 'Загружаем диалог…',
+    empty: 'Первое сообщение появится здесь.',
+    manager: 'Команда Memora',
+    visitor: 'Посетитель',
+};
 
 export default function KanbanPanel() {
     const [board, setBoard] = useState(cloneDefaultKanbanBoard());
@@ -49,11 +57,13 @@ export default function KanbanPanel() {
     const [reply, setReply] = useState('');
     const [replying, setReplying] = useState(false);
     const [editingTask, setEditingTask] = useState('');
+    const [showCreate, setShowCreate] = useState(false);
 
     const load = () => {
         setSyncState('loading');
         adminApi.getKanban()
-            .then(({ board: nextBoard, messages: nextMessages }) => {
+            .then(payload => {
+                const { board: nextBoard, messages: nextMessages } = payload || {};
                 setBoard(nextBoard || cloneDefaultKanbanBoard());
                 setMessages(Array.isArray(nextMessages) ? nextMessages : []);
                 setLoaded(true);
@@ -128,6 +138,7 @@ export default function KanbanPanel() {
         };
         setBoard(current => ({ ...current, [draft.column]: [...current[draft.column], task] }));
         setDraft(emptyDraft);
+        setShowCreate(false);
         setError('');
     };
 
@@ -191,27 +202,64 @@ export default function KanbanPanel() {
         }
     };
 
+    const renderTaskControls = ({ task, columnId }) => (
+        <div className="memora-board__actions">
+            <button className="memora-board__action" type="button"
+                onClick={() => setEditingTask(current => current === `${columnId}:${task.id}` ? '' : `${columnId}:${task.id}`)}>
+                <PencilLine size={12} /> Изменить
+            </button>
+            {COLUMNS.filter(item => item.id !== columnId).map(item => (
+                <button key={item.id} className="memora-board__action" type="button"
+                    onClick={() => moveTask(columnId, task.id, item.id)}>
+                    → {item.label}
+                </button>
+            ))}
+            <button className="memora-board__action is-danger" type="button"
+                onClick={() => removeTask(columnId, task.id)}>
+                <Trash2 size={12} /> Удалить
+            </button>
+        </div>
+    );
+
+    const renderTaskEditor = ({ task, columnId }) => (
+        editingTask === `${columnId}:${task.id}` && (
+            <div className="memora-board__editor">
+                <input value={task.title} aria-label="Название задачи"
+                    onChange={event => updateTask(columnId, task.id, { title: event.target.value })} />
+                <textarea value={task.desc || ''} aria-label="Описание задачи" placeholder="Описание и ожидаемый результат"
+                    onChange={event => updateTask(columnId, task.id, { desc: event.target.value })} />
+                {columnId === 'closed' && (
+                    <textarea value={task.report || ''} aria-label="Итог закрытой задачи" placeholder="Готовый результат"
+                        onChange={event => updateTask(columnId, task.id, { report: event.target.value })} />
+                )}
+                <button className="memora-board__action" type="button" onClick={() => setEditingTask('')}>
+                    <Check size={12} /> Готово
+                </button>
+            </div>
+        )
+    );
+
     return (
-        <div className="flex flex-col gap-5">
-            <Card>
-                <CardHeader>
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div>
-                            <CardTitle>Задать вопрос · ручное управление</CardTitle>
-                            <CardDescription>
-                                Здесь менеджер ведёт публичную доску и отвечает в общем или персональном чате.
-                            </CardDescription>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Badge variant={syncState === 'error' ? 'warn' : syncState === 'saved' ? 'ok' : 'muted'}>
-                                {syncState === 'loading' ? 'загрузка…' : syncState === 'saving' ? 'сохранение…' : syncState === 'error' ? 'ошибка' : 'сохранено'}
-                            </Badge>
-                            <Button variant="ghost" size="sm" onClick={load}><RefreshCw size={14} /> Обновить</Button>
-                        </div>
-                    </div>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-3">
-                    <div className="grid gap-3 xl:grid-cols-[1.1fr_1.5fr_.8fr_.8fr_auto]">
+        <div className="kanban-admin">
+            <header className="kanban-admin__toolbar">
+                <div>
+                    <strong>Задать вопрос</strong>
+                    <span>Чат и рабочая доска</span>
+                </div>
+                <div className="kanban-admin__toolbar-actions">
+                    <Badge variant={syncState === 'error' ? 'warn' : syncState === 'saved' ? 'ok' : 'muted'}>
+                        {syncState === 'loading' ? 'загрузка…' : syncState === 'saving' ? 'сохранение…' : syncState === 'error' ? 'ошибка' : 'сохранено'}
+                    </Badge>
+                    <Button variant="ghost" size="sm" onClick={load}><RefreshCw size={14} /> Обновить</Button>
+                    <Button size="sm" onClick={() => setShowCreate(current => !current)}>
+                        <Plus size={14} /> Новая задача
+                    </Button>
+                </div>
+            </header>
+
+            {showCreate && (
+                <section className="kanban-admin__create" aria-label="Новая задача">
+                    <div className="kanban-admin__create-grid">
                         <div className="flex flex-col gap-1.5">
                             <Label>Название</Label>
                             <Input value={draft.title} placeholder="Коротко и понятно"
@@ -241,108 +289,82 @@ export default function KanbanPanel() {
                             <Button onClick={add}><Plus size={15} /> Добавить</Button>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </section>
+            )}
 
             {error && <div className="rounded-control border border-danger/40 bg-danger/10 px-4 py-3 text-ui-sm text-danger">{error}</div>}
 
-            <KanbanBoard
-                board={board}
-                labels={BOARD_LABELS}
-                renderTaskControls={({ task, columnId }) => (
-                    <div className="memora-board__actions">
-                        <button className="memora-board__action" type="button"
-                            onClick={() => setEditingTask(current => current === `${columnId}:${task.id}` ? '' : `${columnId}:${task.id}`)}>
-                            <PencilLine size={12} /> Изменить
-                        </button>
-                        {COLUMNS.filter(item => item.id !== columnId).map(item => (
-                            <button key={item.id} className="memora-board__action" type="button"
-                                onClick={() => moveTask(columnId, task.id, item.id)}>
-                                → {item.label}
-                            </button>
-                        ))}
-                        <button className="memora-board__action is-danger" type="button"
-                            onClick={() => removeTask(columnId, task.id)}>
-                            <Trash2 size={12} /> Удалить
-                        </button>
-                    </div>
-                )}
-                renderTaskEditor={({ task, columnId }) => (
-                    editingTask === `${columnId}:${task.id}` && (
-                        <div className="memora-board__editor">
-                            <input value={task.title} aria-label="Название задачи"
-                                onChange={event => updateTask(columnId, task.id, { title: event.target.value })} />
-                            <textarea value={task.desc || ''} aria-label="Описание задачи" placeholder="Описание и ожидаемый результат"
-                                onChange={event => updateTask(columnId, task.id, { desc: event.target.value })} />
-                            {columnId === 'closed' && (
-                                <textarea value={task.report || ''} aria-label="Итог закрытой задачи" placeholder="Готовый результат"
-                                    onChange={event => updateTask(columnId, task.id, { report: event.target.value })} />
-                            )}
-                            <button className="memora-board__action" type="button" onClick={() => setEditingTask('')}>
-                                <Check size={12} /> Готово
-                            </button>
-                        </div>
-                    )
-                )}
-            />
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Диалоги с посетителями</CardTitle>
-                    <CardDescription>Общий чат видят все посетители. Персональный разговор видят конкретный посетитель и менеджер.</CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-4">
-                    <div className="flex flex-wrap gap-2">
-                        <Button variant={chatMode === 'general' ? 'default' : 'ghost'} onClick={() => setChatMode('general')}>
-                            <MessageCircle size={15} /> Общий чат
-                        </Button>
-                        <Button variant={chatMode === 'personal' ? 'default' : 'ghost'} onClick={() => setChatMode('personal')}>
-                            <LockKeyhole size={15} /> Персональные · {conversations.length}
-                        </Button>
-                    </div>
-
-                    {chatMode === 'personal' && (
-                        <div className="flex gap-2 overflow-x-auto pb-1">
-                            {!conversations.length && <span className="text-ui-sm text-ink-3">Первый персональный диалог появится здесь.</span>}
+            <div className="memora-workspace kanban-admin__workspace">
+                <KanbanChat
+                    labels={CHAT_LABELS}
+                    mode={chatMode}
+                    onModeChange={setChatMode}
+                    messages={visibleMessages}
+                    loading={!loaded}
+                    personalCount={conversations.length}
+                    modeExtra={chatMode === 'personal' ? (
+                        <div className="memora-chat__mode-extra">
+                            {conversations.length === 0 && <span className="memora-chat__empty">Первый диалог появится здесь.</span>}
                             {conversations.map((conversation, index) => (
-                                <Button key={conversation.id} size="sm"
-                                    variant={selectedConversation === conversation.id ? 'default' : 'ghost'}
+                                <button key={conversation.id} type="button"
+                                    className={`memora-board__action ${selectedConversation === conversation.id ? 'is-active' : ''}`}
                                     onClick={() => setSelectedConversation(conversation.id)}>
                                     Диалог {conversations.length - index} · {conversation.list.length}
-                                </Button>
+                                </button>
                             ))}
                         </div>
+                    ) : null}
+                    renderMessageControls={message => (
+                        <button type="button" onClick={() => removeMessage(message.id)} aria-label="Удалить сообщение">
+                            <Trash2 size={11} />
+                        </button>
                     )}
+                    composer={(
+                        <>
+                            <textarea value={reply} placeholder="Ответить от имени команды…"
+                                onChange={event => setReply(event.target.value)}
+                                onKeyDown={event => {
+                                    if (event.key === 'Enter' && !event.shiftKey) {
+                                        event.preventDefault();
+                                        sendReply();
+                                    }
+                                }} />
+                            <button type="button" onClick={sendReply}
+                                disabled={replying || !reply.trim() || (chatMode === 'personal' && !selectedConversation)}>
+                                <Send size={14} /> {replying ? 'Отправка…' : 'Ответить'}
+                            </button>
+                        </>
+                    )}
+                />
+                <KanbanBoard
+                    board={board}
+                    labels={BOARD_LABELS}
+                    visibleColumns={['potential', 'inProgress']}
+                    showIntro={false}
+                    variant="workspace"
+                    renderTaskControls={renderTaskControls}
+                    renderTaskEditor={renderTaskEditor}
+                />
+            </div>
 
-                    <div className="flex max-h-[440px] flex-col gap-2 overflow-y-auto rounded-control border border-line bg-surface-2 p-3">
-                        {!visibleMessages.length && <p className="m-0 py-8 text-center text-ui-sm text-ink-3">Первое сообщение появится здесь.</p>}
-                        {visibleMessages.map(message => (
-                            <div key={message.id} className={`max-w-[86%] rounded-control border p-3 ${message.author === 'manager' ? 'ml-auto border-brand/20 bg-brand-dim' : 'border-line bg-white'}`}>
-                                <div className="flex items-center justify-between gap-3 text-[11px] text-ink-3">
-                                    <span>{message.author === 'manager' ? 'Команда Memora' : message.name || 'Посетитель'} · {formatTime(message.createdAt)}</span>
-                                    <button onClick={() => removeMessage(message.id)} className="border-none bg-transparent text-ink-3 hover:text-danger" aria-label="Удалить сообщение"><Trash2 size={12} /></button>
-                                </div>
-                                <p className="m-0 mt-1 whitespace-pre-wrap text-ui-sm text-ink">{message.text}</p>
-                            </div>
-                        ))}
+            <section className="kanban-admin__archive">
+                <header>
+                    <div>
+                        <span>Результаты</span>
+                        <h2>Закрытые задачи</h2>
                     </div>
-
-                    <div className="flex gap-2">
-                        <textarea value={reply} placeholder="Ответить от имени команды…"
-                            onChange={event => setReply(event.target.value)}
-                            onKeyDown={event => {
-                                if (event.key === 'Enter' && !event.shiftKey) {
-                                    event.preventDefault();
-                                    sendReply();
-                                }
-                            }}
-                            className="min-h-20 flex-1 resize-y rounded-control border border-line bg-white px-3 py-2 text-ui outline-none focus:border-brand" />
-                        <Button onClick={sendReply} disabled={replying || !reply.trim() || (chatMode === 'personal' && !selectedConversation)}>
-                            <Send size={15} /> {replying ? 'Отправка…' : 'Ответить'}
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
+                    <p>Готовые результаты и отчёты</p>
+                </header>
+                <KanbanBoard
+                    board={board}
+                    labels={BOARD_LABELS}
+                    visibleColumns={['closed']}
+                    showIntro={false}
+                    variant="archive"
+                    renderTaskControls={renderTaskControls}
+                    renderTaskEditor={renderTaskEditor}
+                />
+            </section>
         </div>
     );
 }

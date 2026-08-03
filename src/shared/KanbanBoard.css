@@ -239,6 +239,76 @@
     border-color: var(--board-accent);
 }
 
+.memora-board--workspace,
+.memora-board--workspace .memora-board__grid {
+    display: contents;
+}
+
+.memora-board--workspace .memora-board__column {
+    height: clamp(620px, 74vh, 760px);
+}
+
+.memora-board--workspace .memora-board__column-copy h3 {
+    font-size: 15px;
+}
+
+.memora-board--workspace .memora-board__column-copy p,
+.memora-board--workspace .memora-board__empty,
+.memora-board--workspace .memora-board__task p {
+    font-size: 12px;
+}
+
+.memora-board--archive .memora-board__grid {
+    grid-template-columns: 1fr;
+}
+
+.memora-board--archive .memora-board__column {
+    height: auto;
+    min-height: 160px;
+}
+
+.memora-board--archive .memora-board__column-header {
+    display: none;
+}
+
+.memora-board--archive .memora-board__tasks {
+    gap: 7px;
+    overflow: visible;
+    padding: 12px;
+}
+
+.memora-board--archive .memora-board__task {
+    display: grid;
+    grid-template-columns: 112px minmax(180px, 0.75fr) minmax(0, 1.5fr);
+    align-items: start;
+    gap: 16px;
+    padding: 15px 16px;
+}
+
+.memora-board--archive .memora-board__task-label,
+.memora-board--archive .memora-board__task h4,
+.memora-board--archive .memora-board__task .memora-board__result {
+    margin: 0;
+}
+
+.memora-board--archive .memora-board__task-label {
+    padding-top: 3px;
+    font-size: 9px;
+}
+
+.memora-board--archive .memora-board__task h4 {
+    font-size: 14px;
+}
+
+.memora-board--archive .memora-board__task .memora-board__result {
+    font-size: 12px;
+}
+
+.memora-board--archive .memora-board__empty {
+    grid-column: 1 / -1;
+    min-height: 112px;
+}
+
 @media (max-width: 900px) {
     .memora-board__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -252,5 +322,18 @@
 
     .memora-board__column {
         height: 330px;
+    }
+
+    .memora-board--workspace .memora-board__column {
+        height: 430px;
+    }
+
+    .memora-board--archive .memora-board__column {
+        height: auto;
+    }
+
+    .memora-board--archive .memora-board__task {
+        grid-template-columns: 1fr;
+        gap: 6px;
     }
 }

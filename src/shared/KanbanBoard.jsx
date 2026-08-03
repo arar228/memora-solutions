@@ -19,17 +19,29 @@ export default function KanbanBoard({
     lang = 'ru',
     renderTaskControls,
     renderTaskEditor,
+    visibleColumns,
+    showIntro = true,
+    variant = 'default',
 }) {
+    const columns = Array.isArray(visibleColumns)
+        ? COLUMN_META.filter(column => visibleColumns.includes(column.id))
+        : COLUMN_META;
+
     return (
-        <section className="memora-board" aria-labelledby="memora-board-title">
-            <div className="memora-board__intro">
-                <span className="memora-board__label">{labels.label}</span>
-                <h2 id="memora-board-title">{labels.title}</h2>
-                <p>{labels.description}</p>
-            </div>
+        <section
+            className={`memora-board memora-board--${variant}`}
+            aria-labelledby={showIntro ? 'memora-board-title' : undefined}
+        >
+            {showIntro && (
+                <div className="memora-board__intro">
+                    <span className="memora-board__label">{labels.label}</span>
+                    <h2 id="memora-board-title">{labels.title}</h2>
+                    <p>{labels.description}</p>
+                </div>
+            )}
 
             <div className="memora-board__grid">
-                {COLUMN_META.map(({ id, icon: Icon, limit }) => {
+                {columns.map(({ id, icon: Icon, limit }) => {
                     const tasks = board[id] || [];
                     const full = Boolean(limit && tasks.length >= limit);
                     return (

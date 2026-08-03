@@ -163,7 +163,8 @@ export default function KanbanPage() {
                 </AnimatedSection>
 
                 <AnimatedSection delay={0.05}>
-                    <section className="question-chat" aria-labelledby="question-chat-title">
+                    <div className="question-workspace">
+                    <section className="question-chat question-chat--workspace" aria-labelledby="question-chat-title">
                         <div className="question-chat__top">
                             <div>
                                 <span className="question-section-label">{t('kanban.chatLabel')}</span>
@@ -224,10 +225,33 @@ export default function KanbanPage() {
                             {!error && notice && <strong>{notice}</strong>}
                         </div>
                     </section>
+                    <KanbanBoard
+                        board={board}
+                        labels={boardLabels}
+                        lang={lang}
+                        visibleColumns={['potential', 'inProgress']}
+                        showIntro={false}
+                        variant="workspace"
+                    />
+                    </div>
                 </AnimatedSection>
 
                 <AnimatedSection delay={0.1}>
-                    <KanbanBoard board={board} labels={boardLabels} lang={lang} />
+                    <section className="question-archive" aria-labelledby="question-archive-title">
+                        <div className="question-archive__header">
+                            <span className="question-section-label">{t('kanban.archiveLabel')}</span>
+                            <h2 id="question-archive-title">{t('kanban.closedTitle')}</h2>
+                            <p>{t('kanban.closedDesc')}</p>
+                        </div>
+                        <KanbanBoard
+                            board={board}
+                            labels={boardLabels}
+                            lang={lang}
+                            visibleColumns={['closed']}
+                            showIntro={false}
+                            variant="archive"
+                        />
+                    </section>
                 </AnimatedSection>
             </div>
         </div>

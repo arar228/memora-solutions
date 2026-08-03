@@ -17,7 +17,8 @@
  *
  * Output shape:
  *   { type:'flight'|'tour', from:{name,code}, to:{name,code}, price, oldPrice,
- *     savings, discount, oneway, nights, departDate, date, source, link, text }
+ *     savings, discount, oneway, roundTrip, connections, nights, departDate,
+ *     date, source, link, text }
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -53,6 +54,7 @@ const RF_ORIGINS = [
 const ORIG = [...RF_ORIGINS];
 const DEST = DEAL_DESTINATIONS;
 const PLACES = [...RF_ORIGINS, ...DEAL_DESTINATIONS];
+const ROUND_TRIP_RE = /(?:туда\s*[-—–]\s*обратно|туда\s+и\s+обратно|в\s+обе\s+стороны|round[\s-]*trip|\bRT\b)/iu;
 
 const DECLENSION_ENDINGS = new Set([
   '', 'а', 'я', 'ы', 'и', 'е', 'у', 'ю', 'о', 'й', 'ь',
@@ -83,6 +85,24 @@ function findCities(text, table) {
   }
 
   return [...matches.values()].sort((a, b) => a.pos - b.pos || b.stemLength - a.stemLength);
+}
+
+// Extract only transfer points, not every place mentioned in a post. The
+// cue immediately before the city keeps destinations out of this field while
+// covering common Telegram wording: "стыковка в", "пересадка в", "через".
+function extractConnections(text) {
+  const value = String(text || '');
+  const matches = findCities(value, PLACES).filter((place) => {
+    const prefix = value.slice(Math.max(0, place.pos - 72), place.pos);
+    return /(?:стыковк\p{L}*|пересадк\p{L}*)[^,.;:\n]{0,36}(?:в|во)\s+$/iu.test(prefix)
+      || /через\s+$/iu.test(prefix);
+  });
+
+  return matches
+    .filter((place, index) => matches.findIndex((candidate) => (
+      candidate.code === place.code || candidate.name === place.name
+    )) === index)
+    .map(({ name, code }) => ({ name, code }));
 }
 
 // Find a city hit in text, honoring an "из <city>" marker when asked: for
@@ -246,6 +266,11 @@ function parseSegment(seg, postCtx) {
   const nightsM = seg.match(NIGHTS_RE);
   const departDate = parseDepartDate(seg, postCtx.date);
   const oneway = /в одну сторону|one\s*way/i.test(seg);
+  const roundTrip = !oneway && (ROUND_TRIP_RE.test(seg) || postCtx.roundTrip);
+  const segmentConnections = extractConnections(seg);
+  const connections = segmentConnections.length > 0
+    ? segmentConnections
+    : postCtx.connections || [];
 
   // Flights → OUR Aviasales link (intercept). Tours → the booking link found
   // inside this very segment, else the post's first link, else the post.
@@ -268,7 +293,7 @@ function parseSegment(seg, postCtx) {
     type,
     from: { name: from.name, code: from.code, ...fromMeta },
     to: { name: to.name, code: to.code, ...toMeta },
-    price, oldPrice, savings, discount, oneway,
+    price, oldPrice, savings, discount, oneway, roundTrip, connections,
     nights: nightsM ? Number(nightsM[1]) : null,
     departDate,
     date: postCtx.date || null,
@@ -314,6 +339,8 @@ function structure(post) {
     origin: headOrigin,
     destination: headDest,
     tourish: TOUR_RE.test(lines[0] || ''),
+    roundTrip: ROUND_TRIP_RE.test(text),
+    connections: extractConnections(text),
     date: post.date, channel: post.channel, link: post.link, links: post.links,
   };
 
@@ -428,5 +455,6 @@ if (isMain) {
 }
 
 export {
-  buildDeals, findCities, findCity, isExpired, loadRefPrices, parseSegment, resolveRoute, structure,
+  buildDeals, extractConnections, findCities, findCity, isExpired, loadRefPrices, parseSegment,
+  resolveRoute, structure,
 };

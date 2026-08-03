@@ -80,6 +80,37 @@ assert.equal(sharm[0].to.kind, 'city');
 const foreign = parse('Полеты из Касабланки в Кабо-Верде за 22.300 руб туда-обратно');
 assert.equal(foreign[0].from.code, 'CMN');
 assert.equal(foreign[0].to.code, 'RAI');
+assert.equal(foreign[0].roundTrip, true);
+
+const sharedFlightTerms = parse(
+  '✈️В Европу следующей весной и летом туда-обратно, стыковки в Касабланке:\n\n'
+  + 'В Барселону 36.500 руб\n➡️ https://aviasales.tpx.lu/SQlhTl4B\n\n'
+  + 'В Амстердам 39.000 руб\n➡️ https://aviasales.tpx.lu/9Y9IjXex\n\n'
+  + 'В Женеву 42.500 руб\n➡️ https://aviasales.tpx.lu/ydIx1CXz\n\n'
+  + 'В Париж 46.000 руб\n➡️ https://aviasales.tpx.lu/haTfImxo',
+  'nachemodanahspb',
+);
+assert.deepEqual(
+  sharedFlightTerms.map((deal) => [deal.from.code, deal.to.code, deal.price]),
+  [
+    ['LED', 'BCN', 36500],
+    ['LED', 'AMS', 39000],
+    ['LED', 'GVA', 42500],
+    ['LED', 'PAR', 46000],
+  ],
+);
+assert.ok(sharedFlightTerms.every((deal) => deal.roundTrip));
+assert.ok(sharedFlightTerms.every((deal) => (
+  deal.connections.length === 1
+  && deal.connections[0].code === 'CMN'
+  && deal.connections[0].name === 'Касабланка'
+)));
+
+const alternateConnectionWording = parse(
+  'Из Москвы в Токио через Стамбул за 39 900 руб туда и обратно',
+);
+assert.equal(alternateConnectionWording[0].roundTrip, true);
+assert.equal(alternateConnectionWording[0].connections[0].code, 'IST');
 
 const foreignList = parse('Каир - Эр-Рияд за 5.300 руб', 'nachemodanahspb');
 assert.equal(foreignList[0].from.code, 'CAI');

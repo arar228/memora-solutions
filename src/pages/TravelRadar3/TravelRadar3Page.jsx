@@ -38,6 +38,8 @@ const COPY = {
         search: 'Страна, город или канал',
         from: 'из',
         oneWay: 'в одну сторону',
+        roundTrip: 'туда‑обратно',
+        connection: 'стыковка',
         nights: 'ночей',
         open: 'Открыть предложение',
         source: 'Источник',
@@ -106,6 +108,8 @@ const COPY = {
         search: 'Country, city or channel',
         from: 'from',
         oneWay: 'one way',
+        roundTrip: 'round trip',
+        connection: 'connection',
         nights: 'nights',
         open: 'Open deal',
         source: 'Source',
@@ -349,6 +353,10 @@ function DealCard({ deal, lang, copy }) {
                 {dateLabel ? <span><CalendarDays size={14} aria-hidden="true" />{dateLabel}</span> : null}
                 {deal.nights ? <span>{deal.nights} {copy.nights}</span> : null}
                 {deal.oneway ? <span>{copy.oneWay}</span> : null}
+                {deal.roundTrip ? <span>↔ {copy.roundTrip}</span> : null}
+                {deal.connections?.length ? (
+                    <span>{copy.connection}: {deal.connections.map((place) => place.name).join(', ')}</span>
+                ) : null}
             </div>
 
             {deal.text ? <p className="travel-feed__excerpt">{deal.text}</p> : null}
@@ -405,6 +413,7 @@ function DealTable({ deals, lang, copy }) {
                         const arrival = arrivalForDeal(deal);
                         const description = cleanDescription(deal.text);
                         const routeLabel = `${deal.from?.name || copy.origin} — ${deal.to?.name || copy.destination}`;
+                        const connectionNames = deal.connections?.map((place) => place.name).filter(Boolean) || [];
 
                         return (
                             <tr key={`${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${deal.price}-${index}`}>
@@ -448,6 +457,14 @@ function DealTable({ deals, lang, copy }) {
                                     ) : <span className="travel-feed__missing">—</span>}
                                 </td>
                                 <td className="travel-feed__description-cell">
+                                    {deal.roundTrip || connectionNames.length > 0 ? (
+                                        <div className="travel-feed__deal-facts">
+                                            {deal.roundTrip ? <span>↔ {copy.roundTrip}</span> : null}
+                                            {connectionNames.length > 0 ? (
+                                                <span>{copy.connection}: {connectionNames.join(', ')}</span>
+                                            ) : null}
+                                        </div>
+                                    ) : null}
                                     <span title={description}>{description || routeLabel}</span>
                                 </td>
                                 <td className="travel-feed__published-cell">

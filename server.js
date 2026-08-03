@@ -67,6 +67,7 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, 'dist');
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '127.0.0.1';
 let isShuttingDown = false;
 
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
@@ -728,8 +729,8 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`memora site on :${PORT}`);
+server.listen(PORT, HOST, () => {
+  console.log(`memora site on ${HOST}:${PORT}`);
   console.log(ADMIN_PASSWORD
     ? 'admin.* защищён Basic Auth'
     : 'ВНИМАНИЕ: ADMIN_PASSWORD не задан — админка отдаёт 401 всем');

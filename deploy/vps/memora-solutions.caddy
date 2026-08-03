@@ -26,3 +26,13 @@ memorasolutions.ru, memorasolutions.ru:8443 {
 admin.memorasolutions.ru, admin.memorasolutions.ru:8443 {
     import memora_site
 }
+
+# Cloudflare sends the sport-poker hostname to the origin HTTPS listener on 8443.
+poker.memorasolutions.ru:8443 {
+    tls internal
+
+    @poker_ws path /ws /ws/*
+    reverse_proxy @poker_ws 127.0.0.1:3011
+
+    reverse_proxy 127.0.0.1:3010
+}

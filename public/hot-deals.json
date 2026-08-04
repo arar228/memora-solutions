@@ -1,7 +1,537 @@
 {
-  "updatedAt": "2026-08-04T10:14:11.281Z",
+  "updatedAt": "2026-08-04T12:27:44.142Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Париж",
+        "code": "PAR",
+        "country": {
+          "ru": "Франция",
+          "en": "France"
+        },
+        "kind": "city"
+      },
+      "price": 26400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-12",
+      "date": "2026-08-04T12:16:15+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0112PAR1?marker=748397&currency=rub",
+      "text": "из Москвы в Париж 🇫🇷 за 26 400 р. RT (осенью и в декабре)\nШирак Авиа + Wizz Air, стыковки в Ереване -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Стамбул",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 32900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T12:16:15+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED0309IST1?marker=748397&currency=rub",
+      "text": "из Петербурга в Дюссельдорф 🇩🇪 за 32 900 р. RT (август)\nAjet, через Стамбул -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 23500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T12:15:42+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0309AYT1?marker=748397&currency=rub",
+      "text": "✈️Горят билеты на прямые рейсы в Анталью за 23.500 руб туда-обратно"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Франкфурт",
+        "code": "FRA",
+        "country": {
+          "ru": "Германия",
+          "en": "Germany"
+        },
+        "kind": "city"
+      },
+      "price": 9300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-08",
+      "date": "2026-08-04T12:09:35+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0808FRA1?marker=748397&currency=rub",
+      "text": "Во Франкфурт от 9.300 руб на 8 августа или 20 сентября"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 5100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T12:08:01+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/AYT0309MOW1?marker=748397&currency=rub",
+      "text": "✈️ Из Антальи в Москву, Самару, Челябинск и Сыктывкар от 5100 рублей."
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бодрум",
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 11000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T12:07:08+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0309BJV1?marker=748397&currency=rub",
+      "text": "✈️Горящие билеты в Бодрум за 11.000 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 7300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T12:06:20+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/DLM0309LED1?marker=748397&currency=rub",
+      "text": "Из Даламана за 7.300 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 11000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T12:06:20+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0309DLM1?marker=748397&currency=rub",
+      "text": "✈️В Даламан на этой неделе от 11.000 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Амстердам",
+        "code": "AMS",
+        "country": {
+          "ru": "Нидерланды",
+          "en": "Netherlands"
+        },
+        "kind": "city"
+      },
+      "price": 7900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Анкара",
+          "code": "ESB"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T12:03:54+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED0309AMS1?marker=748397&currency=rub",
+      "text": "из Петербурга в Амстердам 🇳🇱 за 7 900 р. OW (6 авг)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нидерланды",
+        "code": "AMS",
+        "country": {
+          "ru": "Нидерланды",
+          "en": "Netherlands"
+        },
+        "kind": "country"
+      },
+      "price": 7200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08",
+      "date": "2026-08-04T11:55:31+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/LED0108AMS1?marker=748397&currency=rub",
+      "text": "Полёты из Петербурга в Нидерланды и Германию от 7200 рублей!\nВ августе-сентябре:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сеул",
+        "code": "SEL",
+        "country": {
+          "ru": "Южная Корея",
+          "en": "South Korea"
+        },
+        "kind": "city"
+      },
+      "price": 19200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Шымкент",
+          "code": "CIT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T11:33:21+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0309SEL1?marker=748397&currency=rub",
+      "text": "из Москвы в Сеул 🇰🇷 за 19 200 р. OW (осенью и зимой)\nSCAT, через Шымкент - \nВсе даты:"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "ОАЭ",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "country"
+      },
+      "price": 53400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-08-20",
+      "date": "2026-08-04T11:31:23+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://level.tpx.lu/jyPYA9kN",
+      "text": "🏖Туры в ОАЭ на 6 ночей с 20 августа от 53.400 руб/чел"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 13700,
+      "oldPrice": 21739,
+      "savings": 8039,
+      "discount": 0.37,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T10:15:06+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX0309AYT1?marker=748397&currency=rub",
+      "text": "из Минеральных Вод в Анталью 🇹🇷 за 13 700 р. RT (август)\nУральские авиалинии, прямые рейсы с багажом -"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Волгоград",
+        "code": "VOG",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 17300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T10:15:06+00:00",
+      "source": "samokatus",
+      "link": "https://smkt.us/agyvx",
+      "text": "из Волгограда в Анталью 🇹🇷 за 17 300 р. RT (август-сентябрь)\nУральские авиалинии, прямые рейсы с багажом - \n🏨 Отели в Анталье:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 20700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "date": "2026-08-04T10:15:06+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX0309CXR1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Нячанг 🇻🇳 за 20 700 р. OW (сегодня ночью)\nRed Wings, прямой рейс с багажом -"
+    },
     {
       "type": "flight",
       "from": {
@@ -1521,40 +2051,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Тюмень",
-        "code": "TJM",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 32300,
-      "oldPrice": 36878,
-      "savings": 4578,
-      "discount": 0.12,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-04",
-      "date": "2026-08-03T10:15:16+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/TJM0408AYT1?marker=748397&currency=rub",
-      "text": "Тюмень — Анталья от 32300₽ в обе стороны, вылеты завтра утром, рейсы прямые, с багажом\n— 04.08 - 12.08 - 32300₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -1576,49 +2072,15 @@
       "oldPrice": 23461,
       "savings": 18361,
       "discount": 0.78,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-04",
-      "date": "2026-08-03T09:50:25+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW0408AYT1?marker=748397&currency=rub",
-      "text": "Москва — Анталья от 5100₽ в одну сторону, вылет завтра вечером, рейсы прямые, с багажом\n— 04.08 - 5100₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 15000,
-      "oldPrice": 23461,
-      "savings": 8461,
-      "discount": 0.36,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
       "nights": null,
-      "departDate": "2026-08-04",
-      "date": "2026-08-03T09:50:25+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW0408AYT1?marker=748397&currency=rub",
-      "text": "Москва — Анталья от 15000₽ в обе стороны, вылет завтра вечером, рейсы прямые, с багажом\n— 04.08 - 08.08 - 15000₽\n— 04.08 - 11.08 - 16800₽"
+      "departDate": null,
+      "date": "2026-08-03T09:27:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0309AYT1?marker=748397&currency=rub",
+      "text": "из Москвы в Анталью 🇹🇷 за 5 100 р. OW (август)\nAzur Air, прямой рейс с багажом -"
     },
     {
       "type": "flight",
@@ -2227,243 +2689,53 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW0309BJV1?marker=748397&currency=rub",
       "text": "Бизнес из Москвы в Бодрум 🇹🇷 за 38 500 р. OW (несколько дат на следующей неделе)\nLujo Black Jet, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Оман",
-        "code": "MCT",
-        "country": {
-          "ru": "Оман",
-          "en": "Oman"
-        },
-        "kind": "country"
-      },
-      "to": {
-        "name": "Кения",
-        "code": "NBO",
-        "country": {
-          "ru": "Кения",
-          "en": "Kenya"
-        },
-        "kind": "country"
-      },
-      "price": 10300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-02T12:24:29+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/MCT0309NBO1?marker=748397&currency=rub",
-      "text": "Прямые рейсы из Омана в Кению, Руанду, Сомали и Судан (и наоборот) от 10300 рублей!\nВылеты осенью:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Торонто",
-        "code": "YTO",
-        "country": {
-          "ru": "Канада",
-          "en": "Canada"
-        },
-        "kind": "city"
-      },
-      "price": 77400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Амман",
-          "code": "AMM"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-02T11:54:53+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0309YTO1?marker=748397&currency=rub",
-      "text": "из Москвы в Торонто 🇨🇦 за 77 400 р. RT (осенью)\nRoyal Jordanian, пересадки в Аммане -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Амман",
-        "code": "AMM",
-        "country": {
-          "ru": "Иордания",
-          "en": "Jordan"
-        },
-        "kind": "city"
-      },
-      "price": 83200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Амман",
-          "code": "AMM"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-02T11:54:53+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0309AMM1?marker=748397&currency=rub",
-      "text": "из Москвы в Монреаль 🇨🇦 за 83 200 р. RT (осенью)\nRoyal Jordanian, через Амман -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 13700,
-      "oldPrice": 24530,
-      "savings": 10830,
-      "discount": 0.44,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-02T10:34:53+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0309IST1?marker=748397&currency=rub",
-      "text": "из Петербурга в Иракский Курдистан 🇮🇶 за 13 700 р. OW (осенью)\nAjet, пересадка в Стамбуле -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 9400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-02T10:34:53+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0309SSH1?marker=748397&currency=rub",
-      "text": "из Петербурга в Шарм-эш-Шейх 🇪🇬 за 9 400 р. OW (до конца года)\nAjet, через Стамбул -"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-04T10:14:11.129Z",
-      "fetchedPosts": 18,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-04T08:32:48+00:00",
+      "checkedAt": "2026-08-04T12:27:43.982Z",
+      "fetchedPosts": 20,
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-04T12:08:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-04T10:14:11.129Z",
+      "checkedAt": "2026-08-04T12:27:43.983Z",
       "fetchedPosts": 20,
-      "freshPosts": 13,
-      "latestPostAt": "2026-08-04T09:34:44+00:00",
+      "freshPosts": 15,
+      "latestPostAt": "2026-08-04T12:16:15+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-04T10:14:11.129Z",
-      "fetchedPosts": 19,
-      "freshPosts": 19,
-      "latestPostAt": "2026-08-04T09:31:19+00:00",
+      "checkedAt": "2026-08-04T12:27:43.983Z",
+      "fetchedPosts": 20,
+      "freshPosts": 20,
+      "latestPostAt": "2026-08-04T12:14:49+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-04T10:14:11.129Z",
+      "checkedAt": "2026-08-04T12:27:43.983Z",
       "fetchedPosts": 20,
-      "freshPosts": 3,
-      "latestPostAt": "2026-08-04T09:13:18+00:00",
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-04T12:15:42+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-04T10:14:11.129Z",
+      "checkedAt": "2026-08-04T12:27:43.983Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-08-04T07:44:24+00:00",
@@ -2473,7 +2745,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-04T10:14:11.129Z",
+      "checkedAt": "2026-08-04T12:27:43.983Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-03T12:35:42+00:00",
@@ -2483,7 +2755,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-04T10:14:11.129Z",
+      "checkedAt": "2026-08-04T12:27:43.983Z",
       "fetchedPosts": 12,
       "freshPosts": 8,
       "latestPostAt": "2026-08-04T08:15:44+00:00",
@@ -2493,7 +2765,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-04T10:14:11.129Z",
+      "checkedAt": "2026-08-04T12:27:43.983Z",
       "fetchedPosts": 11,
       "freshPosts": 6,
       "latestPostAt": "2026-08-04T08:56:49+00:00",

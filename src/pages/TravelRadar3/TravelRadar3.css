@@ -72,6 +72,15 @@
     align-items: center;
 }
 
+.travel-feed__filter-fields {
+    display: contents;
+}
+
+.travel-feed__filter-toggle,
+.travel-feed__filter-reset {
+    display: none;
+}
+
 .travel-feed__tabs {
     display: flex;
     gap: 0.3rem;
@@ -120,6 +129,7 @@
 .travel-feed__search input,
 .travel-feed__city select {
     width: 100%;
+    min-height: 44px;
     border: 0;
     outline: 0;
     color: var(--text-primary);
@@ -625,6 +635,10 @@
     white-space: nowrap;
 }
 
+.travel-feed__load-more {
+    display: none;
+}
+
 .travel-feed__empty {
     display: grid;
     min-height: 220px;
@@ -944,7 +958,30 @@
 
 @media (max-width: 640px) {
     .travel-feed {
-        padding: 6.8rem 0 4rem;
+        padding: 5.7rem 0 3.5rem;
+    }
+
+    .travel-feed__hero {
+        margin-bottom: 1.25rem;
+    }
+
+    .travel-feed__hero > p {
+        display: none;
+    }
+
+    .travel-feed__eyebrow {
+        gap: 0.4rem;
+        margin-bottom: 0.7rem;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+    }
+
+    .travel-feed__hero h1 {
+        line-height: 0.96;
+    }
+
+    .travel-feed__updated {
+        margin-top: 0.85rem;
     }
 
     .travel-feed__workspace,
@@ -953,54 +990,250 @@
         border-radius: 20px;
     }
 
+    .travel-feed__workspace {
+        padding: 0.75rem;
+    }
+
     .travel-alerts__form {
         grid-template-columns: 1fr;
     }
 
     .travel-feed__filters,
-    .travel-feed__grid,
     .travel-feed__services {
         grid-template-columns: 1fr;
     }
 
     .travel-feed__tabs {
+        grid-column: auto;
         width: 100%;
+        padding: 0.22rem;
     }
 
     .travel-feed__tabs button {
         flex: 1;
+        min-height: 48px;
+        padding: 0 0.45rem;
     }
 
-    .travel-feed__card {
-        min-height: 270px;
+    .travel-feed__tabs button:not(.is-active):hover {
+        color: var(--text-muted);
+        background: transparent;
+    }
+
+    .travel-feed__filter-toggle {
+        display: flex;
+        align-items: center;
+        min-height: 50px;
+        gap: 0.55rem;
+        padding: 0 0.85rem;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 14px;
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.035);
+        text-align: left;
+    }
+
+    .travel-feed__filter-count {
+        display: grid;
+        width: 26px;
+        height: 26px;
+        margin-left: 0.1rem;
+        place-items: center;
+        border-radius: 999px;
+        color: #17120a;
+        background: #f3b758;
+        font-weight: 800;
+    }
+
+    .travel-feed__filter-chevron {
+        margin-left: auto;
+        transition: transform 160ms ease;
+    }
+
+    .travel-feed__filter-toggle.is-open .travel-feed__filter-chevron {
+        transform: rotate(180deg);
+    }
+
+    .travel-feed__filter-fields {
+        display: none;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 0.65rem;
+    }
+
+    .travel-feed__filter-fields.is-open {
+        display: grid;
+    }
+
+    .travel-feed__search {
+        grid-column: 1 / -1;
+    }
+
+    .travel-feed__search,
+    .travel-feed__city {
+        min-width: 0;
+        min-height: 50px;
+        padding: 0 0.75rem;
+    }
+
+    .travel-feed__city select {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .travel-feed__filter-reset {
+        display: inline-flex;
+        grid-column: 1 / -1;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        gap: 0.4rem;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 12px;
+        color: var(--text-secondary);
+        background: rgba(255, 255, 255, 0.025);
+    }
+
+    .travel-feed__toolbar {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: 0.75rem;
+        min-height: 48px;
+        margin: 0.85rem 0 0.65rem;
     }
 
     .travel-feed__display-controls {
+        width: auto;
         align-items: stretch;
-        flex-direction: column;
+        justify-content: flex-end;
     }
 
     .travel-feed__sort {
-        align-items: stretch;
-        flex-direction: column;
-        gap: 0.3rem;
+        width: 100%;
+    }
+
+    .travel-feed__sort > span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
     }
 
     .travel-feed__sort select {
+        min-width: 0;
+        min-height: 48px;
         width: 100%;
     }
 
     .travel-feed__view-toggle {
-        align-self: stretch;
+        display: none;
     }
 
-    .travel-feed__view-toggle button {
-        flex: 1;
+    .travel-feed__grid {
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+    }
+
+    .travel-feed__card {
+        min-height: 0;
+        padding: 1rem;
+        border-radius: 16px;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025));
+    }
+
+    .travel-feed__card:hover {
+        transform: none;
+    }
+
+    .travel-feed__card-top {
+        align-items: flex-start;
+    }
+
+    .travel-feed__type-details {
+        min-width: 0;
+    }
+
+    .travel-feed__deal-facts {
+        margin-top: 0.4rem;
+    }
+
+    .travel-feed__route {
+        gap: 0.45rem;
+        margin: 1rem 0 0.65rem;
+    }
+
+    .travel-feed__price-row,
+    .travel-feed__meta {
+        flex-wrap: wrap;
+    }
+
+    .travel-feed__meta {
+        min-height: 0;
+        gap: 0.45rem 0.8rem;
+        margin-top: 0.65rem;
+    }
+
+    .travel-feed__expandable-description--card {
+        margin: 0.8rem 0 0.9rem;
+    }
+
+    .travel-feed__expandable-description--card .travel-feed__description-text {
+        -webkit-line-clamp: 2;
+    }
+
+    .travel-feed__expandable-description button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        margin-top: 0.1rem;
+    }
+
+    .travel-feed__actions {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 0.55rem;
+    }
+
+    .travel-feed__deal-link {
         justify-content: center;
+        min-height: 50px;
+        padding: 0 0.85rem;
+        border: 1px solid rgba(243, 183, 88, 0.3);
+        border-radius: 12px;
+        color: #17120a;
+        background: #f3b758;
+    }
+
+    .travel-feed__source {
+        max-width: 100%;
+        min-height: 44px;
+        justify-content: center;
+    }
+
+    .travel-feed__load-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 52px;
+        margin-top: 0.75rem;
+        border: 1px solid rgba(243, 183, 88, 0.28);
+        border-radius: 14px;
+        color: #f3b758;
+        background: rgba(243, 183, 88, 0.07);
+        font-weight: 800;
     }
 
     .travel-feed__table th,
     .travel-feed__table td {
         padding: 0.72rem 0.62rem;
+    }
+}
+
+@media (max-width: 340px) {
+    .travel-feed__eyebrow {
+        white-space: normal;
     }
 }

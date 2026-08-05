@@ -1,7 +1,50 @@
 {
-  "updatedAt": "2026-08-05T18:40:58.394Z",
+  "updatedAt": "2026-08-05T20:37:05.209Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 30900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Пекин",
+          "code": "PEK"
+        },
+        {
+          "name": "Ташкент",
+          "code": "TAS"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-01-19",
+      "date": "2026-08-05T18:57:36+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/HKT1901MOW1?marker=748397&currency=rub",
+      "text": "Пхукет (Таиланд) — Москва от 30900Р в одну сторону с более-менее терпимой пересадкой в Пекине или покороче в Ташкенте, с багажом\n— 19.01 — 37400Р\n— 22.01 — 34200Р\n— 25.01 — 30900Р\n— 30.01 — 30900Р\n— 0"
+    },
     {
       "type": "flight",
       "from": {
@@ -4150,57 +4193,23 @@
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=egypt0&utm_term=0408#?fromCity=2&toCountry=29&toCity=598.597.592.591.586.599.595.4125.4123.583.4122.594&dateFrom=11.08.2026&dateTo=17.08.2026&daysFlexible=3&nightFrom=7&nightTo=9&adults=2&hotelClass=7&meal=8.1&priceFrom=6000&priceTo=21000000&sid=bu8hftiqhu&sort=priceUp&f_firstLine=true&f_good=true",
       "text": "✈️ Ближайшие вылеты в Египет, 1-я линия, отели 5⭐️, «всё включено», скидки до 28% • 7 ночей — от 71 239 ₽ с человека."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "ОАЭ",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "country"
-      },
-      "price": 47900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "date": "2026-08-03T20:06:20+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/22VkXa",
-      "text": "🔥 в ОАЭ на неделю в сентябре от 47 900/чел  (скидка по промокоду 1700Lucky)"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-05T18:40:58.233Z",
+      "checkedAt": "2026-08-05T20:37:05.035Z",
       "fetchedPosts": 16,
-      "freshPosts": 12,
-      "latestPostAt": "2026-08-05T14:15:33+00:00",
+      "freshPosts": 13,
+      "latestPostAt": "2026-08-05T19:29:06+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-05T18:40:58.233Z",
+      "checkedAt": "2026-08-05T20:37:05.035Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-05T18:21:01+00:00",
@@ -4210,17 +4219,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-05T18:40:58.233Z",
+      "checkedAt": "2026-08-05T20:37:05.035Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-05T18:21:50+00:00",
+      "latestPostAt": "2026-08-05T18:57:36+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-05T18:40:58.233Z",
+      "checkedAt": "2026-08-05T20:37:05.035Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-05T12:25:39+00:00",
@@ -4230,9 +4239,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-05T18:40:58.233Z",
+      "checkedAt": "2026-08-05T20:37:05.036Z",
       "fetchedPosts": 19,
-      "freshPosts": 8,
+      "freshPosts": 7,
       "latestPostAt": "2026-08-05T11:02:09+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4240,7 +4249,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-05T18:40:58.233Z",
+      "checkedAt": "2026-08-05T20:37:05.036Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-05T15:17:09+00:00",
@@ -4250,7 +4259,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-05T18:40:58.233Z",
+      "checkedAt": "2026-08-05T20:37:05.036Z",
       "fetchedPosts": 13,
       "freshPosts": 9,
       "latestPostAt": "2026-08-05T14:49:37+00:00",
@@ -4260,7 +4269,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-05T18:40:58.233Z",
+      "checkedAt": "2026-08-05T20:37:05.036Z",
       "fetchedPosts": 7,
       "freshPosts": 7,
       "latestPostAt": "2026-08-05T15:11:54+00:00",

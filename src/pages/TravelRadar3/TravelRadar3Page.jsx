@@ -510,7 +510,7 @@ function DealTable({ deals, lang, copy }) {
                         const routeLabel = `${deal.from?.name || copy.origin} — ${deal.to?.name || copy.destination}`;
 
                         return (
-                            <tr key={deal.link || `${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${deal.price}-${deal.date || index}`}>
+                            <tr key={`${deal.link || `${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${deal.price}-${deal.date || ''}`}-${index}`}>
                                 <td className="travel-feed__city-cell">
                                     <strong title={deal.from?.name}>{deal.from?.name || '—'}</strong>
                                     {deal.from?.code ? <small>{deal.from.code}</small> : null}
@@ -1074,7 +1074,7 @@ export default function TravelRadar3Page() {
                                     <div className="travel-feed__grid">
                                         {renderedDeals.map((deal, index) => (
                                             <DealCard
-                                                key={deal.link || `${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${deal.date || index}`}
+                                                key={`${deal.link || `${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${deal.date || ''}`}-${index}`}
                                                 deal={deal}
                                                 lang={lang}
                                                 copy={copy}

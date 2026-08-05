@@ -6,7 +6,6 @@ export const KANBAN_BOARD_KEY = 'kanban_board_v2';
 export const KANBAN_MESSAGES_KEY = 'kanban_messages_v1';
 export const KANBAN_MESSAGE_MODES = new Set(['general', 'personal']);
 
-const PRIORITIES = new Set(['high', 'medium', 'low']);
 const MAX_CLOSED_TASKS = 250;
 const MAX_MESSAGES = 500;
 
@@ -18,36 +17,38 @@ const cleanLine = (value, max) => String(value || '')
 export const validClientId = value => typeof value === 'string'
   && /^[a-zA-Z0-9_-]{16,80}$/.test(value);
 
-function cleanTask(task, closed = false) {
+function cleanTask(task) {
   if (!task || typeof task !== 'object') return null;
-  const title = cleanLine(task.title, 160);
+  const title = cleanLine(task.title, 2000);
   if (!title) return null;
+  const dueDate = cleanLine(task.dueDate, 10);
+  const [year, month, day] = dueDate.split('-').map(Number);
+  const parsedDueDate = new Date(Date.UTC(year, month - 1, day));
+  const validDueDate = /^\d{4}-\d{2}-\d{2}$/.test(dueDate)
+    && parsedDueDate.getUTCFullYear() === year
+    && parsedDueDate.getUTCMonth() === month - 1
+    && parsedDueDate.getUTCDate() === day;
   return {
     id: cleanLine(task.id || randomUUID(), 80),
     title,
-    titleEn: cleanLine(task.titleEn, 160),
-    desc: cleanLine(task.desc, 2000),
-    descEn: cleanLine(task.descEn, 2000),
-    report: closed ? cleanLine(task.report, 6000) : '',
-    reportEn: closed ? cleanLine(task.reportEn, 6000) : '',
-    priority: PRIORITIES.has(task.priority) ? task.priority : 'medium',
+    dueDate: validDueDate ? dueDate : '',
   };
 }
 
 export function validateKanbanBoard(input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) return null;
   const columns = [
-    ['potential', KANBAN_LIMITS.potential, false],
-    ['inProgress', KANBAN_LIMITS.inProgress, false],
-    ['closed', MAX_CLOSED_TASKS, true],
+    ['potential', KANBAN_LIMITS.potential],
+    ['inProgress', KANBAN_LIMITS.inProgress],
+    ['closed', MAX_CLOSED_TASKS],
   ];
   const board = {};
   const ids = new Set();
-  for (const [column, limit, closed] of columns) {
+  for (const [column, limit] of columns) {
     if (!Array.isArray(input[column]) || input[column].length > limit) return null;
     board[column] = [];
     for (const rawTask of input[column]) {
-      const task = cleanTask(rawTask, closed);
+      const task = cleanTask(rawTask);
       if (!task || ids.has(task.id)) return null;
       ids.add(task.id);
       board[column].push(task);

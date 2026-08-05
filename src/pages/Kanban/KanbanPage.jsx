@@ -133,7 +133,6 @@ export default function KanbanPage() {
         closedDescription: t('kanban.closedDesc'),
         empty: t('kanban.emptyColumn'),
         task: lang === 'ru' ? 'Задача' : 'Task',
-        result: lang === 'ru' ? 'Результат' : 'Result',
     };
     const chatLabels = {
         title: t('kanban.chatTitle'),

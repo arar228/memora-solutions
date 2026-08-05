@@ -119,6 +119,7 @@
 
 .memora-board__tasks {
     display: flex;
+    position: relative;
     min-height: 0;
     flex: 1;
     flex-direction: column;
@@ -127,6 +128,15 @@
     padding: 10px;
     scrollbar-color: var(--board-line) transparent;
     scrollbar-width: thin;
+}
+
+.memora-board__tasks.is-drop-target::after {
+    content: '';
+    display: block;
+    min-height: 46px;
+    border: 1px dashed color-mix(in srgb, var(--board-accent) 70%, var(--board-line));
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--board-accent) 8%, transparent);
 }
 
 .memora-board__empty {
@@ -139,10 +149,55 @@
 }
 
 .memora-board__task {
+    position: relative;
     padding: 11px;
     border: 1px solid var(--board-line);
     border-radius: 12px;
     background: var(--board-bg);
+    transition: border-color 140ms ease, opacity 140ms ease, transform 140ms ease;
+}
+
+.memora-board__task[draggable='true'] {
+    cursor: grab;
+}
+
+.memora-board__task[draggable='true']:active {
+    cursor: grabbing;
+}
+
+.memora-board__task.is-dragging {
+    opacity: 0.38;
+}
+
+.memora-board__task.is-drop-target {
+    transform: translateY(5px);
+    border-top-color: var(--board-accent);
+}
+
+.memora-board__task.is-drop-target::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 4px);
+    left: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--board-accent);
+}
+
+.memora-board__task-heading {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.memora-board__drag-handle {
+    display: inline-grid;
+    width: 18px;
+    height: 18px;
+    place-items: center;
+    margin-left: -5px;
+    color: var(--board-faint);
 }
 
 .memora-board__task-label {
@@ -234,6 +289,25 @@
     resize: vertical;
 }
 
+.memora-board__due-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    margin-top: 8px;
+    color: var(--board-muted);
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.memora-board__due-date.is-today {
+    color: var(--board-accent);
+}
+
+.memora-board__due-date.is-overdue {
+    color: #f19382;
+}
+
 .memora-board__editor input:focus,
 .memora-board__editor textarea:focus {
     border-color: var(--board-accent);
@@ -279,15 +353,15 @@
 
 .memora-board--archive .memora-board__task {
     display: grid;
-    grid-template-columns: 112px minmax(180px, 0.75fr) minmax(0, 1.5fr);
-    align-items: start;
+    grid-template-columns: 128px minmax(0, 1fr) auto;
+    align-items: center;
     gap: 16px;
     padding: 15px 16px;
 }
 
-.memora-board--archive .memora-board__task-label,
+.memora-board--archive .memora-board__task-heading,
 .memora-board--archive .memora-board__task h4,
-.memora-board--archive .memora-board__task .memora-board__result {
+.memora-board--archive .memora-board__due-date {
     margin: 0;
 }
 
@@ -300,8 +374,9 @@
     font-size: 14px;
 }
 
-.memora-board--archive .memora-board__task .memora-board__result {
-    font-size: 12px;
+.memora-board--archive .memora-board__actions,
+.memora-board--archive .memora-board__editor {
+    grid-column: 1 / -1;
 }
 
 .memora-board--archive .memora-board__empty {

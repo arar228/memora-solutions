@@ -6,6 +6,7 @@ import {
     Badge, Button, Input, Label, Select,
 } from '../../ui';
 import { KANBAN_LIMITS, cloneDefaultKanbanBoard } from '../../data/kanbanConfig';
+import { moveKanbanTask } from '../../data/kanbanBoard';
 import KanbanBoard from '../../shared/KanbanBoard';
 import KanbanChat from '../../shared/KanbanChat';
 import { adminApi } from '../api';
@@ -16,7 +17,7 @@ const COLUMNS = [
     { id: 'closed', label: 'Закрытые задачи', limit: null },
 ];
 
-const emptyDraft = { title: '', desc: '', report: '', priority: 'medium', column: 'potential' };
+const emptyDraft = { title: '', dueDate: '', column: 'potential' };
 
 const BOARD_LABELS = {
     label: 'Рабочее пространство',
@@ -27,10 +28,9 @@ const BOARD_LABELS = {
     inProgress: 'В работе',
     inProgressDescription: 'До 3 задач в фокусе',
     closed: 'Закрытые задачи',
-    closedDescription: 'Готовые результаты и отчёты',
+    closedDescription: 'Завершённые задачи',
     empty: 'Следующая задача появится здесь.',
     task: 'Задача',
-    result: 'Результат',
 };
 
 const CHAT_LABELS = {
@@ -129,12 +129,7 @@ export default function KanbanPanel() {
         const task = {
             id: crypto.randomUUID(),
             title,
-            titleEn: '',
-            desc: draft.desc.trim(),
-            descEn: '',
-            report: draft.column === 'closed' ? draft.report.trim() : '',
-            reportEn: '',
-            priority: draft.priority,
+            dueDate: draft.dueDate,
         };
         setBoard(current => ({ ...current, [draft.column]: [...current[draft.column], task] }));
         setDraft(emptyDraft);
@@ -152,25 +147,14 @@ export default function KanbanPanel() {
         [column]: current[column].filter(task => task.id !== id),
     }));
 
-    const moveTask = (from, id, to) => {
-        const destination = COLUMNS.find(column => column.id === to);
-        if (destination?.limit && board[to].length >= destination.limit) {
+    const moveTask = ({ fromColumn, taskId, toColumn, toIndex }) => {
+        const destination = COLUMNS.find(column => column.id === toColumn);
+        const result = moveKanbanTask(board, { fromColumn, taskId, toColumn, toIndex });
+        if (result.reason === 'limit') {
             setError(`Перенос станет доступен после освобождения места в колонке «${destination.label}» (${destination.limit}/${destination.limit}).`);
             return;
         }
-        setBoard(current => {
-            const task = current[from].find(item => item.id === id);
-            if (!task) return current;
-            return {
-                ...current,
-                [from]: current[from].filter(item => item.id !== id),
-                [to]: [...current[to], {
-                    ...task,
-                    report: to === 'closed' ? task.report : '',
-                    reportEn: to === 'closed' ? task.reportEn : '',
-                }],
-            };
-        });
+        if (result.moved) setBoard(result.board);
         setError('');
     };
 
@@ -208,12 +192,6 @@ export default function KanbanPanel() {
                 onClick={() => setEditingTask(current => current === `${columnId}:${task.id}` ? '' : `${columnId}:${task.id}`)}>
                 <PencilLine size={12} /> Изменить
             </button>
-            {COLUMNS.filter(item => item.id !== columnId).map(item => (
-                <button key={item.id} className="memora-board__action" type="button"
-                    onClick={() => moveTask(columnId, task.id, item.id)}>
-                    → {item.label}
-                </button>
-            ))}
             <button className="memora-board__action is-danger" type="button"
                 onClick={() => removeTask(columnId, task.id)}>
                 <Trash2 size={12} /> Удалить
@@ -224,14 +202,10 @@ export default function KanbanPanel() {
     const renderTaskEditor = ({ task, columnId }) => (
         editingTask === `${columnId}:${task.id}` && (
             <div className="memora-board__editor">
-                <input value={task.title} aria-label="Название задачи"
+                <textarea value={task.title} aria-label="Название задачи" maxLength={2000}
                     onChange={event => updateTask(columnId, task.id, { title: event.target.value })} />
-                <textarea value={task.desc || ''} aria-label="Описание задачи" placeholder="Описание и ожидаемый результат"
-                    onChange={event => updateTask(columnId, task.id, { desc: event.target.value })} />
-                {columnId === 'closed' && (
-                    <textarea value={task.report || ''} aria-label="Итог закрытой задачи" placeholder="Готовый результат"
-                        onChange={event => updateTask(columnId, task.id, { report: event.target.value })} />
-                )}
+                <input type="date" value={task.dueDate || ''} aria-label="Срок задачи"
+                    onInput={event => updateTask(columnId, task.id, { dueDate: event.currentTarget.value })} />
                 <button className="memora-board__action" type="button" onClick={() => setEditingTask('')}>
                     <Check size={12} /> Готово
                 </button>
@@ -244,7 +218,7 @@ export default function KanbanPanel() {
             <header className="kanban-admin__toolbar">
                 <div>
                     <strong>Задать вопрос</strong>
-                    <span>Чат и рабочая доска</span>
+                    <span>Чат и задачи · верхняя карточка приоритетнее</span>
                 </div>
                 <div className="kanban-admin__toolbar-actions">
                     <Badge variant={syncState === 'error' ? 'warn' : syncState === 'saved' ? 'ok' : 'muted'}>
@@ -262,26 +236,24 @@ export default function KanbanPanel() {
                     <div className="kanban-admin__create-grid">
                         <div className="flex flex-col gap-1.5">
                             <Label>Название</Label>
-                            <Input value={draft.title} placeholder="Коротко и понятно"
+                            <textarea className="kanban-admin__title-input" value={draft.title} maxLength={2000}
+                                aria-label="Название задачи"
+                                placeholder="Сформулируйте задачу"
                                 onChange={event => setDraft({ ...draft, title: event.target.value })} />
                         </div>
                         <div className="flex flex-col gap-1.5">
-                            <Label>Описание</Label>
-                            <Input value={draft.desc} placeholder="Зачем это нужно и какой результат"
-                                onChange={event => setDraft({ ...draft, desc: event.target.value })} />
+                            <Label>Срок</Label>
+                            <Input type="date" value={draft.dueDate} aria-label="Срок задачи"
+                                onInput={event => {
+                                    const dueDate = event.currentTarget.value;
+                                    setDraft(current => ({ ...current, dueDate }));
+                                }} />
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <Label>Колонка</Label>
-                            <Select value={draft.column} onChange={event => setDraft({ ...draft, column: event.target.value })}>
+                            <Select value={draft.column} aria-label="Колонка задачи"
+                                onChange={event => setDraft({ ...draft, column: event.target.value })}>
                                 {COLUMNS.map(column => <option key={column.id} value={column.id}>{column.label}</option>)}
-                            </Select>
-                        </div>
-                        <div className="flex flex-col gap-1.5">
-                            <Label>Приоритет</Label>
-                            <Select value={draft.priority} onChange={event => setDraft({ ...draft, priority: event.target.value })}>
-                                <option value="high">Высокий</option>
-                                <option value="medium">Средний</option>
-                                <option value="low">Низкий</option>
                             </Select>
                         </div>
                         <div className="flex flex-col gap-1.5">
@@ -342,6 +314,7 @@ export default function KanbanPanel() {
                     visibleColumns={['potential', 'inProgress']}
                     showIntro={false}
                     variant="workspace"
+                    onTaskDrop={moveTask}
                     renderTaskControls={renderTaskControls}
                     renderTaskEditor={renderTaskEditor}
                 />
@@ -350,10 +323,10 @@ export default function KanbanPanel() {
             <section className="kanban-admin__archive">
                 <header>
                     <div>
-                        <span>Результаты</span>
+                        <span>История</span>
                         <h2>Закрытые задачи</h2>
                     </div>
-                    <p>Готовые результаты и отчёты</p>
+                    <p>Порядок отражает приоритет</p>
                 </header>
                 <KanbanBoard
                     board={board}
@@ -361,6 +334,7 @@ export default function KanbanPanel() {
                     visibleColumns={['closed']}
                     showIntro={false}
                     variant="archive"
+                    onTaskDrop={moveTask}
                     renderTaskControls={renderTaskControls}
                     renderTaskEditor={renderTaskEditor}
                 />

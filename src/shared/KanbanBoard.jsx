@@ -1,4 +1,7 @@
-import { CheckCircle2, Clock3, Lightbulb } from 'lucide-react';
+import { useState } from 'react';
+import {
+    CalendarDays, CheckCircle2, Clock3, GripVertical, Lightbulb,
+} from 'lucide-react';
 import { KANBAN_LIMITS } from '../data/kanbanConfig';
 import './KanbanBoard.css';
 
@@ -8,9 +11,27 @@ const COLUMN_META = [
     { id: 'closed', icon: CheckCircle2, limit: null },
 ];
 
-const localText = (task, field, lang) => {
-    if (lang === 'en') return task[`${field}En`] || task[field];
-    return task[field];
+const formatDueDate = (value, lang) => {
+    if (!value) return '';
+    const [year, month, day] = value.split('-').map(Number);
+    return new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'ru-RU', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+    }).format(new Date(year, month - 1, day));
+};
+
+const dueState = (value, columnId) => {
+    if (!value || columnId === 'closed') return '';
+    const today = new Date();
+    const todayValue = [
+        today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, '0'),
+        String(today.getDate()).padStart(2, '0'),
+    ].join('-');
+    if (value < todayValue) return 'is-overdue';
+    if (value === todayValue) return 'is-today';
+    return '';
 };
 
 export default function KanbanBoard({
@@ -22,10 +43,45 @@ export default function KanbanBoard({
     visibleColumns,
     showIntro = true,
     variant = 'default',
+    onTaskDrop,
 }) {
+    const [draggingId, setDraggingId] = useState('');
+    const [dropTarget, setDropTarget] = useState(null);
     const columns = Array.isArray(visibleColumns)
         ? COLUMN_META.filter(column => visibleColumns.includes(column.id))
         : COLUMN_META;
+
+    const beginDrag = (event, columnId, taskId) => {
+        const payload = JSON.stringify({ fromColumn: columnId, taskId });
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('application/x-memora-task', payload);
+        event.dataTransfer.setData('text/plain', payload);
+        setDraggingId(taskId);
+    };
+
+    const acceptDrop = (event, toColumn, toIndex) => {
+        if (!onTaskDrop) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const raw = event.dataTransfer.getData('application/x-memora-task')
+            || event.dataTransfer.getData('text/plain');
+        try {
+            const payload = JSON.parse(raw);
+            onTaskDrop({ ...payload, toColumn, toIndex });
+        } catch {
+            // Ignore drags that did not originate from this board.
+        }
+        setDropTarget(null);
+        setDraggingId('');
+    };
+
+    const markDropTarget = (event, columnId, index) => {
+        if (!onTaskDrop) return;
+        event.preventDefault();
+        event.stopPropagation();
+        event.dataTransfer.dropEffect = 'move';
+        setDropTarget({ columnId, index });
+    };
 
     return (
         <section
@@ -57,24 +113,50 @@ export default function KanbanBoard({
                                 </strong>
                             </header>
 
-                            <div className="memora-board__tasks">
+                            <div
+                                className={`memora-board__tasks ${dropTarget?.columnId === id && dropTarget.index === tasks.length ? 'is-drop-target' : ''}`}
+                                onDragOver={event => markDropTarget(event, id, tasks.length)}
+                                onDragLeave={event => {
+                                    if (!event.currentTarget.contains(event.relatedTarget)) setDropTarget(null);
+                                }}
+                                onDrop={event => acceptDrop(event, id, tasks.length)}
+                            >
                                 {tasks.length === 0 && (
                                     <p className="memora-board__empty">{labels.empty}</p>
                                 )}
                                 {tasks.map((task, index) => {
-                                    const title = localText(task, 'title', lang);
-                                    const description = localText(task, 'desc', lang);
-                                    const report = id === 'closed'
-                                        ? localText(task, 'report', lang) || description
-                                        : '';
+                                    const formattedDueDate = formatDueDate(task.dueDate, lang);
+                                    const deadlineState = dueState(task.dueDate, id);
+                                    const isDropTarget = dropTarget?.columnId === id && dropTarget.index === index;
                                     return (
-                                        <article key={task.id} className="memora-board__task">
-                                            <span className="memora-board__task-label">
-                                                {id === 'closed' ? labels.result : labels.task} {String(index + 1).padStart(2, '0')}
-                                            </span>
-                                            <h4>{title}</h4>
-                                            {description && id !== 'closed' && <p>{description}</p>}
-                                            {report && <p className="memora-board__result">{report}</p>}
+                                        <article
+                                            key={task.id}
+                                            className={`memora-board__task ${draggingId === task.id ? 'is-dragging' : ''} ${isDropTarget ? 'is-drop-target' : ''}`}
+                                            draggable={Boolean(onTaskDrop)}
+                                            onDragStart={event => beginDrag(event, id, task.id)}
+                                            onDragEnd={() => {
+                                                setDraggingId('');
+                                                setDropTarget(null);
+                                            }}
+                                            onDragOver={event => markDropTarget(event, id, index)}
+                                            onDrop={event => acceptDrop(event, id, index)}
+                                        >
+                                            <div className="memora-board__task-heading">
+                                                {onTaskDrop && (
+                                                    <span className="memora-board__drag-handle" aria-hidden="true">
+                                                        <GripVertical size={15} />
+                                                    </span>
+                                                )}
+                                                <span className="memora-board__task-label">
+                                                    {labels.task} {String(index + 1).padStart(2, '0')}
+                                                </span>
+                                            </div>
+                                            <h4>{task.title}</h4>
+                                            {formattedDueDate && (
+                                                <time className={`memora-board__due-date ${deadlineState}`} dateTime={task.dueDate}>
+                                                    <CalendarDays size={13} /> {formattedDueDate}
+                                                </time>
+                                            )}
                                             {renderTaskControls?.({ task, columnId: id })}
                                             {renderTaskEditor?.({ task, columnId: id })}
                                         </article>

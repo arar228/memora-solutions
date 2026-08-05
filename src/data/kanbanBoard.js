@@ -23,7 +23,9 @@ export function moveKanbanTask(board, {
         return { board, moved: false, reason: 'limit' };
     }
 
-    const [task] = sourceTasks.splice(sourceIndex, 1);
+    const [sourceTask] = sourceTasks.splice(sourceIndex, 1);
+    const task = { ...sourceTask };
+    if (toColumn !== 'closed') delete task.description;
     const destinationTasks = fromColumn === toColumn
         ? sourceTasks
         : [...(board[toColumn] || [])];

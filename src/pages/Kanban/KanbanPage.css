@@ -65,11 +65,15 @@
     margin-bottom: 12px;
 }
 
-.question-archive__header h2 {
+.app .question-archive__header h2 {
     margin: 0;
-    font-size: clamp(23px, 2.8vw, 32px);
+    font-size: 18px !important;
     line-height: 1.1;
     letter-spacing: -0.03em;
+}
+
+.question-archive .memora-board__task h4 {
+    font-size: 18px !important;
 }
 
 @media (max-width: 960px) {

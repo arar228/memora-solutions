@@ -370,7 +370,14 @@
 }
 
 .memora-board--archive .memora-board__task h4 {
-    font-size: 14px;
+    font-size: 18px;
+}
+
+.memora-board--archive .memora-board__task-description {
+    grid-column: 1 / -1;
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
 .memora-board--archive .memora-board__actions,

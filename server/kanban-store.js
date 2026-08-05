@@ -17,7 +17,7 @@ const cleanLine = (value, max) => String(value || '')
 export const validClientId = value => typeof value === 'string'
   && /^[a-zA-Z0-9_-]{16,80}$/.test(value);
 
-function cleanTask(task) {
+function cleanTask(task, column) {
   if (!task || typeof task !== 'object') return null;
   const title = cleanLine(task.title, 2000);
   if (!title) return null;
@@ -28,11 +28,16 @@ function cleanTask(task) {
     && parsedDueDate.getUTCFullYear() === year
     && parsedDueDate.getUTCMonth() === month - 1
     && parsedDueDate.getUTCDate() === day;
-  return {
+  const clean = {
     id: cleanLine(task.id || randomUUID(), 80),
     title,
     dueDate: validDueDate ? dueDate : '',
   };
+  if (column === 'closed') {
+    const description = cleanLine(task.description, 4000);
+    if (description) clean.description = description;
+  }
+  return clean;
 }
 
 export function validateKanbanBoard(input) {
@@ -48,7 +53,7 @@ export function validateKanbanBoard(input) {
     if (!Array.isArray(input[column]) || input[column].length > limit) return null;
     board[column] = [];
     for (const rawTask of input[column]) {
-      const task = cleanTask(rawTask);
+      const task = cleanTask(rawTask, column);
       if (!task || ids.has(task.id)) return null;
       ids.add(task.id);
       board[column].push(task);

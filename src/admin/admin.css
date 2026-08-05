@@ -130,6 +130,10 @@
     box-shadow: 0 0 0 3px rgba(7, 135, 153, 0.1);
 }
 
+.kanban-admin__create-description {
+    grid-column: 1 / -1;
+}
+
 .kanban-admin__workspace {
     height: clamp(440px, calc(100vh - 220px), 620px);
 }
@@ -145,7 +149,7 @@
 .kanban-admin__archive > header h2 {
     margin: 0;
     color: #17313a;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 1.1;
 }
 

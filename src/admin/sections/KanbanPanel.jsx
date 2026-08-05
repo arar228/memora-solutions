@@ -17,16 +17,18 @@ const COLUMNS = [
     { id: 'closed', label: 'Закрытые задачи', limit: null },
 ];
 
-const emptyDraft = { title: '', dueDate: '', column: 'potential' };
+const emptyDraft = {
+    title: '', dueDate: '', description: '', column: 'potential',
+};
 
 const BOARD_LABELS = {
     label: 'Рабочее пространство',
     title: 'Что будет дальше',
     description: 'Менеджер размещает до семи потенциальных и до трёх активных задач одновременно.',
     potential: 'Потенциальные задачи',
-    potentialDescription: 'До 7 следующих задач',
+    potentialDescription: '',
     inProgress: 'В работе',
-    inProgressDescription: 'До 3 задач в фокусе',
+    inProgressDescription: '',
     closed: 'Закрытые задачи',
     closedDescription: '',
     empty: 'Следующая задача появится здесь.',
@@ -35,10 +37,8 @@ const BOARD_LABELS = {
 
 const CHAT_LABELS = {
     title: 'Разговор с командой',
-    general: 'Общий чат',
-    personal: 'Персональный',
-    generalDescription: 'Общие вопросы и ответы команды',
-    personalDescription: 'Диалоги с конкретными посетителями',
+    general: 'Общий',
+    personal: 'Личный',
     loading: 'Загружаем диалог…',
     empty: 'Первое сообщение появится здесь.',
     manager: 'Команда Memora',
@@ -130,6 +130,9 @@ export default function KanbanPanel() {
             id: crypto.randomUUID(),
             title,
             dueDate: draft.dueDate,
+            ...(draft.column === 'closed' && draft.description.trim()
+                ? { description: draft.description.trim() }
+                : {}),
         };
         setBoard(current => ({ ...current, [draft.column]: [...current[draft.column], task] }));
         setDraft(emptyDraft);
@@ -206,6 +209,11 @@ export default function KanbanPanel() {
                     onChange={event => updateTask(columnId, task.id, { title: event.target.value })} />
                 <input type="date" value={task.dueDate || ''} aria-label="Срок задачи"
                     onInput={event => updateTask(columnId, task.id, { dueDate: event.currentTarget.value })} />
+                {columnId === 'closed' && (
+                    <textarea value={task.description || ''} aria-label="Описание закрытой задачи"
+                        maxLength={4000} placeholder="Опишите результат"
+                        onChange={event => updateTask(columnId, task.id, { description: event.target.value })} />
+                )}
                 <button className="memora-board__action" type="button" onClick={() => setEditingTask('')}>
                     <Check size={12} /> Готово
                 </button>
@@ -260,6 +268,15 @@ export default function KanbanPanel() {
                             <Label className="select-none opacity-0">.</Label>
                             <Button onClick={add}><Plus size={15} /> Добавить</Button>
                         </div>
+                        {draft.column === 'closed' && (
+                            <div className="kanban-admin__create-description flex flex-col gap-1.5">
+                                <Label>Описание результата</Label>
+                                <textarea className="kanban-admin__title-input" value={draft.description}
+                                    maxLength={4000} aria-label="Описание закрытой задачи"
+                                    placeholder="Кратко опишите выполненную работу"
+                                    onChange={event => setDraft({ ...draft, description: event.target.value })} />
+                            </div>
+                        )}
                     </div>
                 </section>
             )}

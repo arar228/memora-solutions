@@ -106,7 +106,7 @@ export default function KanbanBoard({
                                 <span className="memora-board__column-icon"><Icon size={17} /></span>
                                 <div className="memora-board__column-copy">
                                     <h3>{labels[id]}</h3>
-                                    <p>{labels[`${id}Description`]}</p>
+                                    {labels[`${id}Description`] && <p>{labels[`${id}Description`]}</p>}
                                 </div>
                                 <strong className="memora-board__count">
                                     {limit ? `${tasks.length}/${limit}` : tasks.length}
@@ -156,6 +156,9 @@ export default function KanbanBoard({
                                                 </div>
                                             )}
                                             <h4>{task.title}</h4>
+                                            {id === 'closed' && task.description && (
+                                                <p className="memora-board__task-description">{task.description}</p>
+                                            )}
                                             {formattedDueDate && (
                                                 <time className={`memora-board__due-date ${deadlineState}`} dateTime={task.dueDate}>
                                                     <CalendarDays size={13} /> {formattedDueDate}

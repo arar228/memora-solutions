@@ -19,17 +19,12 @@ export default function KanbanChat({
     renderMessageControls,
     endRef,
 }) {
-    const description = mode === 'general'
-        ? labels.generalDescription
-        : labels.personalDescription;
-
     return (
         <section className="memora-chat" aria-labelledby="memora-chat-title">
             <header className="memora-chat__header">
                 <span className="memora-chat__icon"><MessageCircle size={17} /></span>
                 <div className="memora-chat__heading">
                     <h2 id="memora-chat-title">{labels.title}</h2>
-                    <p>{description}</p>
                 </div>
             </header>
 

@@ -353,21 +353,20 @@
 
 .memora-board--archive .memora-board__task {
     display: grid;
-    grid-template-columns: 128px minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 16px;
     padding: 15px 16px;
+}
+
+.memora-board--archive .memora-board__task.is-sortable {
+    grid-template-columns: 24px minmax(0, 1fr) auto;
 }
 
 .memora-board--archive .memora-board__task-heading,
 .memora-board--archive .memora-board__task h4,
 .memora-board--archive .memora-board__due-date {
     margin: 0;
-}
-
-.memora-board--archive .memora-board__task-label {
-    padding-top: 3px;
-    font-size: 9px;
 }
 
 .memora-board--archive .memora-board__task h4 {

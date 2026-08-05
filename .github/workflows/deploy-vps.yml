@@ -42,8 +42,8 @@ jobs:
           done
           test -n "$host_keys"
 
-          actual_fingerprint=$(printf '%s\n' "$host_keys" | ssh-keygen -lf - -E sha256 | awk 'NR == 1 { print $2 }')
-          if [ "$actual_fingerprint" != "$VPS_FINGERPRINT" ]; then
+          actual_fingerprints=$(printf '%s\n' "$host_keys" | ssh-keygen -lf - -E sha256 | awk '{ print $2 }')
+          if ! printf '%s\n' "$actual_fingerprints" | grep -Fxq "$VPS_FINGERPRINT"; then
             echo "::error::VPS host fingerprint mismatch"
             exit 1
           fi

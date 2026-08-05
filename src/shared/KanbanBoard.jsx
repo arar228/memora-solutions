@@ -131,7 +131,7 @@ export default function KanbanBoard({
                                     return (
                                         <article
                                             key={task.id}
-                                            className={`memora-board__task ${draggingId === task.id ? 'is-dragging' : ''} ${isDropTarget ? 'is-drop-target' : ''}`}
+                                            className={`memora-board__task ${onTaskDrop ? 'is-sortable' : ''} ${draggingId === task.id ? 'is-dragging' : ''} ${isDropTarget ? 'is-drop-target' : ''}`}
                                             draggable={Boolean(onTaskDrop)}
                                             onDragStart={event => beginDrag(event, id, task.id)}
                                             onDragEnd={() => {
@@ -141,16 +141,20 @@ export default function KanbanBoard({
                                             onDragOver={event => markDropTarget(event, id, index)}
                                             onDrop={event => acceptDrop(event, id, index)}
                                         >
-                                            <div className="memora-board__task-heading">
-                                                {onTaskDrop && (
-                                                    <span className="memora-board__drag-handle" aria-hidden="true">
-                                                        <GripVertical size={15} />
-                                                    </span>
-                                                )}
-                                                <span className="memora-board__task-label">
-                                                    {labels.task} {String(index + 1).padStart(2, '0')}
-                                                </span>
-                                            </div>
+                                            {(id !== 'closed' || onTaskDrop) && (
+                                                <div className="memora-board__task-heading">
+                                                    {onTaskDrop && (
+                                                        <span className="memora-board__drag-handle" aria-hidden="true">
+                                                            <GripVertical size={15} />
+                                                        </span>
+                                                    )}
+                                                    {id !== 'closed' && (
+                                                        <span className="memora-board__task-label">
+                                                            {labels.task} {String(index + 1).padStart(2, '0')}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            )}
                                             <h4>{task.title}</h4>
                                             {formattedDueDate && (
                                                 <time className={`memora-board__due-date ${deadlineState}`} dateTime={task.dueDate}>

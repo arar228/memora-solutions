@@ -28,7 +28,7 @@ const BOARD_LABELS = {
     inProgress: 'В работе',
     inProgressDescription: 'До 3 задач в фокусе',
     closed: 'Закрытые задачи',
-    closedDescription: 'Завершённые задачи',
+    closedDescription: '',
     empty: 'Следующая задача появится здесь.',
     task: 'Задача',
 };
@@ -322,11 +322,7 @@ export default function KanbanPanel() {
 
             <section className="kanban-admin__archive">
                 <header>
-                    <div>
-                        <span>История</span>
-                        <h2>Закрытые задачи</h2>
-                    </div>
-                    <p>Порядок отражает приоритет</p>
+                    <h2>Закрытые задачи</h2>
                 </header>
                 <KanbanBoard
                     board={board}

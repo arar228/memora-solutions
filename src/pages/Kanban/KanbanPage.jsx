@@ -130,7 +130,7 @@ export default function KanbanPage() {
         inProgress: t('kanban.inProgress'),
         inProgressDescription: t('kanban.inProgressDesc'),
         closed: t('kanban.closedTitle'),
-        closedDescription: t('kanban.closedDesc'),
+        closedDescription: '',
         empty: t('kanban.emptyColumn'),
         task: lang === 'ru' ? 'Задача' : 'Task',
     };
@@ -219,9 +219,7 @@ export default function KanbanPage() {
                 <AnimatedSection delay={0.1}>
                     <section className="question-archive" aria-labelledby="question-archive-title">
                         <div className="question-archive__header">
-                            <span className="question-section-label">{t('kanban.archiveLabel')}</span>
                             <h2 id="question-archive-title">{t('kanban.closedTitle')}</h2>
-                            <p>{t('kanban.closedDesc')}</p>
                         </div>
                         <KanbanBoard
                             board={board}

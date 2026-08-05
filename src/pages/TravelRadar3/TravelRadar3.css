@@ -245,7 +245,7 @@
 
 .travel-feed__table {
     width: 100%;
-    min-width: 1120px;
+    min-width: 1200px;
     border-spacing: 0;
     border-collapse: separate;
     table-layout: fixed;
@@ -292,7 +292,7 @@
 .travel-feed__table th:nth-child(2) { width: 105px; }
 .travel-feed__table th:nth-child(3),
 .travel-feed__table th:nth-child(4) { width: 72px; }
-.travel-feed__table th:nth-child(5) { width: 76px; }
+.travel-feed__table th:nth-child(5) { width: 156px; }
 .travel-feed__table th:nth-child(6) { width: 66px; }
 .travel-feed__table th:nth-child(7) { width: 94px; }
 .travel-feed__table th:nth-child(8) { width: 104px; }
@@ -337,6 +337,18 @@
     font-size: 0.66rem;
 }
 
+.travel-feed__type-details {
+    display: flex;
+    min-width: 0;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.34rem;
+}
+
+.travel-feed__type-cell .travel-feed__type-details {
+    align-items: center;
+}
+
 .travel-feed__table-price {
     color: #f3b758;
     font-size: 0.85rem;
@@ -358,8 +370,9 @@
     font-size: 0.65rem;
 }
 
-.travel-feed__description-cell > span {
+.travel-feed__description-text {
     display: -webkit-box;
+    margin: 0;
     overflow: hidden;
     color: #c1c3c8;
     line-height: 1.46;
@@ -367,11 +380,34 @@
     -webkit-line-clamp: 2;
 }
 
+.travel-feed__expandable-description.is-expanded .travel-feed__description-text {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: initial;
+}
+
+.travel-feed__expandable-description button {
+    margin-top: 0.32rem;
+    padding: 0;
+    border: 0;
+    color: #83c8ce;
+    background: transparent;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.travel-feed__expandable-description button:hover,
+.travel-feed__expandable-description button:focus-visible {
+    color: #b4edf1;
+    text-decoration: underline;
+    text-underline-offset: 0.18rem;
+}
+
 .travel-feed__deal-facts {
     display: flex;
     flex-wrap: wrap;
     gap: 0.24rem;
-    margin-bottom: 0.28rem;
 }
 
 .travel-feed__deal-facts span {
@@ -551,14 +587,14 @@
     gap: 0.3rem;
 }
 
-.travel-feed__excerpt {
-    display: -webkit-box;
+.travel-feed__expandable-description--card {
     margin: 0.85rem 0 1rem;
-    overflow: hidden;
+}
+
+.travel-feed__expandable-description--card .travel-feed__description-text {
     color: var(--text-secondary);
     font-size: 0.82rem;
     line-height: 1.55;
-    -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
 }
 

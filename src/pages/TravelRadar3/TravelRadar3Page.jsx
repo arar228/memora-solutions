@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     ArrowRight,
@@ -66,6 +66,8 @@ const COPY = {
         price: 'Цена',
         savings: 'Экономия',
         description: 'Описание',
+        expandDescription: 'Показать полностью',
+        collapseDescription: 'Свернуть',
         offerDate: 'Добавлено',
         link: 'Ссылка',
         noDate: 'Не указано',
@@ -136,6 +138,8 @@ const COPY = {
         price: 'Price',
         savings: 'Saving',
         description: 'Description',
+        expandDescription: 'Show full description',
+        collapseDescription: 'Collapse',
         offerDate: 'Added',
         link: 'Link',
         noDate: 'Not specified',
@@ -278,6 +282,54 @@ function cleanDescription(value) {
         .trim();
 }
 
+function DealTypeDetails({ deal, copy, withIcon = false }) {
+    const DealIcon = deal.type === 'tour' ? Ticket : Plane;
+    const connectionNames = deal.connections?.map((place) => place.name).filter(Boolean) || [];
+    const hasFacts = deal.oneway || deal.roundTrip || connectionNames.length > 0;
+
+    return (
+        <div className="travel-feed__type-details">
+            <span className={`travel-feed__type travel-feed__type--${deal.type}`}>
+                {withIcon ? <DealIcon size={14} aria-hidden="true" /> : null}
+                {deal.type === 'tour' ? copy.tours : copy.flights}
+            </span>
+            {hasFacts ? (
+                <div className="travel-feed__deal-facts">
+                    {deal.oneway && !deal.roundTrip ? <span>{copy.oneWay}</span> : null}
+                    {deal.roundTrip ? <span>↔ {copy.roundTrip}</span> : null}
+                    {connectionNames.length > 0 ? (
+                        <span>{copy.connection}: {connectionNames.join(', ')}</span>
+                    ) : null}
+                </div>
+            ) : null}
+        </div>
+    );
+}
+
+function ExpandableDescription({ value, fallback, copy, variant = 'table' }) {
+    const [expanded, setExpanded] = useState(false);
+    const content = value || fallback;
+    const descriptionId = useId();
+    const expansionThreshold = variant === 'card' ? 140 : 70;
+    const canExpand = content.length > expansionThreshold;
+
+    return (
+        <div className={`travel-feed__expandable-description travel-feed__expandable-description--${variant} ${expanded ? 'is-expanded' : ''}`}>
+            <p id={descriptionId} className="travel-feed__description-text">{content}</p>
+            {canExpand ? (
+                <button
+                    type="button"
+                    aria-expanded={expanded}
+                    aria-controls={descriptionId}
+                    onClick={() => setExpanded((current) => !current)}
+                >
+                    {expanded ? copy.collapseDescription : copy.expandDescription}
+                </button>
+            ) : null}
+        </div>
+    );
+}
+
 function optionalCompare(a, b, direction = 'asc') {
     if (a == null && b == null) return 0;
     if (a == null) return 1;
@@ -314,7 +366,6 @@ function sortDeals(deals, sort, lang) {
 }
 
 function DealCard({ deal, lang, copy }) {
-    const DealIcon = deal.type === 'tour' ? Ticket : Plane;
     // The calendar in this live feed communicates freshness, so show the
     // publication timestamp used by the ordering. Fall back to departure only
     // for legacy items that do not have a source publication date.
@@ -329,10 +380,7 @@ function DealCard({ deal, lang, copy }) {
     return (
         <article className="travel-feed__card">
             <div className="travel-feed__card-top">
-                <span className={`travel-feed__type travel-feed__type--${deal.type}`}>
-                    <DealIcon size={14} aria-hidden="true" />
-                    {deal.type === 'tour' ? copy.tours : copy.flights}
-                </span>
+                <DealTypeDetails deal={deal} copy={copy} withIcon />
                 {deal.discount ? (
                     <span className="travel-feed__discount">−{Math.round(deal.discount * 100)}%</span>
                 ) : null}
@@ -352,14 +400,16 @@ function DealCard({ deal, lang, copy }) {
             <div className="travel-feed__meta">
                 {dateLabel ? <span><CalendarDays size={14} aria-hidden="true" />{dateLabel}</span> : null}
                 {deal.nights ? <span>{deal.nights} {copy.nights}</span> : null}
-                {deal.oneway ? <span>{copy.oneWay}</span> : null}
-                {deal.roundTrip ? <span>↔ {copy.roundTrip}</span> : null}
-                {deal.connections?.length ? (
-                    <span>{copy.connection}: {deal.connections.map((place) => place.name).join(', ')}</span>
-                ) : null}
             </div>
 
-            {deal.text ? <p className="travel-feed__excerpt">{deal.text}</p> : null}
+            {deal.text ? (
+                <ExpandableDescription
+                    value={cleanDescription(deal.text)}
+                    fallback={`${deal.from?.name || ''} — ${deal.to?.name || ''}`}
+                    copy={copy}
+                    variant="card"
+                />
+            ) : null}
 
             <div className="travel-feed__actions">
                 <a
@@ -413,10 +463,9 @@ function DealTable({ deals, lang, copy }) {
                         const arrival = arrivalForDeal(deal);
                         const description = cleanDescription(deal.text);
                         const routeLabel = `${deal.from?.name || copy.origin} — ${deal.to?.name || copy.destination}`;
-                        const connectionNames = deal.connections?.map((place) => place.name).filter(Boolean) || [];
 
                         return (
-                            <tr key={`${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${deal.price}-${index}`}>
+                            <tr key={deal.link || `${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${deal.price}-${deal.date || index}`}>
                                 <td className="travel-feed__city-cell">
                                     <strong title={deal.from?.name}>{deal.from?.name || '—'}</strong>
                                     {deal.from?.code ? <small>{deal.from.code}</small> : null}
@@ -439,10 +488,8 @@ function DealTable({ deals, lang, copy }) {
                                         </time>
                                     ) : <span className="travel-feed__missing" title={copy.noDate}>—</span>}
                                 </td>
-                                <td>
-                                    <span className={`travel-feed__type travel-feed__type--${deal.type}`}>
-                                        {deal.type === 'tour' ? copy.tours : copy.flights}
-                                    </span>
+                                <td className="travel-feed__type-cell">
+                                    <DealTypeDetails deal={deal} copy={copy} />
                                 </td>
                                 <td className="travel-feed__people-cell">
                                     {people ? formatPeople(people, lang) : <span className="travel-feed__missing">—</span>}
@@ -457,15 +504,11 @@ function DealTable({ deals, lang, copy }) {
                                     ) : <span className="travel-feed__missing">—</span>}
                                 </td>
                                 <td className="travel-feed__description-cell">
-                                    {deal.roundTrip || connectionNames.length > 0 ? (
-                                        <div className="travel-feed__deal-facts">
-                                            {deal.roundTrip ? <span>↔ {copy.roundTrip}</span> : null}
-                                            {connectionNames.length > 0 ? (
-                                                <span>{copy.connection}: {connectionNames.join(', ')}</span>
-                                            ) : null}
-                                        </div>
-                                    ) : null}
-                                    <span title={description}>{description || routeLabel}</span>
+                                    <ExpandableDescription
+                                        value={description}
+                                        fallback={routeLabel}
+                                        copy={copy}
+                                    />
                                 </td>
                                 <td className="travel-feed__published-cell">
                                     {deal.date ? (
@@ -936,7 +979,7 @@ export default function TravelRadar3Page() {
                                 <div className="travel-feed__grid">
                                     {visibleDeals.map((deal, index) => (
                                         <DealCard
-                                            key={`${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${index}`}
+                                            key={deal.link || `${deal.type}-${deal.source}-${deal.from?.code}-${deal.to?.code}-${deal.date || index}`}
                                             deal={deal}
                                             lang={lang}
                                             copy={copy}

@@ -68,7 +68,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, 'dist');
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
+const SPA_INDEX_URL = process.env.SPA_INDEX_URL
+  || 'https://arar228.github.io/memora-solutions/index.html';
+const SPA_INDEX_CACHE_MS = 30_000;
 let isShuttingDown = false;
+let cachedSpaIndex = null;
+let cachedSpaIndexAt = 0;
 
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
@@ -407,6 +412,47 @@ async function sendFile(res, path, status = 200) {
   await pipeline(createReadStream(path, { highWaterMark: 256 * 1024 }), res);
 }
 
+async function sendSpaIndex(res) {
+  if (process.env.NODE_ENV !== 'production') {
+    return sendFile(res, join(DIST, 'index.html'));
+  }
+
+  const now = Date.now();
+  if (!cachedSpaIndex || now - cachedSpaIndexAt >= SPA_INDEX_CACHE_MS) {
+    try {
+      const indexUrl = new URL(SPA_INDEX_URL);
+      indexUrl.searchParams.set('release', String(now));
+      const response = await fetch(indexUrl, {
+        headers: { 'Cache-Control': 'no-cache' },
+        signal: AbortSignal.timeout(5_000),
+      });
+      if (!response.ok) throw new Error(`SPA index returned ${response.status}`);
+      const candidate = await response.text();
+      if (!candidate.includes('<div id="root"></div>')) {
+        throw new Error('SPA index has an unexpected structure');
+      }
+      cachedSpaIndex = candidate;
+      cachedSpaIndexAt = now;
+    } catch (error) {
+      console.error('SPA index CDN fallback:', error);
+      return sendFile(res, join(DIST, 'index.html'));
+    }
+  }
+
+  const body = Buffer.from(cachedSpaIndex, 'utf8');
+  res.writeHead(200, {
+    'Content-Type': 'text/html; charset=utf-8',
+    'Content-Length': body.length,
+    'Cache-Control': 'no-cache',
+    'X-Content-Type-Options': 'nosniff',
+  });
+  return reqMethodIsHead(res) ? res.end() : res.end(body);
+}
+
+function reqMethodIsHead(res) {
+  return res.req?.method === 'HEAD';
+}
+
 const KANBAN_CLIENT_RATE_LIMIT = 5;
 const KANBAN_IP_RATE_LIMIT = 12;
 const KANBAN_RATE_WINDOW_MS = 15 * 60 * 1000;
@@ -717,10 +763,11 @@ const server = createServer(async (req, res) => {
       const info = await stat(filePath);
       if (info.isDirectory()) filePath = join(filePath, 'index.html');
       await stat(filePath);
+      if (filePath === join(DIST, 'index.html')) return await sendSpaIndex(res);
       return await sendFile(res, filePath);
     } catch {
       // SPA-фоллбэк: любой неизвестный путь отдаёт index.html, роутер разберётся
-      return await sendFile(res, join(DIST, 'index.html'));
+      return await sendSpaIndex(res);
     }
   } catch (err) {
     res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });

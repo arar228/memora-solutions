@@ -48,7 +48,6 @@ const COPY = {
         ],
         casesLabel: '02 / Выпущенные продукты',
         casesTitle: 'Работа, которую можно открыть',
-        casesLead: 'Каждый кейс живёт в продакшене и показывает реальный инженерный результат команды.',
         productCases: [
             {
                 name: 'Memora BDayBot',
@@ -146,7 +145,6 @@ const COPY = {
         ],
         casesLabel: '02 / Shipped products',
         casesTitle: 'Work you can open',
-        casesLead: 'Every case runs in production and demonstrates a real engineering outcome.',
         productCases: [
             { name: 'Memora BDayBot', type: 'Telegram · Python · PostgreSQL · AI', text: 'Personal reminders, contextual messages, subscriptions, payments, and admin operations.', href: '/bday-bot' },
             { name: 'Memora Pomodoro', type: 'Electron · React · local-first', text: 'A focus timer with system overlay, local statistics, animated scenes, and a complete web version.', href: '/pomodoro' },
@@ -289,10 +287,9 @@ export default function CreatorPage() {
                 <section className="portfolio-light-section" id="cases">
                     <div className="container">
                         <AnimatedSection>
-                            <div className="portfolio-section-head portfolio-section-head--light">
+                            <div className="portfolio-section-head portfolio-section-head--light portfolio-section-head--compact">
                                 <span className="portfolio-kicker">{c.casesLabel}</span>
                                 <h2>{c.casesTitle}</h2>
-                                <p>{c.casesLead}</p>
                             </div>
                             <div className="portfolio-cases">
                                 {c.productCases.map((item, index) => (

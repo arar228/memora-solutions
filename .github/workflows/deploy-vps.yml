@@ -1,0 +1,60 @@
+name: Deploy VPS
+
+on:
+  workflow_run:
+    workflows: [Deploy production assets]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-vps
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+
+      - name: Verify host and deploy
+        env:
+          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          VPS_HOST: 23.94.105.127
+          VPS_PORT: '22'
+          VPS_FINGERPRINT: SHA256:nLvPFGCkQO01+MrsLWHZkCsgMI7BOU9b6nRAzQ/zMGU
+        run: |
+          set -euo pipefail
+          test -n "$VPS_PASSWORD"
+          install -d -m 700 "$HOME/.ssh"
+
+          host_keys=''
+          for attempt in 1 2 3 4 5; do
+            host_keys=$(ssh-keyscan -T 10 -p "$VPS_PORT" "$VPS_HOST" 2>/dev/null || true)
+            [ -n "$host_keys" ] && break
+            sleep 3
+          done
+          test -n "$host_keys"
+
+          actual_fingerprint=$(printf '%s\n' "$host_keys" | ssh-keygen -lf - -E sha256 | awk 'NR == 1 { print $2 }')
+          if [ "$actual_fingerprint" != "$VPS_FINGERPRINT" ]; then
+            echo "::error::VPS host fingerprint mismatch"
+            exit 1
+          fi
+          printf '%s\n' "$host_keys" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+          export SSHPASS="$VPS_PASSWORD"
+          sshpass -e ssh \
+            -o BatchMode=no \
+            -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=15 \
+            -p "$VPS_PORT" \
+            "root@$VPS_HOST" \
+            'systemctl start memora-update.service; test "$(systemctl show -p Result --value memora-update.service)" = success; systemctl is-active --quiet memora-solutions.service; git -c safe.directory=/opt/memora-solutions -C /opt/memora-solutions rev-parse HEAD'

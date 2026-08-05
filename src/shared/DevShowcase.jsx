@@ -45,7 +45,7 @@ export default function DevShowcase() {
             )}
 
             {/* Desktop: interactive demo */}
-            <div className="creator-dev-demo">
+            <div className="creator-dev-demo" data-typography-exempt="web-demo">
                 <div className="creator-dev-window__bar">
                     <div className="creator-dev-window__dots">
                         <span className="creator-dev-window__dot creator-dev-window__dot--red" />

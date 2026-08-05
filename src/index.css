@@ -71,13 +71,18 @@
   --font-display: 'iA Writer Quattro', 'iA Writer Quattro V', -apple-system, sans-serif;
   --font-body: 'iA Writer Quattro', 'iA Writer Quattro V', -apple-system, sans-serif;
 
-  --text-hero: clamp(2.5rem, 5vw, 3.5rem);
-  --text-h1: clamp(1.75rem, 3vw, 2.5rem);
-  --text-h2: clamp(1.5rem, 2.5vw, 1.75rem);
-  --text-h3: clamp(1.125rem, 2vw, 1.375rem);
-  --text-body: 1rem;
-  --text-small: 0.875rem;
-  --text-xs: 0.75rem;
+  /* Public-site typography has exactly three sizes. Product web demos carry
+     data-typography-exempt and keep the scale of the demonstrated product. */
+  --type-display: 56px;
+  --type-heading: 22px;
+  --type-body: 18px;
+  --text-hero: var(--type-display);
+  --text-h1: var(--type-display);
+  --text-h2: var(--type-heading);
+  --text-h3: var(--type-heading);
+  --text-body: var(--type-body);
+  --text-small: var(--type-body);
+  --text-xs: var(--type-body);
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -163,6 +168,29 @@ html {
 
 .app__main {
   flex: 1 0 auto;
+}
+
+/* Enforce the three-size system over legacy component declarations. The
+   admin app renders outside .app. Embedded iframes have their own document;
+   same-document web demos opt out with data-typography-exempt. */
+.app :where(*):not([data-typography-exempt], [data-typography-exempt] *) {
+  font-size: var(--type-body) !important;
+}
+
+.app :where(h1, h1 *):not([data-typography-exempt], [data-typography-exempt] *),
+.app :where(.type-display, .type-display *):not([data-typography-exempt], [data-typography-exempt] *),
+.app :where(.portfolio-price-card > strong):not([data-typography-exempt], [data-typography-exempt] *),
+.app :where(.travel-alerts__price, .travel-alerts__price *):not([data-typography-exempt], [data-typography-exempt] *) {
+  font-size: var(--type-display) !important;
+}
+
+.app :where(h2, h2 *, h3, h3 *, h4, h4 *, h5, h5 *, h6, h6 *):not([data-typography-exempt], [data-typography-exempt] *) {
+  font-size: var(--type-heading) !important;
+}
+
+.app :where(*):not([data-typography-exempt], [data-typography-exempt] *)::before,
+.app :where(*):not([data-typography-exempt], [data-typography-exempt] *)::after {
+  font-size: var(--type-body) !important;
 }
 
 h1,

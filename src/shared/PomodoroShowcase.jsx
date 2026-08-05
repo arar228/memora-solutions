@@ -72,7 +72,7 @@ export default function PomodoroShowcase() {
             </p>
 
             {/* Interactive Demo */}
-            <div style={{
+            <div data-typography-exempt="web-demo" style={{
                 background: '#0C0C0F',
                 borderRadius: 16,
                 padding: '24px 20px',

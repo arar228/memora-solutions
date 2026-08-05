@@ -1,7 +1,7 @@
 /* ============================================
    MEMORA SOLUTIONS — Design System
    Aesthetic: "Quiet Luxury" with Teal/Emerald
-   Fonts: iA Writer Quattro
+   Fonts: system Sans
    ============================================ */
 
 @font-face {
@@ -68,8 +68,8 @@
   --color-warning: #D4A34B;
 
   /* Typography */
-  --font-display: 'iA Writer Quattro', 'iA Writer Quattro V', -apple-system, sans-serif;
-  --font-body: 'iA Writer Quattro', 'iA Writer Quattro V', -apple-system, sans-serif;
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Public-site typography has exactly three sizes. Product web demos carry
      data-typography-exempt and keep the scale of the demonstrated product. */

@@ -24,7 +24,27 @@ import {
 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import { fmtPrice } from './helpers';
+import bundledTravelFeed from '../../../public/hot-deals.json';
 import './TravelRadar3.css';
+
+const FEED_REQUEST_TIMEOUT_MS = 5_000;
+
+async function fetchTravelFeed() {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), FEED_REQUEST_TIMEOUT_MS);
+
+    try {
+        const response = await fetch('/api/travel/deals', {
+            cache: 'no-cache',
+            headers: { Accept: 'application/json' },
+            signal: controller.signal,
+        });
+        if (!response.ok) throw new Error(`Travel feed HTTP ${response.status}`);
+        return await response.json();
+    } finally {
+        window.clearTimeout(timeout);
+    }
+}
 
 const COPY = {
     ru: {
@@ -853,8 +873,11 @@ export default function TravelRadar3Page() {
     const { i18n } = useTranslation();
     const lang = i18n.language === 'ru' ? 'ru' : 'en';
     const copy = COPY[lang];
-    const [feed, setFeed] = useState({ deals: [], updatedAt: '' });
-    const [loading, setLoading] = useState(true);
+    const [feed, setFeed] = useState(() => ({
+        deals: bundledTravelFeed.deals || [],
+        updatedAt: bundledTravelFeed.updatedAt || '',
+    }));
+    const [loading, setLoading] = useState(() => !(bundledTravelFeed.deals?.length > 0));
     const [type, setType] = useState('all');
     const [origin, setOrigin] = useState('all');
     const [destination, setDestination] = useState('all');
@@ -867,15 +890,14 @@ export default function TravelRadar3Page() {
 
     useEffect(() => {
         let cancelled = false;
-        fetch('/api/travel/deals', { cache: 'no-cache' })
-            .then((response) => (response.ok ? response.json() : Promise.reject(new Error('feed unavailable'))))
+        fetchTravelFeed()
             .then((data) => {
                 if (!cancelled) setFeed({ deals: data.deals || [], updatedAt: data.updatedAt || '' });
             })
-            .catch(() => fetch('/hot-deals.json', { cache: 'no-cache' })
-                .then((response) => response.ok ? response.json() : Promise.reject())
-                .then((data) => { if (!cancelled) setFeed({ deals: data.deals || [], updatedAt: data.updatedAt || '' }); })
-                .catch(() => { if (!cancelled) setFeed({ deals: [], updatedAt: '' }); }))
+            .catch(() => {
+                // The bundled snapshot is already visible. A stalled mobile
+                // request must never leave the offer list behind a spinner.
+            })
             .finally(() => {
                 if (!cancelled) setLoading(false);
             });

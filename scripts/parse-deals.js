@@ -18,7 +18,7 @@
  * Output shape:
  *   { type:'flight'|'tour', from:{name,code}, to:{name,code}, price, oldPrice,
  *     savings, discount, oneway, roundTrip, connections, nights, departDate,
- *     date, source, link, text }
+ *     returnDate, date, source, link, text }
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -173,41 +173,149 @@ const SAVE_RE = /эконом\w*\s*(?:до\s*)?(\d[\d\s.]{2,})/i;
 const NIGHTS_RE = /(\d{1,2})\s*ноч/i;
 const num = (s) => Number(String(s).replace(/[\s.]/g, '')) || 0;
 
-const MONTHS = {
-  январ: 1, феврал: 2, март: 3, апрел: 4, ма: 5, июн: 6,
-  июл: 7, август: 8, сентябр: 9, октябр: 10, ноябр: 11, декабр: 12,
-};
-// "с 15 август(а) 2026", "6 января", "в конце июля" → ISO date (or month
-// start). Year inferred as the next occurrence relative to the post date.
+const MONTH_WORD_RE = '(янв(?:ар)?|фев(?:рал)?|мар(?:т)?|апр(?:ел)?|ма[йяеи]|июн|июл|авг(?:уст)?|сен(?:т(?:ябр)?)?|окт(?:ябр)?|ноя(?:бр)?|дек(?:абр)?)\\p{L}*';
+
+function monthNumber(value) {
+  const stem = String(value || '').toLowerCase();
+  if (stem.startsWith('янв')) return 1;
+  if (stem.startsWith('фев')) return 2;
+  if (stem.startsWith('мар')) return 3;
+  if (stem.startsWith('апр')) return 4;
+  if (stem.startsWith('ма')) return 5;
+  if (stem.startsWith('июн')) return 6;
+  if (stem.startsWith('июл')) return 7;
+  if (stem.startsWith('авг')) return 8;
+  if (stem.startsWith('сен')) return 9;
+  if (stem.startsWith('окт')) return 10;
+  if (stem.startsWith('ноя')) return 11;
+  if (stem.startsWith('дек')) return 12;
+  return null;
+}
+
+function normalizeYear(value) {
+  if (!value) return null;
+  const year = Number(value);
+  return year < 100 ? year + 2000 : year;
+}
+
+function inferYear(month, day, refDate, explicitYear = null) {
+  if (explicitYear) return normalizeYear(explicitYear);
+  let year = refDate.getUTCFullYear();
+  const candidate = new Date(Date.UTC(year, month - 1, day || 28));
+  const rolloverThreshold = new Date(refDate);
+  rolloverThreshold.setUTCDate(rolloverThreshold.getUTCDate() - 45);
+  if (candidate < rolloverThreshold) year += 1;
+  return year;
+}
+
+function isoDate(day, month, year, refDate) {
+  if (!(day >= 1 && day <= 31 && month >= 1 && month <= 12)) return null;
+  const resolvedYear = inferYear(month, day, refDate, year);
+  const candidate = new Date(Date.UTC(resolvedYear, month - 1, day));
+  if (candidate.getUTCDate() !== day || candidate.getUTCMonth() !== month - 1) return null;
+  const p = (number) => String(number).padStart(2, '0');
+  return `${resolvedYear}-${p(month)}-${p(day)}`;
+}
+
+function isoMonth(month, refDate) {
+  const year = inferYear(month, 28, refDate);
+  return `${year}-${String(month).padStart(2, '0')}`;
+}
+
+function rollReturnYear(departDate, month, explicitYear) {
+  if (explicitYear) return normalizeYear(explicitYear);
+  const departYear = Number(departDate.slice(0, 4));
+  const departMonth = Number(departDate.slice(5, 7));
+  return month < departMonth ? departYear + 1 : departYear;
+}
+
+function addDays(iso, days) {
+  if (!iso || iso.length !== 10 || !(days > 0)) return null;
+  const date = new Date(`${iso}T00:00:00.000Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+// Extract an actual travel interval rather than the publication date. Covers
+// compact Telegram forms such as "30.08,", "5–9 авг", "31 июля —
+// 7 августа", "12–19.08" and month-only wording.
+function parseTravelDates(text, refIso, nights = null) {
+  const value = String(text || '').toLowerCase();
+  const refDate = refIso ? new Date(refIso) : new Date();
+  const validRef = Number.isNaN(refDate.getTime()) ? new Date() : refDate;
+  let departDate = null;
+  let returnDate = null;
+
+  const namedCrossMonth = value.match(new RegExp(
+    `(?:с\\s+)?(\\d{1,2})\\s+${MONTH_WORD_RE}\\s*(?:[–—-]|по|до)\\s*(\\d{1,2})\\s+${MONTH_WORD_RE}(?:\\s+(\\d{2,4}))?`,
+    'iu',
+  ));
+  const namedSameMonth = value.match(new RegExp(
+    `(?:с\\s+)?(\\d{1,2})\\s*(?:[–—-]|по|до)\\s*(\\d{1,2})\\s+${MONTH_WORD_RE}(?:\\s+(\\d{2,4}))?`,
+    'iu',
+  ));
+  const numericRange = value.match(
+    /(?:^|[^\d])(\d{1,2})(?:[./](\d{1,2}))?(?:[./](\d{2,4}))?\s*(?:[–—-]|по|до)\s*(\d{1,2})[./](\d{1,2})(?:[./](\d{2,4}))?(?=$|[^\d])/u,
+  );
+
+  if (namedCrossMonth) {
+    const departMonth = monthNumber(namedCrossMonth[2]);
+    const returnMonth = monthNumber(namedCrossMonth[4]);
+    departDate = isoDate(Number(namedCrossMonth[1]), departMonth, namedCrossMonth[5], validRef);
+    if (departDate) {
+      returnDate = isoDate(
+        Number(namedCrossMonth[3]), returnMonth,
+        rollReturnYear(departDate, returnMonth, namedCrossMonth[5]),
+        validRef,
+      );
+    }
+  } else if (namedSameMonth) {
+    const month = monthNumber(namedSameMonth[3]);
+    departDate = isoDate(Number(namedSameMonth[1]), month, namedSameMonth[4], validRef);
+    if (departDate) {
+      returnDate = isoDate(Number(namedSameMonth[2]), month, departDate.slice(0, 4), validRef);
+    }
+  } else if (numericRange) {
+    const returnMonth = Number(numericRange[5]);
+    const departMonth = Number(numericRange[2] || returnMonth);
+    departDate = isoDate(Number(numericRange[1]), departMonth, numericRange[3], validRef);
+    if (departDate) {
+      returnDate = isoDate(
+        Number(numericRange[4]), returnMonth,
+        rollReturnYear(departDate, returnMonth, numericRange[6]),
+        validRef,
+      );
+    }
+  }
+
+  if (!departDate) {
+    const numeric = value.match(/(?:^|[^\d])(\d{1,2})[./](\d{1,2})(?:[./](\d{2,4}))?(?=$|[^\d])/u);
+    const namedList = value.match(new RegExp(
+      `(\\d{1,2})(?=\\s*(?:,|и))(?:(?:\\s*,\\s*\\d{1,2})|(?:\\s+и\\s+\\d{1,2}))+\\s+${MONTH_WORD_RE}(?:\\s+(\\d{2,4}))?`,
+      'iu',
+    ));
+    const named = namedList || value.match(new RegExp(`(?:с|со|на)?\\s*(\\d{1,2})\\s+${MONTH_WORD_RE}(?:\\s+(\\d{2,4}))?`, 'iu'));
+    if (numeric) {
+      departDate = isoDate(Number(numeric[1]), Number(numeric[2]), numeric[3], validRef);
+    }
+    if (!departDate && named) {
+      departDate = isoDate(Number(named[1]), monthNumber(named[2]), named[3], validRef);
+    }
+    if (!departDate) {
+      const monthOnly = value.match(new RegExp(`(?:в|на)\\s+(?:начале|начало|середине|середину|конце|конец)?\\s*${MONTH_WORD_RE}`, 'iu'));
+      const month = monthOnly ? monthNumber(monthOnly[1]) : null;
+      if (month) departDate = isoMonth(month, validRef);
+    }
+  }
+
+  if (!returnDate && nights && departDate?.length === 10) {
+    returnDate = addDays(departDate, nights);
+  }
+  return { departDate, returnDate };
+}
+
 function parseDepartDate(text, refIso) {
-  const t = text.toLowerCase();
-  const ref = refIso ? new Date(refIso) : new Date();
-  let day = null, mon = null, year = null;
-  const numeric = t.match(/(?:^|[\s—–-])(\d{1,2})\.(\d{1,2})(?:\.(\d{2,4}))?(?=$|[\s—–-])/);
-  const dm = t.match(/(?:с|со)?\s*(\d{1,2})\s+(январ|феврал|март|апрел|ма[яй]|июн|июл|август|сентябр|октябр|ноябр|декабр)\w*\s*(\d{4})?/);
-  if (numeric) {
-    day = Number(numeric[1]);
-    mon = Number(numeric[2]);
-    year = numeric[3] ? Number(numeric[3]) : null;
-    if (year && year < 100) year += 2000;
-  } else if (dm) {
-    day = Number(dm[1]);
-    mon = MONTHS[dm[2].startsWith('ма') ? 'ма' : dm[2]];
-    year = dm[3] ? Number(dm[3]) : null;
-  } else {
-    const mm = t.match(/(?:в|на)\s+(?:начале|начало|середине|середину|конце|конец)?\s*(январ|феврал|март|апрел|ма[еи]|июн|июл|август|сентябр|октябр|ноябр|декабр)\w*/);
-    if (mm) mon = MONTHS[mm[1].startsWith('ма') ? 'ма' : mm[1]];
-  }
-  if (!mon) return null;
-  if (!year) {
-    year = ref.getFullYear();
-    const cand = new Date(Date.UTC(year, mon - 1, day || 28));
-    const rolloverThreshold = new Date(ref);
-    rolloverThreshold.setUTCDate(rolloverThreshold.getUTCDate() - 45);
-    if (cand < rolloverThreshold) year += 1;
-  }
-  const p = (n) => String(n).padStart(2, '0');
-  return day ? `${year}-${p(mon)}-${p(day)}` : `${year}-${p(mon)}`;
+  return parseTravelDates(text, refIso).departDate;
 }
 
 function aviaLink(from, to, departDate) {
@@ -264,7 +372,13 @@ function parseSegment(seg, postCtx) {
   const discount = oldPrice ? Math.round((1 - price / oldPrice) * 100) / 100 : null;
 
   const nightsM = seg.match(NIGHTS_RE);
-  const departDate = parseDepartDate(seg, postCtx.date);
+  const nights = nightsM ? Number(nightsM[1]) : null;
+  const segmentDates = parseTravelDates(seg, postCtx.date, nights);
+  const departDate = segmentDates.departDate || postCtx.travelDates?.departDate || null;
+  const returnDate = segmentDates.returnDate
+    || (nights ? addDays(departDate, nights) : null)
+    || postCtx.travelDates?.returnDate
+    || null;
   const oneway = /в одну сторону|one\s*way/i.test(seg);
   const roundTrip = !oneway && (ROUND_TRIP_RE.test(seg) || postCtx.roundTrip);
   const segmentConnections = extractConnections(seg);
@@ -294,8 +408,8 @@ function parseSegment(seg, postCtx) {
     from: { name: from.name, code: from.code, ...fromMeta },
     to: { name: to.name, code: to.code, ...toMeta },
     price, oldPrice, savings, discount, oneway, roundTrip, connections,
-    nights: nightsM ? Number(nightsM[1]) : null,
-    departDate,
+    nights,
+    departDate, returnDate,
     date: postCtx.date || null,
     source: postCtx.channel,
     link,
@@ -341,6 +455,7 @@ function structure(post) {
     tourish: TOUR_RE.test(lines[0] || ''),
     roundTrip: ROUND_TRIP_RE.test(text),
     connections: extractConnections(text),
+    travelDates: parseTravelDates(text, post.date),
     date: post.date, channel: post.channel, link: post.link, links: post.links,
   };
 
@@ -456,5 +571,5 @@ if (isMain) {
 
 export {
   buildDeals, extractConnections, findCities, findCity, isExpired, loadRefPrices, parseSegment,
-  resolveRoute, structure,
+  parseDepartDate, parseTravelDates, resolveRoute, structure,
 };

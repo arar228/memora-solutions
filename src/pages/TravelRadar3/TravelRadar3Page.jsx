@@ -14,7 +14,6 @@ import {
     MapPin,
     Plane,
     RefreshCw,
-    Search,
     Send,
     SlidersHorizontal,
     Sparkles,
@@ -881,7 +880,6 @@ export default function TravelRadar3Page() {
     const [type, setType] = useState('all');
     const [origin, setOrigin] = useState('all');
     const [destination, setDestination] = useState('all');
-    const [query, setQuery] = useState('');
     const [view, setView] = useState('table');
     const [sort, setSort] = useState('published-desc');
     const [filtersOpen, setFiltersOpen] = useState(false);
@@ -914,37 +912,27 @@ export default function TravelRadar3Page() {
     );
 
     const visibleDeals = useMemo(() => {
-        const normalizedQuery = query.trim().toLocaleLowerCase(lang);
         const filtered = feed.deals
             .filter((deal) => {
                 if (type !== 'all' && deal.type !== type) return false;
                 if (!selectedPlaceMatches(deal.from, origin)) return false;
                 if (!selectedPlaceMatches(deal.to, destination)) return false;
-                if (!normalizedQuery) return true;
-                return [
-                    deal.from?.name, deal.from?.country?.ru, deal.from?.country?.en,
-                    deal.to?.name, deal.to?.country?.ru, deal.to?.country?.en,
-                    deal.source, deal.text,
-                ]
-                    .filter(Boolean)
-                    .some((value) => value.toLocaleLowerCase(lang).includes(normalizedQuery));
+                return true;
             });
         return sortDeals(filtered, sort, lang);
-    }, [destination, feed.deals, lang, origin, query, sort, type]);
+    }, [destination, feed.deals, lang, origin, sort, type]);
 
     useEffect(() => {
         setMobileDealLimit(12);
-    }, [destination, origin, query, sort, type]);
+    }, [destination, origin, sort, type]);
 
-    const advancedFilterCount = Number(Boolean(query.trim()))
-        + Number(origin !== 'all')
+    const advancedFilterCount = Number(origin !== 'all')
         + Number(destination !== 'all');
     const effectiveView = mobileLayout ? 'cards' : view;
     const renderedDeals = mobileLayout ? visibleDeals.slice(0, mobileDealLimit) : visibleDeals;
     const remainingDeals = Math.max(visibleDeals.length - renderedDeals.length, 0);
 
     const resetAdvancedFilters = () => {
-        setQuery('');
         setOrigin('all');
         setDestination('all');
     };
@@ -979,23 +967,6 @@ export default function TravelRadar3Page() {
                 <AnimatedSection delay={0.05}>
                     <section className="travel-feed__workspace" aria-label={copy.title}>
                         <div className="travel-feed__filters">
-                            <div className="travel-feed__tabs" role="group" aria-label={copy.title}>
-                                {[
-                                    ['all', copy.all],
-                                    ['flight', copy.flights],
-                                    ['tour', copy.tours],
-                                ].map(([value, label]) => (
-                                    <button
-                                        key={value}
-                                        type="button"
-                                        className={type === value ? 'is-active' : ''}
-                                        onClick={() => setType(value)}
-                                    >
-                                        {label}
-                                    </button>
-                                ))}
-                            </div>
-
                             <button
                                 type="button"
                                 className={`travel-feed__filter-toggle ${filtersOpen ? 'is-open' : ''}`}
@@ -1015,46 +986,39 @@ export default function TravelRadar3Page() {
                                 id="travel-radar-filter-fields"
                                 className={`travel-feed__filter-fields ${filtersOpen ? 'is-open' : ''}`}
                             >
-                                <label className="travel-feed__search">
-                                    <Search size={18} aria-hidden="true" />
-                                    <input
-                                        value={query}
-                                        onChange={(event) => setQuery(event.target.value)}
-                                        placeholder={copy.search}
-                                        aria-label={copy.search}
-                                    />
-                                </label>
-
-                                <label className="travel-feed__city">
+                                <label className="travel-feed__city travel-feed__city--origin">
                                     <MapPin size={18} aria-hidden="true" />
                                     <select value={origin} onChange={(event) => setOrigin(event.target.value)} aria-label={copy.origin}>
-                                        <option value="all">{mobileLayout ? copy.origin : copy.allOrigins}</option>
+                                        <option value="all">{copy.origin}</option>
                                         {originOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
                                     </select>
                                 </label>
 
-                                <label className="travel-feed__city">
+                                <label className="travel-feed__city travel-feed__city--destination">
                                     <MapPin size={18} aria-hidden="true" />
                                     <select value={destination} onChange={(event) => setDestination(event.target.value)} aria-label={copy.destination}>
-                                        <option value="all">{mobileLayout ? copy.destination : copy.allDestinations}</option>
+                                        <option value="all">{copy.destination}</option>
                                         {destinationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
                                     </select>
                                 </label>
 
-                                {advancedFilterCount > 0 ? (
-                                    <button type="button" className="travel-feed__filter-reset" onClick={resetAdvancedFilters}>
-                                        <X size={18} aria-hidden="true" />
-                                        {copy.resetFilters}
-                                    </button>
-                                ) : null}
-                            </div>
-                        </div>
+                                <div className="travel-feed__tabs" role="group" aria-label={copy.dealType}>
+                                    {[
+                                        ['all', copy.all],
+                                        ['flight', copy.flights],
+                                        ['tour', copy.tours],
+                                    ].map(([value, label]) => (
+                                        <button
+                                            key={value}
+                                            type="button"
+                                            className={type === value ? 'is-active' : ''}
+                                            onClick={() => setType(value)}
+                                        >
+                                            {label}
+                                        </button>
+                                    ))}
+                                </div>
 
-                        <div className="travel-feed__toolbar">
-                            <div className="travel-feed__count">
-                                {loading ? '…' : `${visibleDeals.length} ${mobileLayout ? copy.foundShort : copy.found}`}
-                            </div>
-                            <div className="travel-feed__display-controls">
                                 <label className="travel-feed__sort">
                                     <span>{copy.sortLabel}</span>
                                     <select value={sort} onChange={(event) => setSort(event.target.value)}>
@@ -1063,6 +1027,7 @@ export default function TravelRadar3Page() {
                                         ))}
                                     </select>
                                 </label>
+
                                 <div className="travel-feed__view-toggle" role="group" aria-label={copy.viewLabel}>
                                     <button
                                         type="button"
@@ -1083,6 +1048,19 @@ export default function TravelRadar3Page() {
                                         {copy.cardView}
                                     </button>
                                 </div>
+
+                                {advancedFilterCount > 0 ? (
+                                    <button type="button" className="travel-feed__filter-reset" onClick={resetAdvancedFilters}>
+                                        <X size={18} aria-hidden="true" />
+                                        {copy.resetFilters}
+                                    </button>
+                                ) : null}
+                            </div>
+                        </div>
+
+                        <div className="travel-feed__toolbar">
+                            <div className="travel-feed__count">
+                                {loading ? '…' : `${visibleDeals.length} ${mobileLayout ? copy.foundShort : copy.found}`}
                             </div>
                         </div>
 

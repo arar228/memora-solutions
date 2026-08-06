@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { structure } from './parse-deals.js';
+import { parseTravelDates, structure } from './parse-deals.js';
 
 function parse(text, channel = 'test') {
   return structure({
@@ -174,6 +174,32 @@ assert.deepEqual(
 );
 assert.equal(returnFromBangkok[0].departDate, '2026-10');
 assert.match(returnFromBangkok[0].link, /BKK0110LED1/);
+
+const compactRoundTrip = parse(
+  'из Самары в Анталью за 14 500 р. RT (5-9 авг)',
+  'samokatus',
+);
+assert.equal(compactRoundTrip[0].departDate, '2026-08-05');
+assert.equal(compactRoundTrip[0].returnDate, '2026-08-09');
+
+const datedTour = parse(
+  'Тур из Москвы в Египет: вылет 30.08, 9 ночей от 113 547 ₽ за двоих',
+);
+assert.equal(datedTour[0].departDate, '2026-08-30');
+assert.equal(datedTour[0].returnDate, '2026-09-08');
+
+assert.deepEqual(
+  parseTravelDates('с 31 июля по 7 августа', '2026-07-29T06:22:00.000Z'),
+  { departDate: '2026-07-31', returnDate: '2026-08-07' },
+);
+assert.deepEqual(
+  parseTravelDates('12–19.08', '2026-08-05T06:22:00.000Z'),
+  { departDate: '2026-08-12', returnDate: '2026-08-19' },
+);
+assert.deepEqual(
+  parseTravelDates('вылеты 5, 12 и 19 августа', '2026-08-05T06:22:00.000Z'),
+  { departDate: '2026-08-05', returnDate: null },
+);
 
 const unknownOriginTour = parse(
   '9 ночей на 1-й линии в Турции, туры от 60 344 ₽ с человека',

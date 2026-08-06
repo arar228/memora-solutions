@@ -62,7 +62,7 @@ jobs:
              git -c safe.directory="$app_dir" -C "$app_dir" show origin/master:deploy/vps/memora-update.sh > "$update_tmp"
              git -c safe.directory="$app_dir" -C "$app_dir" show origin/master:deploy/vps/memora-solutions.caddy > "$caddy_tmp"
              install -o root -g root -m 0755 "$update_tmp" /usr/local/sbin/memora-update
-             caddy validate --config "$caddy_tmp"
+             caddy validate --config "$caddy_tmp" --adapter caddyfile
              install -o root -g root -m 0644 "$caddy_tmp" /etc/caddy/Caddyfile
              systemctl reload caddy
              systemctl start memora-update.service

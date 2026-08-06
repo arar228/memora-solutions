@@ -21,7 +21,10 @@ runuser -u memora -- npm --prefix "$app_dir" ci
 # Build beside the active release. Visitors keep receiving the complete current
 # bundle until the replacement is ready.
 rm -rf -- "$next_dist"
-runuser -u memora -- npm --prefix "$app_dir" run build -- --outDir "$next_dist"
+# The public site is served entirely by this VPS. The legacy environment file
+# can still contain VITE_ASSET_BASE from the former GitHub Pages setup, so make
+# the build origin-independent explicitly instead of inheriting that value.
+runuser -u memora -- env -u VITE_ASSET_BASE npm --prefix "$app_dir" run build -- --outDir "$next_dist"
 
 rm -rf -- "$previous_dist"
 if [[ -e "$app_dir/dist" ]]; then

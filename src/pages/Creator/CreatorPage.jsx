@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import {
@@ -8,6 +8,8 @@ import {
     Building2,
     CakeSlice,
     Check,
+    ChevronLeft,
+    ChevronRight,
     CircleCheck,
     Code2,
     Database,
@@ -18,6 +20,7 @@ import {
     Gauge,
     Layers3,
     Mail,
+    Maximize2,
     MessageCircle,
     MonitorSmartphone,
     Phone,
@@ -31,6 +34,7 @@ import {
     Trophy,
     WalletCards,
     Workflow,
+    X,
 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import { staticAsset } from '../../shared/staticAsset';
@@ -232,6 +236,34 @@ export default function CreatorPage() {
     const { i18n } = useTranslation();
     const lang = i18n.language === 'ru' ? 'ru' : 'en';
     const c = COPY[lang];
+    const [gallery, setGallery] = useState(null);
+
+    useEffect(() => {
+        if (!gallery) return undefined;
+        const previousOverflow = document.body.style.overflow;
+        const handleKeyDown = event => {
+            if (event.key === 'Escape') setGallery(null);
+            if (event.key === 'ArrowLeft') {
+                setGallery(current => current && ({ ...current, index: (current.index - 1 + current.assets.length) % current.assets.length }));
+            }
+            if (event.key === 'ArrowRight') {
+                setGallery(current => current && ({ ...current, index: (current.index + 1) % current.assets.length }));
+            }
+        };
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [gallery]);
+
+    const moveGallery = direction => {
+        setGallery(current => current && ({
+            ...current,
+            index: (current.index + direction + current.assets.length) % current.assets.length,
+        }));
+    };
 
     return (
         <div className="portfolio-page">
@@ -255,7 +287,7 @@ export default function CreatorPage() {
             <main>
                 <section className="portfolio-section portfolio-section--dark"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.capabilitiesLabel}</span><h2>{c.capabilitiesTitle}</h2><p>{c.capabilitiesLead}</p></div><div className="portfolio-capabilities">{c.capabilities.map(([title, text], index) => { const Icon = capabilityIcons[index]; return <article key={title}><Icon size={24} /><h3>{title}</h3><p>{text}</p></article>; })}</div></AnimatedSection></div></section>
 
-                <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; return <motion.a whileHover={{ x: 6 }} href={project.href} target={meta.external ? '_blank' : undefined} rel={meta.external ? 'noopener noreferrer' : undefined} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /> {project.type}</span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" key={asset} />)}</div>}<span className="portfolio-case-row__action">{project.href === '#contact' ? c.projectDetails : c.projectAction} {meta.external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</span></motion.a>; })}</div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; return <motion.article whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={meta.external ? '_blank' : undefined} rel={meta.external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {meta.external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map(item => <li key={item}><Check size={20} /> {item}</li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.documentAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
 
@@ -267,6 +299,7 @@ export default function CreatorPage() {
 
                 <section className="portfolio-section portfolio-section--contact" id="contact"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.contact.label}</span><h2>{c.contact.title}</h2><p>{c.contact.text}</p></div><ProjectInquiry copy={c.contact} lang={lang} /></AnimatedSection></div></section>
             </main>
+            {gallery && <div className="portfolio-lightbox" role="dialog" aria-modal="true" aria-label={lang === 'ru' ? `Скриншоты проекта ${gallery.project.name}` : `${gallery.project.name} screenshots`}><button className="portfolio-lightbox__backdrop" type="button" onClick={() => setGallery(null)} aria-label={lang === 'ru' ? 'Закрыть просмотр' : 'Close viewer'} /><div className="portfolio-lightbox__panel"><div className="portfolio-lightbox__header"><strong>{gallery.project.name}</strong><span>{gallery.index + 1} / {gallery.assets.length}</span><a href={staticAsset(gallery.assets[gallery.index])} target="_blank" rel="noopener noreferrer" aria-label={lang === 'ru' ? 'Открыть оригинал' : 'Open original'}><Maximize2 size={22} /></a><button type="button" onClick={() => setGallery(null)} aria-label={lang === 'ru' ? 'Закрыть' : 'Close'}><X size={24} /></button></div><div className={`portfolio-lightbox__stage ${gallery.assets.length === 1 ? 'is-single' : ''}`}>{gallery.assets.length > 1 && <button type="button" onClick={() => moveGallery(-1)} aria-label={lang === 'ru' ? 'Предыдущий скриншот' : 'Previous screenshot'}><ChevronLeft size={30} /></button>}<img src={staticAsset(gallery.assets[gallery.index])} alt={`${gallery.project.name} — ${gallery.index + 1}`} />{gallery.assets.length > 1 && <button type="button" onClick={() => moveGallery(1)} aria-label={lang === 'ru' ? 'Следующий скриншот' : 'Next screenshot'}><ChevronRight size={30} /></button>}</div></div></div>}
         </div>
     );
 }

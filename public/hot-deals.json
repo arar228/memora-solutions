@@ -1,7 +1,382 @@
 {
-  "updatedAt": "2026-08-06T07:20:18.752Z",
+  "updatedAt": "2026-08-06T10:13:01.180Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шри-Ланка",
+        "code": "CMB",
+        "country": {
+          "ru": "Шри-Ланка",
+          "en": "Sri Lanka"
+        },
+        "kind": "country"
+      },
+      "price": 43600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Бахрейн",
+          "code": "BAH"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-06T09:51:10+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0509CMB1?marker=748397&currency=rub",
+      "text": "из Москвы на Шри-Ланку 🇱🇰 за 43 600 р. RT (сентябрь-октябрь)\nGulf Air + Аэрофлот, через Бахрейн + прямой - \nВсе даты:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 27600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-07",
+      "returnDate": "2026-08-15",
+      "date": "2026-08-06T09:38:32+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW0708CXR1?marker=748397&currency=rub",
+      "text": "Москва — Нячанг (Вьетнам) от 27600Р в одну сторону или 58100Р туда и обратно, рейсы прямые с багажом\n— 07.08 — 27600Р\n— 07-15.08 — 58100Р\n— 07-17.08 — 65700Р\n— 07-19.08 — 65200Р\n— 09-17.08 — 61700Р\n— "
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 5300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-06T09:14:53+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER0509SSH1?marker=748397&currency=rub",
+      "text": "из Сочи в Шарм-эш-Шейх 🇪🇬 за 5 300 р. OW (август)\nAlmasria, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 9500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-06T09:14:53+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED0509SSH1?marker=748397&currency=rub",
+      "text": "из Петербурга в Шарм-эш-Шейх 🇪🇬 за 9 500 р. OW (осенью)\nAjet, пересадка в Стамбуле -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Франкфурт",
+        "code": "FRA",
+        "country": {
+          "ru": "Германия",
+          "en": "Germany"
+        },
+        "kind": "city"
+      },
+      "price": 9600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Анкара",
+          "code": "ESB"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-08",
+      "returnDate": null,
+      "date": "2026-08-06T08:41:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED0108FRA1?marker=748397&currency=rub",
+      "text": "из Петербурга во Франкфурт 🇩🇪 за 9 600 р. OW (в августе и сентябре)\nAjet, через Анкару - \nВсе даты:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кувейт",
+        "code": "KWI",
+        "country": {
+          "ru": "Кувейт",
+          "en": "Kuwait"
+        },
+        "kind": "country"
+      },
+      "price": 23100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Анкара",
+          "code": "ESB"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-08",
+      "returnDate": null,
+      "date": "2026-08-06T08:41:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0108KWI1?marker=748397&currency=rub",
+      "text": "из Москвы в Кувейт 🇰🇼 за 23 100 р. RT (осенью)\nJazeera Airways, прямые рейсы - \nВсе даты:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Новосибирск",
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Батуми",
+        "code": "BUS",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
+      },
+      "price": 7800,
+      "oldPrice": 31536,
+      "savings": 23736,
+      "discount": 0.75,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-06T08:16:47+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/OVB0509BUS1?marker=748397&currency=rub",
+      "text": "из Новосибирска в Батуми 🇬🇪 за 7 800 р. OW (октябрь)\nRed Wings, прямой рейс с багажом - \nВсе даты:"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 45200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-08-06T08:16:44+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/6Jq3LH",
+      "text": "🔥 в Турцию (Анталийское побережье) на неделю в начале сентября с проживанием в 4-5* от 45 200/чел, все включено, с топливными сборами  (скидка по промокоду 1700Lucky или 2500Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 52300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08",
+      "returnDate": null,
+      "date": "2026-08-06T08:16:44+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/Fh0Kpq",
+      "text": "🔥 в Турцию (Мармарис) на неделю с вылетом в конце августа от 52 300/чел, все включено, с топливными сборами"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 53600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-08",
+      "returnDate": null,
+      "date": "2026-08-06T08:16:44+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/X0mHvX",
+      "text": "🔥 в Турцию (Каппадокия) на 5-7 ночей в августе от 53 600/чел  (скидка по промокоду 2500Lucky, туры на регулярных рейсах, есть доплаты за багаж и индивидуальный трансфер, если они необходимы)"
+    },
     {
       "type": "tour",
       "from": {
@@ -31,6 +406,7 @@
       "connections": [],
       "nights": 7,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-06T05:29:10+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=abkhazia0&utm_term=0608#?fromCity=2&toCountry=1&toCity=4.2.6.3899.1.3.5.4037.4038&dateFrom=23.08.2026&dateTo=29.08.2026&daysFlexible=3&nightFrom=7&nightTo=9&adults=2&hotelClass=16.17&meal=8.1.11.3&priceFrom=6000&priceTo=21000000&sid=cnelba8gdz&sort=priceUp&f_firstLine=true&f_good=true",
@@ -74,6 +450,7 @@
       ],
       "nights": null,
       "departDate": "2027-01-19",
+      "returnDate": null,
       "date": "2026-08-05T18:57:36+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/HKT1901MOW1?marker=748397&currency=rub",
@@ -108,6 +485,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-08",
+      "returnDate": null,
       "date": "2026-08-05T18:21:50+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MLE0808MOW1?marker=748397&currency=rub",
@@ -142,6 +520,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-09-03",
+      "returnDate": null,
       "date": "2026-08-05T18:21:01+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW0309MCX1?marker=748397&currency=rub",
@@ -176,6 +555,7 @@
       "connections": [],
       "nights": 7,
       "departDate": "2026-08-15",
+      "returnDate": "2026-08-22",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -209,7 +589,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 10,
-      "departDate": null,
+      "departDate": "2026-09-06",
+      "returnDate": "2026-09-16",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -243,7 +624,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 9,
-      "departDate": null,
+      "departDate": "2026-08-30",
+      "returnDate": "2026-09-08",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -277,7 +659,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 9,
-      "departDate": null,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-09-03",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -311,7 +694,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 7,
-      "departDate": null,
+      "departDate": "2026-10-06",
+      "returnDate": "2026-10-13",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -345,7 +729,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 9,
-      "departDate": null,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-09-03",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -379,7 +764,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 9,
-      "departDate": null,
+      "departDate": "2026-08-30",
+      "returnDate": "2026-09-08",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -413,7 +799,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 11,
-      "departDate": null,
+      "departDate": "2026-08-17",
+      "returnDate": "2026-08-28",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -447,7 +834,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 9,
-      "departDate": null,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-09-03",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -481,7 +869,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 10,
-      "departDate": null,
+      "departDate": "2026-08-26",
+      "returnDate": "2026-09-05",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -515,7 +904,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 7,
-      "departDate": null,
+      "departDate": "2026-09-02",
+      "returnDate": "2026-09-09",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -549,7 +939,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 7,
-      "departDate": null,
+      "departDate": "2026-08-07",
+      "returnDate": "2026-08-14",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -583,7 +974,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 11,
-      "departDate": null,
+      "departDate": "2026-08-27",
+      "returnDate": "2026-09-07",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -617,7 +1009,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 12,
-      "departDate": null,
+      "departDate": "2026-08-26",
+      "returnDate": "2026-09-07",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -651,7 +1044,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 8,
-      "departDate": null,
+      "departDate": "2026-08-26",
+      "returnDate": "2026-09-03",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -686,6 +1080,7 @@
       "connections": [],
       "nights": 14,
       "departDate": "2026-12-08",
+      "returnDate": "2026-12-22",
       "date": "2026-08-05T15:17:09+00:00",
       "source": "onlinetours",
       "link": "https://olt.su/s/AB0vR",
@@ -720,6 +1115,7 @@
       "connections": [],
       "nights": 9,
       "departDate": "2026-11-22",
+      "returnDate": "2026-12-01",
       "date": "2026-08-05T15:11:54+00:00",
       "source": "leveltravel",
       "link": "https://lvtv.me/hjXo1q6",
@@ -754,6 +1150,7 @@
       "connections": [],
       "nights": 9,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T14:49:37+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=egiptDOP&utm_term=0508#?fromCity=2&toCountry=29&toCity=586.591.592.597.598.4125&dateFrom=03.09.2026&dateTo=03.09.2026&nightFrom=9&nightTo=9&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=xv5zx2hu6j&sort=priceUp&f_good=true",
@@ -788,6 +1185,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T14:15:33+00:00",
       "source": "vandroukiru",
       "link": "https://www.aviasales.ru/search/KUF0509IST1?marker=748397&currency=rub",
@@ -822,6 +1220,7 @@
       "connections": [],
       "nights": 6,
       "departDate": "2026-09-04",
+      "returnDate": "2026-09-10",
       "date": "2026-08-05T14:14:23+00:00",
       "source": "leveltravel",
       "link": "https://level.travel/search/Moscow-RU-to-Any-TN-departure-06.09.2026-for-7-nights-2-adults-0-kids-1..5-stars-package-type?sort_by=price,asc&utm_source=tg&utm_medium=smm-sp&utm_campaign=2026-08-05-post-hot-tn-5&aflt=smm",
@@ -855,7 +1254,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 6,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -889,7 +1289,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 7,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -923,7 +1324,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 11,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -957,7 +1359,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 9,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -991,7 +1394,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 7,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -1025,7 +1429,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 11,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -1059,7 +1464,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 14,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -1093,7 +1499,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 12,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -1127,7 +1534,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 8,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -1161,7 +1569,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 8,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -1195,7 +1604,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 7,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -1229,7 +1639,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 8,
-      "departDate": null,
+      "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T13:00:15+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
@@ -1264,6 +1675,7 @@
       "connections": [],
       "nights": 6,
       "departDate": "2026-08-11",
+      "returnDate": "2026-08-17",
       "date": "2026-08-05T12:25:39+00:00",
       "source": "nachemodanahspb",
       "link": "https://level.tpx.lu/RegBijuJ",
@@ -1298,6 +1710,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T12:15:48+00:00",
       "source": "samokatus",
       "link": "https://smkt.us/lkor1",
@@ -1332,6 +1745,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-10-01",
+      "returnDate": null,
       "date": "2026-08-05T12:07:33+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/OVB0110BUS1?marker=748397&currency=rub",
@@ -1366,6 +1780,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-28",
+      "returnDate": null,
       "date": "2026-08-05T11:55:31+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW2808IST1?marker=748397&currency=rub",
@@ -1400,6 +1815,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-10-28",
+      "returnDate": "2026-11-05",
       "date": "2026-08-05T11:36:45+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW2810EVN1?marker=748397&currency=rub",
@@ -1434,6 +1850,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T11:20:02+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0108RGK1?marker=748397&currency=rub",
@@ -1468,6 +1885,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-08",
+      "returnDate": null,
       "date": "2026-08-05T11:02:09+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/5aNaFZ",
@@ -1502,6 +1920,7 @@
       "connections": [],
       "nights": 11,
       "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T11:02:09+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/5Sk15b",
@@ -1536,6 +1955,7 @@
       "connections": [],
       "nights": 7,
       "departDate": "2026-08-09",
+      "returnDate": "2026-08-16",
       "date": "2026-08-05T10:45:04+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/zVDk8Q",
@@ -1570,6 +1990,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-05T10:45:04+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/Yg7Gd1",
@@ -1609,6 +2030,7 @@
       ],
       "nights": null,
       "departDate": "2026-09",
+      "returnDate": null,
       "date": "2026-08-05T10:17:34+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0109CTU1?marker=748397&currency=rub",
@@ -1643,6 +2065,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T10:15:18+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0509MOW1?marker=748397&currency=rub",
@@ -1677,6 +2100,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-06",
+      "returnDate": null,
       "date": "2026-08-05T08:21:25+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/KZN0608AYT1?marker=748397&currency=rub",
@@ -1710,45 +2134,12 @@
       "roundTrip": false,
       "connections": [],
       "nights": null,
-      "departDate": null,
+      "departDate": "2026-08-06",
+      "returnDate": null,
       "date": "2026-08-05T08:13:13+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/VOG0509AYT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/VOG0608AYT1?marker=748397&currency=rub",
       "text": "из Волгограда в Анталью 🇹🇷 за 5 200 р. OW (6 авг)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 5200,
-      "oldPrice": 23461,
-      "savings": 18261,
-      "discount": 0.78,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-05T08:13:13+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0509AYT1?marker=748397&currency=rub",
-      "text": "из Москвы в Анталью 🇹🇷 за 5 200 р. OW (5 авг)"
     },
     {
       "type": "flight",
@@ -1778,10 +2169,11 @@
       "roundTrip": false,
       "connections": [],
       "nights": null,
-      "departDate": null,
+      "departDate": "2026-08-06",
+      "returnDate": null,
       "date": "2026-08-05T08:13:13+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN0509AYT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/KZN0608AYT1?marker=748397&currency=rub",
       "text": "из Казани в Анталью 🇹🇷 за 6 300 р. OW (6 авг)"
     },
     {
@@ -1812,10 +2204,11 @@
       "roundTrip": false,
       "connections": [],
       "nights": null,
-      "departDate": null,
+      "departDate": "2026-08-06",
+      "returnDate": null,
       "date": "2026-08-05T08:13:13+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KUF0509AYT1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/KUF0608AYT1?marker=748397&currency=rub",
       "text": "из Самары в Анталью 🇹🇷 за 7 400 р. OW (6 авг)"
     },
     {
@@ -1852,6 +2245,7 @@
       ],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:32:55+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/IST0509TIV1?marker=748397&currency=rub",
@@ -1886,6 +2280,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:32:17+00:00",
       "source": "vandroukiru",
       "link": "https://www.aviasales.ru/search/VOG0509IST1?marker=748397&currency=rub",
@@ -1920,6 +2315,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-30",
+      "returnDate": null,
       "date": "2026-08-05T07:20:10+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/TAS3008DAD1?marker=748397&currency=rub",
@@ -1954,6 +2350,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/KZN0509UFA1?marker=748397&currency=rub",
@@ -1988,6 +2385,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/MOW0509KZN1?marker=748397&currency=rub",
@@ -2022,6 +2420,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0509KGD1?marker=748397&currency=rub",
@@ -2056,6 +2455,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/KZN0509AER1?marker=748397&currency=rub",
@@ -2090,6 +2490,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0509KZN1?marker=748397&currency=rub",
@@ -2124,6 +2525,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/KZN0509UFA1?marker=748397&currency=rub",
@@ -2158,6 +2560,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/MOW0509REN1?marker=748397&currency=rub",
@@ -2192,6 +2595,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/KZN0509LED1?marker=748397&currency=rub",
@@ -2226,6 +2630,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/KZN0509AER1?marker=748397&currency=rub",
@@ -2260,6 +2665,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/KZN0509OMS1?marker=748397&currency=rub",
@@ -2294,6 +2700,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/UFA0509AER1?marker=748397&currency=rub",
@@ -2328,6 +2735,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T07:03:51+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/KUF0509KGD1?marker=748397&currency=rub",
@@ -2362,6 +2770,7 @@
       "connections": [],
       "nights": 7,
       "departDate": "2026-08-26",
+      "returnDate": "2026-09-02",
       "date": "2026-08-05T06:55:32+00:00",
       "source": "leveltravel",
       "link": "https://lvtv.me/fFB3ntR",
@@ -2396,6 +2805,7 @@
       "connections": [],
       "nights": 7,
       "departDate": "2026-08-30",
+      "returnDate": "2026-09-06",
       "date": "2026-08-05T06:55:32+00:00",
       "source": "leveltravel",
       "link": "https://lvtv.me/WZHsJQU",
@@ -2430,6 +2840,7 @@
       "connections": [],
       "nights": 7,
       "departDate": "2026-08-26",
+      "returnDate": "2026-09-02",
       "date": "2026-08-05T06:55:32+00:00",
       "source": "leveltravel",
       "link": "https://lvtv.me/91m5kdf",
@@ -2464,6 +2875,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-06",
+      "returnDate": "2026-08-10",
       "date": "2026-08-05T06:28:28+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/AYT0608KUF1?marker=748397&currency=rub",
@@ -2498,6 +2910,7 @@
       "connections": [],
       "nights": 14,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-05T05:30:41+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=turkey0&utm_term=0508#?fromCity=2&toCountry=92&toCity=2159.2178.3839.3828.2161.2162.2163&dateFrom=23.08.2026&dateTo=29.08.2026&daysFlexible=3&nightFrom=14&nightTo=14&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=47loj3c7fj&sort=priceUp&f_good=true",
@@ -2532,6 +2945,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-07",
+      "returnDate": null,
       "date": "2026-08-05T05:21:06+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/ADB0708MOW1?marker=748397&currency=rub",
@@ -2571,6 +2985,7 @@
       ],
       "nights": null,
       "departDate": "2026-12",
+      "returnDate": null,
       "date": "2026-08-04T21:03:26+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0112AKL1?marker=748397&currency=rub",
@@ -2605,6 +3020,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-04T17:38:21+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/0X0Y2m",
@@ -2639,44 +3055,11 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-06",
+      "returnDate": null,
       "date": "2026-08-04T17:38:21+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/AKdL1c",
       "text": "🔥 в Турцию (Мармарис) на неделю и дольше с 6 августа от 46 200/чел, все включено, с топливными сборами  (скидка по промокоду 1300Lucky)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Новосибирск",
-        "code": "OVB",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шанхай",
-        "code": "PVG",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 45400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-10",
-      "date": "2026-08-04T16:04:35+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/OVB1008PVG1?marker=748397&currency=rub",
-      "text": "Новосибирск — Шанхай (Китай) от 45400Р туда и обратно, вылет завтра, 05 августа, виза до 30 дней не нужна, рейсы прямые с ручной кладью до 10 кг и габаритами не более 55х23х40 см\n— 05-10.08 —"
     },
     {
       "type": "tour",
@@ -2706,7 +3089,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 7,
-      "departDate": "2026-08-31",
+      "departDate": "2026-08-24",
+      "returnDate": "2026-08-31",
       "date": "2026-08-04T15:01:26+00:00",
       "source": "leveltravel",
       "link": "https://lvtv.me/hFwy6VB",
@@ -2741,6 +3125,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-11",
+      "returnDate": null,
       "date": "2026-08-04T14:41:13+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/R3yqmb",
@@ -2774,7 +3159,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": null,
-      "departDate": "2026-08",
+      "departDate": "2026-08-20",
+      "returnDate": null,
       "date": "2026-08-04T14:41:13+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/sY2Lft",
@@ -2809,6 +3195,7 @@
       "connections": [],
       "nights": 5,
       "departDate": "2026-09-07",
+      "returnDate": "2026-09-12",
       "date": "2026-08-04T14:01:39+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/0Kqjam",
@@ -2843,6 +3230,7 @@
       "connections": [],
       "nights": 8,
       "departDate": "2026-11-27",
+      "returnDate": "2026-12-05",
       "date": "2026-08-04T14:01:39+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/gj1CDM",
@@ -2877,6 +3265,7 @@
       "connections": [],
       "nights": 7,
       "departDate": "2027-02-13",
+      "returnDate": "2027-02-20",
       "date": "2026-08-04T14:01:39+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/n1MSsc",
@@ -2911,6 +3300,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-04T13:59:24+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/F9kcs2",
@@ -2945,6 +3335,7 @@
       "connections": [],
       "nights": 9,
       "departDate": "2026-08-26",
+      "returnDate": "2026-09-04",
       "date": "2026-08-04T13:59:24+00:00",
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/TYT5Fj",
@@ -2979,6 +3370,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T13:35:31+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/SVX0509KZN1?marker=748397&currency=rub",
@@ -3013,6 +3405,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T13:35:31+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/KZN0509AER1?marker=748397&currency=rub",
@@ -3047,6 +3440,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T13:35:31+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW0509KZN1?marker=748397&currency=rub",
@@ -3080,7 +3474,8 @@
       "roundTrip": false,
       "connections": [],
       "nights": 7,
-      "departDate": "2026-08-25",
+      "departDate": "2026-08-18",
+      "returnDate": "2026-08-25",
       "date": "2026-08-04T13:07:38+00:00",
       "source": "leveltravel",
       "link": "https://lvtv.me/zhm0xsn",
@@ -3115,6 +3510,7 @@
       "connections": [],
       "nights": 8,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T13:00:44+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=turkey1&utm_term=0408#?fromCity=2&toCountry=92&toCity=2159.2178.3839.3828.2161.2162.2163&dateFrom=24.08.2026&dateTo=30.08.2026&daysFlexible=3&nightFrom=8&nightTo=9&adults=2&hotelClass=7.4&meal=8.1&priceFrom=6000&priceTo=21000000&sid=odbaznrzz3&sort=priceUp&f_better=true",
@@ -3149,6 +3545,7 @@
       "connections": [],
       "nights": 8,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T13:00:44+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=turkey1&utm_term=0408#?fromCity=2&toCountry=92&toCity=2159.2178.3839.3828.2161.2162.2163&dateFrom=24.08.2026&dateTo=30.08.2026&daysFlexible=3&nightFrom=8&nightTo=9&adults=2&hotelClass=7.4&meal=8.1&priceFrom=6000&priceTo=21000000&sid=odbaznrzz3&sort=priceUp&f_better=true",
@@ -3183,6 +3580,7 @@
       "connections": [],
       "nights": 7,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T13:00:44+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=turkey1&utm_term=0408#?fromCity=2&toCountry=92&toCity=2159.2178.3839.3828.2161.2162.2163&dateFrom=24.08.2026&dateTo=30.08.2026&daysFlexible=3&nightFrom=8&nightTo=9&adults=2&hotelClass=7.4&meal=8.1&priceFrom=6000&priceTo=21000000&sid=odbaznrzz3&sort=priceUp&f_better=true",
@@ -3217,6 +3615,7 @@
       "connections": [],
       "nights": 8,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T13:00:44+00:00",
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=turkey1&utm_term=0408#?fromCity=2&toCountry=92&toCity=2159.2178.3839.3828.2161.2162.2163&dateFrom=24.08.2026&dateTo=30.08.2026&daysFlexible=3&nightFrom=8&nightTo=9&adults=2&hotelClass=7.4&meal=8.1&priceFrom=6000&priceTo=21000000&sid=odbaznrzz3&sort=priceUp&f_better=true",
@@ -3256,6 +3655,7 @@
       ],
       "nights": null,
       "departDate": "2026-12",
+      "returnDate": null,
       "date": "2026-08-04T12:16:15+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW0112PAR1?marker=748397&currency=rub",
@@ -3294,10 +3694,11 @@
         }
       ],
       "nights": null,
-      "departDate": null,
+      "departDate": "2026-12",
+      "returnDate": null,
       "date": "2026-08-04T12:16:15+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0509IST1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0112IST1?marker=748397&currency=rub",
       "text": "из Петербурга в Дюссельдорф 🇩🇪 за 32 900 р. RT (август)\nAjet, через Стамбул -"
     },
     {
@@ -3329,6 +3730,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T12:15:42+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0509AYT1?marker=748397&currency=rub",
@@ -3363,6 +3765,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08-08",
+      "returnDate": null,
       "date": "2026-08-04T12:09:35+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0808FRA1?marker=748397&currency=rub",
@@ -3397,6 +3800,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T12:08:01+00:00",
       "source": "vandroukiru",
       "link": "https://www.aviasales.ru/search/AYT0509MOW1?marker=748397&currency=rub",
@@ -3431,6 +3835,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T12:07:08+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0509BJV1?marker=748397&currency=rub",
@@ -3465,6 +3870,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T12:06:20+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/DLM0509LED1?marker=748397&currency=rub",
@@ -3499,6 +3905,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T12:06:20+00:00",
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0509DLM1?marker=748397&currency=rub",
@@ -3537,10 +3944,11 @@
         }
       ],
       "nights": null,
-      "departDate": null,
+      "departDate": "2026-08-06",
+      "returnDate": null,
       "date": "2026-08-04T12:03:54+00:00",
       "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0509AMS1?marker=748397&currency=rub",
+      "link": "https://www.aviasales.ru/search/LED0608AMS1?marker=748397&currency=rub",
       "text": "из Петербурга в Амстердам 🇳🇱 за 7 900 р. OW (6 авг)"
     },
     {
@@ -3572,6 +3980,7 @@
       "connections": [],
       "nights": null,
       "departDate": "2026-08",
+      "returnDate": null,
       "date": "2026-08-04T11:55:31+00:00",
       "source": "vandroukiru",
       "link": "https://www.aviasales.ru/search/LED0108AMS1?marker=748397&currency=rub",
@@ -3611,6 +4020,7 @@
       ],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T11:33:21+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW0509SEL1?marker=748397&currency=rub",
@@ -3645,6 +4055,7 @@
       "connections": [],
       "nights": 6,
       "departDate": "2026-08-20",
+      "returnDate": "2026-08-26",
       "date": "2026-08-04T11:31:23+00:00",
       "source": "nachemodanahspb",
       "link": "https://level.tpx.lu/jyPYA9kN",
@@ -3679,6 +4090,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T10:15:06+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/SVX0509AYT1?marker=748397&currency=rub",
@@ -3713,6 +4125,7 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T10:15:06+00:00",
       "source": "samokatus",
       "link": "https://smkt.us/agyvx",
@@ -3747,223 +4160,20 @@
       "connections": [],
       "nights": null,
       "departDate": null,
+      "returnDate": null,
       "date": "2026-08-04T10:15:06+00:00",
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/SVX0509CXR1?marker=748397&currency=rub",
       "text": "из Екатеринбурга в Нячанг 🇻🇳 за 20 700 р. OW (сегодня ночью)\nRed Wings, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 13300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-07",
-      "date": "2026-08-04T09:13:18+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0708HRG1?marker=748397&currency=rub",
-      "text": "✈️Из Хургады в Питер за 13.300 руб на 7 августа"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Самара",
-        "code": "KUF",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 14500,
-      "oldPrice": 17867,
-      "savings": 3367,
-      "discount": 0.19,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-04T08:14:29+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KUF0509AYT1?marker=748397&currency=rub",
-      "text": "из Самары в Анталью 🇹🇷 за 14 500 р. RT (5-9 авг)\n• Все недорогие билеты из РФ в Анталью —"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 2000,
-      "oldPrice": 19256,
-      "savings": 17256,
-      "discount": 0.9,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-04T07:57:32+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/MOW0509IST1?marker=748397&currency=rub",
-      "text": "У Пегасуса достойная распродажа на зимний сезон: тьма направлений в/из Турции от 2000 рублей!"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 6800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "date": "2026-08-04T07:57:32+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/MOW0509LED1?marker=748397&currency=rub",
-      "text": "Россия тоже в деле, но картина не очень радует - билеты из Москвы и Питера от 6800 рублей."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хайнань",
-        "code": "SYX",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 55300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "date": "2026-08-04T07:44:24+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/ffZjp9",
-      "text": "🔥 на Хайнань (Китай) на 2 недели с вылетом в сентябре от 55 300/чел, виза не нужна  (скидка по промокоду LT-TROPIK-2 или TP-REGION)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 86300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "date": "2026-08-04T07:44:24+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/K6hyRF",
-      "text": "🔥 на Мальдивы на неделю в сентябре от 86 300/чел, виза не нужна   (скидка по промокоду TP-REGION)"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-06T07:20:18.574Z",
+      "checkedAt": "2026-08-06T10:13:00.999Z",
       "fetchedPosts": 16,
-      "freshPosts": 14,
+      "freshPosts": 12,
       "latestPostAt": "2026-08-06T06:58:29+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3971,29 +4181,29 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-06T07:20:18.574Z",
+      "checkedAt": "2026-08-06T10:13:00.999Z",
       "fetchedPosts": 20,
-      "freshPosts": 15,
-      "latestPostAt": "2026-08-05T18:21:01+00:00",
+      "freshPosts": 17,
+      "latestPostAt": "2026-08-06T09:51:10+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-06T07:20:18.574Z",
+      "checkedAt": "2026-08-06T10:13:00.999Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-06T06:02:23+00:00",
+      "latestPostAt": "2026-08-06T09:38:32+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-06T07:20:18.574Z",
+      "checkedAt": "2026-08-06T10:13:00.999Z",
       "fetchedPosts": 20,
-      "freshPosts": 12,
+      "freshPosts": 11,
       "latestPostAt": "2026-08-05T12:25:39+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4001,17 +4211,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-06T07:20:18.574Z",
+      "checkedAt": "2026-08-06T10:13:00.999Z",
       "fetchedPosts": 19,
       "freshPosts": 7,
-      "latestPostAt": "2026-08-05T11:02:09+00:00",
+      "latestPostAt": "2026-08-06T08:16:44+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-06T07:20:18.574Z",
+      "checkedAt": "2026-08-06T10:13:00.999Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-05T15:17:09+00:00",
@@ -4021,20 +4231,20 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-06T07:20:18.574Z",
-      "fetchedPosts": 13,
+      "checkedAt": "2026-08-06T10:13:00.999Z",
+      "fetchedPosts": 14,
       "freshPosts": 9,
-      "latestPostAt": "2026-08-06T05:29:10+00:00",
+      "latestPostAt": "2026-08-06T08:15:47+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-06T07:20:18.574Z",
+      "checkedAt": "2026-08-06T10:13:00.999Z",
       "fetchedPosts": 7,
       "freshPosts": 7,
-      "latestPostAt": "2026-08-05T15:11:54+00:00",
+      "latestPostAt": "2026-08-06T09:02:18+00:00",
       "reusedPrevious": false,
       "error": null
     }

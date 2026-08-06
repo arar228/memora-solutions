@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Send, CheckCircle2 } from 'lucide-react';
+import { Send, CheckCircle2, MousePointerClick } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
+import ProductDemo from './ProductDemo';
 import './ProductPage.css';
 
 const FEATURES = ['f1', 'f2', 'f3', 'f4', 'f5'];
@@ -15,8 +16,9 @@ export default function ProductPage({
     botUrl,
     HeaderIcon,
 }) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const k = (path) => `products.${productKey}.${path}`;
+    const lang = i18n.language === 'ru' ? 'ru' : 'en';
 
     return (
         <div className={`product-page product-page--${pageVariant}`}>
@@ -31,15 +33,30 @@ export default function ProductPage({
                         </div>
                         <h1>{t(k('title'))}</h1>
                         <p className="product-page__desc">{t(k('desc'))}</p>
-                        <a
-                            href={botUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-primary product-page__cta"
-                        >
-                            <Send size={18} aria-hidden="true" /> {t('openBot')} {t(k('bot'))}
-                        </a>
+                        <div className="product-page__actions">
+                            <a href="#web-demo" className="btn btn-primary product-page__cta product-page__cta--demo">
+                                <MousePointerClick size={18} aria-hidden="true" /> {lang === 'ru' ? 'Попробовать на сайте' : 'Try on the website'}
+                            </a>
+                            <a
+                                href={botUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn product-page__cta"
+                            >
+                                <Send size={18} aria-hidden="true" /> {t('openBot')} {t(k('bot'))}
+                            </a>
+                        </div>
                     </div>
+                </AnimatedSection>
+
+                <AnimatedSection delay={0.05}>
+                    <ProductDemo
+                        variant={pageVariant}
+                        lang={lang}
+                        iconImg={iconImg}
+                        iconAlt={iconAlt}
+                        botUrl={botUrl}
+                    />
                 </AnimatedSection>
 
                 <div className="product-bento">

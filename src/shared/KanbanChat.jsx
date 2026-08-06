@@ -1,4 +1,4 @@
-import { LockKeyhole, MessageCircle } from 'lucide-react';
+import { CircleHelp, MessageCircle } from 'lucide-react';
 import './KanbanWorkspace.css';
 
 const formatMessageTime = (value, lang) => new Intl.DateTimeFormat(
@@ -39,13 +39,17 @@ export default function KanbanChat({
                     <MessageCircle size={13} /> {labels.general}
                 </button>
                 <button
-                    className={mode === 'personal' ? 'is-active' : ''}
+                    className={`memora-chat__personal-tab ${mode === 'personal' ? 'is-active' : ''}`}
                     type="button"
                     role="tab"
                     aria-selected={mode === 'personal'}
                     onClick={() => onModeChange('personal')}
                 >
-                    <LockKeyhole size={13} /> {labels.personal}
+                    <span className="memora-chat__help" tabIndex={0} aria-label={labels.personalHelp}>
+                        <CircleHelp size={13} />
+                        <span className="memora-chat__help-text" role="tooltip">{labels.personalHelp}</span>
+                    </span>
+                    {labels.personal}
                     {Number.isFinite(personalCount) ? ` · ${personalCount}` : ''}
                 </button>
             </div>

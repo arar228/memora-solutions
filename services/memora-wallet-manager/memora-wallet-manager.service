@@ -1,0 +1,23 @@
+[Unit]
+Description=Memora Wallet Manager Telegram bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=memora-wallet
+Group=memora-wallet
+WorkingDirectory=/opt/memora-wallet-manager
+EnvironmentFile=/etc/memora-wallet-manager.env
+Environment=WALLET_DATA_DIR=/var/lib/memora-wallet-manager
+ExecStart=/opt/memora-wallet-manager/.venv/bin/python /opt/memora-wallet-manager/bot.py
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/memora-wallet-manager
+
+[Install]
+WantedBy=multi-user.target

@@ -138,6 +138,7 @@ export default function KanbanPage() {
         title: t('kanban.chatTitle'),
         general: t('kanban.generalChat'),
         personal: t('kanban.personalChat'),
+        personalHelp: t('kanban.personalHelp'),
         loading: t('kanban.loading'),
         empty: t('kanban.emptyChat'),
         manager: lang === 'ru' ? 'Команда Memora' : 'Memora team',

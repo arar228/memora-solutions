@@ -1,0 +1,110 @@
+name: Deploy Wallet Manager
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'services/memora-wallet-manager/**'
+      - '.github/workflows/deploy-wallet-manager.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wallet-manager-vps
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare release
+        env:
+          WALLET_BOT_TOKEN: ${{ secrets.WALLET_BOT_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$WALLET_BOT_TOKEN"
+          python -m py_compile services/memora-wallet-manager/bot.py
+          tar -C services/memora-wallet-manager \
+            --exclude='__pycache__' \
+            -czf /tmp/memora-wallet-manager.tgz .
+          umask 077
+          printf 'TELEGRAM_BOT_TOKEN=%s\n' "$WALLET_BOT_TOKEN" > /tmp/memora-wallet-manager.env
+
+      - name: Deploy isolated bot service
+        env:
+          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          VPS_HOST: 23.94.105.127
+          VPS_PORT: '22'
+          VPS_FINGERPRINT: SHA256:nLvPFGCkQO01+MrsLWHZkCsgMI7BOU9b6nRAzQ/zMGU
+        run: |
+          set -euo pipefail
+          test -n "$VPS_PASSWORD"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+          install -d -m 700 "$HOME/.ssh"
+
+          host_keys=''
+          for attempt in 1 2 3 4 5; do
+            host_keys=$(ssh-keyscan -T 10 -p "$VPS_PORT" "$VPS_HOST" 2>/dev/null || true)
+            [ -n "$host_keys" ] && break
+            sleep 3
+          done
+          test -n "$host_keys"
+          actual_fingerprints=$(printf '%s\n' "$host_keys" | ssh-keygen -lf - -E sha256 | awk '{ print $2 }')
+          printf '%s\n' "$actual_fingerprints" | grep -Fxq "$VPS_FINGERPRINT"
+          printf '%s\n' "$host_keys" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+          export SSHPASS="$VPS_PASSWORD"
+          sshpass -e scp -P "$VPS_PORT" -o StrictHostKeyChecking=yes \
+            /tmp/memora-wallet-manager.tgz /tmp/memora-wallet-manager.env \
+            "root@$VPS_HOST:/tmp/"
+
+          sshpass -e ssh -p "$VPS_PORT" -o StrictHostKeyChecking=yes "root@$VPS_HOST" <<'REMOTE'
+          set -euo pipefail
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update -qq
+          apt-get install -y -qq python3-venv
+
+          id -u memora-wallet >/dev/null 2>&1 || useradd \
+            --system --home-dir /var/lib/memora-wallet-manager \
+            --shell /usr/sbin/nologin memora-wallet
+          install -d -o memora-wallet -g memora-wallet -m 750 /var/lib/memora-wallet-manager
+          install -d -o root -g root -m 700 /var/backups/memora-wallet-manager
+          if [ -s /var/lib/memora-wallet-manager/user_data.json ]; then
+            cp -a /var/lib/memora-wallet-manager/user_data.json \
+              "/var/backups/memora-wallet-manager/user_data-$(date -u +%Y%m%dT%H%M%SZ).json"
+            find /var/backups/memora-wallet-manager -type f -name 'user_data-*.json' \
+              -printf '%T@ %p\n' | sort -nr | tail -n +15 | cut -d' ' -f2- | xargs -r rm -f
+          fi
+          install -d -o root -g root -m 755 /opt/memora-wallet-manager
+          rm -rf /opt/memora-wallet-manager.release
+          install -d -o root -g root -m 755 /opt/memora-wallet-manager.release
+          tar -xzf /tmp/memora-wallet-manager.tgz -C /opt/memora-wallet-manager.release
+
+          python3 -m venv /opt/memora-wallet-manager.release/.venv
+          /opt/memora-wallet-manager.release/.venv/bin/pip install \
+            --disable-pip-version-check --no-cache-dir -r /opt/memora-wallet-manager.release/requirements.txt
+          /opt/memora-wallet-manager.release/.venv/bin/python -m py_compile \
+            /opt/memora-wallet-manager.release/bot.py
+
+          systemctl stop memora-wallet-manager.service 2>/dev/null || true
+          rm -rf /opt/memora-wallet-manager.previous
+          if [ -d /opt/memora-wallet-manager ]; then
+            mv /opt/memora-wallet-manager /opt/memora-wallet-manager.previous
+          fi
+          mv /opt/memora-wallet-manager.release /opt/memora-wallet-manager
+          install -o root -g root -m 600 /tmp/memora-wallet-manager.env /etc/memora-wallet-manager.env
+          install -o root -g root -m 644 \
+            /opt/memora-wallet-manager/memora-wallet-manager.service \
+            /etc/systemd/system/memora-wallet-manager.service
+          rm -f /tmp/memora-wallet-manager.tgz /tmp/memora-wallet-manager.env
+
+          systemctl daemon-reload
+          systemctl enable --now memora-wallet-manager.service
+          systemctl is-active --quiet memora-wallet-manager.service
+          REMOTE

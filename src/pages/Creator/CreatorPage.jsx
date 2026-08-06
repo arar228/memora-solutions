@@ -114,7 +114,11 @@ const COPY = {
         docsLabel: '06 / Клиентский комплект',
         docsTitle: 'Документы проекта в одном месте',
         documents: [['Коммерческое предложение', 'Объём, команда, оценка, этапы и бюджет.'], ['Отчёт по спринту', 'Цели, готовые функции, проверки и следующий шаг.'], ['Договор', 'Предмет, права, оплата, сроки и ответственность.'], ['Акт приёмки', 'Переданный результат и подтверждение приёмки.']],
-        documentAction: 'Получить у Сергея',
+        managerAction: 'Обсудить проект',
+        documentOpen: 'Открыть пример',
+        documentExample: 'Пример структуры',
+        documentNotice: 'Пример рассчитан на проекты по праву РФ. Перед подписанием юрист проверяет реквизиты сторон, налоговый статус, модель передачи прав, обработку персональных данных и подсудность конкретного проекта.',
+        documentClose: 'Закрыть пример',
         contact: {
             label: '07 / Новый проект', title: 'Один запрос — удобный канал ответа', text: 'Опишите задачу и выберите телефон, почту или Telegram. Запрос сразу попадёт менеджеру.',
             name: 'Как к вам обращаться', request: 'Что нужно разработать', method: 'Куда направить ответ', phone: 'Телефон', email: 'Почта', telegram: 'Telegram',
@@ -143,13 +147,79 @@ const COPY = {
         processLabel: '04 / Process', processTitle: 'From task to working release', processLead: 'Every stage ends with a concrete outcome ready for review and acceptance.',
         process: [['01', 'Discovery', 'Objective, users, constraints, and acceptance criteria.'], ['02', 'Sprint', 'Scope, hour estimate, team, and demo date.'], ['03', 'Development', 'Interface, code, integrations, testing, and progress demos.'], ['04', 'Delivery', 'Release, report, documents, and an agreed next step.']],
         offerLabel: '05 / Engagement', offerTitle: 'Two payment formats', offerLead: 'Both formats include the whole team: product, design, development, and QA.', marketBadge: 'below market', standardTitle: 'Core format', standardPrice: '$30', standardCaption: '/ team hour', standardItems: ['the sprint is paid before kickoff', 'scope, timing, and demo are set in advance'], offerFlow: ['Scope', 'Sprint', 'Demo'], flexibleTitle: 'Flexible format', flexiblePrice: '$39', flexibleCaption: '/ team hour', flexibleNote: 'partial prepayment', flexibleItems: ['part of the fee before kickoff', 'balance tied to timing or outcome'], offerFootnote: 'Scope and deliverables are set before kickoff.',
-        docsLabel: '06 / Client kit', docsTitle: 'Project documents in one place', documents: [['Commercial proposal', 'Scope, team, estimate, stages, and budget.'], ['Sprint report', 'Goals, delivered features, checks, and next step.'], ['Agreement', 'Scope, rights, payment, timing, and responsibilities.'], ['Acceptance certificate', 'Delivered result and acceptance confirmation.']], documentAction: 'Request from Sergey',
+        docsLabel: '06 / Client kit', docsTitle: 'Project documents in one place', documents: [['Commercial proposal', 'Scope, team, estimate, stages, and budget.'], ['Sprint report', 'Goals, delivered features, checks, and next step.'], ['Agreement', 'Scope, rights, payment, timing, and responsibilities.'], ['Acceptance certificate', 'Delivered result and acceptance confirmation.']], managerAction: 'Discuss the project', documentOpen: 'Open example', documentExample: 'Structure example', documentNotice: 'This example is structured for projects governed by Russian law. Before signing, legal counsel verifies party details, tax status, the IP transfer model, personal data processing, and jurisdiction for the specific project.', documentClose: 'Close example',
         contact: { label: '07 / New project', title: 'One request. Your preferred reply channel.', text: 'Describe the project and choose phone, email, or Telegram. The request goes straight to the manager.', name: 'Your name', request: 'What should we build?', method: 'Where should we reply?', phone: 'Phone', email: 'Email', telegram: 'Telegram', namePlaceholder: 'Name', requestPlaceholder: 'Context, objective, and desired outcome', phonePlaceholder: '+7 999 000-00-00', emailPlaceholder: 'name@company.com', telegramPlaceholder: '@username', submit: 'Send request', sending: 'Sending…', success: 'Request sent. The manager will reply through your chosen channel.', error: 'Add the project request and a reply contact.', questionLink: 'Open Ask a Question' },
     },
 };
 
 const capabilityIcons = [Layers3, Code2, Bot, MonitorSmartphone, Database, Workflow];
 const documentIcons = [FileText, FileCheck2, FileSignature, ShieldCheck];
+
+const DOCUMENT_TEMPLATES = {
+    ru: [
+        {
+            title: 'Коммерческое предложение',
+            code: 'КП · [номер] · [дата]',
+            preview: ['Результат', 'Этапы', 'Оценка', 'Условия'],
+            lead: 'Короткая карта проекта: что создаём, как проверяем результат и из чего складывается оценка.',
+            sections: [
+                ['01 · Контекст и цель', ['Заказчик: [наименование и реквизиты].', 'Задача: [исходная ситуация и бизнес-цель].', 'Результат: [измеримое состояние продукта после проекта].']],
+                ['02 · Состав результата', ['Функции и пользовательские сценарии: [перечень].', 'Интерфейсы и платформы: [web / mobile / desktop / bot].', 'Передаваемые материалы: исходный код, макеты, документация, доступы и сборки.']],
+                ['03 · Этапы и приёмка', ['Этапы: [разбор] → [прототип] → [разработка] → [релиз].', 'Для каждого этапа: результат, дата демонстрации и критерии приёмки.', 'Изменение объёма оформляется отдельной оценкой до начала дополнительных работ.']],
+                ['04 · Команда и оценка', ['Роли: [менеджер] · [дизайнер] · [разработчик] · [QA].', 'Оценка: [часы × ставка] или [фиксированная стоимость этапа].', 'Платежи: [график], налоги: [режим исполнителя], срок действия предложения: [дата].']],
+                ['05 · Правовая рамка', ['Права на новый результат: [отчуждение / лицензия] и момент перехода.', 'Компоненты третьих лиц и open-source фиксируются отдельно.', 'Конфиденциальность, персональные данные и инфраструктурные расходы отражаются в договоре.']],
+            ],
+        },
+        {
+            title: 'Отчёт по спринту',
+            code: 'СПРИНТ · [номер] · [период]',
+            preview: ['Цель', 'Готово', 'Проверки', 'Следующий шаг'],
+            lead: 'Единая фиксация выполненной работы, проверок, решений и следующего согласованного шага.',
+            sections: [
+                ['01 · Цель спринта', ['Период: [дата начала — дата завершения].', 'Цель: [проверяемый результат спринта].', 'Связанные задачи и версия: [ссылки / номер сборки].']],
+                ['02 · Переданный результат', ['Готовые функции: [перечень с ссылками].', 'Макеты, код, сборка и документация: [место хранения].', 'Доступы и параметры окружения передаются защищённым каналом.']],
+                ['03 · Проверка качества', ['Проверенные сценарии: [перечень].', 'Среда и устройства: [браузеры / ОС / разрешения].', 'Замечания: [статус, ответственный, срок исправления].']],
+                ['04 · Учёт и решения', ['Затрачено: [часы] · стоимость: [сумма] · остаток: [значение].', 'Решения заказчика: [перечень и дата согласования].', 'Изменения объёма: [добавлено / перенесено / исключено].']],
+                ['05 · Следующий шаг', ['Цель следующего спринта: [результат].', 'Зависимости со стороны заказчика: [материалы / доступы / решение].', 'Дата следующей демонстрации: [дата и время].']],
+            ],
+        },
+        {
+            title: 'Договор разработки',
+            code: 'ДОГОВОР · [номер] · [город / дата]',
+            preview: ['Предмет', 'Приёмка', 'Права', 'Защита данных'],
+            lead: 'Смешанная конструкция для разработки и услуг: результат, порядок работы и права описаны в одном документе.',
+            sections: [
+                ['01 · Стороны и предмет', ['Заказчик: [наименование, ОГРН/ОГРНИП, ИНН, представитель и основание полномочий].', 'Исполнитель: [наименование, реквизиты, налоговый статус].', 'Предмет: создание и передача [продукта] и связанные услуги по спецификации.']],
+                ['02 · Объём и управление изменениями', ['Спецификация определяет функции, платформы, материалы и критерии готовности.', 'Этапы, сроки и контрольные демонстрации фиксируются в приложении.', 'Новый объём начинается после письменного согласования оценки, срока и влияния на план.']],
+                ['03 · Цена и расчёты', ['Модель: [фиксированная цена / часы × ставка].', 'График платежей, валюта, налоги и момент исполнения обязательства по оплате.', 'Лицензии, сервисы и инфраструктура: [включены / оплачиваются отдельно по согласованию].']],
+                ['04 · Передача и приёмка', ['Исполнитель направляет результат, отчёт и акт через согласованный канал.', 'Заказчик в течение [N] рабочих дней принимает результат либо направляет единый перечень мотивированных замечаний со ссылкой на критерии.', 'Исправления подтверждённых несоответствий выполняются в согласованный срок; новые пожелания оцениваются как изменение объёма.']],
+                ['05 · Интеллектуальные права', ['Новый результат и момент перехода прав: [после полной оплаты / по акту / иной момент].', 'Права на ранее созданные компоненты остаются у их правообладателей; заказчику предоставляется достаточная лицензия.', 'Сторонние и open-source компоненты перечисляются с условиями лицензий. Право на портфолио: [разрешено / после письменного согласия].']],
+                ['06 · Данные и конфиденциальность', ['Состав конфиденциальной информации, разрешённые получатели, срок защиты и исключения.', 'При обработке персональных данных: роли сторон, цель, перечень данных и операций, требования защиты, уведомления об инцидентах, возврат или уничтожение.', 'Производственные доступы передаются по принципу минимально необходимых прав.']],
+                ['07 · Гарантии и ответственность', ['Гарантийный период, канал обращений, время реакции и границы поддержки.', 'Ответственность, неустойка и предел возмещения формулируются с учётом обязательных норм закона.', 'Обстоятельства непреодолимой силы, порядок уведомления и подтверждающие документы.']],
+                ['08 · Электронное взаимодействие и споры', ['Согласованные адреса, аккаунты и правила определения отправителя электронного документа.', 'Перечень документов, признаваемых подписанными простой электронной подписью, и обязанность сохранять ключ в тайне.', 'Срок договора, порядок прекращения, претензионный срок, применимое право и компетентный суд.']],
+            ],
+        },
+        {
+            title: 'Акт приёмки',
+            code: 'АКТ · [номер] · [дата]',
+            preview: ['Результат', 'Версия', 'Замечания', 'Подписи'],
+            lead: 'Фиксирует конкретно переданный результат, состояние проверки и юридически значимые последствия приёмки.',
+            sections: [
+                ['01 · Основание', ['Договор: [номер и дата] · этап/спринт: [номер].', 'Период выполнения: [даты].', 'Стоимость принимаемого этапа и статус расчётов: [значение].']],
+                ['02 · Состав передачи', ['Продукт и версия: [название / номер сборки / адрес].', 'Исходный код, макеты, документация, доступы и иные материалы: [перечень].', 'Контрольная сумма или ссылка на неизменяемую версию: [значение].']],
+                ['03 · Результат проверки', ['Критерии приёмки: [ссылка на спецификацию].', 'Статус: [принято] или [принято с перечисленными замечаниями].', 'Замечания, срок и порядок устранения: [таблица].']],
+                ['04 · Права и обязательства', ['Момент перехода исключительных прав определяется договором и фактом [оплаты / подписания акта].', 'Гарантия и поддержка начинают действовать с [дата].', 'Стороны подтверждают состав передачи; скрытые недостатки регулируются договором и законом.']],
+                ['05 · Подписание', ['ФИО, должности, основания полномочий и реквизиты сторон.', 'Способ подписания: [бумажный документ / ЭДО / простая электронная подпись по договору].', 'Дата и время подписания каждой стороной.']],
+            ],
+        },
+    ],
+    en: [
+        { title: 'Commercial proposal', code: 'PROPOSAL · [number] · [date]', preview: ['Outcome', 'Stages', 'Estimate', 'Terms'], lead: 'A concise project map covering the intended outcome, acceptance, and estimate.', sections: [['01 · Context and outcome', ['Client, current situation, business objective, and measurable result.']], ['02 · Deliverables', ['Features, platforms, files, source code, documentation, builds, and access.']], ['03 · Stages and acceptance', ['Stage result, demo date, acceptance criteria, and change control.']], ['04 · Team and estimate', ['Roles, hours or fixed stage price, taxes, payment schedule, and validity period.']], ['05 · Legal frame', ['IP model, third-party components, confidentiality, personal data, and infrastructure costs.']]] },
+        { title: 'Sprint report', code: 'SPRINT · [number] · [period]', preview: ['Goal', 'Delivered', 'Checks', 'Next step'], lead: 'One record of delivered work, checks, decisions, and the agreed next step.', sections: [['01 · Sprint goal', ['Period, verifiable goal, linked tasks, and build version.']], ['02 · Delivered result', ['Features, designs, code, build, documentation, and access.']], ['03 · Quality checks', ['Scenarios, environments, devices, findings, owners, and dates.']], ['04 · Time and decisions', ['Hours, cost, balance, client decisions, and scope changes.']], ['05 · Next step', ['Next sprint outcome, client dependencies, and demo date.']]] },
+        { title: 'Development agreement', code: 'AGREEMENT · [number] · [place / date]', preview: ['Scope', 'Acceptance', 'IP', 'Data'], lead: 'A mixed development and services structure with a defined result, workflow, and rights.', sections: [['01 · Parties and scope', ['Legal details, authority, product definition, and specification.']], ['02 · Scope and changes', ['Deliverables, stages, dates, demos, and written change control.']], ['03 · Price and payments', ['Pricing model, schedule, taxes, licenses, services, and infrastructure.']], ['04 · Delivery and acceptance', ['Delivery channel, review period, reasoned findings, fixes, and new scope.']], ['05 · Intellectual property', ['New IP, transfer moment, pre-existing assets, third-party licenses, and portfolio rights.']], ['06 · Data and confidentiality', ['Protected information, personal-data roles, security, incidents, return, and deletion.']], ['07 · Warranty and liability', ['Warranty, support boundaries, mandatory legal rules, and force majeure.']], ['08 · Electronic records and disputes', ['Approved identities and channels, e-signature rules, termination, claims, governing law, and court.']]] },
+        { title: 'Acceptance certificate', code: 'CERTIFICATE · [number] · [date]', preview: ['Result', 'Version', 'Findings', 'Signatures'], lead: 'A precise record of what was delivered, how it was checked, and the legal effect of acceptance.', sections: [['01 · Basis', ['Agreement, stage, delivery period, fee, and payment status.']], ['02 · Delivered items', ['Product version, source, designs, documentation, access, and immutable reference.']], ['03 · Review result', ['Acceptance criteria, status, findings, owners, and correction dates.']], ['04 · Rights and obligations', ['IP transfer trigger, warranty start, support, and hidden defects.']], ['05 · Signatures', ['Names, authority, signing method, date, and time.']]] },
+    ],
+};
 
 function getClientId() {
     const stored = localStorage.getItem(CLIENT_KEY);
@@ -241,16 +311,20 @@ export default function CreatorPage() {
     const lang = i18n.language === 'ru' ? 'ru' : 'en';
     const c = COPY[lang];
     const [gallery, setGallery] = useState(null);
+    const [documentViewer, setDocumentViewer] = useState(null);
 
     useEffect(() => {
-        if (!gallery) return undefined;
+        if (!gallery && documentViewer === null) return undefined;
         const previousOverflow = document.body.style.overflow;
         const handleKeyDown = event => {
-            if (event.key === 'Escape') setGallery(null);
-            if (event.key === 'ArrowLeft') {
+            if (event.key === 'Escape') {
+                setGallery(null);
+                setDocumentViewer(null);
+            }
+            if (gallery && event.key === 'ArrowLeft') {
                 setGallery(current => current && ({ ...current, index: (current.index - 1 + current.assets.length) % current.assets.length }));
             }
-            if (event.key === 'ArrowRight') {
+            if (gallery && event.key === 'ArrowRight') {
                 setGallery(current => current && ({ ...current, index: (current.index + 1) % current.assets.length }));
             }
         };
@@ -260,7 +334,7 @@ export default function CreatorPage() {
             document.body.style.overflow = previousOverflow;
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [gallery]);
+    }, [gallery, documentViewer]);
 
     const moveGallery = direction => {
         setGallery(current => current && ({
@@ -293,16 +367,17 @@ export default function CreatorPage() {
 
                 <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; return <motion.article whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={meta.external ? '_blank' : undefined} rel={meta.external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {meta.external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 
-                <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map((item, index) => <li key={item} style={{ '--manager-index': index }}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.documentAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map((item, index) => <li key={item} style={{ '--manager-index': index }}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.managerAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--process" id="process"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.processLabel}</span><h2>{c.processTitle}</h2><p>{c.processLead}</p></div><div className="portfolio-process"><div className="portfolio-process__track" aria-hidden="true"><i /><b><span /></b></div>{c.process.map(([number, title, text], index) => <article key={number} style={{ '--stage-index': index }}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--offer"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.offerLabel}</span><h2>{c.offerTitle}</h2><p>{c.offerLead}</p></div><div className="portfolio-pricing"><article className="is-primary"><header><div><Gauge size={24} /><h3>{c.standardTitle}</h3></div><em><TrendingDown size={20} /> {c.marketBadge}</em></header><div className="portfolio-pricing__price"><strong className="type-display">{c.standardPrice}</strong><span>{c.standardCaption}</span></div><div className="portfolio-pricing__flow">{c.offerFlow.map((item, index) => <span key={item}>{item}{index < c.offerFlow.length - 1 && <ArrowRight size={18} />}</span>)}</div><ul>{c.standardItems.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul></article><article><header><div><ShieldCheck size={24} /><h3>{c.flexibleTitle}</h3></div><em>{c.flexibleNote}</em></header><div className="portfolio-pricing__price"><strong className="type-display">{c.flexiblePrice}</strong><span>{c.flexibleCaption}</span></div><ul>{c.flexibleItems.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul></article></div><p className="portfolio-offer-note">{c.offerFootnote}</p></AnimatedSection></div></section>
 
-                <section className="portfolio-section portfolio-section--documents"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.docsLabel}</span><h2>{c.docsTitle}</h2></div><div className="portfolio-documents">{c.documents.map(([title, text], index) => { const Icon = documentIcons[index]; return <article key={title}><Icon size={24} /><h3>{title}</h3><p>{text}</p><a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.documentAction} <ArrowRight size={20} /></a></article>; })}</div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--documents" id="documents"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.docsLabel}</span><h2>{c.docsTitle}</h2></div><div className="portfolio-documents">{c.documents.map(([title, text], index) => { const Icon = documentIcons[index]; const template = DOCUMENT_TEMPLATES[lang][index]; return <button className="portfolio-document-card" type="button" onClick={() => setDocumentViewer(index)} aria-label={`${c.documentOpen}: ${title}`} key={title}><span className="portfolio-document-card__meta"><Icon size={24} /><span>{String(index + 1).padStart(2, '0')}</span></span><span className="portfolio-document-card__paper" aria-hidden="true"><i>{template.code}</i><b>{title}</b>{template.preview.map((item, itemIndex) => <em key={item}><span>{String(itemIndex + 1).padStart(2, '0')}</span>{item}</em>)}<small>MEMORA SOLUTIONS · {String(index + 1).padStart(2, '0')}</small></span><span className="portfolio-document-card__copy"><strong>{title}</strong><span>{text}</span></span><span className="portfolio-document-card__action">{c.documentOpen} <ArrowRight size={20} /></span></button>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--contact" id="contact"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.contact.label}</span><h2>{c.contact.title}</h2><p>{c.contact.text}</p></div><ProjectInquiry copy={c.contact} lang={lang} /></AnimatedSection></div></section>
             </main>
+            {documentViewer !== null && (() => { const template = DOCUMENT_TEMPLATES[lang][documentViewer]; return <div className="portfolio-document-viewer" role="dialog" aria-modal="true" aria-labelledby="document-viewer-title"><button className="portfolio-document-viewer__backdrop" type="button" onClick={() => setDocumentViewer(null)} aria-label={c.documentClose} /><div className="portfolio-document-viewer__panel"><header><div><span>{c.documentExample}</span><strong id="document-viewer-title">{template.title}</strong></div><button type="button" onClick={() => setDocumentViewer(null)} aria-label={c.documentClose}><X size={26} /></button></header><div className="portfolio-document-viewer__layout"><nav aria-label={lang === 'ru' ? 'Примеры документов' : 'Document examples'}>{DOCUMENT_TEMPLATES[lang].map((item, index) => { const Icon = documentIcons[index]; return <button type="button" className={index === documentViewer ? 'is-active' : ''} onClick={() => setDocumentViewer(index)} key={item.title}><Icon size={22} /><span>{item.title}</span></button>; })}</nav><article className="portfolio-document-sheet"><div className="portfolio-document-sheet__head"><span>{template.code}</span><h2>{template.title}</h2><p>{template.lead}</p></div><div className="portfolio-document-sheet__sections">{template.sections.map(([title, points]) => <section key={title}><h3>{title}</h3><ul>{points.map(point => <li key={point}>{point}</li>)}</ul></section>)}</div><aside><ShieldCheck size={24} /><p>{c.documentNotice}</p></aside></article></div></div></div>; })()}
             {gallery && <div className="portfolio-lightbox" role="dialog" aria-modal="true" aria-label={lang === 'ru' ? `Скриншоты проекта ${gallery.project.name}` : `${gallery.project.name} screenshots`}><button className="portfolio-lightbox__backdrop" type="button" onClick={() => setGallery(null)} aria-label={lang === 'ru' ? 'Закрыть просмотр' : 'Close viewer'} /><div className="portfolio-lightbox__panel"><div className="portfolio-lightbox__header"><strong>{gallery.project.name}</strong><span>{gallery.index + 1} / {gallery.assets.length}</span><a href={staticAsset(gallery.assets[gallery.index])} target="_blank" rel="noopener noreferrer" aria-label={lang === 'ru' ? 'Открыть оригинал' : 'Open original'}><Maximize2 size={22} /></a><button type="button" onClick={() => setGallery(null)} aria-label={lang === 'ru' ? 'Закрыть' : 'Close'}><X size={24} /></button></div><div className={`portfolio-lightbox__stage ${gallery.assets.length === 1 ? 'is-single' : ''}`}>{gallery.assets.length > 1 && <button type="button" onClick={() => moveGallery(-1)} aria-label={lang === 'ru' ? 'Предыдущий скриншот' : 'Previous screenshot'}><ChevronLeft size={30} /></button>}<img src={staticAsset(gallery.assets[gallery.index])} alt={`${gallery.project.name} — ${gallery.index + 1}`} />{gallery.assets.length > 1 && <button type="button" onClick={() => moveGallery(1)} aria-label={lang === 'ru' ? 'Следующий скриншот' : 'Next screenshot'}><ChevronRight size={30} /></button>}</div></div></div>}
         </div>
     );

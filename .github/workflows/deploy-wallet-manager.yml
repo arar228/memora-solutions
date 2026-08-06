@@ -67,6 +67,14 @@ jobs:
           sshpass -e ssh -p "$VPS_PORT" -o StrictHostKeyChecking=yes "root@$VPS_HOST" <<'REMOTE'
           set -euo pipefail
           export DEBIAN_FRONTEND=noninteractive
+
+          wallet_debug() {
+            systemctl status memora-wallet-manager.service --no-pager || true
+            journalctl -u memora-wallet-manager.service -n 80 --no-pager \
+              | sed -E 's/[0-9]{8,}:[A-Za-z0-9_-]{20,}/[REDACTED_BOT_TOKEN]/g' || true
+          }
+          trap wallet_debug ERR
+
           apt-get update -qq
           apt-get install -y -qq python3-venv
 
@@ -106,5 +114,22 @@ jobs:
 
           systemctl daemon-reload
           systemctl enable --now memora-wallet-manager.service
+          sleep 12
           systemctl is-active --quiet memora-wallet-manager.service
+
+          first_pid=$(systemctl show -p MainPID --value memora-wallet-manager.service)
+          first_restarts=$(systemctl show -p NRestarts --value memora-wallet-manager.service)
+          test "$first_pid" -gt 0
+
+          # A polling conflict or a bad token can leave systemd briefly active
+          # while the bot is actually restarting every few seconds.  Observe a
+          # second interval so a successful deploy means a stable bot process.
+          sleep 12
+          systemctl is-active --quiet memora-wallet-manager.service
+          second_pid=$(systemctl show -p MainPID --value memora-wallet-manager.service)
+          second_restarts=$(systemctl show -p NRestarts --value memora-wallet-manager.service)
+          test "$second_pid" -eq "$first_pid"
+          test "$second_restarts" -eq "$first_restarts"
+
+          trap - ERR
           REMOTE

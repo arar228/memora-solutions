@@ -15,7 +15,6 @@ import {
     FileCheck2,
     FileSignature,
     FileText,
-    Gamepad2,
     Gauge,
     Layers3,
     Mail,
@@ -29,6 +28,7 @@ import {
     ShoppingCart,
     Sparkles,
     Timer,
+    Trophy,
     WalletCards,
     Workflow,
 } from 'lucide-react';
@@ -40,14 +40,14 @@ const TELEGRAM_URL = 'https://t.me/MemoraSolutions';
 const CLIENT_KEY = 'memora-question-client';
 
 const PROJECT_META = [
-    { id: 'b2b', icon: ShoppingCart, asset: '/portfolio/armk-b2b.png', size: 'wide', tone: 'blue' },
-    { id: 'domatrix', icon: Building2, asset: '/portfolio/domatrix-platform.jpg', size: 'tall', tone: 'cobalt' },
-    { id: 'game', icon: Gamepad2, asset: '/portfolio/teya-leya-game.png', size: 'wide', tone: 'magenta' },
-    { id: 'armk', icon: MonitorSmartphone, asset: '/portfolio/armk-site.png', size: 'standard', tone: 'ice', external: true },
-    { id: 'wallet', icon: WalletCards, size: 'standard', tone: 'mint' },
-    { id: 'pomodoro', icon: Timer, size: 'standard', tone: 'orange' },
-    { id: 'radar', icon: Plane, size: 'standard', tone: 'gold' },
-    { id: 'bday', icon: CakeSlice, size: 'standard', tone: 'violet' },
+    { id: 'b2b', icon: ShoppingCart, assets: ['/portfolio/armk-b2b.png'], tone: 'blue' },
+    { id: 'domatrix', icon: Building2, assets: ['/portfolio/domatrix-landing.png', '/portfolio/domatrix-app.png'], tone: 'green' },
+    { id: 'poker', icon: Trophy, assets: ['/portfolio/poker-club.png', '/portfolio/poker-control.png'], tone: 'gold' },
+    { id: 'armk', icon: MonitorSmartphone, assets: ['/portfolio/armk-site.png'], tone: 'ice', external: true },
+    { id: 'wallet', icon: WalletCards, tone: 'mint' },
+    { id: 'pomodoro', icon: Timer, tone: 'orange' },
+    { id: 'radar', icon: Plane, tone: 'cyan' },
+    { id: 'bday', icon: CakeSlice, tone: 'violet' },
 ];
 
 const COPY = {
@@ -72,11 +72,11 @@ const COPY = {
         casesLabel: '02 / Проекты',
         casesTitle: 'Разные задачи. Своя логика у каждого продукта.',
         projectAction: 'Открыть проект',
-        projectDetails: 'Обсудить похожую задачу',
+        projectDetails: 'Обсудить проект',
         projects: [
             { name: 'ARMK B2B', type: 'B2B · Commerce · Каталог', text: 'Оптовая платформа с каталогом на тысячи позиций, ролями менеджера и заказчика, фильтрами, наличием и корзиной.', href: '#contact' },
             { name: 'DOMATRIX', type: 'АСУЗ · 23 системы · Digital twin', text: 'Единый центр управления инженерными системами здания: диспетчеризация, заявки, мониторинг и сервисы для жителей.', href: '#contact' },
-            { name: 'Тея и Лея', type: 'Unity · WebGL · Яндекс Игры', text: 'Казуальная 2D-игра: гардероб, составные персонажи, забег Теи и рисуемые Леей мосты.', href: '#contact' },
+            { name: 'Платформа спортивного покера', type: 'Клуб · Турниры · Live control', text: 'Публичный сайт клуба, расписание и рейтинг игроков, регистрация на турниры и единый экран управления залом, уровнями и участниками.', href: '#contact' },
             { name: 'Сайт ARMK', type: 'Корпоративный сайт · AI · CMS', text: 'Продукты, компетенции, вакансии, гарантии и AI-ассистент в одном живом корпоративном интерфейсе.', href: 'https://armk.pro/' },
             { name: 'Memora Wallet Manager', type: 'Telegram · Python · Fintech', text: 'Учёт расходов сообщением, бюджеты, отчёты, валюты, часовые пояса и ежедневные уведомления.', href: '/wallet' },
             { name: 'Memora Pomodoro', type: 'Electron · React · Local-first', text: 'Таймер фокуса с оверлеем, статистикой, анимированными сценами и web-версией.', href: '/pomodoro' },
@@ -119,11 +119,11 @@ const COPY = {
         proof: [['8', 'products in the portfolio'], ['Web · Desktop · Bots', 'one delivery system'], ['$30 / hour', 'team rate'], ['Sprint delivery', 'a verifiable outcome']],
         capabilitiesLabel: '01 / Capabilities', capabilitiesTitle: 'One team. The whole product.', capabilitiesLead: 'Product logic, design, frontend, backend, data, and release move through one connected process.',
         capabilities: [['Product and UX', 'We research scenarios, shape the user journey, and design a clear interface.'], ['Frontend', 'Responsive React interfaces, design systems, and interactive screens.'], ['Backend and AI', 'APIs, databases, Telegram bots, payments, and controlled AI features.'], ['Desktop', 'Electron applications with local data and system integrations.'], ['Data', 'Parsers, schedules, processing pipelines, and personal notifications.'], ['Release', 'Infrastructure, testing, publishing, monitoring, and support.']],
-        casesLabel: '02 / Projects', casesTitle: 'Different challenges. A distinct logic for every product.', projectAction: 'Open project', projectDetails: 'Discuss a similar project',
+        casesLabel: '02 / Projects', casesTitle: 'Different challenges. A distinct logic for every product.', projectAction: 'Open project', projectDetails: 'Discuss project',
         projects: [
             { name: 'ARMK B2B', type: 'B2B · Commerce · Catalogue', text: 'A wholesale platform with thousands of items, manager and customer roles, filters, stock, and cart.', href: '#contact' },
             { name: 'DOMATRIX', type: 'BMS · 23 systems · Digital twin', text: 'One control centre for building systems, dispatching, service requests, monitoring, and resident services.', href: '#contact' },
-            { name: 'Teya & Leya', type: 'Unity · WebGL · Yandex Games', text: 'A casual 2D game with wardrobe, modular characters, Teya’s runner, and bridges drawn by Leya.', href: '#contact' },
+            { name: 'Sports poker platform', type: 'Club · Tournaments · Live control', text: 'A public club website, schedule and player ratings, tournament registration, and one live control screen for the venue, levels, and participants.', href: '#contact' },
             { name: 'ARMK Website', type: 'Corporate website · AI · CMS', text: 'Products, capabilities, vacancies, guarantees, and an AI assistant in one live corporate interface.', href: 'https://armk.pro/' },
             { name: 'Memora Wallet Manager', type: 'Telegram · Python · Fintech', text: 'Expense tracking by message, budgets, reports, currencies, time zones, and daily notifications.', href: '/wallet' },
             { name: 'Memora Pomodoro', type: 'Electron · React · Local-first', text: 'A focus timer with overlay, statistics, animated scenes, and a web version.', href: '/pomodoro' },
@@ -149,14 +149,6 @@ function getClientId() {
     const created = crypto.randomUUID?.() || `visitor_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     localStorage.setItem(CLIENT_KEY, created);
     return created;
-}
-
-function ProjectVisual({ meta }) {
-    if (meta.asset) return <img src={staticAsset(meta.asset)} alt="" loading="lazy" />;
-    if (meta.id === 'wallet') return <div className="portfolio-visual-wallet"><span>₽ 1 450</span><i>кофе · такси · продукты</i><strong>68% бюджета</strong></div>;
-    if (meta.id === 'pomodoro') return <div className="portfolio-visual-timer"><span>24:38</span><i>ФОКУС</i></div>;
-    if (meta.id === 'radar') return <div className="portfolio-visual-radar"><span>LED</span><i>→</i><strong>BCN</strong><small>36 500 ₽</small></div>;
-    return <div className="portfolio-visual-bday"><span>14</span><strong>Анна</strong><i>через 3 дня</i></div>;
 }
 
 function ProjectInquiry({ copy, lang }) {
@@ -263,7 +255,7 @@ export default function CreatorPage() {
             <main>
                 <section className="portfolio-section portfolio-section--dark"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.capabilitiesLabel}</span><h2>{c.capabilitiesTitle}</h2><p>{c.capabilitiesLead}</p></div><div className="portfolio-capabilities">{c.capabilities.map(([title, text], index) => { const Icon = capabilityIcons[index]; return <article key={title}><Icon size={24} /><h3>{title}</h3><p>{text}</p></article>; })}</div></AnimatedSection></div></section>
 
-                <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-cases">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; return <motion.a whileHover={{ y: -8 }} href={project.href} target={meta.external ? '_blank' : undefined} rel={meta.external ? 'noopener noreferrer' : undefined} key={meta.id} className={`portfolio-case is-${meta.size} tone-${meta.tone}`}><div className="portfolio-case__visual"><ProjectVisual project={project} meta={meta} /></div><div className="portfolio-case__body"><span className="portfolio-case__type"><Icon size={20} /> {project.type}</span><h3>{project.name}</h3><p>{project.text}</p><span className="portfolio-case__action">{project.href === '#contact' ? c.projectDetails : c.projectAction} {meta.external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</span></div></motion.a>; })}</div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; return <motion.a whileHover={{ x: 6 }} href={project.href} target={meta.external ? '_blank' : undefined} rel={meta.external ? 'noopener noreferrer' : undefined} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /> {project.type}</span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" key={asset} />)}</div>}<span className="portfolio-case-row__action">{project.href === '#contact' ? c.projectDetails : c.projectAction} {meta.external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</span></motion.a>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map(item => <li key={item}><Check size={20} /> {item}</li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.documentAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
 

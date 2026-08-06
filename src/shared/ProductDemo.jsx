@@ -4,15 +4,21 @@ import {
     BarChart3,
     Bell,
     CalendarDays,
+    CarFront,
     Check,
+    Coffee,
     Copy,
     Gift,
     History,
+    House,
     List,
     Plus,
+    Repeat2,
     RotateCcw,
     Send,
     Settings,
+    Shapes,
+    ShoppingBasket,
     Sparkles,
     Trash2,
     UserRound,
@@ -80,13 +86,26 @@ const COPY = {
 };
 
 const CATEGORY_META = {
-    products: { emoji: '🥬', color: '#5ebf89' },
-    transport: { emoji: '🚕', color: '#6aa7e8' },
-    cafe: { emoji: '☕', color: '#d49a67' },
-    subscriptions: { emoji: '◉', color: '#9b83df' },
-    home: { emoji: '⌂', color: '#e8b654' },
-    other: { emoji: '•••', color: '#8b94a5' },
+    products: { icon: ShoppingBasket, color: '#5fd091' },
+    transport: { icon: CarFront, color: '#65a8f3' },
+    cafe: { icon: Coffee, color: '#e3a36c' },
+    subscriptions: { icon: Repeat2, color: '#9c86ef' },
+    home: { icon: House, color: '#e9ba5d' },
+    other: { icon: Shapes, color: '#91a0b4' },
 };
+
+function CategoryGlyph({ category, compact = false }) {
+    const meta = CATEGORY_META[category] || CATEGORY_META.other;
+    const Icon = meta.icon;
+    return (
+        <span
+            className={`demo-category-glyph ${compact ? 'is-compact' : ''}`}
+            style={{ '--category-color': meta.color, '--category-soft': `${meta.color}1f` }}
+        >
+            <Icon size={compact ? 16 : 19} strokeWidth={2.2} />
+        </span>
+    );
+}
 
 function localDate(daysAhead = 0, birthYear) {
     const value = new Date();
@@ -159,7 +178,7 @@ function DemoShell({ variant, lang, iconImg, iconAlt, botUrl, children, onReset 
     const copy = COPY[lang];
     const product = copy[variant];
     return (
-        <section className={`product-demo product-demo--${variant}`} id="web-demo" aria-label={`${product.title} — ${copy.common.demo}`}>
+        <section className={`product-demo product-demo--${variant}`} id="web-demo" data-typography-exempt aria-label={`${product.title} — ${copy.common.demo}`}>
             <header className="product-demo__header">
                 <div className="product-demo__brand">
                     <img src={iconImg} alt={iconAlt} />
@@ -167,8 +186,8 @@ function DemoShell({ variant, lang, iconImg, iconAlt, botUrl, children, onReset 
                 </div>
                 <div className="product-demo__header-actions">
                     <span className="product-demo__local"><Check size={18} /> {copy.common.browserData}</span>
-                    <button type="button" onClick={onReset} title={copy.common.reset}><RotateCcw size={19} /><span>{copy.common.reset}</span></button>
-                    <a href={botUrl} target="_blank" rel="noopener noreferrer"><Send size={19} /><span>{copy.common.telegram}</span><ArrowUpRight size={17} /></a>
+                    <button className="product-demo__reset" type="button" onClick={onReset} title={copy.common.reset}><RotateCcw size={19} /><span>{copy.common.reset}</span></button>
+                    <a className="product-demo__telegram" href={botUrl} target="_blank" rel="noopener noreferrer"><Send size={19} /><span>{copy.common.telegram}</span><ArrowUpRight size={17} /></a>
                 </div>
             </header>
             <div className="product-demo__intro">
@@ -240,14 +259,31 @@ function WalletDemo({ lang, iconImg, iconAlt, botUrl }) {
                 <form className="demo-panel wallet-demo__quick" onSubmit={addExpense}>
                     <div className="demo-panel__title"><Plus size={22} /><h3>{c.quick}</h3></div>
                     <label>{c.amount}<div className="wallet-demo__amount"><input inputMode="decimal" value={amount} onChange={event => setAmount(event.target.value)} placeholder="1 500" /><span>{data.currency}</span></div></label>
-                    <fieldset><legend>{c.category}</legend><div className="wallet-demo__categories">{Object.entries(CATEGORY_META).map(([key, meta]) => <button type="button" className={category === key ? 'is-active' : ''} onClick={() => setCategory(key)} key={key}><span>{meta.emoji}</span>{c.categories[key]}</button>)}</div></fieldset>
+                    <fieldset>
+                        <legend>{c.category}</legend>
+                        <div className="wallet-demo__categories">
+                            {Object.keys(CATEGORY_META).map(key => (
+                                <button type="button" className={category === key ? 'is-active' : ''} onClick={() => setCategory(key)} key={key}>
+                                    <CategoryGlyph category={key} compact />
+                                    <span>{c.categories[key]}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </fieldset>
                     <button className="demo-primary-action" type="submit"><Plus size={20} />{c.add}</button>
                     {feedback && <p className="demo-feedback" role="status">{feedback}</p>}
                 </form>
 
                 <section className="demo-panel wallet-demo__breakdown">
                     <div className="demo-panel__title"><BarChart3 size={22} /><h3>{c.breakdown}</h3></div>
-                    <div className="wallet-demo__bars">{grouped.map(item => { const meta = CATEGORY_META[item.key]; return <div key={item.key}><span>{meta.emoji} {c.categories[item.key]}</span><b>{money(item.value, data.currency, lang)}</b><i><span style={{ width: `${(item.value / maxCategory) * 100}%`, background: meta.color }} /></i></div>; })}</div>
+                    <div className="wallet-demo__bars">{grouped.map(item => {
+                        const meta = CATEGORY_META[item.key];
+                        return <div key={item.key}>
+                            <span><CategoryGlyph category={item.key} compact /><span>{c.categories[item.key]}</span></span>
+                            <b>{money(item.value, data.currency, lang)}</b>
+                            <i><span style={{ width: `${(item.value / maxCategory) * 100}%`, background: meta.color }} /></i>
+                        </div>;
+                    })}</div>
                 </section>
 
                 <ExpenseList title={c.recent} expenses={data.expenses.slice(0, 4)} lang={lang} currency={data.currency} categories={c.categories} onRemove={removeExpense} empty={c.empty} />
@@ -267,7 +303,17 @@ function WalletDemo({ lang, iconImg, iconAlt, botUrl }) {
 }
 
 function ExpenseList({ title, expenses, lang, currency, categories, onRemove, empty }) {
-    return <section className="demo-panel wallet-demo__transactions"><div className="demo-panel__title"><List size={22} /><h3>{title}</h3><span>{expenses.length}</span></div>{expenses.length ? <div className="wallet-demo__transaction-list">{expenses.map(item => { const meta = CATEGORY_META[item.category] || CATEGORY_META.other; return <article key={item.id}><span className="wallet-demo__transaction-icon" style={{ background: `${meta.color}22`, color: meta.color }}>{meta.emoji}</span><div><strong>{categories[item.category] || categories.other}</strong><span>{formatDate(item.date, lang)}</span></div><b>{money(item.amount, currency, lang)}</b><button type="button" onClick={() => onRemove(item.id)} aria-label={lang === 'ru' ? `Удалить расход ${categories[item.category]}` : `Delete ${categories[item.category]} expense`}><Trash2 size={18} /></button></article>; })}</div> : <p className="demo-empty">{empty}</p>}</section>;
+    return <section className="demo-panel wallet-demo__transactions">
+        <div className="demo-panel__title"><List size={22} /><h3>{title}</h3><span>{expenses.length}</span></div>
+        {expenses.length ? <div className="wallet-demo__transaction-list">{expenses.map(item => (
+            <article key={item.id}>
+                <CategoryGlyph category={item.category} />
+                <div><strong>{categories[item.category] || categories.other}</strong><span>{formatDate(item.date, lang)}</span></div>
+                <b>{money(item.amount, currency, lang)}</b>
+                <button type="button" onClick={() => onRemove(item.id)} aria-label={lang === 'ru' ? `Удалить расход ${categories[item.category]}` : `Delete ${categories[item.category]} expense`}><Trash2 size={18} /></button>
+            </article>
+        ))}</div> : <p className="demo-empty">{empty}</p>}
+    </section>;
 }
 
 function greetingFor(contact, tone, lang) {

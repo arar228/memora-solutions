@@ -7,7 +7,6 @@ import {
     Bot,
     Building2,
     CakeSlice,
-    Check,
     ChevronLeft,
     ChevronRight,
     CircleCheck,
@@ -32,6 +31,7 @@ import {
     Sparkles,
     Timer,
     Trophy,
+    TrendingDown,
     WalletCards,
     Workflow,
     X,
@@ -97,16 +97,20 @@ const COPY = {
         processLead: 'Каждый этап заканчивается конкретным результатом для проверки и приёмки.',
         process: [['01', 'Разбор', 'Задача, пользователи, ограничения и критерии готовности.'], ['02', 'Спринт', 'Объём, оценка в часах, команда и дата демонстрации.'], ['03', 'Разработка', 'Интерфейс, код, интеграции, проверки и промежуточные показы.'], ['04', 'Передача', 'Релиз, отчёт, документы и согласованный следующий шаг.']],
         offerLabel: '05 / Условия работы',
-        offerTitle: '$30 в час за работу команды',
-        offerLead: 'До старта спринта фиксируем цель, оценку, состав результата и порядок приёмки.',
-        standardTitle: 'Полная предоплата',
-        standardPrice: '$30 / час',
-        standardItems: ['оплата согласованного спринта перед стартом', 'разработка, проверка и демонстрация входят в спринт', 'следующий спринт формируется после приёмки результата'],
-        flexibleTitle: 'Частичная предоплата',
-        flexiblePrice: '$39 / час',
-        flexibleNote: '+30% к базовой ставке',
-        flexibleItems: ['частичная оплата перед стартом', 'остаток привязывается к сроку или показателю дохода', 'сумма, триггер и крайняя дата закрепляются в договоре'],
-        offerFootnote: 'Итоговая оценка отражает объём и определённость задачи. Сервисы, лицензии и инфраструктура согласуются отдельной строкой.',
+        offerTitle: 'Два формата оплаты',
+        offerLead: 'В обоих форматах работает вся команда: продукт, дизайн, разработка и проверка.',
+        marketBadge: 'ниже рынка',
+        standardTitle: 'Основной формат',
+        standardPrice: '$30',
+        standardCaption: '/ час команды',
+        standardItems: ['спринт оплачивается до старта', 'цель, сроки и демо фиксируются заранее'],
+        offerFlow: ['Цель', 'Спринт', 'Демо'],
+        flexibleTitle: 'Гибкий формат',
+        flexiblePrice: '$39',
+        flexibleCaption: '/ час команды',
+        flexibleNote: 'частичная предоплата',
+        flexibleItems: ['часть суммы до старта', 'остаток — по сроку или результату'],
+        offerFootnote: 'Объём и состав результата фиксируем до старта.',
         docsLabel: '06 / Клиентский комплект',
         docsTitle: 'Документы проекта в одном месте',
         documents: [['Коммерческое предложение', 'Объём, команда, оценка, этапы и бюджет.'], ['Отчёт по спринту', 'Цели, готовые функции, проверки и следующий шаг.'], ['Договор', 'Предмет, права, оплата, сроки и ответственность.'], ['Акт приёмки', 'Переданный результат и подтверждение приёмки.']],
@@ -138,7 +142,7 @@ const COPY = {
         managerItems: ['collects context and acceptance criteria', 'owns the sprint plan, timing, and budget', 'organises demos and working communication', 'delivers the result, report, and document set'],
         processLabel: '04 / Process', processTitle: 'From task to working release', processLead: 'Every stage ends with a concrete outcome ready for review and acceptance.',
         process: [['01', 'Discovery', 'Objective, users, constraints, and acceptance criteria.'], ['02', 'Sprint', 'Scope, hour estimate, team, and demo date.'], ['03', 'Development', 'Interface, code, integrations, testing, and progress demos.'], ['04', 'Delivery', 'Release, report, documents, and an agreed next step.']],
-        offerLabel: '05 / Engagement', offerTitle: '$30 per team hour', offerLead: 'Before each sprint, we define the goal, estimate, deliverables, and acceptance flow.', standardTitle: 'Full prepayment', standardPrice: '$30 / hour', standardItems: ['payment for the agreed sprint before kickoff', 'development, QA, and demo included', 'the next sprint is formed after acceptance'], flexibleTitle: 'Partial prepayment', flexiblePrice: '$39 / hour', flexibleNote: '30% above the base rate', flexibleItems: ['partial payment before kickoff', 'the balance is tied to a date or revenue metric', 'amount, trigger, and deadline are recorded in the agreement'], offerFootnote: 'The estimate reflects scope and clarity. Services, licenses, and infrastructure are agreed separately.',
+        offerLabel: '05 / Engagement', offerTitle: 'Two payment formats', offerLead: 'Both formats include the whole team: product, design, development, and QA.', marketBadge: 'below market', standardTitle: 'Core format', standardPrice: '$30', standardCaption: '/ team hour', standardItems: ['the sprint is paid before kickoff', 'scope, timing, and demo are set in advance'], offerFlow: ['Scope', 'Sprint', 'Demo'], flexibleTitle: 'Flexible format', flexiblePrice: '$39', flexibleCaption: '/ team hour', flexibleNote: 'partial prepayment', flexibleItems: ['part of the fee before kickoff', 'balance tied to timing or outcome'], offerFootnote: 'Scope and deliverables are set before kickoff.',
         docsLabel: '06 / Client kit', docsTitle: 'Project documents in one place', documents: [['Commercial proposal', 'Scope, team, estimate, stages, and budget.'], ['Sprint report', 'Goals, delivered features, checks, and next step.'], ['Agreement', 'Scope, rights, payment, timing, and responsibilities.'], ['Acceptance certificate', 'Delivered result and acceptance confirmation.']], documentAction: 'Request from Sergey',
         contact: { label: '07 / New project', title: 'One request. Your preferred reply channel.', text: 'Describe the project and choose phone, email, or Telegram. The request goes straight to the manager.', name: 'Your name', request: 'What should we build?', method: 'Where should we reply?', phone: 'Phone', email: 'Email', telegram: 'Telegram', namePlaceholder: 'Name', requestPlaceholder: 'Context, objective, and desired outcome', phonePlaceholder: '+7 999 000-00-00', emailPlaceholder: 'name@company.com', telegramPlaceholder: '@username', submit: 'Send request', sending: 'Sending…', success: 'Request sent. The manager will reply through your chosen channel.', error: 'Add the project request and a reply contact.', questionLink: 'Open Ask a Question' },
     },
@@ -289,11 +293,11 @@ export default function CreatorPage() {
 
                 <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; return <motion.article whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={meta.external ? '_blank' : undefined} rel={meta.external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {meta.external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 
-                <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map(item => <li key={item}><Check size={20} /> {item}</li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.documentAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map((item, index) => <li key={item} style={{ '--manager-index': index }}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.documentAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
 
-                <section className="portfolio-section portfolio-section--process"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.processLabel}</span><h2>{c.processTitle}</h2><p>{c.processLead}</p></div><div className="portfolio-process">{c.process.map(([number, title, text]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--process" id="process"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.processLabel}</span><h2>{c.processTitle}</h2><p>{c.processLead}</p></div><div className="portfolio-process"><div className="portfolio-process__track" aria-hidden="true"><i /><b><span /></b></div>{c.process.map(([number, title, text], index) => <article key={number} style={{ '--stage-index': index }}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div></AnimatedSection></div></section>
 
-                <section className="portfolio-section portfolio-section--offer"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.offerLabel}</span><h2>{c.offerTitle}</h2><p>{c.offerLead}</p></div><div className="portfolio-pricing"><article><Gauge size={24} /><h3>{c.standardTitle}</h3><strong>{c.standardPrice}</strong><ul>{c.standardItems.map(item => <li key={item}><Check size={20} /> {item}</li>)}</ul></article><article><ShieldCheck size={24} /><h3>{c.flexibleTitle}</h3><strong>{c.flexiblePrice}</strong><span>{c.flexibleNote}</span><ul>{c.flexibleItems.map(item => <li key={item}><Check size={20} /> {item}</li>)}</ul></article></div><p className="portfolio-offer-note">{c.offerFootnote}</p></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--offer"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.offerLabel}</span><h2>{c.offerTitle}</h2><p>{c.offerLead}</p></div><div className="portfolio-pricing"><article className="is-primary"><header><div><Gauge size={24} /><h3>{c.standardTitle}</h3></div><em><TrendingDown size={20} /> {c.marketBadge}</em></header><div className="portfolio-pricing__price"><strong className="type-display">{c.standardPrice}</strong><span>{c.standardCaption}</span></div><div className="portfolio-pricing__flow">{c.offerFlow.map((item, index) => <span key={item}>{item}{index < c.offerFlow.length - 1 && <ArrowRight size={18} />}</span>)}</div><ul>{c.standardItems.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul></article><article><header><div><ShieldCheck size={24} /><h3>{c.flexibleTitle}</h3></div><em>{c.flexibleNote}</em></header><div className="portfolio-pricing__price"><strong className="type-display">{c.flexiblePrice}</strong><span>{c.flexibleCaption}</span></div><ul>{c.flexibleItems.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul></article></div><p className="portfolio-offer-note">{c.offerFootnote}</p></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--documents"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.docsLabel}</span><h2>{c.docsTitle}</h2></div><div className="portfolio-documents">{c.documents.map(([title, text], index) => { const Icon = documentIcons[index]; return <article key={title}><Icon size={24} /><h3>{title}</h3><p>{text}</p><a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.documentAction} <ArrowRight size={20} /></a></article>; })}</div></AnimatedSection></div></section>
 

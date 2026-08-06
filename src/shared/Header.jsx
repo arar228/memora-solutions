@@ -2,25 +2,15 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { staticAsset } from './staticAsset';
-import { Globe, Menu, X, ChevronDown } from 'lucide-react';
+import { Globe, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Header.css';
 
-// Top-level links shown before / after the Products dropdown.
-const LINKS_BEFORE = [
+const NAV_LINKS = [
     { to: '/', key: 'home' },
     { to: '/travel-radar', key: 'travelRadar' },
-];
-const LINKS_AFTER = [
+    { to: '/products', key: 'products' },
     { to: '/kanban', key: 'kanban' },
-    { to: '/creator', key: 'creator' },
-];
-// Grouped under the "Products" dropdown.
-const PRODUCTS = [
-    { to: '/travel-radar', key: 'travelRadar' },
-    { to: '/wallet', key: 'wallet' },
-    { to: '/bday-bot', key: 'bdayBot' },
-    { to: '/pomodoro', key: 'pomodoro' },
 ];
 
 export default function Header() {
@@ -28,7 +18,6 @@ export default function Header() {
     const location = useLocation();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [productsOpen, setProductsOpen] = useState(false);
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -40,19 +29,19 @@ export default function Header() {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    // Close both menus on navigation.
+    // Close the mobile menu on navigation.
     useEffect(() => {
         setMobileOpen(false);
-        setProductsOpen(false);
     }, [location]);
 
     const toggleLang = () => i18n.changeLanguage(i18n.language === 'ru' ? 'en' : 'ru');
 
-    const isActive = (to) => location.pathname === to;
-    const productsActive = PRODUCTS.some(p => p.to === location.pathname);
-    // Products may carry an inline {ru,en} label (self-contained items) or a
-    // shared i18n key.
-    const productLabel = (p) => (p.label ? (p.label[i18n.language] || p.label.ru) : t(`nav.${p.key}`));
+    const isActive = (to) => {
+        if (to === '/products') {
+            return ['/products', '/wallet', '/bday-bot', '/pomodoro'].includes(location.pathname);
+        }
+        return location.pathname === to;
+    };
 
     return (
         <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
@@ -63,56 +52,7 @@ export default function Header() {
                 </Link>
 
                 <nav className="header__nav">
-                    {LINKS_BEFORE.map(link => (
-                        <Link
-                            key={link.to}
-                            to={link.to}
-                            className={`header__nav-link ${isActive(link.to) ? 'header__nav-link--active' : ''}`}
-                        >
-                            {t(`nav.${link.key}`)}
-                        </Link>
-                    ))}
-
-                    {/* Products dropdown */}
-                    <div
-                        className="header__dropdown"
-                        onMouseEnter={() => setProductsOpen(true)}
-                        onMouseLeave={() => setProductsOpen(false)}
-                    >
-                        <button
-                            type="button"
-                            className={`header__nav-link header__dropdown-toggle ${productsActive ? 'header__nav-link--active' : ''}`}
-                            onClick={() => setProductsOpen(o => !o)}
-                            aria-haspopup="true"
-                            aria-expanded={productsOpen}
-                        >
-                            {t('nav.products')}
-                            <ChevronDown size={14} aria-hidden="true" className={`header__chev ${productsOpen ? 'open' : ''}`} />
-                        </button>
-                        <AnimatePresence>
-                            {productsOpen && (
-                                <motion.div
-                                    className="header__dropdown-menu"
-                                    initial={{ opacity: 0, y: -6 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -6 }}
-                                    transition={{ duration: 0.15 }}
-                                >
-                                    {PRODUCTS.map(p => (
-                                        <Link
-                                            key={p.to}
-                                            to={p.to}
-                                            className={`header__dropdown-item ${isActive(p.to) ? 'header__dropdown-item--active' : ''}`}
-                                        >
-                                            {productLabel(p)}
-                                        </Link>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-
-                    {LINKS_AFTER.map(link => (
+                    {NAV_LINKS.map(link => (
                         <Link
                             key={link.to}
                             to={link.to}
@@ -153,28 +93,7 @@ export default function Header() {
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
                     >
-                        {LINKS_BEFORE.map(link => (
-                            <Link
-                                key={link.to}
-                                to={link.to}
-                                className={`header__mobile-link ${isActive(link.to) ? 'header__mobile-link--active' : ''}`}
-                            >
-                                {t(`nav.${link.key}`)}
-                            </Link>
-                        ))}
-
-                        <div className="header__mobile-group-label">{t('nav.products')}</div>
-                        {PRODUCTS.map(p => (
-                            <Link
-                                key={`m-${p.to}`}
-                                to={p.to}
-                                className={`header__mobile-link header__mobile-sublink ${isActive(p.to) ? 'header__mobile-link--active' : ''}`}
-                            >
-                                {productLabel(p)}
-                            </Link>
-                        ))}
-
-                        {LINKS_AFTER.map(link => (
+                        {NAV_LINKS.map(link => (
                             <Link
                                 key={link.to}
                                 to={link.to}

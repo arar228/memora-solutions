@@ -52,7 +52,8 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
+        <Route path="/" element={<PageTransition><CreatorPage /></PageTransition>} />
+        <Route path="/products" element={<PageTransition><HomePage /></PageTransition>} />
         <Route path="/travel-radar" element={<PageTransition><TravelRadar3Page /></PageTransition>} />
         {/* Preserve old bookmarks without exposing multiple competing versions. */}
         <Route path="/travel-radar-3" element={<Navigate to="/travel-radar" replace />} />
@@ -61,9 +62,9 @@ function AnimatedRoutes() {
         <Route path="/wallet" element={<PageTransition><WalletPage /></PageTransition>} />
         <Route path="/bday-bot" element={<PageTransition><BdayBotPage /></PageTransition>} />
         <Route path="/kanban" element={<PageTransition><KanbanPage /></PageTransition>} />
-        <Route path="/creator" element={<PageTransition><CreatorPage /></PageTransition>} />
+        <Route path="/creator" element={<Navigate to="/" replace />} />
         <Route path="/pomodoro" element={<PageTransition><PomodoroPage /></PageTransition>} />
-        <Route path="/internal" element={<Navigate to="/creator" replace />} />
+        <Route path="/internal" element={<Navigate to="/" replace />} />
         {AdminPage && (
           <Route path="/admin" element={<PageTransition><AdminPage /></PageTransition>} />
         )}

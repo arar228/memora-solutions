@@ -53,4 +53,19 @@ jobs:
             -o ConnectTimeout=15 \
             -p "$VPS_PORT" \
             "root@$VPS_HOST" \
-            'systemctl start memora-update.service; test "$(systemctl show -p Result --value memora-update.service)" = success; systemctl is-active --quiet memora-solutions.service; git -c safe.directory=/opt/memora-solutions -C /opt/memora-solutions rev-parse HEAD'
+            'set -euo pipefail
+             app_dir=/opt/memora-solutions
+             runuser -u memora -- git -C "$app_dir" fetch origin master
+             update_tmp=$(mktemp)
+             caddy_tmp=$(mktemp)
+             trap '\''rm -f "$update_tmp" "$caddy_tmp"'\'' EXIT
+             git -c safe.directory="$app_dir" -C "$app_dir" show origin/master:deploy/vps/memora-update.sh > "$update_tmp"
+             git -c safe.directory="$app_dir" -C "$app_dir" show origin/master:deploy/vps/memora-solutions.caddy > "$caddy_tmp"
+             install -o root -g root -m 0755 "$update_tmp" /usr/local/sbin/memora-update
+             caddy validate --config "$caddy_tmp"
+             install -o root -g root -m 0644 "$caddy_tmp" /etc/caddy/Caddyfile
+             systemctl reload caddy
+             systemctl start memora-update.service
+             test "$(systemctl show -p Result --value memora-update.service)" = success
+             systemctl is-active --quiet memora-solutions.service
+             git -c safe.directory="$app_dir" -C "$app_dir" rev-parse HEAD'

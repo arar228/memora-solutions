@@ -7,12 +7,8 @@
         format json
     }
 
-    # The VPS keeps HTML and API requests close to the database. Static files
-    # use the GitHub Pages edge network, which reliably delivers larger media
-    # across mobile and desktop providers.
-    @public_assets path_regexp public_assets (?i)\.(?:avif|css|gif|ico|jpe?g|js|json|mp3|mp4|ogg|png|svg|webm|webp|woff2?)$
-    redir @public_assets https://arar228.github.io/memora-solutions{uri} 307
-
+    # HTML, API and static assets share one origin so every client follows the
+    # same network route and the application remains self-contained on the VPS.
     reverse_proxy 127.0.0.1:3020
 }
 

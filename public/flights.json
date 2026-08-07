@@ -1,7 +1,36 @@
 {
-  "updatedAt": "2026-08-07T05:05:47.059Z",
+  "updatedAt": "2026-08-07T07:45:07.939Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
-  "items": []
+  "items": [
+    {
+      "origin": "MOW",
+      "destination": "IJK",
+      "depart_date": "2026-08-08",
+      "return_date": "2026-08-09",
+      "price": 6676,
+      "median": 9200,
+      "discount": 0.2743478260869565,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-08-07T07:17:08",
+      "link": "https://www.aviasales.ru/search/MOW0808IJK09081?marker=748397&currency=rub",
+      "key": "MOW-IJK-2026-08-08-6676"
+    },
+    {
+      "origin": "IJK",
+      "destination": "MOW",
+      "depart_date": "2026-08-08",
+      "return_date": "2026-08-10",
+      "price": 6827,
+      "median": 9200,
+      "discount": 0.2579347826086957,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-08-07T07:18:47",
+      "link": "https://www.aviasales.ru/search/IJK0808MOW10081?marker=748397&currency=rub",
+      "key": "IJK-MOW-2026-08-08-6827"
+    }
+  ]
 }

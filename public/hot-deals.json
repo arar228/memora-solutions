@@ -1,7 +1,512 @@
 {
-  "updatedAt": "2026-08-07T12:24:31.235Z",
+  "updatedAt": "2026-08-07T13:52:44.848Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Краснодар",
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 5500,
+      "oldPrice": 17298,
+      "savings": 11798,
+      "discount": 0.68,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-07T13:08:59+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KRR0609AYT1?marker=748397&currency=rub",
+      "text": "из Краснодара в Анталью 🇹🇷 за 5 500 р. OW (завтра)\nAir Anka, прямой рейс с багажом -"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 14600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-07T13:08:59+00:00",
+      "source": "samokatus",
+      "link": "https://smkt.us/il3zp",
+      "text": "из Сочи в Анталью 🇹🇷 за 14 600 р. RT (август)\nУральские авиалинии, прямые рейсы с багажом - \n🏨 Отели в Анталье:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бильбао",
+        "code": "BIO",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 21500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11-16",
+      "returnDate": "2026-11-26",
+      "date": "2026-08-07T12:47:08+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1611BIO1?marker=748397&currency=rub",
+      "text": "Москва — Бильбао — Санкт-Петербург от 21500₽ в обе стороны, вылеты в ноябре-январе, стыковки в Стамбуле, ручная кладь\n— 16.11 - 26.11 - 21500₽\n— 15.01 - 24.01 - 21500₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бильбао",
+        "code": "BIO",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 23100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11-25",
+      "returnDate": "2026-12-06",
+      "date": "2026-08-07T12:47:08+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/LED2511BIO1?marker=748397&currency=rub",
+      "text": "Санкт-Петербург — Бильбао от 23100₽ в обе стороны, вылеты в ноябре-январе, стыковки в Стамбуле, ручная кладь\n— 25.11 - 06.12 - 25800₽\n— 03.12 - 13.12 - 26400₽\n— 20.01 - 24.01 - 23100₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Лондон",
+        "code": "LON",
+        "country": {
+          "ru": "Великобритания",
+          "en": "United Kingdom"
+        },
+        "kind": "city"
+      },
+      "price": 31600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-05",
+      "returnDate": null,
+      "date": "2026-08-07T12:38:16+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0105LON1?marker=748397&currency=rub",
+      "text": "В Лондон 31.600 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Женева",
+        "code": "GVA",
+        "country": {
+          "ru": "Швейцария",
+          "en": "Switzerland"
+        },
+        "kind": "city"
+      },
+      "price": 36200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-05",
+      "returnDate": null,
+      "date": "2026-08-07T12:38:16+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0105GVA1?marker=748397&currency=rub",
+      "text": "В Женеву 36.200 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Барселона",
+        "code": "BCN",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 39500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-05",
+      "returnDate": null,
+      "date": "2026-08-07T12:38:16+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0105BCN1?marker=748397&currency=rub",
+      "text": "В Барселону 39.500 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Амстердам",
+        "code": "AMS",
+        "country": {
+          "ru": "Нидерланды",
+          "en": "Netherlands"
+        },
+        "kind": "city"
+      },
+      "price": 42700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-05",
+      "returnDate": null,
+      "date": "2026-08-07T12:38:16+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0105AMS1?marker=748397&currency=rub",
+      "text": "В Амстердам 42.700 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Мадрид",
+        "code": "MAD",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 43500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-05",
+      "returnDate": null,
+      "date": "2026-08-07T12:38:16+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0105MAD1?marker=748397&currency=rub",
+      "text": "В Мадрид 43.500 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Париж",
+        "code": "PAR",
+        "country": {
+          "ru": "Франция",
+          "en": "France"
+        },
+        "kind": "city"
+      },
+      "price": 43800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-05",
+      "returnDate": null,
+      "date": "2026-08-07T12:38:16+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0105PAR1?marker=748397&currency=rub",
+      "text": "В Париж 43.800 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Тунис",
+        "code": "TUN",
+        "country": {
+          "ru": "Тунис",
+          "en": "Tunisia"
+        },
+        "kind": "country"
+      },
+      "price": 46100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-05",
+      "returnDate": null,
+      "date": "2026-08-07T12:38:16+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0105TUN1?marker=748397&currency=rub",
+      "text": "В Тунис 46.100 руб"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "ОАЭ",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "country"
+      },
+      "price": 99827,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-20",
+      "returnDate": "2026-09-27",
+      "date": "2026-08-07T12:36:39+00:00",
+      "source": "leveltravel",
+      "link": "https://lvtv.me/odg7S9S",
+      "text": "🐥Что попробовать в ОАЭ\n👍 Гузи\nЭто блюдо, которое также называют \"Кхузи\" или \"Узи\" — один из основных кулинарных шедевров ОАЭ. Сначала мясо ягненка жарят на раскаленной сковороде, не добавляя жир, но"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бильбао",
+        "code": "BIO",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 21300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11-08",
+      "returnDate": "2026-11-17",
+      "date": "2026-08-07T12:27:23+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW0811BIO1?marker=748397&currency=rub",
+      "text": "Москва — Бильбао от 21300₽ в обе стороны, вылеты в ноябре-январе, стыковки в Стамбуле, ручная кладь\n— 08.11 - 17.11 - 21300₽\n— 02.12 - 13.12 - 21300₽\n— 15.01 - 24.01 - 21300₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -1111,46 +1616,6 @@
       "source": "leveltravel",
       "link": "https://www.aviasales.ru/search/ANY2708ZNZ1?marker=748397&currency=rub",
       "text": "🚩 Royal Mandarin Hotel & Resort 5* от 363 793 ₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бильбао",
-        "code": "BIO",
-        "country": {
-          "ru": "Испания",
-          "en": "Spain"
-        },
-        "kind": "city"
-      },
-      "price": 21300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-07T07:32:53+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0609BIO1?marker=748397&currency=rub",
-      "text": "из Москвы в Бильбао 🇪🇸 за 21 300 р. RT (зимой)\nPegasus, пересадки в Стамбуле - \nВсе даты:"
     },
     {
       "type": "tour",
@@ -2800,50 +3265,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Пхукет",
-        "code": "HKT",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 30900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Пекин",
-          "code": "PEK"
-        },
-        {
-          "name": "Ташкент",
-          "code": "TAS"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-01-19",
-      "returnDate": null,
-      "date": "2026-08-05T18:57:36+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/HKT1901MOW1?marker=748397&currency=rub",
-      "text": "Пхукет (Таиланд) — Москва от 30900Р в одну сторону с более-менее терпимой пересадкой в Пекине или покороче в Ташкенте, с багажом\n— 19.01 — 37400Р\n— 22.01 — 34200Р\n— 25.01 — 30900Р\n— 30.01 — 30900Р\n— 0"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -3540,508 +3961,53 @@
       "source": "vandroukiru",
       "link": "https://www.aviasales.ru/search/KUF0609IST1?marker=748397&currency=rub",
       "text": "Уже завтра прямыми рейсами угоняем в Турцию за 13300 рублей туда-обратно!\nГотовые на всё сюда:"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 28527,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Сочи с завтраками, 6 ночей, от 28 527 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Абхазия",
-        "code": "SUI",
-        "country": {
-          "ru": "Абхазия",
-          "en": "Abkhazia"
-        },
-        "kind": "country"
-      },
-      "price": 30595,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Абхазия с завтраками, 7 ночей, от 30 595 ₽/чел.\n🔸Аланья, «всё включено», скидки до 33%, 7-9 ночей, от 41 107 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Китай",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "country"
-      },
-      "price": 50458,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Китай, Хайнань с завтраками, скидки до 19%, 11 ночей, от 50 458 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 52243,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 9,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Турция, 1-я линия, 4-5⭐️, «всё включено», 9 ночей, от 52 243 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 53727,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Египет, 4-5⭐️, «всё включено», 7 ночей, от 53 727 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 60473,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔸Таиланд с завтраками, 11 ночей, от 60 473 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пхукет",
-        "code": "HKT",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 61736,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 14,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Пхукет с завтраками, 14 ночей, от 61 736 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Вьетнам",
-        "code": "SGN",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "country"
-      },
-      "price": 61910,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 12,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔸Вьетнам с завтраками, скидки до 20%, 12 ночей, от 61 910 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 65704,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Шарм-Эль-Шейх, 1-я линия, 4-5⭐️, «всё включено», 8 ночей, от 65 704 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 66820,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Турция, 4-5⭐️, «всё включено», скидки до 40%, 8 ночей, от 66 820 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "ОАЭ",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "country"
-      },
-      "price": 67994,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Эмираты, 1-я линия, полный пансион, 7 ночей, от 67 994 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 118460,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-05T13:00:15+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/lonicera-world-4-5fba32f.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=hotels/lonicera-world1&utm_term=0508#?fromCity=2&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=8&nightTo=10&adults=2&priceFrom=100&priceTo=50000000&meal=8&productType=all&hsid=3tir9gukct",
-      "text": "🔹Мальдивы, полный пансион, 8 ночей, от 118 460 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 46900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-08-11",
-      "returnDate": "2026-08-17",
-      "date": "2026-08-05T12:25:39+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://level.tpx.lu/RegBijuJ",
-      "text": "⚡️Турция на 6 ночей с 11 августа от 46.900 руб/чел, виза не нужна"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-07T12:24:31.060Z",
-      "fetchedPosts": 18,
-      "freshPosts": 13,
-      "latestPostAt": "2026-08-07T09:42:46+00:00",
+      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "fetchedPosts": 19,
+      "freshPosts": 14,
+      "latestPostAt": "2026-08-07T13:08:36+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-07T12:24:31.060Z",
+      "checkedAt": "2026-08-07T13:52:44.670Z",
       "fetchedPosts": 19,
-      "freshPosts": 18,
-      "latestPostAt": "2026-08-07T10:34:53+00:00",
+      "freshPosts": 19,
+      "latestPostAt": "2026-08-07T13:08:59+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-07T12:24:31.060Z",
+      "checkedAt": "2026-08-07T13:52:44.670Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-07T11:52:33+00:00",
+      "latestPostAt": "2026-08-07T13:16:03+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-07T12:24:31.060Z",
+      "checkedAt": "2026-08-07T13:52:44.670Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
-      "latestPostAt": "2026-08-07T11:36:35+00:00",
+      "latestPostAt": "2026-08-07T12:38:16+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-07T12:24:31.060Z",
+      "checkedAt": "2026-08-07T13:52:44.670Z",
       "fetchedPosts": 19,
       "freshPosts": 5,
       "latestPostAt": "2026-08-07T10:42:34+00:00",
@@ -4051,7 +4017,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-07T12:24:31.060Z",
+      "checkedAt": "2026-08-07T13:52:44.670Z",
       "fetchedPosts": 14,
       "freshPosts": 2,
       "latestPostAt": "2026-08-06T14:55:11+00:00",
@@ -4061,20 +4027,20 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-07T12:24:31.060Z",
+      "checkedAt": "2026-08-07T13:52:44.670Z",
       "fetchedPosts": 13,
       "freshPosts": 11,
-      "latestPostAt": "2026-08-07T11:05:38+00:00",
+      "latestPostAt": "2026-08-07T13:00:14+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-07T12:24:31.060Z",
-      "fetchedPosts": 6,
-      "freshPosts": 6,
-      "latestPostAt": "2026-08-07T10:56:29+00:00",
+      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "fetchedPosts": 7,
+      "freshPosts": 7,
+      "latestPostAt": "2026-08-07T12:36:39+00:00",
       "reusedPrevious": false,
       "error": null
     }

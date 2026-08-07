@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-07T19:08:07.330Z",
+  "updatedAt": "2026-08-07T20:08:46.958Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 4500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-09",
+      "returnDate": null,
+      "date": "2026-08-07T19:25:09+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/HRG0908MOW1?marker=748397&currency=rub",
+      "text": "Хургада — Москва от 4500₽ в одну сторону, вылет в августе, рейсы прямые, с багажом\n— 09.08 - 4500₽\n— 10.08 - 5400₽"
+    },
     {
       "type": "tour",
       "from": {
@@ -2575,76 +2610,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Бодрум",
-        "code": "BJV",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кавказские Минеральные Воды",
-        "code": "MRV",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 8200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-17",
-      "returnDate": null,
-      "date": "2026-08-06T13:13:33+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/BJV1708MRV1?marker=748397&currency=rub",
-      "text": "Бодрум (Турция) — Минеральные Воды от 8200Р в одну сторону, прямые с багажом\n— 17.08 — 8200Р\n— 21.08 — 8200Р"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Бодрум",
-        "code": "BJV",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 15700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-09",
-      "returnDate": null,
-      "date": "2026-08-06T13:13:33+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/BJV0908MOW1?marker=748397&currency=rub",
-      "text": "Бодрум (Турция) — Москва от 15700Р в одну сторону, прямой с багажом\n— 09.08 — 15700Р\n— 14.08 — 20900Р"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Оренбург",
         "code": "REN",
         "country": {
@@ -3477,9 +3442,9 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-07T19:08:07.105Z",
+      "checkedAt": "2026-08-07T20:08:46.821Z",
       "fetchedPosts": 19,
-      "freshPosts": 13,
+      "freshPosts": 12,
       "latestPostAt": "2026-08-07T13:08:36+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3487,7 +3452,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-07T19:08:07.106Z",
+      "checkedAt": "2026-08-07T20:08:46.821Z",
       "fetchedPosts": 19,
       "freshPosts": 19,
       "latestPostAt": "2026-08-07T18:21:01+00:00",
@@ -3497,17 +3462,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-07T19:08:07.106Z",
+      "checkedAt": "2026-08-07T20:08:46.821Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-07T17:13:51+00:00",
+      "latestPostAt": "2026-08-07T19:25:09+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-07T19:08:07.106Z",
+      "checkedAt": "2026-08-07T20:08:46.821Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-07T12:38:16+00:00",
@@ -3517,7 +3482,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-07T19:08:07.106Z",
+      "checkedAt": "2026-08-07T20:08:46.821Z",
       "fetchedPosts": 19,
       "freshPosts": 6,
       "latestPostAt": "2026-08-07T14:39:27+00:00",
@@ -3527,7 +3492,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-07T19:08:07.106Z",
+      "checkedAt": "2026-08-07T20:08:46.821Z",
       "fetchedPosts": 15,
       "freshPosts": 2,
       "latestPostAt": "2026-08-07T14:36:39+00:00",
@@ -3537,7 +3502,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-07T19:08:07.106Z",
+      "checkedAt": "2026-08-07T20:08:46.821Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
       "latestPostAt": "2026-08-07T13:00:14+00:00",
@@ -3547,7 +3512,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-07T19:08:07.106Z",
+      "checkedAt": "2026-08-07T20:08:46.821Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-07T17:50:26+00:00",

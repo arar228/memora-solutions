@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-07T11:25:13.123Z",
+  "updatedAt": "2026-08-07T12:24:31.235Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Омск",
+        "code": "OMS",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 10100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-18",
+      "returnDate": null,
+      "date": "2026-08-07T11:52:33+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AYT1808OMS1?marker=748397&currency=rub",
+      "text": "Анталья (Турция) — Омск за 10100Р в одну сторону, вылет 18 августа, прямой с багажом, один билет\n—"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Калининград",
+        "code": "KGD",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 2000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-07T11:36:35+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0609KGD1?marker=748397&currency=rub",
+      "text": "✈️Из Спб в Калининград за 2.000 руб. Разные даты осенью"
+    },
     {
       "type": "tour",
       "from": {
@@ -2320,41 +2390,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Калининград",
-        "code": "KGD",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 2000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-06T10:31:56+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0609KGD1?marker=748397&currency=rub",
-      "text": "из Петербурга в Калининград 🇷🇺 за 2 000 р. OW (август-сентябрь)\nNordwind, прямой рейс -"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -2805,41 +2840,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/HKT1901MOW1?marker=748397&currency=rub",
       "text": "Пхукет (Таиланд) — Москва от 30900Р в одну сторону с более-менее терпимой пересадкой в Пекине или покороче в Ташкенте, с багажом\n— 19.01 — 37400Р\n— 22.01 — 34200Р\n— 25.01 — 30900Р\n— 30.01 — 30900Р\n— 0"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Мале",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 27700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-08",
-      "returnDate": null,
-      "date": "2026-08-05T18:21:50+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MLE0808MOW1?marker=748397&currency=rub",
-      "text": "Мале (Мальдивы) — Москва от 27700Р в одну сторону, прямой с багажом\n— 08.08 —"
     },
     {
       "type": "flight",
@@ -3995,83 +3995,13 @@
       "source": "nachemodanahspb",
       "link": "https://level.tpx.lu/RegBijuJ",
       "text": "⚡️Турция на 6 ночей с 11 августа от 46.900 руб/чел, виза не нужна"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Баку",
-        "code": "GYD",
-        "country": {
-          "ru": "Азербайджан",
-          "en": "Azerbaijan"
-        },
-        "kind": "city"
-      },
-      "price": 9200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-05T12:15:48+00:00",
-      "source": "samokatus",
-      "link": "https://smkt.us/lkor1",
-      "text": "из Москвы в Баку 🇦🇿 за 9 200 р. OW (конец сент)\n• Путеводитель по Баку: \n🏨 Отели в Баку:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Новосибирск",
-        "code": "OVB",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Батуми",
-        "code": "BUS",
-        "country": {
-          "ru": "Грузия",
-          "en": "Georgia"
-        },
-        "kind": "city"
-      },
-      "price": 7700,
-      "oldPrice": 31536,
-      "savings": 23836,
-      "discount": 0.76,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-01",
-      "returnDate": null,
-      "date": "2026-08-05T12:07:33+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/OVB0110BUS1?marker=748397&currency=rub",
-      "text": "Новосибирск — Батуми от 7700₽ в одну сторону, вылеты в октябре, рейсы прямые, ручная кладь\n— 01.10 - 7800₽\n— 05.10 - 7700₽"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-07T11:25:12.953Z",
+      "checkedAt": "2026-08-07T12:24:31.060Z",
       "fetchedPosts": 18,
       "freshPosts": 13,
       "latestPostAt": "2026-08-07T09:42:46+00:00",
@@ -4081,9 +4011,9 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-07T11:25:12.953Z",
+      "checkedAt": "2026-08-07T12:24:31.060Z",
       "fetchedPosts": 19,
-      "freshPosts": 19,
+      "freshPosts": 18,
       "latestPostAt": "2026-08-07T10:34:53+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4091,27 +4021,27 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-07T11:25:12.953Z",
+      "checkedAt": "2026-08-07T12:24:31.060Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-07T11:01:22+00:00",
+      "latestPostAt": "2026-08-07T11:52:33+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-07T11:25:12.953Z",
+      "checkedAt": "2026-08-07T12:24:31.060Z",
       "fetchedPosts": 20,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-07T09:04:02+00:00",
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-07T11:36:35+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-07T11:25:12.953Z",
+      "checkedAt": "2026-08-07T12:24:31.060Z",
       "fetchedPosts": 19,
       "freshPosts": 5,
       "latestPostAt": "2026-08-07T10:42:34+00:00",
@@ -4121,7 +4051,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-07T11:25:12.953Z",
+      "checkedAt": "2026-08-07T12:24:31.060Z",
       "fetchedPosts": 14,
       "freshPosts": 2,
       "latestPostAt": "2026-08-06T14:55:11+00:00",
@@ -4131,7 +4061,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-07T11:25:12.953Z",
+      "checkedAt": "2026-08-07T12:24:31.060Z",
       "fetchedPosts": 13,
       "freshPosts": 11,
       "latestPostAt": "2026-08-07T11:05:38+00:00",
@@ -4141,7 +4071,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-07T11:25:12.953Z",
+      "checkedAt": "2026-08-07T12:24:31.060Z",
       "fetchedPosts": 6,
       "freshPosts": 6,
       "latestPostAt": "2026-08-07T10:56:29+00:00",

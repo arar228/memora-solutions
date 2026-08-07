@@ -1,7 +1,182 @@
 {
-  "updatedAt": "2026-08-07T13:52:44.848Z",
+  "updatedAt": "2026-08-07T15:02:58.520Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 14000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-08",
+      "returnDate": null,
+      "date": "2026-08-07T14:58:53+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/DLM0808KZN1?marker=748397&currency=rub",
+      "text": "Даламан (Турция) — Казань за 14000Р в одну сторону, вылет 08 августа, суббота, прямой с багажом\n—"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 16500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-11",
+      "returnDate": null,
+      "date": "2026-08-07T14:58:53+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KZN1108DLM1?marker=748397&currency=rub",
+      "text": "Казань — Даламан (Турция) от 16500Р в одну сторону, вылет 11 августа, вторник, прямые с багажом\n—"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "ОАЭ",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "country"
+      },
+      "price": 46800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-08-07T14:39:27+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/gG2XdV",
+      "text": "🔥 в ОАЭ на неделю в 4-5* в сентябре от 46 800/чел  (скидка по промокоду 1700Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 47300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08",
+      "returnDate": null,
+      "date": "2026-08-07T14:39:27+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/V5a0Fc",
+      "text": "🔥 в Турцию на неделю в 4-5* с вылетами в конце августа или начале сентября от 47 300/чел, все включено, с топливными сборами"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "price": 58600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-27",
+      "returnDate": null,
+      "date": "2026-08-07T14:39:27+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/4jWVTV",
+      "text": "🔥 в Египет на две недели с вылетом в конце августа от 58 600/чел, все включено  (вылеты 27, 28 авг, скидка по промокоду 2500Lucky)"
+    },
     {
       "type": "flight",
       "from": {
@@ -2895,41 +3070,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 27600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-07",
-      "returnDate": "2026-08-15",
-      "date": "2026-08-06T09:38:32+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW0708CXR1?marker=748397&currency=rub",
-      "text": "Москва — Нячанг (Вьетнам) от 27600Р в одну сторону или 58100Р туда и обратно, рейсы прямые с багажом\n— 07.08 — 27600Р\n— 07-15.08 — 58100Р\n— 07-17.08 — 65700Р\n— 07-19.08 — 65200Р\n— 09-17.08 — 61700Р\n— "
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Сочи",
         "code": "AER",
         "country": {
@@ -3891,85 +4031,15 @@
       "source": "leveltravel",
       "link": "https://lvtv.me/hjXo1q6",
       "text": "🔥Ого!\n \"На территории видели варана, чёрных обезьян, белок, павлинов\".\n🔥 Обратите внимание на Araliya Beach Resort & Spa 5* на Шри-Ланке с инфинити-бассейном.\nТуры туда с проживанием и перелетами ст"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 52877,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 9,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-05T14:49:37+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=egiptDOP&utm_term=0508#?fromCity=2&toCountry=29&toCity=586.591.592.597.598.4125&dateFrom=03.09.2026&dateTo=03.09.2026&nightFrom=9&nightTo=9&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=xv5zx2hu6j&sort=priceUp&f_good=true",
-      "text": "⚡️ЕГИПЕТ в самый СЕЗОН, всё включено на 9 ночей, туры от 52 877 ₽/чел.! Также в туре перелёт, проживание, медицинская страховка и трансфер🚘"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Самара",
-        "code": "KUF",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 13300,
-      "oldPrice": 25829,
-      "savings": 12529,
-      "discount": 0.49,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-05T14:15:33+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/KUF0609IST1?marker=748397&currency=rub",
-      "text": "Уже завтра прямыми рейсами угоняем в Турцию за 13300 рублей туда-обратно!\nГотовые на всё сюда:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "checkedAt": "2026-08-07T15:02:58.333Z",
       "fetchedPosts": 19,
-      "freshPosts": 14,
+      "freshPosts": 13,
       "latestPostAt": "2026-08-07T13:08:36+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3977,7 +4047,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "checkedAt": "2026-08-07T15:02:58.333Z",
       "fetchedPosts": 19,
       "freshPosts": 19,
       "latestPostAt": "2026-08-07T13:08:59+00:00",
@@ -3987,17 +4057,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "checkedAt": "2026-08-07T15:02:58.333Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-07T13:16:03+00:00",
+      "latestPostAt": "2026-08-07T14:58:53+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "checkedAt": "2026-08-07T15:02:58.333Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-07T12:38:16+00:00",
@@ -4007,29 +4077,29 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "checkedAt": "2026-08-07T15:02:58.333Z",
       "fetchedPosts": 19,
-      "freshPosts": 5,
-      "latestPostAt": "2026-08-07T10:42:34+00:00",
+      "freshPosts": 6,
+      "latestPostAt": "2026-08-07T14:39:27+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-07T13:52:44.670Z",
-      "fetchedPosts": 14,
-      "freshPosts": 2,
-      "latestPostAt": "2026-08-06T14:55:11+00:00",
+      "checkedAt": "2026-08-07T15:02:58.333Z",
+      "fetchedPosts": 15,
+      "freshPosts": 3,
+      "latestPostAt": "2026-08-07T14:36:39+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "checkedAt": "2026-08-07T15:02:58.333Z",
       "fetchedPosts": 13,
-      "freshPosts": 11,
+      "freshPosts": 10,
       "latestPostAt": "2026-08-07T13:00:14+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4037,7 +4107,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-07T13:52:44.670Z",
+      "checkedAt": "2026-08-07T15:02:58.333Z",
       "fetchedPosts": 7,
       "freshPosts": 7,
       "latestPostAt": "2026-08-07T12:36:39+00:00",

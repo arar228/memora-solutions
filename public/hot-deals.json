@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-08T07:55:40.911Z",
+  "updatedAt": "2026-08-08T08:52:37.301Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бильбао",
+        "code": "BIO",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 20800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11",
+      "returnDate": null,
+      "date": "2026-08-08T08:20:07+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/LED0111BIO1?marker=748397&currency=rub",
+      "text": "Петербург, вам тоже перепало: \nПолёты в страну Басков в ноябре-январе за 20800 рублей туда-обратно!"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кемер",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 236873,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-02",
+      "returnDate": "2026-09-09",
+      "date": "2026-08-08T08:19:22+00:00",
+      "source": "leveltravel",
+      "link": "https://www.aviasales.ru/search/ANY0209AYT1?marker=748397&currency=rub",
+      "text": "🏖Ulusoy Kemer Holiday Club 5* от 236 873 ₽ \n🏝 Mirage Park Resort 5* от 310 361 ₽ \n🚩Akka Hotels Antedon 5* от 300 719 ₽"
+    },
     {
       "type": "tour",
       "from": {
@@ -3146,210 +3216,25 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/LED0709SSH1?marker=748397&currency=rub",
       "text": "из Петербурга в Шарм-эш-Шейх 🇪🇬 за 9 500 р. OW (осенью)\nAjet, пересадка в Стамбуле -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Франкфурт",
-        "code": "FRA",
-        "country": {
-          "ru": "Германия",
-          "en": "Germany"
-        },
-        "kind": "city"
-      },
-      "price": 9600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Анкара",
-          "code": "ESB"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-06T08:41:13+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0108FRA1?marker=748397&currency=rub",
-      "text": "из Петербурга во Франкфурт 🇩🇪 за 9 600 р. OW (в августе и сентябре)\nAjet, через Анкару - \nВсе даты:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кувейт",
-        "code": "KWI",
-        "country": {
-          "ru": "Кувейт",
-          "en": "Kuwait"
-        },
-        "kind": "country"
-      },
-      "price": 23100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Анкара",
-          "code": "ESB"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-06T08:41:13+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0108KWI1?marker=748397&currency=rub",
-      "text": "из Москвы в Кувейт 🇰🇼 за 23 100 р. RT (осенью)\nJazeera Airways, прямые рейсы - \nВсе даты:"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 45200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "returnDate": null,
-      "date": "2026-08-06T08:16:44+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/6Jq3LH",
-      "text": "🔥 в Турцию (Анталийское побережье) на неделю в начале сентября с проживанием в 4-5* от 45 200/чел, все включено, с топливными сборами  (скидка по промокоду 1700Lucky или 2500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 52300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-06T08:16:44+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/Fh0Kpq",
-      "text": "🔥 в Турцию (Мармарис) на неделю с вылетом в конце августа от 52 300/чел, все включено, с топливными сборами"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 53600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-06T08:16:44+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/X0mHvX",
-      "text": "🔥 в Турцию (Каппадокия) на 5-7 ночей в августе от 53 600/чел  (скидка по промокоду 2500Lucky, туры на регулярных рейсах, есть доплаты за багаж и индивидуальный трансфер, если они необходимы)"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-08T07:55:40.744Z",
-      "fetchedPosts": 19,
-      "freshPosts": 11,
-      "latestPostAt": "2026-08-07T13:08:36+00:00",
+      "checkedAt": "2026-08-08T08:52:37.131Z",
+      "fetchedPosts": 20,
+      "freshPosts": 12,
+      "latestPostAt": "2026-08-08T08:20:07+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-08T07:55:40.744Z",
+      "checkedAt": "2026-08-08T08:52:37.131Z",
       "fetchedPosts": 19,
-      "freshPosts": 19,
+      "freshPosts": 18,
       "latestPostAt": "2026-08-07T18:21:01+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3357,7 +3242,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-08T07:55:40.744Z",
+      "checkedAt": "2026-08-08T08:52:37.131Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-08T06:02:18+00:00",
@@ -3367,7 +3252,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-08T07:55:40.744Z",
+      "checkedAt": "2026-08-08T08:52:37.131Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-07T12:38:16+00:00",
@@ -3377,9 +3262,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-08T07:55:40.744Z",
+      "checkedAt": "2026-08-08T08:52:37.131Z",
       "fetchedPosts": 19,
-      "freshPosts": 6,
+      "freshPosts": 5,
       "latestPostAt": "2026-08-07T14:39:27+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3387,7 +3272,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-08T07:55:40.744Z",
+      "checkedAt": "2026-08-08T08:52:37.131Z",
       "fetchedPosts": 15,
       "freshPosts": 2,
       "latestPostAt": "2026-08-07T14:36:39+00:00",
@@ -3397,20 +3282,20 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-08T07:55:40.744Z",
+      "checkedAt": "2026-08-08T08:52:37.131Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
-      "latestPostAt": "2026-08-08T06:10:51+00:00",
+      "latestPostAt": "2026-08-08T08:16:11+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-08T07:55:40.744Z",
-      "fetchedPosts": 8,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-07T17:50:26+00:00",
+      "checkedAt": "2026-08-08T08:52:37.131Z",
+      "fetchedPosts": 9,
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-08T08:19:22+00:00",
       "reusedPrevious": false,
       "error": null
     }

@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-09T17:38:52.265Z",
+  "updatedAt": "2026-08-09T18:53:37.647Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Стамбул",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 8100,
+      "oldPrice": 19256,
+      "savings": 11156,
+      "discount": 0.58,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-21",
+      "returnDate": null,
+      "date": "2026-08-09T18:34:54+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2110IST1?marker=748397&currency=rub",
+      "text": "Москва — Стамбул от 8100₽ в одну сторону, вылеты в октябре, рейсы прямые, ручная кладь\n— 21.10 - 8100₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -1071,48 +1106,13 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/HRG0908MOW1?marker=748397&currency=rub",
       "text": "Хургада — Москва от 4500₽ в одну сторону, вылет в августе, рейсы прямые, с багажом\n— 09.08 - 4500₽\n— 10.08 - 5400₽"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 208723,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08-25",
-      "returnDate": "2026-09-01",
-      "date": "2026-08-07T17:50:26+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/WWl02Nn",
-      "text": "🕊Ничего себе! Это отель-дворец, где отдыхают без детей: здесь ждут только гостей старше 16 лет. Знакомьтесь: египетский Premier Le Reve Hotel & Spa 5* в Хургаде. Главные плюсы отеля коротко:\n🔥 Конце"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-09T17:38:52.124Z",
+      "checkedAt": "2026-08-09T18:53:37.502Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-09T07:02:26+00:00",
@@ -1122,9 +1122,9 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-09T17:38:52.124Z",
+      "checkedAt": "2026-08-09T18:53:37.502Z",
       "fetchedPosts": 18,
-      "freshPosts": 6,
+      "freshPosts": 5,
       "latestPostAt": "2026-08-09T15:59:12+00:00",
       "reusedPrevious": false,
       "error": null
@@ -1132,17 +1132,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-09T17:38:52.124Z",
+      "checkedAt": "2026-08-09T18:53:37.502Z",
       "fetchedPosts": 20,
-      "freshPosts": 17,
-      "latestPostAt": "2026-08-09T17:34:57+00:00",
+      "freshPosts": 18,
+      "latestPostAt": "2026-08-09T18:34:54+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "idle",
-      "checkedAt": "2026-08-09T17:38:52.124Z",
+      "checkedAt": "2026-08-09T18:53:37.502Z",
       "fetchedPosts": 20,
       "freshPosts": 0,
       "latestPostAt": "2026-08-07T12:38:16+00:00",
@@ -1152,7 +1152,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-09T17:38:52.124Z",
+      "checkedAt": "2026-08-09T18:53:37.502Z",
       "fetchedPosts": 18,
       "freshPosts": 5,
       "latestPostAt": "2026-08-09T13:10:05+00:00",
@@ -1162,7 +1162,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-09T17:38:52.124Z",
+      "checkedAt": "2026-08-09T18:53:37.502Z",
       "fetchedPosts": 15,
       "freshPosts": 0,
       "latestPostAt": "2026-08-07T14:36:39+00:00",
@@ -1172,7 +1172,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-09T17:38:52.124Z",
+      "checkedAt": "2026-08-09T18:53:37.502Z",
       "fetchedPosts": 10,
       "freshPosts": 6,
       "latestPostAt": "2026-08-09T10:15:45+00:00",
@@ -1182,9 +1182,9 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-09T17:38:52.124Z",
+      "checkedAt": "2026-08-09T18:53:37.502Z",
       "fetchedPosts": 6,
-      "freshPosts": 4,
+      "freshPosts": 3,
       "latestPostAt": "2026-08-08T16:28:23+00:00",
       "reusedPrevious": false,
       "error": null

@@ -1,7 +1,47 @@
 {
-  "updatedAt": "2026-08-09T15:03:27.894Z",
+  "updatedAt": "2026-08-09T15:39:38.072Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Майами",
+        "code": "MIA",
+        "country": {
+          "ru": "США",
+          "en": "United States"
+        },
+        "kind": "city"
+      },
+      "price": 80100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-12-16",
+      "returnDate": "2027-01-15",
+      "date": "2026-08-09T15:12:16+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1612MIA1?marker=748397&currency=rub",
+      "text": "🎄 Москва — Майами (США) от 80100Р туда и обратно с захватом Нового года, Рождества и нашего Рождества, рейсы с короткой\\подлиннее пересадкой в Касабланке (Марокко) и багажом\n— 16.12-15.01 — 80100Р"
+    },
     {
       "type": "tour",
       "from": {
@@ -1032,7 +1072,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:03:27.766Z",
+      "checkedAt": "2026-08-09T15:39:37.943Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-09T07:02:26+00:00",
@@ -1042,7 +1082,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:03:27.766Z",
+      "checkedAt": "2026-08-09T15:39:37.943Z",
       "fetchedPosts": 18,
       "freshPosts": 6,
       "latestPostAt": "2026-08-09T09:25:05+00:00",
@@ -1052,17 +1092,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:03:27.766Z",
+      "checkedAt": "2026-08-09T15:39:37.943Z",
       "fetchedPosts": 20,
-      "freshPosts": 14,
-      "latestPostAt": "2026-08-09T13:29:39+00:00",
+      "freshPosts": 15,
+      "latestPostAt": "2026-08-09T15:12:16+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "idle",
-      "checkedAt": "2026-08-09T15:03:27.766Z",
+      "checkedAt": "2026-08-09T15:39:37.944Z",
       "fetchedPosts": 20,
       "freshPosts": 0,
       "latestPostAt": "2026-08-07T12:38:16+00:00",
@@ -1072,7 +1112,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:03:27.766Z",
+      "checkedAt": "2026-08-09T15:39:37.944Z",
       "fetchedPosts": 18,
       "freshPosts": 5,
       "latestPostAt": "2026-08-09T13:10:05+00:00",
@@ -1082,7 +1122,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-09T15:03:27.766Z",
+      "checkedAt": "2026-08-09T15:39:37.944Z",
       "fetchedPosts": 15,
       "freshPosts": 0,
       "latestPostAt": "2026-08-07T14:36:39+00:00",
@@ -1092,7 +1132,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:03:27.766Z",
+      "checkedAt": "2026-08-09T15:39:37.944Z",
       "fetchedPosts": 10,
       "freshPosts": 6,
       "latestPostAt": "2026-08-09T10:15:45+00:00",
@@ -1102,7 +1142,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:03:27.766Z",
+      "checkedAt": "2026-08-09T15:39:37.944Z",
       "fetchedPosts": 6,
       "freshPosts": 4,
       "latestPostAt": "2026-08-08T16:28:23+00:00",

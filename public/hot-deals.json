@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-09T15:39:38.072Z",
+  "updatedAt": "2026-08-09T16:46:22.409Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бодрум",
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 11200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-10",
+      "returnDate": null,
+      "date": "2026-08-09T16:26:30+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1008BJV1?marker=748397&currency=rub",
+      "text": "Москва — Бодрум от 11200₽ в одну сторону, вылеты в августе, рейсы прямые, с багажом\n— 10.08 - 11200₽\n— 23.08 - 13500₽\n— 24.08 - 13500₽\n— 26.08 - 12400₽\n— 27.08 - 12400₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -1031,48 +1066,13 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/BJV1108LED1?marker=748397&currency=rub",
       "text": "Бодрум (Турция) — Санкт-Петербург от 11500Р в одну сторону, прямой с багажом\n— 11.08 — 11500Р"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Алматы",
-        "code": "ALA",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мале",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "city"
-      },
-      "price": 20100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-26",
-      "returnDate": null,
-      "date": "2026-08-07T16:21:45+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/ALA2608MLE1?marker=748397&currency=rub",
-      "text": "Алматы — Мале (Мальдивы) от 20100Р в одну сторону, вылет 26 августа, прямой с багажом\n—"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:39:37.943Z",
+      "checkedAt": "2026-08-09T16:46:22.277Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-09T07:02:26+00:00",
@@ -1082,27 +1082,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:39:37.943Z",
+      "checkedAt": "2026-08-09T16:46:22.278Z",
       "fetchedPosts": 18,
-      "freshPosts": 6,
-      "latestPostAt": "2026-08-09T09:25:05+00:00",
+      "freshPosts": 7,
+      "latestPostAt": "2026-08-09T15:59:12+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:39:37.943Z",
+      "checkedAt": "2026-08-09T16:46:22.278Z",
       "fetchedPosts": 20,
-      "freshPosts": 15,
-      "latestPostAt": "2026-08-09T15:12:16+00:00",
+      "freshPosts": 16,
+      "latestPostAt": "2026-08-09T16:40:10+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "idle",
-      "checkedAt": "2026-08-09T15:39:37.944Z",
+      "checkedAt": "2026-08-09T16:46:22.278Z",
       "fetchedPosts": 20,
       "freshPosts": 0,
       "latestPostAt": "2026-08-07T12:38:16+00:00",
@@ -1112,7 +1112,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:39:37.944Z",
+      "checkedAt": "2026-08-09T16:46:22.278Z",
       "fetchedPosts": 18,
       "freshPosts": 5,
       "latestPostAt": "2026-08-09T13:10:05+00:00",
@@ -1122,7 +1122,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-09T15:39:37.944Z",
+      "checkedAt": "2026-08-09T16:46:22.278Z",
       "fetchedPosts": 15,
       "freshPosts": 0,
       "latestPostAt": "2026-08-07T14:36:39+00:00",
@@ -1132,7 +1132,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:39:37.944Z",
+      "checkedAt": "2026-08-09T16:46:22.278Z",
       "fetchedPosts": 10,
       "freshPosts": 6,
       "latestPostAt": "2026-08-09T10:15:45+00:00",
@@ -1142,7 +1142,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-09T15:39:37.944Z",
+      "checkedAt": "2026-08-09T16:46:22.278Z",
       "fetchedPosts": 6,
       "freshPosts": 4,
       "latestPostAt": "2026-08-08T16:28:23+00:00",

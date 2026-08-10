@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-10T15:08:27.452Z",
+  "updatedAt": "2026-08-10T16:25:52.089Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 182000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-09-03",
+      "returnDate": "2026-09-10",
+      "date": "2026-08-10T15:52:54+00:00",
+      "source": "travelradar",
+      "link": "https://travelradar.ru/t/SVJ6a?s=tg&erid=2VtzqwgjJHU",
+      "text": "🇪🇬 Хургада, Jasmine Palace Resort & Spa 5★ — All Inclusive\n• 7 ночей\n• питание — All Inclusive\n• ~182.000 рублей за двоих\n• вылет 03.09.2026\n• из Петербурга\n• 🚐 трансфер аэропорт ↔ отель — включён\n"
+    },
     {
       "type": "flight",
       "from": {
@@ -2098,81 +2133,6 @@
       "text": "Москва — Токио — Осака — Москва от 63300₽ в обе стороны, вылеты в сентябре, комфортные стыковки в Абу-Даби, ручная кладь.\n— 03.09 - 13.09 - 63300₽"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бодрум",
-        "code": "BJV",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 11200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-10",
-      "returnDate": null,
-      "date": "2026-08-09T16:26:30+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1008BJV1?marker=748397&currency=rub",
-      "text": "Москва — Бодрум от 11200₽ в одну сторону, вылеты в августе, рейсы прямые, с багажом\n— 10.08 - 11200₽\n— 23.08 - 13500₽\n— 24.08 - 13500₽\n— 26.08 - 12400₽\n— 27.08 - 12400₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Майами",
-        "code": "MIA",
-        "country": {
-          "ru": "США",
-          "en": "United States"
-        },
-        "kind": "city"
-      },
-      "price": 80100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Касабланка",
-          "code": "CMN"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-12-16",
-      "returnDate": "2027-01-15",
-      "date": "2026-08-09T15:12:16+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1612MIA1?marker=748397&currency=rub",
-      "text": "🎄 Москва — Майами (США) от 80100Р туда и обратно с захватом Нового года, Рождества и нашего Рождества, рейсы с короткой\\подлиннее пересадкой в Касабланке (Марокко) и багажом\n— 16.12-15.01 — 80100Р"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Москва",
@@ -2387,7 +2347,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-10T15:08:27.308Z",
+      "checkedAt": "2026-08-10T16:25:51.959Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-10T14:39:31+00:00",
@@ -2397,7 +2357,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-10T15:08:27.308Z",
+      "checkedAt": "2026-08-10T16:25:51.959Z",
       "fetchedPosts": 19,
       "freshPosts": 11,
       "latestPostAt": "2026-08-10T13:58:29+00:00",
@@ -2407,17 +2367,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-10T15:08:27.308Z",
+      "checkedAt": "2026-08-10T16:25:51.959Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-10T14:19:18+00:00",
+      "latestPostAt": "2026-08-10T15:58:34+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-10T15:08:27.308Z",
+      "checkedAt": "2026-08-10T16:25:51.959Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-10T14:16:40+00:00",
@@ -2427,7 +2387,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-10T15:08:27.308Z",
+      "checkedAt": "2026-08-10T16:25:51.960Z",
       "fetchedPosts": 18,
       "freshPosts": 4,
       "latestPostAt": "2026-08-10T09:06:12+00:00",
@@ -2436,18 +2396,18 @@
     },
     {
       "channel": "onlinetours",
-      "status": "idle",
-      "checkedAt": "2026-08-10T15:08:27.308Z",
-      "fetchedPosts": 15,
-      "freshPosts": 0,
-      "latestPostAt": "2026-08-07T14:36:39+00:00",
+      "status": "ok",
+      "checkedAt": "2026-08-10T16:25:51.960Z",
+      "fetchedPosts": 16,
+      "freshPosts": 1,
+      "latestPostAt": "2026-08-10T15:19:12+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-10T15:08:27.308Z",
+      "checkedAt": "2026-08-10T16:25:51.960Z",
       "fetchedPosts": 10,
       "freshPosts": 9,
       "latestPostAt": "2026-08-10T15:04:05+00:00",
@@ -2457,7 +2417,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-10T15:08:27.308Z",
+      "checkedAt": "2026-08-10T16:25:51.960Z",
       "fetchedPosts": 9,
       "freshPosts": 4,
       "latestPostAt": "2026-08-10T12:53:02+00:00",

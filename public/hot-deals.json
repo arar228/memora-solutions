@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-10T17:29:36.785Z",
+  "updatedAt": "2026-08-10T18:26:08.825Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 18700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-12-31",
+      "returnDate": null,
+      "date": "2026-08-10T18:10:01+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/CXR3112MOW1?marker=748397&currency=rub",
+      "text": "Нячанг — Москва от 18700₽ в одну сторону, вылет 31 декабря, рейсы прямые, с багажом\n— 31.12 - 18700₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -2128,41 +2163,6 @@
       "text": "✈️В Бильбао в ноябре и декабре за 21.800 руб туда-обратно, стыковки в Стамбуле"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 8100,
-      "oldPrice": 19256,
-      "savings": 11156,
-      "discount": 0.58,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-21",
-      "returnDate": null,
-      "date": "2026-08-09T18:34:54+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2110IST1?marker=748397&currency=rub",
-      "text": "Москва — Стамбул от 8100₽ в одну сторону, вылеты в октябре, рейсы прямые, ручная кладь\n— 21.10 - 8100₽"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Москва",
@@ -2342,7 +2342,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-10T17:29:36.633Z",
+      "checkedAt": "2026-08-10T18:26:08.672Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-10T14:39:31+00:00",
@@ -2352,27 +2352,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-10T17:29:36.633Z",
+      "checkedAt": "2026-08-10T18:26:08.672Z",
       "fetchedPosts": 19,
-      "freshPosts": 11,
-      "latestPostAt": "2026-08-10T13:58:29+00:00",
+      "freshPosts": 12,
+      "latestPostAt": "2026-08-10T18:21:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-10T17:29:36.633Z",
+      "checkedAt": "2026-08-10T18:26:08.672Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-10T17:10:40+00:00",
+      "latestPostAt": "2026-08-10T18:10:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-10T17:29:36.633Z",
+      "checkedAt": "2026-08-10T18:26:08.672Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-10T14:16:40+00:00",
@@ -2382,7 +2382,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-10T17:29:36.633Z",
+      "checkedAt": "2026-08-10T18:26:08.672Z",
       "fetchedPosts": 18,
       "freshPosts": 4,
       "latestPostAt": "2026-08-10T09:06:12+00:00",
@@ -2392,7 +2392,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-10T17:29:36.634Z",
+      "checkedAt": "2026-08-10T18:26:08.672Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-10T15:19:12+00:00",
@@ -2402,7 +2402,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-10T17:29:36.634Z",
+      "checkedAt": "2026-08-10T18:26:08.672Z",
       "fetchedPosts": 10,
       "freshPosts": 9,
       "latestPostAt": "2026-08-10T15:04:05+00:00",
@@ -2412,7 +2412,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-10T17:29:36.634Z",
+      "checkedAt": "2026-08-10T18:26:08.672Z",
       "fetchedPosts": 9,
       "freshPosts": 3,
       "latestPostAt": "2026-08-10T12:53:02+00:00",

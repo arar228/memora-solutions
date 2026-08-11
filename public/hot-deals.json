@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T18:27:56.093Z",
+  "updatedAt": "2026-08-11T19:38:20.727Z",
   "marker": "748397",
   "deals": [
     {
@@ -98,9 +98,9 @@
         "kind": "city"
       },
       "price": 9400,
-      "oldPrice": 17389,
-      "savings": 7989,
-      "discount": 0.46,
+      "oldPrice": 22757,
+      "savings": 13357,
+      "discount": 0.59,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -133,8 +133,8 @@
         "kind": "city"
       },
       "price": 27800,
-      "oldPrice": 34772,
-      "savings": 6972,
+      "oldPrice": 34809,
+      "savings": 7009,
       "discount": 0.2,
       "oneway": false,
       "roundTrip": true,
@@ -698,9 +698,9 @@
         "kind": "city"
       },
       "price": 5400,
-      "oldPrice": 17870,
-      "savings": 12470,
-      "discount": 0.7,
+      "oldPrice": 22747,
+      "savings": 17347,
+      "discount": 0.76,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -878,9 +878,9 @@
         "kind": "country"
       },
       "price": 9700,
-      "oldPrice": 18833,
-      "savings": 9133,
-      "discount": 0.48,
+      "oldPrice": 31319,
+      "savings": 21619,
+      "discount": 0.69,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -913,8 +913,8 @@
         "kind": "city"
       },
       "price": 22800,
-      "oldPrice": 28219,
-      "savings": 5419,
+      "oldPrice": 28220,
+      "savings": 5420,
       "discount": 0.19,
       "oneway": true,
       "roundTrip": false,
@@ -983,9 +983,9 @@
         "kind": "city"
       },
       "price": 9900,
-      "oldPrice": 18551,
-      "savings": 8651,
-      "discount": 0.47,
+      "oldPrice": 19927,
+      "savings": 10027,
+      "discount": 0.5,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -1150,41 +1150,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Даламан",
-        "code": "DLM",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 12200,
-      "oldPrice": 20969,
-      "savings": 8769,
-      "discount": 0.42,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-12",
-      "returnDate": "2026-08-18",
-      "date": "2026-08-11T09:20:34+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1208DLM1?marker=748397&currency=rub",
-      "text": "Москва — Даламан от 12200₽ в одну сторону, вылет завтра утром, рейсы прямые, с багажом\n— 12.08 - 12200₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Даламан",
         "code": "DLM",
         "country": {
@@ -1216,6 +1181,41 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/DLM1808MOW1?marker=748397&currency=rub",
       "text": "Даламан — Москва от 11800₽ в одну сторону, вылеты на следующей неделе рейсы прямые, с багажом\n— 18.08 - 11800₽\n— 23.08 - 13200₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 12200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-12",
+      "returnDate": "2026-08-18",
+      "date": "2026-08-11T09:20:34+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1208DLM1?marker=748397&currency=rub",
+      "text": "Москва — Даламан от 12200₽ в одну сторону, вылет завтра утром, рейсы прямые, с багажом\n— 12.08 - 12200₽"
     },
     {
       "type": "flight",
@@ -1663,9 +1663,9 @@
         "kind": "city"
       },
       "price": 4500,
-      "oldPrice": 18551,
-      "savings": 14051,
-      "discount": 0.76,
+      "oldPrice": 19927,
+      "savings": 15427,
+      "discount": 0.77,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -1698,8 +1698,8 @@
         "kind": "city"
       },
       "price": 12900,
-      "oldPrice": 14121,
-      "savings": 1221,
+      "oldPrice": 14120,
+      "savings": 1220,
       "discount": 0.09,
       "oneway": false,
       "roundTrip": true,
@@ -1983,9 +1983,9 @@
         "kind": "city"
       },
       "price": 11100,
-      "oldPrice": 17389,
-      "savings": 6289,
-      "discount": 0.36,
+      "oldPrice": 22757,
+      "savings": 11657,
+      "discount": 0.51,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -2733,9 +2733,9 @@
         "kind": "city"
       },
       "price": 6400,
-      "oldPrice": 17389,
-      "savings": 10989,
-      "discount": 0.63,
+      "oldPrice": 22757,
+      "savings": 16357,
+      "discount": 0.72,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -2943,9 +2943,9 @@
         "kind": "city"
       },
       "price": 20500,
-      "oldPrice": 22706,
-      "savings": 2206,
-      "discount": 0.1,
+      "oldPrice": 20660,
+      "savings": 160,
+      "discount": 0.01,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -3263,8 +3263,8 @@
         "kind": "city"
       },
       "price": 4700,
-      "oldPrice": 8256,
-      "savings": 3556,
+      "oldPrice": 8255,
+      "savings": 3555,
       "discount": 0.43,
       "oneway": false,
       "roundTrip": true,
@@ -3392,17 +3392,17 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-11T18:27:55.924Z",
+      "checkedAt": "2026-08-11T19:38:20.547Z",
       "fetchedPosts": 20,
-      "freshPosts": 10,
-      "latestPostAt": "2026-08-11T11:54:26+00:00",
+      "freshPosts": 11,
+      "latestPostAt": "2026-08-11T18:38:47+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-11T18:27:55.924Z",
+      "checkedAt": "2026-08-11T19:38:20.547Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-11T18:21:00+00:00",
@@ -3412,7 +3412,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-11T18:27:55.924Z",
+      "checkedAt": "2026-08-11T19:38:20.547Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-11T17:44:53+00:00",
@@ -3422,7 +3422,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-11T18:27:55.924Z",
+      "checkedAt": "2026-08-11T19:38:20.547Z",
       "fetchedPosts": 20,
       "freshPosts": 15,
       "latestPostAt": "2026-08-11T13:21:37+00:00",
@@ -3432,7 +3432,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-11T18:27:55.924Z",
+      "checkedAt": "2026-08-11T19:38:20.547Z",
       "fetchedPosts": 18,
       "freshPosts": 8,
       "latestPostAt": "2026-08-11T11:56:11+00:00",
@@ -3442,7 +3442,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-11T18:27:55.924Z",
+      "checkedAt": "2026-08-11T19:38:20.547Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-11T13:00:00+00:00",
@@ -3452,7 +3452,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-11T18:27:55.924Z",
+      "checkedAt": "2026-08-11T19:38:20.547Z",
       "fetchedPosts": 14,
       "freshPosts": 11,
       "latestPostAt": "2026-08-11T14:27:09+00:00",
@@ -3462,7 +3462,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-11T18:27:55.924Z",
+      "checkedAt": "2026-08-11T19:38:20.547Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-11T14:10:18+00:00",

@@ -1,7 +1,257 @@
 {
-  "updatedAt": "2026-08-11T11:23:56.548Z",
+  "updatedAt": "2026-08-11T12:24:36.683Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Берлин",
+        "code": "BER",
+        "country": {
+          "ru": "Германия",
+          "en": "Germany"
+        },
+        "kind": "city"
+      },
+      "price": 26200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Турция",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-11T12:13:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1009BER1?marker=748397&currency=rub",
+      "text": "из Москвы в Берлин 🇩🇪 за 26 200 р. RT (на Рождество и Новый год)\nAjet, пересадки в Турции - \nВсе даты:"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Таиланд",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "country"
+      },
+      "price": 61500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 12,
+      "departDate": "2026-08-20",
+      "returnDate": "2026-09-01",
+      "date": "2026-08-11T11:56:11+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/89G5Jg",
+      "text": "🔥 в Таиланд (Пхукет) на 12 ночей с 20 августа от 61 500/чел  (скидка по промокоду 2500Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "price": 58400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08",
+      "returnDate": null,
+      "date": "2026-08-11T11:46:39+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/4znwDC",
+      "text": "🔥 из Москвы в Египет на неделю в 4-5* с вылетом в конце августа от 58 400/чел, все включено"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Таиланд",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "country"
+      },
+      "price": 69600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 12,
+      "departDate": "2026-08-26",
+      "returnDate": "2026-09-07",
+      "date": "2026-08-11T11:46:39+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/m59cXy",
+      "text": "🔥 из Петербурга в Таиланд (Пхукет) на 7-12 ночей с 26 августа от 69 600/чел  (скидка по промокоду 2500Lucky)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Алтай",
+        "code": "RGK",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 9100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-11T11:29:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX1009RGK1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга на Алтай 🇷🇺 за 9 100 р. RT (осенью)\nRed Wings, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сургут",
+        "code": "SGC",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 9300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-11T11:29:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX1009SGC1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Сургут 🇷🇺 за 9 300 р. RT (осенью и зимой)\nRed Wings, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кемерово",
+        "code": "KEJ",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 9300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-11T11:29:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX1009KEJ1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Кемерово 🇷🇺 за 9 300 р. RT (осенью и зимой)\nRed Wings, прямые рейсы -"
+    },
     {
       "type": "flight",
       "from": {
@@ -3137,27 +3387,27 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-11T11:23:56.379Z",
+      "checkedAt": "2026-08-11T12:24:36.497Z",
       "fetchedPosts": 20,
-      "freshPosts": 9,
-      "latestPostAt": "2026-08-11T10:40:56+00:00",
+      "freshPosts": 10,
+      "latestPostAt": "2026-08-11T11:54:26+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-11T11:23:56.380Z",
+      "checkedAt": "2026-08-11T12:24:36.497Z",
       "fetchedPosts": 20,
-      "freshPosts": 18,
-      "latestPostAt": "2026-08-11T10:44:02+00:00",
+      "freshPosts": 20,
+      "latestPostAt": "2026-08-11T12:13:13+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-11T11:23:56.380Z",
+      "checkedAt": "2026-08-11T12:24:36.497Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-11T10:49:58+00:00",
@@ -3167,7 +3417,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-11T11:23:56.380Z",
+      "checkedAt": "2026-08-11T12:24:36.497Z",
       "fetchedPosts": 20,
       "freshPosts": 15,
       "latestPostAt": "2026-08-11T09:35:17+00:00",
@@ -3177,17 +3427,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-11T11:23:56.380Z",
-      "fetchedPosts": 19,
-      "freshPosts": 8,
-      "latestPostAt": "2026-08-11T10:12:36+00:00",
+      "checkedAt": "2026-08-11T12:24:36.497Z",
+      "fetchedPosts": 18,
+      "freshPosts": 10,
+      "latestPostAt": "2026-08-11T11:56:11+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-11T11:23:56.380Z",
+      "checkedAt": "2026-08-11T12:24:36.497Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-10T15:19:12+00:00",
@@ -3197,7 +3447,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-11T11:23:56.380Z",
+      "checkedAt": "2026-08-11T12:24:36.497Z",
       "fetchedPosts": 12,
       "freshPosts": 9,
       "latestPostAt": "2026-08-11T08:15:45+00:00",
@@ -3207,7 +3457,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-11T11:23:56.380Z",
+      "checkedAt": "2026-08-11T12:24:36.497Z",
       "fetchedPosts": 10,
       "freshPosts": 4,
       "latestPostAt": "2026-08-11T09:18:01+00:00",

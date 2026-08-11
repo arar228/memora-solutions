@@ -1,7 +1,152 @@
 {
-  "updatedAt": "2026-08-11T10:26:58.206Z",
+  "updatedAt": "2026-08-11T11:23:56.548Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Самарканд",
+        "code": "SKD",
+        "country": {
+          "ru": "Узбекистан",
+          "en": "Uzbekistan"
+        },
+        "kind": "city"
+      },
+      "price": 5400,
+      "oldPrice": 17838,
+      "savings": 12438,
+      "discount": 0.7,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-11T10:44:02+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1009SKD1?marker=748397&currency=rub",
+      "text": "из Москвы в Самарканд 🇺🇿 за 5 400 р. OW (зимой)\nПобеда, прямой рейс -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Омск",
+        "code": "OMS",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Астана",
+        "code": "NQZ",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "price": 10000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-11T10:44:02+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/OMS1009NQZ1?marker=748397&currency=rub",
+      "text": "из Омска в Астану 🇰🇿 за 10 000 р. RT (осенью)\nVietjet Qazaqstan, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Астана",
+        "code": "NQZ",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "price": 15400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-11T10:44:02+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX1009NQZ1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Астану 🇰🇿 за 15 400 р. RT (осенью)\nRed Wings, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пекин",
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 35200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Иркутск",
+          "code": "IKT"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-09-24",
+      "returnDate": "2026-10-10",
+      "date": "2026-08-11T10:30:36+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2409PEK1?marker=748397&currency=rub",
+      "text": "Москва — Пекин от 35200₽ в обе стороны, вылеты в сентябре-октябре, стыковки в Иркутске, ручная кладь.\n— 24.09 - 10.10 - 35200₽\n— 26.09 - 11.10 - 35200₽"
+    },
     {
       "type": "tour",
       "from": {
@@ -154,18 +299,18 @@
         "kind": "city"
       },
       "to": {
-        "name": "Анталья",
-        "code": "AYT",
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
         "country": {
-          "ru": "Турция",
-          "en": "Turkey"
+          "ru": "Египет",
+          "en": "Egypt"
         },
         "kind": "city"
       },
       "price": 9900,
-      "oldPrice": 13585,
-      "savings": 3685,
-      "discount": 0.27,
+      "oldPrice": 17508,
+      "savings": 7608,
+      "discount": 0.43,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -174,8 +319,8 @@
       "returnDate": "2026-08-16",
       "date": "2026-08-11T10:05:36+00:00",
       "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AER1208AYT1?marker=748397&currency=rub",
-      "text": "Сочи — Анталья от 9900₽ в обе стороны, вылет завтра, рейсы прямые, с багажом\n— 12.08 - 16.08 - 9900₽"
+      "link": "https://www.aviasales.ru/search/AER1208SSH1?marker=748397&currency=rub",
+      "text": "Сочи — Шарм-эш-Шейх от 9900₽ в обе стороны, вылет завтра, рейсы прямые, с багажом\n— 12.08 - 16.08 - 9900₽"
     },
     {
       "type": "flight",
@@ -2350,76 +2495,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 6400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-12",
-      "returnDate": null,
-      "date": "2026-08-10T10:18:48+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/HRG1208MOW1?marker=748397&currency=rub",
-      "text": "Хургада — Москва от 6400₽ в одну сторону, вылет в среду, рейсы прямые, с багажом\n— 12.08 - 6400₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 6600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-11",
-      "returnDate": null,
-      "date": "2026-08-10T10:18:48+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SSH1108MOW1?marker=748397&currency=rub",
-      "text": "Шарм-эш-Шейх — Москва от 6600₽ в одну сторону, вылет ночью, рейсы прямые, с багажом\n— 11.08 - 6600₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Сочи",
         "code": "AER",
         "country": {
@@ -3062,37 +3137,37 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-11T10:26:58.038Z",
+      "checkedAt": "2026-08-11T11:23:56.379Z",
       "fetchedPosts": 20,
-      "freshPosts": 8,
-      "latestPostAt": "2026-08-11T10:10:12+00:00",
+      "freshPosts": 9,
+      "latestPostAt": "2026-08-11T10:40:56+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-11T10:26:58.038Z",
+      "checkedAt": "2026-08-11T11:23:56.380Z",
       "fetchedPosts": 20,
-      "freshPosts": 17,
-      "latestPostAt": "2026-08-11T09:35:10+00:00",
+      "freshPosts": 18,
+      "latestPostAt": "2026-08-11T10:44:02+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-11T10:26:58.038Z",
+      "checkedAt": "2026-08-11T11:23:56.380Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-11T10:05:37+00:00",
+      "latestPostAt": "2026-08-11T10:49:58+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-11T10:26:58.038Z",
+      "checkedAt": "2026-08-11T11:23:56.380Z",
       "fetchedPosts": 20,
       "freshPosts": 15,
       "latestPostAt": "2026-08-11T09:35:17+00:00",
@@ -3102,7 +3177,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-11T10:26:58.038Z",
+      "checkedAt": "2026-08-11T11:23:56.380Z",
       "fetchedPosts": 19,
       "freshPosts": 8,
       "latestPostAt": "2026-08-11T10:12:36+00:00",
@@ -3112,7 +3187,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-11T10:26:58.038Z",
+      "checkedAt": "2026-08-11T11:23:56.380Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-10T15:19:12+00:00",
@@ -3122,7 +3197,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-11T10:26:58.038Z",
+      "checkedAt": "2026-08-11T11:23:56.380Z",
       "fetchedPosts": 12,
       "freshPosts": 9,
       "latestPostAt": "2026-08-11T08:15:45+00:00",
@@ -3132,7 +3207,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-11T10:26:58.038Z",
+      "checkedAt": "2026-08-11T11:23:56.380Z",
       "fetchedPosts": 10,
       "freshPosts": 4,
       "latestPostAt": "2026-08-11T09:18:01+00:00",

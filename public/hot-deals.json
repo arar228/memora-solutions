@@ -1,7 +1,782 @@
 {
-  "updatedAt": "2026-08-12T11:54:29.695Z",
+  "updatedAt": "2026-08-12T13:35:08.460Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 4800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:15:07+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/HRG1109LED1?marker=748397&currency=rub",
+      "text": "из Хургады 🇪🇬 в Петербург 🇷🇺 за 4 800 р. OW (завтра)\nAlmasria, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 5200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:15:07+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AYT1109KZN1?marker=748397&currency=rub",
+      "text": "из Антальи 🇹🇷 в Казань 🇷🇺 за 5 200 р. OW (на этой неделе)\nAzur Air, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 5400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:15:07+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AYT1109KUF1?marker=748397&currency=rub",
+      "text": "из Антальи 🇹🇷 в Самару 🇷🇺 за 5 400 р. OW (завтра)\nAzur Air, прямой рейс с багажом -"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Абхазия",
+        "code": "SUI",
+        "country": {
+          "ru": "Абхазия",
+          "en": "Abkhazia"
+        },
+        "kind": "country"
+      },
+      "price": 36609,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 9,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔹Абхазия, полный пансион, 9 ночей, от 36 609 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 36740,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔸Сочи, 4-5⭐️, пляжные отели, 7 ночей, от 36 740 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 39495,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 8,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔹Сочи, полный пансион, 8 ночей, от 39 495 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "ОАЭ",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "country"
+      },
+      "price": 47840,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔹Эмираты с завтраками, 7 ночей, от 47 840 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Абхазия",
+        "code": "SUI",
+        "country": {
+          "ru": "Абхазия",
+          "en": "Abkhazia"
+        },
+        "kind": "country"
+      },
+      "price": 49226,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔸Абхазия, 4-5⭐️, завтраки включены, 7 ночей, от 49 226 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Таиланд",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "country"
+      },
+      "price": 62948,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 12,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔹Таиланд, 1-2 линия, 12 ночей, от 62 948 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Вьетнам",
+        "code": "SGN",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "country"
+      },
+      "price": 64024,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 12,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔸Вьетнам с завтраками, 1-я линия, 12 ночей, от 64 024 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 67841,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 12,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔹Турция, 1-я линия, 4-5⭐️, «всё включено», 12 ночей, от 67 841 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "price": 70428,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 9,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔹Египет, 1-я линия, 5⭐️, «всё включено», 9 ночей, от 70 428 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кемер",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 94728,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 8,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔹Кемер, 5⭐️, «всё включено», 8 ночей, от 94 728 ₽/чел.\n🔹Аланья, 5⭐️, «всё включено», скидки до 16%, 9 ночей, от 78 415 ₽/чел."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Мальдивы",
+        "code": "MLE",
+        "country": {
+          "ru": "Мальдивы",
+          "en": "Maldives"
+        },
+        "kind": "country"
+      },
+      "price": 139232,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T13:01:40+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
+      "text": "🔸Мальдивы, 4-5⭐️, «всё включено», 7 ночей, от 139 232 ₽/чел."
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Узбекистан",
+        "code": "TAS",
+        "country": {
+          "ru": "Узбекистан",
+          "en": "Uzbekistan"
+        },
+        "kind": "country"
+      },
+      "price": 29900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-26",
+      "returnDate": null,
+      "date": "2026-08-12T12:50:40+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KZN2608TAS1?marker=748397&currency=rub",
+      "text": "от 29900Р туда-обратно (RT)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Узбекистан",
+        "code": "TAS",
+        "country": {
+          "ru": "Узбекистан",
+          "en": "Uzbekistan"
+        },
+        "kind": "country"
+      },
+      "price": 34300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-26",
+      "returnDate": null,
+      "date": "2026-08-12T12:50:40+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KZN2608TAS1?marker=748397&currency=rub",
+      "text": "— от 34300Р туда-обратно (RT)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Южно-Сахалинск",
+        "code": "UUS",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 31500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-12-30",
+      "returnDate": "2027-01-09",
+      "date": "2026-08-12T12:33:53+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW3012UUS1?marker=748397&currency=rub",
+      "text": "Москва — Южно-Сахалинск от 31500₽ в обе стороны, вылеты с захватом Нового года,, рейсы прямые, с багажом\n— 30.12 - 09.01 - 31500₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Владивосток",
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 31500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-12-29",
+      "returnDate": "2027-01-09",
+      "date": "2026-08-12T12:33:53+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2912VVO1?marker=748397&currency=rub",
+      "text": "Москва — Владивосток от 31500₽ в обе стороны, вылеты с захватом Нового года,, рейсы прямые, с багажом\n— 29.12 - 09.01 - 31500₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Камчатка",
+        "code": "PKC",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 36400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-12-30",
+      "returnDate": "2027-01-08",
+      "date": "2026-08-12T12:33:53+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW3012PKC1?marker=748397&currency=rub",
+      "text": "Москва — Петропавловск-Камчатский от 36400₽ в обе стороны, вылеты с захватом Нового года,, рейсы прямые, с багажом\n— 30.12 - 08.01 - 36400₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шри-Ланка",
+        "code": "CMB",
+        "country": {
+          "ru": "Шри-Ланка",
+          "en": "Sri Lanka"
+        },
+        "kind": "country"
+      },
+      "price": 45200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Манама",
+          "code": "BAH"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T12:22:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1109CMB1?marker=748397&currency=rub",
+      "text": "из Москвы на Шри-Ланку 🇱🇰 за 45 200 р. RT (сентябрь-октябрь)\nGulf Air + Аэрофлот, через Манаму + прямой - \nВсе даты:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "to": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 4700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T12:18:23+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/HRG1109LED1?marker=748397&currency=rub",
+      "text": "🚀 из Египта в Питер, МинВоды и Калининград от 4700 рублей;"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "to": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 5300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T12:18:23+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/IST1109KZN1?marker=748397&currency=rub",
+      "text": "🚀 из Турции в Казань и Самару от 5300 рублей."
+    },
     {
       "type": "flight",
       "from": {
@@ -2185,111 +2960,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 9900,
-      "oldPrice": 21322,
-      "savings": 11422,
-      "discount": 0.54,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-12",
-      "returnDate": "2026-08-16",
-      "date": "2026-08-11T10:05:36+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AER1208SSH1?marker=748397&currency=rub",
-      "text": "Сочи — Шарм-эш-Шейх от 9900₽ в обе стороны, вылет завтра, рейсы прямые, с багажом\n— 12.08 - 16.08 - 9900₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 30100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-14",
-      "returnDate": "2026-09-06",
-      "date": "2026-08-11T09:42:59+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1408CXR1?marker=748397&currency=rub",
-      "text": "Москва — Нячанг (Вьетнам) от 30100Р 34700Р в одну сторону, рейсы прямые с багажом  — 14.08 — 34700Р  upd. 12:45 или раньше — от 34700Р  Может подешеветь ближе к вылету, может исчезнуть Обычный прайс н"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 64700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-25",
-      "returnDate": "2026-09-06",
-      "date": "2026-08-11T09:42:59+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2508CXR1?marker=748397&currency=rub",
-      "text": "Или Москва — Нячанг (Вьетнам) от 64700Р туда и обратно, рейсы прямые с багажом\n— 25.08-06.09 — 65600Р\n— 28.08-09.09 — 64700Р"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Санкт-Петербург",
         "code": "LED",
         "country": {
@@ -3081,288 +3751,43 @@
       "source": "samokatus",
       "link": "https://smkt.us/bmqoy",
       "text": "из Москвы в Пекин 🇨🇳 за 35 000 р. RT (осенью)\nS7, через Иркутск - \nВсе даты: \n🏨 Отели в Пекине:"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 28404,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T13:05:49+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=turkey1&utm_term=1008#?fromCity=2&toCountry=92&toCity=3839&dateFrom=30.08.2026&dateTo=30.08.2026&nightFrom=9&nightTo=9&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=6xpbt8xrca&sort=priceUp&f_good=true",
-      "text": "Сочи • 6 ночей, от 28 404 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кемер",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 55498,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 9,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T13:05:49+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=turkey1&utm_term=1008#?fromCity=2&toCountry=92&toCity=3839&dateFrom=30.08.2026&dateTo=30.08.2026&nightFrom=9&nightTo=9&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=6xpbt8xrca&sort=priceUp&f_good=true",
-      "text": "Кемер, всё включено • 9 ночей, от 55 498 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 58181,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T13:05:49+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=turkey1&utm_term=1008#?fromCity=2&toCountry=92&toCity=3839&dateFrom=30.08.2026&dateTo=30.08.2026&nightFrom=9&nightTo=9&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=6xpbt8xrca&sort=priceUp&f_good=true",
-      "text": "Хургада, всё включено • 8 ночей, от 58 181 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 73546,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T13:05:49+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=turkey1&utm_term=1008#?fromCity=2&toCountry=92&toCity=3839&dateFrom=30.08.2026&dateTo=30.08.2026&nightFrom=9&nightTo=9&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=6xpbt8xrca&sort=priceUp&f_good=true",
-      "text": "Таиланд, прямой рейс • 10 ночей, от 73 546 ₽/чел."
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Самара",
-        "code": "KUF",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 4500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T12:48:56+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SSH1109KUF1?marker=748397&currency=rub",
-      "text": "из Шарм-эш-Шейха 🇪🇬 в Самару 🇷🇺 за 4 500 р. OW (на этой неделе)\nAir Cairo, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 5400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T12:48:56+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SSH1109AER1?marker=748397&currency=rub",
-      "text": "из Шарм-эш-Шейха 🇪🇬 в Сочи 🇷🇺 за 5 400 р. OW (август)\nAlmasria, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 5400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T12:48:56+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/HRG1109LED1?marker=748397&currency=rub",
-      "text": "из Хургады 🇪🇬 в Петербург 🇷🇺 за 5 400 р. OW (август)\nAlmasria, прямой рейс с багажом -"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-12T11:54:29.499Z",
+      "checkedAt": "2026-08-12T13:35:08.276Z",
       "fetchedPosts": 20,
-      "freshPosts": 10,
-      "latestPostAt": "2026-08-12T10:45:04+00:00",
+      "freshPosts": 11,
+      "latestPostAt": "2026-08-12T12:18:23+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-12T11:54:29.499Z",
+      "checkedAt": "2026-08-12T13:35:08.276Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
-      "latestPostAt": "2026-08-12T11:28:15+00:00",
+      "latestPostAt": "2026-08-12T13:15:07+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-12T11:54:29.500Z",
+      "checkedAt": "2026-08-12T13:35:08.276Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-12T10:52:00+00:00",
+      "latestPostAt": "2026-08-12T12:50:40+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-12T11:54:29.500Z",
+      "checkedAt": "2026-08-12T13:35:08.276Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-12T11:29:53+00:00",
@@ -3372,7 +3797,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-12T11:54:29.500Z",
+      "checkedAt": "2026-08-12T13:35:08.277Z",
       "fetchedPosts": 18,
       "freshPosts": 7,
       "latestPostAt": "2026-08-11T20:17:22+00:00",
@@ -3382,7 +3807,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-12T11:54:29.500Z",
+      "checkedAt": "2026-08-12T13:35:08.277Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-11T13:00:00+00:00",
@@ -3392,20 +3817,20 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-12T11:54:29.500Z",
+      "checkedAt": "2026-08-12T13:35:08.277Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
-      "latestPostAt": "2026-08-12T08:10:15+00:00",
+      "latestPostAt": "2026-08-12T13:01:40+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-12T11:54:29.500Z",
-      "fetchedPosts": 5,
-      "freshPosts": 5,
-      "latestPostAt": "2026-08-12T09:49:04+00:00",
+      "checkedAt": "2026-08-12T13:35:08.277Z",
+      "fetchedPosts": 6,
+      "freshPosts": 6,
+      "latestPostAt": "2026-08-12T12:56:01+00:00",
       "reusedPrevious": false,
       "error": null
     }

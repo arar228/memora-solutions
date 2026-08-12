@@ -1,7 +1,792 @@
 {
-  "updatedAt": "2026-08-12T07:44:15.537Z",
+  "updatedAt": "2026-08-12T09:19:29.897Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Уфа",
+        "code": "UFA",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Ереван",
+        "code": "EVN",
+        "country": {
+          "ru": "Армения",
+          "en": "Armenia"
+        },
+        "kind": "city"
+      },
+      "price": 5900,
+      "oldPrice": 17537,
+      "savings": 11637,
+      "discount": 0.66,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T08:59:53+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/UFA1109EVN1?marker=748397&currency=rub",
+      "text": "Всё ещё в наличии: из Уфы в Ереван за 5900 рублей в один конец и за 14400 рублей туда-обратно!"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Махачкала",
+        "code": "MCX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 7400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-17",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MCX1708MOW1?marker=748397&currency=rub",
+      "text": "— из Махачкалы 17.08 — 7400Р\n— из Минвод 19.08 — 12200Р\n— из Минвод 20.08 — 12200Р\n— из Нижнего Новгорода 15.08 — 16800Р\n— из Нижнего Новгорода 28/31.10 — 10700Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 10100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-13",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KUF1308MOW1?marker=748397&currency=rub",
+      "text": "— из Самары 13.08 — 10100Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Владикавказ",
+        "code": "OGZ",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 12000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-21",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/OGZ2108MOW1?marker=748397&currency=rub",
+      "text": "— из Владикавказа (разные даты) — от 12000Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Пермь",
+        "code": "PEE",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 12300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-28",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/PEE2809MOW1?marker=748397&currency=rub",
+      "text": "— из Перми 28.09 — 12300Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Уфа",
+        "code": "UFA",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 13400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-12",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/UFA1210MOW1?marker=748397&currency=rub",
+      "text": "— из Уфы 12.10 (и до конца октября) — 13400Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Новосибирск",
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 13900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-22",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/OVB2210MOW1?marker=748397&currency=rub",
+      "text": "— из Новосибирска 22.10 — 13900Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Оренбург",
+        "code": "REN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 14600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-14",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/REN1410MOW1?marker=748397&currency=rub",
+      "text": "— из Оренбурга 14.10 — 14600Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Волгоград",
+        "code": "VOG",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 15900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-16",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/VOG1608MOW1?marker=748397&currency=rub",
+      "text": "— из Волгограда 16.08 — 15900Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Оренбург",
+        "code": "REN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 16500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-14",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/REN1409MOW1?marker=748397&currency=rub",
+      "text": "— из Оренбурга 14.09 — 16500Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Оренбург",
+        "code": "REN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 17100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-15",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/REN1508MOW1?marker=748397&currency=rub",
+      "text": "— из Оренбурга 15.08 — 17100Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Волгоград",
+        "code": "VOG",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 17800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-22",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/VOG2208MOW1?marker=748397&currency=rub",
+      "text": "— из Волгограда 22.08 — 17800Р\n— из Грозного 17.08 — 17000Р\n— из Грозного 20.10 — 15800Р\n— из Грозного 23.10 — 15600Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Челябинск",
+        "code": "CEK",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 18200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-20",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/CEK2008MOW1?marker=748397&currency=rub",
+      "text": "— из Челябинска 20.08 — 18200Р (и позже)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Калининград",
+        "code": "KGD",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 19200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-23",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KGD2309MOW1?marker=748397&currency=rub",
+      "text": "— из Калининграда 23.09 — 19200Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Омск",
+        "code": "OMS",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 20100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-19",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/OMS1908MOW1?marker=748397&currency=rub",
+      "text": "— из Омска 19.08 — 20100Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Астрахань",
+        "code": "ASF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 22700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-21",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/ASF2108MOW1?marker=748397&currency=rub",
+      "text": "— из Астрахани 17/21/24.10 — 22700Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Ульяновск",
+        "code": "ULV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 23400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-14",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/ULV1408MOW1?marker=748397&currency=rub",
+      "text": "— из Ульяновска 14.08 — 23400Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Тюмень",
+        "code": "TJM",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 24800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-14",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/TJM1408MOW1?marker=748397&currency=rub",
+      "text": "— из Тюмени 14.08 — 24800Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Саратов",
+        "code": "GSV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 26400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-06",
+      "returnDate": null,
+      "date": "2026-08-12T08:25:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/GSV0611MOW1?marker=748397&currency=rub",
+      "text": "— из Саратова 06.11 — 26400Р\n— из Сыктывкара 01.11 — 31000Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Будапешт",
+        "code": "BUD",
+        "country": {
+          "ru": "Венгрия",
+          "en": "Hungary"
+        },
+        "kind": "city"
+      },
+      "price": 9900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T08:01:53+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1109BUD1?marker=748397&currency=rub",
+      "text": "из Москвы в Будапешт 🇭🇺 за 9 900 р. OW (зимой)\nUtair + Wizz Air, через Ереван -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бильбао",
+        "code": "BIO",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 10500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T08:01:53+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1109BIO1?marker=748397&currency=rub",
+      "text": "из Москвы в Бильбао 🇪🇸 за 10 500 р. OW (зимой)\nPegasus, удобная стыковка в Стамбуле -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Париж",
+        "code": "PAR",
+        "country": {
+          "ru": "Франция",
+          "en": "France"
+        },
+        "kind": "city"
+      },
+      "price": 10700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T08:01:53+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1109PAR1?marker=748397&currency=rub",
+      "text": "из Москвы в Париж 🇫🇷 за 10 700 р. OW (осенью-зимой)\nШирак Авиа + Wizz Air, через Ереван -"
+    },
     {
       "type": "flight",
       "from": {
@@ -388,9 +1173,9 @@
         "kind": "city"
       },
       "price": 27800,
-      "oldPrice": 34908,
-      "savings": 7108,
-      "discount": 0.2,
+      "oldPrice": 34990,
+      "savings": 7190,
+      "discount": 0.21,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -1133,8 +1918,8 @@
         "kind": "country"
       },
       "price": 9700,
-      "oldPrice": 31907,
-      "savings": 22207,
+      "oldPrice": 31910,
+      "savings": 22210,
       "discount": 0.7,
       "oneway": false,
       "roundTrip": true,
@@ -1238,8 +2023,8 @@
         "kind": "city"
       },
       "price": 9900,
-      "oldPrice": 19926,
-      "savings": 10026,
+      "oldPrice": 19928,
+      "savings": 10028,
       "discount": 0.5,
       "oneway": false,
       "roundTrip": true,
@@ -1918,8 +2703,8 @@
         "kind": "city"
       },
       "price": 4500,
-      "oldPrice": 19926,
-      "savings": 15426,
+      "oldPrice": 19928,
+      "savings": 15428,
       "discount": 0.77,
       "oneway": false,
       "roundTrip": true,
@@ -1953,8 +2738,8 @@
         "kind": "city"
       },
       "price": 12900,
-      "oldPrice": 14105,
-      "savings": 1205,
+      "oldPrice": 14107,
+      "savings": 1207,
       "discount": 0.09,
       "oneway": false,
       "roundTrip": true,
@@ -2181,41 +2966,6 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/Zbt6sR",
       "text": "🔹 с 11 сентября на 6 ночей (в тч 3 дня на Соловецких островах): Петрозаводск - Кижи - Соловецкие Острова - Большой Заяцкий - Кузова - Беломорск - Сосновец - Повенец - Медвежьегорск - Петрозаводск - о"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 18700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-12-31",
-      "returnDate": null,
-      "date": "2026-08-10T18:10:01+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/CXR3112MOW1?marker=748397&currency=rub",
-      "text": "Нячанг — Москва от 18700₽ в одну сторону, вылет 31 декабря, рейсы прямые, с багажом\n— 31.12 - 18700₽"
     },
     {
       "type": "flight",
@@ -3058,8 +3808,8 @@
         "kind": "city"
       },
       "price": 5700,
-      "oldPrice": 19099,
-      "savings": 13399,
+      "oldPrice": 19101,
+      "savings": 13401,
       "discount": 0.7,
       "oneway": false,
       "roundTrip": true,
@@ -3106,223 +3856,43 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MCX1109DXB1?marker=748397&currency=rub",
       "text": "из Махачкалы в Дубай 🇦🇪 за 20 500 р. RT (осенью)\nПобеда, прямые рейсы - \nВсе даты:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 58300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Абу-Даби",
-          "code": "AUH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T09:06:31+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN1109SEZ1?marker=748397&currency=rub",
-      "text": "из Казани на Сейшелы 🇸🇨 за 58 300 р. RT (ноябрь-декабрь)\nEtihad, пересадки в Абу-Даби - \nВсе даты:"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 31700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-10T09:06:12+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/HS2wjL",
-      "text": "🔥 в Сочи на неделю в конце августа с проживанием в 4-5* от 31 700/чел"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 46900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-10T09:06:12+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/V5a0Fc",
-      "text": "🔥 в Турцию на неделю в 4-5* с вылетами в конце августа или начале сентября от 46 900/чел, все включено, с топливными сборами"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Танзания",
-        "code": "ZNZ",
-        "country": {
-          "ru": "Танзания",
-          "en": "Tanzania"
-        },
-        "kind": "country"
-      },
-      "price": 79800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08-22",
-      "returnDate": "2026-09-02",
-      "date": "2026-08-10T09:06:12+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/92D69v",
-      "text": "🔥 в Танзанию (на Занзибар) на 11 ночей с 22 августа от 79 800/чел  (окончательная цена отобразится после выбора отеля и номера; виза по прибытии 50$/чел + обязательная страховка 44/22$ за взрослого/р"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 19800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08-14",
-      "returnDate": "2026-08-21",
-      "date": "2026-08-10T07:58:25+00:00",
-      "source": "vandroukiru",
-      "link": "https://vandrouki.ru/tury/7-nochej-v-turczii-iz-sochi-3/",
-      "text": "Югу - юг: 7 ночей в Турции из Сочи за 19800 рублей с человека!\nСтарт 14 августа:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-12T07:44:15.362Z",
+      "checkedAt": "2026-08-12T09:19:29.723Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
-      "latestPostAt": "2026-08-11T18:38:47+00:00",
+      "latestPostAt": "2026-08-12T08:59:53+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-12T07:44:15.363Z",
+      "checkedAt": "2026-08-12T09:19:29.723Z",
       "fetchedPosts": 20,
-      "freshPosts": 19,
-      "latestPostAt": "2026-08-12T07:11:29+00:00",
+      "freshPosts": 20,
+      "latestPostAt": "2026-08-12T08:46:14+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-12T07:44:15.363Z",
+      "checkedAt": "2026-08-12T09:19:29.723Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-12T06:20:12+00:00",
+      "latestPostAt": "2026-08-12T09:17:40+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-12T07:44:15.363Z",
+      "checkedAt": "2026-08-12T09:19:29.723Z",
       "fetchedPosts": 20,
       "freshPosts": 13,
       "latestPostAt": "2026-08-12T07:07:41+00:00",
@@ -3332,9 +3902,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-12T07:44:15.363Z",
+      "checkedAt": "2026-08-12T09:19:29.723Z",
       "fetchedPosts": 18,
-      "freshPosts": 8,
+      "freshPosts": 7,
       "latestPostAt": "2026-08-11T20:17:22+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3342,7 +3912,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-12T07:44:15.363Z",
+      "checkedAt": "2026-08-12T09:19:29.723Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-11T13:00:00+00:00",
@@ -3352,19 +3922,19 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-12T07:44:15.363Z",
-      "fetchedPosts": 14,
+      "checkedAt": "2026-08-12T09:19:29.723Z",
+      "fetchedPosts": 13,
       "freshPosts": 11,
-      "latestPostAt": "2026-08-12T05:20:42+00:00",
+      "latestPostAt": "2026-08-12T08:10:15+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-12T07:44:15.363Z",
+      "checkedAt": "2026-08-12T09:19:29.723Z",
       "fetchedPosts": 8,
-      "freshPosts": 8,
+      "freshPosts": 7,
       "latestPostAt": "2026-08-12T06:52:04+00:00",
       "reusedPrevious": false,
       "error": null

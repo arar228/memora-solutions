@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-12T14:38:45.466Z",
+  "updatedAt": "2026-08-12T16:04:15.133Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Дубай",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Махачкала",
+        "code": "MCX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 5175,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T14:43:28+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/DXB1109MCX1?marker=748397&currency=rub",
+      "text": "Дубай - Махачкала в начале осени за 5175 рублей!"
+    },
     {
       "type": "tour",
       "from": {
@@ -3671,68 +3706,33 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/Zbt6sR",
       "text": "🔹 с 11 сентября на 6 ночей (в тч 3 дня на Соловецких островах): Петрозаводск - Кижи - Соловецкие Острова - Большой Заяцкий - Кузова - Беломорск - Сосновец - Повенец - Медвежьегорск - Петрозаводск - о"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Владивосток",
-        "code": "VVO",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Филиппины",
-        "code": "MNL",
-        "country": {
-          "ru": "Филиппины",
-          "en": "Philippines"
-        },
-        "kind": "country"
-      },
-      "price": 11600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T14:39:31+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/VVO1109MNL1?marker=748397&currency=rub",
-      "text": "Полёты на Филиппины с багажом за 11600 рублей в одну сторону и за 23900 рублей - в обе."
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-12T14:38:45.288Z",
+      "checkedAt": "2026-08-12T16:04:14.955Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
-      "latestPostAt": "2026-08-12T12:18:23+00:00",
+      "latestPostAt": "2026-08-12T14:43:28+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-12T14:38:45.289Z",
+      "checkedAt": "2026-08-12T16:04:14.955Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-12T13:15:07+00:00",
+      "latestPostAt": "2026-08-12T14:46:35+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-12T14:38:45.289Z",
+      "checkedAt": "2026-08-12T16:04:14.955Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-12T14:26:04+00:00",
@@ -3742,7 +3742,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-12T14:38:45.289Z",
+      "checkedAt": "2026-08-12T16:04:14.955Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
       "latestPostAt": "2026-08-12T11:29:53+00:00",
@@ -3752,7 +3752,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-12T14:38:45.289Z",
+      "checkedAt": "2026-08-12T16:04:14.955Z",
       "fetchedPosts": 18,
       "freshPosts": 8,
       "latestPostAt": "2026-08-12T13:54:18+00:00",
@@ -3762,9 +3762,9 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-12T14:38:45.289Z",
+      "checkedAt": "2026-08-12T16:04:14.955Z",
       "fetchedPosts": 16,
-      "freshPosts": 2,
+      "freshPosts": 1,
       "latestPostAt": "2026-08-11T13:00:00+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3772,9 +3772,9 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-12T14:38:45.289Z",
+      "checkedAt": "2026-08-12T16:04:14.955Z",
       "fetchedPosts": 13,
-      "freshPosts": 10,
+      "freshPosts": 9,
       "latestPostAt": "2026-08-12T14:25:45+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3782,7 +3782,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-12T14:38:45.289Z",
+      "checkedAt": "2026-08-12T16:04:14.955Z",
       "fetchedPosts": 6,
       "freshPosts": 6,
       "latestPostAt": "2026-08-12T14:20:35+00:00",

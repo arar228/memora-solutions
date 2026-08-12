@@ -1,7 +1,112 @@
 {
-  "updatedAt": "2026-08-12T10:38:09.101Z",
+  "updatedAt": "2026-08-12T11:54:29.695Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Уфа",
+        "code": "UFA",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Ереван",
+        "code": "EVN",
+        "country": {
+          "ru": "Армения",
+          "en": "Armenia"
+        },
+        "kind": "city"
+      },
+      "price": 5900,
+      "oldPrice": 17607,
+      "savings": 11707,
+      "discount": 0.66,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T11:28:15+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/UFA1109EVN1?marker=748397&currency=rub",
+      "text": "из Уфы в Ереван 🇦🇲 за 5 900 р. OW (осенью-зимой)\nШирак Авиа, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 14100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-12T11:28:15+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER1109AYT1?marker=748397&currency=rub",
+      "text": "из Сочи в Анталью 🇹🇷 за 14 100 р. RT (август)\nSouthwind, прямые рейсы с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 6000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-26",
+      "returnDate": null,
+      "date": "2026-08-12T10:52:00+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/LED2608AER1?marker=748397&currency=rub",
+      "text": "Санкт-Петербург — Сочи от 6000₽ в одну сторону, вылет 26 августа, рейсы прямые, ручная кладь\n— 26.08 - 6000₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -111,41 +216,6 @@
       "source": "leveltravel",
       "link": "https://lvtv.me/nqiiCXj",
       "text": "🐥Если вам нужен действительно серьезный дайвинг и впечатляющий снорклинг там, где точно нетронутая подводная природа, обратите внимание на курорт Марса-Алам в Египте. И конкретно на отель Pickalbatro"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Уфа",
-        "code": "UFA",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Ереван",
-        "code": "EVN",
-        "country": {
-          "ru": "Армения",
-          "en": "Armenia"
-        },
-        "kind": "city"
-      },
-      "price": 5900,
-      "oldPrice": 17607,
-      "savings": 11707,
-      "discount": 0.66,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-12T08:59:53+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/UFA1109EVN1?marker=748397&currency=rub",
-      "text": "Всё ещё в наличии: из Уфы в Ереван за 5900 рублей в один конец и за 14400 рублей туда-обратно!"
     },
     {
       "type": "flight",
@@ -2298,111 +2368,6 @@
       "text": "из Москвы в Сеул 🇰🇷 за 42 600 р. RT (до конца года)\nSCAT, стыковки в Шымкенте - \nВсе даты:"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Даламан",
-        "code": "DLM",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 11800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-18",
-      "returnDate": "2026-08-18",
-      "date": "2026-08-11T09:20:34+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/DLM1808MOW1?marker=748397&currency=rub",
-      "text": "Даламан — Москва от 11800₽ в одну сторону, вылеты на следующей неделе рейсы прямые, с багажом\n— 18.08 - 11800₽\n— 23.08 - 13200₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Даламан",
-        "code": "DLM",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 12200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-12",
-      "returnDate": "2026-08-18",
-      "date": "2026-08-11T09:20:34+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1208DLM1?marker=748397&currency=rub",
-      "text": "Москва — Даламан от 12200₽ в одну сторону, вылет завтра утром, рейсы прямые, с багажом\n— 12.08 - 12200₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Даламан",
-        "code": "DLM",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 27900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-12",
-      "returnDate": "2026-08-18",
-      "date": "2026-08-11T09:20:34+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1208DLM1?marker=748397&currency=rub",
-      "text": "Москва — Даламан от 27900₽ в обе стороны, вылет завтра утром,, рейсы прямые, с багажом\n— 12.08 - 18.08 - 27900₽"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
@@ -3361,168 +3326,53 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/HRG1109LED1?marker=748397&currency=rub",
       "text": "из Хургады 🇪🇬 в Петербург 🇷🇺 за 5 400 р. OW (август)\nAlmasria, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 27200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-12",
-      "returnDate": null,
-      "date": "2026-08-10T11:45:43+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0112IST1?marker=748397&currency=rub",
-      "text": "✈️В декабре в Севилью за 27.200 рублей туда-обратно, стыковки в Стамбуле"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "ЮАР",
-        "code": "CPT",
-        "country": {
-          "ru": "ЮАР",
-          "en": "South Africa"
-        },
-        "kind": "country"
-      },
-      "price": 34000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Абу-Даби",
-          "code": "AUH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-10T11:25:06+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED1109CPT1?marker=748397&currency=rub",
-      "text": "из Петербурга в ЮАР 🇿🇦 за 34 000 р. OW (зимой)\nEtihad, через Абу-Даби - \nВсе даты:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 5500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-13",
-      "returnDate": null,
-      "date": "2026-08-10T11:19:27+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED1308HRG1?marker=748397&currency=rub",
-      "text": "✈️Из Хургады в Питер за 5.500 руб на 13 августа"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-12T10:38:08.927Z",
+      "checkedAt": "2026-08-12T11:54:29.499Z",
       "fetchedPosts": 20,
       "freshPosts": 10,
-      "latestPostAt": "2026-08-12T08:59:53+00:00",
+      "latestPostAt": "2026-08-12T10:45:04+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-12T10:38:08.927Z",
+      "checkedAt": "2026-08-12T11:54:29.499Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
-      "latestPostAt": "2026-08-12T09:55:20+00:00",
+      "latestPostAt": "2026-08-12T11:28:15+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-12T10:38:08.927Z",
+      "checkedAt": "2026-08-12T11:54:29.500Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-12T10:37:56+00:00",
+      "latestPostAt": "2026-08-12T10:52:00+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-12T10:38:08.927Z",
+      "checkedAt": "2026-08-12T11:54:29.500Z",
       "fetchedPosts": 20,
-      "freshPosts": 13,
-      "latestPostAt": "2026-08-12T07:07:41+00:00",
+      "freshPosts": 12,
+      "latestPostAt": "2026-08-12T11:29:53+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-12T10:38:08.927Z",
+      "checkedAt": "2026-08-12T11:54:29.500Z",
       "fetchedPosts": 18,
       "freshPosts": 7,
       "latestPostAt": "2026-08-11T20:17:22+00:00",
@@ -3532,7 +3382,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-12T10:38:08.927Z",
+      "checkedAt": "2026-08-12T11:54:29.500Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-11T13:00:00+00:00",
@@ -3542,7 +3392,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-12T10:38:08.927Z",
+      "checkedAt": "2026-08-12T11:54:29.500Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
       "latestPostAt": "2026-08-12T08:10:15+00:00",
@@ -3552,7 +3402,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-12T10:38:08.927Z",
+      "checkedAt": "2026-08-12T11:54:29.500Z",
       "fetchedPosts": 5,
       "freshPosts": 5,
       "latestPostAt": "2026-08-12T09:49:04+00:00",

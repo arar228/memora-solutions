@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-13T15:05:55.321Z",
+  "updatedAt": "2026-08-13T16:06:27.216Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Краснодар",
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дубай",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 6500,
+      "oldPrice": 21117,
+      "savings": 14617,
+      "discount": 0.69,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-14",
+      "returnDate": null,
+      "date": "2026-08-13T15:22:27+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KRR1408DXB1?marker=748397&currency=rub",
+      "text": "Краснодар — Дубай (ОАЭ) за 6500Р в одну сторону, вылет завтра, 14 августа, прямой с багажом\n—"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Краснодар",
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дубай",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 6200,
+      "oldPrice": 21117,
+      "savings": 14917,
+      "discount": 0.71,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-13T15:13:23+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/KRR1209DXB1?marker=748397&currency=rub",
+      "text": "Ой, горячооо: прямой рейс Аэрофлота из Краснодара в Дубай за 6200 рублей!"
+    },
     {
       "type": "tour",
       "from": {
@@ -3257,17 +3327,17 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-13T15:05:55.158Z",
+      "checkedAt": "2026-08-13T16:06:27.048Z",
       "fetchedPosts": 20,
-      "freshPosts": 10,
-      "latestPostAt": "2026-08-13T11:52:27+00:00",
+      "freshPosts": 11,
+      "latestPostAt": "2026-08-13T15:13:23+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-13T15:05:55.158Z",
+      "checkedAt": "2026-08-13T16:06:27.048Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
       "latestPostAt": "2026-08-13T15:05:53+00:00",
@@ -3277,17 +3347,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-13T15:05:55.158Z",
+      "checkedAt": "2026-08-13T16:06:27.048Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-13T13:27:52+00:00",
+      "latestPostAt": "2026-08-13T15:22:27+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-13T15:05:55.158Z",
+      "checkedAt": "2026-08-13T16:06:27.048Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-13T07:03:57+00:00",
@@ -3297,7 +3367,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-13T15:05:55.158Z",
+      "checkedAt": "2026-08-13T16:06:27.048Z",
       "fetchedPosts": 18,
       "freshPosts": 5,
       "latestPostAt": "2026-08-13T13:37:49+00:00",
@@ -3306,18 +3376,18 @@
     },
     {
       "channel": "onlinetours",
-      "status": "idle",
-      "checkedAt": "2026-08-13T15:05:55.158Z",
+      "status": "ok",
+      "checkedAt": "2026-08-13T16:06:27.048Z",
       "fetchedPosts": 16,
-      "freshPosts": 0,
-      "latestPostAt": "2026-08-11T13:00:00+00:00",
+      "freshPosts": 1,
+      "latestPostAt": "2026-08-13T15:18:17+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-13T15:05:55.158Z",
+      "checkedAt": "2026-08-13T16:06:27.048Z",
       "fetchedPosts": 14,
       "freshPosts": 11,
       "latestPostAt": "2026-08-13T14:25:45+00:00",
@@ -3327,7 +3397,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-13T15:05:55.158Z",
+      "checkedAt": "2026-08-13T16:06:27.048Z",
       "fetchedPosts": 9,
       "freshPosts": 7,
       "latestPostAt": "2026-08-13T10:49:53+00:00",

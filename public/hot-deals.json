@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-13T17:08:18.443Z",
+  "updatedAt": "2026-08-13T18:29:28.281Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Горно-Алтайск",
+        "code": "RGK",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 15100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-09-08",
+      "date": "2026-08-13T17:39:58+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2508RGK1?marker=748397&currency=rub",
+      "text": "Москва — Горно-Алтайск в сентябре от 15100Р туда и обратно, рейсы прямые, в ручную кладь нацпера входит 10 кг 55х40х25 см + рюкзак/сумка/портфель до 5 кг по сумме всех сторон не более 80 см\n— 25.08-08"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 9500,
+      "oldPrice": 23098,
+      "savings": 13598,
+      "discount": 0.59,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-18",
+      "returnDate": null,
+      "date": "2026-08-13T17:20:34+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1808AYT1?marker=748397&currency=rub",
+      "text": "Москва — Анталья от 9500₽ в одну сторону, вылет во вторник, рейсы прямые, с багажом\n— 18.08 - 9500₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -2529,111 +2599,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Южно-Сахалинск",
-        "code": "UUS",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 31500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-12-30",
-      "returnDate": "2027-01-09",
-      "date": "2026-08-12T12:33:53+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW3012UUS1?marker=748397&currency=rub",
-      "text": "Москва — Южно-Сахалинск от 31500₽ в обе стороны, вылеты с захватом Нового года,, рейсы прямые, с багажом\n— 30.12 - 09.01 - 31500₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Владивосток",
-        "code": "VVO",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 31500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-12-29",
-      "returnDate": "2027-01-09",
-      "date": "2026-08-12T12:33:53+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2912VVO1?marker=748397&currency=rub",
-      "text": "Москва — Владивосток от 31500₽ в обе стороны, вылеты с захватом Нового года,, рейсы прямые, с багажом\n— 29.12 - 09.01 - 31500₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Камчатка",
-        "code": "PKC",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 36400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-12-30",
-      "returnDate": "2027-01-08",
-      "date": "2026-08-12T12:33:53+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW3012PKC1?marker=748397&currency=rub",
-      "text": "Москва — Петропавловск-Камчатский от 36400₽ в обе стороны, вылеты с захватом Нового года,, рейсы прямые, с багажом\n— 30.12 - 08.01 - 36400₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Шри-Ланка",
         "code": "CMB",
         "country": {
@@ -2801,41 +2766,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/AER1209AYT1?marker=748397&currency=rub",
       "text": "из Сочи в Анталью 🇹🇷 за 14 100 р. RT (август)\nSouthwind, прямые рейсы с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 6000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-26",
-      "returnDate": null,
-      "date": "2026-08-12T10:52:00+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/LED2608AER1?marker=748397&currency=rub",
-      "text": "Санкт-Петербург — Сочи от 6000₽ в одну сторону, вылет 26 августа, рейсы прямые, ручная кладь\n— 26.08 - 6000₽"
     },
     {
       "type": "flight",
@@ -3292,7 +3222,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-13T17:08:18.268Z",
+      "checkedAt": "2026-08-13T18:29:28.120Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
       "latestPostAt": "2026-08-13T15:13:23+00:00",
@@ -3302,27 +3232,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-13T17:08:18.269Z",
+      "checkedAt": "2026-08-13T18:29:28.120Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-13T15:05:53+00:00",
+      "latestPostAt": "2026-08-13T18:21:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-13T17:08:18.269Z",
+      "checkedAt": "2026-08-13T18:29:28.120Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-13T16:39:48+00:00",
+      "latestPostAt": "2026-08-13T17:39:58+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-13T17:08:18.269Z",
+      "checkedAt": "2026-08-13T18:29:28.120Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-13T07:03:57+00:00",
@@ -3332,7 +3262,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-13T17:08:18.269Z",
+      "checkedAt": "2026-08-13T18:29:28.120Z",
       "fetchedPosts": 18,
       "freshPosts": 5,
       "latestPostAt": "2026-08-13T13:37:49+00:00",
@@ -3342,7 +3272,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-13T17:08:18.269Z",
+      "checkedAt": "2026-08-13T18:29:28.120Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-13T15:18:17+00:00",
@@ -3352,7 +3282,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-13T17:08:18.269Z",
+      "checkedAt": "2026-08-13T18:29:28.120Z",
       "fetchedPosts": 14,
       "freshPosts": 11,
       "latestPostAt": "2026-08-13T14:25:45+00:00",
@@ -3362,7 +3292,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-13T17:08:18.269Z",
+      "checkedAt": "2026-08-13T18:29:28.120Z",
       "fetchedPosts": 9,
       "freshPosts": 7,
       "latestPostAt": "2026-08-13T10:49:53+00:00",

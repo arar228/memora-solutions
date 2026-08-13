@@ -1,7 +1,152 @@
 {
-  "updatedAt": "2026-08-13T08:37:37.416Z",
+  "updatedAt": "2026-08-13T10:17:33.779Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Таиланд",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "country"
+      },
+      "price": 21700,
+      "oldPrice": 46945,
+      "savings": 25245,
+      "discount": 0.54,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08",
+      "returnDate": null,
+      "date": "2026-08-13T10:11:26+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/MOW0108BKK1?marker=748397&currency=rub",
+      "text": "Забросы из Москвы в Таиланд в августе-декабре от 21700 рублей!"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бодрум",
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 7200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-16",
+      "returnDate": null,
+      "date": "2026-08-13T10:02:31+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1608BJV1?marker=748397&currency=rub",
+      "text": "Москва — Бодрум от 7200₽ в одну сторону, вылет в воскресенье утром, рейсы прямые, с багажом\n— 16.08 - 7200₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 22500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-14",
+      "returnDate": "2026-08-18",
+      "date": "2026-08-13T09:25:22+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1408SSH1?marker=748397&currency=rub",
+      "text": "Москва — Шарм-эш-Шейх от 22500₽ в обе стороны, вылет ночью, рейсы прямые, с багажом\n— 14.08 - 18.08 - 22500₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Владивосток",
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Мельбурн",
+        "code": "MEL",
+        "country": {
+          "ru": "Австралия",
+          "en": "Australia"
+        },
+        "kind": "city"
+      },
+      "price": 67600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Пекин",
+          "code": "PEK"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-13T09:14:42+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/VVO1209MEL1?marker=748397&currency=rub",
+      "text": "из Владивостока в Мельбурн 🇦🇺 за 67 600 р. RT (осенью и зимой)\nAir China, пересадки в Пекине - \nВсе даты:"
+    },
     {
       "type": "flight",
       "from": {
@@ -2838,46 +2983,6 @@
       "text": "🔥 в Турцию на неделю в 4-5* в октябре от 51 100/чел, все включено, с топливными сборами"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пхукет",
-        "code": "HKT",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 64200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Пекин",
-          "code": "PEK"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-12-14",
-      "returnDate": "2027-01-05",
-      "date": "2026-08-11T17:44:53+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1412HKT1?marker=748397&currency=rub",
-      "text": "🤩🤩🤩 Можно Москва — Пхукет (Таиланд) от 64200Р туда и обратно с захватом Нового года, католического Рождества, части каникул и отдыхом от отдыха перед работой, с терпимой пересадкой в Пекине (туда к"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -3441,270 +3546,45 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/SVX1209NQZ1?marker=748397&currency=rub",
       "text": "из Екатеринбурга в Астану 🇰🇿 за 15 400 р. RT (осенью)\nRed Wings, прямые рейсы -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кавказские Минеральные Воды",
-        "code": "MRV",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 24100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-11T10:12:36+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/p96MPB",
-      "text": "🔥 в Кавминводы на 5-7 ночей в конце августа или начале сентября от 24 100/чел  (скидка по промокоду 550Lucky или 700Lucky; туры без группового трансфера из аэропорта Минеральных Вод до отеля, индивид"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 9700,
-      "oldPrice": 32083,
-      "savings": 22383,
-      "discount": 0.7,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-11T10:10:12+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/AER1209HRG1?marker=748397&currency=rub",
-      "text": "Прямые рейсы в Египет за 9700 рублей туда-обратно!\nВылет завтра:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Китай",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "country"
-      },
-      "price": 42200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Чэнду",
-          "code": "CTU"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-11T09:35:17+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED1209PEK1?marker=748397&currency=rub",
-      "text": "✈️В Китай осенью за 42.200 руб туда-обратно с Sichuan Airlines с пересадкой в Чэнду."
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сеул",
-        "code": "SEL",
-        "country": {
-          "ru": "Южная Корея",
-          "en": "South Korea"
-        },
-        "kind": "city"
-      },
-      "price": 42600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Шымкент",
-          "code": "CIT"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-11T09:35:10+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1209SEL1?marker=748397&currency=rub",
-      "text": "из Москвы в Сеул 🇰🇷 за 42 600 р. RT (до конца года)\nSCAT, стыковки в Шымкенте - \nВсе даты:"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 54200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "returnDate": null,
-      "date": "2026-08-11T08:50:48+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://level.tpx.lu/Xkdnvo1J",
-      "text": "🏖Турция \"все включено\" на неделю в начале сентября от 54.200 руб/чел, виза не нужна"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Амстердам",
-        "code": "AMS",
-        "country": {
-          "ru": "Нидерланды",
-          "en": "Netherlands"
-        },
-        "kind": "city"
-      },
-      "price": 7500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-10",
-      "returnDate": null,
-      "date": "2026-08-11T08:40:10+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0110AMS1?marker=748397&currency=rub",
-      "text": "💥 из Петербурга в Амстердам 🇳🇱 за 7 500 р. OW (в октябре или под Рождество)\nAjet, через Стамбул - \nВсе даты:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-13T08:37:37.262Z",
+      "checkedAt": "2026-08-13T10:17:33.599Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
-      "latestPostAt": "2026-08-12T14:43:28+00:00",
+      "latestPostAt": "2026-08-13T10:11:26+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-13T08:37:37.262Z",
+      "checkedAt": "2026-08-13T10:17:33.599Z",
       "fetchedPosts": 20,
-      "freshPosts": 17,
-      "latestPostAt": "2026-08-13T08:26:01+00:00",
+      "freshPosts": 16,
+      "latestPostAt": "2026-08-13T09:14:42+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-13T08:37:37.262Z",
+      "checkedAt": "2026-08-13T10:17:33.599Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-13T08:29:33+00:00",
+      "latestPostAt": "2026-08-13T10:02:31+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-13T08:37:37.262Z",
+      "checkedAt": "2026-08-13T10:17:33.599Z",
       "fetchedPosts": 20,
-      "freshPosts": 9,
+      "freshPosts": 7,
       "latestPostAt": "2026-08-13T07:03:57+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3712,9 +3592,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-13T08:37:37.262Z",
+      "checkedAt": "2026-08-13T10:17:33.599Z",
       "fetchedPosts": 18,
-      "freshPosts": 6,
+      "freshPosts": 5,
       "latestPostAt": "2026-08-13T07:48:32+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3722,7 +3602,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-13T08:37:37.262Z",
+      "checkedAt": "2026-08-13T10:17:33.599Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-11T13:00:00+00:00",
@@ -3732,7 +3612,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-13T08:37:37.262Z",
+      "checkedAt": "2026-08-13T10:17:33.599Z",
       "fetchedPosts": 14,
       "freshPosts": 10,
       "latestPostAt": "2026-08-13T08:15:48+00:00",
@@ -3742,7 +3622,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-13T08:37:37.262Z",
+      "checkedAt": "2026-08-13T10:17:33.599Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-08-13T08:35:22+00:00",

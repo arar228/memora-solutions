@@ -1,7 +1,112 @@
 {
-  "updatedAt": "2026-08-14T15:58:47.749Z",
+  "updatedAt": "2026-08-14T17:01:11.245Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 12100,
+      "oldPrice": 24943,
+      "savings": 12843,
+      "discount": 0.51,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-20",
+      "returnDate": null,
+      "date": "2026-08-14T16:57:13+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KUF2008AYT1?marker=748397&currency=rub",
+      "text": "Самара — Анталья (Турция) за 12100Р в одну сторону, рейс прямой с багажом\n— 20.08 — 12100Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 7500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-16",
+      "returnDate": null,
+      "date": "2026-08-14T16:57:13+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AYT1608KUF1?marker=748397&currency=rub",
+      "text": "Анталья (Турция) — Самара за 7500Р в одну сторону, рейс прямой с багажом\n— 16.08 — 7500Р"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Паттайя",
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 190000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 10,
+      "departDate": "2026-09-13",
+      "returnDate": "2026-09-23",
+      "date": "2026-08-14T16:22:47+00:00",
+      "source": "travelradar",
+      "link": "https://travelradar.ru/t/P5isT?s=tg&erid=2VtzqwgjJHU",
+      "text": "🇹🇭 Паттайя, U Jomtien Pattaya 4★ — завтраки\n• 10 ночей\n• питание — завтраки\n• ~190.000 рублей за двоих\n• вылет 13.09.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэрофлот, прямой ·"
+    },
     {
       "type": "flight",
       "from": {
@@ -163,8 +268,8 @@
         "kind": "city"
       },
       "price": 12800,
-      "oldPrice": 28799,
-      "savings": 15999,
+      "oldPrice": 28850,
+      "savings": 16050,
       "discount": 0.56,
       "oneway": true,
       "roundTrip": false,
@@ -678,9 +783,9 @@
         "kind": "city"
       },
       "price": 8200,
-      "oldPrice": 31683,
-      "savings": 23483,
-      "discount": 0.74,
+      "oldPrice": 32269,
+      "savings": 24069,
+      "discount": 0.75,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -713,9 +818,9 @@
         "kind": "city"
       },
       "price": 8700,
-      "oldPrice": 22068,
-      "savings": 13368,
-      "discount": 0.61,
+      "oldPrice": 21663,
+      "savings": 12963,
+      "discount": 0.6,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -853,8 +958,8 @@
         "kind": "city"
       },
       "price": 4700,
-      "oldPrice": 16600,
-      "savings": 11900,
+      "oldPrice": 16630,
+      "savings": 11930,
       "discount": 0.72,
       "oneway": true,
       "roundTrip": false,
@@ -1453,41 +1558,6 @@
       "text": "из Москвы в Эль-Айн 🇦🇪 за 11 700 р. OW (осенью)\nJazeera Airways, через Кувейт -"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Владивосток",
-        "code": "VVO",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 19100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-16",
-      "returnDate": null,
-      "date": "2026-08-14T06:44:16+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/VVO1608CXR1?marker=748397&currency=rub",
-      "text": "Владивосток — Нячанг (Вьетнам) от 19100Р в одну сторону, вылет в это воскресенье, 16 августа, прямой с багажом\n—"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -1578,8 +1648,8 @@
         "kind": "city"
       },
       "price": 6200,
-      "oldPrice": 21180,
-      "savings": 14980,
+      "oldPrice": 21218,
+      "savings": 15018,
       "discount": 0.71,
       "oneway": false,
       "roundTrip": false,
@@ -2038,8 +2108,8 @@
         "kind": "city"
       },
       "price": 13000,
-      "oldPrice": 25100,
-      "savings": 12100,
+      "oldPrice": 25145,
+      "savings": 12145,
       "discount": 0.48,
       "oneway": false,
       "roundTrip": true,
@@ -2073,8 +2143,8 @@
         "kind": "city"
       },
       "price": 20500,
-      "oldPrice": 20778,
-      "savings": 278,
+      "oldPrice": 20606,
+      "savings": 106,
       "discount": 0.01,
       "oneway": false,
       "roundTrip": true,
@@ -2108,8 +2178,8 @@
         "kind": "city"
       },
       "price": 10000,
-      "oldPrice": 10062,
-      "savings": 62,
+      "oldPrice": 10081,
+      "savings": 81,
       "discount": 0.01,
       "oneway": false,
       "roundTrip": true,
@@ -2183,8 +2253,8 @@
         "kind": "city"
       },
       "price": 13700,
-      "oldPrice": 24335,
-      "savings": 10635,
+      "oldPrice": 24379,
+      "savings": 10679,
       "discount": 0.44,
       "oneway": false,
       "roundTrip": false,
@@ -2378,9 +2448,9 @@
         "kind": "city"
       },
       "price": 30800,
-      "oldPrice": 31128,
-      "savings": 328,
-      "discount": 0.01,
+      "oldPrice": 32377,
+      "savings": 1577,
+      "discount": 0.05,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -2712,7 +2782,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-14T15:58:47.574Z",
+      "checkedAt": "2026-08-14T17:01:11.081Z",
       "fetchedPosts": 20,
       "freshPosts": 13,
       "latestPostAt": "2026-08-14T10:24:45+00:00",
@@ -2722,7 +2792,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-14T15:58:47.574Z",
+      "checkedAt": "2026-08-14T17:01:11.081Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-14T12:00:23+00:00",
@@ -2732,17 +2802,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-14T15:58:47.574Z",
+      "checkedAt": "2026-08-14T17:01:11.082Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-14T14:22:43+00:00",
+      "latestPostAt": "2026-08-14T16:57:13+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-14T15:58:47.574Z",
+      "checkedAt": "2026-08-14T17:01:11.082Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -2752,7 +2822,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-14T15:58:47.574Z",
+      "checkedAt": "2026-08-14T17:01:11.082Z",
       "fetchedPosts": 19,
       "freshPosts": 5,
       "latestPostAt": "2026-08-14T08:18:18+00:00",
@@ -2762,7 +2832,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-14T15:58:47.574Z",
+      "checkedAt": "2026-08-14T17:01:11.082Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2772,7 +2842,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-14T15:58:47.574Z",
+      "checkedAt": "2026-08-14T17:01:11.082Z",
       "fetchedPosts": 14,
       "freshPosts": 12,
       "latestPostAt": "2026-08-14T14:05:17+00:00",
@@ -2782,7 +2852,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-14T15:58:47.574Z",
+      "checkedAt": "2026-08-14T17:01:11.082Z",
       "fetchedPosts": 4,
       "freshPosts": 4,
       "latestPostAt": "2026-08-14T15:20:15+00:00",

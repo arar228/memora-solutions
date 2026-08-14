@@ -1,7 +1,47 @@
 {
-  "updatedAt": "2026-08-14T11:22:49.215Z",
+  "updatedAt": "2026-08-14T12:24:39.561Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Амстердам",
+        "code": "AMS",
+        "country": {
+          "ru": "Нидерланды",
+          "en": "Netherlands"
+        },
+        "kind": "city"
+      },
+      "price": 8200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-14T12:00:23+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED1309AMS1?marker=748397&currency=rub",
+      "text": "💥 из Петербурга в Амстердам 🇳🇱 за 8 200 р. OW (окт, дек-янв)\nВсе даты:"
+    },
     {
       "type": "flight",
       "from": {
@@ -3235,195 +3275,15 @@
       "source": "travelata",
       "link": "https://travelata.ru/turkey/resorts/alanya/hotels/mc-beach-resort-ex-otium-mc-beach-resort-mc-beach-park-resort-hotel-spa-5-46cdab6.html?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=alanya/hotels/mc-beach-resort1&utm_term=1208#?fromCity=2&dateFrom=25.08.2026&dateTo=31.08.2026&daysFlexible=3&nightFrom=11&nightTo=14&adults=2&priceFrom=100&priceTo=50000000&meal=all&productType=all&hsid=jm8hwofj4y",
       "text": "🔸Мальдивы, 4-5⭐️, «всё включено», 7 ночей, от 139 232 ₽/чел."
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шри-Ланка",
-        "code": "CMB",
-        "country": {
-          "ru": "Шри-Ланка",
-          "en": "Sri Lanka"
-        },
-        "kind": "country"
-      },
-      "price": 45200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Манама",
-          "code": "BAH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-12T12:22:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1309CMB1?marker=748397&currency=rub",
-      "text": "из Москвы на Шри-Ланку 🇱🇰 за 45 200 р. RT (сентябрь-октябрь)\nGulf Air + Аэрофлот, через Манаму + прямой - \nВсе даты:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "to": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 4700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-12T12:18:23+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/HRG1309LED1?marker=748397&currency=rub",
-      "text": "🚀 из Египта в Питер, МинВоды и Калининград от 4700 рублей;"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "to": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 5300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-12T12:18:23+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/IST1309KZN1?marker=748397&currency=rub",
-      "text": "🚀 из Турции в Казань и Самару от 5300 рублей."
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Уфа",
-        "code": "UFA",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Ереван",
-        "code": "EVN",
-        "country": {
-          "ru": "Армения",
-          "en": "Armenia"
-        },
-        "kind": "city"
-      },
-      "price": 5900,
-      "oldPrice": 17825,
-      "savings": 11925,
-      "discount": 0.67,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-12T11:28:15+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/UFA1309EVN1?marker=748397&currency=rub",
-      "text": "из Уфы в Ереван 🇦🇲 за 5 900 р. OW (осенью-зимой)\nШирак Авиа, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 14100,
-      "oldPrice": 19214,
-      "savings": 5114,
-      "discount": 0.27,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-12T11:28:15+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/AER1309AYT1?marker=748397&currency=rub",
-      "text": "из Сочи в Анталью 🇹🇷 за 14 100 р. RT (август)\nSouthwind, прямые рейсы с багажом -"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-14T11:22:49.048Z",
+      "checkedAt": "2026-08-14T12:24:39.370Z",
       "fetchedPosts": 20,
-      "freshPosts": 15,
+      "freshPosts": 14,
       "latestPostAt": "2026-08-14T10:24:45+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3431,17 +3291,17 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-14T11:22:49.048Z",
+      "checkedAt": "2026-08-14T12:24:39.370Z",
       "fetchedPosts": 20,
-      "freshPosts": 18,
-      "latestPostAt": "2026-08-14T10:31:57+00:00",
+      "freshPosts": 17,
+      "latestPostAt": "2026-08-14T12:00:23+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-14T11:22:49.048Z",
+      "checkedAt": "2026-08-14T12:24:39.370Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-14T11:05:18+00:00",
@@ -3451,9 +3311,9 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-14T11:22:49.048Z",
+      "checkedAt": "2026-08-14T12:24:39.370Z",
       "fetchedPosts": 20,
-      "freshPosts": 9,
+      "freshPosts": 8,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3461,7 +3321,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-14T11:22:49.048Z",
+      "checkedAt": "2026-08-14T12:24:39.370Z",
       "fetchedPosts": 19,
       "freshPosts": 6,
       "latestPostAt": "2026-08-14T08:18:18+00:00",
@@ -3471,7 +3331,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-14T11:22:49.048Z",
+      "checkedAt": "2026-08-14T12:24:39.370Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-13T15:18:17+00:00",
@@ -3481,7 +3341,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-14T11:22:49.048Z",
+      "checkedAt": "2026-08-14T12:24:39.370Z",
       "fetchedPosts": 13,
       "freshPosts": 12,
       "latestPostAt": "2026-08-14T10:06:12+00:00",
@@ -3491,7 +3351,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-14T11:22:49.048Z",
+      "checkedAt": "2026-08-14T12:24:39.370Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-14T08:54:51+00:00",

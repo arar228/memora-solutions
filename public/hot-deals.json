@@ -1,7 +1,372 @@
 {
-  "updatedAt": "2026-08-14T06:00:31.739Z",
+  "updatedAt": "2026-08-14T07:43:33.165Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бангкок",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 55500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Пекин",
+          "code": "PEK"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-08",
+      "returnDate": null,
+      "date": "2026-08-14T07:38:57+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0108BKK1?marker=748397&currency=rub",
+      "text": "✈️В Бангкок за 55.500 руб туда-обратно в августе-сентябре, стыковки в Пекине"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пермь",
+        "code": "PEE",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 7800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-08-14T07:37:17+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0109PEE1?marker=748397&currency=rub",
+      "text": "✈️Аэрофлотом в Пермь в конце сентября за 7.800 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 4800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-14T07:36:33+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/SSH1309LED1?marker=748397&currency=rub",
+      "text": "✈️Возвраты из Шарм-эш-Шейха от 4.800 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Занзибар",
+        "code": "ZNZ",
+        "country": {
+          "ru": "Танзания",
+          "en": "Tanzania"
+        },
+        "kind": "city"
+      },
+      "price": 66000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-20",
+      "returnDate": "2026-08-31",
+      "date": "2026-08-14T07:14:40+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2008ZNZ1?marker=748397&currency=rub",
+      "text": "Москва — Занзибар (Танзания) за 66000Р туда и обратно, вне короткая пересадка и багаж\n— 20-31.08 —"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кувейт",
+        "code": "KWI",
+        "country": {
+          "ru": "Кувейт",
+          "en": "Kuwait"
+        },
+        "kind": "country"
+      },
+      "price": 10800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Кувейт",
+          "code": "KWI"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-14T07:12:10+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1309KWI1?marker=748397&currency=rub",
+      "text": "из Москвы в Кувейт 🇰🇼 за 10 800 р. OW (сентябрь)\nJazeera Airways, прямой рейс -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кувейт",
+        "code": "KWI",
+        "country": {
+          "ru": "Кувейт",
+          "en": "Kuwait"
+        },
+        "kind": "country"
+      },
+      "price": 11700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Кувейт",
+          "code": "KWI"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-14T07:12:10+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1309KWI1?marker=748397&currency=rub",
+      "text": "из Москвы в Эль-Айн 🇦🇪 за 11 700 р. OW (осенью)\nJazeera Airways, через Кувейт -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Владивосток",
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 19100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-16",
+      "returnDate": null,
+      "date": "2026-08-14T06:44:16+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/VVO1608CXR1?marker=748397&currency=rub",
+      "text": "Владивосток — Нячанг (Вьетнам) от 19100Р в одну сторону, вылет в это воскресенье, 16 августа, прямой с багажом\n—"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Куала-Лумпур",
+        "code": "KUL",
+        "country": {
+          "ru": "Малайзия",
+          "en": "Malaysia"
+        },
+        "kind": "city"
+      },
+      "price": 59000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-29",
+      "returnDate": null,
+      "date": "2026-08-14T06:31:42+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2909KUL1?marker=748397&currency=rub",
+      "text": "— Просто дата по спеццене — 59000Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Куала-Лумпур",
+        "code": "KUL",
+        "country": {
+          "ru": "Малайзия",
+          "en": "Malaysia"
+        },
+        "kind": "city"
+      },
+      "price": 65500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-29",
+      "returnDate": null,
+      "date": "2026-08-14T06:31:42+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2909KUL1?marker=748397&currency=rub",
+      "text": "— С захватом Гран-при Ф1 — 65500Р"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пекин",
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 36300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-08-14T06:08:47+00:00",
+      "source": "vandroukiru",
+      "link": "https://vandrouki.ru/kruiz/nedorogoj-bezvizovyj-kruiz-na-osen-kitaj-yuzhnaya-koreya/",
+      "text": "Ничего такой недельный круиз на конец сентября по маршруту Пекин - Инчхон - Чеджу - Пусан - Пекин. \nПлюсы: \n⭐️ безвизовый\n⭐️ недорогой (от 36300 с человека в двухместной каюте / от 28700 - в четырёхме"
+    },
     {
       "type": "flight",
       "from": {
@@ -1159,76 +1524,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бодрум",
-        "code": "BJV",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 7200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-16",
-      "returnDate": null,
-      "date": "2026-08-13T10:02:31+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1608BJV1?marker=748397&currency=rub",
-      "text": "Москва — Бодрум от 7200₽ в одну сторону, вылет в воскресенье утром, рейсы прямые, с багажом\n— 16.08 - 7200₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 22500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-14",
-      "returnDate": "2026-08-18",
-      "date": "2026-08-13T09:25:22+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1408SSH1?marker=748397&currency=rub",
-      "text": "Москва — Шарм-эш-Шейх от 22500₽ в обе стороны, вылет ночью, рейсы прямые, с багажом\n— 14.08 - 18.08 - 22500₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Владивосток",
         "code": "VVO",
         "country": {
@@ -1265,76 +1560,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/VVO1309MEL1?marker=748397&currency=rub",
       "text": "из Владивостока в Мельбурн 🇦🇺 за 67 600 р. RT (осенью и зимой)\nAir China, пересадки в Пекине - \nВсе даты:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 5800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-14",
-      "returnDate": null,
-      "date": "2026-08-13T08:29:33+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SSH1408LED1?marker=748397&currency=rub",
-      "text": "Шарм-эш-Шейх — Санкт-Петербург от 5800₽ в одну сторону, вылет завтра вечером, рейсы прямые, с багажом\n— 14.08 - 5800₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 7600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-14",
-      "returnDate": null,
-      "date": "2026-08-13T08:29:33+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/HRG1408LED1?marker=748397&currency=rub",
-      "text": "Хургада — Санкт-Петербург от 7600₽ в одну сторону, вылет завтра, рейсы прямые, с багажом\n— 14.08 - 7600₽"
     },
     {
       "type": "flight",
@@ -1790,111 +2015,6 @@
       "source": "travelata",
       "link": "https://travelata.ru/rating/bgoperator/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=tailand0&utm_term=1308#?fromCity=2&toCountry=87&toCity=4191.2100&dateFrom=01.09.2026&dateTo=01.09.2026&nightFrom=10&nightTo=10&adults=2&hotelClass=all&operators=11&meal=all&priceFrom=6000&priceTo=21000000&sid=na375wqxhs&sort=priceUp&f_firstLine=true&f_secondLine=true&f_good=true",
       "text": "⚡️ТАИЛАНД с прямым рейсом, отели на 1-2 линии, 10 ночей, туры от 76 682 ₽/чел.! В туре перелёт, проживание, медицинская страховка и трансфер🚘"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 7600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-15",
-      "returnDate": null,
-      "date": "2026-08-12T17:38:13+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/HRG1508MOW1?marker=748397&currency=rub",
-      "text": "Хургада — Москва от 7600₽ в одну сторону, вылеты на этой неделе, рейсы прямые, с багажом\n— 15.08 - 7600₽\n— 16.08 - 7600₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 9500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-14",
-      "returnDate": null,
-      "date": "2026-08-12T17:38:13+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1408SSH1?marker=748397&currency=rub",
-      "text": "Москва — Шарм-эш-Шейх от 9500₽ в одну сторону, вылеты на этой неделе, рейсы прямые, с багажом\n— 14.08 - 9500₽\n— 15.08 - 11400₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 27300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-21",
-      "returnDate": "2026-09-03",
-      "date": "2026-08-12T17:02:16+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2108AYT1?marker=748397&currency=rub",
-      "text": "Москва — Анталья от 27300₽ в обе стороны, вылет 21 августа, рейсы прямые, с багажом\n— 21.08 - 03.09 - 27300₽"
     },
     {
       "type": "flight",
@@ -2970,178 +3090,63 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW1309PAR1?marker=748397&currency=rub",
       "text": "из Москвы в Париж 🇫🇷 за 10 700 р. OW (осенью-зимой)\nШирак Авиа + Wizz Air, через Ереван -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 58400,
-      "oldPrice": 62914,
-      "savings": 4514,
-      "discount": 0.07,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Абу-Даби",
-          "code": "AUH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-12T07:11:29+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN1309SEZ1?marker=748397&currency=rub",
-      "text": "из Казани на Сейшелы 🇸🇨 за 58 400 р. RT (зимой)\nEtihad, через Абу-Даби -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 61500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Абу-Даби",
-          "code": "AUH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-12T07:11:29+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED1309SEZ1?marker=748397&currency=rub",
-      "text": "из Петербурга на Сейшелы 🇸🇨 за 61 500 р. RT (осенью и зимой)\nEtihad, пересадки в Абу-Даби -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 66900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10",
-      "returnDate": null,
-      "date": "2026-08-12T07:07:41+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0110SEZ1?marker=748397&currency=rub",
-      "text": "✈️Полеты на Сейшелы с Etihad туда-обратно в октябре-марте за 66.900 руб"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-14T06:00:31.579Z",
+      "checkedAt": "2026-08-14T07:43:32.990Z",
       "fetchedPosts": 20,
-      "freshPosts": 11,
-      "latestPostAt": "2026-08-13T21:05:38+00:00",
+      "freshPosts": 12,
+      "latestPostAt": "2026-08-14T06:08:47+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-14T06:00:31.580Z",
+      "checkedAt": "2026-08-14T07:43:32.991Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-13T18:21:01+00:00",
+      "latestPostAt": "2026-08-14T07:12:10+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-14T06:00:31.580Z",
+      "checkedAt": "2026-08-14T07:43:32.991Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-14T05:58:16+00:00",
+      "latestPostAt": "2026-08-14T07:34:55+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-14T06:00:31.580Z",
+      "checkedAt": "2026-08-14T07:43:32.991Z",
       "fetchedPosts": 20,
-      "freshPosts": 5,
-      "latestPostAt": "2026-08-13T07:03:57+00:00",
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-14T07:38:57+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-14T06:00:31.580Z",
+      "checkedAt": "2026-08-14T07:43:32.991Z",
       "fetchedPosts": 18,
-      "freshPosts": 4,
-      "latestPostAt": "2026-08-13T13:37:49+00:00",
+      "freshPosts": 5,
+      "latestPostAt": "2026-08-14T07:20:17+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-14T06:00:31.580Z",
+      "checkedAt": "2026-08-14T07:43:32.991Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-13T15:18:17+00:00",
@@ -3151,7 +3156,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-14T06:00:31.580Z",
+      "checkedAt": "2026-08-14T07:43:32.991Z",
       "fetchedPosts": 14,
       "freshPosts": 11,
       "latestPostAt": "2026-08-14T05:30:44+00:00",
@@ -3161,9 +3166,9 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-14T06:00:31.580Z",
+      "checkedAt": "2026-08-14T07:43:32.991Z",
       "fetchedPosts": 9,
-      "freshPosts": 7,
+      "freshPosts": 6,
       "latestPostAt": "2026-08-13T10:49:53+00:00",
       "reusedPrevious": false,
       "error": null

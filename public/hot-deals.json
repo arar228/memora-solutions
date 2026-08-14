@@ -1,7 +1,47 @@
 {
-  "updatedAt": "2026-08-14T10:34:48.794Z",
+  "updatedAt": "2026-08-14T11:22:49.215Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Манила",
+        "code": "MNL",
+        "country": {
+          "ru": "Филиппины",
+          "en": "Philippines"
+        },
+        "kind": "city"
+      },
+      "price": 68700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Эр-Рияд",
+          "code": "RUH"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-12-29",
+      "returnDate": "2027-01-18",
+      "date": "2026-08-14T11:05:18+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2912MNL1?marker=748397&currency=rub",
+      "text": "Москва — Манила (Филиппины) от 68700₽ в обе стороны, вылет 29 декабря, стыковки в Эр-Рияде, с багажом\n— 29.12 - 18.01 - 68700₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -3381,9 +3421,9 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-14T10:34:48.613Z",
+      "checkedAt": "2026-08-14T11:22:49.048Z",
       "fetchedPosts": 20,
-      "freshPosts": 16,
+      "freshPosts": 15,
       "latestPostAt": "2026-08-14T10:24:45+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3391,7 +3431,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-14T10:34:48.613Z",
+      "checkedAt": "2026-08-14T11:22:49.048Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
       "latestPostAt": "2026-08-14T10:31:57+00:00",
@@ -3401,17 +3441,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-14T10:34:48.613Z",
+      "checkedAt": "2026-08-14T11:22:49.048Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-14T09:55:18+00:00",
+      "latestPostAt": "2026-08-14T11:05:18+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-14T10:34:48.613Z",
+      "checkedAt": "2026-08-14T11:22:49.048Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -3421,7 +3461,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-14T10:34:48.614Z",
+      "checkedAt": "2026-08-14T11:22:49.048Z",
       "fetchedPosts": 19,
       "freshPosts": 6,
       "latestPostAt": "2026-08-14T08:18:18+00:00",
@@ -3431,7 +3471,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-14T10:34:48.614Z",
+      "checkedAt": "2026-08-14T11:22:49.048Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-13T15:18:17+00:00",
@@ -3441,7 +3481,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-14T10:34:48.614Z",
+      "checkedAt": "2026-08-14T11:22:49.048Z",
       "fetchedPosts": 13,
       "freshPosts": 12,
       "latestPostAt": "2026-08-14T10:06:12+00:00",
@@ -3451,7 +3491,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-14T10:34:48.614Z",
+      "checkedAt": "2026-08-14T11:22:49.048Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-14T08:54:51+00:00",

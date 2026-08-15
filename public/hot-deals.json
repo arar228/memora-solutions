@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-15T09:33:28.720Z",
+  "updatedAt": "2026-08-15T09:52:46.502Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 7200,
+      "oldPrice": 22185,
+      "savings": 14985,
+      "discount": 0.68,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-15T09:38:26+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1409AYT1?marker=748397&currency=rub",
+      "text": "из Москвы в Анталью 🇹🇷 за 7 200 р. OW (август)\nSouthwind, прямой рейс с багажом - \nВсе даты:"
+    },
     {
       "type": "flight",
       "from": {
@@ -388,9 +423,9 @@
         "kind": "city"
       },
       "price": 12100,
-      "oldPrice": 24924,
-      "savings": 12824,
-      "discount": 0.51,
+      "oldPrice": 27532,
+      "savings": 15432,
+      "discount": 0.56,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -633,9 +668,9 @@
         "kind": "city"
       },
       "price": 12800,
-      "oldPrice": 29352,
-      "savings": 16552,
-      "discount": 0.56,
+      "oldPrice": 25164,
+      "savings": 12364,
+      "discount": 0.49,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1148,8 +1183,8 @@
         "kind": "city"
       },
       "price": 8200,
-      "oldPrice": 31715,
-      "savings": 23515,
+      "oldPrice": 31645,
+      "savings": 23445,
       "discount": 0.74,
       "oneway": false,
       "roundTrip": false,
@@ -1323,9 +1358,9 @@
         "kind": "city"
       },
       "price": 4700,
-      "oldPrice": 18757,
-      "savings": 14057,
-      "discount": 0.75,
+      "oldPrice": 16325,
+      "savings": 11625,
+      "discount": 0.71,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1908,8 +1943,8 @@
         "kind": "city"
       },
       "price": 6200,
-      "oldPrice": 23594,
-      "savings": 17394,
+      "oldPrice": 23542,
+      "savings": 17342,
       "discount": 0.74,
       "oneway": false,
       "roundTrip": false,
@@ -2403,9 +2438,9 @@
         "kind": "city"
       },
       "price": 20500,
-      "oldPrice": 20631,
-      "savings": 131,
-      "discount": 0.01,
+      "oldPrice": 20565,
+      "savings": 65,
+      "discount": 0,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -2652,7 +2687,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:33:28.563Z",
+      "checkedAt": "2026-08-15T09:52:46.375Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-14T10:24:45+00:00",
@@ -2662,17 +2697,17 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:33:28.563Z",
+      "checkedAt": "2026-08-15T09:52:46.376Z",
       "fetchedPosts": 20,
-      "freshPosts": 16,
-      "latestPostAt": "2026-08-15T07:42:39+00:00",
+      "freshPosts": 17,
+      "latestPostAt": "2026-08-15T09:38:26+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:33:28.563Z",
+      "checkedAt": "2026-08-15T09:52:46.376Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-15T06:09:52+00:00",
@@ -2682,7 +2717,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:33:28.563Z",
+      "checkedAt": "2026-08-15T09:52:46.376Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -2692,7 +2727,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:33:28.563Z",
+      "checkedAt": "2026-08-15T09:52:46.376Z",
       "fetchedPosts": 19,
       "freshPosts": 4,
       "latestPostAt": "2026-08-14T08:18:18+00:00",
@@ -2702,7 +2737,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:33:28.563Z",
+      "checkedAt": "2026-08-15T09:52:46.376Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2712,7 +2747,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:33:28.563Z",
+      "checkedAt": "2026-08-15T09:52:46.376Z",
       "fetchedPosts": 14,
       "freshPosts": 11,
       "latestPostAt": "2026-08-15T08:15:55+00:00",
@@ -2722,7 +2757,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:33:28.563Z",
+      "checkedAt": "2026-08-15T09:52:46.376Z",
       "fetchedPosts": 4,
       "freshPosts": 4,
       "latestPostAt": "2026-08-15T08:57:58+00:00",

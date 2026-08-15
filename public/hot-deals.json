@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-15T11:28:27.274Z",
+  "updatedAt": "2026-08-15T11:48:47.475Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Токио",
+        "code": "TYO",
+        "country": {
+          "ru": "Япония",
+          "en": "Japan"
+        },
+        "kind": "city"
+      },
+      "price": 61600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-13",
+      "returnDate": "2026-09-28",
+      "date": "2026-08-15T11:33:01+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1309TYO1?marker=748397&currency=rub",
+      "text": "Москва — Токио — Осака — Москва от 61600₽ в обе стороны, вылеты в сентябре, стыковки в КНР, с багажом.\n— 13.09 - 28.09 - 61600₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Осака",
+        "code": "OSA",
+        "country": {
+          "ru": "Япония",
+          "en": "Japan"
+        },
+        "kind": "city"
+      },
+      "price": 61800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-27",
+      "returnDate": "2026-09-08",
+      "date": "2026-08-15T11:33:01+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2708OSA1?marker=748397&currency=rub",
+      "text": "Москва — Осака — Токио — Москва от 61800₽ в обе стороны, вылеты в августе-сентябре, стыковки в КНР, с багажом.\n— 27.08 - 08.09 - 61800₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -1598,41 +1668,6 @@
       "text": "Алматы — Бангкок (Таиланд) от 10800Р в одну сторону или от 20500Р туда и обратно, рейсы прямые с багажом\n— 17.08 — 10800Р\n— 20.08 — 14500Р\n— 17-21.08 — 20500Р"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 4700,
-      "oldPrice": 16325,
-      "savings": 11625,
-      "discount": 0.71,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-16",
-      "returnDate": "2026-08-23",
-      "date": "2026-08-14T08:57:16+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AER1608SSH1?marker=748397&currency=rub",
-      "text": "Или Сочи — Шарм-эш-Шейх (Египет) от 4700Р в одну сторону или от 18700Р туда и обратно, прямой с багажом\n— 16.08 — 4700Р\n— 20.08 — 9400Р\n— 16-23.08 — 18700Р\n— 16-27.08 — 18700Р\n— 20-27.08 — 18700Р\n— 23"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Москва",
@@ -2466,53 +2501,13 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/AER0108BUS1?marker=748397&currency=rub",
       "text": "из Сочи в Батуми 🇬🇪 за 10 000 р. RT (осенью)\nRed Wings, прямые рейсы -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бангкок",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 21700,
-      "oldPrice": 47196,
-      "savings": 25496,
-      "discount": 0.54,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Маскат",
-          "code": "MCT"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T11:35:19+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1409BKK1?marker=748397&currency=rub",
-      "text": "из Москвы в Бангкок 🇹🇭 за 21 700 р. OW (осенью и зимой)\nOman Air, через Маскат - \n- Все даты:  \n- Путеводитель по Бангкоку:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-15T11:28:27.118Z",
+      "checkedAt": "2026-08-15T11:48:47.319Z",
       "fetchedPosts": 20,
       "freshPosts": 10,
       "latestPostAt": "2026-08-15T10:26:18+00:00",
@@ -2522,9 +2517,9 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-15T11:28:27.118Z",
+      "checkedAt": "2026-08-15T11:48:47.319Z",
       "fetchedPosts": 20,
-      "freshPosts": 17,
+      "freshPosts": 16,
       "latestPostAt": "2026-08-15T10:20:44+00:00",
       "reusedPrevious": false,
       "error": null
@@ -2532,17 +2527,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-15T11:28:27.118Z",
+      "checkedAt": "2026-08-15T11:48:47.319Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-15T11:04:01+00:00",
+      "latestPostAt": "2026-08-15T11:33:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-15T11:28:27.118Z",
+      "checkedAt": "2026-08-15T11:48:47.319Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -2552,7 +2547,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-15T11:28:27.118Z",
+      "checkedAt": "2026-08-15T11:48:47.319Z",
       "fetchedPosts": 19,
       "freshPosts": 6,
       "latestPostAt": "2026-08-15T10:41:40+00:00",
@@ -2562,7 +2557,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-15T11:28:27.119Z",
+      "checkedAt": "2026-08-15T11:48:47.319Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2572,7 +2567,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-15T11:28:27.119Z",
+      "checkedAt": "2026-08-15T11:48:47.319Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-08-15T10:03:31+00:00",
@@ -2582,7 +2577,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-15T11:28:27.119Z",
+      "checkedAt": "2026-08-15T11:48:47.319Z",
       "fetchedPosts": 4,
       "freshPosts": 4,
       "latestPostAt": "2026-08-15T09:54:13+00:00",

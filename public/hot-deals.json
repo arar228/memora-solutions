@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-15T12:53:15.002Z",
+  "updatedAt": "2026-08-15T13:37:04.817Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гавана",
+        "code": "HAV",
+        "country": {
+          "ru": "Куба",
+          "en": "Cuba"
+        },
+        "kind": "city"
+      },
+      "price": 298026,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-09-01",
+      "date": "2026-08-15T13:24:53+00:00",
+      "source": "leveltravel",
+      "link": "https://lvtv.me/Apl2rnd",
+      "text": "🕊Дети — это такая радость! \nНо иногда кажется удобным, если на отдыхе в отеле есть зона, куда пускают только взрослых. И в этом турецком отеле она есть. Рассказываем про Numa Bay Exclusive 5* в Алань"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 13600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-16",
+      "returnDate": "2026-08-19",
+      "date": "2026-08-15T12:56:08+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AER1608SSH1?marker=748397&currency=rub",
+      "text": "Сочи — Шарм-эш-Шейх от 13600₽ в обе стороны, вылет завтра, рейсы прямые, с багажом\n— 16.08 - 19.08 - 13600₽\n— 16.08 - 20.08 - 15800₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -589,6 +659,46 @@
         "kind": "city"
       },
       "to": {
+        "name": "Марса-Алам",
+        "code": "RMF",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 26400,
+      "oldPrice": 33200,
+      "savings": 6800,
+      "discount": 0.2,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-03",
+      "returnDate": null,
+      "date": "2026-08-15T07:42:39+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
+      "text": "из Петербурга в Марса-Алам 🇪🇬 за 26 400 р. RT (осенью и зимой)\nPegasus, пересадки в Стамбуле -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
         "name": "Стамбул",
         "code": "IST",
         "country": {
@@ -616,46 +726,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/LED0103IST1?marker=748397&currency=rub",
       "text": "из Петербурга в Луксор 🇪🇬 за 25 000 р. RT (до конца года)\nPegasus, через Стамбул -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Марса-Алам",
-        "code": "RMF",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 26400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-15T07:42:39+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
-      "text": "из Петербурга в Марса-Алам 🇪🇬 за 26 400 р. RT (осенью и зимой)\nPegasus, пересадки в Стамбуле -"
     },
     {
       "type": "tour",
@@ -858,9 +928,9 @@
         "kind": "city"
       },
       "price": 12100,
-      "oldPrice": 27532,
-      "savings": 15432,
-      "discount": 0.56,
+      "oldPrice": 30627,
+      "savings": 18527,
+      "discount": 0.6,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1103,9 +1173,9 @@
         "kind": "city"
       },
       "price": 12800,
-      "oldPrice": 25164,
-      "savings": 12364,
-      "discount": 0.49,
+      "oldPrice": 24320,
+      "savings": 11520,
+      "discount": 0.47,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1424,6 +1494,41 @@
         "kind": "city"
       },
       "to": {
+        "name": "Марса-Алам",
+        "code": "RMF",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 27000,
+      "oldPrice": 33200,
+      "savings": 6200,
+      "discount": 0.19,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2027-03",
+      "returnDate": null,
+      "date": "2026-08-14T10:16:39+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
+      "text": "В Марса-Алам 27.000 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
         "name": "Александрия",
         "code": "HBE",
         "country": {
@@ -1446,41 +1551,6 @@
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0111HBE1?marker=748397&currency=rub",
       "text": "В Александрию 26.800 руб"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Марса-Алам",
-        "code": "RMF",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 27000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-14T10:16:39+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
-      "text": "В Марса-Алам 27.000 руб"
     },
     {
       "type": "tour",
@@ -1520,86 +1590,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 28100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11-17",
-      "returnDate": "2026-11-28",
-      "date": "2026-08-14T09:35:26+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1711LED1?marker=748397&currency=rub",
-      "text": "Санкт-Петербург — Севилья от 28100₽ в обе стороны, вылеты в ноябре-декабре, стыковка в Стамбуле, ручная кладь\n— 17.11 - 28.11 - 28700₽\n— 02.12 - 11.12 - 28100₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 30000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11-08",
-      "returnDate": "2026-11-17",
-      "date": "2026-08-14T09:35:26+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW0811IST1?marker=748397&currency=rub",
-      "text": "Москва — Севилья от 30000₽ в обе стороны, вылеты в ноябре-декабре, стыковка в Стамбуле, ручная кладь\n— 08.11 - 17.11 - 30000₽\n— 03.12 - 11.12 - 30000₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Уфа",
         "code": "UFA",
         "country": {
@@ -1618,8 +1608,8 @@
         "kind": "city"
       },
       "price": 8200,
-      "oldPrice": 31645,
-      "savings": 23445,
+      "oldPrice": 32147,
+      "savings": 23947,
       "discount": 0.74,
       "oneway": false,
       "roundTrip": false,
@@ -2326,118 +2316,13 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/jD5Vad",
       "text": "🔥 на Хайнань (Китай) на 9 ночей с вылетом в августе или сентябре от 74 500/чел, виза не нужна  (скидка по промокоду 3500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "ОАЭ",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "country"
-      },
-      "price": 43400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "returnDate": null,
-      "date": "2026-08-13T12:57:11+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/8grfCV",
-      "text": "🔥 в ОАЭ на неделю и дольше в 4-5* в сентябре от 43 400/чел"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 48000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-13T12:57:11+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/454kJd",
-      "text": "🔥 в Турцию на неделю в 4-5* с вылетами в конце августа или начале сентября от 48 000/чел, все включено, с топливными сборами"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 55500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08-22",
-      "returnDate": "2026-09-02",
-      "date": "2026-08-13T12:57:11+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/6m9FAj",
-      "text": "🔥 в Египет на 6-11 ночей в августе от 55 500/чел, все включено  (пример вылетов - 22, 25, 28 августа)"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-15T12:53:14.840Z",
+      "checkedAt": "2026-08-15T13:37:04.662Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-15T10:26:18+00:00",
@@ -2447,7 +2332,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-15T12:53:14.840Z",
+      "checkedAt": "2026-08-15T13:37:04.662Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-15T12:45:57+00:00",
@@ -2457,17 +2342,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-15T12:53:14.840Z",
+      "checkedAt": "2026-08-15T13:37:04.662Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-15T11:51:16+00:00",
+      "latestPostAt": "2026-08-15T12:56:08+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-15T12:53:14.840Z",
+      "checkedAt": "2026-08-15T13:37:04.662Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -2477,9 +2362,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-15T12:53:14.840Z",
+      "checkedAt": "2026-08-15T13:37:04.662Z",
       "fetchedPosts": 19,
-      "freshPosts": 6,
+      "freshPosts": 5,
       "latestPostAt": "2026-08-15T10:41:40+00:00",
       "reusedPrevious": false,
       "error": null
@@ -2487,7 +2372,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-15T12:53:14.840Z",
+      "checkedAt": "2026-08-15T13:37:04.662Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2497,7 +2382,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-15T12:53:14.840Z",
+      "checkedAt": "2026-08-15T13:37:04.662Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-08-15T10:03:31+00:00",
@@ -2507,10 +2392,10 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-15T12:53:14.840Z",
-      "fetchedPosts": 5,
-      "freshPosts": 5,
-      "latestPostAt": "2026-08-15T11:59:23+00:00",
+      "checkedAt": "2026-08-15T13:37:04.662Z",
+      "fetchedPosts": 6,
+      "freshPosts": 6,
+      "latestPostAt": "2026-08-15T13:24:53+00:00",
       "reusedPrevious": false,
       "error": null
     }

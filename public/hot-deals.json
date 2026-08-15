@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-15T15:29:20.767Z",
+  "updatedAt": "2026-08-15T15:48:54.660Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 9900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-04",
+      "returnDate": null,
+      "date": "2026-08-15T15:47:47+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/HRG0409MOW1?marker=748397&currency=rub",
+      "text": "Хургада — Москва от 9900₽ в одну сторону, вылеты в сентябре, рейсы прямые, с багажом\n— 04.09 - 9900₽\n— 09.09 - 9900₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -93,9 +128,9 @@
         "kind": "city"
       },
       "price": 13600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 18938,
+      "savings": 5338,
+      "discount": 0.28,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -694,46 +729,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Марса-Алам",
-        "code": "RMF",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 26400,
-      "oldPrice": 33200,
-      "savings": 6800,
-      "discount": 0.2,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-15T07:42:39+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
-      "text": "из Петербурга в Марса-Алам 🇪🇬 за 26 400 р. RT (осенью и зимой)\nPegasus, пересадки в Стамбуле -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Стамбул",
         "code": "IST",
         "country": {
@@ -761,6 +756,46 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/LED0103IST1?marker=748397&currency=rub",
       "text": "из Петербурга в Луксор 🇪🇬 за 25 000 р. RT (до конца года)\nPegasus, через Стамбул -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Марса-Алам",
+        "code": "RMF",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 26400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-03",
+      "returnDate": null,
+      "date": "2026-08-15T07:42:39+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
+      "text": "из Петербурга в Марса-Алам 🇪🇬 за 26 400 р. RT (осенью и зимой)\nPegasus, пересадки в Стамбуле -"
     },
     {
       "type": "tour",
@@ -963,8 +998,8 @@
         "kind": "city"
       },
       "price": 12100,
-      "oldPrice": 30627,
-      "savings": 18527,
+      "oldPrice": 30601,
+      "savings": 18501,
       "discount": 0.6,
       "oneway": true,
       "roundTrip": false,
@@ -1208,9 +1243,9 @@
         "kind": "city"
       },
       "price": 12800,
-      "oldPrice": 24320,
-      "savings": 11520,
-      "discount": 0.47,
+      "oldPrice": 25220,
+      "savings": 12420,
+      "discount": 0.49,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1449,46 +1484,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Манила",
-        "code": "MNL",
-        "country": {
-          "ru": "Филиппины",
-          "en": "Philippines"
-        },
-        "kind": "city"
-      },
-      "price": 68700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Эр-Рияд",
-          "code": "RUH"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-12-29",
-      "returnDate": "2027-01-18",
-      "date": "2026-08-14T11:05:18+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2912MNL1?marker=748397&currency=rub",
-      "text": "Москва — Манила (Филиппины) от 68700₽ в обе стороны, вылет 29 декабря, стыковки в Эр-Рияде, с багажом\n— 29.12 - 18.01 - 68700₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Сеул",
         "code": "SEL",
         "country": {
@@ -1529,41 +1524,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Марса-Алам",
-        "code": "RMF",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 27000,
-      "oldPrice": 33200,
-      "savings": 6200,
-      "discount": 0.19,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-14T10:16:39+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
-      "text": "В Марса-Алам 27.000 руб"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Александрия",
         "code": "HBE",
         "country": {
@@ -1586,6 +1546,41 @@
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0111HBE1?marker=748397&currency=rub",
       "text": "В Александрию 26.800 руб"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Марса-Алам",
+        "code": "RMF",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 27000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2027-03",
+      "returnDate": null,
+      "date": "2026-08-14T10:16:39+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
+      "text": "В Марса-Алам 27.000 руб"
     },
     {
       "type": "tour",
@@ -1643,8 +1638,8 @@
         "kind": "city"
       },
       "price": 8200,
-      "oldPrice": 32147,
-      "savings": 23947,
+      "oldPrice": 31715,
+      "savings": 23515,
       "discount": 0.74,
       "oneway": false,
       "roundTrip": false,
@@ -2142,7 +2137,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-15T15:29:20.635Z",
+      "checkedAt": "2026-08-15T15:48:54.504Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-15T10:26:18+00:00",
@@ -2152,7 +2147,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-15T15:29:20.635Z",
+      "checkedAt": "2026-08-15T15:48:54.504Z",
       "fetchedPosts": 20,
       "freshPosts": 14,
       "latestPostAt": "2026-08-15T14:46:28+00:00",
@@ -2162,17 +2157,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-15T15:29:20.635Z",
+      "checkedAt": "2026-08-15T15:48:54.504Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-15T14:09:38+00:00",
+      "latestPostAt": "2026-08-15T15:47:47+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-15T15:29:20.635Z",
+      "checkedAt": "2026-08-15T15:48:54.504Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -2182,7 +2177,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-15T15:29:20.635Z",
+      "checkedAt": "2026-08-15T15:48:54.504Z",
       "fetchedPosts": 19,
       "freshPosts": 4,
       "latestPostAt": "2026-08-15T10:41:40+00:00",
@@ -2192,7 +2187,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-15T15:29:20.635Z",
+      "checkedAt": "2026-08-15T15:48:54.504Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2202,7 +2197,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-15T15:29:20.635Z",
+      "checkedAt": "2026-08-15T15:48:54.504Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-08-15T10:03:31+00:00",
@@ -2212,7 +2207,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-15T15:29:20.635Z",
+      "checkedAt": "2026-08-15T15:48:54.504Z",
       "fetchedPosts": 6,
       "freshPosts": 6,
       "latestPostAt": "2026-08-15T13:24:53+00:00",

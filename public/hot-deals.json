@@ -1,7 +1,162 @@
 {
-  "updatedAt": "2026-08-15T09:52:46.502Z",
+  "updatedAt": "2026-08-15T10:31:08.794Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бильбао",
+        "code": "BIO",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 11000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-15T10:20:44+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1409BIO1?marker=748397&currency=rub",
+      "text": "из Москвы в Бильбао 🇪🇸 за 11 000 р. OW (ноябрь-декабрь)\nPegasus, через Стамбул -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Париж",
+        "code": "PAR",
+        "country": {
+          "ru": "Франция",
+          "en": "France"
+        },
+        "kind": "city"
+      },
+      "price": 23800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-15T10:20:44+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER1409PAR1?marker=748397&currency=rub",
+      "text": "из Сочи в Париж 🇫🇷 за 23 800 р. RT (осенью)\nFlyOne + Wizz Air, через Ереван -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Краснодар",
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Париж",
+        "code": "PAR",
+        "country": {
+          "ru": "Франция",
+          "en": "France"
+        },
+        "kind": "city"
+      },
+      "price": 24600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-15T10:20:44+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KRR1409PAR1?marker=748397&currency=rub",
+      "text": "из Краснодара в Париж 🇫🇷 за 24 600 р. RT (ноябрь-декабрь)\nFlyOne + Wizz Air, пересадки в Ереване -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Измир",
+        "code": "ADB",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 11400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-17",
+      "returnDate": null,
+      "date": "2026-08-15T10:04:45+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/ADB1708MOW1?marker=748397&currency=rub",
+      "text": "Измир — Москва от 11400₽ в одну сторону, вылеты в августе, рейсы прямые, с багажом\n— 17.08 - 11400₽\n— 18.08 - 13700₽\n— 19.08 - 14800₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -1373,41 +1528,6 @@
       "text": "Или Сочи — Шарм-эш-Шейх (Египет) от 4700Р в одну сторону или от 18700Р туда и обратно, прямой с багажом\n— 16.08 — 4700Р\n— 20.08 — 9400Р\n— 16-23.08 — 18700Р\n— 16-27.08 — 18700Р\n— 20-27.08 — 18700Р\n— 23"
     },
     {
-      "type": "tour",
-      "from": {
-        "name": "Франция",
-        "code": "PAR",
-        "country": {
-          "ru": "Франция",
-          "en": "France"
-        },
-        "kind": "country"
-      },
-      "to": {
-        "name": "Порту",
-        "code": "OPO",
-        "country": {
-          "ru": "Португалия",
-          "en": "Portugal"
-        },
-        "kind": "city"
-      },
-      "price": 190843,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-30",
-      "returnDate": "2026-10-07",
-      "date": "2026-08-14T08:54:51+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/QoQbp7E",
-      "text": "🕊Три в одном! Тунис воплощает в себе африканскую харизму, европейский уровень сервиса и традиции талассотерапии родом из Франции.\n🔥 Ловите туры в стильный отель Seabel Alhambra Beach Golf & Spa 4* в"
-    },
-    {
       "type": "flight",
       "from": {
         "name": "Санкт-Петербург",
@@ -1441,41 +1561,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/LED1508SSH1?marker=748397&currency=rub",
       "text": "Санкт-Петербург — Шарм-эш-Шейх (Египет) от 7300Р в одну сторону,вылет завтра, 15 августа, прямой с багажом\n—"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Казахстан",
-        "code": "ALA",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "country"
-      },
-      "price": 14100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-28",
-      "returnDate": null,
-      "date": "2026-08-14T08:22:01+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2810ALA1?marker=748397&currency=rub",
-      "text": "Nordwind (Северный ветер) запускает прямые регулярные рейсы из Москвы (SVO) в Уральск (Казахстан) — с 28 октября дважды в неделю (ср, вс) на Boeing 737-800 в компоновке на 189 кресел\nБилеты от 14100Р "
     },
     {
       "type": "tour",
@@ -1888,41 +1973,6 @@
       "text": "Ничего такой недельный круиз на конец сентября по маршруту Пекин - Инчхон - Чеджу - Пусан - Пекин. \nПлюсы: \n⭐️ безвизовый\n⭐️ недорогой (от 36300 с человека в двухместной каюте / от 28700 - в четырёхме"
     },
     {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 46014,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-14T05:30:44+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=turkey0&utm_term=1408#?fromCity=2&toCountry=92&toCity=2159.2178.3839.3828.2161.2162&dateFrom=01.09.2026&dateTo=01.09.2026&nightFrom=7&nightTo=7&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=ocgx9cnksl&sort=priceUp&f_good=true",
-      "text": "⚡️Самый дешёвый на текущий момент тур в ТУРЦИЮ на 7 ночей, всё включено, туры от 46 014 ₽/чел.! В туре перелёт, проживание, медицинская страховка и трансфер🚘"
-    },
-    {
       "type": "flight",
       "from": {
         "name": "Краснодар",
@@ -1956,41 +2006,6 @@
       "source": "vandroukiru",
       "link": "https://www.aviasales.ru/search/KRR1409DXB1?marker=748397&currency=rub",
       "text": "Ой, горячооо: прямой рейс Аэрофлота из Краснодара в Дубай за 6200 рублей!"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 119006,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T14:25:45+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/rating/bgoperator/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=maldivesDOP&utm_term=1308#?fromCity=2&toCountry=56&dateFrom=02.09.2026&dateTo=02.09.2026&nightFrom=10&nightTo=10&adults=2&hotelClass=all&operators=11&meal=all&priceFrom=6000&priceTo=21000000&sid=vtz3gxtesi&sort=priceUp",
-      "text": "⚡️Горящие МАЛЬДИВЫ с ПРЯМЫМ рейсом, 10 ночей, туры от 119 006 ₽/чел.! В туре перелёт, проживание, медицинская страховка и трансфер🚘"
     },
     {
       "type": "flight",
@@ -2171,111 +2186,6 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/jD5Vad",
       "text": "🔥 на Хайнань (Китай) на 9 ночей с вылетом в августе или сентябре от 74 500/чел, виза не нужна  (скидка по промокоду 3500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Абхазия",
-        "code": "SUI",
-        "country": {
-          "ru": "Абхазия",
-          "en": "Abkhazia"
-        },
-        "kind": "country"
-      },
-      "price": 28688,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T13:01:18+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=uae1&utm_term=1308#?fromCity=2&toCountry=68&toCity=1378.1383.1381.1384.1379.1385.1377.4228&dateFrom=23.08.2026&dateTo=27.08.2026&daysFlexible=2&nightFrom=7&nightTo=7&adults=2&hotelClass=all&meal=all&priceFrom=6000&priceTo=21000000&sid=45n6awmaj4&sort=priceUp&f_good=true",
-      "text": "Абхазия • 8 ночей, от 28 688 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 45503,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T13:01:18+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=uae1&utm_term=1308#?fromCity=2&toCountry=68&toCity=1378.1383.1381.1384.1379.1385.1377.4228&dateFrom=23.08.2026&dateTo=27.08.2026&daysFlexible=2&nightFrom=7&nightTo=7&adults=2&hotelClass=all&meal=all&priceFrom=6000&priceTo=21000000&sid=45n6awmaj4&sort=priceUp&f_good=true",
-      "text": "Египет, всё включено • 7 ночей, от 45 503 ₽/чел.\nМармарис, всё включено • 7 ночей, от 55 956 ₽/чел."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "ОАЭ",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "country"
-      },
-      "price": 48483,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T13:01:18+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=uae1&utm_term=1308#?fromCity=2&toCountry=68&toCity=1378.1383.1381.1384.1379.1385.1377.4228&dateFrom=23.08.2026&dateTo=27.08.2026&daysFlexible=2&nightFrom=7&nightTo=7&adults=2&hotelClass=all&meal=all&priceFrom=6000&priceTo=21000000&sid=45n6awmaj4&sort=priceUp&f_good=true",
-      "text": "Эмираты • 7 ночей, от 48 483 ₽/чел."
     },
     {
       "type": "tour",
@@ -2526,198 +2436,43 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW1409BKK1?marker=748397&currency=rub",
       "text": "из Москвы в Бангкок 🇹🇭 за 21 700 р. OW (осенью и зимой)\nOman Air, через Маскат - \n- Все даты:  \n- Путеводитель по Бангкоку:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 13700,
-      "oldPrice": 24562,
-      "savings": 10862,
-      "discount": 0.44,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T10:30:54+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED1409IST1?marker=748397&currency=rub",
-      "text": "из Петербурга в Лион 🇫🇷 за 13 700 р. OW (под Рождество)\nPegasus, через Стамбул -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Ницца",
-        "code": "NCE",
-        "country": {
-          "ru": "Франция",
-          "en": "France"
-        },
-        "kind": "city"
-      },
-      "price": 14400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T10:30:54+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED1409NCE1?marker=748397&currency=rub",
-      "text": "из Петербурга в Ниццу 🇫🇷 за 14 400 р. OW (осенью и зимой)\nPegasus, стыковки в Стамбуле -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Барселона",
-        "code": "BCN",
-        "country": {
-          "ru": "Испания",
-          "en": "Spain"
-        },
-        "kind": "city"
-      },
-      "price": 14600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T10:30:54+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED1409BCN1?marker=748397&currency=rub",
-      "text": "из Петербурга в Барселону 🇪🇸 за 14 600 р. OW (осенью и зимой)\nPegasus, пересадка в Стамбуле -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 48557,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T10:30:47+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=turkeyDOP&utm_term=1308#?fromCity=2&toCountry=92&toCity=2159.2178.3839.3828.2161.2162.2163.2190&dateFrom=23.08.2026&dateTo=29.08.2026&daysFlexible=3&nightFrom=7&nightTo=7&adults=2&hotelClass=all&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=wyeked5nq5&sort=priceUp&f_good=true",
-      "text": "Турция! Снижены цены до конца августа! Всё включено, 7 ночей, туры от 48 557 ₽/чел.! В туре перелёт, проживание, трёхразовое питание и медицинская страховка"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:52:46.375Z",
+      "checkedAt": "2026-08-15T10:31:08.626Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
-      "latestPostAt": "2026-08-14T10:24:45+00:00",
+      "latestPostAt": "2026-08-15T10:26:18+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:52:46.376Z",
+      "checkedAt": "2026-08-15T10:31:08.626Z",
       "fetchedPosts": 20,
       "freshPosts": 17,
-      "latestPostAt": "2026-08-15T09:38:26+00:00",
+      "latestPostAt": "2026-08-15T10:20:44+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:52:46.376Z",
+      "checkedAt": "2026-08-15T10:31:08.626Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-15T06:09:52+00:00",
+      "latestPostAt": "2026-08-15T10:04:45+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:52:46.376Z",
+      "checkedAt": "2026-08-15T10:31:08.626Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -2727,7 +2482,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:52:46.376Z",
+      "checkedAt": "2026-08-15T10:31:08.626Z",
       "fetchedPosts": 19,
       "freshPosts": 4,
       "latestPostAt": "2026-08-14T08:18:18+00:00",
@@ -2737,7 +2492,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:52:46.376Z",
+      "checkedAt": "2026-08-15T10:31:08.626Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2747,20 +2502,20 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:52:46.376Z",
-      "fetchedPosts": 14,
-      "freshPosts": 11,
-      "latestPostAt": "2026-08-15T08:15:55+00:00",
+      "checkedAt": "2026-08-15T10:31:08.626Z",
+      "fetchedPosts": 8,
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-15T10:03:31+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-15T09:52:46.376Z",
+      "checkedAt": "2026-08-15T10:31:08.626Z",
       "fetchedPosts": 4,
       "freshPosts": 4,
-      "latestPostAt": "2026-08-15T08:57:58+00:00",
+      "latestPostAt": "2026-08-15T09:54:13+00:00",
       "reusedPrevious": false,
       "error": null
     }

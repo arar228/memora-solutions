@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-15T04:39:45.555Z",
+  "updatedAt": "2026-08-15T05:33:04.121Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Алматы",
+        "code": "ALA",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Богота",
+        "code": "BOG",
+        "country": {
+          "ru": "Колумбия",
+          "en": "Colombia"
+        },
+        "kind": "city"
+      },
+      "price": 91300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-15T05:32:48+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/ALA1409BOG1?marker=748397&currency=rub",
+      "text": "из Алматы 🇰🇿 в Боготу 🇨🇴 за 91 300 р. RT (майские)"
+    },
     {
       "type": "tour",
       "from": {
@@ -2776,48 +2811,13 @@
       "source": "nachemodanahspb",
       "link": "https://level.tpx.lu/mFpVhc3V",
       "text": "🏖Туры на о.Хайнань на 10 ночей с 2 сентября от 76.700 руб/чел, виза не нужна"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 76682,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-13T05:31:17+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/rating/bgoperator/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=tailand0&utm_term=1308#?fromCity=2&toCountry=87&toCity=4191.2100&dateFrom=01.09.2026&dateTo=01.09.2026&nightFrom=10&nightTo=10&adults=2&hotelClass=all&operators=11&meal=all&priceFrom=6000&priceTo=21000000&sid=na375wqxhs&sort=priceUp&f_firstLine=true&f_secondLine=true&f_good=true",
-      "text": "⚡️ТАИЛАНД с прямым рейсом, отели на 1-2 линии, 10 ночей, туры от 76 682 ₽/чел.! В туре перелёт, проживание, медицинская страховка и трансфер🚘"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-15T04:39:45.395Z",
+      "checkedAt": "2026-08-15T05:33:03.987Z",
       "fetchedPosts": 20,
       "freshPosts": 13,
       "latestPostAt": "2026-08-14T10:24:45+00:00",
@@ -2827,17 +2827,17 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-15T04:39:45.395Z",
+      "checkedAt": "2026-08-15T05:33:03.987Z",
       "fetchedPosts": 20,
-      "freshPosts": 16,
-      "latestPostAt": "2026-08-14T18:21:01+00:00",
+      "freshPosts": 17,
+      "latestPostAt": "2026-08-15T05:32:48+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-15T04:39:45.395Z",
+      "checkedAt": "2026-08-15T05:33:03.988Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-14T19:58:19+00:00",
@@ -2847,7 +2847,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-15T04:39:45.395Z",
+      "checkedAt": "2026-08-15T05:33:03.988Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -2857,7 +2857,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-15T04:39:45.395Z",
+      "checkedAt": "2026-08-15T05:33:03.988Z",
       "fetchedPosts": 19,
       "freshPosts": 5,
       "latestPostAt": "2026-08-14T08:18:18+00:00",
@@ -2867,7 +2867,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-15T04:39:45.395Z",
+      "checkedAt": "2026-08-15T05:33:03.988Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2877,9 +2877,9 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-15T04:39:45.395Z",
+      "checkedAt": "2026-08-15T05:33:03.988Z",
       "fetchedPosts": 14,
-      "freshPosts": 11,
+      "freshPosts": 10,
       "latestPostAt": "2026-08-14T14:05:17+00:00",
       "reusedPrevious": false,
       "error": null
@@ -2887,7 +2887,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-15T04:39:45.395Z",
+      "checkedAt": "2026-08-15T05:33:03.988Z",
       "fetchedPosts": 4,
       "freshPosts": 4,
       "latestPostAt": "2026-08-14T15:20:15+00:00",

@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-15T13:55:40.769Z",
+  "updatedAt": "2026-08-15T14:31:24.581Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 29800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-23",
+      "returnDate": "2026-09-03",
+      "date": "2026-08-15T14:09:38+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2308SSH1?marker=748397&currency=rub",
+      "text": "Москва — Шарм-эш-Шейх от 29800₽ в обе стороны, вылет 23 августа, рейсы прямые, с багажом\n— 23.08 - 03.09 - 29800₽\n— 23.08 - 10.09 - 29800₽"
+    },
     {
       "type": "tour",
       "from": {
@@ -2142,7 +2177,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-15T13:55:40.643Z",
+      "checkedAt": "2026-08-15T14:31:24.465Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-15T10:26:18+00:00",
@@ -2152,7 +2187,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-15T13:55:40.643Z",
+      "checkedAt": "2026-08-15T14:31:24.465Z",
       "fetchedPosts": 20,
       "freshPosts": 15,
       "latestPostAt": "2026-08-15T12:45:57+00:00",
@@ -2162,17 +2197,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-15T13:55:40.643Z",
+      "checkedAt": "2026-08-15T14:31:24.465Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-15T12:56:08+00:00",
+      "latestPostAt": "2026-08-15T14:09:38+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-15T13:55:40.643Z",
+      "checkedAt": "2026-08-15T14:31:24.465Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
@@ -2182,7 +2217,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-15T13:55:40.643Z",
+      "checkedAt": "2026-08-15T14:31:24.465Z",
       "fetchedPosts": 19,
       "freshPosts": 4,
       "latestPostAt": "2026-08-15T10:41:40+00:00",
@@ -2192,7 +2227,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-15T13:55:40.643Z",
+      "checkedAt": "2026-08-15T14:31:24.465Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2202,7 +2237,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-15T13:55:40.643Z",
+      "checkedAt": "2026-08-15T14:31:24.465Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-08-15T10:03:31+00:00",
@@ -2212,7 +2247,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-15T13:55:40.644Z",
+      "checkedAt": "2026-08-15T14:31:24.465Z",
       "fetchedPosts": 6,
       "freshPosts": 6,
       "latestPostAt": "2026-08-15T13:24:53+00:00",

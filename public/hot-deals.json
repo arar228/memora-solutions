@@ -1,7 +1,47 @@
 {
-  "updatedAt": "2026-08-16T12:54:16.939Z",
+  "updatedAt": "2026-08-16T13:38:09.018Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 61300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Чэнду",
+          "code": "CTU"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11",
+      "returnDate": null,
+      "date": "2026-08-16T13:28:28+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0111HKT1?marker=748397&currency=rub",
+      "text": "✈️Из СПб на Пхукет за 61.300 рублей туда-обратно, стыковки в Чэнду. Летим в ноябре"
+    },
     {
       "type": "flight",
       "from": {
@@ -173,8 +213,8 @@
         "kind": "city"
       },
       "price": 32000,
-      "oldPrice": 40066,
-      "savings": 8066,
+      "oldPrice": 40191,
+      "savings": 8191,
       "discount": 0.2,
       "oneway": false,
       "roundTrip": true,
@@ -225,41 +265,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Актау",
-        "code": "SCO",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "city"
-      },
-      "price": 5600,
-      "oldPrice": 26060,
-      "savings": 20460,
-      "discount": 0.79,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-16T10:26:17+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN1509SCO1?marker=748397&currency=rub",
-      "text": "из Казани в Актау 🇰🇿 за 5 600 р. OW (осенью)\nSCAT, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Сочи",
         "code": "AER",
         "country": {
@@ -291,6 +296,41 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/AER1509LWN1?marker=748397&currency=rub",
       "text": "из Сочи в Гюмри 🇦🇲 за 8 600 р. RT (осенью)\nFlyOne, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Актау",
+        "code": "SCO",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "price": 5600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-16T10:26:17+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN1509SCO1?marker=748397&currency=rub",
+      "text": "из Казани в Актау 🇰🇿 за 5 600 р. OW (осенью)\nSCAT, прямой рейс с багажом -"
     },
     {
       "type": "flight",
@@ -1937,7 +1977,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-16T12:54:16.778Z",
+      "checkedAt": "2026-08-16T13:38:08.869Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-16T09:35:35+00:00",
@@ -1947,7 +1987,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-16T12:54:16.779Z",
+      "checkedAt": "2026-08-16T13:38:08.869Z",
       "fetchedPosts": 20,
       "freshPosts": 14,
       "latestPostAt": "2026-08-16T12:48:01+00:00",
@@ -1957,7 +1997,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-16T12:54:16.779Z",
+      "checkedAt": "2026-08-16T13:38:08.869Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-16T11:20:13+00:00",
@@ -1966,18 +2006,18 @@
     },
     {
       "channel": "nachemodanahspb",
-      "status": "idle",
-      "checkedAt": "2026-08-16T12:54:16.779Z",
+      "status": "ok",
+      "checkedAt": "2026-08-16T13:38:08.869Z",
       "fetchedPosts": 20,
-      "freshPosts": 0,
-      "latestPostAt": "2026-08-14T10:16:39+00:00",
+      "freshPosts": 1,
+      "latestPostAt": "2026-08-16T13:28:28+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-16T12:54:16.779Z",
+      "checkedAt": "2026-08-16T13:38:08.869Z",
       "fetchedPosts": 19,
       "freshPosts": 5,
       "latestPostAt": "2026-08-16T09:38:23+00:00",
@@ -1987,7 +2027,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-16T12:54:16.779Z",
+      "checkedAt": "2026-08-16T13:38:08.869Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -1997,9 +2037,9 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-16T12:54:16.779Z",
+      "checkedAt": "2026-08-16T13:38:08.869Z",
       "fetchedPosts": 10,
-      "freshPosts": 8,
+      "freshPosts": 7,
       "latestPostAt": "2026-08-16T10:05:44+00:00",
       "reusedPrevious": false,
       "error": null
@@ -2007,9 +2047,9 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-16T12:54:16.779Z",
+      "checkedAt": "2026-08-16T13:38:08.869Z",
       "fetchedPosts": 6,
-      "freshPosts": 6,
+      "freshPosts": 5,
       "latestPostAt": "2026-08-15T13:24:53+00:00",
       "reusedPrevious": false,
       "error": null

@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-16T05:57:46.340Z",
+  "updatedAt": "2026-08-16T06:53:00.031Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Паттайя",
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 206000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 10,
+      "departDate": "2026-09-19",
+      "returnDate": "2026-09-29",
+      "date": "2026-08-16T06:41:35+00:00",
+      "source": "travelradar",
+      "link": "https://travelradar.ru/t/uoR1N?s=tg&erid=2VtzqwgjJHU",
+      "text": "🇹🇭 Паттайя, Pullman Pattaya Hotel G 5★ — завтраки\n• 10 ночей\n• питание — завтраки\n• ~206.000 рублей за двоих\n• вылет 19.09.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэрофлот, пр"
+    },
     {
       "type": "tour",
       "from": {
@@ -1123,146 +1158,6 @@
       "text": "▪️Turkish Airlines 🇹🇷 планирует возобновить полеты в Гавану 🇨🇺 с 25 октября. Рейсы 3 раза в неделю, билеты от 87 500 ₽ туда-обратно.\n⚡️ Ленту тревел-телеграма можно читать тут: \n⚡️ Live-рейтинг то"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Самара",
-        "code": "KUF",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 12100,
-      "oldPrice": 30601,
-      "savings": 18501,
-      "discount": 0.6,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-20",
-      "returnDate": null,
-      "date": "2026-08-14T16:57:13+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/KUF2008AYT1?marker=748397&currency=rub",
-      "text": "Самара — Анталья (Турция) за 12100Р в одну сторону, рейс прямой с багажом\n— 20.08 — 12100Р"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Самара",
-        "code": "KUF",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 7500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-16",
-      "returnDate": null,
-      "date": "2026-08-14T16:57:13+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AYT1608KUF1?marker=748397&currency=rub",
-      "text": "Анталья (Турция) — Самара за 7500Р в одну сторону, рейс прямой с багажом\n— 16.08 — 7500Р"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Паттайя",
-        "code": "UTP",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 190000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": "2026-09-13",
-      "returnDate": "2026-09-23",
-      "date": "2026-08-14T16:22:47+00:00",
-      "source": "travelradar",
-      "link": "https://travelradar.ru/t/P5isT?s=tg&erid=2VtzqwgjJHU",
-      "text": "🇹🇭 Паттайя, U Jomtien Pattaya 4★ — завтраки\n• 10 ночей\n• питание — завтраки\n• ~190.000 рублей за двоих\n• вылет 13.09.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэрофлот, прямой ·"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Гавана",
-        "code": "HAV",
-        "country": {
-          "ru": "Куба",
-          "en": "Cuba"
-        },
-        "kind": "city"
-      },
-      "price": 89000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-25",
-      "returnDate": null,
-      "date": "2026-08-14T14:22:43+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/IST2510HAV1?marker=748397&currency=rub",
-      "text": "Turkish Airlines возобновит рейсы из Стамбула (IST) в Гавану — с 25 октября трижды в неделю (ср, пт, вс), ценник в среднем от 89000Р без багажа, на Новый год от 122100Р"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -1366,41 +1261,6 @@
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=tourset&utm_content=tailand1&utm_term=1308#?fromCity=2&toCountry=87&toCity=4191.2100&dateFrom=10.09.2026&dateTo=10.09.2026&nightFrom=10&nightTo=10&adults=2&hotelClass=all&meal=all&priceFrom=6000&priceTo=21000000&sid=m0w8p5i4vl&sort=priceUp&f_good=true",
       "text": "Таиланд • 10 ночей, от 60 705 ₽/чел."
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 12800,
-      "oldPrice": 25220,
-      "savings": 12420,
-      "discount": 0.49,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-16",
-      "returnDate": null,
-      "date": "2026-08-14T13:26:22+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/LED1608AYT1?marker=748397&currency=rub",
-      "text": "Санкт-Петербург — Анталья от 12800₽ в одну сторону, вылеты в августе, рейсы прямые, с багажом\n— 16.08 - 12800₽\n— 17.08 - 13500₽"
     },
     {
       "type": "flight",
@@ -2066,58 +1926,23 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW1509KWI1?marker=748397&currency=rub",
       "text": "из Москвы в Эль-Айн 🇦🇪 за 11 700 р. OW (осенью)\nJazeera Airways, через Кувейт -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пекин",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 36300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "returnDate": null,
-      "date": "2026-08-14T06:08:47+00:00",
-      "source": "vandroukiru",
-      "link": "https://vandrouki.ru/kruiz/nedorogoj-bezvizovyj-kruiz-na-osen-kitaj-yuzhnaya-koreya/",
-      "text": "Ничего такой недельный круиз на конец сентября по маршруту Пекин - Инчхон - Чеджу - Пусан - Пекин. \nПлюсы: \n⭐️ безвизовый\n⭐️ недорогой (от 36300 с человека в двухместной каюте / от 28700 - в четырёхме"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-16T05:57:46.180Z",
+      "checkedAt": "2026-08-16T06:52:59.872Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
-      "latestPostAt": "2026-08-15T10:26:18+00:00",
+      "latestPostAt": "2026-08-16T06:24:03+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-16T05:57:46.180Z",
+      "checkedAt": "2026-08-16T06:52:59.873Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-15T12:45:57+00:00",
@@ -2127,19 +1952,19 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-16T05:57:46.180Z",
+      "checkedAt": "2026-08-16T06:52:59.873Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-15T17:02:01+00:00",
+      "latestPostAt": "2026-08-16T06:41:35+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-16T05:57:46.180Z",
+      "checkedAt": "2026-08-16T06:52:59.873Z",
       "fetchedPosts": 20,
-      "freshPosts": 5,
+      "freshPosts": 4,
       "latestPostAt": "2026-08-14T10:16:39+00:00",
       "reusedPrevious": false,
       "error": null
@@ -2147,7 +1972,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-16T05:57:46.180Z",
+      "checkedAt": "2026-08-16T06:52:59.873Z",
       "fetchedPosts": 19,
       "freshPosts": 5,
       "latestPostAt": "2026-08-15T18:06:45+00:00",
@@ -2157,7 +1982,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-16T05:57:46.180Z",
+      "checkedAt": "2026-08-16T06:52:59.873Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2167,7 +1992,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-16T05:57:46.180Z",
+      "checkedAt": "2026-08-16T06:52:59.873Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-08-15T10:03:31+00:00",
@@ -2177,7 +2002,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-16T05:57:46.180Z",
+      "checkedAt": "2026-08-16T06:52:59.873Z",
       "fetchedPosts": 6,
       "freshPosts": 6,
       "latestPostAt": "2026-08-15T13:24:53+00:00",

@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-16T15:29:45.369Z",
+  "updatedAt": "2026-08-16T15:49:38.910Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Гоа",
+        "code": "GOI",
+        "country": {
+          "ru": "Индия",
+          "en": "India"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 7700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-30",
+      "returnDate": null,
+      "date": "2026-08-16T15:46:11+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/GOI3009SVX1?marker=748397&currency=rub",
+      "text": "Гоа — Екатеринбург от 7700₽ в одну сторону, вылеты в сентябре-октябре, рейсы прямые, с багажом\n— 30.09 - 7700₽\n— 03.10 - 7700₽\n— 04.10 - 9100₽\n— 07.10 - 13100₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Гоа",
+        "code": "GOI",
+        "country": {
+          "ru": "Индия",
+          "en": "India"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 10600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-04",
+      "returnDate": null,
+      "date": "2026-08-16T15:46:11+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/GOI0410MOW1?marker=748397&currency=rub",
+      "text": "Гоа — Москва от 10600₽ в одну сторону, вылеты в октябре, рейсы прямые, с багажом\n— 04.10 - 10600₽\n— 07.10 - 11500₽\n— 11.10 - 13700₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -318,8 +388,8 @@
         "kind": "city"
       },
       "price": 32000,
-      "oldPrice": 40191,
-      "savings": 8191,
+      "oldPrice": 40067,
+      "savings": 8067,
       "discount": 0.2,
       "oneway": false,
       "roundTrip": true,
@@ -370,41 +440,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Гюмри",
-        "code": "LWN",
-        "country": {
-          "ru": "Армения",
-          "en": "Armenia"
-        },
-        "kind": "city"
-      },
-      "price": 8600,
-      "oldPrice": 24770,
-      "savings": 16170,
-      "discount": 0.65,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-16T10:26:17+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/AER1509LWN1?marker=748397&currency=rub",
-      "text": "из Сочи в Гюмри 🇦🇲 за 8 600 р. RT (осенью)\nFlyOne, прямые рейсы -"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Казань",
         "code": "KZN",
         "country": {
@@ -423,9 +458,9 @@
         "kind": "city"
       },
       "price": 5600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 26060,
+      "savings": 20460,
+      "discount": 0.79,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -436,6 +471,41 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/KZN1509SCO1?marker=748397&currency=rub",
       "text": "из Казани в Актау 🇰🇿 за 5 600 р. OW (осенью)\nSCAT, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гюмри",
+        "code": "LWN",
+        "country": {
+          "ru": "Армения",
+          "en": "Armenia"
+        },
+        "kind": "city"
+      },
+      "price": 8600,
+      "oldPrice": 23873,
+      "savings": 15273,
+      "discount": 0.64,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-16T10:26:17+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER1509LWN1?marker=748397&currency=rub",
+      "text": "из Сочи в Гюмри 🇦🇲 за 8 600 р. RT (осенью)\nFlyOne, прямые рейсы -"
     },
     {
       "type": "flight",
@@ -1013,9 +1083,9 @@
         "kind": "city"
       },
       "price": 25200,
-      "oldPrice": 48058,
-      "savings": 22858,
-      "discount": 0.48,
+      "oldPrice": 47961,
+      "savings": 22761,
+      "discount": 0.47,
       "oneway": true,
       "roundTrip": false,
       "connections": [
@@ -1593,8 +1663,8 @@
         "kind": "city"
       },
       "price": 7200,
-      "oldPrice": 23896,
-      "savings": 16696,
+      "oldPrice": 23662,
+      "savings": 16462,
       "discount": 0.7,
       "oneway": false,
       "roundTrip": false,
@@ -1942,7 +2012,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-16T15:29:45.226Z",
+      "checkedAt": "2026-08-16T15:49:38.755Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-16T09:35:35+00:00",
@@ -1952,7 +2022,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-16T15:29:45.226Z",
+      "checkedAt": "2026-08-16T15:49:38.755Z",
       "fetchedPosts": 20,
       "freshPosts": 14,
       "latestPostAt": "2026-08-16T12:48:01+00:00",
@@ -1962,17 +2032,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-16T15:29:45.226Z",
+      "checkedAt": "2026-08-16T15:49:38.755Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-16T15:07:50+00:00",
+      "latestPostAt": "2026-08-16T15:46:11+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-16T15:29:45.226Z",
+      "checkedAt": "2026-08-16T15:49:38.755Z",
       "fetchedPosts": 20,
       "freshPosts": 1,
       "latestPostAt": "2026-08-16T13:28:28+00:00",
@@ -1982,7 +2052,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-16T15:29:45.226Z",
+      "checkedAt": "2026-08-16T15:49:38.755Z",
       "fetchedPosts": 19,
       "freshPosts": 5,
       "latestPostAt": "2026-08-16T09:38:23+00:00",
@@ -1992,7 +2062,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-16T15:29:45.226Z",
+      "checkedAt": "2026-08-16T15:49:38.755Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2002,7 +2072,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-16T15:29:45.226Z",
+      "checkedAt": "2026-08-16T15:49:38.755Z",
       "fetchedPosts": 10,
       "freshPosts": 6,
       "latestPostAt": "2026-08-16T10:05:44+00:00",
@@ -2012,7 +2082,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-16T15:29:45.226Z",
+      "checkedAt": "2026-08-16T15:49:38.755Z",
       "fetchedPosts": 6,
       "freshPosts": 4,
       "latestPostAt": "2026-08-15T13:24:53+00:00",

@@ -1,7 +1,47 @@
 {
-  "updatedAt": "2026-08-17T21:33:31.556Z",
+  "updatedAt": "2026-08-17T21:53:13.173Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Владивосток",
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Манила",
+        "code": "MNL",
+        "country": {
+          "ru": "Филиппины",
+          "en": "Philippines"
+        },
+        "kind": "city"
+      },
+      "price": 24500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Китай",
+          "code": "PEK"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-10-03",
+      "returnDate": "2026-10-17",
+      "date": "2026-08-17T21:46:08+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/VVO0310MNL1?marker=748397&currency=rub",
+      "text": "Владивосток — Манила (Филиппины) от 24500Р туда и обратно с короткой/долгой на выбор пересадкой в Китае и багажом, есть с захватом ноябрьских, разные даты осенью (в основном октябрь)\n— 03-17.10 — 2450"
+    },
     {
       "type": "flight",
       "from": {
@@ -198,9 +238,9 @@
         "kind": "city"
       },
       "price": 27600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 27732,
+      "savings": 132,
+      "discount": 0,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -348,9 +388,9 @@
         "kind": "city"
       },
       "price": 13200,
-      "oldPrice": 24842,
-      "savings": 11642,
-      "discount": 0.47,
+      "oldPrice": 23746,
+      "savings": 10546,
+      "discount": 0.44,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -453,9 +493,9 @@
         "kind": "city"
       },
       "price": 11000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 27714,
+      "savings": 16714,
+      "discount": 0.6,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1733,41 +1773,6 @@
       "text": "из Алматы 🇰🇿 в Дананг 🇻🇳 за 8 800 р. OW (в конце августа)\nSunday Airlines, прямой рейс с багажом -"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 14500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-21",
-      "returnDate": "2026-08-25",
-      "date": "2026-08-17T10:35:00+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AER2108AYT1?marker=748397&currency=rub",
-      "text": "Сочи — Анталья от 14500₽ в обе стороны, вылет 21 августа, рейсы прямые, с багажом\n— 21.08 - 25.08 - 14500₽\n— 21.08 - 30.08 - 14500₽"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -2068,8 +2073,8 @@
         "kind": "city"
       },
       "price": 8300,
-      "oldPrice": 29540,
-      "savings": 21240,
+      "oldPrice": 29539,
+      "savings": 21239,
       "discount": 0.72,
       "oneway": false,
       "roundTrip": false,
@@ -2103,9 +2108,9 @@
         "kind": "city"
       },
       "price": 5600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 25292,
+      "savings": 19692,
+      "discount": 0.78,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2138,9 +2143,9 @@
         "kind": "city"
       },
       "price": 9400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 25701,
+      "savings": 16301,
+      "discount": 0.63,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2253,9 +2258,9 @@
         "kind": "city"
       },
       "price": 25200,
-      "oldPrice": 31389,
-      "savings": 6189,
-      "discount": 0.2,
+      "oldPrice": 32047,
+      "savings": 6847,
+      "discount": 0.21,
       "oneway": false,
       "roundTrip": true,
       "connections": [
@@ -2878,8 +2883,8 @@
         "kind": "city"
       },
       "price": 32000,
-      "oldPrice": 40107,
-      "savings": 8107,
+      "oldPrice": 40106,
+      "savings": 8106,
       "discount": 0.2,
       "oneway": false,
       "roundTrip": true,
@@ -2913,8 +2918,8 @@
         "kind": "city"
       },
       "price": 5600,
-      "oldPrice": 25719,
-      "savings": 20119,
+      "oldPrice": 25718,
+      "savings": 20118,
       "discount": 0.78,
       "oneway": false,
       "roundTrip": true,
@@ -2948,9 +2953,9 @@
         "kind": "city"
       },
       "price": 8600,
-      "oldPrice": 23873,
-      "savings": 15273,
-      "discount": 0.64,
+      "oldPrice": 25403,
+      "savings": 16803,
+      "discount": 0.66,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -3347,7 +3352,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-17T21:33:31.397Z",
+      "checkedAt": "2026-08-17T21:53:13.040Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-17T14:51:50+00:00",
@@ -3357,7 +3362,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-17T21:33:31.397Z",
+      "checkedAt": "2026-08-17T21:53:13.040Z",
       "fetchedPosts": 20,
       "freshPosts": 17,
       "latestPostAt": "2026-08-17T18:21:01+00:00",
@@ -3367,17 +3372,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-17T21:33:31.397Z",
+      "checkedAt": "2026-08-17T21:53:13.040Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-17T18:08:01+00:00",
+      "latestPostAt": "2026-08-17T21:46:08+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-17T21:33:31.397Z",
+      "checkedAt": "2026-08-17T21:53:13.040Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-17T11:48:00+00:00",
@@ -3387,7 +3392,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-17T21:33:31.397Z",
+      "checkedAt": "2026-08-17T21:53:13.040Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-08-17T17:37:49+00:00",
@@ -3397,7 +3402,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-17T21:33:31.397Z",
+      "checkedAt": "2026-08-17T21:53:13.040Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3407,7 +3412,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-17T21:33:31.397Z",
+      "checkedAt": "2026-08-17T21:53:13.040Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-17T13:01:08+00:00",
@@ -3417,7 +3422,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-17T21:33:31.397Z",
+      "checkedAt": "2026-08-17T21:53:13.040Z",
       "fetchedPosts": 9,
       "freshPosts": 4,
       "latestPostAt": "2026-08-17T14:48:35+00:00",

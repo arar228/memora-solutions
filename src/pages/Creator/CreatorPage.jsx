@@ -153,6 +153,14 @@ const COPY = {
 };
 
 const capabilityIcons = [Layers3, Code2, Bot, MonitorSmartphone, Database, Workflow];
+const capabilityVisuals = [
+    '/portfolio/capabilities/product-ux.webp',
+    '/portfolio/capabilities/frontend.webp',
+    '/portfolio/capabilities/backend-ai.webp',
+    '/portfolio/capabilities/desktop.webp',
+    '/portfolio/capabilities/data.webp',
+    '/portfolio/capabilities/release.webp',
+];
 const documentIcons = [FileText, FileCheck2, FileSignature, ShieldCheck];
 
 const DOCUMENT_TEMPLATES = {
@@ -363,7 +371,7 @@ export default function CreatorPage() {
             <section className="portfolio-proof"><div className="container portfolio-proof__grid">{c.proof.map(([value, label]) => <div key={value}><strong>{value}</strong><span>{label}</span></div>)}</div></section>
 
             <main>
-                <section className="portfolio-section portfolio-section--dark"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.capabilitiesLabel}</span><h2>{c.capabilitiesTitle}</h2><p>{c.capabilitiesLead}</p></div><div className="portfolio-capabilities">{c.capabilities.map(([title, text], index) => { const Icon = capabilityIcons[index]; return <article key={title}><Icon size={24} /><h3>{title}</h3><p>{text}</p></article>; })}</div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--dark"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.capabilitiesLabel}</span><h2>{c.capabilitiesTitle}</h2><p>{c.capabilitiesLead}</p></div><div className="portfolio-capabilities">{c.capabilities.map(([title, text], index) => { const Icon = capabilityIcons[index]; return <article key={title}><div className="portfolio-capability__visual" aria-hidden="true"><img src={staticAsset(capabilityVisuals[index])} alt="" loading="lazy" decoding="async" /><span><Icon size={22} /></span><b>{String(index + 1).padStart(2, '0')}</b></div><div className="portfolio-capability__copy"><h3>{title}</h3><p>{text}</p></div></article>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; return <motion.article whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={meta.external ? '_blank' : undefined} rel={meta.external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {meta.external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 

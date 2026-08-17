@@ -1,7 +1,112 @@
 {
-  "updatedAt": "2026-08-17T17:58:57.766Z",
+  "updatedAt": "2026-08-17T18:50:57.993Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Новосибирск",
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Чэнду",
+        "code": "CTU",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 14500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-26",
+      "returnDate": "2026-10-27",
+      "date": "2026-08-17T18:21:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/OVB2610CTU1?marker=748397&currency=rub",
+      "text": "▪️S7 Airlines запускает новое направление Новосибирск — Чэнду 🇨🇳 с 26 октября. Полеты на Airbus A320 дважды в неделю, билеты от 14 500 ₽ в одну сторону."
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 49700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-26",
+      "returnDate": "2026-09-13",
+      "date": "2026-08-17T18:08:01+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2608HKT1?marker=748397&currency=rub",
+      "text": "Москва — Пхукет от 49700₽ в обе стороны, вылеты в августе-сентябре, стыковки в КНР, с багажом\n— 26.08 - 13.09 - 49700₽\n— 29.08 - 14.09 - 49700₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бангкок",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 49700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-26",
+      "returnDate": "2026-09-10",
+      "date": "2026-08-17T18:08:01+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2608BKK1?marker=748397&currency=rub",
+      "text": "Москва — Бангкок от 49700₽ в обе стороны, вылеты в августе-сентябре, стыковки в КНР, с багажом\n— 26.08 - 10.09 - 49700₽\n— 29.08 - 13.09 - 49700₽"
+    },
     {
       "type": "tour",
       "from": {
@@ -1663,41 +1768,6 @@
       "text": "Сочи — Анталья от 14500₽ в обе стороны, вылет 21 августа, рейсы прямые, с багажом\n— 21.08 - 25.08 - 14500₽\n— 21.08 - 30.08 - 14500₽"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 6600,
-      "oldPrice": 24630,
-      "savings": 18030,
-      "discount": 0.73,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-18",
-      "returnDate": null,
-      "date": "2026-08-17T10:27:31+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/LED1808AYT1?marker=748397&currency=rub",
-      "text": "Санкт-Петербург — Анталья от 90006600₽ в одну сторону, вылеты ночью, рейсы прямые, с багажом\n— 18.08 - 90006600₽"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -3271,48 +3341,13 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW1609BER1?marker=748397&currency=rub",
       "text": "из Москвы в Берлин 🇩🇪 за 26 700 р. RT (осенью и зимой)\nAjet, стыковки в Турции -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кавказские Минеральные Воды",
-        "code": "MRV",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 23200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-15T18:06:45+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/p96MPB",
-      "text": "Туры из Москвы в Кавминводы, перелеты включены:\n🔥 на 5-7 ночей в конце августа / начале сентября от 23 200/чел  (скидка по промокоду 550Lucky; туры без группового трансфера из аэропорта МинВод до оте"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-17T17:58:57.601Z",
+      "checkedAt": "2026-08-17T18:50:57.836Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-17T14:51:50+00:00",
@@ -3322,27 +3357,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-17T17:58:57.601Z",
+      "checkedAt": "2026-08-17T18:50:57.836Z",
       "fetchedPosts": 20,
-      "freshPosts": 16,
-      "latestPostAt": "2026-08-17T16:29:31+00:00",
+      "freshPosts": 17,
+      "latestPostAt": "2026-08-17T18:21:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-17T17:58:57.601Z",
+      "checkedAt": "2026-08-17T18:50:57.837Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-17T17:09:01+00:00",
+      "latestPostAt": "2026-08-17T18:08:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-17T17:58:57.601Z",
+      "checkedAt": "2026-08-17T18:50:57.837Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-17T11:48:00+00:00",
@@ -3352,9 +3387,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-17T17:58:57.601Z",
+      "checkedAt": "2026-08-17T18:50:57.837Z",
       "fetchedPosts": 19,
-      "freshPosts": 10,
+      "freshPosts": 9,
       "latestPostAt": "2026-08-17T17:37:49+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3362,7 +3397,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-17T17:58:57.601Z",
+      "checkedAt": "2026-08-17T18:50:57.837Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3372,7 +3407,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-17T17:58:57.601Z",
+      "checkedAt": "2026-08-17T18:50:57.837Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-17T13:01:08+00:00",
@@ -3382,7 +3417,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-17T17:58:57.601Z",
+      "checkedAt": "2026-08-17T18:50:57.837Z",
       "fetchedPosts": 9,
       "freshPosts": 4,
       "latestPostAt": "2026-08-17T14:48:35+00:00",

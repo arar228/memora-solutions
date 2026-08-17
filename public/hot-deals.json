@@ -1,7 +1,217 @@
 {
-  "updatedAt": "2026-08-17T11:53:45.051Z",
+  "updatedAt": "2026-08-17T12:59:39.203Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Алматы",
+        "code": "ALA",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дананг",
+        "code": "DAD",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 8900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-31",
+      "returnDate": null,
+      "date": "2026-08-17T12:53:11+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/ALA3108DAD1?marker=748397&currency=rub",
+      "text": "Алматы — Дананг за 8900₽\n→"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 4200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T12:48:11+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1609AER1?marker=748397&currency=rub",
+      "text": "Москва — Сочи за 4200₽ Аэрофлотом. С багажом!\nПример на 19е октября →"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 8300,
+      "oldPrice": 22323,
+      "savings": 14023,
+      "discount": 0.63,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T12:26:45+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER1609DLM1?marker=748397&currency=rub",
+      "text": "из Сочи в Даламан 🇹🇷 за 8 300 р. OW (август)\nИрАэро, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Тель-Авив",
+        "code": "TLV",
+        "country": {
+          "ru": "Израиль",
+          "en": "Israel"
+        },
+        "kind": "city"
+      },
+      "price": 22900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T12:26:45+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER1609TLV1?marker=748397&currency=rub",
+      "text": "из Сочи в Тель-Авив 🇮🇱 за 22 900 р. RT (осенью)\nRed Wings, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Батуми",
+        "code": "BUS",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
+      },
+      "price": 24000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T12:26:45+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX1609BUS1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Батуми 🇬🇪 за 24 000 р. RT (бархатный сезон)\nRed Wings, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Барнаул",
+        "code": "BAX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 4600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-19",
+      "returnDate": null,
+      "date": "2026-08-17T12:03:29+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1908BAX1?marker=748397&currency=rub",
+      "text": "Москва — Барнаул от 4600₽ в одну сторону, вылет в среду, рейсы прямые, ручная кладь\n— 19.08 - 4600₽"
+    },
     {
       "type": "flight",
       "from": {
@@ -100,12 +310,12 @@
       "roundTrip": false,
       "connections": [],
       "nights": null,
-      "departDate": "2026-10-31",
+      "departDate": "2026-10-28",
       "returnDate": null,
-      "date": "2026-08-17T11:10:00+00:00",
+      "date": "2026-08-17T11:06:20+00:00",
       "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/BKK3110OVB1?marker=748397&currency=rub",
-      "text": "Бангкок (Таиланд) — Новосибирск от 10100Р в одну сторону, прямой с ручной кладью 10 кг габаритами до 55х23х40 см\n— 31.10 —"
+      "link": "https://www.aviasales.ru/search/BKK2810OVB1?marker=748397&currency=rub",
+      "text": "Бангкок — Новосибирск от 10100₽ в одну сторону, вылеты 28 и 31октября, рейсы с технической посадкой в Иркутске,  ручная кладь\n— 28.10 - 10100₽\n— 31.10 - 10100₽"
     },
     {
       "type": "flight",
@@ -1865,41 +2075,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Тбилиси",
-        "code": "TBS",
-        "country": {
-          "ru": "Грузия",
-          "en": "Georgia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 14400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-18",
-      "returnDate": null,
-      "date": "2026-08-16T11:20:13+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/TBS1808MOW1?marker=748397&currency=rub",
-      "text": "Тбилиси — Москва от 14400₽ в одну сторону, вылет во вторник, рейсы прямые, с багажом\n— 18.08 - 14400₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Сочи",
         "code": "AER",
         "country": {
@@ -2416,118 +2591,13 @@
       "source": "leveltravel",
       "link": "https://lvtv.me/Apl2rnd",
       "text": "🕊Дети — это такая радость! \nНо иногда кажется удобным, если на отдыхе в отеле есть зона, куда пускают только взрослых. И в этом турецком отеле она есть. Рассказываем про Numa Bay Exclusive 5* в Алань"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Алтай",
-        "code": "RGK",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 9100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-15T12:45:57+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SVX1609RGK1?marker=748397&currency=rub",
-      "text": "из Екатеринбурга на Алтай 🇷🇺 за 9 100 р. RT (осенью и зимой)\nRed Wings, прямые рейсы -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Омск",
-        "code": "OMS",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Алтай",
-        "code": "RGK",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 10600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-15T12:45:57+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/OMS1609RGK1?marker=748397&currency=rub",
-      "text": "из Омска на Алтай 🇷🇺 за 10 600 р. RT (осенью)\nЮВТ Аэро, прямые рейсы -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Дубай",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "city"
-      },
-      "price": 102842,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-30",
-      "returnDate": "2026-09-06",
-      "date": "2026-08-15T11:59:23+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/kDGGvfU",
-      "text": "🐥Живописные инфинити-бассейны в Дубае находятся в этих отелях:\n1. Grand Cosmopolitan Hotel 4*\n2. Nikki Beach Resort & Spa 5*\n3. Centara Mirage Beach Resort 4*\n4. Atlantis The Royal 5*\n5. Sofitel Duba"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-17T11:53:44.893Z",
+      "checkedAt": "2026-08-17T12:59:39.044Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
       "latestPostAt": "2026-08-17T10:59:13+00:00",
@@ -2537,27 +2607,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-17T11:53:44.894Z",
+      "checkedAt": "2026-08-17T12:59:39.044Z",
       "fetchedPosts": 20,
       "freshPosts": 13,
-      "latestPostAt": "2026-08-17T10:40:10+00:00",
+      "latestPostAt": "2026-08-17T12:26:45+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-17T11:53:44.894Z",
+      "checkedAt": "2026-08-17T12:59:39.044Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-17T11:10:00+00:00",
+      "latestPostAt": "2026-08-17T12:53:11+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-17T11:53:44.894Z",
+      "checkedAt": "2026-08-17T12:59:39.044Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-17T11:48:00+00:00",
@@ -2567,7 +2637,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-17T11:53:44.894Z",
+      "checkedAt": "2026-08-17T12:59:39.044Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-08-17T10:52:01+00:00",
@@ -2577,7 +2647,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-17T11:53:44.894Z",
+      "checkedAt": "2026-08-17T12:59:39.044Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2587,7 +2657,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-17T11:53:44.894Z",
+      "checkedAt": "2026-08-17T12:59:39.044Z",
       "fetchedPosts": 8,
       "freshPosts": 6,
       "latestPostAt": "2026-08-17T11:30:47+00:00",
@@ -2597,10 +2667,10 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-17T11:53:44.894Z",
+      "checkedAt": "2026-08-17T12:59:39.044Z",
       "fetchedPosts": 8,
       "freshPosts": 4,
-      "latestPostAt": "2026-08-17T10:06:16+00:00",
+      "latestPostAt": "2026-08-17T11:59:56+00:00",
       "reusedPrevious": false,
       "error": null
     }

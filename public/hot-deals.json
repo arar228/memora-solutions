@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-17T18:50:57.993Z",
+  "updatedAt": "2026-08-17T19:34:47.345Z",
   "marker": "748397",
   "deals": [
     {
@@ -23,9 +23,9 @@
         "kind": "city"
       },
       "price": 14500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 35130,
+      "savings": 20630,
+      "discount": 0.59,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -233,9 +233,9 @@
         "kind": "city"
       },
       "price": 4800,
-      "oldPrice": 24010,
-      "savings": 19210,
-      "discount": 0.8,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -348,8 +348,8 @@
         "kind": "city"
       },
       "price": 13200,
-      "oldPrice": 24696,
-      "savings": 11496,
+      "oldPrice": 24842,
+      "savings": 11642,
       "discount": 0.47,
       "oneway": true,
       "roundTrip": false,
@@ -969,18 +969,18 @@
         "kind": "city"
       },
       "to": {
-        "name": "Хургада",
-        "code": "HRG",
+        "name": "Даламан",
+        "code": "DLM",
         "country": {
-          "ru": "Египет",
-          "en": "Egypt"
+          "ru": "Турция",
+          "en": "Turkey"
         },
         "kind": "city"
       },
-      "price": 6900,
-      "oldPrice": 20527,
-      "savings": 13627,
-      "discount": 0.66,
+      "price": 8300,
+      "oldPrice": 21327,
+      "savings": 13027,
+      "discount": 0.61,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -989,8 +989,8 @@
       "returnDate": null,
       "date": "2026-08-17T13:16:02+00:00",
       "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AER1808HRG1?marker=748397&currency=rub",
-      "text": "Сочи — Хургада от 6900₽ в одну сторону, вылет завтра, рейсы прямые, с багажом\n— 18.08 - 6900₽"
+      "link": "https://www.aviasales.ru/search/AER1808DLM1?marker=748397&currency=rub",
+      "text": "Сочи — Даламан от 8300₽ в одну сторону, вылет завтра, рейсы прямые, с багажом\n— 18.08 - 8300₽"
     },
     {
       "type": "flight",
@@ -1013,8 +1013,8 @@
         "kind": "city"
       },
       "price": 5500,
-      "oldPrice": 14455,
-      "savings": 8955,
+      "oldPrice": 14450,
+      "savings": 8950,
       "discount": 0.62,
       "oneway": true,
       "roundTrip": false,
@@ -1039,18 +1039,18 @@
         "kind": "city"
       },
       "to": {
-        "name": "Даламан",
-        "code": "DLM",
+        "name": "Хургада",
+        "code": "HRG",
         "country": {
-          "ru": "Турция",
-          "en": "Turkey"
+          "ru": "Египет",
+          "en": "Egypt"
         },
         "kind": "city"
       },
-      "price": 8300,
-      "oldPrice": 14962,
-      "savings": 6662,
-      "discount": 0.45,
+      "price": 6900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1059,8 +1059,8 @@
       "returnDate": null,
       "date": "2026-08-17T13:16:02+00:00",
       "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AER1808DLM1?marker=748397&currency=rub",
-      "text": "Сочи — Даламан от 8300₽ в одну сторону, вылет завтра, рейсы прямые, с багажом\n— 18.08 - 8300₽"
+      "link": "https://www.aviasales.ru/search/AER1808HRG1?marker=748397&currency=rub",
+      "text": "Сочи — Хургада от 6900₽ в одну сторону, вылет завтра, рейсы прямые, с багажом\n— 18.08 - 6900₽"
     },
     {
       "type": "flight",
@@ -2068,8 +2068,8 @@
         "kind": "city"
       },
       "price": 8300,
-      "oldPrice": 29548,
-      "savings": 21248,
+      "oldPrice": 29540,
+      "savings": 21240,
       "discount": 0.72,
       "oneway": false,
       "roundTrip": false,
@@ -2235,6 +2235,46 @@
     {
       "type": "flight",
       "from": {
+        "name": "Новосибирск",
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дубай",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 25200,
+      "oldPrice": 31389,
+      "savings": 6189,
+      "discount": 0.2,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T07:33:36+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/OVB1609DXB1?marker=748397&currency=rub",
+      "text": "из Новосибирска в Дубай 🇦🇪 за 25 200 р. RT (под Новый год)\nS7, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -2271,46 +2311,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW1609KWI1?marker=748397&currency=rub",
       "text": "из Москвы в Кувейт 🇰🇼 за 24 100 р. RT (осенью)\nJazeera Airways, прямые рейсы -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Новосибирск",
-        "code": "OVB",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Дубай",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "city"
-      },
-      "price": 25200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Ереван",
-          "code": "EVN"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-17T07:33:36+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/OVB1609DXB1?marker=748397&currency=rub",
-      "text": "из Новосибирска в Дубай 🇦🇪 за 25 200 р. RT (под Новый год)\nS7, прямые рейсы -"
     },
     {
       "type": "flight",
@@ -2878,8 +2878,8 @@
         "kind": "city"
       },
       "price": 32000,
-      "oldPrice": 40191,
-      "savings": 8191,
+      "oldPrice": 40107,
+      "savings": 8107,
       "discount": 0.2,
       "oneway": false,
       "roundTrip": true,
@@ -2891,41 +2891,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/KZN1609BEG1?marker=748397&currency=rub",
       "text": "из Казани в Белград 🇷🇸 за 32 000 р. RT (до конца года)\nAir Serbia, прямые рейсы - \nВсе даты:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Гюмри",
-        "code": "LWN",
-        "country": {
-          "ru": "Армения",
-          "en": "Armenia"
-        },
-        "kind": "city"
-      },
-      "price": 8600,
-      "oldPrice": 23461,
-      "savings": 14861,
-      "discount": 0.63,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-16T10:26:17+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/AER1609LWN1?marker=748397&currency=rub",
-      "text": "из Сочи в Гюмри 🇦🇲 за 8 600 р. RT (осенью)\nFlyOne, прямые рейсы -"
     },
     {
       "type": "flight",
@@ -2948,9 +2913,9 @@
         "kind": "city"
       },
       "price": 5600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 25719,
+      "savings": 20119,
+      "discount": 0.78,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -2961,6 +2926,41 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/KZN1609SCO1?marker=748397&currency=rub",
       "text": "из Казани в Актау 🇰🇿 за 5 600 р. OW (осенью)\nSCAT, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гюмри",
+        "code": "LWN",
+        "country": {
+          "ru": "Армения",
+          "en": "Armenia"
+        },
+        "kind": "city"
+      },
+      "price": 8600,
+      "oldPrice": 23873,
+      "savings": 15273,
+      "discount": 0.64,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-16T10:26:17+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER1609LWN1?marker=748397&currency=rub",
+      "text": "из Сочи в Гюмри 🇦🇲 за 8 600 р. RT (осенью)\nFlyOne, прямые рейсы -"
     },
     {
       "type": "flight",
@@ -3347,7 +3347,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-17T18:50:57.836Z",
+      "checkedAt": "2026-08-17T19:34:47.221Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-17T14:51:50+00:00",
@@ -3357,7 +3357,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-17T18:50:57.836Z",
+      "checkedAt": "2026-08-17T19:34:47.221Z",
       "fetchedPosts": 20,
       "freshPosts": 17,
       "latestPostAt": "2026-08-17T18:21:01+00:00",
@@ -3367,7 +3367,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-17T18:50:57.837Z",
+      "checkedAt": "2026-08-17T19:34:47.221Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
       "latestPostAt": "2026-08-17T18:08:01+00:00",
@@ -3377,7 +3377,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-17T18:50:57.837Z",
+      "checkedAt": "2026-08-17T19:34:47.221Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-17T11:48:00+00:00",
@@ -3387,7 +3387,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-17T18:50:57.837Z",
+      "checkedAt": "2026-08-17T19:34:47.221Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-08-17T17:37:49+00:00",
@@ -3397,7 +3397,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-17T18:50:57.837Z",
+      "checkedAt": "2026-08-17T19:34:47.221Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3407,7 +3407,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-17T18:50:57.837Z",
+      "checkedAt": "2026-08-17T19:34:47.221Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-17T13:01:08+00:00",
@@ -3417,7 +3417,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-17T18:50:57.837Z",
+      "checkedAt": "2026-08-17T19:34:47.221Z",
       "fetchedPosts": 9,
       "freshPosts": 4,
       "latestPostAt": "2026-08-17T14:48:35+00:00",

@@ -150,12 +150,12 @@
 .portfolio-section--documents .portfolio-section-head > p { color: #666872; }
 
 .portfolio-capabilities { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; margin-top: 56px; }
-.portfolio-capabilities article { position: relative; min-width: 0; min-height: 330px; overflow: hidden; border: 1px solid var(--portfolio-line); border-radius: 20px; background: linear-gradient(155deg,#1c1d25 0%,#17181f 72%); box-shadow: 0 14px 34px rgba(0,0,0,.12); transition: border-color .3s ease,box-shadow .3s ease,transform .3s ease; }
+.portfolio-capabilities article { position: relative; min-width: 0; min-height: 346px; height: 100%; overflow: hidden; border: 1px solid var(--portfolio-line); border-radius: 20px; background: linear-gradient(155deg,#1c1d25 0%,#17181f 72%); box-shadow: 0 14px 34px rgba(0,0,0,.12); transition: border-color .3s ease,box-shadow .3s ease,transform .3s ease; }
 .portfolio-capabilities article:hover { border-color: rgba(56,200,220,.46); box-shadow: 0 22px 52px rgba(0,0,0,.24),0 0 0 1px rgba(56,200,220,.08); transform: translateY(-5px); }
-.portfolio-capability__visual { position: relative; height: 154px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.08); background: #101116; isolation: isolate; }
+.portfolio-capability__visual { position: relative; display: grid; height: 170px; overflow: hidden; place-items: center; border-bottom: 1px solid rgba(255,255,255,.08); background: radial-gradient(circle at 50% 44%,#182027 0%,#101116 72%); isolation: isolate; }
 .portfolio-capability__visual::after { content: ''; position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg,transparent 54%,rgba(18,19,25,.86) 100%),radial-gradient(circle at 50% 40%,transparent 28%,rgba(10,11,15,.18) 100%); pointer-events: none; }
-.portfolio-capability__visual img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .88; transform: scale(1.015); transition: opacity .35s ease,transform .7s cubic-bezier(.2,.7,.2,1),filter .35s ease; }
-.portfolio-capabilities article:hover .portfolio-capability__visual img { opacity: 1; filter: saturate(1.08); transform: scale(1.055); }
+.portfolio-capability__visual img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; opacity: .92; transform: scale(.94); transition: opacity .35s ease,transform .7s cubic-bezier(.2,.7,.2,1),filter .35s ease; }
+.portfolio-capabilities article:hover .portfolio-capability__visual img { opacity: 1; filter: saturate(1.08); transform: scale(.985); }
 .portfolio-capability__visual > span,
 .portfolio-capability__visual > b { position: absolute; z-index: 2; top: 16px; display: grid; height: 42px; place-items: center; border: 1px solid rgba(103,216,224,.24); color: #72d4df; background: rgba(14,16,21,.72); backdrop-filter: blur(12px); }
 .portfolio-capability__visual > span { left: 16px; width: 42px; border-radius: 12px; }

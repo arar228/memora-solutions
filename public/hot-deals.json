@@ -1,7 +1,312 @@
 {
-  "updatedAt": "2026-08-17T07:10:15.100Z",
+  "updatedAt": "2026-08-17T08:08:55.813Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Амстердам",
+        "code": "AMS",
+        "country": {
+          "ru": "Нидерланды",
+          "en": "Netherlands"
+        },
+        "kind": "city"
+      },
+      "price": 8300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T08:03:54+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED1609AMS1?marker=748397&currency=rub",
+      "text": "из Петербурга в Амстердам 🇳🇱 за 8 300 р. OW (осенью и перед Рождеством)\nAjet, удобная стыковка в Стамбуле -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Ницца",
+        "code": "NCE",
+        "country": {
+          "ru": "Франция",
+          "en": "France"
+        },
+        "kind": "city"
+      },
+      "price": 14900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T08:03:54+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/LED1609NCE1?marker=748397&currency=rub",
+      "text": "из Петербурга в Ниццу 🇫🇷 за 14 900 р. OW (до конца года)\nPegasus, через Стамбул -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Новосибирск",
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дубай",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 25200,
+      "oldPrice": 30903,
+      "savings": 5703,
+      "discount": 0.18,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T07:33:36+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/OVB1609DXB1?marker=748397&currency=rub",
+      "text": "из Новосибирска в Дубай 🇦🇪 за 25 200 р. RT (под Новый год)\nS7, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кувейт",
+        "code": "KWI",
+        "country": {
+          "ru": "Кувейт",
+          "en": "Kuwait"
+        },
+        "kind": "country"
+      },
+      "price": 24100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T07:33:36+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1609KWI1?marker=748397&currency=rub",
+      "text": "из Москвы в Кувейт 🇰🇼 за 24 100 р. RT (осенью)\nJazeera Airways, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Париж",
+        "code": "PAR",
+        "country": {
+          "ru": "Франция",
+          "en": "France"
+        },
+        "kind": "city"
+      },
+      "price": 36000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Ереван",
+          "code": "EVN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-17T07:33:36+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1609PAR1?marker=748397&currency=rub",
+      "text": "из Нижнего Новгорода в Париж 🇫🇷 за 36 000 р. RT (осенью и зимой)\nШирак Авиа + Wizz Air, пересадки в Ереване -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Тюмень",
+        "code": "TJM",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 8400,
+      "oldPrice": 27343,
+      "savings": 18943,
+      "discount": 0.69,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-18",
+      "returnDate": null,
+      "date": "2026-08-17T07:27:35+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/TJM1808AYT1?marker=748397&currency=rub",
+      "text": "Тюмень — Анталья от 8400₽ в одну сторону, вылет утром, рейсы прямые, с багажом\n— 18.08 - 8400₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6300,
+      "oldPrice": 23671,
+      "savings": 17371,
+      "discount": 0.73,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-18",
+      "returnDate": null,
+      "date": "2026-08-17T07:27:35+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1808AYT1?marker=748397&currency=rub",
+      "text": "Москва — Анталья от 6300₽ в одну сторону, вылет ночью, рейсы прямые, с багажом\n— 18.08 - 6300₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Тюмень",
+        "code": "TJM",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 5300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-19",
+      "returnDate": null,
+      "date": "2026-08-17T07:27:35+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AYT1908TJM1?marker=748397&currency=rub",
+      "text": "Анталья — Тюмень от 5300₽ в одну сторону, вылет в среду, рейсы прямые, с багажом\n— 19.08 - 5300₽"
+    },
     {
       "type": "tour",
       "from": {
@@ -58,8 +363,8 @@
         "kind": "city"
       },
       "price": 9500,
-      "oldPrice": 29849,
-      "savings": 20349,
+      "oldPrice": 29869,
+      "savings": 20369,
       "discount": 0.68,
       "oneway": true,
       "roundTrip": false,
@@ -808,8 +1113,8 @@
         "kind": "city"
       },
       "price": 32000,
-      "oldPrice": 40191,
-      "savings": 8191,
+      "oldPrice": 40014,
+      "savings": 8014,
       "discount": 0.2,
       "oneway": false,
       "roundTrip": true,
@@ -860,6 +1165,41 @@
     {
       "type": "flight",
       "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Актау",
+        "code": "SCO",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "price": 5600,
+      "oldPrice": 25397,
+      "savings": 19797,
+      "discount": 0.78,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-16T10:26:17+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN1609SCO1?marker=748397&currency=rub",
+      "text": "из Казани в Актау 🇰🇿 за 5 600 р. OW (осенью)\nSCAT, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
         "name": "Сочи",
         "code": "AER",
         "country": {
@@ -891,41 +1231,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/AER1609LWN1?marker=748397&currency=rub",
       "text": "из Сочи в Гюмри 🇦🇲 за 8 600 р. RT (осенью)\nFlyOne, прямые рейсы -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Актау",
-        "code": "SCO",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "city"
-      },
-      "price": 5600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-16T10:26:17+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN1609SCO1?marker=748397&currency=rub",
-      "text": "из Казани в Актау 🇰🇿 за 5 600 р. OW (осенью)\nSCAT, прямой рейс с багажом -"
     },
     {
       "type": "flight",
@@ -1448,41 +1753,6 @@
       "text": "Маэ (Сейшелы) — Москва от 16600₽ в одну сторону, вылет 30 декабря, рейсы прямые, с багажом\n— 30.12 - 16600₽"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Мале",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Новосибирск",
-        "code": "OVB",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 25200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-30",
-      "returnDate": null,
-      "date": "2026-08-15T16:33:38+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MLE3010OVB1?marker=748397&currency=rub",
-      "text": "Мале — Новосибирск от 25200₽ в одну сторону, вылет 30 октября, рейс с технической посадкой в Джайпуре (Индия), ручная кладь\n— 30.10 - 25200₽"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -1951,128 +2221,13 @@
       "source": "leveltravel",
       "link": "https://www.aviasales.ru/search/ANY0610CMB1?marker=748397&currency=rub",
       "text": "🍸 Coral Sands Hotel 4* от 216 833 ₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 25000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-15T07:42:39+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0103IST1?marker=748397&currency=rub",
-      "text": "из Петербурга в Луксор 🇪🇬 за 25 000 р. RT (до конца года)\nPegasus, через Стамбул -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Марса-Алам",
-        "code": "RMF",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 26400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Стамбул",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-15T07:42:39+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0103RMF1?marker=748397&currency=rub",
-      "text": "из Петербурга в Марса-Алам 🇪🇬 за 26 400 р. RT (осенью и зимой)\nPegasus, пересадки в Стамбуле -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пхукет",
-        "code": "HKT",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 70970,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-15T07:28:14+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=tailandDOP&utm_term=1508#?fromCity=2&toCountry=87&toCity=4191&dateFrom=24.08.2026&dateTo=23.09.2026&nightFrom=11&nightTo=11&adults=2&hotelClass=all&meal=2&priceFrom=6000&priceTo=21000000&sid=0sxy8ovh4u&sort=priceUp&f_good=true",
-      "text": "⚡️ПХУКЕТ на 11 ночей с включёнными завтраками, туры от 70 970 ₽/чел.! В туре перелёт, проживание, питание на завтраках и медицинская страховка✅"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-17T07:10:14.935Z",
+      "checkedAt": "2026-08-17T08:08:55.653Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-16T09:35:35+00:00",
@@ -2082,27 +2237,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-17T07:10:14.935Z",
+      "checkedAt": "2026-08-17T08:08:55.654Z",
       "fetchedPosts": 20,
-      "freshPosts": 11,
-      "latestPostAt": "2026-08-16T12:48:01+00:00",
+      "freshPosts": 12,
+      "latestPostAt": "2026-08-17T08:03:54+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-17T07:10:14.935Z",
+      "checkedAt": "2026-08-17T08:08:55.654Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-17T06:47:42+00:00",
+      "latestPostAt": "2026-08-17T07:27:35+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-17T07:10:14.935Z",
+      "checkedAt": "2026-08-17T08:08:55.654Z",
       "fetchedPosts": 20,
       "freshPosts": 1,
       "latestPostAt": "2026-08-16T13:28:28+00:00",
@@ -2112,7 +2267,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-17T07:10:14.935Z",
+      "checkedAt": "2026-08-17T08:08:55.654Z",
       "fetchedPosts": 19,
       "freshPosts": 8,
       "latestPostAt": "2026-08-16T18:59:44+00:00",
@@ -2122,7 +2277,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-17T07:10:14.935Z",
+      "checkedAt": "2026-08-17T08:08:55.654Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-08-14T14:52:37+00:00",
@@ -2132,9 +2287,9 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-17T07:10:14.935Z",
+      "checkedAt": "2026-08-17T08:08:55.654Z",
       "fetchedPosts": 11,
-      "freshPosts": 7,
+      "freshPosts": 6,
       "latestPostAt": "2026-08-17T05:35:08+00:00",
       "reusedPrevious": false,
       "error": null
@@ -2142,7 +2297,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-17T07:10:14.935Z",
+      "checkedAt": "2026-08-17T08:08:55.654Z",
       "fetchedPosts": 7,
       "freshPosts": 5,
       "latestPostAt": "2026-08-17T07:06:35+00:00",

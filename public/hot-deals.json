@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-17T22:32:17.598Z",
+  "updatedAt": "2026-08-17T22:53:14.452Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 19000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-20",
+      "returnDate": "2026-08-30",
+      "date": "2026-08-17T22:52:10+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AER2008SSH1?marker=748397&currency=rub",
+      "text": "Сочи — Шарм-эш-Шейх (Египет) от 19000Р туда и обратно, прямые с багажом\n— 20-30.08 — 19000Р\n— 23-30.08 — 19000Р\n— 23.08-03.09 — 19000Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Тюмень",
+        "code": "TJM",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 14000,
+      "oldPrice": 26991,
+      "savings": 12991,
+      "discount": 0.48,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-19",
+      "returnDate": "2026-08-26",
+      "date": "2026-08-17T22:34:14+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/TJM1908AYT1?marker=748397&currency=rub",
+      "text": "Тюмень — Анталья (Турция) от 14000Р в одну сторону или Р туда и обратно, прямые с багажом (обычная цена 28-70к за OW, от 62к за RT)\n— 19.08 — 14000Р\n— 19-26.08 — 26900Р\n— 2 билета — 53900Р\n— 3 билета "
+    },
     {
       "type": "flight",
       "from": {
@@ -1561,111 +1631,6 @@
       "source": "travelata",
       "link": "https://travelata.ru/rating/bgoperator/maldives?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=maldivesDOP&utm_term=1708#?fromCity=2&toCountry=56&dateFrom=25.08.2026&dateTo=27.08.2026&daysFlexible=1&nightFrom=8&nightTo=9&adults=2&hotelClass=all&operators=11&meal=8.1.11.2.10.3.5&priceFrom=6000&priceTo=21000000&sid=gl575qw27r&sort=priceUp&f_better=true",
       "text": "💥Прямые рейсы на Мальдивы, отели с хорошими отзывами, завтраки включены • 8 ночей — от 108 190 ₽ с человека."
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Бангкок",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Новосибирск",
-        "code": "OVB",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 10100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-28",
-      "returnDate": null,
-      "date": "2026-08-17T11:06:20+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/BKK2810OVB1?marker=748397&currency=rub",
-      "text": "Бангкок — Новосибирск от 10100₽ в одну сторону, вылеты 28 и 31октября, рейсы с технической посадкой в Иркутске,  ручная кладь\n— 28.10 - 10100₽\n— 31.10 - 10100₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 5900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-18",
-      "returnDate": null,
-      "date": "2026-08-17T10:59:13+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SSH1808MOW1?marker=748397&currency=rub",
-      "text": "Шарм-эш-Шейх — Москва от 5900₽ в одну сторону, вылет ночью, рейсы прямые, с багажом\n— 18.08 - 5900₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 9900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-03",
-      "returnDate": null,
-      "date": "2026-08-17T10:59:13+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/HRG0309MOW1?marker=748397&currency=rub",
-      "text": "Хургада — Москва от 9900₽ в одну сторону, вылеты в сентябре, рейсы прямые, с багажом\n— 03.09 - 9900₽\n— 04.09 - 9900₽\n— 07.09 - 9900₽\n— 09.09 - 9900₽"
     },
     {
       "type": "tour",
@@ -3352,7 +3317,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-17T22:32:17.444Z",
+      "checkedAt": "2026-08-17T22:53:14.293Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-17T14:51:50+00:00",
@@ -3362,7 +3327,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-17T22:32:17.445Z",
+      "checkedAt": "2026-08-17T22:53:14.293Z",
       "fetchedPosts": 20,
       "freshPosts": 17,
       "latestPostAt": "2026-08-17T18:21:01+00:00",
@@ -3372,17 +3337,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-17T22:32:17.445Z",
+      "checkedAt": "2026-08-17T22:53:14.293Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-17T21:46:08+00:00",
+      "latestPostAt": "2026-08-17T22:52:10+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-17T22:32:17.445Z",
+      "checkedAt": "2026-08-17T22:53:14.293Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-17T11:48:00+00:00",
@@ -3392,7 +3357,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-17T22:32:17.445Z",
+      "checkedAt": "2026-08-17T22:53:14.293Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-08-17T17:37:49+00:00",
@@ -3402,7 +3367,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-17T22:32:17.445Z",
+      "checkedAt": "2026-08-17T22:53:14.293Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3412,7 +3377,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-17T22:32:17.445Z",
+      "checkedAt": "2026-08-17T22:53:14.293Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-17T13:01:08+00:00",
@@ -3422,7 +3387,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-17T22:32:17.445Z",
+      "checkedAt": "2026-08-17T22:53:14.293Z",
       "fetchedPosts": 9,
       "freshPosts": 4,
       "latestPostAt": "2026-08-17T14:48:35+00:00",

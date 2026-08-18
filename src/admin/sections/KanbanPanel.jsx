@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-    Check, PencilLine, Plus, RefreshCw, Send, Trash2,
+    Check, CheckCircle2, PencilLine, Plus, RefreshCw, Send, Trash2,
 } from 'lucide-react';
 import {
     Badge, Button, Input, Label, Select,
 } from '../../ui';
 import { KANBAN_LIMITS, cloneDefaultKanbanBoard } from '../../data/kanbanConfig';
-import { moveKanbanTask } from '../../data/kanbanBoard';
+import { closeKanbanTask, moveKanbanTask } from '../../data/kanbanBoard';
 import KanbanBoard from '../../shared/KanbanBoard';
 import KanbanChat from '../../shared/KanbanChat';
 import { adminApi } from '../api';
@@ -58,6 +58,7 @@ export default function KanbanPanel() {
     const [reply, setReply] = useState('');
     const [replying, setReplying] = useState(false);
     const [editingTask, setEditingTask] = useState('');
+    const [completionDraft, setCompletionDraft] = useState(null);
     const [showCreate, setShowCreate] = useState(false);
 
     const load = () => {
@@ -151,14 +152,52 @@ export default function KanbanPanel() {
         [column]: current[column].filter(task => task.id !== id),
     }));
 
+    const beginCompletion = (columnId, task) => {
+        const key = `${columnId}:${task.id}`;
+        setEditingTask('');
+        setCompletionDraft(current => current?.key === key
+            ? null
+            : {
+                key,
+                columnId,
+                taskId: task.id,
+                description: '',
+            });
+    };
+
+    const finishTask = () => {
+        if (!completionDraft) return;
+        const result = closeKanbanTask(board, {
+            fromColumn: completionDraft.columnId,
+            taskId: completionDraft.taskId,
+            description: completionDraft.description,
+        });
+        if (!result.moved) {
+            setError('Задача обновилась. Нажмите «Обновить» и повторите действие.');
+            return;
+        }
+        setBoard(result.board);
+        setCompletionDraft(null);
+        setError('');
+    };
+
     const moveTask = ({ fromColumn, taskId, toColumn, toIndex }) => {
+        if (toColumn === 'closed' && fromColumn !== 'closed') {
+            const task = board[fromColumn]?.find(item => item.id === taskId);
+            if (task) beginCompletion(fromColumn, task);
+            return;
+        }
         const destination = COLUMNS.find(column => column.id === toColumn);
         const result = moveKanbanTask(board, { fromColumn, taskId, toColumn, toIndex });
         if (result.reason === 'limit') {
             setError(`Перенос станет доступен после освобождения места в колонке «${destination.label}» (${destination.limit}/${destination.limit}).`);
             return;
         }
-        if (result.moved) setBoard(result.board);
+        if (result.moved) {
+            setBoard(result.board);
+            setCompletionDraft(null);
+            setEditingTask('');
+        }
         setError('');
     };
 
@@ -192,8 +231,18 @@ export default function KanbanPanel() {
 
     const renderTaskControls = ({ task, columnId }) => (
         <div className="memora-board__actions">
+            {columnId !== 'closed' && (
+                <button className="memora-board__action is-complete" type="button"
+                    aria-expanded={completionDraft?.key === `${columnId}:${task.id}`}
+                    onClick={() => beginCompletion(columnId, task)}>
+                    <CheckCircle2 size={12} /> Закрыть
+                </button>
+            )}
             <button className="memora-board__action" type="button"
-                onClick={() => setEditingTask(current => current === `${columnId}:${task.id}` ? '' : `${columnId}:${task.id}`)}>
+                onClick={() => {
+                    setCompletionDraft(null);
+                    setEditingTask(current => current === `${columnId}:${task.id}` ? '' : `${columnId}:${task.id}`);
+                }}>
                 <PencilLine size={12} /> Изменить
             </button>
             <button className="memora-board__action is-danger" type="button"
@@ -203,24 +252,53 @@ export default function KanbanPanel() {
         </div>
     );
 
-    const renderTaskEditor = ({ task, columnId }) => (
-        editingTask === `${columnId}:${task.id}` && (
-            <div className="memora-board__editor">
-                <textarea value={task.title} aria-label="Название задачи" maxLength={2000}
-                    onChange={event => updateTask(columnId, task.id, { title: event.target.value })} />
-                <input type="date" value={task.dueDate || ''} aria-label="Срок задачи"
-                    onInput={event => updateTask(columnId, task.id, { dueDate: event.currentTarget.value })} />
-                {columnId === 'closed' && (
-                    <textarea value={task.description || ''} aria-label="Описание закрытой задачи"
-                        maxLength={4000} placeholder="Опишите результат"
-                        onChange={event => updateTask(columnId, task.id, { description: event.target.value })} />
+    const renderTaskEditor = ({ task, columnId }) => {
+        const key = `${columnId}:${task.id}`;
+        return (
+            <>
+                {editingTask === key && (
+                    <div className="memora-board__editor">
+                        <textarea value={task.title} aria-label="Название задачи" maxLength={2000}
+                            onChange={event => updateTask(columnId, task.id, { title: event.target.value })} />
+                        <input type="date" value={task.dueDate || ''} aria-label="Срок задачи"
+                            onInput={event => updateTask(columnId, task.id, { dueDate: event.currentTarget.value })} />
+                        {columnId === 'closed' && (
+                            <textarea value={task.description || ''} aria-label="Описание закрытой задачи"
+                                maxLength={4000} placeholder="Опишите результат"
+                                onChange={event => updateTask(columnId, task.id, { description: event.target.value })} />
+                        )}
+                        <button className="memora-board__action" type="button" onClick={() => setEditingTask('')}>
+                            <Check size={12} /> Готово
+                        </button>
+                    </div>
                 )}
-                <button className="memora-board__action" type="button" onClick={() => setEditingTask('')}>
-                    <Check size={12} /> Готово
-                </button>
-            </div>
-        )
-    );
+                {completionDraft?.key === key && (
+                    <div className="memora-board__completion" aria-label="Закрытие задачи">
+                        <label htmlFor={`completion-${task.id}`}>
+                            Описание результата <span>по желанию</span>
+                        </label>
+                        <textarea id={`completion-${task.id}`} value={completionDraft.description}
+                            maxLength={4000} autoFocus
+                            placeholder="Кратко зафиксируйте выполненную работу"
+                            onChange={event => setCompletionDraft(current => ({
+                                ...current,
+                                description: event.target.value,
+                            }))} />
+                        <div className="memora-board__completion-actions">
+                            <button className="memora-board__action" type="button"
+                                onClick={() => setCompletionDraft(null)}>
+                                Вернуться
+                            </button>
+                            <button className="memora-board__action is-complete" type="button"
+                                onClick={finishTask}>
+                                <CheckCircle2 size={12} /> Закрыть задачу
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </>
+        );
+    };
 
     return (
         <div className="kanban-admin">

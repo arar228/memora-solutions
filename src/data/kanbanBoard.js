@@ -1,6 +1,37 @@
 import { KANBAN_LIMITS } from './kanbanConfig.js';
 
 const COLUMNS = new Set(['potential', 'inProgress', 'closed']);
+const ACTIVE_COLUMNS = new Set(['potential', 'inProgress']);
+
+export function closeKanbanTask(board, {
+    fromColumn,
+    taskId,
+    description = '',
+}) {
+    if (!ACTIVE_COLUMNS.has(fromColumn)) {
+        return { board, moved: false, reason: 'column' };
+    }
+
+    const sourceTasks = [...(board[fromColumn] || [])];
+    const sourceIndex = sourceTasks.findIndex(task => task.id === taskId);
+    if (sourceIndex < 0) return { board, moved: false, reason: 'task' };
+
+    const [sourceTask] = sourceTasks.splice(sourceIndex, 1);
+    const task = { ...sourceTask };
+    const resultDescription = String(description).trim();
+    if (resultDescription) task.description = resultDescription;
+    else delete task.description;
+
+    return {
+        moved: true,
+        reason: '',
+        board: {
+            ...board,
+            [fromColumn]: sourceTasks,
+            closed: [task, ...(board.closed || [])],
+        },
+    };
+}
 
 export function moveKanbanTask(board, {
     fromColumn,

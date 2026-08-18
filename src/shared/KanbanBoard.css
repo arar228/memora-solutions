@@ -261,6 +261,18 @@
     border-color: rgba(241, 147, 130, 0.45);
 }
 
+.memora-board__action.is-complete {
+    color: #84dfbd;
+    border-color: rgba(132, 223, 189, 0.34);
+    background: rgba(64, 169, 132, 0.1);
+}
+
+.memora-board__action.is-complete:hover {
+    color: #b5f2db;
+    border-color: rgba(132, 223, 189, 0.62);
+    background: rgba(64, 169, 132, 0.16);
+}
+
 .memora-board__editor {
     display: grid;
     gap: 7px;
@@ -287,6 +299,56 @@
 .memora-board__editor textarea {
     min-height: 58px;
     resize: vertical;
+}
+
+.memora-board__completion {
+    display: grid;
+    gap: 7px;
+    margin-top: 9px;
+    padding-top: 9px;
+    border-top: 1px solid var(--board-line);
+}
+
+.memora-board__completion label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--board-text);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.memora-board__completion label span {
+    color: var(--board-faint);
+    font-size: 9px;
+    font-weight: 500;
+}
+
+.memora-board__completion textarea {
+    width: 100%;
+    min-height: 72px;
+    padding: 8px;
+    resize: vertical;
+    border: 1px solid var(--board-line);
+    border-radius: 8px;
+    color: var(--board-text);
+    background: var(--board-surface-strong);
+    font: inherit;
+    font-size: 11px;
+    line-height: 1.45;
+    outline: none;
+}
+
+.memora-board__completion textarea:focus {
+    border-color: #84dfbd;
+    box-shadow: 0 0 0 3px rgba(64, 169, 132, 0.12);
+}
+
+.memora-board__completion-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
 }
 
 .memora-board__due-date {

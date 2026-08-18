@@ -358,28 +358,31 @@ export default function CreatorPage() {
                         </motion.div>
                     </motion.div>
                 </div>
-                <motion.a className="portfolio-scroll-path" href="#project-b2b" aria-label={c.scrollHint} initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.275, delay: prefersReducedMotion ? 0 : 2.53 }}>
-                    <span><b>01</b>{c.scrollHint}</span>
-                    <svg viewBox="0 0 560 136" aria-hidden="true">
-                        <defs>
-                            <linearGradient id="portfolio-scroll-gradient" x1="20" y1="0" x2="534" y2="0" gradientUnits="userSpaceOnUse">
-                                <stop stopColor="#38c8dc" stopOpacity=".26" />
-                                <stop offset=".5" stopColor="#75dfeb" stopOpacity=".72" />
-                                <stop offset="1" stopColor="#9b7cff" stopOpacity=".5" />
-                            </linearGradient>
-                        </defs>
-                        <motion.path className="portfolio-scroll-path__base" d="M20 63 C82 18 134 18 187 61 C240 104 290 100 337 58 C379 20 434 25 473 60 C506 72 520 78 520 88" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 0.85, delay: prefersReducedMotion ? 0 : 2.57, ease: [0.16, 1, 0.3, 1] }} />
-                        <path className="portfolio-scroll-path__signal" d="M20 63 C82 18 134 18 187 61 C240 104 290 100 337 58 C379 20 434 25 473 60 C506 72 520 78 520 88" />
-                        <circle className="portfolio-scroll-path__node is-start" cx="20" cy="63" r="5" />
-                        <circle className="portfolio-scroll-path__node is-first" cx="187" cy="61" r="5" />
-                        <circle className="portfolio-scroll-path__node is-second" cx="337" cy="58" r="5" />
-                        <circle className="portfolio-scroll-path__node is-third" cx="473" cy="60" r="5" />
-                        <path className="portfolio-scroll-path__arrow" d="M520 82 L520 112 M508 100 L520 112 L532 100" />
-                    </svg>
-                </motion.a>
             </header>
 
             <section className="portfolio-proof"><div className="container portfolio-proof__grid">{c.proof.map(([value, label]) => <div key={value}><strong>{value}</strong><span>{label}</span></div>)}</div></section>
+
+            <div className="portfolio-journey-route" aria-hidden="true">
+                <svg className="portfolio-journey-route__desktop" viewBox="0 0 1440 610" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="portfolio-journey-gradient" x1="0" y1="0" x2="0" y2="610" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#75dfeb" />
+                            <stop offset=".43" stopColor="#8f7cff" />
+                            <stop offset=".66" stopColor="#38aeba" />
+                            <stop offset="1" stopColor="#237985" />
+                        </linearGradient>
+                    </defs>
+                    <motion.path className="portfolio-journey-route__glow" d="M440 34 C515 -8 572 76 650 40 C718 8 780 16 826 62 C878 114 953 84 1030 88 C1170 94 1320 126 1362 220 C1400 306 1308 354 1172 358 C1038 362 938 400 806 388 C674 376 618 344 500 360 C380 376 316 344 210 364 C104 384 42 444 62 510 C72 548 104 566 136 574" initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.7, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
+                    <motion.path className="portfolio-journey-route__line" d="M440 34 C515 -8 572 76 650 40 C718 8 780 16 826 62 C878 114 953 84 1030 88 C1170 94 1320 126 1362 220 C1400 306 1308 354 1172 358 C1038 362 938 400 806 388 C674 376 618 344 500 360 C380 376 316 344 210 364 C104 384 42 444 62 510 C72 548 104 566 136 574" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.7, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
+                    <path className="portfolio-journey-route__signal" d="M440 34 C515 -8 572 76 650 40 C718 8 780 16 826 62 C878 114 953 84 1030 88 C1170 94 1320 126 1362 220 C1400 306 1308 354 1172 358 C1038 362 938 400 806 388 C674 376 618 344 500 360 C380 376 316 344 210 364 C104 384 42 444 62 510 C72 548 104 566 136 574" />
+                    <motion.path className="portfolio-journey-route__arrow" d="M118 554 L136 574 L108 577" initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .34, delay: prefersReducedMotion ? 0 : 4.08 }} />
+                </svg>
+                <svg className="portfolio-journey-route__mobile" viewBox="0 0 84 280" preserveAspectRatio="none">
+                    <defs><linearGradient id="portfolio-journey-mobile-gradient" x1="0" y1="0" x2="0" y2="280" gradientUnits="userSpaceOnUse"><stop stopColor="#75dfeb" /><stop offset=".48" stopColor="#8f7cff" /><stop offset="1" stopColor="#237985" /></linearGradient></defs>
+                    <motion.path className="portfolio-journey-route__line" d="M42 6 C8 44 72 78 40 118 C10 158 70 190 40 228 C30 241 29 250 35 258" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.35, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
+                    <motion.path className="portfolio-journey-route__arrow" d="M24 242 L35 258 L51 242" initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .3, delay: prefersReducedMotion ? 0 : 3.7 }} />
+                </svg>
+            </div>
 
             <main>
                 <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; const external = isExternalHref(project.href); return <motion.article id={`project-${meta.id}`} whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>

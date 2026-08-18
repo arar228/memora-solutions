@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-18T11:33:23.733Z",
+  "updatedAt": "2026-08-18T11:54:08.161Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Краснодар",
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дубай",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 36000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-08-22",
+      "returnDate": "2026-08-28",
+      "date": "2026-08-18T11:36:51+00:00",
+      "source": "vandroukiru",
+      "link": "https://vandrouki.ru/tury/6-nochej-v-dubae-5-otel-iz-krasnodara/",
+      "text": "6 ночей в Дубае за 36000 рублей с человека!\nСтарт 22 августа:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Амстердам",
+        "code": "AMS",
+        "country": {
+          "ru": "Нидерланды",
+          "en": "Netherlands"
+        },
+        "kind": "city"
+      },
+      "price": 37700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11",
+      "returnDate": null,
+      "date": "2026-08-18T11:34:50+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW0111AMS1?marker=748397&currency=rub",
+      "text": "Москва — Амстердам за 37700₽ туда-обратно.\nПримеры билета →"
+    },
     {
       "type": "flight",
       "from": {
@@ -1591,41 +1661,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW1709SYD1?marker=748397&currency=rub",
       "text": "из Москвы в Сидней 🇦🇺 за 35 300 р. OW (осенью)\nSichuan Airlines, стыковка в Китае - \nВсе даты:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тбилиси",
-        "code": "TBS",
-        "country": {
-          "ru": "Грузия",
-          "en": "Georgia"
-        },
-        "kind": "city"
-      },
-      "price": 13200,
-      "oldPrice": 24801,
-      "savings": 11601,
-      "discount": 0.47,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-20",
-      "returnDate": null,
-      "date": "2026-08-17T15:10:31+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2008TBS1?marker=748397&currency=rub",
-      "text": "Москва — Тбилиси от 13200₽ в одну сторону, вылеты 20 и 21 августа, рейсы прямые, с багажом\n— 20.08 - 13200₽\n— 21.08 - 13200₽"
     },
     {
       "type": "flight",
@@ -3452,17 +3487,17 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-18T11:33:23.596Z",
+      "checkedAt": "2026-08-18T11:54:08.020Z",
       "fetchedPosts": 20,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-18T07:41:36+00:00",
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-18T11:36:51+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-18T11:33:23.596Z",
+      "checkedAt": "2026-08-18T11:54:08.020Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
       "latestPostAt": "2026-08-18T11:27:01+00:00",
@@ -3472,17 +3507,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-18T11:33:23.596Z",
+      "checkedAt": "2026-08-18T11:54:08.020Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-18T11:00:46+00:00",
+      "latestPostAt": "2026-08-18T11:34:50+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-18T11:33:23.597Z",
+      "checkedAt": "2026-08-18T11:54:08.021Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-08-18T11:06:41+00:00",
@@ -3492,7 +3527,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-18T11:33:23.597Z",
+      "checkedAt": "2026-08-18T11:54:08.021Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-08-18T11:23:40+00:00",
@@ -3502,7 +3537,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-18T11:33:23.597Z",
+      "checkedAt": "2026-08-18T11:54:08.021Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3512,7 +3547,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-18T11:33:23.597Z",
+      "checkedAt": "2026-08-18T11:54:08.021Z",
       "fetchedPosts": 10,
       "freshPosts": 7,
       "latestPostAt": "2026-08-18T08:17:05+00:00",
@@ -3522,7 +3557,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-18T11:33:23.597Z",
+      "checkedAt": "2026-08-18T11:54:08.021Z",
       "fetchedPosts": 9,
       "freshPosts": 6,
       "latestPostAt": "2026-08-18T10:51:05+00:00",

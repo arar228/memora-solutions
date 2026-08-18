@@ -46,7 +46,7 @@ export default function AdminApp() {
             </header>
 
             <div className="admin-layout flex flex-col gap-6 p-6 md:flex-row">
-                <nav className="admin-nav flex shrink-0 flex-row flex-wrap gap-1 md:w-56 md:flex-col">
+                <nav className="admin-nav flex shrink-0 flex-row flex-wrap gap-1 md:w-72 md:flex-col">
                     {SECTIONS.map(({ id, label, icon: Icon }) => (
                         <button
                             key={id}

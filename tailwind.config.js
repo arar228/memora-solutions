@@ -40,8 +40,13 @@ export default {
         control: '10px',
       },
       fontSize: {
-        ui: ['14px', '1.45'],
-        'ui-sm': ['12.5px', '1.4'],
+        'admin-display': ['56px', '1'],
+        'admin-heading': ['22px', '1.2'],
+        'admin-body': ['18px', '1.45'],
+        ui: ['18px', '1.45'],
+        'ui-sm': ['18px', '1.4'],
+        xl: ['22px', '1.25'],
+        '2xl': ['22px', '1.2'],
       },
       boxShadow: {
         card: '0 12px 32px rgba(24,55,66,0.08)',

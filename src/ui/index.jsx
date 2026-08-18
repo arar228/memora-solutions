@@ -23,9 +23,9 @@ const buttonVariants = cva(
                 danger: 'bg-danger text-white hover:brightness-110',
             },
             size: {
-                default: 'h-10 px-4',
-                sm: 'h-8 px-3 text-ui-sm',
-                icon: 'h-9 w-9 p-0',
+                default: 'h-12 px-4',
+                sm: 'h-11 px-3 text-ui-sm',
+                icon: 'h-12 w-12 p-0',
             },
         },
         defaultVariants: { variant: 'default', size: 'default' },
@@ -44,7 +44,7 @@ export function CardHeader({ className, ...props }) {
     return <div className={cn('flex flex-col gap-1 p-5 pb-3', className)} {...props} />;
 }
 export function CardTitle({ className, ...props }) {
-    return <h3 className={cn('text-[15px] font-semibold text-ink m-0', className)} {...props} />;
+    return <h3 className={cn('text-admin-heading font-semibold text-ink m-0', className)} {...props} />;
 }
 export function CardDescription({ className, ...props }) {
     return <p className={cn('text-ui-sm text-ink-3 m-0', className)} {...props} />;
@@ -59,7 +59,7 @@ export const Input = forwardRef(function Input({ className, ...props }, ref) {
         <input
             ref={ref}
             className={cn(
-                'h-10 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-none transition-colors',
+                'h-12 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-none transition-colors',
                 'placeholder:text-ink-3 focus:border-brand',
                 className,
             )}
@@ -77,7 +77,7 @@ export const Select = forwardRef(function Select({ className, ...props }, ref) {
         <select
             ref={ref}
             className={cn(
-                'h-10 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-none focus:border-brand',
+                'h-12 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-none focus:border-brand',
                 className,
             )}
             {...props}
@@ -102,7 +102,7 @@ export function Slider({ className, value, min = 0, max = 100, step = 1, onValue
 }
 
 // ---------- Badge ----------
-const badgeVariants = cva('inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold', {
+const badgeVariants = cva('inline-flex items-center rounded-full px-2.5 py-1 text-ui font-semibold', {
     variants: {
         variant: {
             default: 'bg-brand-dim text-brand',
@@ -141,7 +141,7 @@ export function TabsTrigger({ value, className, ...props }) {
             type="button"
             onClick={() => ctx?.set(value)}
             className={cn(
-                'rounded-[7px] px-3 h-8 text-ui-sm font-medium transition-colors border-none cursor-pointer',
+                'rounded-[7px] px-3 h-11 text-ui-sm font-medium transition-colors border-none cursor-pointer',
                 active ? 'bg-brand-dim text-brand' : 'bg-transparent text-ink-3 hover:text-ink',
                 className,
             )}

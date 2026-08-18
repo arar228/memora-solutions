@@ -7,7 +7,11 @@
 
 /* Админка использует самостоятельную светлую рабочую тему независимо от сайта. */
 .admin-root {
+    --admin-font-display: 56px;
+    --admin-font-heading: 22px;
+    --admin-font-body: 18px;
     font-family: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: var(--admin-font-body);
     color-scheme: light;
     background:
         radial-gradient(circle at 88% -10%, rgba(7, 135, 154, 0.12), transparent 30rem),
@@ -50,7 +54,7 @@
 }
 .admin-root code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 12.5px;
+    font-size: 18px;
 }
 
 .kanban-admin {
@@ -81,12 +85,12 @@
 
 .kanban-admin__toolbar strong {
     color: #17313a;
-    font-size: 14px;
+    font-size: 22px;
 }
 
 .kanban-admin__toolbar span {
     color: #71838a;
-    font-size: 11px;
+    font-size: 18px;
 }
 
 .kanban-admin__toolbar-actions {
@@ -119,7 +123,7 @@
     color: #17313a;
     background: #fff;
     font: inherit;
-    font-size: 13px;
+    font-size: 18px;
     line-height: 1.45;
     resize: vertical;
     outline: none;
@@ -135,7 +139,7 @@
 }
 
 .kanban-admin__workspace {
-    height: clamp(440px, calc(100vh - 220px), 620px);
+    height: clamp(560px, calc(100vh - 220px), 760px);
 }
 
 .kanban-admin__archive {
@@ -157,6 +161,57 @@
     color: var(--board-text);
     border-color: color-mix(in srgb, var(--board-accent) 48%, var(--board-line));
     background: color-mix(in srgb, var(--board-accent) 12%, var(--board-bg));
+}
+
+/*
+ * Типографический контур админки. В рабочих экранах разрешены только три
+ * размера: 56 / 22 / 18 px. Веб-демонстрации продуктов сохраняют собственную
+ * шкалу и исключены из этого контура.
+ */
+.admin-root,
+.admin-root :where(*:not(.product-demo, .product-demo *)) {
+    font-size: var(--admin-font-body) !important;
+}
+
+.admin-root :where(h1, h2, h3, .text-xl, .text-2xl, [data-admin-type='heading']):not(.product-demo, .product-demo *) {
+    font-size: var(--admin-font-heading) !important;
+}
+
+.admin-root :where(.text-3xl, .text-4xl, .text-5xl, .text-6xl, [data-admin-type='display']):not(.product-demo, .product-demo *) {
+    font-size: var(--admin-font-display) !important;
+}
+
+.admin-root .memora-board__column {
+    height: clamp(440px, 46vw, 680px);
+}
+
+.admin-root .memora-board__column-header {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+}
+
+.admin-root .memora-board__column-icon {
+    width: 42px;
+    height: 42px;
+}
+
+.admin-root .memora-board__count {
+    min-width: 46px;
+    padding: 7px 9px;
+}
+
+.admin-root .memora-board__task {
+    padding: 14px;
+}
+
+.admin-root .memora-board__action {
+    min-height: 42px;
+    padding-inline: 12px;
+}
+
+.admin-root .memora-board__editor input,
+.admin-root .memora-board__editor textarea,
+.admin-root .memora-board__completion textarea {
+    min-height: 48px;
 }
 
 @media (max-width: 767px) {

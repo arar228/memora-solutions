@@ -476,11 +476,11 @@ function DetailedActivity({ stats }) {
                                         title={`${day.contacts} контактов`}
                                     />
                                 </div>
-                                <span className="text-[10px] text-ink-3">{day.date}</span>
+                                <span className="text-ui-sm text-ink-3">{day.date}</span>
                             </div>
                         ))}
                     </div>
-                    <div className="flex gap-4 text-[11px] text-ink-3">
+                    <div className="flex gap-4 text-ui-sm text-ink-3">
                         <span><i className="mr-1 inline-block h-2 w-2 rounded-sm bg-brand/80" />генерации</span>
                         <span><i className="mr-1 inline-block h-2 w-2 rounded-sm bg-ok/70" />контакты</span>
                     </div>
@@ -554,8 +554,8 @@ function UserRow({ user, plans, busy, onMessage, onRun }) {
                 {user.username
                     ? <a className="font-semibold text-brand no-underline" href={`https://t.me/${user.username}`} target="_blank" rel="noreferrer">@{user.username}</a>
                     : <strong className="text-ink">{user.full_name || user.first_name || 'Без имени'}</strong>}
-                <div className="mt-1 font-mono text-[11px] text-ink-3">{user.telegram_id}</div>
-                <div className="mt-1 text-[11px] text-ink-3">с {formatDate(user.created_at, false)}</div>
+                <div className="mt-1 font-mono text-ui-sm text-ink-3">{user.telegram_id}</div>
+                <div className="mt-1 text-ui-sm text-ink-3">с {formatDate(user.created_at, false)}</div>
             </td>
             <td className="border-b border-line/60 px-2 py-3 text-ink-2">
                 {formatDate(user.last_activity)}
@@ -565,22 +565,22 @@ function UserRow({ user, plans, busy, onMessage, onRun }) {
                 <span className="text-ink-3"> / {user.max_contacts ?? '—'}</span>
             </td>
             <td className="border-b border-line/60 px-2 py-3">
-                <div className="grid grid-cols-[110px_135px_auto] gap-2">
-                    <Select value={planName} onChange={event => setPlanName(event.target.value)} className="h-8">
+                <div className="grid grid-cols-[160px_180px_auto] gap-2">
+                    <Select value={planName} onChange={event => setPlanName(event.target.value)} className="h-12">
                         {plans.map(plan => <option key={plan.name} value={plan.name}>{plan.display_name}</option>)}
                     </Select>
                     <Input
                         type="date"
                         value={expiresAt}
                         onChange={event => setExpiresAt(event.target.value)}
-                        className="h-8"
+                        className="h-12"
                         aria-label={`Срок подписки ${userTitle(user)}`}
                     />
                     <Button size="sm" variant="outline" onClick={saveSubscription} disabled={isBusy}>Сохранить</Button>
                 </div>
                 <button
                     type="button"
-                    className="mt-2 cursor-pointer border-none bg-transparent p-0 text-[11px] text-ink-3 hover:text-brand"
+                    className="mt-2 cursor-pointer border-none bg-transparent p-0 text-ui-sm text-ink-3 hover:text-brand"
                     onClick={disableSubscription}
                 >
                     Сбросить на Free

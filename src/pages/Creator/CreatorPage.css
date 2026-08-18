@@ -142,7 +142,6 @@
 .portfolio-scroll-path__node.is-first { animation-delay: 3.77s; }
 .portfolio-scroll-path__node.is-second { animation-delay: 4.12s; }
 .portfolio-scroll-path__node.is-third { animation-delay: 4.47s; }
-.portfolio-scroll-path__target { fill: rgba(117,223,235,.08); stroke: rgba(117,223,235,.42); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: portfolio-scroll-target 2.1s 4.7s ease-in-out infinite; }
 .portfolio-scroll-path__arrow { stroke: #75dfeb; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 8px rgba(117,223,235,.7)); animation: portfolio-scroll-arrow 1.7s 3.42s ease-in-out infinite; }
 
 .portfolio-proof { border-bottom: 1px solid var(--portfolio-line); background: #0d0e13; }
@@ -389,7 +388,6 @@
 @keyframes portfolio-scroll-signal { from { stroke-dashoffset: 560; } to { stroke-dashoffset: 0; } }
 @keyframes portfolio-scroll-arrow { 0%,100% { opacity: .5; transform: translateY(-2px); } 50% { opacity: 1; transform: translateY(3px); } }
 @keyframes portfolio-scroll-node { 0%,28%,100% { fill: #111b22; stroke-width: 2; transform: scale(1); } 12% { fill: #75dfeb; stroke-width: 5; transform: scale(1.48); } }
-@keyframes portfolio-scroll-target { 0%,100% { opacity: .45; transform: scale(.86); } 50% { opacity: 1; transform: scale(1.22); } }
 @keyframes portfolio-route-fill {
     0%,8%,20% { opacity: .25; transform: scaleX(0); }
     30%,38% { opacity: 1; transform: scaleX(.333); }
@@ -557,8 +555,7 @@
     .portfolio-showcase__scan,
     .portfolio-scroll-path__signal,
     .portfolio-scroll-path__arrow,
-    .portfolio-scroll-path__node,
-    .portfolio-scroll-path__target { animation: none; }
+    .portfolio-scroll-path__node { animation: none; }
     .portfolio-hero__title-primary::after { opacity: .84; transform: scaleX(1); animation: none; }
     .portfolio-showcase__scan,
     .portfolio-scroll-path__signal { display: none; }

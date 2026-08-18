@@ -368,14 +368,13 @@ export default function CreatorPage() {
                                 <stop offset="1" stopColor="#9b7cff" stopOpacity=".5" />
                             </linearGradient>
                         </defs>
-                        <motion.path className="portfolio-scroll-path__base" d="M20 63 C82 18 134 18 187 61 C240 104 290 100 337 58 C379 20 434 25 473 60 C500 84 511 102 520 112" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 0.85, delay: prefersReducedMotion ? 0 : 2.57, ease: [0.16, 1, 0.3, 1] }} />
-                        <path className="portfolio-scroll-path__signal" d="M20 63 C82 18 134 18 187 61 C240 104 290 100 337 58 C379 20 434 25 473 60 C500 84 511 102 520 112" />
+                        <motion.path className="portfolio-scroll-path__base" d="M20 63 C82 18 134 18 187 61 C240 104 290 100 337 58 C379 20 434 25 473 60 C506 72 520 78 520 88" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 0.85, delay: prefersReducedMotion ? 0 : 2.57, ease: [0.16, 1, 0.3, 1] }} />
+                        <path className="portfolio-scroll-path__signal" d="M20 63 C82 18 134 18 187 61 C240 104 290 100 337 58 C379 20 434 25 473 60 C506 72 520 78 520 88" />
                         <circle className="portfolio-scroll-path__node is-start" cx="20" cy="63" r="5" />
                         <circle className="portfolio-scroll-path__node is-first" cx="187" cy="61" r="5" />
                         <circle className="portfolio-scroll-path__node is-second" cx="337" cy="58" r="5" />
                         <circle className="portfolio-scroll-path__node is-third" cx="473" cy="60" r="5" />
-                        <circle className="portfolio-scroll-path__target" cx="520" cy="112" r="12" />
-                        <path className="portfolio-scroll-path__arrow" d="M506 105 L520 119 L534 105" />
+                        <path className="portfolio-scroll-path__arrow" d="M520 82 L520 112 M508 100 L520 112 L532 100" />
                     </svg>
                 </motion.a>
             </header>

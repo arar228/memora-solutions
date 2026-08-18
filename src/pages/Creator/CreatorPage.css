@@ -283,7 +283,7 @@
 
 .portfolio-section--offer { padding-block: 88px; }
 .portfolio-pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 38px; }
-.portfolio-pricing article { position: relative; min-width: 0; overflow: hidden; padding: 26px 28px; border: 1px solid var(--portfolio-line); border-radius: 22px; background: var(--portfolio-panel); }
+.portfolio-pricing article { position: relative; display: flex; min-width: 0; overflow: hidden; flex-direction: column; padding: 26px 28px; border: 1px solid var(--portfolio-line); border-radius: 22px; background: var(--portfolio-panel); }
 .portfolio-pricing article.is-primary { border-color: rgba(56,200,220,.52); background: linear-gradient(135deg,rgba(56,200,220,.12),transparent 48%),var(--portfolio-panel); box-shadow: 0 18px 50px rgba(0,0,0,.16); }
 .portfolio-pricing article.is-primary::after { content: ''; position: absolute; top: -90px; right: -40px; width: 210px; height: 210px; border-radius: 50%; background: rgba(56,200,220,.1); filter: blur(26px); animation: portfolio-price-glow 5.4s ease-in-out infinite; }
 .portfolio-pricing header { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
@@ -297,7 +297,7 @@
 .portfolio-pricing__flow { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 22px; }
 .portfolio-pricing__flow > span { display: inline-flex; align-items: center; gap: 7px; color: #c6c8ce; }
 .portfolio-pricing__flow svg { color: var(--portfolio-cyan); }
-.portfolio-pricing ul { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin: 22px 0 0; padding: 0; list-style: none; }
+.portfolio-pricing ul { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin: auto 0 0; padding: 22px 0 0; list-style: none; }
 .portfolio-pricing li { display: grid; grid-template-columns: 32px minmax(0,1fr); align-items: center; gap: 9px; min-height: 54px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: rgba(255,255,255,.025); }
 .portfolio-pricing li > span { color: var(--portfolio-cyan); font-weight: 800; }
 .portfolio-pricing li p { margin: 0; color: #c4c5cb; line-height: 1.35; }

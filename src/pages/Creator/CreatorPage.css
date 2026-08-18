@@ -449,7 +449,7 @@
 @media (max-width: 760px) {
     .portfolio-hero { padding: calc(var(--header-height) + 56px) 0 138px; }
     .portfolio-hero__inner { gap: 52px; }
-    .portfolio-scroll-path > span { top: 11px; left: calc(100% + 4px); }
+    .portfolio-scroll-path > span { top: -4px; left: 50%; transform: translate(-50%,-100%); }
     .portfolio-hero__actions,
     .portfolio-hero__actions .portfolio-button { width: 100%; }
     .portfolio-proof__grid { grid-template-columns: 1fr 1fr; }

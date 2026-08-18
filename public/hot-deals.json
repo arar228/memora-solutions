@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-18T04:43:47.391Z",
+  "updatedAt": "2026-08-18T05:36:57.710Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Ташкент",
+        "code": "TAS",
+        "country": {
+          "ru": "Узбекистан",
+          "en": "Uzbekistan"
+        },
+        "kind": "city"
+      },
+      "price": 15200,
+      "oldPrice": 26444,
+      "savings": 11244,
+      "discount": 0.43,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-07",
+      "returnDate": null,
+      "date": "2026-08-18T05:30:03+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SVX0709TAS1?marker=748397&currency=rub",
+      "text": "Екатеринбург — Ташкент за 15200₽ в одну сторону.\nВылет 7 сентября →"
+    },
     {
       "type": "flight",
       "from": {
@@ -1491,41 +1526,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/SVX1709BUS1?marker=748397&currency=rub",
       "text": "из Екатеринбурга в Батуми 🇬🇪 за 24 000 р. RT (бархатный сезон)\nRed Wings, прямые рейсы -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Барнаул",
-        "code": "BAX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 4600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-19",
-      "returnDate": null,
-      "date": "2026-08-17T12:03:29+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1908BAX1?marker=748397&currency=rub",
-      "text": "Москва — Барнаул от 4600₽ в одну сторону, вылет в среду, рейсы прямые, ручная кладь\n— 19.08 - 4600₽"
     },
     {
       "type": "flight",
@@ -3282,7 +3282,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-18T04:43:47.237Z",
+      "checkedAt": "2026-08-18T05:36:57.550Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-17T14:51:50+00:00",
@@ -3292,7 +3292,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-18T04:43:47.237Z",
+      "checkedAt": "2026-08-18T05:36:57.550Z",
       "fetchedPosts": 20,
       "freshPosts": 17,
       "latestPostAt": "2026-08-17T18:21:01+00:00",
@@ -3302,17 +3302,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-18T04:43:47.237Z",
+      "checkedAt": "2026-08-18T05:36:57.550Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-17T22:52:10+00:00",
+      "latestPostAt": "2026-08-18T05:30:03+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-18T04:43:47.237Z",
+      "checkedAt": "2026-08-18T05:36:57.550Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-17T11:48:00+00:00",
@@ -3322,7 +3322,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-18T04:43:47.237Z",
+      "checkedAt": "2026-08-18T05:36:57.550Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-08-17T17:37:49+00:00",
@@ -3332,7 +3332,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-18T04:43:47.237Z",
+      "checkedAt": "2026-08-18T05:36:57.550Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3342,7 +3342,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-18T04:43:47.237Z",
+      "checkedAt": "2026-08-18T05:36:57.550Z",
       "fetchedPosts": 8,
       "freshPosts": 7,
       "latestPostAt": "2026-08-17T13:01:08+00:00",
@@ -3352,7 +3352,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-18T04:43:47.237Z",
+      "checkedAt": "2026-08-18T05:36:57.550Z",
       "fetchedPosts": 9,
       "freshPosts": 4,
       "latestPostAt": "2026-08-17T14:48:35+00:00",

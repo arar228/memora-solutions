@@ -1,7 +1,47 @@
 {
-  "updatedAt": "2026-08-18T13:48:58.228Z",
+  "updatedAt": "2026-08-18T14:42:18.234Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Тайвань",
+        "code": "TPE",
+        "country": {
+          "ru": "Тайвань",
+          "en": "Taiwan"
+        },
+        "kind": "country"
+      },
+      "price": 43800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Китай",
+          "code": "PEK"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-18T14:02:14+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1709TPE1?marker=748397&currency=rub",
+      "text": "из Москвы на Тайвань 🇹🇼 за 43 800 р. RT (осенью)\nChina Southern, пересадки в Китае - \nВсе даты:"
+    },
     {
       "type": "flight",
       "from": {
@@ -1261,76 +1301,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW1709VVO1?marker=748397&currency=rub",
       "text": "из Москвы во Владивосток 🇷🇺 за 32 000 р. RT (осенью и зимой)\nАэрофлот, прямые рейсы с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Алтай",
-        "code": "RGK",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 6300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-18T08:12:27+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SVX1709RGK1?marker=748397&currency=rub",
-      "text": "из Екатеринбурга на Алтай 🇷🇺 за 6 300 р. RT (октябрь)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Алтай",
-        "code": "RGK",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 9100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-18T08:12:27+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SVX1709RGK1?marker=748397&currency=rub",
-      "text": "из Екатеринбурга на Алтай 🇷🇺 за 9 100 р. RT"
     },
     {
       "type": "tour",
@@ -3022,7 +2992,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-18T13:48:58.051Z",
+      "checkedAt": "2026-08-18T14:42:18.070Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-18T11:54:59+00:00",
@@ -3032,17 +3002,17 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-18T13:48:58.051Z",
+      "checkedAt": "2026-08-18T14:42:18.070Z",
       "fetchedPosts": 9,
       "freshPosts": 9,
-      "latestPostAt": "2026-08-18T13:08:01+00:00",
+      "latestPostAt": "2026-08-18T14:02:14+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-18T13:48:58.051Z",
+      "checkedAt": "2026-08-18T14:42:18.070Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
       "latestPostAt": "2026-08-18T12:02:53+00:00",
@@ -3052,7 +3022,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-18T13:48:58.051Z",
+      "checkedAt": "2026-08-18T14:42:18.070Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-18T11:06:41+00:00",
@@ -3062,7 +3032,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-18T13:48:58.051Z",
+      "checkedAt": "2026-08-18T14:42:18.070Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-08-18T11:23:40+00:00",
@@ -3072,7 +3042,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-18T13:48:58.051Z",
+      "checkedAt": "2026-08-18T14:42:18.070Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3082,20 +3052,20 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-18T13:48:58.051Z",
-      "fetchedPosts": 11,
-      "freshPosts": 8,
-      "latestPostAt": "2026-08-18T13:00:57+00:00",
+      "checkedAt": "2026-08-18T14:42:18.071Z",
+      "fetchedPosts": 12,
+      "freshPosts": 9,
+      "latestPostAt": "2026-08-18T14:25:15+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-18T13:48:58.051Z",
+      "checkedAt": "2026-08-18T14:42:18.071Z",
       "fetchedPosts": 10,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-18T12:34:50+00:00",
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-18T14:16:47+00:00",
       "reusedPrevious": false,
       "error": null
     }

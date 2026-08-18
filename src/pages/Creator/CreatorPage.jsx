@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import {
     ArrowRight,
@@ -57,7 +57,9 @@ const PROJECT_META = [
 const COPY = {
     ru: {
         eyebrow: 'Портфолио продуктовой команды',
-        title: 'Цифровые продукты, которые работают в реальном мире',
+        titlePrimary: 'Цифровые продукты,',
+        titleSecondary: 'которые работают в реальном мире',
+        scrollHint: 'Продолжить путь',
         lead: 'Проектируем пользовательский путь, интерфейс, код, данные и инфраструктуру. Доводим продукт до стабильного релиза и понятного управления.',
         discuss: 'Оставить запрос',
         cases: 'Смотреть проекты',
@@ -127,7 +129,7 @@ const COPY = {
         },
     },
     en: {
-        eyebrow: 'Product team portfolio', title: 'Digital products built for the real world', lead: 'We design the user journey, interface, code, data, and infrastructure—then take the product to a stable release and clear operations.', discuss: 'Send a request', cases: 'View projects',
+        eyebrow: 'Product team portfolio', titlePrimary: 'Digital products', titleSecondary: 'built for the real world', scrollHint: 'Continue the journey', lead: 'We design the user journey, interface, code, data, and infrastructure—then take the product to a stable release and clear operations.', discuss: 'Send a request', cases: 'View projects',
         proof: [['8', 'products in the portfolio'], ['Web · Desktop · Bots', 'one delivery system'], ['$30 / hour', 'team rate'], ['Sprint delivery', 'a verifiable outcome']],
         capabilitiesLabel: '01 / Capabilities', capabilitiesTitle: 'One team. The whole product.', capabilitiesLead: 'Product logic, design, frontend, backend, data, and release move through one connected process.',
         capabilities: [['Product and UX', 'We research scenarios, shape the user journey, and design a clear interface.'], ['Frontend', 'Responsive React interfaces, design systems, and interactive screens.'], ['Backend and AI', 'APIs, databases, Telegram bots, payments, and controlled AI features.'], ['Desktop', 'Electron applications with local data and system integrations.'], ['Data', 'Parsers, schedules, processing pipelines, and personal notifications.'], ['Release', 'Infrastructure, testing, publishing, monitoring, and support.']],
@@ -316,6 +318,7 @@ function ProjectInquiry({ copy, lang }) {
 
 export default function CreatorPage() {
     const { i18n } = useTranslation();
+    const prefersReducedMotion = useReducedMotion();
     const lang = i18n.language === 'ru' ? 'ru' : 'en';
     const c = COPY[lang];
     const [gallery, setGallery] = useState(null);
@@ -356,22 +359,39 @@ export default function CreatorPage() {
             <header className="portfolio-hero">
                 <div className="portfolio-hero__aurora" aria-hidden="true" />
                 <div className="container portfolio-hero__inner">
-                    <motion.div className="portfolio-hero__copy" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-                        <span className="portfolio-eyebrow"><Sparkles size={18} /> {c.eyebrow}</span>
-                        <h1>{c.title}</h1><p>{c.lead}</p>
-                        <div className="portfolio-hero__actions"><a className="portfolio-button is-primary" href="#contact"><MessageCircle size={20} /> {c.discuss}</a><a className="portfolio-button" href="#cases">{c.cases} <ArrowRight size={20} /></a></div>
-                    </motion.div>
-                    <motion.div className="portfolio-showcase" initial={{ opacity: 0, rotate: 2, y: 34 }} animate={{ opacity: 1, rotate: -2, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
-                        <div className="portfolio-showcase__pulse"><i /><span>8 PROJECTS · LIVE PORTFOLIO</span></div>
-                        {c.projects.slice(0, 4).map((item, index) => <a href={item.href} key={item.name}><span>0{index + 1}</span><strong>{item.name}</strong><small>{item.type}</small><ArrowRight size={18} /></a>)}
+                    <div className="portfolio-hero__copy">
+                        <motion.span className="portfolio-eyebrow" initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.45, delay: prefersReducedMotion ? 0 : 0.08 }}><Sparkles size={18} /> {c.eyebrow}</motion.span>
+                        <h1 className="portfolio-hero__title">
+                            <motion.span className="portfolio-hero__title-primary" initial={prefersReducedMotion ? false : { opacity: 0, y: 26, filter: 'blur(10px)', clipPath: 'inset(0 100% 0 0)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)' }} transition={{ duration: prefersReducedMotion ? 0 : 0.9, delay: prefersReducedMotion ? 0 : 0.28, ease: [0.16, 1, 0.3, 1] }}>{c.titlePrimary}</motion.span>
+                            <motion.span className="portfolio-hero__title-secondary" initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.7, delay: prefersReducedMotion ? 0 : 0.9, ease: [0.16, 1, 0.3, 1] }}>{c.titleSecondary}</motion.span>
+                        </h1>
+                        <motion.div className="portfolio-hero__meta" initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.65, delay: prefersReducedMotion ? 0 : 1.18 }}>
+                            <p>{c.lead}</p>
+                            <div className="portfolio-hero__actions"><a className="portfolio-button is-primary" href="#contact"><MessageCircle size={20} /> {c.discuss}</a><a className="portfolio-button" href="#cases">{c.cases} <ArrowRight size={20} /></a></div>
+                        </motion.div>
+                    </div>
+                    <motion.div className="portfolio-showcase-stage" initial={prefersReducedMotion ? false : { opacity: 0, y: 52, scale: 0.92, rotateX: -7, rotateY: 15, rotateZ: 5, filter: 'blur(9px)' }} animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, rotateY: 0, rotateZ: -2, filter: 'blur(0px)' }} transition={{ duration: prefersReducedMotion ? 0 : 1.15, delay: prefersReducedMotion ? 0 : 1.48, ease: [0.16, 1, 0.3, 1] }}>
+                        <div className="portfolio-showcase">
+                            <div className="portfolio-showcase__scan" aria-hidden="true" />
+                            <div className="portfolio-showcase__pulse"><i /><span>8 PROJECTS · LIVE PORTFOLIO</span></div>
+                            {c.projects.slice(0, 4).map((item, index) => <a href={item.href} key={item.name}><span>0{index + 1}</span><strong>{item.name}</strong><small>{item.type}</small><ArrowRight size={18} /></a>)}
+                        </div>
                     </motion.div>
                 </div>
+                <motion.a className="portfolio-scroll-path" href="#capabilities" aria-label={c.scrollHint} initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: prefersReducedMotion ? 0 : 2.75 }}>
+                    <span>{c.scrollHint}</span>
+                    <svg viewBox="0 0 90 90" aria-hidden="true">
+                        <motion.path className="portfolio-scroll-path__base" d="M45 3 C74 17 17 24 47 39 C76 53 20 61 45 78" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.1, delay: prefersReducedMotion ? 0 : 2.82, ease: 'easeInOut' }} />
+                        <path className="portfolio-scroll-path__signal" d="M45 3 C74 17 17 24 47 39 C76 53 20 61 45 78" />
+                        <path className="portfolio-scroll-path__arrow" d="M36 72 L45 81 L54 72" />
+                    </svg>
+                </motion.a>
             </header>
 
             <section className="portfolio-proof"><div className="container portfolio-proof__grid">{c.proof.map(([value, label]) => <div key={value}><strong>{value}</strong><span>{label}</span></div>)}</div></section>
 
             <main>
-                <section className="portfolio-section portfolio-section--dark"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.capabilitiesLabel}</span><h2>{c.capabilitiesTitle}</h2><p>{c.capabilitiesLead}</p></div><div className="portfolio-capabilities">{c.capabilities.map(([title, text], index) => { const Icon = capabilityIcons[index]; return <article key={title}><div className="portfolio-capability__visual" aria-hidden="true"><img src={staticAsset(capabilityVisuals[index])} alt="" loading="lazy" decoding="async" /><span><Icon size={22} /></span><b>{String(index + 1).padStart(2, '0')}</b></div><div className="portfolio-capability__copy"><h3>{title}</h3><p>{text}</p></div></article>; })}</div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--dark" id="capabilities"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.capabilitiesLabel}</span><h2>{c.capabilitiesTitle}</h2><p>{c.capabilitiesLead}</p></div><div className="portfolio-capabilities">{c.capabilities.map(([title, text], index) => { const Icon = capabilityIcons[index]; return <article key={title}><div className="portfolio-capability__visual" aria-hidden="true"><img src={staticAsset(capabilityVisuals[index])} alt="" loading="lazy" decoding="async" /><span><Icon size={22} /></span><b>{String(index + 1).padStart(2, '0')}</b></div><div className="portfolio-capability__copy"><h3>{title}</h3><p>{text}</p></div></article>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; return <motion.article whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={meta.external ? '_blank' : undefined} rel={meta.external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {meta.external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 

@@ -360,17 +360,17 @@ export default function CreatorPage() {
                 <div className="portfolio-hero__aurora" aria-hidden="true" />
                 <div className="container portfolio-hero__inner">
                     <div className="portfolio-hero__copy">
-                        <motion.span className="portfolio-eyebrow" initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.45, delay: prefersReducedMotion ? 0 : 0.08 }}><Sparkles size={18} /> {c.eyebrow}</motion.span>
+                        <motion.span className="portfolio-eyebrow" initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.45, delay: prefersReducedMotion ? 0 : 0.72 }}><Sparkles size={18} /> {c.eyebrow}</motion.span>
                         <h1 className="portfolio-hero__title">
-                            <motion.span className="portfolio-hero__title-primary" initial={prefersReducedMotion ? false : { opacity: 0, y: 26, filter: 'blur(10px)', clipPath: 'inset(0 100% 0 0)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)' }} transition={{ duration: prefersReducedMotion ? 0 : 0.9, delay: prefersReducedMotion ? 0 : 0.28, ease: [0.16, 1, 0.3, 1] }}>{c.titlePrimary}</motion.span>
-                            <motion.span className="portfolio-hero__title-secondary" initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.7, delay: prefersReducedMotion ? 0 : 0.9, ease: [0.16, 1, 0.3, 1] }}>{c.titleSecondary}</motion.span>
+                            <motion.span className="portfolio-hero__title-primary" initial={prefersReducedMotion ? false : { opacity: 0, y: 26, filter: 'blur(10px)', clipPath: 'inset(0 100% 0 0)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)' }} transition={{ duration: prefersReducedMotion ? 0 : 0.9, delay: prefersReducedMotion ? 0 : 0.9, ease: [0.16, 1, 0.3, 1] }}>{c.titlePrimary}</motion.span>
+                            <motion.span className="portfolio-hero__title-secondary" initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.7, delay: prefersReducedMotion ? 0 : 1.62, ease: [0.16, 1, 0.3, 1] }}>{c.titleSecondary}</motion.span>
                         </h1>
-                        <motion.div className="portfolio-hero__meta" initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.65, delay: prefersReducedMotion ? 0 : 1.18 }}>
+                        <motion.div className="portfolio-hero__meta" initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.65, delay: prefersReducedMotion ? 0 : 1.95 }}>
                             <p>{c.lead}</p>
                             <div className="portfolio-hero__actions"><a className="portfolio-button is-primary" href="#contact"><MessageCircle size={20} /> {c.discuss}</a><a className="portfolio-button" href="#cases">{c.cases} <ArrowRight size={20} /></a></div>
                         </motion.div>
                     </div>
-                    <motion.div className="portfolio-showcase-stage" initial={prefersReducedMotion ? false : { opacity: 0, y: 52, scale: 0.92, rotateX: -7, rotateY: 15, rotateZ: 5, filter: 'blur(9px)' }} animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, rotateY: 0, rotateZ: -2, filter: 'blur(0px)' }} transition={{ duration: prefersReducedMotion ? 0 : 1.15, delay: prefersReducedMotion ? 0 : 1.48, ease: [0.16, 1, 0.3, 1] }}>
+                    <motion.div className="portfolio-showcase-stage" initial={prefersReducedMotion ? false : { opacity: 0, y: 52, scale: 0.92, rotateX: -7, rotateY: 15, rotateZ: 5, filter: 'blur(9px)' }} animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, rotateY: 0, rotateZ: -2, filter: 'blur(0px)' }} transition={{ duration: prefersReducedMotion ? 0 : 1.15, delay: prefersReducedMotion ? 0 : 2.28, ease: [0.16, 1, 0.3, 1] }}>
                         <div className="portfolio-showcase">
                             <div className="portfolio-showcase__scan" aria-hidden="true" />
                             <div className="portfolio-showcase__pulse"><i /><span>8 PROJECTS · LIVE PORTFOLIO</span></div>
@@ -378,10 +378,10 @@ export default function CreatorPage() {
                         </div>
                     </motion.div>
                 </div>
-                <motion.a className="portfolio-scroll-path" href="#capabilities" aria-label={c.scrollHint} initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: prefersReducedMotion ? 0 : 2.75 }}>
+                <motion.a className="portfolio-scroll-path" href="#capabilities" aria-label={c.scrollHint} initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: prefersReducedMotion ? 0 : 3.68 }}>
                     <span>{c.scrollHint}</span>
                     <svg viewBox="0 0 90 90" aria-hidden="true">
-                        <motion.path className="portfolio-scroll-path__base" d="M45 3 C74 17 17 24 47 39 C76 53 20 61 45 78" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.1, delay: prefersReducedMotion ? 0 : 2.82, ease: 'easeInOut' }} />
+                        <motion.path className="portfolio-scroll-path__base" d="M45 3 C74 17 17 24 47 39 C76 53 20 61 45 78" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.1, delay: prefersReducedMotion ? 0 : 3.75, ease: 'easeInOut' }} />
                         <path className="portfolio-scroll-path__signal" d="M45 3 C74 17 17 24 47 39 C76 53 20 61 45 78" />
                         <path className="portfolio-scroll-path__arrow" d="M36 72 L45 81 L54 72" />
                     </svg>

@@ -358,12 +358,24 @@ export default function CreatorPage() {
                         </motion.div>
                     </motion.div>
                 </div>
-                <motion.a className="portfolio-scroll-path" href="#cases" aria-label={c.scrollHint} initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.275, delay: prefersReducedMotion ? 0 : 2.53 }}>
-                    <span>{c.scrollHint}</span>
-                    <svg viewBox="0 0 90 90" aria-hidden="true">
-                        <motion.path className="portfolio-scroll-path__base" d="M45 3 C74 17 17 24 47 39 C76 53 20 61 45 78" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: prefersReducedMotion ? 0 : 2.57, ease: 'easeInOut' }} />
-                        <path className="portfolio-scroll-path__signal" d="M45 3 C74 17 17 24 47 39 C76 53 20 61 45 78" />
-                        <path className="portfolio-scroll-path__arrow" d="M36 72 L45 81 L54 72" />
+                <motion.a className="portfolio-scroll-path" href="#project-b2b" aria-label={c.scrollHint} initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.275, delay: prefersReducedMotion ? 0 : 2.53 }}>
+                    <span><b>01</b>{c.scrollHint}</span>
+                    <svg viewBox="0 0 560 136" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="portfolio-scroll-gradient" x1="20" y1="0" x2="534" y2="0" gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#38c8dc" stopOpacity=".26" />
+                                <stop offset=".5" stopColor="#75dfeb" stopOpacity=".72" />
+                                <stop offset="1" stopColor="#9b7cff" stopOpacity=".5" />
+                            </linearGradient>
+                        </defs>
+                        <motion.path className="portfolio-scroll-path__base" d="M20 63 C82 18 134 18 187 61 C240 104 290 100 337 58 C379 20 434 25 473 60 C500 84 511 102 520 112" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 0.85, delay: prefersReducedMotion ? 0 : 2.57, ease: [0.16, 1, 0.3, 1] }} />
+                        <path className="portfolio-scroll-path__signal" d="M20 63 C82 18 134 18 187 61 C240 104 290 100 337 58 C379 20 434 25 473 60 C500 84 511 102 520 112" />
+                        <circle className="portfolio-scroll-path__node is-start" cx="20" cy="63" r="5" />
+                        <circle className="portfolio-scroll-path__node is-first" cx="187" cy="61" r="5" />
+                        <circle className="portfolio-scroll-path__node is-second" cx="337" cy="58" r="5" />
+                        <circle className="portfolio-scroll-path__node is-third" cx="473" cy="60" r="5" />
+                        <circle className="portfolio-scroll-path__target" cx="520" cy="112" r="12" />
+                        <path className="portfolio-scroll-path__arrow" d="M506 105 L520 119 L534 105" />
                     </svg>
                 </motion.a>
             </header>
@@ -371,7 +383,7 @@ export default function CreatorPage() {
             <section className="portfolio-proof"><div className="container portfolio-proof__grid">{c.proof.map(([value, label]) => <div key={value}><strong>{value}</strong><span>{label}</span></div>)}</div></section>
 
             <main>
-                <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; const external = isExternalHref(project.href); return <motion.article whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; const external = isExternalHref(project.href); return <motion.article id={`project-${meta.id}`} whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map((item, index) => <li key={item} style={{ '--manager-index': index }}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.managerAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
 

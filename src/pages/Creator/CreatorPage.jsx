@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import {
     ArrowRight,
     AtSign,
-    Bot,
     Building2,
     CakeSlice,
     CalendarDays,
@@ -12,13 +11,11 @@ import {
     ChevronRight,
     CircleCheck,
     Code2,
-    Database,
     ExternalLink,
     FileCheck2,
     FileSignature,
     FileText,
     Gauge,
-    Layers3,
     Mail,
     Maximize2,
     MessageCircle,
@@ -35,7 +32,6 @@ import {
     Trophy,
     TrendingDown,
     WalletCards,
-    Workflow,
     X,
 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
@@ -67,18 +63,7 @@ const COPY = {
         discuss: 'Оставить запрос',
         cases: 'Смотреть проекты',
         proof: [['8', 'продуктов в портфолио'], ['Web · Desktop · Bots', 'единый контур разработки'], ['$30 / час', 'ставка команды'], ['Спринтами', 'проверяемый результат']],
-        capabilitiesLabel: '01 / Возможности',
-        capabilitiesTitle: 'Одна команда — весь продукт',
-        capabilitiesLead: 'Связываем продуктовую логику, дизайн, frontend, backend, данные и выпуск в единый процесс.',
-        capabilities: [
-            ['Продукт и UX', 'Исследуем сценарии, выстраиваем путь пользователя и проектируем ясный интерфейс.'],
-            ['Frontend', 'Создаём адаптивные React-интерфейсы, дизайн-системы и интерактивные экраны.'],
-            ['Backend и AI', 'Разрабатываем API, базы данных, Telegram-ботов, платежи и управляемые AI-функции.'],
-            ['Desktop', 'Выпускаем Electron-приложения с локальными данными и системными интеграциями.'],
-            ['Данные', 'Строим парсеры, расписания, потоки обработки и персональные уведомления.'],
-            ['Релиз', 'Настраиваем инфраструктуру, проверки, публикацию, мониторинг и поддержку.'],
-        ],
-        casesLabel: '02 / Проекты',
+        casesLabel: '01 / Проекты',
         casesTitle: 'Разные задачи. Своя логика у каждого продукта.',
         projectAction: 'Открыть проект',
         projectDetails: 'Обсудить проект',
@@ -92,16 +77,16 @@ const COPY = {
             { name: 'Радар путешествий', type: 'React · Парсеры · Data pipeline', text: 'Единая лента туров и билетов из тревел-каналов с фильтрами, датами и первоисточниками.', href: '/travel-radar' },
             { name: 'Memora BDayBot', type: 'Telegram · Python · PostgreSQL · AI', text: 'Контакты, напоминания, контекстные поздравления, подписки и административный контур.', href: '/bday-bot' },
         ],
-        managerLabel: '03 / Менеджер проекта',
+        managerLabel: '02 / Менеджер проекта',
         managerName: 'Сергей',
         managerRole: 'Project manager · Memora Solutions',
         managerLead: 'Сергей соединяет задачу заказчика и работу команды в прозрачный рабочий процесс.',
         managerItems: ['собирает контекст и критерии приёмки', 'держит план, сроки и бюджет спринта', 'организует демонстрации и рабочую коммуникацию', 'передаёт результат, отчёт и комплект документов'],
-        processLabel: '04 / Процесс',
+        processLabel: '03 / Процесс',
         processTitle: 'От задачи к работающей версии',
         processLead: 'Каждый этап заканчивается конкретным результатом для проверки и приёмки.',
         process: [['01', 'Разбор', 'Задача, пользователи, ограничения и критерии готовности.', 'Понимаем задачу'], ['02', 'Спринт', 'Объём, оценка в часах, команда и дата демонстрации.', 'Фиксируем план'], ['03', 'Разработка', 'Интерфейс, код, интеграции, проверки и промежуточные показы.', 'Собираем продукт'], ['04', 'Передача', 'Релиз, отчёт, документы и согласованный следующий шаг.', 'Передаём результат']],
-        offerLabel: '05 / Условия работы',
+        offerLabel: '04 / Условия работы',
         offerTitle: 'Два формата оплаты',
         offerLead: 'В обоих форматах работает вся команда: продукт, дизайн, разработка и проверка.',
         marketBadge: 'ниже рынка',
@@ -116,7 +101,7 @@ const COPY = {
         flexibleNote: 'частичная предоплата',
         flexibleItems: ['часть суммы до старта', 'остаток — по сроку или результату'],
         offerFootnote: 'Объём и состав результата фиксируем до старта.',
-        docsLabel: '06 / Клиентский комплект',
+        docsLabel: '05 / Клиентский комплект',
         docsTitle: 'Документы проекта в одном месте',
         documents: [['Коммерческое предложение', 'Объём, команда, оценка, этапы и бюджет.'], ['Отчёт по спринту', 'Цели, готовые функции, проверки и следующий шаг.'], ['Договор', 'Предмет, права, оплата, сроки и ответственность.'], ['Акт приёмки', 'Переданный результат и подтверждение приёмки.']],
         managerAction: 'Обсудить проект',
@@ -125,7 +110,7 @@ const COPY = {
         documentNotice: 'Пример рассчитан на проекты по праву РФ. Перед подписанием юрист проверяет реквизиты сторон, налоговый статус, модель передачи прав, обработку персональных данных и подсудность конкретного проекта.',
         documentClose: 'Закрыть пример',
         contact: {
-            label: '07 / Новый проект', title: 'Один запрос — удобный канал ответа', text: 'Опишите задачу и выберите телефон, почту или Telegram. Запрос сразу попадёт менеджеру.',
+            label: '06 / Новый проект', title: 'Один запрос — удобный канал ответа', text: 'Опишите задачу и выберите телефон, почту или Telegram. Запрос сразу попадёт менеджеру.',
             name: 'Как к вам обращаться', request: 'Что нужно разработать', method: 'Куда направить ответ', phone: 'Телефон', email: 'Почта', telegram: 'Telegram',
             namePlaceholder: 'Имя', requestPlaceholder: 'Контекст, задача и желаемый результат', phonePlaceholder: '+7 999 000-00-00', emailPlaceholder: 'name@company.ru', telegramPlaceholder: '@username',
             submit: 'Отправить запрос', sending: 'Отправляем…', success: 'Запрос отправлен. Менеджер свяжется с вами выбранным способом.', error: 'Заполните задачу и контакт для ответа.', questionLink: 'Открыть раздел «Задать вопрос»',
@@ -134,9 +119,7 @@ const COPY = {
     en: {
         eyebrow: 'Product team portfolio', titlePrimary: 'Digital products', titleSecondary: 'built for the real world', scrollHint: 'Continue the journey', lead: 'We design the user journey, interface, code, data, and infrastructure—then take the product to a stable release and clear operations.', discuss: 'Send a request', cases: 'View projects',
         proof: [['8', 'products in the portfolio'], ['Web · Desktop · Bots', 'one delivery system'], ['$30 / hour', 'team rate'], ['Sprint delivery', 'a verifiable outcome']],
-        capabilitiesLabel: '01 / Capabilities', capabilitiesTitle: 'One team. The whole product.', capabilitiesLead: 'Product logic, design, frontend, backend, data, and release move through one connected process.',
-        capabilities: [['Product and UX', 'We research scenarios, shape the user journey, and design a clear interface.'], ['Frontend', 'Responsive React interfaces, design systems, and interactive screens.'], ['Backend and AI', 'APIs, databases, Telegram bots, payments, and controlled AI features.'], ['Desktop', 'Electron applications with local data and system integrations.'], ['Data', 'Parsers, schedules, processing pipelines, and personal notifications.'], ['Release', 'Infrastructure, testing, publishing, monitoring, and support.']],
-        casesLabel: '02 / Projects', casesTitle: 'Different challenges. A distinct logic for every product.', projectAction: 'Open project', projectDetails: 'Discuss project',
+        casesLabel: '01 / Projects', casesTitle: 'Different challenges. A distinct logic for every product.', projectAction: 'Open project', projectDetails: 'Discuss project',
         projects: [
             { name: 'ARMK B2B', type: 'B2B · Commerce · Catalogue', text: 'A wholesale platform with thousands of items, manager and customer roles, filters, stock, and cart.', href: '#contact' },
             { name: 'DOMATRIX', type: 'BMS · 23 systems · Digital twin', text: 'One control centre for building systems, dispatching, service requests, monitoring, and resident services.', href: '#contact' },
@@ -147,26 +130,17 @@ const COPY = {
             { name: 'Travel Radar', type: 'React · Parsers · Data pipeline', text: 'One feed of tours and tickets from travel channels with filters, dates, and source links.', href: '/travel-radar' },
             { name: 'Memora BDayBot', type: 'Telegram · Python · PostgreSQL · AI', text: 'Contacts, reminders, contextual greetings, subscriptions, and admin operations.', href: '/bday-bot' },
         ],
-        managerLabel: '03 / Project manager', managerName: 'Sergey', managerRole: 'Project manager · Memora Solutions', managerLead: 'Sergey connects the client objective and the team’s work in a transparent process.',
+        managerLabel: '02 / Project manager', managerName: 'Sergey', managerRole: 'Project manager · Memora Solutions', managerLead: 'Sergey connects the client objective and the team’s work in a transparent process.',
         managerItems: ['collects context and acceptance criteria', 'owns the sprint plan, timing, and budget', 'organises demos and working communication', 'delivers the result, report, and document set'],
-        processLabel: '04 / Process', processTitle: 'From task to working release', processLead: 'Every stage ends with a concrete outcome ready for review and acceptance.',
+        processLabel: '03 / Process', processTitle: 'From task to working release', processLead: 'Every stage ends with a concrete outcome ready for review and acceptance.',
         process: [['01', 'Discovery', 'Objective, users, constraints, and acceptance criteria.', 'Understand the task'], ['02', 'Sprint', 'Scope, hour estimate, team, and demo date.', 'Set the plan'], ['03', 'Development', 'Interface, code, integrations, testing, and progress demos.', 'Build the product'], ['04', 'Delivery', 'Release, report, documents, and an agreed next step.', 'Deliver the result']],
-        offerLabel: '05 / Engagement', offerTitle: 'Two payment formats', offerLead: 'Both formats include the whole team: product, design, development, and QA.', marketBadge: 'below market', standardTitle: 'Core format', standardPrice: '$30', standardCaption: '/ team hour', standardItems: ['the sprint is paid before kickoff', 'scope, timing, and demo are set in advance'], offerFlow: ['Scope', 'Sprint', 'Demo'], flexibleTitle: 'Flexible format', flexiblePrice: '$39', flexibleCaption: '/ team hour', flexibleNote: 'partial prepayment', flexibleItems: ['part of the fee before kickoff', 'balance tied to timing or outcome'], offerFootnote: 'Scope and deliverables are set before kickoff.',
-        docsLabel: '06 / Client kit', docsTitle: 'Project documents in one place', documents: [['Commercial proposal', 'Scope, team, estimate, stages, and budget.'], ['Sprint report', 'Goals, delivered features, checks, and next step.'], ['Agreement', 'Scope, rights, payment, timing, and responsibilities.'], ['Acceptance certificate', 'Delivered result and acceptance confirmation.']], managerAction: 'Discuss the project', documentOpen: 'Open example', documentExample: 'Structure example', documentNotice: 'This example is structured for projects governed by Russian law. Before signing, legal counsel verifies party details, tax status, the IP transfer model, personal data processing, and jurisdiction for the specific project.', documentClose: 'Close example',
-        contact: { label: '07 / New project', title: 'One request. Your preferred reply channel.', text: 'Describe the project and choose phone, email, or Telegram. The request goes straight to the manager.', name: 'Your name', request: 'What should we build?', method: 'Where should we reply?', phone: 'Phone', email: 'Email', telegram: 'Telegram', namePlaceholder: 'Name', requestPlaceholder: 'Context, objective, and desired outcome', phonePlaceholder: '+7 999 000-00-00', emailPlaceholder: 'name@company.com', telegramPlaceholder: '@username', submit: 'Send request', sending: 'Sending…', success: 'Request sent. The manager will reply through your chosen channel.', error: 'Add the project request and a reply contact.', questionLink: 'Open Ask a Question' },
+        offerLabel: '04 / Engagement', offerTitle: 'Two payment formats', offerLead: 'Both formats include the whole team: product, design, development, and QA.', marketBadge: 'below market', standardTitle: 'Core format', standardPrice: '$30', standardCaption: '/ team hour', standardItems: ['the sprint is paid before kickoff', 'scope, timing, and demo are set in advance'], offerFlow: ['Scope', 'Sprint', 'Demo'], flexibleTitle: 'Flexible format', flexiblePrice: '$39', flexibleCaption: '/ team hour', flexibleNote: 'partial prepayment', flexibleItems: ['part of the fee before kickoff', 'balance tied to timing or outcome'], offerFootnote: 'Scope and deliverables are set before kickoff.',
+        docsLabel: '05 / Client kit', docsTitle: 'Project documents in one place', documents: [['Commercial proposal', 'Scope, team, estimate, stages, and budget.'], ['Sprint report', 'Goals, delivered features, checks, and next step.'], ['Agreement', 'Scope, rights, payment, timing, and responsibilities.'], ['Acceptance certificate', 'Delivered result and acceptance confirmation.']], managerAction: 'Discuss the project', documentOpen: 'Open example', documentExample: 'Structure example', documentNotice: 'This example is structured for projects governed by Russian law. Before signing, legal counsel verifies party details, tax status, the IP transfer model, personal data processing, and jurisdiction for the specific project.', documentClose: 'Close example',
+        contact: { label: '06 / New project', title: 'One request. Your preferred reply channel.', text: 'Describe the project and choose phone, email, or Telegram. The request goes straight to the manager.', name: 'Your name', request: 'What should we build?', method: 'Where should we reply?', phone: 'Phone', email: 'Email', telegram: 'Telegram', namePlaceholder: 'Name', requestPlaceholder: 'Context, objective, and desired outcome', phonePlaceholder: '+7 999 000-00-00', emailPlaceholder: 'name@company.com', telegramPlaceholder: '@username', submit: 'Send request', sending: 'Sending…', success: 'Request sent. The manager will reply through your chosen channel.', error: 'Add the project request and a reply contact.', questionLink: 'Open Ask a Question' },
     },
 };
 
-const capabilityIcons = [Layers3, Code2, Bot, MonitorSmartphone, Database, Workflow];
 const processIcons = [Search, CalendarDays, Code2, Rocket];
-const capabilityVisuals = [
-    '/portfolio/capabilities/product-ux.webp',
-    '/portfolio/capabilities/frontend.webp',
-    '/portfolio/capabilities/backend-ai.webp',
-    '/portfolio/capabilities/desktop.webp',
-    '/portfolio/capabilities/data.webp',
-    '/portfolio/capabilities/release.webp',
-];
 const documentIcons = [FileText, FileCheck2, FileSignature, ShieldCheck];
 
 const DOCUMENT_TEMPLATES = {
@@ -384,7 +358,7 @@ export default function CreatorPage() {
                         </motion.div>
                     </motion.div>
                 </div>
-                <motion.a className="portfolio-scroll-path" href="#capabilities" aria-label={c.scrollHint} initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.275, delay: prefersReducedMotion ? 0 : 2.53 }}>
+                <motion.a className="portfolio-scroll-path" href="#cases" aria-label={c.scrollHint} initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.275, delay: prefersReducedMotion ? 0 : 2.53 }}>
                     <span>{c.scrollHint}</span>
                     <svg viewBox="0 0 90 90" aria-hidden="true">
                         <motion.path className="portfolio-scroll-path__base" d="M45 3 C74 17 17 24 47 39 C76 53 20 61 45 78" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: prefersReducedMotion ? 0 : 2.57, ease: 'easeInOut' }} />
@@ -397,8 +371,6 @@ export default function CreatorPage() {
             <section className="portfolio-proof"><div className="container portfolio-proof__grid">{c.proof.map(([value, label]) => <div key={value}><strong>{value}</strong><span>{label}</span></div>)}</div></section>
 
             <main>
-                <section className="portfolio-section portfolio-section--dark" id="capabilities"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.capabilitiesLabel}</span><h2>{c.capabilitiesTitle}</h2><p>{c.capabilitiesLead}</p></div><div className="portfolio-capabilities">{c.capabilities.map(([title, text], index) => { const Icon = capabilityIcons[index]; return <article key={title}><div className="portfolio-capability__visual" aria-hidden="true"><img src={staticAsset(capabilityVisuals[index])} alt="" loading="lazy" decoding="async" /><span><Icon size={22} /></span><b>{String(index + 1).padStart(2, '0')}</b></div><div className="portfolio-capability__copy"><h3>{title}</h3><p>{text}</p></div></article>; })}</div></AnimatedSection></div></section>
-
                 <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; const external = isExternalHref(project.href); return <motion.article whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map((item, index) => <li key={item} style={{ '--manager-index': index }}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.managerAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>

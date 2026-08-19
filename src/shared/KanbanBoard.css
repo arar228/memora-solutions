@@ -438,6 +438,26 @@
     margin: 0;
 }
 
+.memora-board--archive .memora-board__due-date {
+    justify-self: end;
+    white-space: nowrap;
+}
+
+.memora-board--archive .memora-board__task.is-sortable .memora-board__task-heading {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.memora-board--archive .memora-board__task.is-sortable h4 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.memora-board--archive .memora-board__task.is-sortable .memora-board__due-date {
+    grid-column: 3;
+    grid-row: 1;
+}
+
 .memora-board--archive .memora-board__task h4 {
     font-size: 18px;
 }
@@ -485,5 +505,16 @@
     .memora-board--archive .memora-board__task {
         grid-template-columns: 1fr;
         gap: 6px;
+    }
+
+    .memora-board--archive .memora-board__task.is-sortable .memora-board__task-heading,
+    .memora-board--archive .memora-board__task.is-sortable h4,
+    .memora-board--archive .memora-board__task.is-sortable .memora-board__due-date {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .memora-board--archive .memora-board__due-date {
+        justify-self: start;
     }
 }

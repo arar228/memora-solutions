@@ -1,7 +1,197 @@
 {
-  "updatedAt": "2026-08-19T13:50:41.963Z",
+  "updatedAt": "2026-08-19T14:42:32.513Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "price": 51100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-23",
+      "returnDate": null,
+      "date": "2026-08-19T14:37:16+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/6ZQhPX",
+      "text": "🔥 в Египет на 2 недели с 22 или 23 августа от 51 100/чел, все включено"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Касабланка",
+        "code": "CMN",
+        "country": {
+          "ru": "Марокко",
+          "en": "Morocco"
+        },
+        "kind": "city"
+      },
+      "price": 27600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-03",
+      "returnDate": null,
+      "date": "2026-08-19T14:31:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0103CMN1?marker=748397&currency=rub",
+      "text": "из Москвы в Касабланку 🇲🇦 за 27 600 р. RT (с ноября по июнь)\nRoyal Air Maroc, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Агадир",
+        "code": "AGA",
+        "country": {
+          "ru": "Марокко",
+          "en": "Morocco"
+        },
+        "kind": "city"
+      },
+      "price": 27600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-03",
+      "returnDate": null,
+      "date": "2026-08-19T14:31:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0103AGA1?marker=748397&currency=rub",
+      "text": "из Москвы в Агадир 🇲🇦 за 27 600 р. RT (c ноября по май)\nRoyal Air Maroc, стыковки в Касабланке -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Марракеш",
+        "code": "RAK",
+        "country": {
+          "ru": "Марокко",
+          "en": "Morocco"
+        },
+        "kind": "city"
+      },
+      "price": 27600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Касабланка",
+          "code": "CMN"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-03",
+      "returnDate": null,
+      "date": "2026-08-19T14:31:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0103RAK1?marker=748397&currency=rub",
+      "text": "из Москвы в Марракеш 🇲🇦 за 27 600 р. RT (осенью и зимой)\nRoyal Air Maroc, через Касабланку -"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "ОАЭ",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "country"
+      },
+      "price": 70349,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T14:30:44+00:00",
+      "source": "travelata",
+      "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=uaeDOP&utm_term=1908#?fromCity=2&toCountry=68&toCity=1378.1383.1381.1384.1379.1385.1380.1377.4228&dateFrom=23.08.2026&dateTo=29.08.2026&daysFlexible=3&nightFrom=7&nightTo=9&adults=2&hotelClass=all&meal=8.1.11.3&priceFrom=6000&priceTo=21000000&sid=j3euwwtvv3&sort=priceUp&f_firstLine=true&f_better=true",
+      "text": "👙 1-я линия в Эмиратах, отели с хорошими отзывами и полный пансион • 7 ночей — от 70 349 ₽ с человека. Перелёт + проживание + питание + 1-я линия + рейтинг отеля 4+ из 5✅"
+    },
     {
       "type": "flight",
       "from": {
@@ -840,7 +1030,7 @@
       "date": "2026-08-19T11:30:28+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW2108BJV1?marker=748397&currency=rub",
-      "text": "Москва — Бодрум от 25300₽ в обе стороны, вылеты 21 августа, рейсы прямые, с багажом\n— 21.08 - 07.09 - 25300₽\n— 21.08 - 08.09 - 26000₽"
+      "text": "Москва — Бодрум от 25300₽ в обе стороны, вылеты 21 августа, рейсы прямые, с багажом\n— 21.08 - 07.09 - 25300₽\n— 21.08 - 08.09 - 20100₽ 26000₽"
     },
     {
       "type": "flight",
@@ -2942,7 +3132,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-19T13:50:41.792Z",
+      "checkedAt": "2026-08-19T14:42:32.389Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
       "latestPostAt": "2026-08-19T12:43:05+00:00",
@@ -2952,17 +3142,17 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-19T13:50:41.793Z",
-      "fetchedPosts": 14,
-      "freshPosts": 14,
-      "latestPostAt": "2026-08-19T12:53:12+00:00",
+      "checkedAt": "2026-08-19T14:42:32.389Z",
+      "fetchedPosts": 15,
+      "freshPosts": 15,
+      "latestPostAt": "2026-08-19T14:31:13+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-19T13:50:41.793Z",
+      "checkedAt": "2026-08-19T14:42:32.389Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-19T13:49:11+00:00",
@@ -2972,7 +3162,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-19T13:50:41.793Z",
+      "checkedAt": "2026-08-19T14:42:32.389Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-08-19T12:05:42+00:00",
@@ -2982,17 +3172,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-19T13:50:41.793Z",
+      "checkedAt": "2026-08-19T14:42:32.389Z",
       "fetchedPosts": 19,
-      "freshPosts": 6,
-      "latestPostAt": "2026-08-19T07:31:54+00:00",
+      "freshPosts": 7,
+      "latestPostAt": "2026-08-19T14:37:16+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-19T13:50:41.793Z",
+      "checkedAt": "2026-08-19T14:42:32.389Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3002,17 +3192,17 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-19T13:50:41.793Z",
+      "checkedAt": "2026-08-19T14:42:32.389Z",
       "fetchedPosts": 13,
-      "freshPosts": 9,
-      "latestPostAt": "2026-08-19T13:00:22+00:00",
+      "freshPosts": 10,
+      "latestPostAt": "2026-08-19T14:30:44+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-19T13:50:41.793Z",
+      "checkedAt": "2026-08-19T14:42:32.389Z",
       "fetchedPosts": 9,
       "freshPosts": 8,
       "latestPostAt": "2026-08-19T12:36:54+00:00",

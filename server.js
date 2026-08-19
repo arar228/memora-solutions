@@ -54,10 +54,16 @@ import {
   cancelTravelSubscription,
   createTravelCheckout,
   createTravelSubscription,
+  deleteTravelAdminSubscription,
+  disableTravelAdminSubscription,
+  getTravelAdminDashboard,
   getTravelFeed,
   getTravelSubscription,
+  grantTravelAdminAccess,
+  grantTravelAdminSubscription,
   handleTravelTelegramUpdate,
   handleYookassaWebhook,
+  sendTravelAdminMessage,
   startTravelRadarServices,
   stopTravelRadarServices,
   travelCapabilities,
@@ -250,6 +256,61 @@ async function handleAdminApi(req, res, pathname, url) {
 
   if (pathname === '/api/admin/bdaybot' || pathname.startsWith('/api/admin/bdaybot/')) {
     return handleBdayAdminApi(req, res, pathname, url);
+  }
+
+  if (pathname === '/api/admin/travel' && req.method === 'GET') {
+    return sendJson(res, 200, await getTravelAdminDashboard());
+  }
+
+  if (pathname === '/api/admin/travel/grants' && req.method === 'POST') {
+    if (!mutationIsSameOrigin(req)) {
+      return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+    }
+    try {
+      return sendJson(res, 200, await grantTravelAdminAccess(await readJson(req, 16 * 1024)));
+    } catch (error) {
+      const messages = {
+        INVALID_TELEGRAM_USERNAME: 'Укажите Telegram-имя пользователя',
+        SUBSCRIPTION_NOT_FOUND: 'Пользователь сначала подключает бот через сайт',
+        TELEGRAM_NOT_CONNECTED: 'Telegram-чат пользователя ещё не подключён',
+        INVALID_EXPIRATION: 'Укажите будущую дату окончания доступа',
+      };
+      return sendJson(res, 400, { error: messages[error.message] || 'Доступ не обновлён' });
+    }
+  }
+
+  const travelSubscriptionMatch = pathname.match(
+    /^\/api\/admin\/travel\/subscriptions\/([a-zA-Z0-9-]{1,80})(?:\/(grant|disable|message))?$/,
+  );
+  if (travelSubscriptionMatch) {
+    if (!mutationIsSameOrigin(req)) {
+      return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+    }
+    const [, id, action] = travelSubscriptionMatch;
+    try {
+      if (!action && req.method === 'DELETE') {
+        return sendJson(res, 200, await deleteTravelAdminSubscription(id));
+      }
+      if (action === 'grant' && req.method === 'POST') {
+        return sendJson(res, 200, await grantTravelAdminSubscription(id, await readJson(req, 16 * 1024)));
+      }
+      if (action === 'disable' && req.method === 'POST') {
+        return sendJson(res, 200, await disableTravelAdminSubscription(id));
+      }
+      if (action === 'message' && req.method === 'POST') {
+        return sendJson(res, 200, await sendTravelAdminMessage(id, await readJson(req, 16 * 1024)));
+      }
+      return sendJson(res, 405, { error: 'Method not allowed' });
+    } catch (error) {
+      const messages = {
+        SUBSCRIPTION_NOT_FOUND: 'Подписка не найдена',
+        TELEGRAM_NOT_CONNECTED: 'Telegram-чат пользователя ещё не подключён',
+        INVALID_EXPIRATION: 'Укажите будущую дату окончания доступа',
+        INVALID_MESSAGE: 'Введите сообщение',
+        SUBSCRIPTION_ACTIVE: 'Сначала отключите действующий доступ',
+      };
+      return sendJson(res, 400, { error: messages[error.message] || 'Операция не выполнена' });
+    }
   }
 
   if (pathname === '/api/admin/kanban' && req.method === 'GET') {

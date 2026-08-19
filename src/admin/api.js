@@ -67,5 +67,26 @@ export const adminApi = {
     `/api/admin/bdaybot/users/${encodeURIComponent(telegramId)}`,
     { method: 'DELETE' },
   ),
+  getTravel: () => request('/api/admin/travel'),
+  grantTravelAccess: (payload) => request('/api/admin/travel/grants', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  }),
+  grantTravelSubscription: (id, payload) => request(
+    `/api/admin/travel/subscriptions/${encodeURIComponent(id)}/grant`,
+    { method: 'POST', body: JSON.stringify(payload) },
+  ),
+  disableTravelSubscription: (id) => request(
+    `/api/admin/travel/subscriptions/${encodeURIComponent(id)}/disable`,
+    { method: 'POST', body: '{}' },
+  ),
+  sendTravelMessage: (id, message) => request(
+    `/api/admin/travel/subscriptions/${encodeURIComponent(id)}/message`,
+    { method: 'POST', body: JSON.stringify({ message }) },
+  ),
+  deleteTravelSubscription: (id) => request(
+    `/api/admin/travel/subscriptions/${encodeURIComponent(id)}`,
+    { method: 'DELETE' },
+  ),
   getStatus: () => request('/api/admin/status'),
 };

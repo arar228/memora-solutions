@@ -1,106 +1,315 @@
-import { useEffect, useState } from 'react';
-import { ExternalLink, RefreshCw } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, Badge, Button } from '../../ui';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+    Ban, Bot, CreditCard, ExternalLink, RefreshCw, Search, Send, Trash2, UserPlus,
+} from 'lucide-react';
+import {
+    Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label, Select,
+} from '../../ui';
+import { adminApi } from '../api';
 
-/**
- * Радар путешествий: показывает состояние лент, которыми живёт продукт.
- * Данные читаются из тех же файлов, что и сайт, — то есть панель показывает
- * ровно то, что сейчас видят пользователи.
- */
+const STATUS = {
+    awaiting_telegram: ['ожидает Telegram', 'warn'],
+    awaiting_payment: ['готов к активации', 'warn'],
+    active: ['активен', 'ok'],
+    canceling: ['завершится в срок', 'muted'],
+    canceled: ['завершён', 'muted'],
+    past_due: ['срок завершён', 'muted'],
+};
+
+const formatDate = (value, withTime = true) => {
+    if (!value) return '—';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '—';
+    return date.toLocaleString('ru-RU', withTime
+        ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }
+        : { day: '2-digit', month: 'short', year: 'numeric' });
+};
+
+const dateInputValue = value => {
+    const date = value ? new Date(value) : null;
+    return date && !Number.isNaN(date.getTime()) ? date.toISOString().slice(0, 10) : '';
+};
+
+const subscriptionTitle = item => (
+    item.telegramUsername ? `@${item.telegramUsername}` : item.email || 'Подписка'
+);
+
+const placeLabel = filter => filter?.value || 'Любое направление';
+
 export default function TravelPanel() {
     const [radar, setRadar] = useState(null);
     const [deals, setDeals] = useState(null);
+    const [admin, setAdmin] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [notice, setNotice] = useState('');
+    const [busy, setBusy] = useState('');
+    const [search, setSearch] = useState('');
+    const [grant, setGrant] = useState({ username: '', days: '30' });
 
-    const load = () => {
+    const load = useCallback(() => {
         setLoading(true);
-        Promise.all([
-            fetch('/radar.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : null)).catch(() => null),
-            fetch('/hot-deals.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : null)).catch(() => null),
-        ]).then(([r, d]) => { setRadar(r); setDeals(d); setLoading(false); });
-    };
-    useEffect(load, []);
+        setError('');
+        return Promise.all([
+            fetch('/radar.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : null)),
+            fetch('/hot-deals.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : null)),
+            adminApi.getTravel(),
+        ])
+            .then(([nextRadar, nextDeals, nextAdmin]) => {
+                setRadar(nextRadar);
+                setDeals(nextDeals);
+                setAdmin(nextAdmin);
+            })
+            .catch(err => setError(err.message))
+            .finally(() => setLoading(false));
+    }, []);
 
-    const when = (iso) => {
-        if (!iso) return '—';
-        const d = new Date(iso);
-        return Number.isNaN(d.getTime()) ? '—'
-            : d.toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+    useEffect(() => { load(); }, [load]);
+
+    const run = async (key, action, successText) => {
+        setBusy(key);
+        setError('');
+        setNotice('');
+        try {
+            const result = await action();
+            setNotice(typeof successText === 'function' ? successText(result) : successText);
+            await load();
+            return result;
+        } catch (err) {
+            setError(err.message);
+            return null;
+        } finally {
+            setBusy('');
+        }
     };
 
-    const tours = (deals?.deals || []).filter(x => x.type === 'tour');
-    const flights = (deals?.deals || []).filter(x => x.type === 'flight');
-    const withSavings = (deals?.deals || []).filter(x => x.savings);
+    const grantByUsername = async () => {
+        const username = grant.username.trim();
+        if (!username) return setError('Укажите Telegram-имя пользователя');
+        const result = await run(
+            'grant',
+            () => adminApi.grantTravelAccess({ username, days: Number(grant.days) }),
+            response => response.messageSent
+                ? `Доступ ${username} активирован, сообщение отправлено`
+                : `Доступ ${username} активирован`,
+        );
+        if (result) setGrant(current => ({ ...current, username: '' }));
+    };
+
+    const subscriptions = useMemo(() => {
+        const query = search.trim().toLocaleLowerCase();
+        const items = admin?.subscriptions || [];
+        if (!query) return items;
+        return items.filter(item => [
+            item.telegramUsername, item.email, item.status, item.filters?.origin?.value, item.filters?.destination?.value,
+        ].some(value => String(value || '').toLocaleLowerCase().includes(query)));
+    }, [admin?.subscriptions, search]);
+
+    const tours = (deals?.deals || []).filter(item => item.type === 'tour');
+    const flights = (deals?.deals || []).filter(item => item.type === 'flight');
+    const withSavings = (deals?.deals || []).filter(item => item.savings);
+    const stats = admin?.stats || {};
 
     return (
         <div className="flex flex-col gap-5">
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between gap-3 flex-wrap">
-                        <CardTitle>Ленты радара</CardTitle>
-                        <Button variant="outline" size="sm" onClick={load} disabled={loading}>
-                            <RefreshCw size={14} /> Обновить
+                        <div>
+                            <CardTitle>Платные пользователи</CardTitle>
+                            <CardDescription>Подписки, сроки доступа и сообщения пользователям.</CardDescription>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Badge variant={admin?.capabilities?.subscriptionsAvailable ? 'ok' : 'warn'}>
+                                {admin?.capabilities?.subscriptionsAvailable ? 'сервис подключён' : 'требуется настройка'}
+                            </Badge>
+                            <Button variant="outline" size="sm" onClick={load} disabled={loading}>
+                                <RefreshCw size={16} /> Обновить
+                            </Button>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="flex flex-col gap-4">
+                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                        <Stat title="Всего" value={stats.total || 0} sub="созданных подписок" />
+                        <Stat title="Telegram" value={stats.connected || 0} sub="подключённых чатов" />
+                        <Stat title="Активные" value={stats.active || 0} sub="получают уведомления" />
+                        <Stat title="К активации" value={stats.awaitingPayment || 0} sub="Telegram подключён" />
+                    </div>
+
+                    <div className="grid gap-3 rounded-control border border-line bg-surface-2 p-4 lg:grid-cols-[minmax(240px,1fr)_180px_auto] lg:items-end">
+                        <Field label="Telegram-пользователь">
+                            <Input
+                                value={grant.username}
+                                onChange={event => setGrant({ ...grant, username: event.target.value })}
+                                placeholder="@username"
+                            />
+                        </Field>
+                        <Field label="Тестовый период">
+                            <Select value={grant.days} onChange={event => setGrant({ ...grant, days: event.target.value })}>
+                                <option value="14">14 дней</option>
+                                <option value="30">30 дней</option>
+                                <option value="60">60 дней</option>
+                                <option value="90">90 дней</option>
+                            </Select>
+                        </Field>
+                        <Button onClick={grantByUsername} disabled={busy === 'grant'}>
+                            <UserPlus size={18} /> Выдать доступ
                         </Button>
                     </div>
-                    <CardDescription>
-                        Данные собираются по расписанию и лежат в файлах, которые читает сайт.
-                        Если цифры не меняются много часов — значит сбор упал, это первый признак проблемы.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <Stat title="Горящие билеты" value={(radar?.hotFlights || []).length} sub={`обновлено ${when(radar?.updatedAt)}`} />
-                    <Stat title="Городов вылета" value={(radar?.cheapFrom || []).length} sub="в подборе направлений" />
-                    <Stat title="Плечи для стыковок" value={(radar?.stitchLegs || []).length} sub="перелёты до городов туров" />
-                    <Stat title="Календари цен" value={(radar?.calendars || []).length} sub="маршрутов" />
+
+                    <div className="relative">
+                        <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-3" size={18} />
+                        <Input
+                            className="pl-10"
+                            value={search}
+                            onChange={event => setSearch(event.target.value)}
+                            placeholder="Имя, email, направление или статус"
+                            aria-label="Поиск подписок"
+                        />
+                    </div>
+
+                    {error && <p className="m-0 rounded-control border border-danger/30 bg-danger/10 p-3 text-danger">{error}</p>}
+                    {notice && <p className="m-0 rounded-control border border-ok/30 bg-ok/10 p-3 text-ok">{notice}</p>}
+
+                    <div className="overflow-x-auto rounded-control border border-line">
+                        <table className="w-full min-w-[980px] border-collapse text-left">
+                            <thead className="bg-surface-2 text-ink-3">
+                                <tr>
+                                    <th className="px-3 py-3 font-semibold">Пользователь</th>
+                                    <th className="px-3 py-3 font-semibold">Настройки</th>
+                                    <th className="px-3 py-3 font-semibold">Статус</th>
+                                    <th className="px-3 py-3 font-semibold">Доступ до</th>
+                                    <th className="px-3 py-3 font-semibold">Управление</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {subscriptions.map(item => (
+                                    <SubscriptionRow key={item.id} item={item} busy={busy} run={run} />
+                                ))}
+                                {!subscriptions.length && (
+                                    <tr><td colSpan="5" className="px-3 py-8 text-center text-ink-3">Подключите первого тестового пользователя</td></tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </CardContent>
             </Card>
 
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between gap-3 flex-wrap">
-                        <CardTitle>Находки из Telegram-каналов</CardTitle>
-                        <Badge variant={tours.length ? 'ok' : 'muted'}>{when(deals?.updatedAt)}</Badge>
+                        <CardTitle>Лента предложений</CardTitle>
+                        <a className="inline-flex items-center gap-2 text-brand no-underline" href="https://memorasolutions.ru/travel-radar" target="_blank" rel="noopener noreferrer">
+                            Открыть продукт <ExternalLink size={16} />
+                        </a>
                     </div>
-                    <CardDescription>
-                        Предложения, вытащенные из тревел-каналов и переупакованные с нашей партнёрской ссылкой.
-                    </CardDescription>
+                    <CardDescription>Состояние предложений, которые сейчас видят пользователи.</CardDescription>
                 </CardHeader>
-                <CardContent className="flex flex-col gap-4">
-                    <div className="grid gap-4 sm:grid-cols-3">
-                        <Stat title="Всего находок" value={(deals?.deals || []).length} sub="после разбора постов" />
-                        <Stat title="Туры" value={tours.length} sub="для модуля горящих туров" />
-                        <Stat title="С посчитанной экономией" value={withSavings.length} sub={`из ${flights.length} авиа`} />
-                    </div>
+                <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <Stat title="Всего находок" value={(deals?.deals || []).length} sub={`обновлено ${formatDate(deals?.updatedAt)}`} />
+                    <Stat title="Билеты" value={flights.length} sub="в текущей ленте" />
+                    <Stat title="Туры" value={tours.length} sub="в текущей ленте" />
+                    <Stat title="С экономией" value={withSavings.length} sub={`из ${flights.length} билетов`} />
+                </CardContent>
+            </Card>
 
-                    {withSavings.length === 0 && tours.length > 0 && (
-                        <p className="m-0 rounded-control border border-warn/40 bg-warn/10 p-3 text-ui-sm text-ink-2">
-                            У туров пока нет «обычной цены», поэтому экономию в рублях показать не из чего.
-                            Это решается подключением API туроператоров (Level.Travel / Travelata) — нужны ключи в настройках проекта.
-                        </p>
-                    )}
-
-                    <div className="flex flex-wrap gap-2">
-                        <a className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-ui-sm text-ink-2 no-underline hover:text-ink"
-                            href="https://memorasolutions.ru/travel-radar-3" target="_blank" rel="noopener noreferrer">
-                            Радар 3.0 <ExternalLink size={12} />
-                        </a>
-                        <a className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-ui-sm text-ink-2 no-underline hover:text-ink"
-                            href="https://memorasolutions.ru/travel-radar-4" target="_blank" rel="noopener noreferrer">
-                            Радар 4.0 <ExternalLink size={12} />
-                        </a>
-                    </div>
+            <Card>
+                <CardHeader><CardTitle>Служебные данные</CardTitle></CardHeader>
+                <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <Stat title="Горящие билеты" value={(radar?.hotFlights || []).length} sub={`обновлено ${formatDate(radar?.updatedAt)}`} />
+                    <Stat title="Города вылета" value={(radar?.cheapFrom || []).length} sub="в подборе" />
+                    <Stat title="Стыковочные плечи" value={(radar?.stitchLegs || []).length} sub="в маршрутах" />
+                    <Stat title="Календари цен" value={(radar?.calendars || []).length} sub="маршрутов" />
                 </CardContent>
             </Card>
         </div>
     );
 }
 
+function SubscriptionRow({ item, busy, run }) {
+    const [expiresAt, setExpiresAt] = useState(dateInputValue(item.currentPeriodEnd));
+    const key = item.id;
+    const isBusy = busy.startsWith(key);
+    const status = STATUS[item.status] || [item.status, 'muted'];
+
+    useEffect(() => setExpiresAt(dateInputValue(item.currentPeriodEnd)), [item.currentPeriodEnd]);
+
+    const save = () => run(
+        `${key}:grant`,
+        () => adminApi.grantTravelSubscription(key, { expiresAt }),
+        response => response.messageSent
+            ? `Доступ ${subscriptionTitle(item)} обновлён, сообщение отправлено`
+            : `Доступ ${subscriptionTitle(item)} обновлён`,
+    );
+
+    const disable = () => {
+        if (!window.confirm(`Завершить доступ ${subscriptionTitle(item)}?`)) return;
+        run(`${key}:disable`, () => adminApi.disableTravelSubscription(key), 'Доступ завершён');
+    };
+
+    const message = () => {
+        const text = window.prompt(`Сообщение для ${subscriptionTitle(item)}:`);
+        if (!text?.trim()) return;
+        run(`${key}:message`, () => adminApi.sendTravelMessage(key, text), 'Сообщение отправлено');
+    };
+
+    const remove = () => {
+        const confirmation = window.prompt(`Введите DELETE для удаления ${subscriptionTitle(item)}:`);
+        if (confirmation !== 'DELETE') return;
+        run(`${key}:delete`, () => adminApi.deleteTravelSubscription(key), 'Подписка удалена');
+    };
+
+    return (
+        <tr>
+            <td className="border-t border-line px-3 py-3 align-top">
+                {item.telegramUsername
+                    ? <a className="font-semibold text-brand no-underline" href={`https://t.me/${item.telegramUsername}`} target="_blank" rel="noreferrer">@{item.telegramUsername}</a>
+                    : <strong className="text-ink">Telegram подключается</strong>}
+                <div className="mt-1 text-ink-3">{item.email}</div>
+                <div className="mt-1 text-ink-3">с {formatDate(item.createdAt, false)}</div>
+            </td>
+            <td className="border-t border-line px-3 py-3 align-top text-ink-2">
+                <div>{placeLabel(item.filters?.origin)} → {placeLabel(item.filters?.destination)}</div>
+                <div className="mt-1 text-ink-3">
+                    {item.filters?.dealType === 'flight' ? 'Билеты' : item.filters?.dealType === 'tour' ? 'Туры' : 'Все предложения'}
+                    {item.filters?.maxPrice ? ` · до ${Number(item.filters.maxPrice).toLocaleString('ru-RU')} ₽` : ''}
+                </div>
+            </td>
+            <td className="border-t border-line px-3 py-3 align-top">
+                <Badge variant={status[1]}>{status[0]}</Badge>
+                {item.manualAccess && <div className="mt-2"><Badge variant="default">тестовый доступ</Badge></div>}
+                <div className="mt-2 flex items-center gap-2 text-ink-3">
+                    {item.telegramConnected ? <Bot size={16} /> : <CreditCard size={16} />}
+                    {item.telegramConnected ? 'чат подключён' : 'ожидает подключения'}
+                </div>
+            </td>
+            <td className="border-t border-line px-3 py-3 align-top">
+                <Input type="date" value={expiresAt} onChange={event => setExpiresAt(event.target.value)} aria-label={`Доступ ${subscriptionTitle(item)}`} />
+                <div className="mt-1 text-ink-3">{formatDate(item.currentPeriodEnd, false)}</div>
+            </td>
+            <td className="border-t border-line px-3 py-3 align-top">
+                <div className="flex flex-wrap gap-2">
+                    <Button size="sm" onClick={save} disabled={isBusy || !item.telegramConnected || !expiresAt}>Сохранить</Button>
+                    <Button size="icon" variant="ghost" title="Написать" onClick={message} disabled={isBusy || !item.telegramConnected}><Send size={17} /></Button>
+                    <Button size="icon" variant="ghost" title="Завершить доступ" onClick={disable} disabled={isBusy}><Ban size={17} /></Button>
+                    <Button size="icon" variant="ghost" title="Удалить" onClick={remove} disabled={isBusy}><Trash2 size={17} /></Button>
+                </div>
+            </td>
+        </tr>
+    );
+}
+
+function Field({ label, children }) {
+    return <label className="grid gap-2"><Label>{label}</Label>{children}</label>;
+}
+
 function Stat({ title, value, sub }) {
     return (
         <div className="rounded-control border border-line bg-surface-2 p-4">
-            <div className="text-ui-sm text-ink-3">{title}</div>
-            <div className="mt-1 text-2xl font-extrabold tabular-nums text-ink">{value}</div>
-            <div className="mt-1 text-ui-sm text-ink-3">{sub}</div>
+            <div className="text-ink-3">{title}</div>
+            <div className="mt-1 font-extrabold tabular-nums text-ink">{value}</div>
+            <div className="mt-1 text-ink-3">{sub}</div>
         </div>
     );
 }

@@ -340,6 +340,157 @@ const escapeHtml = (value) => String(value || '').replace(/[&<>]/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;',
 }[char]));
 
+function adminSubscriptionView(subscription) {
+  return {
+    id: subscription.id,
+    email: subscription.email,
+    telegramUsername: subscription.telegramUsername || null,
+    telegramConnected: Boolean(subscription.telegramChatId),
+    status: subscription.status,
+    filters: subscription.filters,
+    autoRenew: Boolean(subscription.autoRenew),
+    manualAccess: Boolean(subscription.manualAccess),
+    currentPeriodEnd: subscription.currentPeriodEnd || null,
+    activatedAt: subscription.activatedAt || null,
+    createdAt: subscription.createdAt,
+    updatedAt: subscription.updatedAt,
+    lastPaymentError: subscription.lastPaymentError || null,
+  };
+}
+
+export async function getTravelAdminDashboard() {
+  const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
+  const users = subscriptions
+    .map(adminSubscriptionView)
+    .sort((a, b) => Date.parse(b.updatedAt || b.createdAt) - Date.parse(a.updatedAt || a.createdAt));
+  return {
+    capabilities: travelCapabilities(),
+    stats: {
+      total: users.length,
+      connected: users.filter((item) => item.telegramConnected).length,
+      active: users.filter((item) => item.status === 'active'
+        && Date.parse(item.currentPeriodEnd || '') > Date.now()).length,
+      awaitingPayment: users.filter((item) => item.status === 'awaiting_payment').length,
+    },
+    subscriptions: users,
+  };
+}
+
+function cleanAdminExpiration(input) {
+  if (input.expiresAt) {
+    const value = String(input.expiresAt).trim();
+    const timestamp = Date.parse(/^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T23:59:59.999Z` : value);
+    if (!Number.isFinite(timestamp) || timestamp <= Date.now()) throw new Error('INVALID_EXPIRATION');
+    return new Date(timestamp).toISOString();
+  }
+  const days = Math.max(1, Math.min(365, Math.round(Number(input.days) || 30)));
+  return new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
+}
+
+export async function grantTravelAdminSubscription(id, input = {}) {
+  const expiresAt = cleanAdminExpiration(input);
+  const now = new Date().toISOString();
+  let result = null;
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
+    if (item.id !== id) return item;
+    if (!item.telegramChatId) throw new Error('TELEGRAM_NOT_CONNECTED');
+    result = {
+      ...item,
+      status: 'active',
+      autoRenew: false,
+      manualAccess: true,
+      manualGrantedAt: now,
+      activatedAt: now,
+      currentPeriodEnd: expiresAt,
+      pendingPaymentId: null,
+      renewalStartedAt: null,
+      notifiedDealIds: [],
+      lastPaymentError: null,
+      updatedAt: now,
+    };
+    return result;
+  }));
+  if (!result) throw new Error('SUBSCRIPTION_NOT_FOUND');
+
+  let messageSent = false;
+  try {
+    await telegramRequest('sendMessage', {
+      chat_id: result.telegramChatId,
+      text: `✅ Тестовый доступ активирован до ${new Date(expiresAt).toLocaleDateString('ru-RU')}.\n\n`
+        + 'Подходящие предложения будут приходить в этот чат. Настройки маршрута доступны на сайте.',
+      reply_markup: {
+        inline_keyboard: [[{
+          text: 'Настроить персональный радар',
+          url: `${PUBLIC_BASE_URL}/travel-radar#personal-radar`,
+        }]],
+      },
+    });
+    messageSent = true;
+  } catch (error) {
+    console.error('Travel Radar admin grant message:', error.message);
+  }
+  return { subscription: adminSubscriptionView(result), messageSent };
+}
+
+export async function grantTravelAdminAccess(input = {}) {
+  const username = String(input.username || '').trim().replace(/^@/, '').toLocaleLowerCase();
+  if (!username) throw new Error('INVALID_TELEGRAM_USERNAME');
+  const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
+  const subscription = subscriptions.find((item) => (
+    String(item.telegramUsername || '').toLocaleLowerCase() === username
+  ));
+  if (!subscription) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  return grantTravelAdminSubscription(subscription.id, input);
+}
+
+export async function disableTravelAdminSubscription(id) {
+  const now = new Date().toISOString();
+  let result = null;
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
+    if (item.id !== id) return item;
+    result = {
+      ...item,
+      status: 'canceled',
+      autoRenew: false,
+      manualAccess: false,
+      currentPeriodEnd: now,
+      pendingPaymentId: null,
+      updatedAt: now,
+    };
+    return result;
+  }));
+  if (!result) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  return { subscription: adminSubscriptionView(result) };
+}
+
+export async function sendTravelAdminMessage(id, input = {}) {
+  const text = String(input.message || '').trim().slice(0, 3000);
+  if (!text) throw new Error('INVALID_MESSAGE');
+  const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
+  const subscription = subscriptions.find((item) => item.id === id);
+  if (!subscription) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  if (!subscription.telegramChatId) throw new Error('TELEGRAM_NOT_CONNECTED');
+  const message = await telegramRequest('sendMessage', {
+    chat_id: subscription.telegramChatId,
+    text,
+  });
+  return { sent: true, messageId: message.message_id };
+}
+
+export async function deleteTravelAdminSubscription(id) {
+  let deleted = false;
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.filter((item) => {
+    if (item.id !== id) return true;
+    if (item.status === 'active' && Date.parse(item.currentPeriodEnd || '') > Date.now()) {
+      throw new Error('SUBSCRIPTION_ACTIVE');
+    }
+    deleted = true;
+    return false;
+  }));
+  if (!deleted) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  return { deleted: true };
+}
+
 export async function handleTravelTelegramUpdate(update, secretHeader) {
   if (!TELEGRAM_WEBHOOK_SECRET || secretHeader !== TELEGRAM_WEBHOOK_SECRET) {
     throw new Error('INVALID_TELEGRAM_SECRET');
@@ -369,13 +520,26 @@ export async function handleTravelTelegramUpdate(update, secretHeader) {
   }
   if (chatId && command === '/status') {
     const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
-    const subscription = subscriptions.find((item) => item.telegramChatId === chatId
-      && ['active', 'canceling'].includes(item.status));
+    const subscription = subscriptions
+      .filter((item) => item.telegramChatId === chatId)
+      .sort((a, b) => Date.parse(b.updatedAt || b.createdAt) - Date.parse(a.updatedAt || a.createdAt))[0];
+    const statusText = {
+      awaiting_payment: 'Радар подключён. Следующий шаг — активация доступа на сайте.',
+      awaiting_telegram: 'Настройте радар на сайте и подключите этот Telegram-чат.',
+      canceled: 'Срок доступа завершён. Новый период можно подключить на сайте.',
+      past_due: 'Срок доступа завершён. Новый период можно подключить на сайте.',
+    };
     await telegramRequest('sendMessage', {
       chat_id: chatId,
-      text: subscription
-        ? `Подписка ${subscription.status === 'active' ? 'активна' : 'не продлевается'}. Оплачено до ${new Date(subscription.currentPeriodEnd).toLocaleDateString('ru-RU')}.`
-        : 'Активная подписка для этого чата не найдена.',
+      text: subscription && ['active', 'canceling'].includes(subscription.status)
+        ? `Подписка ${subscription.status === 'active' ? 'активна' : 'действует до конца периода'}. Доступ до ${new Date(subscription.currentPeriodEnd).toLocaleDateString('ru-RU')}.`
+        : statusText[subscription?.status] || 'Откройте персональный радар на сайте и подключите уведомления.',
+      reply_markup: {
+        inline_keyboard: [[{
+          text: 'Открыть персональный радар',
+          url: `${PUBLIC_BASE_URL}/travel-radar#personal-radar`,
+        }]],
+      },
     });
     return { accepted: true };
   }

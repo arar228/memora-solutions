@@ -1,7 +1,8 @@
-import { useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     ArrowRight,
+    ArrowDownUp,
     BedDouble,
     Bell,
     CalendarDays,
@@ -11,9 +12,9 @@ import {
     ExternalLink,
     Flame,
     LayoutGrid,
-    MapPin,
     Plane,
     RefreshCw,
+    Search,
     Send,
     SlidersHorizontal,
     Sparkles,
@@ -56,7 +57,10 @@ const COPY = {
         tours: 'Туры',
         allOrigins: 'Откуда угодно',
         allDestinations: 'Куда угодно',
-        countryPrefix: 'Страна',
+        countriesGroup: 'Страны',
+        citiesGroup: 'Города',
+        typeCity: 'город или страна',
+        noPlaces: 'Совпадений нет',
         search: 'Страна, город или канал',
         filters: 'Фильтры',
         resetFilters: 'Сбросить',
@@ -92,17 +96,17 @@ const COPY = {
         tableCaption: 'Актуальные предложения Радара путешествий',
         origin: 'Откуда',
         destination: 'Куда',
-        departure: 'Вылет',
-        arrival: 'Прилёт',
+        departure: 'Дата вылета',
+        arrival: 'Дата прилёта',
         dealType: 'Тип',
-        people: 'В цене',
+        people: 'Цена за',
         price: 'Цена',
         savings: 'Экономия',
         description: 'Описание',
         expandDescription: 'Показать полностью',
         collapseDescription: 'Свернуть',
-        offerDate: 'Добавлено',
-        link: 'Ссылка',
+        offerDate: 'Опубликовано',
+        link: 'Сайт',
         noDate: 'Не указано',
         usefulEyebrow: 'Следующий шаг',
         usefulTitle: 'Полезные сервисы для поездки',
@@ -139,7 +143,10 @@ const COPY = {
         tours: 'Tours',
         allOrigins: 'From anywhere',
         allDestinations: 'To anywhere',
-        countryPrefix: 'Country',
+        countriesGroup: 'Countries',
+        citiesGroup: 'Cities',
+        typeCity: 'city or country',
+        noPlaces: 'No matches',
         search: 'Country, city or channel',
         filters: 'Filters',
         resetFilters: 'Reset',
@@ -175,17 +182,17 @@ const COPY = {
         tableCaption: 'Current Travel Radar deals',
         origin: 'From',
         destination: 'To',
-        departure: 'Departure',
-        arrival: 'Arrival',
+        departure: 'Departure date',
+        arrival: 'Arrival date',
         dealType: 'Type',
-        people: 'Included',
+        people: 'Price for',
         price: 'Price',
         savings: 'Saving',
         description: 'Description',
         expandDescription: 'Show full description',
         collapseDescription: 'Collapse',
-        offerDate: 'Added',
-        link: 'Link',
+        offerDate: 'Published',
+        link: 'Deal',
         noDate: 'Not specified',
         usefulEyebrow: 'Next step',
         usefulTitle: 'Useful services for your trip',
@@ -300,7 +307,7 @@ function peopleInPrice(deal) {
     if (/(?:на|за)\s+двоих|двухмест/i.test(text)) return 2;
     if (/(?:на|за)\s+троих/i.test(text)) return 3;
     if (/(?:на|за)\s+четверых/i.test(text)) return 4;
-    if (/\/\s*чел|на\s+человека|за\s+человека|per\s+person|\bpp\b/i.test(text)) return 1;
+    if (/\/\s*чел|(?:на|за|с)\s+человека|per\s+person|\bpp\b/i.test(text)) return 1;
 
     // Published flight fares are quoted for one passenger unless the source
     // explicitly says otherwise.
@@ -310,6 +317,10 @@ function peopleInPrice(deal) {
 function formatPeople(count, lang) {
     if (lang === 'ru') return `${count} чел.`;
     return `${count} ${count === 1 ? 'person' : 'people'}`;
+}
+
+function formatPriceBasis(count, lang) {
+    return `${lang === 'ru' ? 'за' : 'for'} ${formatPeople(count, lang)}`;
 }
 
 function arrivalForDeal(deal) {
@@ -352,14 +363,29 @@ function DealTypeDetails({ deal, copy, withIcon = false }) {
 
 function ExpandableDescription({ value, fallback, copy, variant = 'table' }) {
     const [expanded, setExpanded] = useState(false);
+    const [canExpand, setCanExpand] = useState(false);
     const content = value || fallback;
     const descriptionId = useId();
-    const expansionThreshold = variant === 'card' ? 140 : 70;
-    const canExpand = content.length > expansionThreshold;
+    const textRef = useRef(null);
+
+    useEffect(() => {
+        if (expanded) return undefined;
+        const text = textRef.current;
+        if (!text) return undefined;
+        const measure = () => setCanExpand(text.scrollHeight > text.clientHeight + 1);
+        measure();
+        const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(measure) : null;
+        observer?.observe(text);
+        window.addEventListener('resize', measure);
+        return () => {
+            observer?.disconnect();
+            window.removeEventListener('resize', measure);
+        };
+    }, [content, expanded, variant]);
 
     return (
         <div className={`travel-feed__expandable-description travel-feed__expandable-description--${variant} ${expanded ? 'is-expanded' : ''}`}>
-            <p id={descriptionId} className="travel-feed__description-text">{content}</p>
+            <p ref={textRef} id={descriptionId} className="travel-feed__description-text">{content}</p>
             {canExpand ? (
                 <button
                     type="button"
@@ -387,10 +413,23 @@ function sortDeals(deals, sort, lang) {
             case 'departure-asc':
                 return optionalCompare(dateValue(a.departDate), dateValue(b.departDate), 'asc')
                     || publishedAt(b) - publishedAt(a);
+            case 'departure-desc':
+                return optionalCompare(dateValue(a.departDate), dateValue(b.departDate), 'desc')
+                    || publishedAt(b) - publishedAt(a);
+            case 'arrival-asc':
+                return optionalCompare(dateValue(arrivalForDeal(a)?.value), dateValue(arrivalForDeal(b)?.value), 'asc')
+                    || publishedAt(b) - publishedAt(a);
+            case 'arrival-desc':
+                return optionalCompare(dateValue(arrivalForDeal(a)?.value), dateValue(arrivalForDeal(b)?.value), 'desc')
+                    || publishedAt(b) - publishedAt(a);
             case 'price-asc':
                 return a.price - b.price || publishedAt(b) - publishedAt(a);
             case 'price-desc':
                 return b.price - a.price || publishedAt(b) - publishedAt(a);
+            case 'savings-asc':
+                return optionalCompare(a.savings, b.savings, 'asc')
+                    || optionalCompare(a.discount, b.discount, 'asc')
+                    || publishedAt(b) - publishedAt(a);
             case 'savings-desc':
                 return optionalCompare(a.savings, b.savings, 'desc')
                     || optionalCompare(a.discount, b.discount, 'desc')
@@ -398,9 +437,18 @@ function sortDeals(deals, sort, lang) {
             case 'origin-asc':
                 return (a.from?.name || '').localeCompare(b.from?.name || '', lang)
                     || (a.to?.name || '').localeCompare(b.to?.name || '', lang);
+            case 'origin-desc':
+                return (b.from?.name || '').localeCompare(a.from?.name || '', lang)
+                    || (b.to?.name || '').localeCompare(a.to?.name || '', lang);
             case 'destination-asc':
                 return (a.to?.name || '').localeCompare(b.to?.name || '', lang)
                     || (a.from?.name || '').localeCompare(b.from?.name || '', lang);
+            case 'destination-desc':
+                return (b.to?.name || '').localeCompare(a.to?.name || '', lang)
+                    || (b.from?.name || '').localeCompare(a.from?.name || '', lang);
+            case 'published-asc':
+                return publishedAt(a) - publishedAt(b)
+                    || a.price - b.price;
             default:
                 return publishedAt(b) - publishedAt(a)
                     || (b.savings || 0) - (a.savings || 0)
@@ -425,14 +473,138 @@ function useMobileLayout() {
     return mobile;
 }
 
+function normalizePlaceQuery(value) {
+    return String(value || '')
+        .toLocaleLowerCase('ru')
+        .replace(/ё/g, 'е')
+        .trim();
+}
+
+function PlaceCombobox({ value, onChange, options, label, copy }) {
+    const selected = options.find((option) => option.value === value);
+    const [query, setQuery] = useState(selected?.label || '');
+    const [open, setOpen] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const listboxId = useId();
+    const rootRef = useRef(null);
+
+    useEffect(() => {
+        setQuery(selected?.label || '');
+    }, [selected?.label]);
+
+    useEffect(() => {
+        const close = (event) => {
+            if (!rootRef.current?.contains(event.target)) setOpen(false);
+        };
+        document.addEventListener('pointerdown', close);
+        return () => document.removeEventListener('pointerdown', close);
+    }, []);
+
+    const normalized = normalizePlaceQuery(query);
+    const filtered = options
+        .filter((option) => !normalized || option.searchText.includes(normalized))
+        .slice(0, 18);
+
+    const selectOption = (option) => {
+        onChange(option.value);
+        setQuery(option.label);
+        setOpen(false);
+        setActiveIndex(0);
+    };
+
+    const handleInput = (event) => {
+        const next = event.target.value;
+        setQuery(next);
+        setOpen(true);
+        setActiveIndex(0);
+        if (!next.trim()) onChange('all');
+    };
+
+    const handleBlur = () => {
+        window.setTimeout(() => {
+            if (rootRef.current?.contains(document.activeElement)) return;
+            const exact = options.find((option) => normalizePlaceQuery(option.label) === normalizePlaceQuery(query));
+            if (exact) selectOption(exact);
+            else setQuery(selected?.label || '');
+            setOpen(false);
+        }, 0);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            setOpen(true);
+            setActiveIndex((current) => Math.min(current + 1, Math.max(filtered.length - 1, 0)));
+        } else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            setActiveIndex((current) => Math.max(current - 1, 0));
+        } else if (event.key === 'Enter' && open && filtered[activeIndex]) {
+            event.preventDefault();
+            selectOption(filtered[activeIndex]);
+        } else if (event.key === 'Escape') {
+            setOpen(false);
+            setQuery(selected?.label || '');
+        }
+    };
+
+    let previousGroup = '';
+    return (
+        <div className="travel-feed__place-combobox" ref={rootRef}>
+            <Search size={16} aria-hidden="true" />
+            <input
+                type="text"
+                value={query}
+                placeholder={`${label}: ${copy.typeCity}`}
+                aria-label={label}
+                aria-autocomplete="list"
+                aria-controls={listboxId}
+                aria-expanded={open}
+                role="combobox"
+                autoComplete="off"
+                onChange={handleInput}
+                onFocus={() => setOpen(true)}
+                onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
+            />
+            <ChevronDown size={16} aria-hidden="true" />
+            {open ? (
+                <div id={listboxId} className="travel-feed__place-options" role="listbox">
+                    {filtered.length ? filtered.map((option, index) => {
+                        const showGroup = option.group !== previousGroup;
+                        previousGroup = option.group;
+                        return (
+                            <div key={option.value}>
+                                {showGroup ? (
+                                    <div className="travel-feed__place-group">
+                                        {option.group === 'country' ? copy.countriesGroup : copy.citiesGroup}
+                                    </div>
+                                ) : null}
+                                <button
+                                    type="button"
+                                    role="option"
+                                    aria-selected={option.value === value}
+                                    className={index === activeIndex ? 'is-active' : ''}
+                                    onMouseDown={(event) => event.preventDefault()}
+                                    onMouseEnter={() => setActiveIndex(index)}
+                                    onClick={() => selectOption(option)}
+                                >
+                                    <span>{option.label}</span>
+                                    {option.meta ? <small>{option.meta}</small> : null}
+                                </button>
+                            </div>
+                        );
+                    }) : <div className="travel-feed__place-empty">{copy.noPlaces}</div>}
+                </div>
+            ) : null}
+        </div>
+    );
+}
+
 function DealCard({ deal, lang, copy }) {
     const arrival = arrivalForDeal(deal);
     const departureLabel = formatDealDate(deal.departDate, lang);
     const arrivalLabel = formatDealDate(arrival?.value, lang);
     const publishedLabel = formatDealDate(deal.date, lang);
-    const travelDateLabel = departureLabel
-        ? `${departureLabel}${arrivalLabel ? ` — ${arrivalLabel}` : ''}`
-        : publishedLabel;
     const people = peopleInPrice(deal);
 
     return (
@@ -453,18 +625,25 @@ function DealCard({ deal, lang, copy }) {
             <div className="travel-feed__price-row">
                 <span className="travel-feed__price">{copy.from} {fmtPrice(deal.price, lang)}</span>
                 {deal.oldPrice ? <span className="travel-feed__old-price">{fmtPrice(deal.oldPrice, lang)}</span> : null}
+                {people ? <span className="travel-feed__price-basis">{formatPriceBasis(people, lang)}</span> : null}
             </div>
 
             <div className="travel-feed__meta">
-                {travelDateLabel ? (
-                    <span title={departureLabel ? copy.departure : copy.offerDate}>
+                {departureLabel ? (
+                    <span>
                         <CalendarDays size={16} aria-hidden="true" />
-                        {travelDateLabel}
+                        <strong>{copy.departure}:</strong> {departureLabel}
                     </span>
                 ) : null}
+                {arrivalLabel ? <span><strong>{copy.arrival}:</strong> {arrivalLabel}</span> : null}
                 {deal.nights ? <span>{deal.nights} {copy.nights}</span> : null}
-                {people ? <span>{formatPeople(people, lang)}</span> : null}
             </div>
+
+            {publishedLabel ? (
+                <span className="travel-feed__card-published" title={new Date(deal.date).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US')}>
+                    {copy.offerDate}: {publishedLabel}
+                </span>
+            ) : null}
 
             {deal.text ? (
                 <ExpandableDescription
@@ -501,23 +680,43 @@ function DealCard({ deal, lang, copy }) {
     );
 }
 
-function DealTable({ deals, lang, copy }) {
+function DealTable({ deals, lang, copy, sort, onSort }) {
+    const sortableHeader = (label, column, className = '') => {
+        const asc = `${column}-asc`;
+        const desc = `${column}-desc`;
+        const active = sort === asc || sort === desc;
+        const direction = sort === asc ? 'ascending' : sort === desc ? 'descending' : 'none';
+        const next = sort === asc ? desc : asc;
+        return (
+            <th scope="col" className={className} aria-sort={direction}>
+                <button
+                    type="button"
+                    className={`travel-feed__column-sort ${active ? 'is-active' : ''}`}
+                    onClick={() => onSort(next)}
+                >
+                    <span>{label}</span>
+                    <ArrowDownUp size={14} aria-hidden="true" />
+                </button>
+            </th>
+        );
+    };
+
     return (
         <div className="travel-feed__table-shell" tabIndex="0" aria-label={copy.tableCaption}>
             <table className="travel-feed__table">
                 <caption className="travel-feed__sr-only">{copy.tableCaption}</caption>
                 <thead>
                     <tr>
-                        <th scope="col">{copy.origin}</th>
-                        <th scope="col">{copy.destination}</th>
-                        <th scope="col">{copy.departure}</th>
-                        <th scope="col">{copy.arrival}</th>
+                        {sortableHeader(copy.origin, 'origin')}
+                        {sortableHeader(copy.destination, 'destination')}
+                        {sortableHeader(copy.departure, 'departure')}
+                        {sortableHeader(copy.arrival, 'arrival')}
                         <th scope="col">{copy.dealType}</th>
                         <th scope="col">{copy.people}</th>
-                        <th scope="col" className="is-numeric">{copy.price}</th>
-                        <th scope="col">{copy.savings}</th>
+                        {sortableHeader(copy.price, 'price', 'is-numeric')}
+                        {sortableHeader(copy.savings, 'savings')}
                         <th scope="col">{copy.description}</th>
-                        <th scope="col">{copy.offerDate}</th>
+                        {sortableHeader(copy.offerDate, 'published')}
                         <th scope="col" className="travel-feed__table-link-head">{copy.link}</th>
                     </tr>
                 </thead>
@@ -556,7 +755,7 @@ function DealTable({ deals, lang, copy }) {
                                     <DealTypeDetails deal={deal} copy={copy} />
                                 </td>
                                 <td className="travel-feed__people-cell">
-                                    {people ? formatPeople(people, lang) : <span className="travel-feed__missing">—</span>}
+                                    {people ? formatPriceBasis(people, lang) : <span className="travel-feed__missing">—</span>}
                                 </td>
                                 <td className="travel-feed__table-price">{fmtPrice(deal.price, lang)}</td>
                                 <td className="travel-feed__saving-cell">
@@ -600,7 +799,7 @@ function DealTable({ deals, lang, copy }) {
     );
 }
 
-function buildPlaceOptions(deals, side, lang, copy) {
+function buildPlaceOptions(deals, side, lang) {
     const cities = new Map();
     const countries = new Map();
     deals.forEach((deal) => {
@@ -608,19 +807,28 @@ function buildPlaceOptions(deals, side, lang, copy) {
         if (!place?.code || place.code === 'ANY' || !place.name) return;
         const country = place.country?.[lang] || place.country?.ru || '';
         const countryKey = place.country?.ru || country;
-        if (countryKey) countries.set(countryKey, country);
+        if (countryKey) countries.set(countryKey, {
+            value: `country:${countryKey}`,
+            label: country,
+            selectLabel: country,
+            meta: '',
+            group: 'country',
+            searchText: normalizePlaceQuery(`${country} ${countryKey}`),
+        });
         if (place.kind !== 'country') {
             cities.set(place.code, {
                 value: `city:${place.code}`,
-                label: country ? `${place.name} — ${country}` : place.name,
+                label: place.name,
+                selectLabel: country ? `${place.name} — ${country}` : place.name,
+                meta: country,
+                group: 'city',
+                searchText: normalizePlaceQuery(`${place.name} ${country} ${place.code}`),
             });
         }
     });
     return [
-        ...[...countries.entries()]
-            .sort((a, b) => a[1].localeCompare(b[1], lang))
-            .map(([value, label]) => ({ value: `country:${value}`, label: `${copy.countryPrefix}: ${label}` })),
         ...[...cities.values()].sort((a, b) => a.label.localeCompare(b.label, lang)),
+        ...[...countries.values()].sort((a, b) => a.label.localeCompare(b.label, lang)),
     ];
 }
 
@@ -852,8 +1060,8 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
                     </div>
                 ) : (
                     <div className="travel-alerts__form">
-                        <label><span>{copy.origin}</span><select value={form.origin} onChange={(e) => setForm({ ...form, origin: e.target.value })}><option value="all">{copy.allOrigins}</option>{originOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
-                        <label><span>{copy.destination}</span><select value={form.destination} onChange={(e) => setForm({ ...form, destination: e.target.value })}><option value="all">{copy.allDestinations}</option>{destinationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
+                        <label><span>{copy.origin}</span><select value={form.origin} onChange={(e) => setForm({ ...form, origin: e.target.value })}><option value="all">{copy.allOrigins}</option>{originOptions.map((option) => <option key={option.value} value={option.value}>{option.selectLabel}</option>)}</select></label>
+                        <label><span>{copy.destination}</span><select value={form.destination} onChange={(e) => setForm({ ...form, destination: e.target.value })}><option value="all">{copy.allDestinations}</option>{destinationOptions.map((option) => <option key={option.value} value={option.value}>{option.selectLabel}</option>)}</select></label>
                         <label><span>{copy.dealType}</span><select value={form.dealType} onChange={(e) => setForm({ ...form, dealType: e.target.value })}><option value="all">{copy.all}</option><option value="flight">{copy.flights}</option><option value="tour">{copy.tours}</option></select></label>
                         <label><span>{copy.maxPrice}</span><input type="number" min="0" max="2000000" value={form.maxPrice} onChange={(e) => setForm({ ...form, maxPrice: e.target.value })} /></label>
                         <label><span>{copy.minDiscount}</span><input type="number" min="0" max="90" value={form.minDiscount} onChange={(e) => setForm({ ...form, minDiscount: e.target.value })} /></label>
@@ -903,12 +1111,12 @@ export default function TravelRadar3Page() {
     }, []);
 
     const originOptions = useMemo(
-        () => buildPlaceOptions(feed.deals, 'from', lang, copy),
-        [copy, feed.deals, lang],
+        () => buildPlaceOptions(feed.deals, 'from', lang),
+        [feed.deals, lang],
     );
     const destinationOptions = useMemo(
-        () => buildPlaceOptions(feed.deals, 'to', lang, copy),
-        [copy, feed.deals, lang],
+        () => buildPlaceOptions(feed.deals, 'to', lang),
+        [feed.deals, lang],
     );
 
     const visibleDeals = useMemo(() => {
@@ -926,15 +1134,17 @@ export default function TravelRadar3Page() {
         setMobileDealLimit(12);
     }, [destination, origin, sort, type]);
 
-    const advancedFilterCount = Number(origin !== 'all')
-        + Number(destination !== 'all');
+    const activeFilterCount = Number(origin !== 'all')
+        + Number(destination !== 'all')
+        + Number(type !== 'all');
     const effectiveView = mobileLayout ? 'cards' : view;
     const renderedDeals = mobileLayout ? visibleDeals.slice(0, mobileDealLimit) : visibleDeals;
     const remainingDeals = Math.max(visibleDeals.length - renderedDeals.length, 0);
 
-    const resetAdvancedFilters = () => {
+    const resetFilters = () => {
         setOrigin('all');
         setDestination('all');
+        setType('all');
     };
 
     const sortOptions = [
@@ -946,6 +1156,18 @@ export default function TravelRadar3Page() {
         ['origin-asc', mobileLayout ? copy.sortOriginShort : copy.sortOrigin],
         ['destination-asc', mobileLayout ? copy.sortDestinationShort : copy.sortDestination],
     ];
+    const headerSortLabels = {
+        'published-asc': `${copy.offerDate} ↑`,
+        'departure-desc': `${copy.departure} ↓`,
+        'arrival-asc': `${copy.arrival} ↑`,
+        'arrival-desc': `${copy.arrival} ↓`,
+        'savings-asc': `${copy.savings} ↑`,
+        'origin-desc': `${copy.origin} Я–А`,
+        'destination-desc': `${copy.destination} Я–А`,
+    };
+    if (!sortOptions.some(([value]) => value === sort) && headerSortLabels[sort]) {
+        sortOptions.push([sort, headerSortLabels[sort]]);
+    }
 
     return (
         <main className="travel-feed">
@@ -965,7 +1187,7 @@ export default function TravelRadar3Page() {
                 </AnimatedSection>
 
                 <AnimatedSection delay={0.05}>
-                    <section className="travel-feed__workspace" aria-label={copy.title}>
+                    <section className="travel-feed__workspace" aria-label={copy.title} data-typography-exempt>
                         <div className="travel-feed__filters">
                             <button
                                 type="button"
@@ -976,8 +1198,8 @@ export default function TravelRadar3Page() {
                             >
                                 <SlidersHorizontal size={18} aria-hidden="true" />
                                 <span>{copy.filters}</span>
-                                {advancedFilterCount > 0 ? (
-                                    <span className="travel-feed__filter-count">{advancedFilterCount}</span>
+                                {activeFilterCount > 0 ? (
+                                    <span className="travel-feed__filter-count">{activeFilterCount}</span>
                                 ) : null}
                                 <ChevronDown className="travel-feed__filter-chevron" size={18} aria-hidden="true" />
                             </button>
@@ -986,21 +1208,25 @@ export default function TravelRadar3Page() {
                                 id="travel-radar-filter-fields"
                                 className={`travel-feed__filter-fields ${filtersOpen ? 'is-open' : ''}`}
                             >
-                                <label className="travel-feed__city travel-feed__city--origin">
-                                    <MapPin size={18} aria-hidden="true" />
-                                    <select value={origin} onChange={(event) => setOrigin(event.target.value)} aria-label={copy.origin}>
-                                        <option value="all">{copy.origin}</option>
-                                        {originOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                                    </select>
-                                </label>
+                                <div className="travel-feed__city travel-feed__city--origin">
+                                    <PlaceCombobox
+                                        value={origin}
+                                        onChange={setOrigin}
+                                        options={originOptions}
+                                        label={copy.origin}
+                                        copy={copy}
+                                    />
+                                </div>
 
-                                <label className="travel-feed__city travel-feed__city--destination">
-                                    <MapPin size={18} aria-hidden="true" />
-                                    <select value={destination} onChange={(event) => setDestination(event.target.value)} aria-label={copy.destination}>
-                                        <option value="all">{copy.destination}</option>
-                                        {destinationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                                    </select>
-                                </label>
+                                <div className="travel-feed__city travel-feed__city--destination">
+                                    <PlaceCombobox
+                                        value={destination}
+                                        onChange={setDestination}
+                                        options={destinationOptions}
+                                        label={copy.destination}
+                                        copy={copy}
+                                    />
+                                </div>
 
                                 <div className="travel-feed__tabs" role="group" aria-label={copy.dealType}>
                                     {[
@@ -1049,8 +1275,8 @@ export default function TravelRadar3Page() {
                                     </button>
                                 </div>
 
-                                {advancedFilterCount > 0 ? (
-                                    <button type="button" className="travel-feed__filter-reset" onClick={resetAdvancedFilters}>
+                                {activeFilterCount > 0 ? (
+                                    <button type="button" className="travel-feed__filter-reset" onClick={resetFilters}>
                                         <X size={18} aria-hidden="true" />
                                         {copy.resetFilters}
                                     </button>
@@ -1068,7 +1294,7 @@ export default function TravelRadar3Page() {
                             <div className="travel-feed__empty"><RefreshCw className="travel-feed__spinner" aria-hidden="true" /></div>
                         ) : visibleDeals.length > 0 ? (
                             effectiveView === 'table' ? (
-                                <DealTable deals={visibleDeals} lang={lang} copy={copy} />
+                                <DealTable deals={visibleDeals} lang={lang} copy={copy} sort={sort} onSort={setSort} />
                             ) : (
                                 <>
                                     <div className="travel-feed__grid">

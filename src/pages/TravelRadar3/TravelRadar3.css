@@ -62,16 +62,19 @@
 }
 
 .travel-feed__workspace {
-    --travel-ui-small: 12px;
+    --travel-ui-small: 14px;
     --travel-ui-body: 14px;
-    --travel-table-columns: 120px 110px 80px 82px 185px 72px 95px 115px minmax(196px, 1fr) 122px 86px;
+    --travel-ui-strong: 18px;
+    --travel-table-columns: 100px 100px 82px 82px 136px 66px 86px 92px minmax(170px, 1fr) 98px 50px;
     padding: 1.25rem;
+    font-size: var(--travel-ui-body);
 }
 
 .travel-feed__filters {
     display: grid;
-    grid-template-columns: var(--travel-table-columns);
-    min-width: 1264px;
+    grid-template-columns: minmax(170px, 1.05fr) minmax(170px, 1.05fr) minmax(250px, 1.4fr) minmax(220px, 1.2fr) auto;
+    min-width: 0;
+    gap: 0.6rem;
     align-items: center;
 }
 
@@ -86,9 +89,9 @@
 
 .travel-feed__tabs {
     display: flex;
-    grid-column: 3 / 6;
+    grid-column: 3;
     gap: 0.3rem;
-    margin: 0 0.45rem;
+    margin: 0;
     padding: 0.3rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 14px;
@@ -115,6 +118,7 @@
 }
 
 .travel-feed__city {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.55rem;
@@ -130,9 +134,24 @@
     border-color: rgba(243, 183, 88, 0.7);
 }
 
-.travel-feed__city select {
+.travel-feed__place-combobox {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.45rem;
+}
+
+.travel-feed__place-combobox > svg {
+    color: #777c84;
+}
+
+.travel-feed__place-combobox input {
     width: 100%;
     min-height: 44px;
+    min-width: 0;
+    padding: 0;
     border: 0;
     outline: 0;
     color: var(--text-primary);
@@ -141,26 +160,73 @@
     font-size: var(--travel-ui-body);
 }
 
+.travel-feed__place-combobox input::placeholder {
+    color: #92969d;
+    opacity: 1;
+}
+
+.travel-feed__place-options {
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    left: 0;
+    z-index: 20;
+    width: min(330px, 88vw);
+    max-height: 340px;
+    padding: 0.4rem;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    background: #181b20;
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.46);
+}
+
+.travel-feed__place-group {
+    padding: 0.5rem 0.65rem 0.25rem;
+    color: #888d95;
+    font-size: var(--travel-ui-small);
+    font-weight: 750;
+}
+
+.travel-feed__place-options button {
+    display: flex;
+    width: 100%;
+    min-height: 42px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 9px;
+    color: var(--text-primary);
+    font-size: var(--travel-ui-body);
+    text-align: left;
+}
+
+.travel-feed__place-options button small {
+    overflow: hidden;
+    color: #8d929a;
+    font-size: var(--travel-ui-small);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.travel-feed__place-options button:hover,
+.travel-feed__place-options button.is-active,
+.travel-feed__place-options button[aria-selected='true'] {
+    background: rgba(243, 183, 88, 0.1);
+}
+
+.travel-feed__place-empty {
+    padding: 0.85rem 0.65rem;
+    color: #8d929a;
+    font-size: var(--travel-ui-body);
+}
+
 .travel-feed__city--origin {
     grid-column: 1;
-    margin-right: 0.45rem;
 }
 
 .travel-feed__city--destination {
     grid-column: 2;
-    margin-right: 0.45rem;
-}
-
-.travel-feed__city select {
-    cursor: pointer;
-}
-
-.travel-feed__city > svg {
-    display: none;
-}
-
-.travel-feed__city option {
-    color: #121212;
 }
 
 .travel-feed__count {
@@ -187,16 +253,24 @@
 }
 
 .travel-feed__sort {
-    grid-column: 6 / 10;
+    grid-column: 4;
     justify-content: flex-end;
     gap: 0.55rem;
-    margin: 0 0.45rem;
+    margin: 0;
     color: var(--text-muted);
     font-size: var(--travel-ui-small);
 }
 
+.travel-feed__sort > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
 .travel-feed__sort select {
-    width: min(230px, 70%);
+    width: 100%;
     min-width: 0;
     min-height: 38px;
     padding: 0 2.1rem 0 0.75rem;
@@ -215,7 +289,7 @@
 }
 
 .travel-feed__view-toggle {
-    grid-column: 10 / 12;
+    grid-column: 5;
     gap: 0.2rem;
     padding: 0.22rem;
     border: 1px solid rgba(255, 255, 255, 0.09);
@@ -276,7 +350,7 @@
 
 .travel-feed__table {
     width: 100%;
-    min-width: 1264px;
+    min-width: 1100px;
     border-spacing: 0;
     border-collapse: separate;
     table-layout: fixed;
@@ -287,7 +361,7 @@
 
 .travel-feed__table th,
 .travel-feed__table td {
-    padding: 0.8rem 0.55rem;
+    padding: 0.72rem 0.35rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.065);
     text-align: left;
     vertical-align: middle;
@@ -324,17 +398,46 @@
     border-bottom: 0;
 }
 
-.travel-feed__table th:nth-child(1) { width: 120px; }
-.travel-feed__table th:nth-child(2) { width: 110px; }
+.travel-feed__table th:nth-child(1) { width: 100px; }
+.travel-feed__table th:nth-child(2) { width: 100px; }
 .travel-feed__table th:nth-child(3),
 .travel-feed__table th:nth-child(4) { width: 82px; }
-.travel-feed__table th:nth-child(5) { width: 185px; }
-.travel-feed__table th:nth-child(6) { width: 72px; }
-.travel-feed__table th:nth-child(7) { width: 95px; }
-.travel-feed__table th:nth-child(8) { width: 115px; }
-.travel-feed__table th:nth-child(9) { width: 196px; }
-.travel-feed__table th:nth-child(10) { width: 122px; }
-.travel-feed__table th:nth-child(11) { width: 86px; }
+.travel-feed__table th:nth-child(5) { width: 136px; }
+.travel-feed__table th:nth-child(6) { width: 66px; }
+.travel-feed__table th:nth-child(7) { width: 86px; }
+.travel-feed__table th:nth-child(8) { width: 92px; }
+.travel-feed__table th:nth-child(9) { width: 150px; }
+.travel-feed__table th:nth-child(10) { width: 98px; }
+.travel-feed__table th:nth-child(11) { width: 50px; }
+
+.travel-feed__column-sort {
+    display: inline-flex;
+    width: 100%;
+    min-height: 32px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem;
+    padding: 0;
+    color: inherit;
+    font-size: var(--travel-ui-small);
+    font-weight: inherit;
+    line-height: inherit;
+    text-align: left;
+}
+
+.travel-feed__column-sort svg {
+    flex: 0 0 auto;
+    opacity: 0.36;
+}
+
+.travel-feed__column-sort:hover,
+.travel-feed__column-sort.is-active {
+    color: #f3b758;
+}
+
+.travel-feed__column-sort.is-active svg {
+    opacity: 1;
+}
 
 .travel-feed__city-cell strong,
 .travel-feed__city-cell small,
@@ -562,7 +665,7 @@
     border-radius: 999px;
     color: #91d9cc;
     background: rgba(61, 193, 167, 0.11);
-    font-size: 0.72rem;
+    font-size: var(--travel-ui-small);
     font-weight: 700;
 }
 
@@ -573,7 +676,7 @@
 
 .travel-feed__discount {
     color: #f48770;
-    font-size: 0.78rem;
+    font-size: var(--travel-ui-small);
     font-weight: 800;
 }
 
@@ -583,7 +686,7 @@
     gap: 0.55rem;
     margin: 1.2rem 0 0.8rem;
     color: var(--text-primary);
-    font-size: 1.08rem;
+    font-size: var(--travel-ui-strong);
     line-height: 1.3;
 }
 
@@ -602,14 +705,19 @@
 
 .travel-feed__price {
     color: #f3b758;
-    font-size: 1.22rem;
+    font-size: var(--travel-ui-strong);
     font-weight: 800;
 }
 
 .travel-feed__old-price {
     color: var(--text-muted);
-    font-size: 0.82rem;
+    font-size: var(--travel-ui-body);
     text-decoration: line-through;
+}
+
+.travel-feed__price-basis {
+    color: #a7abb2;
+    font-size: var(--travel-ui-body);
 }
 
 .travel-feed__meta {
@@ -617,7 +725,7 @@
     gap: 0.8rem;
     margin-top: 0.5rem;
     color: var(--text-muted);
-    font-size: 0.72rem;
+    font-size: var(--travel-ui-body);
 }
 
 .travel-feed__meta span {
@@ -626,13 +734,25 @@
     gap: 0.3rem;
 }
 
+.travel-feed__meta strong {
+    color: #aeb2b9;
+    font-size: var(--travel-ui-body);
+    font-weight: 750;
+}
+
+.travel-feed__card-published {
+    margin-top: 0.55rem;
+    color: #858a92;
+    font-size: var(--travel-ui-small);
+}
+
 .travel-feed__expandable-description--card {
     margin: 0.85rem 0 1rem;
 }
 
 .travel-feed__expandable-description--card .travel-feed__description-text {
     color: var(--text-secondary);
-    font-size: 0.82rem;
+    font-size: var(--travel-ui-body);
     line-height: 1.55;
     -webkit-line-clamp: 3;
 }
@@ -651,7 +771,7 @@
 
 .travel-feed__deal-link {
     color: #f3b758;
-    font-size: 0.82rem;
+    font-size: var(--travel-ui-body);
     font-weight: 700;
 }
 
@@ -659,7 +779,7 @@
     max-width: 45%;
     overflow: hidden;
     color: var(--text-muted);
-    font-size: 0.7rem;
+    font-size: var(--travel-ui-small);
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -683,7 +803,7 @@
 .travel-feed__disclosure {
     margin: 1rem 0 0;
     color: var(--text-muted);
-    font-size: 0.74rem;
+    font-size: var(--travel-ui-small);
     line-height: 1.55;
 }
 
@@ -955,7 +1075,7 @@
     to { transform: rotate(360deg); }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1180px) {
     .travel-feed__filters {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         min-width: 0;
@@ -1135,10 +1255,26 @@
         padding: 0 0.75rem;
     }
 
-    .travel-feed__city select {
+    .travel-feed__place-combobox input {
         min-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .travel-feed__place-options {
+        position: absolute;
+        top: calc(100% + 0.4rem);
+        right: auto;
+        bottom: auto;
+        left: 0;
+        width: min(330px, calc(100vw - 2rem));
+        max-height: 280px;
+        border-radius: 14px;
+    }
+
+    .travel-feed__city--destination .travel-feed__place-options {
+        right: 0;
+        left: auto;
     }
 
     .travel-feed__filter-reset {

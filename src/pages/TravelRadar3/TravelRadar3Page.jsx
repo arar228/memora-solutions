@@ -50,7 +50,7 @@ const COPY = {
     ru: {
         eyebrow: 'Живые находки из Telegram',
         title: 'Горящие туры и билеты',
-        lead: 'Собираем предложения из тревел-каналов, приводим их к единому виду и сохраняем ссылку на первоисточник. Откройте ленту, выберите подходящие фильтры и перейдите к предложению.',
+        alertsCta: 'Получать уведомления',
         updated: 'Лента обновлена',
         all: 'Все',
         flights: 'Билеты',
@@ -136,7 +136,7 @@ const COPY = {
     en: {
         eyebrow: 'Live finds from Telegram',
         title: 'Hot tours and flight deals in one feed',
-        lead: 'We collect offers from travel channels, present them in one consistent format and keep a direct link to the source. Open the feed, choose the filters and continue to the deal.',
+        alertsCta: 'Get alerts',
         updated: 'Feed updated',
         all: 'All',
         flights: 'Flights',
@@ -1008,7 +1008,7 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
         : '');
     return (
         <AnimatedSection delay={0.07}>
-            <section className="travel-alerts" aria-labelledby="travel-alerts-title">
+            <section id="personal-radar" className="travel-alerts" aria-labelledby="travel-alerts-title">
                 <div className="travel-alerts__intro">
                     <span className="travel-feed__eyebrow"><Bell size={16} aria-hidden="true" />{copy.alertsEyebrow}</span>
                     <h2 id="travel-alerts-title">{copy.alertsTitle}</h2>
@@ -1175,8 +1175,13 @@ export default function TravelRadar3Page() {
                 <AnimatedSection>
                     <header className="travel-feed__hero">
                         <span className="travel-feed__eyebrow"><Flame size={16} aria-hidden="true" />{copy.eyebrow}</span>
-                        <h1>{copy.title}</h1>
-                        <p>{copy.lead}</p>
+                        <div className="travel-feed__hero-main">
+                            <h1>{copy.title}</h1>
+                            <a className="travel-feed__alerts-cta" href="#personal-radar">
+                                <Bell size={18} aria-hidden="true" />
+                                {copy.alertsCta}
+                            </a>
+                        </div>
                         {feed.updatedAt ? (
                             <span className="travel-feed__updated">
                                 <RefreshCw size={14} aria-hidden="true" />

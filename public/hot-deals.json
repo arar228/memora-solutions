@@ -1,7 +1,372 @@
 {
-  "updatedAt": "2026-08-19T07:47:29.972Z",
+  "updatedAt": "2026-08-19T08:48:32.734Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6405,
+      "oldPrice": 24112,
+      "savings": 17707,
+      "discount": 0.73,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-23",
+      "returnDate": null,
+      "date": "2026-08-19T08:44:17+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/MOW2308AYT1?marker=748397&currency=rub",
+      "text": "— Москва — Анталья: 6405 ₽ (23 августа)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Баку",
+        "code": "GYD",
+        "country": {
+          "ru": "Азербайджан",
+          "en": "Azerbaijan"
+        },
+        "kind": "city"
+      },
+      "price": 9237,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-27",
+      "returnDate": null,
+      "date": "2026-08-19T08:44:17+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/MOW2709GYD1?marker=748397&currency=rub",
+      "text": "— Москва — Баку: 9237 ₽ (27 сентября)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Батуми",
+        "code": "BUS",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
+      },
+      "price": 13079,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-27",
+      "returnDate": null,
+      "date": "2026-08-19T08:44:17+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/MOW2708BUS1?marker=748397&currency=rub",
+      "text": "— Москва — Батуми: 13 079 ₽ (27 августа)\n🎁 По промокоду КОСАРЬ будет ещё скидка –1000 ₽."
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 6500,
+      "oldPrice": 23256,
+      "savings": 16756,
+      "discount": 0.72,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-20",
+      "returnDate": null,
+      "date": "2026-08-19T08:11:07+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AER2008SSH1?marker=748397&currency=rub",
+      "text": "Сочи — Шарм-эш-Шейх (Египет) от 6500Р в одну сторону, вылет завтра, прямой с багажом\n— 20.08 — 6500Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 9900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-20",
+      "returnDate": null,
+      "date": "2026-08-19T08:11:07+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SSH2008AER1?marker=748397&currency=rub",
+      "text": "Шарм-эш-Шейх (Египет) — Сочи от 9900Р в одну сторону, прямые с багажом\n— 20.08 — 9900Р\n— 03.09 — 21400Р\n— 06.09 — 23800Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 5400,
+      "oldPrice": 24112,
+      "savings": 18712,
+      "discount": 0.78,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T08:10:08+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1809AYT1?marker=748397&currency=rub",
+      "text": "из Москвы в Анталью 🇹🇷 за 5 400 р. OW (август)\nCorendon, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Таиланд",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "country"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 14400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-08",
+      "returnDate": null,
+      "date": "2026-08-19T08:00:01+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/BKK0810HKT1?marker=748397&currency=rub",
+      "text": "Пхукет — Красноярск: из Таиланда в Россию. \nПрямой рейс с багажом за 14400 рублей 8 октября: \nПри покупке обойдись без мошенников:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сеул",
+        "code": "SEL",
+        "country": {
+          "ru": "Южная Корея",
+          "en": "South Korea"
+        },
+        "kind": "city"
+      },
+      "price": 21200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Шымкент",
+          "code": "CIT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T07:51:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1809SEL1?marker=748397&currency=rub",
+      "text": "из Москвы в Сеул 🇰🇷 за 21 200 р. OW (осенью)\nSCAT, стыковка в Шымкенте -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Владивосток",
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гуанчжоу",
+        "code": "CAN",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 23500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Шымкент",
+          "code": "CIT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T07:51:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/VVO1809CAN1?marker=748397&currency=rub",
+      "text": "из Владивостока в Гуанчжоу 🇨🇳 за 23 500 р. RT (в конце года)\nS7, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Новосибирск",
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гуанчжоу",
+        "code": "CAN",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 36700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Шымкент",
+          "code": "CIT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T07:51:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/OVB1809CAN1?marker=748397&currency=rub",
+      "text": "из Новосибирска в Гуанчжоу 🇨🇳 за 36 700 р. RT (осенью и зимой)\nS7, прямые рейсы -"
+    },
     {
       "type": "tour",
       "from": {
@@ -1798,111 +2163,6 @@
       "text": "🏝 Vinpearl Luxury Nha Trang 5* от 341 020 ₽ за 8 ночей с 13 по 21 сентября"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сахалин",
-        "code": "UUS",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 31400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-18T09:40:06+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1809UUS1?marker=748397&currency=rub",
-      "text": "из Москвы на Сахалин 🇷🇺 за 31 400 р. RT (осенью)\nАэрофлот, прямые рейсы -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Владивосток",
-        "code": "VVO",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 32000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-18T09:40:06+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1809VVO1?marker=748397&currency=rub",
-      "text": "из Москвы во Владивосток 🇷🇺 за 32 000 р. RT (осенью и зимой)\nАэрофлот, прямые рейсы с багажом -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Паттайя",
-        "code": "UTP",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 170000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-09-09",
-      "returnDate": "2026-09-20",
-      "date": "2026-08-18T06:44:39+00:00",
-      "source": "travelradar",
-      "link": "https://travelradar.ru/t/4Na0U?s=tg&erid=2VtzqwgjJHU",
-      "text": "🇹🇭 Паттайя, Manhattan Pattaya Hotel 4★ — завтраки\n• 11 ночей\n• питание — завтраки\n• ~170.000 рублей за двоих\n• вылет 09.09.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэрофлот, пр"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -1936,41 +2196,6 @@
       "source": "travelata",
       "link": "https://travelata.ru/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=egypt0&utm_term=1808#?fromCity=2&toCountry=29&toCity=598.597.592.591.586.4123.4122.583.594.599.596.3384.595.593.4125.582.584&dateFrom=01.09.2026&dateTo=07.09.2026&daysFlexible=3&nightFrom=10&nightTo=12&adults=2&hotelClass=7.4&meal=8.1.11&priceFrom=6000&priceTo=21000000&sid=3v19qxcztl&sort=priceUp&f_firstLine=true&f_better=true",
       "text": "😍10 ночей в Египте в сентябре, 1-я линия, 4-5⭐️ с хорошими отзывами, «всё включено», туры от 65 811 ₽ с человека."
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Ташкент",
-        "code": "TAS",
-        "country": {
-          "ru": "Узбекистан",
-          "en": "Uzbekistan"
-        },
-        "kind": "city"
-      },
-      "price": 15200,
-      "oldPrice": 26429,
-      "savings": 11229,
-      "discount": 0.42,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-07",
-      "returnDate": null,
-      "date": "2026-08-18T05:30:03+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SVX0709TAS1?marker=748397&currency=rub",
-      "text": "Екатеринбург — Ташкент за 15200₽ в одну сторону.\nВылет 7 сентября →"
     },
     {
       "type": "tour",
@@ -2992,37 +3217,37 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-19T07:47:29.809Z",
+      "checkedAt": "2026-08-19T08:48:32.569Z",
       "fetchedPosts": 20,
-      "freshPosts": 11,
-      "latestPostAt": "2026-08-19T07:31:51+00:00",
+      "freshPosts": 12,
+      "latestPostAt": "2026-08-19T08:44:17+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-19T07:47:29.809Z",
+      "checkedAt": "2026-08-19T08:48:32.569Z",
       "fetchedPosts": 11,
       "freshPosts": 11,
-      "latestPostAt": "2026-08-19T07:18:20+00:00",
+      "latestPostAt": "2026-08-19T08:10:08+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-19T07:47:29.809Z",
+      "checkedAt": "2026-08-19T08:48:32.569Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-19T07:10:06+00:00",
+      "latestPostAt": "2026-08-19T08:30:06+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-19T07:47:29.809Z",
+      "checkedAt": "2026-08-19T08:48:32.569Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-18T11:06:41+00:00",
@@ -3032,7 +3257,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-19T07:47:29.809Z",
+      "checkedAt": "2026-08-19T08:48:32.569Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-08-19T07:31:54+00:00",
@@ -3042,7 +3267,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-19T07:47:29.809Z",
+      "checkedAt": "2026-08-19T08:48:32.569Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3052,17 +3277,17 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-19T07:47:29.809Z",
-      "fetchedPosts": 14,
+      "checkedAt": "2026-08-19T08:48:32.569Z",
+      "fetchedPosts": 12,
       "freshPosts": 10,
-      "latestPostAt": "2026-08-19T05:32:42+00:00",
+      "latestPostAt": "2026-08-19T08:17:59+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-19T07:47:29.809Z",
+      "checkedAt": "2026-08-19T08:48:32.569Z",
       "fetchedPosts": 10,
       "freshPosts": 8,
       "latestPostAt": "2026-08-19T06:41:52+00:00",

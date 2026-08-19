@@ -1,7 +1,112 @@
 {
-  "updatedAt": "2026-08-19T14:42:32.513Z",
+  "updatedAt": "2026-08-19T15:39:02.579Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 211331,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 12,
+      "departDate": "2026-09-02",
+      "returnDate": "2026-09-14",
+      "date": "2026-08-19T15:35:38+00:00",
+      "source": "leveltravel",
+      "link": "https://lvtv.me/SxobgW9",
+      "text": "🐥На Пхукете хорошо, а в этом тайском отеле еще лучше. Мы про Naithonburi Beach Resort 3*. Его плюсы:\n❤Отель находится прямо через дорогу от чистого и уединенного пляжа Найтон. Пляж известен своим мяг"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 8200,
+      "oldPrice": 18519,
+      "savings": 10319,
+      "discount": 0.56,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-20",
+      "returnDate": "2026-09-01",
+      "date": "2026-08-19T14:43:07+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2008DLM1?marker=748397&currency=rub",
+      "text": "Москва — Даламан от 8200₽ в одну сторону, вылет в четверг, рейсы прямые, с багажом — 20.08 - 8200₽ Даламан — Москва от 17800₽ в одну сторону, вылет 1 сентября рейсы прямые, с багажом — 01.09 - 17800₽ "
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 18600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-22",
+      "returnDate": "2026-09-01",
+      "date": "2026-08-19T14:43:07+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2208DLM1?marker=748397&currency=rub",
+      "text": "Ещё Москва — Даламан (Турция) от 18600Р туда и обратно, прямые с багажом\n— 22.08-01.09 — 18600Р\n— 25.08-01.09 — 21900Р"
+    },
     {
       "type": "tour",
       "from": {
@@ -2073,41 +2178,6 @@
       "text": "🍓 Две недели в Турции, пляжные отели 4-5⭐️ с «всё включено» • 14 ночей, туры от 82 076 ₽ с человека."
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Алматы",
-        "code": "ALA",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "city"
-      },
-      "price": 12700,
-      "oldPrice": 25535,
-      "savings": 12835,
-      "discount": 0.5,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "returnDate": null,
-      "date": "2026-08-19T03:05:54+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW0109ALA1?marker=748397&currency=rub",
-      "text": "Прямой Москва — Алматы за 12700₽ в одну сторону.\nПример →"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
@@ -2176,41 +2246,6 @@
       "source": "travelata",
       "link": "https://travelata.ru/rating/bgoperator/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=thailandDOP&utm_term=1808#?fromCity=2&toCountry=87&dateFrom=23.08.2026&dateTo=25.08.2026&daysFlexible=1&nightFrom=12&nightTo=14&adults=2&hotelClass=all&operators=11&meal=8.1.11.2.10.3.5&priceFrom=6000&priceTo=21000000&sid=mqt57xfzxi&sort=priceUp&f_firstLine=true&f_secondLine=true&f_better=true",
       "text": "💥Прямые рейсы в Таиланд • 12 ночей — от 83 638 ₽ с человека, 1-2 линия, отели с хорошими отзывами, завтраки включены, туры с трансфером, ручной кладью и багажом."
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Даламан",
-        "code": "DLM",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 8200,
-      "oldPrice": 18519,
-      "savings": 10319,
-      "discount": 0.56,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-18T15:05:32+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1809DLM1?marker=748397&currency=rub",
-      "text": "из Москвы в Даламан 🇹🇷 за 8 200 р. OW (на этой неделе)\nAzur Air, прямой рейс с багажом - \nВсе даты:"
     },
     {
       "type": "flight",
@@ -2894,111 +2929,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 265907,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 9,
-      "departDate": "2026-09-09",
-      "returnDate": "2026-09-16",
-      "date": "2026-08-18T09:46:51+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/nO0VmPk",
-      "text": "🏝 Vinpearl Resort Nha Trang 5* от 265 907 ₽ за 9 ночей с 9 по 16 сентября"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 276803,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": "2026-09-13",
-      "returnDate": "2026-09-21",
-      "date": "2026-08-18T09:46:51+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/FWquWuP",
-      "text": "🛟 Vinpearl Resort & Spa Nha Trang Bay 5* от 276 803 ₽ за 8 ночей с 13 по 21 сентября"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 341020,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": "2026-09-13",
-      "returnDate": "2026-09-21",
-      "date": "2026-08-18T09:46:51+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/F6aeIsW",
-      "text": "🏝 Vinpearl Luxury Nha Trang 5* от 341 020 ₽ за 8 ночей с 13 по 21 сентября"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Египет",
         "code": "HRG",
         "country": {
@@ -3091,78 +3021,43 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/VB26nb",
       "text": "🔹 с 18 июля 2027 на 6 ночей (разгар лета): Москва - Углич - Горицы - Старая Ладога - Валаам - Санкт-Петербург - от 66 300/чел  (т/х Две столицы, стандарт, питание и экскурсии включены)\n🔥 про круизы "
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 9000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-17T14:51:50+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/MOW1809MLE1?marker=748397&currency=rub",
-      "text": "Прямой рейс Аэрофлота из Москвы с багажом за 9000 рублей!"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-19T14:42:32.389Z",
+      "checkedAt": "2026-08-19T15:39:02.410Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
-      "latestPostAt": "2026-08-19T12:43:05+00:00",
+      "latestPostAt": "2026-08-19T15:29:47+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-19T14:42:32.389Z",
-      "fetchedPosts": 15,
-      "freshPosts": 15,
-      "latestPostAt": "2026-08-19T14:31:13+00:00",
+      "checkedAt": "2026-08-19T15:39:02.410Z",
+      "fetchedPosts": 16,
+      "freshPosts": 16,
+      "latestPostAt": "2026-08-19T15:03:49+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-19T14:42:32.389Z",
+      "checkedAt": "2026-08-19T15:39:02.410Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-19T13:49:11+00:00",
+      "latestPostAt": "2026-08-19T14:43:07+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-19T14:42:32.389Z",
+      "checkedAt": "2026-08-19T15:39:02.410Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-08-19T12:05:42+00:00",
@@ -3172,7 +3067,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-19T14:42:32.389Z",
+      "checkedAt": "2026-08-19T15:39:02.410Z",
       "fetchedPosts": 19,
       "freshPosts": 7,
       "latestPostAt": "2026-08-19T14:37:16+00:00",
@@ -3181,18 +3076,18 @@
     },
     {
       "channel": "onlinetours",
-      "status": "idle",
-      "checkedAt": "2026-08-19T14:42:32.389Z",
+      "status": "ok",
+      "checkedAt": "2026-08-19T15:39:02.410Z",
       "fetchedPosts": 16,
-      "freshPosts": 0,
-      "latestPostAt": "2026-08-17T13:49:22+00:00",
+      "freshPosts": 1,
+      "latestPostAt": "2026-08-19T15:10:46+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-19T14:42:32.389Z",
+      "checkedAt": "2026-08-19T15:39:02.410Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
       "latestPostAt": "2026-08-19T14:30:44+00:00",
@@ -3202,10 +3097,10 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-19T14:42:32.389Z",
-      "fetchedPosts": 9,
-      "freshPosts": 8,
-      "latestPostAt": "2026-08-19T12:36:54+00:00",
+      "checkedAt": "2026-08-19T15:39:02.410Z",
+      "fetchedPosts": 7,
+      "freshPosts": 7,
+      "latestPostAt": "2026-08-19T15:35:38+00:00",
       "reusedPrevious": false,
       "error": null
     }

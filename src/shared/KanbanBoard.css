@@ -261,6 +261,13 @@
     border-color: rgba(241, 147, 130, 0.45);
 }
 
+.memora-board__column-footer {
+    flex: 0 0 auto;
+    padding: 10px;
+    border-top: 1px solid var(--board-line);
+    background: color-mix(in srgb, var(--board-surface) 96%, transparent);
+}
+
 .memora-board__action.is-complete {
     color: #84dfbd;
     border-color: rgba(132, 223, 189, 0.34);

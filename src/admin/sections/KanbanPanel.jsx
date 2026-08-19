@@ -3,7 +3,7 @@ import {
     Check, CheckCircle2, PencilLine, Plus, RefreshCw, Send, Trash2,
 } from 'lucide-react';
 import {
-    Badge, Button, Input, Label, Select,
+    Badge, Button, Input, Label,
 } from '../../ui';
 import { KANBAN_LIMITS, cloneDefaultKanbanBoard } from '../../data/kanbanConfig';
 import { closeKanbanTask, moveKanbanTask } from '../../data/kanbanBoard';
@@ -59,7 +59,7 @@ export default function KanbanPanel() {
     const [replying, setReplying] = useState(false);
     const [editingTask, setEditingTask] = useState('');
     const [completionDraft, setCompletionDraft] = useState(null);
-    const [showCreate, setShowCreate] = useState(false);
+    const [createColumn, setCreateColumn] = useState('');
 
     const load = () => {
         setSyncState('loading');
@@ -138,7 +138,15 @@ export default function KanbanPanel() {
         };
         setBoard(current => ({ ...current, [draft.column]: [...current[draft.column], task] }));
         setDraft(emptyDraft);
-        setShowCreate(false);
+        setCreateColumn('');
+        setError('');
+    };
+
+    const beginCreate = (columnId) => {
+        setDraft({ ...emptyDraft, column: columnId });
+        setCreateColumn(current => (current === columnId ? '' : columnId));
+        setCompletionDraft(null);
+        setEditingTask('');
         setError('');
     };
 
@@ -300,6 +308,48 @@ export default function KanbanPanel() {
         );
     };
 
+    const renderColumnFooter = ({ columnId, full }) => {
+        if (!['potential', 'inProgress'].includes(columnId)) return null;
+        const isOpen = createColumn === columnId;
+        return (
+            <div className="memora-board__column-footer kanban-admin__column-create">
+                {!isOpen ? (
+                    <button className="kanban-admin__column-add" type="button" disabled={full}
+                        title={full ? 'Колонка заполнена. Перенесите или закройте задачу, чтобы освободить место.' : ''}
+                        onClick={() => beginCreate(columnId)}>
+                        <Plus size={16} /> Добавить задачу
+                    </button>
+                ) : (
+                    <div className="kanban-admin__inline-create" aria-label={`Новая задача: ${BOARD_LABELS[columnId]}`}>
+                        <Label htmlFor={`new-task-title-${columnId}`}>Название</Label>
+                        <textarea id={`new-task-title-${columnId}`} className="kanban-admin__title-input"
+                            value={draft.title} maxLength={2000} autoFocus
+                            placeholder="Сформулируйте задачу"
+                            onChange={event => setDraft(current => ({ ...current, title: event.target.value }))}
+                            onKeyDown={event => {
+                                if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') add();
+                            }} />
+                        <Label htmlFor={`new-task-date-${columnId}`}>Срок</Label>
+                        <Input id={`new-task-date-${columnId}`} type="date" value={draft.dueDate}
+                            onInput={event => {
+                                const dueDate = event.currentTarget.value;
+                                setDraft(current => ({ ...current, dueDate }));
+                            }} />
+                        <div className="kanban-admin__inline-create-actions">
+                            <Button variant="ghost" size="sm" onClick={() => {
+                                setCreateColumn('');
+                                setDraft(emptyDraft);
+                            }}>Отмена</Button>
+                            <Button size="sm" onClick={add} disabled={!draft.title.trim()}>
+                                <Plus size={15} /> Добавить
+                            </Button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     return (
         <div className="kanban-admin">
             <header className="kanban-admin__toolbar">
@@ -312,53 +362,8 @@ export default function KanbanPanel() {
                         {syncState === 'loading' ? 'загрузка…' : syncState === 'saving' ? 'сохранение…' : syncState === 'error' ? 'ошибка' : 'сохранено'}
                     </Badge>
                     <Button variant="ghost" size="sm" onClick={load}><RefreshCw size={14} /> Обновить</Button>
-                    <Button size="sm" onClick={() => setShowCreate(current => !current)}>
-                        <Plus size={14} /> Новая задача
-                    </Button>
                 </div>
             </header>
-
-            {showCreate && (
-                <section className="kanban-admin__create" aria-label="Новая задача">
-                    <div className="kanban-admin__create-grid">
-                        <div className="flex flex-col gap-1.5">
-                            <Label>Название</Label>
-                            <textarea className="kanban-admin__title-input" value={draft.title} maxLength={2000}
-                                aria-label="Название задачи"
-                                placeholder="Сформулируйте задачу"
-                                onChange={event => setDraft({ ...draft, title: event.target.value })} />
-                        </div>
-                        <div className="flex flex-col gap-1.5">
-                            <Label>Срок</Label>
-                            <Input type="date" value={draft.dueDate} aria-label="Срок задачи"
-                                onInput={event => {
-                                    const dueDate = event.currentTarget.value;
-                                    setDraft(current => ({ ...current, dueDate }));
-                                }} />
-                        </div>
-                        <div className="flex flex-col gap-1.5">
-                            <Label>Колонка</Label>
-                            <Select value={draft.column} aria-label="Колонка задачи"
-                                onChange={event => setDraft({ ...draft, column: event.target.value })}>
-                                {COLUMNS.map(column => <option key={column.id} value={column.id}>{column.label}</option>)}
-                            </Select>
-                        </div>
-                        <div className="flex flex-col gap-1.5">
-                            <Label className="select-none opacity-0">.</Label>
-                            <Button onClick={add}><Plus size={15} /> Добавить</Button>
-                        </div>
-                        {draft.column === 'closed' && (
-                            <div className="kanban-admin__create-description flex flex-col gap-1.5">
-                                <Label>Описание результата</Label>
-                                <textarea className="kanban-admin__title-input" value={draft.description}
-                                    maxLength={4000} aria-label="Описание закрытой задачи"
-                                    placeholder="Кратко опишите выполненную работу"
-                                    onChange={event => setDraft({ ...draft, description: event.target.value })} />
-                            </div>
-                        )}
-                    </div>
-                </section>
-            )}
 
             {error && <div className="rounded-control border border-danger/40 bg-danger/10 px-4 py-3 text-ui-sm text-danger">{error}</div>}
 
@@ -413,6 +418,7 @@ export default function KanbanPanel() {
                     onTaskDrop={moveTask}
                     renderTaskControls={renderTaskControls}
                     renderTaskEditor={renderTaskEditor}
+                    renderColumnFooter={renderColumnFooter}
                 />
             </div>
 

@@ -100,20 +100,6 @@
     gap: 6px;
 }
 
-.kanban-admin__create {
-    padding: 11px;
-    border: 1px solid rgba(22, 49, 60, 0.1);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.82);
-}
-
-.kanban-admin__create-grid {
-    display: grid;
-    grid-template-columns: minmax(280px, 1fr) 170px 190px auto;
-    align-items: end;
-    gap: 10px;
-}
-
 .kanban-admin__title-input {
     width: 100%;
     min-height: 72px;
@@ -134,8 +120,50 @@
     box-shadow: 0 0 0 3px rgba(7, 135, 153, 0.1);
 }
 
-.kanban-admin__create-description {
-    grid-column: 1 / -1;
+.kanban-admin__column-create {
+    background: rgba(255, 255, 255, 0.46);
+}
+
+.kanban-admin__column-add {
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px dashed rgba(7, 135, 154, 0.42);
+    border-radius: 10px;
+    color: #06798a;
+    background: rgba(7, 135, 154, 0.06);
+    font-weight: 700;
+    transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.kanban-admin__column-add:hover:not(:disabled) {
+    border-color: #07879a;
+    background: rgba(7, 135, 154, 0.12);
+    transform: translateY(-1px);
+}
+
+.kanban-admin__column-add:disabled {
+    cursor: not-allowed;
+    opacity: 0.42;
+}
+
+.kanban-admin__inline-create {
+    display: grid;
+    gap: 8px;
+}
+
+.kanban-admin__inline-create .kanban-admin__title-input {
+    min-height: 96px;
+    max-height: 180px;
+}
+
+.kanban-admin__inline-create-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
 }
 
 .kanban-admin__workspace {
@@ -230,7 +258,4 @@
         flex-wrap: wrap;
     }
 
-    .kanban-admin__create-grid {
-        grid-template-columns: 1fr;
-    }
 }

@@ -40,6 +40,7 @@ export default function KanbanBoard({
     lang = 'ru',
     renderTaskControls,
     renderTaskEditor,
+    renderColumnFooter,
     visibleColumns,
     showIntro = true,
     variant = 'default',
@@ -170,6 +171,7 @@ export default function KanbanBoard({
                                     );
                                 })}
                             </div>
+                            {renderColumnFooter?.({ columnId: id, tasks, limit, full })}
                         </section>
                     );
                 })}

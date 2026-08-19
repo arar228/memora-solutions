@@ -73,11 +73,19 @@
 }
 
 .travel-feed__updated {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
+    min-height: 34px;
     align-items: center;
     gap: 0.45rem;
+    margin-top: 1.25rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.035);
     color: var(--text-muted);
-    font-size: 0.84rem;
+    font-size: 14px;
+    line-height: 1;
 }
 
 .travel-feed__workspace,
@@ -1196,7 +1204,7 @@
     }
 
     .travel-feed__updated {
-        margin-top: 0.85rem;
+        margin-top: 1rem;
     }
 
     .travel-feed__workspace,

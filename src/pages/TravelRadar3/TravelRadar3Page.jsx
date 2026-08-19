@@ -48,7 +48,7 @@ async function fetchTravelFeed() {
 
 const COPY = {
     ru: {
-        eyebrow: 'Живые находки из Telegram',
+        eyebrow: 'Живые находки',
         title: 'Горящие туры и билеты',
         alertsCta: 'Получать уведомления',
         updated: 'Лента обновлена',
@@ -134,7 +134,7 @@ const COPY = {
         paymentNote: '300 ₽ за 30 дней · безопасная оплата через YooKassa · автопродление',
     },
     en: {
-        eyebrow: 'Live finds from Telegram',
+        eyebrow: 'Live finds',
         title: 'Hot tours and flight deals in one feed',
         alertsCta: 'Get alerts',
         updated: 'Feed updated',

@@ -135,7 +135,7 @@ const COPY = {
     },
     en: {
         eyebrow: 'Live finds',
-        title: 'Hot tours and flight deals in one feed',
+        title: 'Hot tours and flight deals',
         alertsCta: 'Get alerts',
         updated: 'Feed updated',
         all: 'All',

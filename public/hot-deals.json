@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-19T09:41:24.799Z",
+  "updatedAt": "2026-08-19T10:37:07.225Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кутаиси",
+        "code": "KUT",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
+      },
+      "price": 8400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-21",
+      "returnDate": null,
+      "date": "2026-08-19T10:30:02+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2108KUT1?marker=748397&currency=rub",
+      "text": "Москва — Кутаиси от 8400₽ в одну сторону, вылеты в августе, рейсы прямые, ручная кладь\n— 21.08 - 8400₽\n— 24.08 - 8400₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "price": 10600,
+      "oldPrice": 19475,
+      "savings": 8875,
+      "discount": 0.46,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T10:22:27+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/AER1809HRG1?marker=748397&currency=rub",
+      "text": "Прямые рейсы из Сочи в Египет за 10600 рублей туда-обратно!"
+    },
     {
       "type": "flight",
       "from": {
@@ -23,9 +93,9 @@
         "kind": "city"
       },
       "price": 6700,
-      "oldPrice": 24432,
-      "savings": 17732,
-      "discount": 0.73,
+      "oldPrice": 22525,
+      "savings": 15825,
+      "discount": 0.7,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -93,9 +163,9 @@
         "kind": "city"
       },
       "price": 6405,
-      "oldPrice": 24112,
-      "savings": 17707,
-      "discount": 0.73,
+      "oldPrice": 24615,
+      "savings": 18210,
+      "discount": 0.74,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -145,41 +215,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Баку",
-        "code": "GYD",
-        "country": {
-          "ru": "Азербайджан",
-          "en": "Azerbaijan"
-        },
-        "kind": "city"
-      },
-      "price": 9237,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-27",
-      "returnDate": null,
-      "date": "2026-08-19T08:30:06+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2709GYD1?marker=748397&currency=rub",
-      "text": "— Москва — Баку: 9237 ₽ (27 сентября)"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Сочи",
         "code": "AER",
         "country": {
@@ -198,9 +233,9 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 23256,
-      "savings": 16756,
-      "discount": 0.72,
+      "oldPrice": 23797,
+      "savings": 17297,
+      "discount": 0.73,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -268,8 +303,8 @@
         "kind": "city"
       },
       "price": 5400,
-      "oldPrice": 24112,
-      "savings": 18712,
+      "oldPrice": 24615,
+      "savings": 19215,
       "discount": 0.78,
       "oneway": false,
       "roundTrip": false,
@@ -493,9 +528,9 @@
         "kind": "city"
       },
       "price": 6750,
-      "oldPrice": 9921,
-      "savings": 3171,
-      "discount": 0.32,
+      "oldPrice": 10105,
+      "savings": 3355,
+      "discount": 0.33,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -1063,9 +1098,9 @@
         "kind": "city"
       },
       "price": 6400,
-      "oldPrice": 24112,
-      "savings": 17712,
-      "discount": 0.73,
+      "oldPrice": 24615,
+      "savings": 18215,
+      "discount": 0.74,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1098,8 +1133,8 @@
         "kind": "city"
       },
       "price": 6600,
-      "oldPrice": 24112,
-      "savings": 17512,
+      "oldPrice": 24615,
+      "savings": 18015,
       "discount": 0.73,
       "oneway": false,
       "roundTrip": false,
@@ -1391,76 +1426,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW0111AMS1?marker=748397&currency=rub",
       "text": "Москва — Амстердам за 37700₽ туда-обратно.\nПримеры билета →"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Ереван",
-        "code": "EVN",
-        "country": {
-          "ru": "Армения",
-          "en": "Armenia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Париж",
-        "code": "PAR",
-        "country": {
-          "ru": "Франция",
-          "en": "France"
-        },
-        "kind": "city"
-      },
-      "price": 1800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-18T11:27:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/EVN1809PAR1?marker=748397&currency=rub",
-      "text": "из Еревана 🇦🇲 в Париж 🇫🇷 за 1 800 р. OW (осенью и зимой)\nWizz Air, прямой рейс -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Ереван",
-        "code": "EVN",
-        "country": {
-          "ru": "Армения",
-          "en": "Armenia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Будапешт",
-        "code": "BUD",
-        "country": {
-          "ru": "Венгрия",
-          "en": "Hungary"
-        },
-        "kind": "city"
-      },
-      "price": 1800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-18T11:27:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/EVN1809BUD1?marker=748397&currency=rub",
-      "text": "из Еревана 🇦🇲 в Будапешт 🇭🇺 за 1 800 р. OW (зимой)\nWizz Air, прямой рейс -"
     },
     {
       "type": "tour",
@@ -1763,8 +1728,8 @@
         "kind": "city"
       },
       "price": 9500,
-      "oldPrice": 42860,
-      "savings": 33360,
+      "oldPrice": 42986,
+      "savings": 33486,
       "discount": 0.78,
       "oneway": true,
       "roundTrip": false,
@@ -1868,9 +1833,9 @@
         "kind": "city"
       },
       "price": 8800,
-      "oldPrice": 24432,
-      "savings": 15632,
-      "discount": 0.64,
+      "oldPrice": 22525,
+      "savings": 13725,
+      "discount": 0.61,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1903,9 +1868,9 @@
         "kind": "city"
       },
       "price": 8700,
-      "oldPrice": 24432,
-      "savings": 15732,
-      "discount": 0.64,
+      "oldPrice": 22525,
+      "savings": 13825,
+      "discount": 0.61,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -2896,288 +2861,43 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/5YMtmb",
       "text": "🔥 во Вьетнам (Фантьет) на неделю в 4-5* в сентябре от 72 800/чел  (скидка по промокоду 2500Lucky или 3500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 276898,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08-27",
-      "returnDate": "2026-09-03",
-      "date": "2026-08-17T10:06:16+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/dE1eI8v",
-      "text": "🐥Это не отель, а целый пляжный оазис. Мы про Maritim Jolie Ville Resort & Casino 5*, Шарм-эль-Шейх, Египет. Вот чем он хорош:\n☀ Отель построен в виде одноэтажных и двухэтажных бунгало\n☀ Он находится "
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 45900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-17T10:03:13+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/Y4zz1R",
-      "text": "🔥 в Турцию с вылетом сегодня ночью - на неделю в очень бюджетный отель от 45 900/чел, все включено, с топливными сборами  (скидка по промокоду 700Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 57900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-17T10:03:13+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/p1GBJk",
-      "text": "🔥 в Тунис на неделю с вылетом в конце августа от 57 900/чел с питанием, виза не нужна"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 56600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-17T09:51:00+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/Fh0Kpq",
-      "text": "🔥 в Турцию (Мармарис) на неделю с вылетом в конце августа или начале сентября от 56 600/чел, все включено, с топливными сборами"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 57800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-17T09:51:00+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/2RdmTH",
-      "text": "🔥 в Тунис на неделю с вылетом в конце августа от 57 800/чел, виза не нужна"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 64200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 12,
-      "departDate": "2026-09",
-      "returnDate": null,
-      "date": "2026-08-17T09:51:00+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/7SgxrN",
-      "text": "🔥 в Таиланд (Пхукет) на 12 ночей в сентябре от 64 200/чел"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Танзания",
-        "code": "ZNZ",
-        "country": {
-          "ru": "Танзания",
-          "en": "Tanzania"
-        },
-        "kind": "country"
-      },
-      "price": 74200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-17T09:51:00+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/5Sk15b",
-      "text": "🔥 в Танзанию (на Занзибар) на 10-11 ночей с вылетом в августе (вылеты 20, 22, 25, 27) от 74 200/чел  (скидка по промокоду 2500Lucky ; виза по прибытии 50$/чел + обязательная страховка 44/22$ за взрос"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-19T09:41:24.641Z",
+      "checkedAt": "2026-08-19T10:37:07.062Z",
       "fetchedPosts": 20,
-      "freshPosts": 12,
-      "latestPostAt": "2026-08-19T09:27:28+00:00",
+      "freshPosts": 11,
+      "latestPostAt": "2026-08-19T10:22:27+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-19T09:41:24.642Z",
+      "checkedAt": "2026-08-19T10:37:07.062Z",
       "fetchedPosts": 11,
       "freshPosts": 11,
-      "latestPostAt": "2026-08-19T08:55:12+00:00",
+      "latestPostAt": "2026-08-19T09:55:11+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-19T09:41:24.642Z",
+      "checkedAt": "2026-08-19T10:37:07.062Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-19T09:33:01+00:00",
+      "latestPostAt": "2026-08-19T10:30:02+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-19T09:41:24.642Z",
+      "checkedAt": "2026-08-19T10:37:07.062Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-18T11:06:41+00:00",
@@ -3187,9 +2907,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-19T09:41:24.642Z",
+      "checkedAt": "2026-08-19T10:37:07.062Z",
       "fetchedPosts": 19,
-      "freshPosts": 9,
+      "freshPosts": 7,
       "latestPostAt": "2026-08-19T07:31:54+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3197,7 +2917,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-19T09:41:24.642Z",
+      "checkedAt": "2026-08-19T10:37:07.062Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -3207,7 +2927,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-19T09:41:24.642Z",
+      "checkedAt": "2026-08-19T10:37:07.062Z",
       "fetchedPosts": 12,
       "freshPosts": 10,
       "latestPostAt": "2026-08-19T08:17:59+00:00",
@@ -3217,9 +2937,9 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-19T09:41:24.642Z",
+      "checkedAt": "2026-08-19T10:37:07.062Z",
       "fetchedPosts": 10,
-      "freshPosts": 8,
+      "freshPosts": 7,
       "latestPostAt": "2026-08-19T06:41:52+00:00",
       "reusedPrevious": false,
       "error": null

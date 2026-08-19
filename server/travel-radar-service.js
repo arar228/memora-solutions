@@ -380,6 +380,22 @@ export async function handleTravelTelegramUpdate(update, secretHeader) {
     return { accepted: true };
   }
   const match = String(message?.text || '').match(/^\/start(?:@\w+)?\s+radar_([A-Za-z0-9_-]{20,64})$/);
+  if (chatId && ['/start', '/help'].includes(command) && !match) {
+    await telegramRequest('sendMessage', {
+      chat_id: chatId,
+      text: '<b>✈️ Memora Travel Radar</b>\n\n'
+        + 'Персональные уведомления о билетах и турах по выбранному маршруту и бюджету.\n\n'
+        + 'Настройте направления на сайте — подходящие предложения будут приходить сюда.',
+      parse_mode: 'HTML',
+      reply_markup: {
+        inline_keyboard: [[{
+          text: 'Настроить персональный радар',
+          url: `${PUBLIC_BASE_URL}/travel-radar#personal-radar`,
+        }]],
+      },
+    });
+    return { accepted: true };
+  }
   if (!message?.chat?.id || !match) return { accepted: true };
   const tokenHash = hashToken(match[1]);
   let linked = false;
@@ -558,6 +574,13 @@ async function configureTelegramWebhook() {
       url: `${PUBLIC_BASE_URL}/api/travel/telegram/webhook`,
       secret_token: TELEGRAM_WEBHOOK_SECRET,
       allowed_updates: ['message'],
+    });
+    await telegramRequest('setMyCommands', {
+      commands: [
+        { command: 'start', description: 'Открыть персональный радар' },
+        { command: 'status', description: 'Проверить подписку' },
+        { command: 'cancel', description: 'Отключить автопродление' },
+      ],
     });
     console.log('Travel Radar: Telegram webhook configured');
   } catch (error) {

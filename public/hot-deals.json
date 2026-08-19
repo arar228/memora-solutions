@@ -1,7 +1,222 @@
 {
-  "updatedAt": "2026-08-19T10:58:42.320Z",
+  "updatedAt": "2026-08-19T11:33:04.556Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бодрум",
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 25300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-21",
+      "returnDate": "2026-09-07",
+      "date": "2026-08-19T11:30:28+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2108BJV1?marker=748397&currency=rub",
+      "text": "Москва — Бодрум от 25300₽ в обе стороны, вылеты 21 августа, рейсы прямые, с багажом\n— 21.08 - 07.09 - 25300₽\n— 21.08 - 08.09 - 26000₽"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Марокко",
+        "code": "CMN",
+        "country": {
+          "ru": "Марокко",
+          "en": "Morocco"
+        },
+        "kind": "country"
+      },
+      "price": 27700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T11:27:34+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/MOW1809CMN1?marker=748397&currency=rub",
+      "text": "У Royal Air Maroc скидки: полёты из Москвы в разные города Марокко за 27700 рублей туда-обратно!"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "ОАЭ",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "country"
+      },
+      "price": 56100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-29",
+      "returnDate": null,
+      "date": "2026-08-19T11:25:52+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://level.tpx.lu/AXiJHKJI",
+      "text": "🏖Туры в ОАЭ на неделю с 29 августа от 56.100 руб/чел"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Китай",
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "country"
+      },
+      "price": 43000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Чэнду",
+          "code": "CTU"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-10",
+      "returnDate": null,
+      "date": "2026-08-19T11:21:36+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0110PEK1?marker=748397&currency=rub",
+      "text": "✈️В Лицзян (Китай) от 43.000 руб туда-обратно в октябре, стыковки в Чэнду"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 6400,
+      "oldPrice": 23797,
+      "savings": 17397,
+      "discount": 0.73,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T11:09:33+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER1809SSH1?marker=748397&currency=rub",
+      "text": "из Сочи в Шарм-эш-Шейх 🇪🇬 за 6 400 р. OW (завтра)\nAlmasria, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 7300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T11:09:33+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1809DLM1?marker=748397&currency=rub",
+      "text": "из Москвы в Даламан 🇹🇷 за 7 300 р. OW (на этой неделе)\nПобеда, прямой рейс -"
+    },
     {
       "type": "flight",
       "from": {
@@ -1953,41 +2168,6 @@
       "text": "Санкт-Петербург — Даламан (Турция) за 11400Р в одну сторону, прямые с багажом\n— 20.08 — 11400Р\n— 23.08 — 17500Р"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Занзибар",
-        "code": "ZNZ",
-        "country": {
-          "ru": "Танзания",
-          "en": "Tanzania"
-        },
-        "kind": "city"
-      },
-      "price": 71200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-20",
-      "returnDate": "2026-09-02",
-      "date": "2026-08-18T10:22:01+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2008ZNZ1?marker=748397&currency=rub",
-      "text": "Москва — Занзибар (Танзания) от 71200Р туда и обратно, прямые с багажом\n— 20.08-02.09 — 71200Р\n— 22.08-04.09 — 73300Р"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -2791,88 +2971,53 @@
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED1809HRG1?marker=748397&currency=rub",
       "text": "✈️Новогодние в Хургаде. За 34.400 руб туда-обратно с Pegasus"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 108190,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-17T11:30:47+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/rating/bgoperator/maldives?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=maldivesDOP&utm_term=1708#?fromCity=2&toCountry=56&dateFrom=25.08.2026&dateTo=27.08.2026&daysFlexible=1&nightFrom=8&nightTo=9&adults=2&hotelClass=all&operators=11&meal=8.1.11.2.10.3.5&priceFrom=6000&priceTo=21000000&sid=gl575qw27r&sort=priceUp&f_better=true",
-      "text": "💥Прямые рейсы на Мальдивы, отели с хорошими отзывами, завтраки включены • 8 ночей — от 108 190 ₽ с человека."
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-19T10:58:42.162Z",
+      "checkedAt": "2026-08-19T11:33:04.389Z",
       "fetchedPosts": 20,
       "freshPosts": 10,
-      "latestPostAt": "2026-08-19T10:22:27+00:00",
+      "latestPostAt": "2026-08-19T11:27:34+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-19T10:58:42.162Z",
-      "fetchedPosts": 11,
-      "freshPosts": 11,
-      "latestPostAt": "2026-08-19T10:57:35+00:00",
+      "checkedAt": "2026-08-19T11:33:04.389Z",
+      "fetchedPosts": 12,
+      "freshPosts": 12,
+      "latestPostAt": "2026-08-19T11:09:33+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-19T10:58:42.162Z",
+      "checkedAt": "2026-08-19T11:33:04.389Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-19T10:30:02+00:00",
+      "latestPostAt": "2026-08-19T11:30:28+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-19T10:58:42.162Z",
+      "checkedAt": "2026-08-19T11:33:04.389Z",
       "fetchedPosts": 20,
-      "freshPosts": 5,
-      "latestPostAt": "2026-08-18T11:06:41+00:00",
+      "freshPosts": 7,
+      "latestPostAt": "2026-08-19T11:25:52+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-19T10:58:42.162Z",
+      "checkedAt": "2026-08-19T11:33:04.389Z",
       "fetchedPosts": 19,
       "freshPosts": 6,
       "latestPostAt": "2026-08-19T07:31:54+00:00",
@@ -2882,7 +3027,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-19T10:58:42.162Z",
+      "checkedAt": "2026-08-19T11:33:04.389Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-17T13:49:22+00:00",
@@ -2892,9 +3037,9 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-19T10:58:42.162Z",
+      "checkedAt": "2026-08-19T11:33:04.389Z",
       "fetchedPosts": 12,
-      "freshPosts": 10,
+      "freshPosts": 9,
       "latestPostAt": "2026-08-19T08:17:59+00:00",
       "reusedPrevious": false,
       "error": null
@@ -2902,10 +3047,10 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-19T10:58:42.162Z",
-      "fetchedPosts": 10,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-19T06:41:52+00:00",
+      "checkedAt": "2026-08-19T11:33:04.389Z",
+      "fetchedPosts": 8,
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-19T11:19:18+00:00",
       "reusedPrevious": false,
       "error": null
     }

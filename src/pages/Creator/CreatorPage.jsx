@@ -337,7 +337,7 @@ export default function CreatorPage() {
                 // Finish just outside the first card so the route points to the project
                 // without crossing its title, metadata or action at elevated browser zoom.
                 const endX = Math.round(targetRect.left - pageRect.left + Math.min(24, targetRect.width * .04));
-                const endY = Math.round(targetRect.top - pageRect.top - 10);
+                const endY = Math.round(targetRect.top - pageRect.top - 42);
                 const heroLaneY = Math.max(startY + 120, Math.round(heroRect.bottom - pageRect.top - 26));
                 const rightX = Math.max(startX + 36, width - (compact ? 18 : 52));
                 const endControlX = Math.min(rightX - 70, endX + Math.max(96, width * .12));

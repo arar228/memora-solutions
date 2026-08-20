@@ -22,6 +22,8 @@ const CHANNELS = [
     'samokatus',
     'travelradar',
     'nachemodanahspb',
+    'toursmsk',
+    'toursspb',
     'luckywings',
     'onlinetours',
     'travelata',

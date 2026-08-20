@@ -424,6 +424,8 @@ const UNKNOWN_ORIGIN = {
 
 const CHANNEL_ORIGIN = {
   nachemodanahspb: { code: 'LED', name: 'Санкт-Петербург', pos: 1e9, prefixed: false },
+  toursmsk: { code: 'MOW', name: 'Москва', pos: 1e9, prefixed: false },
+  toursspb: { code: 'LED', name: 'Санкт-Петербург', pos: 1e9, prefixed: false },
   turscanner_msk_spb: null,
   travelata: UNKNOWN_ORIGIN,
   leveltravel: UNKNOWN_ORIGIN,

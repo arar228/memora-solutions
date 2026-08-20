@@ -7,6 +7,8 @@ const requestedChannels = [
   'samokatus',
   'travelradar',
   'nachemodanahspb',
+  'toursmsk',
+  'toursspb',
   'luckywings',
   'turscanner_msk_spb',
   'onlinetours_russia',

@@ -209,4 +209,18 @@ assert.equal(unknownOriginTour[0].from.code, 'ANY');
 assert.equal(unknownOriginTour[0].to.code, 'IST');
 assert.equal(unknownOriginTour[0].type, 'tour');
 
+const moscowChannelOrigin = parse(
+  'Тур в Тунис на 7 ночей от 62 442 ₽ с человека',
+  'toursmsk',
+);
+assert.equal(moscowChannelOrigin[0].from.code, 'MOW');
+assert.equal(moscowChannelOrigin[0].to.code, 'TUN');
+
+const petersburgChannelOrigin = parse(
+  'Тур в Таиланд на 9 ночей от 67 224 ₽ с человека',
+  'toursspb',
+);
+assert.equal(petersburgChannelOrigin[0].from.code, 'LED');
+assert.equal(petersburgChannelOrigin[0].to.code, 'BKK');
+
 console.log('deal parser: all destination checks passed');

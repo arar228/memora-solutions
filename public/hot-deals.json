@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-20T03:59:11.161Z",
+  "updatedAt": "2026-08-20T04:45:32.782Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бали",
+        "code": "DPS",
+        "country": {
+          "ru": "Индонезия",
+          "en": "Indonesia"
+        },
+        "kind": "city"
+      },
+      "price": 273000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 10,
+      "departDate": "2026-09-10",
+      "returnDate": "2026-09-20",
+      "date": "2026-08-20T04:12:41+00:00",
+      "source": "travelradar",
+      "link": "https://travelradar.ru/t/hXUqE?s=tg&erid=2VtzqwgjJHU",
+      "text": "🇮🇩 о. Бали, Aston Canggu 4★ — завтраки\n• 10 ночей\n• питание — завтраки\n• ~273.000 рублей за двоих\n• вылет 10.09.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэрофлот, прямой · бага"
+    },
     {
       "type": "tour",
       "from": {
@@ -983,8 +1018,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 20552,
-      "savings": 14052,
+      "oldPrice": 20320,
+      "savings": 13820,
       "discount": 0.68,
       "oneway": true,
       "roundTrip": false,
@@ -1018,9 +1053,9 @@
         "kind": "city"
       },
       "price": 19100,
-      "oldPrice": 20552,
-      "savings": 1452,
-      "discount": 0.07,
+      "oldPrice": 20320,
+      "savings": 1220,
+      "discount": 0.06,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -1193,8 +1228,8 @@
         "kind": "city"
       },
       "price": 11500,
-      "oldPrice": 33662,
-      "savings": 22162,
+      "oldPrice": 33674,
+      "savings": 22174,
       "discount": 0.66,
       "oneway": false,
       "roundTrip": false,
@@ -1228,8 +1263,8 @@
         "kind": "city"
       },
       "price": 5700,
-      "oldPrice": 25710,
-      "savings": 20010,
+      "oldPrice": 25719,
+      "savings": 20019,
       "discount": 0.78,
       "oneway": false,
       "roundTrip": false,
@@ -1263,8 +1298,8 @@
         "kind": "city"
       },
       "price": 9800,
-      "oldPrice": 25389,
-      "savings": 15589,
+      "oldPrice": 25398,
+      "savings": 15598,
       "discount": 0.61,
       "oneway": false,
       "roundTrip": false,
@@ -1368,8 +1403,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 41480,
-      "savings": 34980,
+      "oldPrice": 41495,
+      "savings": 34995,
       "discount": 0.84,
       "oneway": false,
       "roundTrip": false,
@@ -1583,8 +1618,8 @@
         "kind": "city"
       },
       "price": 6400,
-      "oldPrice": 23503,
-      "savings": 17103,
+      "oldPrice": 23511,
+      "savings": 17111,
       "discount": 0.73,
       "oneway": false,
       "roundTrip": false,
@@ -1635,41 +1670,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Батуми",
-        "code": "BUS",
-        "country": {
-          "ru": "Грузия",
-          "en": "Georgia"
-        },
-        "kind": "city"
-      },
-      "price": 16400,
-      "oldPrice": 20102,
-      "savings": 3702,
-      "discount": 0.18,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-19T10:57:35+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SVX1909BUS1?marker=748397&currency=rub",
-      "text": "из Екатеринбурга в Батуми 🇬🇪 за 16 400 р. RT (сентябрь-октябрь)\nRed Wings, прямые рейсы -"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Самара",
         "code": "KUF",
         "country": {
@@ -1688,8 +1688,8 @@
         "kind": "city"
       },
       "price": 7000,
-      "oldPrice": 9700,
-      "savings": 2700,
+      "oldPrice": 9701,
+      "savings": 2701,
       "discount": 0.28,
       "oneway": false,
       "roundTrip": true,
@@ -1701,6 +1701,41 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/KUF1909MSQ1?marker=748397&currency=rub",
       "text": "из Самары в Минск 🇧🇾 за 7 000 р. RT (осенью)\nRed Wings, прямые рейсы -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Батуми",
+        "code": "BUS",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
+      },
+      "price": 16400,
+      "oldPrice": 18903,
+      "savings": 2503,
+      "discount": 0.13,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-19T10:57:35+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX1909BUS1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Батуми 🇬🇪 за 16 400 р. RT (сентябрь-октябрь)\nRed Wings, прямые рейсы -"
     },
     {
       "type": "flight",
@@ -1758,8 +1793,8 @@
         "kind": "country"
       },
       "price": 10600,
-      "oldPrice": 19409,
-      "savings": 8809,
+      "oldPrice": 19416,
+      "savings": 8816,
       "discount": 0.45,
       "oneway": false,
       "roundTrip": true,
@@ -1793,8 +1828,8 @@
         "kind": "city"
       },
       "price": 6700,
-      "oldPrice": 23518,
-      "savings": 16818,
+      "oldPrice": 23945,
+      "savings": 17245,
       "discount": 0.72,
       "oneway": true,
       "roundTrip": false,
@@ -1933,8 +1968,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 23503,
-      "savings": 17003,
+      "oldPrice": 23511,
+      "savings": 17011,
       "discount": 0.72,
       "oneway": true,
       "roundTrip": false,
@@ -2193,8 +2228,8 @@
         "kind": "city"
       },
       "price": 6750,
-      "oldPrice": 9700,
-      "savings": 2950,
+      "oldPrice": 9701,
+      "savings": 2951,
       "discount": 0.3,
       "oneway": false,
       "roundTrip": true,
@@ -3113,8 +3148,8 @@
         "kind": "city"
       },
       "price": 8800,
-      "oldPrice": 23518,
-      "savings": 14718,
+      "oldPrice": 23945,
+      "savings": 15145,
       "discount": 0.63,
       "oneway": false,
       "roundTrip": false,
@@ -3167,7 +3202,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-20T03:59:10.994Z",
+      "checkedAt": "2026-08-20T04:45:32.598Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-19T15:47:22+00:00",
@@ -3177,7 +3212,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-20T03:59:10.994Z",
+      "checkedAt": "2026-08-20T04:45:32.598Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
       "latestPostAt": "2026-08-19T18:21:01+00:00",
@@ -3187,17 +3222,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-20T03:59:10.994Z",
+      "checkedAt": "2026-08-20T04:45:32.598Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-19T18:23:14+00:00",
+      "latestPostAt": "2026-08-20T04:12:41+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-20T03:59:10.994Z",
+      "checkedAt": "2026-08-20T04:45:32.598Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-08-19T12:05:42+00:00",
@@ -3207,7 +3242,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-20T03:59:10.994Z",
+      "checkedAt": "2026-08-20T04:45:32.598Z",
       "fetchedPosts": 19,
       "freshPosts": 7,
       "latestPostAt": "2026-08-19T19:51:57+00:00",
@@ -3217,7 +3252,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-20T03:59:10.994Z",
+      "checkedAt": "2026-08-20T04:45:32.598Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-19T15:10:46+00:00",
@@ -3227,7 +3262,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-20T03:59:10.994Z",
+      "checkedAt": "2026-08-20T04:45:32.598Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
       "latestPostAt": "2026-08-19T14:30:44+00:00",
@@ -3237,7 +3272,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-20T03:59:10.994Z",
+      "checkedAt": "2026-08-20T04:45:32.598Z",
       "fetchedPosts": 7,
       "freshPosts": 7,
       "latestPostAt": "2026-08-19T15:35:38+00:00",

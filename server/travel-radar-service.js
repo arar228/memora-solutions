@@ -233,11 +233,12 @@ async function applyVerifiedPayment(payment) {
   if (!subscriptionId) return false;
 
   const now = Date.now();
+  let activatedSubscription = null;
   await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
     if (item.id !== subscriptionId) return item;
     if ((item.appliedPaymentIds || []).includes(payment.id)) return item;
     const base = Math.max(now, Date.parse(item.currentPeriodEnd || '') || 0);
-    return {
+    activatedSubscription = {
       ...item,
       status: 'active',
       autoRenew: payment.payment_method?.saved === true ? item.autoRenew : false,
@@ -250,7 +251,17 @@ async function applyVerifiedPayment(payment) {
       activatedAt: item.activatedAt || new Date(now).toISOString(),
       updatedAt: new Date(now).toISOString(),
     };
+    return activatedSubscription;
   }));
+  if (activatedSubscription?.telegramChatId) {
+    try {
+      await sendSubscriptionSnapshot(activatedSubscription, {
+        intro: '✅ Подписка активирована на 30 дней.',
+      });
+    } catch (error) {
+      console.error('Travel Radar payment confirmation:', error.message);
+    }
+  }
   return true;
 }
 
@@ -322,6 +333,15 @@ export async function updateTravelSubscription(token, input) {
     return result;
   }));
   if (!result) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  if (result.status === 'active'
+    && result.telegramChatId
+    && Date.parse(result.currentPeriodEnd || '') > Date.now()) {
+    try {
+      await sendSubscriptionSnapshot(result, { intro: '✅ Настройки маршрута сохранены.' });
+    } catch (error) {
+      console.error('Travel Radar filter confirmation:', error.message);
+    }
+  }
   return sanitizeSubscription(result);
 }
 
@@ -336,8 +356,8 @@ async function telegramRequest(method, body) {
   return payload.result;
 }
 
-const escapeHtml = (value) => String(value || '').replace(/[&<>]/g, (char) => ({
-  '&': '&amp;', '<': '&lt;', '>': '&gt;',
+const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 }[char]));
 
 function adminSubscriptionView(subscription) {
@@ -414,18 +434,9 @@ export async function grantTravelAdminSubscription(id, input = {}) {
 
   let messageSent = false;
   try {
-    await telegramRequest('sendMessage', {
-      chat_id: result.telegramChatId,
-      text: `✅ Тестовый доступ активирован до ${new Date(expiresAt).toLocaleDateString('ru-RU')}.\n\n`
-        + 'Подходящие предложения будут приходить в этот чат. Настройки маршрута доступны на сайте.',
-      reply_markup: {
-        inline_keyboard: [[{
-          text: 'Настроить персональный радар',
-          url: `${PUBLIC_BASE_URL}/travel-radar#personal-radar`,
-        }]],
-      },
+    messageSent = await sendSubscriptionSnapshot(result, {
+      intro: `✅ Тестовый доступ активирован до ${new Date(expiresAt).toLocaleDateString('ru-RU')}.`,
     });
-    messageSent = true;
   } catch (error) {
     console.error('Travel Radar admin grant message:', error.message);
   }
@@ -596,6 +607,70 @@ function dealMatches(deal, filters) {
   return !filters.minDiscount || Math.round((deal.discount || 0) * 100) >= filters.minDiscount;
 }
 
+function dealTypeMeta(deal) {
+  return deal.type === 'tour'
+    ? { icon: '🏝', label: 'Тур' }
+    : { icon: '✈️', label: 'Билет' };
+}
+
+function telegramDealText(deal) {
+  const type = dealTypeMeta(deal);
+  const discount = deal.discount ? ` · −${Math.round(deal.discount * 100)}%` : '';
+  return `${type.icon} <b>${type.label} · ${escapeHtml(deal.from?.name)} → ${escapeHtml(deal.to?.name)}</b>\n`
+    + `${Number(deal.price).toLocaleString('ru-RU')} ₽${discount}\n`
+    + `<a href="${escapeHtml(deal.link)}">Открыть предложение</a>`;
+}
+
+function availableOfferLabel(count) {
+  const mod100 = count % 100;
+  const mod10 = count % 10;
+  if (mod100 < 11 || mod100 > 14) {
+    if (mod10 === 1) return 'предложение доступно';
+    if (mod10 >= 2 && mod10 <= 4) return 'предложения доступны';
+  }
+  return 'предложений доступны';
+}
+
+async function rememberSnapshotDeals(subscriptionId, deals) {
+  if (!deals.length) return;
+  await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => {
+    if (item.id !== subscriptionId) return item;
+    const ids = new Set(item.notifiedDealIds || []);
+    deals.forEach((deal) => ids.add(dealKey(deal)));
+    return { ...item, notifiedDealIds: [...ids].slice(-300) };
+  }));
+}
+
+async function sendSubscriptionSnapshot(subscription, { intro = '' } = {}) {
+  const feed = await getTravelFeed();
+  const matches = (Array.isArray(feed?.deals) ? feed.deals : [])
+    .filter((deal) => dealMatches(deal, subscription.filters));
+  const shown = matches.slice(0, 5);
+  const countLine = `<b>На данный момент по вашим фильтрам доступно: ${matches.length}</b>`;
+  const offerList = shown.length
+    ? `\n\n${shown.map(telegramDealText).join('\n\n')}`
+    : '\n\nСледующие подходящие предложения появятся в этом чате.';
+  const moreLine = matches.length > shown.length
+    ? `\n\nЕщё ${matches.length - shown.length} ${availableOfferLabel(matches.length - shown.length)} на сайте.`
+    : '';
+  await telegramRequest('sendMessage', {
+    chat_id: subscription.telegramChatId,
+    text: `${intro ? `${intro}\n\n` : ''}`
+      + 'Подходящие предложения будут приходить в этот чат. Настройки маршрута доступны на сайте.\n\n'
+      + countLine + offerList + moreLine,
+    parse_mode: 'HTML',
+    disable_web_page_preview: true,
+    reply_markup: {
+      inline_keyboard: [[{
+        text: 'Настроить персональный радар',
+        url: `${PUBLIC_BASE_URL}/travel-radar#personal-radar`,
+      }]],
+    },
+  });
+  await rememberSnapshotDeals(subscription.id, shown);
+  return true;
+}
+
 async function sendMatchingNotifications(deals) {
   if (!TELEGRAM_TOKEN) return;
   const subscriptions = await getState(SUBSCRIPTIONS_KEY, []);
@@ -627,12 +702,7 @@ async function sendMatchingNotifications(deals) {
     }));
     const reservedMatches = matches.filter((deal) => reservedIds.includes(dealKey(deal)));
     if (!reservedMatches.length) continue;
-    const reservedText = reservedMatches.map((deal) => {
-      const discount = deal.discount ? ` · −${Math.round(deal.discount * 100)}%` : '';
-      return `✈️ <b>${escapeHtml(deal.from?.name)} → ${escapeHtml(deal.to?.name)}</b>\n`
-        + `${Number(deal.price).toLocaleString('ru-RU')} ₽${discount}\n`
-        + `<a href="${escapeHtml(deal.link)}">Открыть предложение</a>`;
-    }).join('\n\n');
+    const reservedText = reservedMatches.map(telegramDealText).join('\n\n');
     try {
       await telegramRequest('sendMessage', {
         chat_id: subscription.telegramChatId,

@@ -1,7 +1,147 @@
 {
-  "updatedAt": "2026-08-20T15:41:25.921Z",
+  "updatedAt": "2026-08-20T16:43:34.884Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гуанчжоу",
+        "code": "CAN",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 52000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-23",
+      "returnDate": "2026-09-25",
+      "date": "2026-08-20T16:29:35+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2309CAN1?marker=748397&currency=rub",
+      "text": "Гуанчжоу + Чжанцзяцзе (парк \"Аватар\", Китай) из Москвы за 52000Р туда и обратно, прямые с багажом, в режиме сложного поиска можно варьировать продолжительность пребывания в Гуанчжоу как на пути туда, "
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Красноярск",
+        "code": "KJA",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 14400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-05",
+      "returnDate": null,
+      "date": "2026-08-20T16:13:01+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/HKT0510KJA1?marker=748397&currency=rub",
+      "text": "Пхукет (Таиланд) — Красноярск от 14400Р в одну сторону, прямые с багажом\n— 05.10 — 14400Р\n— 12.10 — 16800Р\n— 01.01 — 19100Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Бодрум",
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кавказские Минеральные Воды",
+        "code": "MRV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 13500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-31",
+      "returnDate": null,
+      "date": "2026-08-20T16:00:33+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/BJV3108MRV1?marker=748397&currency=rub",
+      "text": "Бодрум (Турция) — Минеральные Воды за 13500Р  в одну сторону, вылет 31 августа, прямой с багажом, один билет\n—"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Тунис",
+        "code": "TUN",
+        "country": {
+          "ru": "Тунис",
+          "en": "Tunisia"
+        },
+        "kind": "country"
+      },
+      "price": 52331,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 11,
+      "departDate": "2026-08-22",
+      "returnDate": "2026-09-02",
+      "date": "2026-08-20T15:59:01+00:00",
+      "source": "toursmsk",
+      "link": "https://level.tpx.lu/3zatBfTk?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "text": "Туры Москва - Тунис от 52 331₽/чел. на 11 ночей (было от 62 442₽, цена упала на 16%)\n👉 Ссылка на туры:"
+    },
     {
       "type": "flight",
       "from": {
@@ -63,8 +203,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 26773,
-      "savings": 20273,
+      "oldPrice": 26758,
+      "savings": 20258,
       "discount": 0.76,
       "oneway": true,
       "roundTrip": false,
@@ -273,9 +413,9 @@
         "kind": "country"
       },
       "price": 14100,
-      "oldPrice": 29912,
-      "savings": 15812,
-      "discount": 0.53,
+      "oldPrice": 30326,
+      "savings": 16226,
+      "discount": 0.54,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -928,8 +1068,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 19065,
-      "savings": 12565,
+      "oldPrice": 19148,
+      "savings": 12648,
       "discount": 0.66,
       "oneway": false,
       "roundTrip": false,
@@ -1453,8 +1593,8 @@
         "kind": "city"
       },
       "price": 9400,
-      "oldPrice": 9469,
-      "savings": 69,
+      "oldPrice": 9501,
+      "savings": 101,
       "discount": 0.01,
       "oneway": false,
       "roundTrip": true,
@@ -1768,8 +1908,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 20115,
-      "savings": 13615,
+      "oldPrice": 20103,
+      "savings": 13603,
       "discount": 0.68,
       "oneway": true,
       "roundTrip": false,
@@ -2039,111 +2179,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Измир",
-        "code": "ADB",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 11600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-25",
-      "returnDate": "2026-09-01",
-      "date": "2026-08-19T18:01:26+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2508ADB1?marker=748397&currency=rub",
-      "text": "Москва — Измир от 11600₽ в одну сторону, вылеты на следующей неделе, рейсы прямые, с багажом\n— 25.08 - 11600₽\n— 26.08 - 11800₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Измир",
-        "code": "ADB",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 26900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-25",
-      "returnDate": "2026-09-01",
-      "date": "2026-08-19T18:01:26+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2508ADB1?marker=748397&currency=rub",
-      "text": "Москва — Измир от 26900₽ в обе стороны, вылет 25 августа, рейсы прямые, с багажом\n— 25.08 - 01.09 - 25900₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Барселона",
-        "code": "BCN",
-        "country": {
-          "ru": "Испания",
-          "en": "Spain"
-        },
-        "kind": "city"
-      },
-      "price": 37800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-28",
-      "returnDate": "2026-11-27",
-      "date": "2026-08-19T17:37:14+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2810BCN1?marker=748397&currency=rub",
-      "text": "Вот билет из Москвы в Барселону (Испания) с 28.10 по 27.11 всего за 37800Р (~€390, в паэльях сам сосчитай) и короткой\\приемлемой пересадкой\n—"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Анталья",
         "code": "AYT",
         "country": {
@@ -2153,8 +2188,8 @@
         "kind": "city"
       },
       "price": 5400,
-      "oldPrice": 20115,
-      "savings": 14715,
+      "oldPrice": 20103,
+      "savings": 14703,
       "discount": 0.73,
       "oneway": false,
       "roundTrip": false,
@@ -2868,8 +2903,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 39652,
-      "savings": 33152,
+      "oldPrice": 39629,
+      "savings": 33129,
       "discount": 0.84,
       "oneway": false,
       "roundTrip": false,
@@ -3083,9 +3118,9 @@
         "kind": "city"
       },
       "price": 6400,
-      "oldPrice": 23660,
-      "savings": 17260,
-      "discount": 0.73,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -3153,9 +3188,9 @@
         "kind": "city"
       },
       "price": 16400,
-      "oldPrice": 19959,
-      "savings": 3559,
-      "discount": 0.18,
+      "oldPrice": 20416,
+      "savings": 4016,
+      "discount": 0.2,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -3188,8 +3223,8 @@
         "kind": "city"
       },
       "price": 7000,
-      "oldPrice": 9726,
-      "savings": 2726,
+      "oldPrice": 9719,
+      "savings": 2719,
       "discount": 0.28,
       "oneway": false,
       "roundTrip": true,
@@ -3258,8 +3293,8 @@
         "kind": "country"
       },
       "price": 10600,
-      "oldPrice": 19322,
-      "savings": 8722,
+      "oldPrice": 19427,
+      "savings": 8827,
       "discount": 0.45,
       "oneway": false,
       "roundTrip": true,
@@ -3328,8 +3363,8 @@
         "kind": "country"
       },
       "price": 8400,
-      "oldPrice": 22940,
-      "savings": 14540,
+      "oldPrice": 22927,
+      "savings": 14527,
       "discount": 0.63,
       "oneway": false,
       "roundTrip": false,
@@ -3363,8 +3398,8 @@
         "kind": "city"
       },
       "price": 6405,
-      "oldPrice": 20115,
-      "savings": 13710,
+      "oldPrice": 20103,
+      "savings": 13698,
       "discount": 0.68,
       "oneway": false,
       "roundTrip": false,
@@ -3503,8 +3538,8 @@
         "kind": "city"
       },
       "price": 6750,
-      "oldPrice": 9726,
-      "savings": 2976,
+      "oldPrice": 9719,
+      "savings": 2969,
       "discount": 0.31,
       "oneway": false,
       "roundTrip": true,
@@ -3837,7 +3872,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 20,
       "freshPosts": 10,
       "latestPostAt": "2026-08-20T14:08:15+00:00",
@@ -3847,7 +3882,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-20T13:25:36+00:00",
@@ -3857,17 +3892,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-20T15:40:26+00:00",
+      "latestPostAt": "2026-08-20T16:29:35+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
       "latestPostAt": "2026-08-20T12:41:00+00:00",
@@ -3877,17 +3912,17 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 20,
-      "freshPosts": 13,
-      "latestPostAt": "2026-08-20T09:45:28+00:00",
+      "freshPosts": 14,
+      "latestPostAt": "2026-08-20T15:59:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
       "latestPostAt": "2026-08-20T10:23:05+00:00",
@@ -3897,7 +3932,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 19,
       "freshPosts": 8,
       "latestPostAt": "2026-08-20T15:25:13+00:00",
@@ -3907,7 +3942,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-19T15:10:46+00:00",
@@ -3917,7 +3952,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 14,
       "freshPosts": 11,
       "latestPostAt": "2026-08-20T14:30:44+00:00",
@@ -3927,7 +3962,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-20T15:41:25.765Z",
+      "checkedAt": "2026-08-20T16:43:34.713Z",
       "fetchedPosts": 6,
       "freshPosts": 6,
       "latestPostAt": "2026-08-20T12:01:11+00:00",

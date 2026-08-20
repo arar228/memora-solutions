@@ -1,7 +1,187 @@
 {
-  "updatedAt": "2026-08-20T10:38:52.377Z",
+  "updatedAt": "2026-08-20T11:34:57.785Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бангкок",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 22200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Маскат",
+          "code": "MCT"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-08-20T11:31:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0109BKK1?marker=748397&currency=rub",
+      "text": "из Москвы в Бангкок 🇹🇭 за 22 200 р. OW (в сентябре)\nOman Air, удобная стыковка в Маскате - \nВсе даты:"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кавказские Минеральные Воды",
+        "code": "MRV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 20000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-08-31",
+      "date": "2026-08-20T11:25:57+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/ws61MR",
+      "text": "🔥 в Кавминводы на 6 ночей с 25 августа от 20 000/чел  (вернетесь 31-го, туры без группового трансфера из аэропорта Минеральных Вод до отеля, индивидуальный - за доплату)\n🔥 варианты в сентябре  или в"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Занзибар",
+        "code": "ZNZ",
+        "country": {
+          "ru": "Танзания",
+          "en": "Tanzania"
+        },
+        "kind": "city"
+      },
+      "price": 66300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-22",
+      "returnDate": null,
+      "date": "2026-08-20T11:06:16+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2208ZNZ1?marker=748397&currency=rub",
+      "text": "Москва — Занзибар за 66300₽ туда-обратно.\n→"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Астрахань",
+        "code": "ASF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6500,
+      "oldPrice": 27671,
+      "savings": 21171,
+      "discount": 0.77,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-20T10:44:35+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/ASF1909AYT1?marker=748397&currency=rub",
+      "text": "из Астрахани в Анталью 🇹🇷 за 6 500 р. OW (на выходных)\nУральские, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6500,
+      "oldPrice": 19065,
+      "savings": 12565,
+      "discount": 0.66,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-20T10:44:35+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX1909AYT1?marker=748397&currency=rub",
+      "text": "из Екатеринбург в Анталью 🇹🇷 за 6 500 р. OW (завтра)\nУральские, прямой рейс с багажом -"
+    },
     {
       "type": "tour",
       "from": {
@@ -1943,111 +2123,6 @@
       "text": "🔹Мальдивы, полный пансион, скидки до 12%, 8 ночей, от 104 217 ₽/чел."
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 6500,
-      "oldPrice": 19065,
-      "savings": 12565,
-      "discount": 0.66,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-20",
-      "returnDate": "2026-09-05",
-      "date": "2026-08-19T12:50:07+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SVX2008AYT1?marker=748397&currency=rub",
-      "text": "Екатеринбург — Анталья от 6500₽ в одну сторону, вылеты в ближайшие дни, рейсы прямые, с багажом\n— 20.08 - 6500₽\n— 21.08 - 7600₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 11200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-04",
-      "returnDate": "2026-09-05",
-      "date": "2026-08-19T12:50:07+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AYT0409SVX1?marker=748397&currency=rub",
-      "text": "Анталья — Екатеринбург от 11200₽ в одну сторону, вылеты 4 и 5 сентября рейсы прямые, с багажом\n— 04.09 - 11200₽\n— 05.09 - 11200₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 19100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-20",
-      "returnDate": "2026-09-05",
-      "date": "2026-08-19T12:50:07+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SVX2008AYT1?marker=748397&currency=rub",
-      "text": "Екатеринбург — Анталья от 19100₽ в обе стороны, вылет завтра,, рейсы прямые, с багажом\n— 20.08 - 05.09 - 19100₽\n— 21.08 - 05.09 - 20300₽"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -3368,46 +3443,6 @@
       "text": "Туры Москва - Индонезия от 65 179₽/чел. на 11 ночей (было от 71 640₽, цена упала на 9%)\n👉 Ссылка на туры:"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тайвань",
-        "code": "TPE",
-        "country": {
-          "ru": "Тайвань",
-          "en": "Taiwan"
-        },
-        "kind": "country"
-      },
-      "price": 43800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Китай",
-          "code": "PEK"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-18T14:02:14+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1909TPE1?marker=748397&currency=rub",
-      "text": "из Москвы на Тайвань 🇹🇼 за 43 800 р. RT (осенью)\nChina Southern, пересадки в Китае - \nВсе даты:"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
@@ -3651,293 +3686,13 @@
       "source": "vandroukiru",
       "link": "https://vandrouki.ru/tury/6-nochej-v-dubae-5-otel-iz-krasnodara/",
       "text": "6 ночей в Дубае за 36000 рублей с человека!\nСтарт 22 августа:"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 49400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-18T11:23:40+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/Yg7Gd1",
-      "text": "🔥 в Турцию на неделю с вылетом в конце августа с проживанием в 4-5* от 49 400/чел, все включено, с топливными сборами"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 53600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-23",
-      "returnDate": null,
-      "date": "2026-08-18T11:23:40+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/NP8b9r",
-      "text": "🔥 в Турцию (успеть летом) - на неделю с 23 августа в 4-5* от 53 600/чел, все включено, с топливными сборами  (скидка по промокоду 1300Lucky или 1700Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 56800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": "2026-08-21",
-      "returnDate": "2026-08-31",
-      "date": "2026-08-18T11:23:40+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/nfxNb7",
-      "text": "🔥 в Тунис на 10 ночей с 21 августа от 56 800/чел с питанием, виза не нужна, вернетесь 31-го  (скидка по промокоду 2500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хайнань",
-        "code": "SYX",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 69900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 9,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-18T11:23:40+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/jD5Vad",
-      "text": "🔥 на Хайнань (Китай) на 9 ночей в августе от 69 900/чел, виза не нужна  (сейчас вылет 26-го, скидка по промокоду 2500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 29300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-24",
-      "returnDate": null,
-      "date": "2026-08-18T11:09:26+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/SQ66Sx",
-      "text": "🔥 в Сочи для тех, кто хочет успеть в августе - на неделю с 23 или 24 августа от 29 300/чел  (скидка по промокоду 700Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 46600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 5,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-18T11:09:26+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/VmFXc4",
-      "text": "🔥 в Турцию на неделю в августе (успеть летом, обратно 31-го) от 46 600/чел, все включено, с топливными сборами  (скидка по промокоду 1300Lucky) или короткий вариант на 5 ночей \n🔥 варианты с вылетом "
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 51700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-18T11:09:26+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/2RdmTH",
-      "text": "🔥 в Тунис на неделю с вылетом в конце августа от 51 700/чел, виза не нужна"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хайнань",
-        "code": "SYX",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 68500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-18T11:09:26+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/9C9Jx4",
-      "text": "🔥 на Хайнань (Китай) на 11 ночей в августе от 68 500/чел, виза не нужна  (сейчас вылет 22-го, скидка по промокоду 2500Lucky)"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-20T09:05:35+00:00",
@@ -3947,29 +3702,29 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-20T09:22:30+00:00",
+      "latestPostAt": "2026-08-20T11:31:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-20T09:58:16+00:00",
+      "latestPostAt": "2026-08-20T11:06:16+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 20,
-      "freshPosts": 8,
+      "freshPosts": 6,
       "latestPostAt": "2026-08-20T08:05:49+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3977,7 +3732,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-20T09:45:28+00:00",
@@ -3987,7 +3742,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 20,
       "freshPosts": 13,
       "latestPostAt": "2026-08-20T10:23:05+00:00",
@@ -3997,17 +3752,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 19,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-19T19:51:57+00:00",
+      "freshPosts": 6,
+      "latestPostAt": "2026-08-20T11:25:57+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-19T15:10:46+00:00",
@@ -4017,7 +3772,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 14,
       "freshPosts": 11,
       "latestPostAt": "2026-08-20T10:31:11+00:00",
@@ -4027,7 +3782,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-20T10:38:52.192Z",
+      "checkedAt": "2026-08-20T11:34:57.630Z",
       "fetchedPosts": 5,
       "freshPosts": 5,
       "latestPostAt": "2026-08-20T10:02:51+00:00",

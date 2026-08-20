@@ -1,7 +1,222 @@
 {
-  "updatedAt": "2026-08-20T14:44:53.846Z",
+  "updatedAt": "2026-08-20T15:41:25.921Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Маврикий",
+        "code": "MRU",
+        "country": {
+          "ru": "Маврикий",
+          "en": "Mauritius"
+        },
+        "kind": "country"
+      },
+      "price": 85200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Аддис-Абеба",
+          "code": "ADD"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-20T15:40:26+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1909MRU1?marker=748397&currency=rub",
+      "text": "Москва — Маврикий за 85200₽ туда-обратно. Опять дефляция, ведь было 200к+\nБыло, было: \n→"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6500,
+      "oldPrice": 26773,
+      "savings": 20273,
+      "discount": 0.76,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-22",
+      "returnDate": null,
+      "date": "2026-08-20T15:32:09+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KUF2208AYT1?marker=748397&currency=rub",
+      "text": "Самара — Анталья (Турция) от 6500Р в одну сторону, прямые с багажом\n— 22.08 — 6500Р\n— 24.08 — 10900Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 15400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-27",
+      "returnDate": null,
+      "date": "2026-08-20T15:32:09+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AYT2708KUF1?marker=748397&currency=rub",
+      "text": "Анталья (Турция) — Самара за 15400Р в одну сторону, прямой с багажом как раз к школе портфель собрать\n— 27.08 — 15400Р"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 43700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-26",
+      "returnDate": null,
+      "date": "2026-08-20T15:25:13+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/Fh0Kpq",
+      "text": "🔥 в Турцию (Мармарис) на неделю с вылетом 26 августа от 43 700/чел, все включено, с топливными сборами"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хайнань",
+        "code": "SYX",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 56700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 12,
+      "departDate": "2026-08-26",
+      "returnDate": "2026-09-07",
+      "date": "2026-08-20T15:25:13+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/35CzDx",
+      "text": "🔥 на Хайнань (Китай) на 10-12 ночей с вылетом 24 или 26 августа от 56 700/чел, виза не нужна  или варианты в 4-5*  (скидка по промокоду 2500Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 49900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-08-24",
+      "returnDate": "2026-08-31",
+      "date": "2026-08-20T15:04:19+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/C7nWhs",
+      "text": "🔥 в Турцию на неделю с вылетом в конце августа с проживанием в 4-5* от 49 900/чел, все включено, с топливными сборами www.turscanner.ru/-/Yg7Gd1 (вылет 28-го)\n🔥 успеть летом - на 7 ночей с 24 август"
+    },
     {
       "type": "tour",
       "from": {
@@ -1929,41 +2144,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Мадрид",
-        "code": "MAD",
-        "country": {
-          "ru": "Испания",
-          "en": "Spain"
-        },
-        "kind": "city"
-      },
-      "price": 45900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-19T16:25:30+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1909MAD1?marker=748397&currency=rub",
-      "text": "Москва — Мадрид за 45900₽ туда-обратно.\n→"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Анталья",
         "code": "AYT",
         "country": {
@@ -2021,76 +2201,6 @@
       "source": "leveltravel",
       "link": "https://lvtv.me/SxobgW9",
       "text": "🐥На Пхукете хорошо, а в этом тайском отеле еще лучше. Мы про Naithonburi Beach Resort 3*. Его плюсы:\n❤Отель находится прямо через дорогу от чистого и уединенного пляжа Найтон. Пляж известен своим мяг"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Даламан",
-        "code": "DLM",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 8200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-20",
-      "returnDate": "2026-09-01",
-      "date": "2026-08-19T14:43:07+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2008DLM1?marker=748397&currency=rub",
-      "text": "Москва — Даламан от 8200₽ в одну сторону, вылет в четверг, рейсы прямые, с багажом — 20.08 - 8200₽ Даламан — Москва от 17800₽ в одну сторону, вылет 1 сентября рейсы прямые, с багажом — 01.09 - 17800₽ "
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Даламан",
-        "code": "DLM",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 18600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-22",
-      "returnDate": "2026-09-01",
-      "date": "2026-08-19T14:43:07+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2208DLM1?marker=748397&currency=rub",
-      "text": "Ещё Москва — Даламан (Турция) от 18600Р туда и обратно, прямые с багажом\n— 22.08-01.09 — 18600Р\n— 25.08-01.09 — 21900Р"
     },
     {
       "type": "tour",
@@ -3721,85 +3831,15 @@
       "source": "travelata",
       "link": "https://travelata.ru/rating/bgoperator/search?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=thailandDOP&utm_term=1808#?fromCity=2&toCountry=87&dateFrom=23.08.2026&dateTo=25.08.2026&daysFlexible=1&nightFrom=12&nightTo=14&adults=2&hotelClass=all&operators=11&meal=8.1.11.2.10.3.5&priceFrom=6000&priceTo=21000000&sid=mqt57xfzxi&sort=priceUp&f_firstLine=true&f_secondLine=true&f_better=true",
       "text": "💥Прямые рейсы в Таиланд • 12 ночей — от 83 638 ₽ с человека, 1-2 линия, отели с хорошими отзывами, завтраки включены, туры с трансфером, ручной кладью и багажом."
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 53984,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08-26",
-      "returnDate": "2026-09-02",
-      "date": "2026-08-18T15:03:01+00:00",
-      "source": "toursmsk",
-      "link": "https://level.tpx.lu/xjFYHBek?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "text": "Туры Москва - Тунис от 53 984₽/чел. на 7 ночей (было от 58 896₽, цена упала на 8%)\n👉 Ссылка на туры:"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Индонезия",
-        "code": "DPS",
-        "country": {
-          "ru": "Индонезия",
-          "en": "Indonesia"
-        },
-        "kind": "country"
-      },
-      "price": 65179,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-09-03",
-      "returnDate": "2026-09-14",
-      "date": "2026-08-18T14:55:12+00:00",
-      "source": "toursmsk",
-      "link": "https://level.tpx.lu/knDGoLU8?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "text": "Туры Москва - Индонезия от 65 179₽/чел. на 11 ночей (было от 71 640₽, цена упала на 9%)\n👉 Ссылка на туры:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 20,
-      "freshPosts": 11,
+      "freshPosts": 10,
       "latestPostAt": "2026-08-20T14:08:15+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3807,7 +3847,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-20T13:25:36+00:00",
@@ -3817,17 +3857,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-20T12:57:34+00:00",
+      "latestPostAt": "2026-08-20T15:40:26+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
       "latestPostAt": "2026-08-20T12:41:00+00:00",
@@ -3837,9 +3877,9 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 20,
-      "freshPosts": 15,
+      "freshPosts": 13,
       "latestPostAt": "2026-08-20T09:45:28+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3847,7 +3887,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
       "latestPostAt": "2026-08-20T10:23:05+00:00",
@@ -3857,17 +3897,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 19,
-      "freshPosts": 6,
-      "latestPostAt": "2026-08-20T11:25:57+00:00",
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-20T15:25:13+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-19T15:10:46+00:00",
@@ -3877,7 +3917,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 14,
       "freshPosts": 11,
       "latestPostAt": "2026-08-20T14:30:44+00:00",
@@ -3887,7 +3927,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-20T14:44:53.662Z",
+      "checkedAt": "2026-08-20T15:41:25.765Z",
       "fetchedPosts": 6,
       "freshPosts": 6,
       "latestPostAt": "2026-08-20T12:01:11+00:00",

@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-20T04:45:32.782Z",
+  "updatedAt": "2026-08-20T05:38:33.208Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6500,
+      "oldPrice": 20015,
+      "savings": 13515,
+      "discount": 0.68,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-21",
+      "returnDate": null,
+      "date": "2026-08-20T05:32:43+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2108AYT1?marker=748397&currency=rub",
+      "text": "Москва — Анталья за 6500₽ в одну сторону. Ничего нового, просто дефляция, все дешевеет.\n→"
+    },
     {
       "type": "tour",
       "from": {
@@ -1950,111 +1985,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 6500,
-      "oldPrice": 23511,
-      "savings": 17011,
-      "discount": 0.72,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-20",
-      "returnDate": null,
-      "date": "2026-08-19T08:11:07+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AER2008SSH1?marker=748397&currency=rub",
-      "text": "Сочи — Шарм-эш-Шейх (Египет) от 6500Р в одну сторону, вылет завтра, прямой с багажом\n— 20.08 — 6500Р"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 9900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-20",
-      "returnDate": null,
-      "date": "2026-08-19T08:11:07+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SSH2008AER1?marker=748397&currency=rub",
-      "text": "Шарм-эш-Шейх (Египет) — Сочи от 9900Р в одну сторону, прямые с багажом\n— 20.08 — 9900Р\n— 03.09 — 21400Р\n— 06.09 — 23800Р"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "to": {
-        "name": "Пхукет",
-        "code": "HKT",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 14400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-08",
-      "returnDate": null,
-      "date": "2026-08-19T08:00:01+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/BKK0810HKT1?marker=748397&currency=rub",
-      "text": "Пхукет — Красноярск: из Таиланда в Россию. \nПрямой рейс с багажом за 14400 рублей 8 октября: \nПри покупке обойдись без мошенников:"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -3202,7 +3132,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-20T04:45:32.598Z",
+      "checkedAt": "2026-08-20T05:38:33.039Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-19T15:47:22+00:00",
@@ -3212,7 +3142,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-20T04:45:32.598Z",
+      "checkedAt": "2026-08-20T05:38:33.040Z",
       "fetchedPosts": 18,
       "freshPosts": 18,
       "latestPostAt": "2026-08-19T18:21:01+00:00",
@@ -3222,17 +3152,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-20T04:45:32.598Z",
+      "checkedAt": "2026-08-20T05:38:33.040Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-20T04:12:41+00:00",
+      "latestPostAt": "2026-08-20T05:32:43+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-20T04:45:32.598Z",
+      "checkedAt": "2026-08-20T05:38:33.040Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-08-19T12:05:42+00:00",
@@ -3242,7 +3172,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-20T04:45:32.598Z",
+      "checkedAt": "2026-08-20T05:38:33.040Z",
       "fetchedPosts": 19,
       "freshPosts": 7,
       "latestPostAt": "2026-08-19T19:51:57+00:00",
@@ -3252,7 +3182,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-20T04:45:32.598Z",
+      "checkedAt": "2026-08-20T05:38:33.040Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-19T15:10:46+00:00",
@@ -3262,7 +3192,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-20T04:45:32.598Z",
+      "checkedAt": "2026-08-20T05:38:33.040Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
       "latestPostAt": "2026-08-19T14:30:44+00:00",
@@ -3272,7 +3202,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-20T04:45:32.598Z",
+      "checkedAt": "2026-08-20T05:38:33.040Z",
       "fetchedPosts": 7,
       "freshPosts": 7,
       "latestPostAt": "2026-08-19T15:35:38+00:00",

@@ -42,6 +42,17 @@ const TELEGRAM_URL = 'https://t.me/MemoraSolutions';
 const CLIENT_KEY = 'memora-question-client';
 const isExternalHref = href => /^https?:\/\//i.test(href);
 
+function journeyArrowPath(fromX, fromY, toX, toY) {
+    const angle = Math.atan2(toY - fromY, toX - fromX);
+    const length = 22;
+    const spread = Math.PI / 5;
+    const leftX = toX - length * Math.cos(angle - spread);
+    const leftY = toY - length * Math.sin(angle - spread);
+    const rightX = toX - length * Math.cos(angle + spread);
+    const rightY = toY - length * Math.sin(angle + spread);
+    return `M${leftX} ${leftY} L${toX} ${toY} L${rightX} ${rightY}`;
+}
+
 const PROJECT_META = [
     { id: 'b2b', icon: ShoppingCart, assets: ['/portfolio/armk-b2b.png'], tone: 'blue' },
     { id: 'domatrix', icon: Building2, assets: ['/portfolio/domatrix-landing.png', '/portfolio/domatrix-app.png'], tone: 'green' },
@@ -298,6 +309,62 @@ export default function CreatorPage() {
     const c = COPY[lang];
     const [gallery, setGallery] = useState(null);
     const [documentViewer, setDocumentViewer] = useState(null);
+    const [journeyRoute, setJourneyRoute] = useState(null);
+    const pageRef = useRef(null);
+    const heroRef = useRef(null);
+    const projectsButtonRef = useRef(null);
+    const firstProjectRef = useRef(null);
+
+    useEffect(() => {
+        let frame = 0;
+        const updateRoute = () => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(() => {
+                const page = pageRef.current;
+                const hero = heroRef.current;
+                const button = projectsButtonRef.current;
+                const target = firstProjectRef.current;
+                if (!page || !hero || !button || !target) return;
+
+                const pageRect = page.getBoundingClientRect();
+                const heroRect = hero.getBoundingClientRect();
+                const buttonRect = button.getBoundingClientRect();
+                const targetRect = target.getBoundingClientRect();
+                const width = Math.round(pageRect.width);
+                const compact = width <= 1080;
+                const startX = Math.round(buttonRect.right - pageRect.left - (compact ? 28 : 12));
+                const startY = Math.round(buttonRect.bottom - pageRect.top - 2);
+                const endX = Math.round(targetRect.left - pageRect.left + Math.min(42, targetRect.width * .08));
+                const endY = Math.round(targetRect.top - pageRect.top + 34);
+                const heroLaneY = Math.max(startY + 120, Math.round(heroRect.bottom - pageRect.top - 26));
+                const rightX = Math.max(startX + 36, width - (compact ? 18 : 52));
+                const endControlX = Math.min(rightX - 70, endX + Math.max(96, width * .12));
+                const endControlY = endY - 58;
+                const path = compact
+                    ? `M${startX} ${startY} C${startX + 34} ${startY + 5} ${rightX - 12} ${startY + 24} ${rightX} ${startY + 82} C${rightX} ${heroLaneY - 50} ${rightX} ${heroLaneY - 16} ${rightX} ${heroLaneY + 44} C${rightX} ${endY - 142} ${rightX - 48} ${endY - 92} ${endControlX} ${endControlY} C${endX + 78} ${endY - 42} ${endX + 34} ${endY - 12} ${endX} ${endY}`
+                    : `M${startX} ${startY} C${startX + 12} ${startY + 44} ${startX + 22} ${heroLaneY - 72} ${startX + 92} ${heroLaneY - 28} C${width * .64} ${heroLaneY + 5} ${rightX - 58} ${heroLaneY - 10} ${rightX} ${heroLaneY + 48} C${rightX} ${endY - 142} ${rightX - 48} ${endY - 92} ${endControlX} ${endControlY} C${endX + 78} ${endY - 42} ${endX + 34} ${endY - 12} ${endX} ${endY}`;
+                setJourneyRoute({
+                    width,
+                    height: Math.ceil(endY + 56),
+                    path,
+                    arrow: journeyArrowPath(endControlX, endControlY, endX, endY),
+                });
+            });
+        };
+
+        const observer = new ResizeObserver(updateRoute);
+        [pageRef.current, heroRef.current, projectsButtonRef.current, firstProjectRef.current]
+            .filter(Boolean)
+            .forEach(element => observer.observe(element));
+        window.addEventListener('resize', updateRoute);
+        document.fonts?.ready.then(updateRoute);
+        updateRoute();
+        return () => {
+            cancelAnimationFrame(frame);
+            observer.disconnect();
+            window.removeEventListener('resize', updateRoute);
+        };
+    }, [lang]);
 
     useEffect(() => {
         if (!gallery && documentViewer === null) return undefined;
@@ -330,8 +397,8 @@ export default function CreatorPage() {
     };
 
     return (
-        <div className="portfolio-page">
-            <header className="portfolio-hero">
+        <div className="portfolio-page" ref={pageRef}>
+            <header className="portfolio-hero" ref={heroRef}>
                 <div className="portfolio-hero__aurora" aria-hidden="true" />
                 <div className="container portfolio-hero__inner">
                     <div className="portfolio-hero__copy">
@@ -342,7 +409,7 @@ export default function CreatorPage() {
                         </h1>
                         <motion.div className="portfolio-hero__meta" initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.325, delay: prefersReducedMotion ? 0 : 0.975 }}>
                             <p>{c.lead}</p>
-                            <div className="portfolio-hero__actions"><a className="portfolio-button is-primary" href="#contact"><MessageCircle size={20} /> {c.discuss}</a><a className="portfolio-button" href="#cases">{c.cases} <ArrowRight size={20} /></a></div>
+                            <div className="portfolio-hero__actions"><a className="portfolio-button is-primary" href="#contact"><MessageCircle size={20} /> {c.discuss}</a><a className="portfolio-button" href="#cases" ref={projectsButtonRef}>{c.cases} <ArrowRight size={20} /></a></div>
                         </motion.div>
                     </div>
                     <motion.div className="portfolio-showcase-stage" initial={prefersReducedMotion ? false : { opacity: 0, y: 52, scale: 0.92, filter: 'blur(9px)' }} animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }} transition={{ duration: prefersReducedMotion ? 0 : 0.575, delay: prefersReducedMotion ? 0 : 1.14, ease: [0.16, 1, 0.3, 1] }}>
@@ -359,8 +426,8 @@ export default function CreatorPage() {
 
             <section className="portfolio-proof"><div className="container portfolio-proof__grid">{c.proof.map(([value, label]) => <div key={value}><strong>{value}</strong><span>{label}</span></div>)}</div></section>
 
-            <div className="portfolio-journey-route" aria-hidden="true">
-                <svg className="portfolio-journey-route__desktop" viewBox="0 0 1440 610" preserveAspectRatio="none">
+            {journeyRoute && <div className="portfolio-journey-route" style={{ height: journeyRoute.height }} aria-hidden="true">
+                <svg viewBox={`0 0 ${journeyRoute.width} ${journeyRoute.height}`} preserveAspectRatio="none">
                     <defs>
                         <linearGradient id="portfolio-journey-gradient" x1="0" y1="0" x2="0" y2="610" gradientUnits="userSpaceOnUse">
                             <stop stopColor="#75dfeb" />
@@ -369,20 +436,15 @@ export default function CreatorPage() {
                             <stop offset="1" stopColor="#237985" />
                         </linearGradient>
                     </defs>
-                    <motion.path className="portfolio-journey-route__glow" d="M440 34 C515 -8 572 76 650 40 C718 8 780 16 826 62 C878 114 953 84 1030 88 C1170 94 1320 126 1362 220 C1400 306 1308 354 1172 358 C1038 362 938 400 806 388 C674 376 618 344 500 360 C380 376 316 344 210 364 C104 384 42 444 62 510 C72 548 104 566 136 574" initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.7, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
-                    <motion.path className="portfolio-journey-route__line" d="M440 34 C515 -8 572 76 650 40 C718 8 780 16 826 62 C878 114 953 84 1030 88 C1170 94 1320 126 1362 220 C1400 306 1308 354 1172 358 C1038 362 938 400 806 388 C674 376 618 344 500 360 C380 376 316 344 210 364 C104 384 42 444 62 510 C72 548 104 566 136 574" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.7, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
-                    <path className="portfolio-journey-route__signal" d="M440 34 C515 -8 572 76 650 40 C718 8 780 16 826 62 C878 114 953 84 1030 88 C1170 94 1320 126 1362 220 C1400 306 1308 354 1172 358 C1038 362 938 400 806 388 C674 376 618 344 500 360 C380 376 316 344 210 364 C104 384 42 444 62 510 C72 548 104 566 136 574" />
-                    <motion.path className="portfolio-journey-route__arrow" d="M118 554 L136 574 L108 577" initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .34, delay: prefersReducedMotion ? 0 : 4.08 }} />
+                    <motion.path className="portfolio-journey-route__glow" d={journeyRoute.path} initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.7, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
+                    <motion.path className="portfolio-journey-route__line" d={journeyRoute.path} initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.7, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
+                    <path className="portfolio-journey-route__signal" d={journeyRoute.path} />
+                    <motion.path className="portfolio-journey-route__arrow" d={journeyRoute.arrow} initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .34, delay: prefersReducedMotion ? 0 : 4.08 }} />
                 </svg>
-                <svg className="portfolio-journey-route__mobile" viewBox="0 0 84 280" preserveAspectRatio="none">
-                    <defs><linearGradient id="portfolio-journey-mobile-gradient" x1="0" y1="0" x2="0" y2="280" gradientUnits="userSpaceOnUse"><stop stopColor="#75dfeb" /><stop offset=".48" stopColor="#8f7cff" /><stop offset="1" stopColor="#237985" /></linearGradient></defs>
-                    <motion.path className="portfolio-journey-route__line" d="M42 6 C8 44 72 78 40 118 C10 158 70 190 40 228 C30 241 29 250 35 258" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.35, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
-                    <motion.path className="portfolio-journey-route__arrow" d="M24 242 L35 258 L51 242" initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .3, delay: prefersReducedMotion ? 0 : 3.7 }} />
-                </svg>
-            </div>
+            </div>}
 
             <main>
-                <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; const external = isExternalHref(project.href); return <motion.article id={`project-${meta.id}`} whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
+                <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; const external = isExternalHref(project.href); return <motion.article ref={index === 0 ? firstProjectRef : undefined} id={`project-${meta.id}`} whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот проекта ${project.name}` : `Open ${project.name} screenshot`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.jpg')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map((item, index) => <li key={item} style={{ '--manager-index': index }}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.managerAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
 

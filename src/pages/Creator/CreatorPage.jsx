@@ -334,8 +334,10 @@ export default function CreatorPage() {
                 const compact = width <= 1080;
                 const startX = Math.round(buttonRect.right - pageRect.left - (compact ? 28 : 12));
                 const startY = Math.round(buttonRect.bottom - pageRect.top - 2);
-                const endX = Math.round(targetRect.left - pageRect.left + Math.min(42, targetRect.width * .08));
-                const endY = Math.round(targetRect.top - pageRect.top + 34);
+                // Finish just outside the first card so the route points to the project
+                // without crossing its title, metadata or action at elevated browser zoom.
+                const endX = Math.round(targetRect.left - pageRect.left + Math.min(24, targetRect.width * .04));
+                const endY = Math.round(targetRect.top - pageRect.top - 10);
                 const heroLaneY = Math.max(startY + 120, Math.round(heroRect.bottom - pageRect.top - 26));
                 const rightX = Math.max(startX + 36, width - (compact ? 18 : 52));
                 const endControlX = Math.min(rightX - 70, endX + Math.max(96, width * .12));

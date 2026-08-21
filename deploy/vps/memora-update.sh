@@ -21,11 +21,9 @@ runuser -u memora -- npm --prefix "$app_dir" ci
 # Build beside the active release. Visitors keep receiving the complete current
 # bundle until the replacement is ready.
 rm -rf -- "$next_dist"
-# Keep HTML and API traffic on the VPS while immutable front-end assets are
-# delivered by the production CDN. This avoids slow cross-border transfers of
-# large bundles and uses the same asset URLs as the GitHub Pages build.
-runuser -u memora -- env \
-  VITE_ASSET_BASE=https://arar228.github.io/memora-solutions/ \
+# Cloudflare delivers the public site from its edge while the VPS remains the
+# single origin for HTML, API and versioned front-end assets.
+runuser -u memora -- env -u VITE_ASSET_BASE \
   npm --prefix "$app_dir" run build -- --outDir "$next_dist"
 
 rm -rf -- "$previous_dist"

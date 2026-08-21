@@ -137,8 +137,9 @@
 .portfolio-journey-route svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; }
 .portfolio-journey-route__glow { stroke: url(#portfolio-journey-gradient); stroke-width: 14; stroke-linecap: round; opacity: .16; filter: blur(7px); }
 .portfolio-journey-route__line { stroke: url(#portfolio-journey-gradient); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(117,223,235,.28)); }
-.portfolio-journey-route__signal { stroke: #b8f8ff; stroke-width: 5.5; stroke-linecap: round; stroke-dasharray: 20 6000; filter: drop-shadow(0 0 9px rgba(117,223,235,.9)); animation: portfolio-journey-signal 7.2s 4.62s linear infinite; }
-.portfolio-journey-route__arrow { stroke: #237985; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(35,121,133,.28)); }
+.portfolio-journey-route__cursor { opacity: 0; transition: opacity .18s ease; }
+.portfolio-journey-route__cursor-halo { fill: rgba(117,223,235,.14); stroke: rgba(117,223,235,.42); stroke-width: 1.5; filter: drop-shadow(0 0 9px rgba(117,223,235,.52)); }
+.portfolio-journey-route__cursor-arrow { fill: none; stroke: #75dfeb; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(117,223,235,.72)); }
 
 .portfolio-proof { border-bottom: 1px solid var(--portfolio-line); background: #0d0e13; }
 .portfolio-proof__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -550,11 +551,9 @@
 @media (prefers-reduced-motion: reduce) {
     .portfolio-hero__aurora,
     .portfolio-showcase__pulse i,
-    .portfolio-showcase__scan,
-    .portfolio-journey-route__signal { animation: none; }
+    .portfolio-showcase__scan { animation: none; }
     .portfolio-hero__title-primary::after { opacity: .84; transform: scaleX(1); animation: none; }
-    .portfolio-showcase__scan,
-    .portfolio-journey-route__signal { display: none; }
+    .portfolio-showcase__scan { display: none; }
     .portfolio-showcase-outline__glow { opacity: .18; }
     .portfolio-case-row,
     .portfolio-case-row__media button > img,

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import {
     ArrowRight,
@@ -42,15 +42,15 @@ const TELEGRAM_URL = 'https://t.me/MemoraSolutions';
 const CLIENT_KEY = 'memora-question-client';
 const isExternalHref = href => /^https?:\/\//i.test(href);
 
-function journeyArrowPath(fromX, fromY, toX, toY) {
-    const angle = Math.atan2(toY - fromY, toX - fromX);
-    const length = 22;
-    const spread = Math.PI / 5;
-    const leftX = toX - length * Math.cos(angle - spread);
-    const leftY = toY - length * Math.sin(angle - spread);
-    const rightX = toX - length * Math.cos(angle + spread);
-    const rightY = toY - length * Math.sin(angle + spread);
-    return `M${leftX} ${leftY} L${toX} ${toY} L${rightX} ${rightY}`;
+function positionJourneyCursor(pathNode, cursorNode, progress) {
+    if (!pathNode || !cursorNode) return;
+    const length = pathNode.getTotalLength();
+    const current = Math.max(0, Math.min(1, progress));
+    const point = pathNode.getPointAtLength(length * current);
+    const previous = pathNode.getPointAtLength(Math.max(0, length * current - 2));
+    const angle = Math.atan2(point.y - previous.y, point.x - previous.x) * 180 / Math.PI;
+    cursorNode.setAttribute('transform', `translate(${point.x} ${point.y}) rotate(${angle})`);
+    cursorNode.style.opacity = current > .018 ? '1' : '0';
 }
 
 const PROJECT_META = [
@@ -310,10 +310,21 @@ export default function CreatorPage() {
     const [gallery, setGallery] = useState(null);
     const [documentViewer, setDocumentViewer] = useState(null);
     const [journeyRoute, setJourneyRoute] = useState(null);
+    const [journeyScrollRange, setJourneyScrollRange] = useState([0, 1]);
     const pageRef = useRef(null);
     const heroRef = useRef(null);
     const showcaseRef = useRef(null);
     const firstProjectRef = useRef(null);
+    const journeyPathRef = useRef(null);
+    const journeyCursorRef = useRef(null);
+    const { scrollY } = useScroll();
+    const rawJourneyProgress = useTransform(scrollY, journeyScrollRange, [0, 1], { clamp: true });
+    const journeyProgress = useSpring(rawJourneyProgress, { stiffness: 360, damping: 46, mass: .12 });
+    const journeyOpacity = useTransform(journeyProgress, [0, .025], [0, 1]);
+
+    useMotionValueEvent(journeyProgress, 'change', latest => {
+        positionJourneyCursor(journeyPathRef.current, journeyCursorRef.current, prefersReducedMotion ? 1 : latest);
+    });
 
     useEffect(() => {
         let frame = 0;
@@ -349,8 +360,13 @@ export default function CreatorPage() {
                     width,
                     height: Math.ceil(endY + 56),
                     path,
-                    arrow: journeyArrowPath(endControlX, endControlY, endX, endY),
                 });
+                const viewportHeight = window.innerHeight;
+                const showcaseDocumentBottom = showcaseRect.bottom + window.scrollY;
+                const targetDocumentTop = targetRect.top + window.scrollY;
+                const startScroll = Math.max(0, Math.round(showcaseDocumentBottom - viewportHeight * .84));
+                const endScroll = Math.max(startScroll + 1, Math.round(targetDocumentTop - viewportHeight * .48));
+                setJourneyScrollRange([startScroll, endScroll]);
             });
         };
 
@@ -367,6 +383,18 @@ export default function CreatorPage() {
             window.removeEventListener('resize', updateRoute);
         };
     }, [lang]);
+
+    useEffect(() => {
+        if (!journeyRoute) return undefined;
+        const frame = requestAnimationFrame(() => {
+            positionJourneyCursor(
+                journeyPathRef.current,
+                journeyCursorRef.current,
+                prefersReducedMotion ? 1 : journeyProgress.get(),
+            );
+        });
+        return () => cancelAnimationFrame(frame);
+    }, [journeyRoute, journeyProgress, prefersReducedMotion]);
 
     useEffect(() => {
         if (!gallery && documentViewer === null) return undefined;
@@ -449,10 +477,12 @@ export default function CreatorPage() {
                             <stop offset="1" stopColor="#237985" />
                         </linearGradient>
                     </defs>
-                    <motion.path className="portfolio-journey-route__glow" d={journeyRoute.path} initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.85, delay: prefersReducedMotion ? 0 : 2.66, ease: [0.16, 1, 0.3, 1] }} />
-                    <motion.path className="portfolio-journey-route__line" d={journeyRoute.path} initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.85, delay: prefersReducedMotion ? 0 : 2.66, ease: [0.16, 1, 0.3, 1] }} />
-                    <path className="portfolio-journey-route__signal" d={journeyRoute.path} />
-                    <motion.path className="portfolio-journey-route__arrow" d={journeyRoute.arrow} initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .34, delay: prefersReducedMotion ? 0 : 4.45 }} />
+                    <motion.path className="portfolio-journey-route__glow" d={journeyRoute.path} style={{ pathLength: prefersReducedMotion ? 1 : journeyProgress, opacity: prefersReducedMotion ? 1 : journeyOpacity }} />
+                    <motion.path ref={journeyPathRef} className="portfolio-journey-route__line" d={journeyRoute.path} style={{ pathLength: prefersReducedMotion ? 1 : journeyProgress, opacity: prefersReducedMotion ? 1 : journeyOpacity }} />
+                    <g ref={journeyCursorRef} className="portfolio-journey-route__cursor">
+                        <circle className="portfolio-journey-route__cursor-halo" r="12" />
+                        <path className="portfolio-journey-route__cursor-arrow" d="M-15 -9 L0 0 L-15 9" />
+                    </g>
                 </svg>
             </div>}
 

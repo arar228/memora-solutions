@@ -9,6 +9,7 @@
 
     # Cloudflare caches versioned resources and keeps HTML/API traffic on the
     # same public origin, so browser security policies see one trusted host.
+    encode zstd gzip
     reverse_proxy 127.0.0.1:3020
 }
 

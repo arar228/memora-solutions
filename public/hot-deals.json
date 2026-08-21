@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-21T11:33:21.987Z",
+  "updatedAt": "2026-08-21T11:55:48.106Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 46600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 10,
+      "departDate": "2026-08-23",
+      "returnDate": "2026-09-02",
+      "date": "2026-08-21T11:46:56+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://level.tpx.lu/PtaGelR3",
+      "text": "⚡️Турция на 10 ночей с 23 августа от 46.600 руб/чел, виза не нужна"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Минск",
+        "code": "MSQ",
+        "country": {
+          "ru": "Беларусь",
+          "en": "Belarus"
+        },
+        "kind": "city"
+      },
+      "price": 1585,
+      "oldPrice": 7170,
+      "savings": 5585,
+      "discount": 0.78,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-21T11:43:16+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/MOW2009MSQ1?marker=748397&currency=rub",
+      "text": "Прямой рейс из Москвы в Минск в начале осени за 1585 рублей!"
+    },
     {
       "type": "tour",
       "from": {
@@ -4716,58 +4786,23 @@
       "source": "nachemodanahspb",
       "link": "https://level.tpx.lu/vof6KGkS",
       "text": "⚡️Тунис на 9-10 ночей от  51.500 руб/чел, виза не нужна, рейсы в турах прямые"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Индия",
-        "code": "DEL",
-        "country": {
-          "ru": "Индия",
-          "en": "India"
-        },
-        "kind": "country"
-      },
-      "price": 79840,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 14,
-      "departDate": "2026-08-26",
-      "returnDate": "2026-09-09",
-      "date": "2026-08-19T11:53:02+00:00",
-      "source": "toursspb",
-      "link": "https://level.tpx.lu/jqat0VdR?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "text": "Туры Санкт-Петербург - Индия от 79 840₽/чел. на 14 ночей (было от 104 925₽, цена упала на 24%)\n👉 Ссылка на туры:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.915Z",
       "fetchedPosts": 20,
-      "freshPosts": 10,
-      "latestPostAt": "2026-08-21T10:31:32+00:00",
+      "freshPosts": 11,
+      "latestPostAt": "2026-08-21T11:43:16+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-21T10:33:36+00:00",
@@ -4777,7 +4812,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-21T11:00:01+00:00",
@@ -4787,17 +4822,17 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 20,
-      "freshPosts": 6,
-      "latestPostAt": "2026-08-21T10:46:50+00:00",
+      "freshPosts": 7,
+      "latestPostAt": "2026-08-21T11:46:56+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 20,
       "freshPosts": 14,
       "latestPostAt": "2026-08-21T09:09:03+00:00",
@@ -4807,9 +4842,9 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 20,
-      "freshPosts": 14,
+      "freshPosts": 13,
       "latestPostAt": "2026-08-21T06:31:03+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4817,7 +4852,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 19,
       "freshPosts": 7,
       "latestPostAt": "2026-08-21T07:47:21+00:00",
@@ -4827,7 +4862,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-19T15:10:46+00:00",
@@ -4837,7 +4872,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 12,
       "freshPosts": 11,
       "latestPostAt": "2026-08-21T10:08:40+00:00",
@@ -4847,7 +4882,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-21T11:33:21.834Z",
+      "checkedAt": "2026-08-21T11:55:47.916Z",
       "fetchedPosts": 7,
       "freshPosts": 7,
       "latestPostAt": "2026-08-21T11:04:03+00:00",

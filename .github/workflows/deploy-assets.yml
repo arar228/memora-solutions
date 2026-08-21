@@ -33,7 +33,9 @@ jobs:
       - name: Build production assets
         run: npm run build
         env:
-          VITE_ASSET_BASE: https://arar228.github.io/memora-solutions/
+          # Match the VPS build byte-for-byte. Cloudflare serves these files
+          # through the public memorasolutions.ru origin.
+          VITE_ASSET_BASE: /
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

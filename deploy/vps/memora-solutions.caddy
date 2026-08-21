@@ -7,8 +7,16 @@
         format json
     }
 
-    # HTML, API and static assets share one origin so every client follows the
-    # same network route and the application remains self-contained on the VPS.
+    # Public files are mirrored by the production asset workflow. Redirecting
+    # them keeps large downloads fast while HTML and API requests stay here.
+    @github_pages_assets {
+        path /fonts/* /portfolio/* /images/* /app/*
+        path /logo.png /bdaybot-logo.png /wallet-logo.png /travel-logo.png
+        path /pomodoro-logo.png /sergey.jpg
+        path /tours.json /hot-deals.json /radar.json /flights.json
+    }
+    redir @github_pages_assets https://arar228.github.io/memora-solutions{uri} 302
+
     reverse_proxy 127.0.0.1:3020
 }
 

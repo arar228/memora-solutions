@@ -358,7 +358,7 @@ export default function CreatorPage() {
                     C${startX - 44} ${startY + 18} ${startX - 44} ${upperShelfY - 12} ${startX + 6} ${upperShelfY}
                     C${startX + 170} ${upperShelfY + 10} ${rightX - 42} ${upperShelfY - 12} ${rightX} ${upperShelfY + 122}
                     C${rightX + 18} ${upperShelfY + 220} ${rightX - 22} ${middleY - 34} ${rightX - 92} ${middleY}
-                    C${rightX - 350} ${middleY + 24} ${leftX + 220} ${middleY - 46} ${leftX + 72} ${middleY + 10}
+                    C${rightX - 180} ${middleY + 43} ${leftX + 220} ${middleY - 46} ${leftX + 72} ${middleY + 10}
                     C${leftX + 12} ${middleY + 48} ${leftX - 8} ${endY - 72} ${leftX + 20} ${endY - 30}
                     C${leftX + 32} ${endY - 8} ${endX - 24} ${endY - 12} ${endX} ${endY}`;
                 setJourneyRoute({

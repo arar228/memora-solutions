@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <style>
+    .global-loader__failure {
+      box-sizing: border-box;
+      width: min(560px, calc(100vw - 40px));
+      padding: 28px;
+      border: 1px solid rgba(49, 199, 217, 0.35);
+      border-radius: 20px;
+      background: #1f2025;
+      color: #f3f3f1;
+      font: 18px/1.45 Arial, sans-serif;
+      text-align: left;
+    }
+
+    .global-loader__failure strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .global-loader__retry {
+      display: inline-flex;
+      margin-top: 20px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: #31c7d9;
+      color: #101115;
+      font: 700 18px/1 Arial, sans-serif;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    (function () {
+      var finished = false;
+      var lastFailure = '';
+      var sent = {};
+
+      function text(value, limit) {
+        return String(value == null ? '' : value).slice(0, limit || 1000);
+      }
+
+      function report(type, detail, source) {
+        var key = text(type, 40) + ':' + text(detail, 240);
+        if (sent[key]) return;
+        sent[key] = true;
+        lastFailure = text(detail, 1000) || lastFailure;
+
+        try {
+          fetch('/api/client-boot', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: text(type, 40),
+              detail: text(detail, 1000),
+              source: text(source, 500),
+              href: text(location.href, 1000),
+              userAgent: text(navigator.userAgent, 1000),
+              online: navigator.onLine
+            }),
+            keepalive: true
+          }).catch(function () {});
+        } catch (_) {}
+      }
+
+      window.addEventListener('error', function (event) {
+        var target = event.target;
+        var source = event.filename || (target && (target.src || target.href)) || '';
+        var detail = event.message || (source ? 'resource_load_failed' : 'unknown_error');
+        report('error', detail, source);
+      }, true);
+
+      window.addEventListener('unhandledrejection', function (event) {
+        var reason = event.reason;
+        report('unhandledrejection', reason && (reason.stack || reason.message) || reason || 'unknown_rejection', '');
+      });
+
+      window.__memoraBootDone = function () {
+        finished = true;
+        clearTimeout(window.__memoraBootTimer);
+      };
+
+      window.__memoraBootTimer = setTimeout(function () {
+        if (finished) return;
+        report('timeout', lastFailure || 'application_module_not_started', '');
+
+        var loader = document.getElementById('global-loader');
+        if (!loader) return;
+        loader.innerHTML = '';
+
+        var panel = document.createElement('div');
+        panel.className = 'global-loader__failure';
+        var title = document.createElement('strong');
+        title.textContent = 'Загрузка приложения остановилась';
+        var message = document.createElement('div');
+        message.textContent = 'Диагностика отправлена на сервер. Повторите загрузку страницы.';
+        var button = document.createElement('button');
+        button.className = 'global-loader__retry';
+        button.type = 'button';
+        button.textContent = 'Повторить загрузку';
+        button.onclick = function () { location.reload(); };
+        panel.appendChild(title);
+        panel.appendChild(message);
+        panel.appendChild(button);
+        loader.appendChild(panel);
+      }, 12000);
+    })();
+  </script>
+
+  <link rel="icon" type="image/png" href="https://arar228.github.io/memora-solutions/logo.png?v=2" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Мемора Солюшнс — цифровые инструменты для улучшения качества жизни. Радар путешествий, планирование, помощь в отношениях." />
+  <meta name="theme-color" content="#1A1A1E" />
+  <title>Мемора Солюшнс | Memora Solutions</title>
+  <link rel="canonical" href="https://memorasolutions.ru/" />
+
+  <!-- Open Graph (link previews in Telegram, WhatsApp, Slack, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Memora Solutions" />
+  <meta property="og:title" content="Мемора Солюшнс | Memora Solutions" />
+  <meta property="og:description"
+    content="Цифровые инструменты для улучшения качества жизни. Радар путешествий, планирование, помощь в отношениях." />
+  <meta property="og:url" content="https://memorasolutions.ru/" />
+  <meta property="og:image" content="https://memorasolutions.ru/logo.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Мемора Солюшнс | Memora Solutions" />
+  <meta name="twitter:description"
+    content="Цифровые инструменты для улучшения качества жизни." />
+  <meta name="twitter:image" content="https://memorasolutions.ru/logo.png" />
+  <script type="module" crossorigin src="https://arar228.github.io/memora-solutions/static/index-MmKa-6Xt.js"></script>
+  <link rel="modulepreload" crossorigin href="https://arar228.github.io/memora-solutions/static/react-DkwruYEr.js">
+  <link rel="modulepreload" crossorigin href="https://arar228.github.io/memora-solutions/static/motion-DqT-Uu_9.js">
+  <link rel="modulepreload" crossorigin href="https://arar228.github.io/memora-solutions/static/i18n-DGtPrHB5.js">
+  <link rel="modulepreload" crossorigin href="https://arar228.github.io/memora-solutions/static/ui-BiKxRorX.js">
+  <link rel="stylesheet" crossorigin href="https://arar228.github.io/memora-solutions/static/index-n95qdZ0u.css">
+</head>
+
+<body>
+  <!-- Site Loading Animation -->
+  <div id="global-loader" class="global-loader">
+    <div class="loader-circle"></div>
+    <img src="https://arar228.github.io/memora-solutions/logo.png?v=2" alt="Loading" class="loader-logo" />
+  </div>
+  <div id="root"></div>
+</body>
+
+</html>

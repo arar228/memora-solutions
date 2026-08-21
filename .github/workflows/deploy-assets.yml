@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -33,9 +33,19 @@ jobs:
       - name: Build production assets
         run: npm run build
         env:
-          # Match the VPS build byte-for-byte. Cloudflare serves these files
-          # through the public memorasolutions.ru origin.
-          VITE_ASSET_BASE: /
+          VITE_ASSET_BASE: https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/
+
+      - name: Publish immutable assets to CDN branch
+        working-directory: dist
+        run: |
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git commit -m "assets: ${GITHUB_SHA}"
+          git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:cdn
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

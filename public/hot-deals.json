@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-21T17:36:38.884Z",
+  "updatedAt": "2026-08-21T18:00:08.170Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Занзибар",
+        "code": "ZNZ",
+        "country": {
+          "ru": "Танзания",
+          "en": "Tanzania"
+        },
+        "kind": "city"
+      },
+      "price": 60900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-09-07",
+      "date": "2026-08-21T17:57:20+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2508ZNZ1?marker=748397&currency=rub",
+      "text": "Москва — Занзибар (Танзания) от 60900Р туда и обратно, прямые с багажом  — 25.08-07.09 —"
+    },
     {
       "type": "flight",
       "from": {
@@ -36,41 +71,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/CEK2208AYT1?marker=748397&currency=rub",
       "text": "Из Челябинска — тоже в Анталью (Турция) от 5300Р в одну сторону, прямые с багажом\n— 22.08 — 5300Р\n— 23.08 — 6100Р\n— 25.08 — 8600Р"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Занзибар",
-        "code": "ZNZ",
-        "country": {
-          "ru": "Танзания",
-          "en": "Tanzania"
-        },
-        "kind": "city"
-      },
-      "price": 60900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-25",
-      "returnDate": "2026-09-07",
-      "date": "2026-08-21T17:22:25+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2508ZNZ1?marker=748397&currency=rub",
-      "text": "Москва — Занзибар (Танзания) от 60900Р туда и обратно, прямые с багажом\n— 25.08-07.09 —"
     },
     {
       "type": "flight",
@@ -1856,41 +1856,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/LED2212PAR1?marker=748397&currency=rub",
       "text": "В Париж от 44600₽ в обе стороны\n— 22.12 - 02.01 - 44600₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 11000,
-      "oldPrice": 14044,
-      "savings": 3044,
-      "discount": 0.22,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-25",
-      "returnDate": "2026-08-30",
-      "date": "2026-08-21T09:30:08+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/AER2508AYT1?marker=748397&currency=rub",
-      "text": "⚡️ Сочи — Анталья (Турция) сгонять перед школой за 11000Р туда и обратно, прямые с багажом\n— 25-30.08 —"
     },
     {
       "type": "flight",
@@ -4497,7 +4462,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.697Z",
+      "checkedAt": "2026-08-21T18:00:07.987Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
       "latestPostAt": "2026-08-21T16:21:41+00:00",
@@ -4507,9 +4472,9 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.697Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 20,
-      "freshPosts": 20,
+      "freshPosts": 19,
       "latestPostAt": "2026-08-21T14:25:11+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4517,17 +4482,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.697Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-21T17:35:58+00:00",
+      "latestPostAt": "2026-08-21T17:57:20+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.698Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -4537,7 +4502,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.698Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-21T13:49:04+00:00",
@@ -4547,7 +4512,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.698Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 20,
       "freshPosts": 14,
       "latestPostAt": "2026-08-21T16:15:10+00:00",
@@ -4557,7 +4522,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.698Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 19,
       "freshPosts": 6,
       "latestPostAt": "2026-08-21T07:47:21+00:00",
@@ -4567,7 +4532,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.698Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -4577,7 +4542,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.698Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
       "latestPostAt": "2026-08-21T13:00:21+00:00",
@@ -4587,7 +4552,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-21T17:36:38.698Z",
+      "checkedAt": "2026-08-21T18:00:07.988Z",
       "fetchedPosts": 7,
       "freshPosts": 6,
       "latestPostAt": "2026-08-21T11:04:03+00:00",

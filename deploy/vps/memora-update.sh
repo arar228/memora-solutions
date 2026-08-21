@@ -21,10 +21,9 @@ runuser -u memora -- npm --prefix "$app_dir" ci
 # Build beside the active release. Visitors keep receiving the complete current
 # bundle until the replacement is ready.
 rm -rf -- "$next_dist"
-# HTML and API stay on the VPS. Versioned front-end assets are loaded from the
-# dedicated CDN branch, avoiding the lossy network path used by the origin.
-runuser -u memora -- env \
-  VITE_ASSET_BASE=https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/ \
+# Keep the application shell and its versioned assets on one origin. This avoids
+# a third-party CDN becoming a mandatory part of the initial application boot.
+runuser -u memora -- env VITE_ASSET_BASE=/ \
   npm --prefix "$app_dir" run build -- --outDir "$next_dist"
 
 rm -rf -- "$previous_dist"

@@ -337,14 +337,14 @@ export default function CreatorPage() {
                 // Finish just outside the first card so the route points to the project
                 // without crossing its title, metadata or action at elevated browser zoom.
                 const endX = Math.round(targetRect.left - pageRect.left + Math.min(24, targetRect.width * .04));
-                const endY = Math.round(targetRect.top - pageRect.top - 42);
+                const endY = Math.round(targetRect.top - pageRect.top - 8);
                 const heroLaneY = Math.max(startY + 90, Math.round(heroRect.bottom - pageRect.top - 22));
                 const rightX = Math.max(startX + 38, width - (compact ? 18 : 46));
                 const endControlX = Math.min(rightX - 70, endX + Math.max(96, width * .12));
-                const endControlY = endY - 58;
+                const endControlY = endY - 16;
                 const path = compact
-                    ? `M${startX} ${startY} C${startX + 30} ${startY + 18} ${rightX - 10} ${startY + 28} ${rightX} ${startY + 76} C${rightX} ${heroLaneY - 34} ${rightX} ${heroLaneY + 2} ${rightX} ${heroLaneY + 48} C${rightX} ${endY - 142} ${rightX - 48} ${endY - 92} ${endControlX} ${endControlY} C${endX + 78} ${endY - 42} ${endX + 34} ${endY - 12} ${endX} ${endY}`
-                    : `M${startX} ${startY} C${startX + 18} ${startY + 38} ${rightX - 44} ${startY + 18} ${rightX} ${heroLaneY + 42} C${rightX} ${endY - 142} ${rightX - 48} ${endY - 92} ${endControlX} ${endControlY} C${endX + 78} ${endY - 42} ${endX + 34} ${endY - 12} ${endX} ${endY}`;
+                    ? `M${startX} ${startY} C${startX + 30} ${startY + 18} ${rightX - 10} ${startY + 28} ${rightX} ${startY + 76} C${rightX} ${heroLaneY - 34} ${rightX} ${heroLaneY + 2} ${rightX} ${heroLaneY + 48} C${rightX} ${endY - 110} ${rightX - 48} ${endY - 52} ${endControlX} ${endControlY} C${endX + 78} ${endY - 10} ${endX + 34} ${endY - 4} ${endX} ${endY}`
+                    : `M${startX} ${startY} C${startX + 18} ${startY + 38} ${rightX - 44} ${startY + 18} ${rightX} ${heroLaneY + 42} C${rightX} ${endY - 110} ${rightX - 48} ${endY - 52} ${endControlX} ${endControlY} C${endX + 78} ${endY - 10} ${endX + 34} ${endY - 4} ${endX} ${endY}`;
                 setJourneyRoute({
                     width,
                     height: Math.ceil(endY + 56),

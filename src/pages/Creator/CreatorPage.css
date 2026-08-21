@@ -138,7 +138,6 @@
 .portfolio-journey-route__glow { stroke: url(#portfolio-journey-gradient); stroke-width: 14; stroke-linecap: round; opacity: .16; filter: blur(7px); }
 .portfolio-journey-route__line { stroke: url(#portfolio-journey-gradient); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(117,223,235,.28)); }
 .portfolio-journey-route__cursor { opacity: 0; transition: opacity .18s ease; }
-.portfolio-journey-route__cursor-halo { fill: rgba(117,223,235,.14); stroke: rgba(117,223,235,.42); stroke-width: 1.5; filter: drop-shadow(0 0 9px rgba(117,223,235,.52)); }
 .portfolio-journey-route__cursor-arrow { fill: none; stroke: #75dfeb; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(117,223,235,.72)); }
 
 .portfolio-proof { border-bottom: 1px solid var(--portfolio-line); background: #0d0e13; }

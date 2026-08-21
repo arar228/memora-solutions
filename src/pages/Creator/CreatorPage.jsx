@@ -345,17 +345,21 @@ export default function CreatorPage() {
                 const compact = width <= 1080;
                 const startX = Math.round(showcaseRect.left - pageRect.left + showcaseRect.width * .56);
                 const startY = Math.round(showcaseRect.bottom - pageRect.top - 3);
-                // Finish just outside the first card so the route points to the project
-                // without crossing its title, metadata or action at elevated browser zoom.
-                const endX = Math.round(targetRect.left - pageRect.left + Math.min(24, targetRect.width * .04));
-                const endY = Math.round(targetRect.top - pageRect.top - 8);
+                // Wrap around the card's top-left corner and finish inside its opening
+                // lane. The final rightward tangent makes the destination unambiguous.
+                const targetLeft = Math.round(targetRect.left - pageRect.left);
+                const targetTop = Math.round(targetRect.top - pageRect.top);
+                const entryX = Math.max(4, targetLeft - (compact ? 8 : 18));
+                const entryY = targetTop + (compact ? 18 : 24);
+                const endX = Math.round(targetLeft + Math.min(compact ? 82 : 116, targetRect.width * .11));
+                const endY = targetTop + (compact ? 32 : 40);
                 const heroLaneY = Math.max(startY + 90, Math.round(heroRect.bottom - pageRect.top - 22));
                 const rightX = Math.max(startX + 38, width - (compact ? 18 : 46));
-                const endControlX = Math.min(rightX - 70, endX + Math.max(96, width * .12));
-                const endControlY = endY - 16;
+                const endControlX = Math.min(rightX - 70, entryX + Math.max(96, width * .12));
+                const endControlY = entryY - 20;
                 const path = compact
-                    ? `M${startX} ${startY} C${startX + 30} ${startY + 18} ${rightX - 10} ${startY + 28} ${rightX} ${startY + 76} C${rightX} ${heroLaneY - 34} ${rightX} ${heroLaneY + 2} ${rightX} ${heroLaneY + 48} C${rightX} ${endY - 110} ${rightX - 48} ${endY - 52} ${endControlX} ${endControlY} C${endX + 78} ${endY - 10} ${endX + 34} ${endY - 4} ${endX} ${endY}`
-                    : `M${startX} ${startY} C${startX + 18} ${startY + 38} ${rightX - 44} ${startY + 18} ${rightX} ${heroLaneY + 42} C${rightX} ${endY - 110} ${rightX - 48} ${endY - 52} ${endControlX} ${endControlY} C${endX + 78} ${endY - 10} ${endX + 34} ${endY - 4} ${endX} ${endY}`;
+                    ? `M${startX} ${startY} C${startX + 30} ${startY + 18} ${rightX - 10} ${startY + 28} ${rightX} ${startY + 76} C${rightX} ${heroLaneY - 34} ${rightX} ${heroLaneY + 2} ${rightX} ${heroLaneY + 48} C${rightX} ${entryY - 110} ${rightX - 48} ${entryY - 52} ${endControlX} ${endControlY} C${entryX + 78} ${entryY - 10} ${entryX + 34} ${entryY - 4} ${entryX} ${entryY} C${entryX - 2} ${entryY + 18} ${targetLeft + 26} ${endY} ${endX} ${endY}`
+                    : `M${startX} ${startY} C${startX + 18} ${startY + 38} ${rightX - 44} ${startY + 18} ${rightX} ${heroLaneY + 42} C${rightX} ${entryY - 110} ${rightX - 48} ${entryY - 52} ${endControlX} ${endControlY} C${entryX + 78} ${entryY - 10} ${entryX + 34} ${entryY - 4} ${entryX} ${entryY} C${entryX - 4} ${entryY + 22} ${targetLeft + 36} ${endY} ${endX} ${endY}`;
                 setJourneyRoute({
                     width,
                     height: Math.ceil(endY + 56),
@@ -480,7 +484,6 @@ export default function CreatorPage() {
                     <motion.path className="portfolio-journey-route__glow" d={journeyRoute.path} style={{ pathLength: prefersReducedMotion ? 1 : journeyProgress, opacity: prefersReducedMotion ? 1 : journeyOpacity }} />
                     <motion.path ref={journeyPathRef} className="portfolio-journey-route__line" d={journeyRoute.path} style={{ pathLength: prefersReducedMotion ? 1 : journeyProgress, opacity: prefersReducedMotion ? 1 : journeyOpacity }} />
                     <g ref={journeyCursorRef} className="portfolio-journey-route__cursor">
-                        <circle className="portfolio-journey-route__cursor-halo" r="12" />
                         <path className="portfolio-journey-route__cursor-arrow" d="M-15 -9 L0 0 L-15 9" />
                     </g>
                 </svg>

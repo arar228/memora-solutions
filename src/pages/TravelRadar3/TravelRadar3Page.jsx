@@ -71,6 +71,7 @@ const COPY = {
         connection: 'стыковка',
         nights: 'ночей',
         open: 'Открыть предложение',
+        tableOpen: 'Открыть',
         source: 'Источник',
         noDeals: 'Измените фильтры, чтобы увидеть подходящие предложения.',
         found: 'предложений',
@@ -157,6 +158,7 @@ const COPY = {
         connection: 'connection',
         nights: 'nights',
         open: 'Open deal',
+        tableOpen: 'Open',
         source: 'Source',
         noDeals: 'Adjust the filters to see matching deals.',
         found: 'deals',
@@ -787,6 +789,7 @@ function DealTable({ deals, lang, copy, sort, onSort }) {
                                         rel="noopener noreferrer sponsored"
                                         aria-label={`${copy.open}: ${routeLabel}`}
                                     >
+                                        <span>{copy.tableOpen}</span>
                                         <ExternalLink size={14} aria-hidden="true" />
                                     </a>
                                 </td>

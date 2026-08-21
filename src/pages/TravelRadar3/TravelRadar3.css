@@ -444,7 +444,7 @@
 .travel-feed__table th:nth-child(8) { width: 92px; }
 .travel-feed__table th:nth-child(9) { width: 150px; }
 .travel-feed__table th:nth-child(10) { width: 98px; }
-.travel-feed__table th:nth-child(11) { width: 50px; }
+.travel-feed__table th:nth-child(11) { width: 92px; }
 
 .travel-feed__column-sort {
     display: inline-flex;
@@ -625,9 +625,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
+    width: 82px;
     min-height: 32px;
-    padding: 0;
+    gap: 0.3rem;
+    padding: 0.35rem 0.48rem;
     border: 1px solid rgba(243, 183, 88, 0.22);
     border-radius: 8px;
     color: #f3b758;

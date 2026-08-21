@@ -23,7 +23,15 @@ import enCreator from '../locales/en/creator.json';
 import enInternal from '../locales/en/internal.json';
 import enPomodoro from '../locales/en/pomodoro.json';
 
-const savedLang = localStorage.getItem('memora-lang') || 'ru';
+function readSavedLanguage() {
+  try {
+    return localStorage.getItem('memora-lang') || 'ru';
+  } catch {
+    return 'ru';
+  }
+}
+
+const savedLang = readSavedLanguage();
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -60,7 +68,11 @@ i18n.use(initReactI18next).init({
 });
 
 i18n.on('languageChanged', (lng) => {
-  localStorage.setItem('memora-lang', lng);
+  try {
+    localStorage.setItem('memora-lang', lng);
+  } catch {
+    // Private browsing and strict privacy settings may disable web storage.
+  }
   document.documentElement.lang = lng;
 });
 

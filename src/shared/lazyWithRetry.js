@@ -20,12 +20,24 @@ const isChunkLoadError = (err) => {
 
 const RELOAD_FLAG = 'memora-chunk-reload';
 
+const storage = {
+    get() {
+        try { return sessionStorage.getItem(RELOAD_FLAG); } catch { return null; }
+    },
+    set() {
+        try { sessionStorage.setItem(RELOAD_FLAG, '1'); } catch { /* storage unavailable */ }
+    },
+    clear() {
+        try { sessionStorage.removeItem(RELOAD_FLAG); } catch { /* storage unavailable */ }
+    },
+};
+
 export default function lazyWithRetry(importFn) {
     return lazy(async () => {
         try {
             const mod = await importFn();
             // Successful load — clear any sticky flag from a previous reload.
-            sessionStorage.removeItem(RELOAD_FLAG);
+            storage.clear();
             return mod;
         } catch (err) {
             if (!isChunkLoadError(err)) throw err;
@@ -34,14 +46,14 @@ export default function lazyWithRetry(importFn) {
             try {
                 await new Promise((r) => setTimeout(r, 1200));
                 const mod = await importFn();
-                sessionStorage.removeItem(RELOAD_FLAG);
+                storage.clear();
                 return mod;
             } catch (retryErr) {
                 if (!isChunkLoadError(retryErr)) throw retryErr;
 
                 // Avoid an infinite reload loop if the new build is also broken.
-                if (sessionStorage.getItem(RELOAD_FLAG)) throw retryErr;
-                sessionStorage.setItem(RELOAD_FLAG, '1');
+                if (storage.get()) throw retryErr;
+                storage.set();
                 window.location.reload();
                 // The promise never resolves; reload will replace the page.
                 return new Promise(() => { });

@@ -85,6 +85,7 @@ function GlobalLoaderHider() {
   // index.html is no longer needed — Suspense's LoadingFallback covers
   // any further lazy-chunk waits.
   useEffect(() => {
+    window.__memoraBootDone?.();
     const loader = document.getElementById('global-loader');
     if (!loader) return;
     loader.classList.add('hide');

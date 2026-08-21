@@ -725,6 +725,22 @@ async function handlePublicKanbanApi(req, res, pathname, url) {
   }
 }
 
+const bootReportRate = new Map();
+
+function allowBootReport(req) {
+  const now = Date.now();
+  const ip = requestIp(req);
+  const recent = (bootReportRate.get(ip) || []).filter(timestamp => now - timestamp < 60_000);
+  if (recent.length >= 10) return false;
+  recent.push(now);
+  bootReportRate.set(ip, recent);
+  return true;
+}
+
+function bootReportField(value, limit) {
+  return String(value == null ? '' : value).replace(/[\r\n\t]+/g, ' ').slice(0, limit);
+}
+
 const server = createServer(async (req, res) => {
   try {
     const host = req.headers.host || '';
@@ -742,6 +758,31 @@ const server = createServer(async (req, res) => {
         status: healthy ? 'ok' : 'shutting_down',
         uptime: Math.floor(process.uptime()),
       }));
+    }
+
+    if (pathname === '/api/client-boot' && req.method === 'POST') {
+      if (!allowBootReport(req)) {
+        res.writeHead(204, { 'Cache-Control': 'no-store' });
+        return res.end();
+      }
+
+      try {
+        const body = await readJson(req, 8 * 1024);
+        console.error('[client-boot]', JSON.stringify({
+          at: new Date().toISOString(),
+          ip: requestIp(req),
+          type: bootReportField(body.type, 40),
+          detail: bootReportField(body.detail, 1000),
+          source: bootReportField(body.source, 500),
+          href: bootReportField(body.href, 1000),
+          userAgent: bootReportField(body.userAgent, 1000),
+          online: Boolean(body.online),
+        }));
+      } catch (error) {
+        console.error('[client-boot] malformed report:', error.message);
+      }
+      res.writeHead(204, { 'Cache-Control': 'no-store' });
+      return res.end();
     }
 
     if (pathname === '/api/pomodoro/tokens' && req.method === 'GET') {

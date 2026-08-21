@@ -312,7 +312,7 @@ export default function CreatorPage() {
     const [journeyRoute, setJourneyRoute] = useState(null);
     const pageRef = useRef(null);
     const heroRef = useRef(null);
-    const projectsButtonRef = useRef(null);
+    const showcaseRef = useRef(null);
     const firstProjectRef = useRef(null);
 
     useEffect(() => {
@@ -322,29 +322,29 @@ export default function CreatorPage() {
             frame = requestAnimationFrame(() => {
                 const page = pageRef.current;
                 const hero = heroRef.current;
-                const button = projectsButtonRef.current;
+                const showcase = showcaseRef.current;
                 const target = firstProjectRef.current;
-                if (!page || !hero || !button || !target) return;
+                if (!page || !hero || !showcase || !target) return;
 
                 const pageRect = page.getBoundingClientRect();
                 const heroRect = hero.getBoundingClientRect();
-                const buttonRect = button.getBoundingClientRect();
+                const showcaseRect = showcase.getBoundingClientRect();
                 const targetRect = target.getBoundingClientRect();
                 const width = Math.round(pageRect.width);
                 const compact = width <= 1080;
-                const startX = Math.round(buttonRect.right - pageRect.left - (compact ? 28 : 12));
-                const startY = Math.round(buttonRect.bottom - pageRect.top - 2);
+                const startX = Math.round(showcaseRect.left - pageRect.left + showcaseRect.width * .56);
+                const startY = Math.round(showcaseRect.bottom - pageRect.top - 3);
                 // Finish just outside the first card so the route points to the project
                 // without crossing its title, metadata or action at elevated browser zoom.
                 const endX = Math.round(targetRect.left - pageRect.left + Math.min(24, targetRect.width * .04));
                 const endY = Math.round(targetRect.top - pageRect.top - 42);
-                const heroLaneY = Math.max(startY + 120, Math.round(heroRect.bottom - pageRect.top - 26));
-                const rightX = Math.max(startX + 36, width - (compact ? 18 : 52));
+                const heroLaneY = Math.max(startY + 90, Math.round(heroRect.bottom - pageRect.top - 22));
+                const rightX = Math.max(startX + 38, width - (compact ? 18 : 46));
                 const endControlX = Math.min(rightX - 70, endX + Math.max(96, width * .12));
                 const endControlY = endY - 58;
                 const path = compact
-                    ? `M${startX} ${startY} C${startX + 34} ${startY + 5} ${rightX - 12} ${startY + 24} ${rightX} ${startY + 82} C${rightX} ${heroLaneY - 50} ${rightX} ${heroLaneY - 16} ${rightX} ${heroLaneY + 44} C${rightX} ${endY - 142} ${rightX - 48} ${endY - 92} ${endControlX} ${endControlY} C${endX + 78} ${endY - 42} ${endX + 34} ${endY - 12} ${endX} ${endY}`
-                    : `M${startX} ${startY} C${startX + 12} ${startY + 44} ${startX + 22} ${heroLaneY - 72} ${startX + 92} ${heroLaneY - 28} C${width * .64} ${heroLaneY + 5} ${rightX - 58} ${heroLaneY - 10} ${rightX} ${heroLaneY + 48} C${rightX} ${endY - 142} ${rightX - 48} ${endY - 92} ${endControlX} ${endControlY} C${endX + 78} ${endY - 42} ${endX + 34} ${endY - 12} ${endX} ${endY}`;
+                    ? `M${startX} ${startY} C${startX + 30} ${startY + 18} ${rightX - 10} ${startY + 28} ${rightX} ${startY + 76} C${rightX} ${heroLaneY - 34} ${rightX} ${heroLaneY + 2} ${rightX} ${heroLaneY + 48} C${rightX} ${endY - 142} ${rightX - 48} ${endY - 92} ${endControlX} ${endControlY} C${endX + 78} ${endY - 42} ${endX + 34} ${endY - 12} ${endX} ${endY}`
+                    : `M${startX} ${startY} C${startX + 18} ${startY + 38} ${rightX - 44} ${startY + 18} ${rightX} ${heroLaneY + 42} C${rightX} ${endY - 142} ${rightX - 48} ${endY - 92} ${endControlX} ${endControlY} C${endX + 78} ${endY - 42} ${endX + 34} ${endY - 12} ${endX} ${endY}`;
                 setJourneyRoute({
                     width,
                     height: Math.ceil(endY + 56),
@@ -355,7 +355,7 @@ export default function CreatorPage() {
         };
 
         const observer = new ResizeObserver(updateRoute);
-        [pageRef.current, heroRef.current, projectsButtonRef.current, firstProjectRef.current]
+        [pageRef.current, heroRef.current, showcaseRef.current, firstProjectRef.current]
             .filter(Boolean)
             .forEach(element => observer.observe(element));
         window.addEventListener('resize', updateRoute);
@@ -411,16 +411,27 @@ export default function CreatorPage() {
                         </h1>
                         <motion.div className="portfolio-hero__meta" initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.325, delay: prefersReducedMotion ? 0 : 0.975 }}>
                             <p>{c.lead}</p>
-                            <div className="portfolio-hero__actions"><a className="portfolio-button is-primary" href="#contact"><MessageCircle size={20} /> {c.discuss}</a><a className="portfolio-button" href="#cases" ref={projectsButtonRef}>{c.cases} <ArrowRight size={20} /></a></div>
+                            <div className="portfolio-hero__actions"><a className="portfolio-button is-primary" href="#contact"><MessageCircle size={20} /> {c.discuss}</a><a className="portfolio-button" href="#cases">{c.cases} <ArrowRight size={20} /></a></div>
                         </motion.div>
                     </div>
-                    <motion.div className="portfolio-showcase-stage" initial={prefersReducedMotion ? false : { opacity: 0, y: 52, scale: 0.92, filter: 'blur(9px)' }} animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }} transition={{ duration: prefersReducedMotion ? 0 : 0.575, delay: prefersReducedMotion ? 0 : 1.14, ease: [0.16, 1, 0.3, 1] }}>
-                        <motion.div className="portfolio-showcase-tilt" initial={prefersReducedMotion ? false : { rotateZ: 0 }} animate={{ rotateZ: -2 }} transition={{ duration: prefersReducedMotion ? 0 : 0.42, delay: prefersReducedMotion ? 0 : 2.05, ease: [0.16, 1, 0.3, 1] }}>
+                    <motion.div ref={showcaseRef} className="portfolio-showcase-stage" initial={prefersReducedMotion ? false : { opacity: 0, y: 52, scale: 0.92, filter: 'blur(9px)' }} animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }} transition={{ duration: prefersReducedMotion ? 0 : 0.575, delay: prefersReducedMotion ? 0 : 1.14, ease: [0.16, 1, 0.3, 1] }}>
+                        <motion.div className="portfolio-showcase-tilt" initial={prefersReducedMotion ? false : { rotateZ: 0 }} animate={{ rotateZ: -2 }} transition={{ duration: prefersReducedMotion ? 0 : 0.42, delay: prefersReducedMotion ? 0 : 2.64, ease: [0.16, 1, 0.3, 1] }}>
                             <div className="portfolio-showcase">
                                 <div className="portfolio-showcase__scan" aria-hidden="true" />
                                 <div className="portfolio-showcase__pulse"><i /><span>8 PROJECTS · LIVE PORTFOLIO</span></div>
                                 {c.projects.slice(0, 4).map((item, index) => { const external = isExternalHref(item.href); return <a href={item.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} key={item.name}><span>0{index + 1}</span><strong>{item.name}</strong><small>{item.type}</small>{external ? <ExternalLink size={18} /> : <ArrowRight size={18} />}</a>; })}
                             </div>
+                            <svg className="portfolio-showcase-outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                                <defs>
+                                    <linearGradient id="portfolio-showcase-outline-gradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#75dfeb" />
+                                        <stop offset=".52" stopColor="#8f7cff" />
+                                        <stop offset="1" stopColor="#38aeba" />
+                                    </linearGradient>
+                                </defs>
+                                <motion.rect className="portfolio-showcase-outline__glow" x="1" y="1" width="98" height="98" rx="5" pathLength="1" initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .96, delay: prefersReducedMotion ? 0 : 1.68, ease: [0.16, 1, 0.3, 1] }} />
+                                <motion.rect className="portfolio-showcase-outline__line" x="1" y="1" width="98" height="98" rx="5" pathLength="1" initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .96, delay: prefersReducedMotion ? 0 : 1.68, ease: [0.16, 1, 0.3, 1] }} />
+                            </svg>
                         </motion.div>
                     </motion.div>
                 </div>
@@ -438,10 +449,10 @@ export default function CreatorPage() {
                             <stop offset="1" stopColor="#237985" />
                         </linearGradient>
                     </defs>
-                    <motion.path className="portfolio-journey-route__glow" d={journeyRoute.path} initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.7, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
-                    <motion.path className="portfolio-journey-route__line" d={journeyRoute.path} initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.7, delay: prefersReducedMotion ? 0 : 2.48, ease: [0.16, 1, 0.3, 1] }} />
+                    <motion.path className="portfolio-journey-route__glow" d={journeyRoute.path} initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.85, delay: prefersReducedMotion ? 0 : 2.66, ease: [0.16, 1, 0.3, 1] }} />
+                    <motion.path className="portfolio-journey-route__line" d={journeyRoute.path} initial={prefersReducedMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: prefersReducedMotion ? 0 : 1.85, delay: prefersReducedMotion ? 0 : 2.66, ease: [0.16, 1, 0.3, 1] }} />
                     <path className="portfolio-journey-route__signal" d={journeyRoute.path} />
-                    <motion.path className="portfolio-journey-route__arrow" d={journeyRoute.arrow} initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .34, delay: prefersReducedMotion ? 0 : 4.08 }} />
+                    <motion.path className="portfolio-journey-route__arrow" d={journeyRoute.arrow} initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: prefersReducedMotion ? 0 : .34, delay: prefersReducedMotion ? 0 : 4.45 }} />
                 </svg>
             </div>}
 

@@ -106,7 +106,7 @@
 .portfolio-button.is-primary:hover { color: #071419; background: #75dfeb; }
 
 .portfolio-showcase-stage { position: relative; perspective: 1200px; transform-style: preserve-3d; }
-.portfolio-showcase-tilt { transform-origin: 50% 50%; transform-style: preserve-3d; }
+.portfolio-showcase-tilt { position: relative; transform-origin: 50% 50%; transform-style: preserve-3d; }
 .portfolio-showcase {
     position: relative;
     overflow: hidden;
@@ -128,12 +128,16 @@
 .portfolio-showcase > a strong { align-self: end; }
 .portfolio-showcase > a small { align-self: start; color: #8d8f99; }
 .portfolio-showcase > a svg { grid-column: 3; grid-row: 1 / 3; color: var(--portfolio-cyan); }
+.portfolio-showcase-outline { position: absolute; z-index: 5; inset: -3px; width: calc(100% + 6px); height: calc(100% + 6px); overflow: visible; fill: none; pointer-events: none; }
+.portfolio-showcase-outline rect { vector-effect: non-scaling-stroke; }
+.portfolio-showcase-outline__glow { stroke: url(#portfolio-showcase-outline-gradient); stroke-width: 10; opacity: .18; filter: blur(6px); }
+.portfolio-showcase-outline__line { stroke: url(#portfolio-showcase-outline-gradient); stroke-width: 2.5; filter: drop-shadow(0 0 8px rgba(117,223,235,.36)); }
 
 .portfolio-journey-route { position: absolute; z-index: 4; top: 0; left: 0; width: 100%; pointer-events: none; }
 .portfolio-journey-route svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; }
 .portfolio-journey-route__glow { stroke: url(#portfolio-journey-gradient); stroke-width: 14; stroke-linecap: round; opacity: .16; filter: blur(7px); }
 .portfolio-journey-route__line { stroke: url(#portfolio-journey-gradient); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(117,223,235,.28)); }
-.portfolio-journey-route__signal { stroke: #b8f8ff; stroke-width: 5.5; stroke-linecap: round; stroke-dasharray: 20 6000; filter: drop-shadow(0 0 9px rgba(117,223,235,.9)); animation: portfolio-journey-signal 7.2s 4.25s linear infinite; }
+.portfolio-journey-route__signal { stroke: #b8f8ff; stroke-width: 5.5; stroke-linecap: round; stroke-dasharray: 20 6000; filter: drop-shadow(0 0 9px rgba(117,223,235,.9)); animation: portfolio-journey-signal 7.2s 4.62s linear infinite; }
 .portfolio-journey-route__arrow { stroke: #237985; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(35,121,133,.28)); }
 
 .portfolio-proof { border-bottom: 1px solid var(--portfolio-line); background: #0d0e13; }
@@ -551,6 +555,7 @@
     .portfolio-hero__title-primary::after { opacity: .84; transform: scaleX(1); animation: none; }
     .portfolio-showcase__scan,
     .portfolio-journey-route__signal { display: none; }
+    .portfolio-showcase-outline__glow { opacity: .18; }
     .portfolio-case-row,
     .portfolio-case-row__media button > img,
     .portfolio-button,

@@ -338,28 +338,29 @@ export default function CreatorPage() {
                 if (!page || !hero || !showcase || !target) return;
 
                 const pageRect = page.getBoundingClientRect();
-                const heroRect = hero.getBoundingClientRect();
                 const showcaseRect = showcase.getBoundingClientRect();
                 const targetRect = target.getBoundingClientRect();
                 const width = Math.round(pageRect.width);
                 const compact = width <= 1080;
                 const startX = Math.round(showcaseRect.left - pageRect.left + showcaseRect.width * .56);
                 const startY = Math.round(showcaseRect.bottom - pageRect.top - 3);
-                // Wrap around the card's top-left corner and finish inside its opening
-                // lane. The final rightward tangent makes the destination unambiguous.
+                // Use the open space between the showcase and the first case as a
+                // broad S-shaped journey, ending beside the card's left edge.
                 const targetLeft = Math.round(targetRect.left - pageRect.left);
                 const targetTop = Math.round(targetRect.top - pageRect.top);
-                const entryX = Math.max(4, targetLeft - (compact ? 8 : 18));
-                const entryY = targetTop + (compact ? 18 : 24);
-                const endX = Math.round(targetLeft + Math.min(compact ? 82 : 116, targetRect.width * .11));
-                const endY = targetTop + (compact ? 32 : 40);
-                const heroLaneY = Math.max(startY + 90, Math.round(heroRect.bottom - pageRect.top - 22));
-                const rightX = Math.max(startX + 38, width - (compact ? 18 : 46));
-                const endControlX = Math.min(rightX - 70, entryX + Math.max(96, width * .12));
-                const endControlY = entryY - 20;
-                const path = compact
-                    ? `M${startX} ${startY} C${startX + 30} ${startY + 18} ${rightX - 10} ${startY + 28} ${rightX} ${startY + 76} C${rightX} ${heroLaneY - 34} ${rightX} ${heroLaneY + 2} ${rightX} ${heroLaneY + 48} C${rightX} ${entryY - 110} ${rightX - 48} ${entryY - 52} ${endControlX} ${endControlY} C${entryX + 78} ${entryY - 10} ${entryX + 34} ${entryY - 4} ${entryX} ${entryY} C${entryX - 2} ${entryY + 18} ${targetLeft + 26} ${endY} ${endX} ${endY}`
-                    : `M${startX} ${startY} C${startX + 18} ${startY + 38} ${rightX - 44} ${startY + 18} ${rightX} ${heroLaneY + 42} C${rightX} ${entryY - 110} ${rightX - 48} ${entryY - 52} ${endControlX} ${endControlY} C${entryX + 78} ${entryY - 10} ${entryX + 34} ${entryY - 4} ${entryX} ${entryY} C${entryX - 4} ${entryY + 22} ${targetLeft + 36} ${endY} ${endX} ${endY}`;
+                const endX = Math.max(8, targetLeft - (compact ? 7 : 14));
+                const endY = Math.round(targetTop + Math.min(compact ? 48 : 68, targetRect.height * .34));
+                const upperShelfY = startY + (compact ? 76 : 102);
+                const middleY = Math.max(upperShelfY + 110, targetTop - (compact ? 200 : 230));
+                const rightX = Math.min(width - (compact ? 18 : 64), Math.max(startX + 72, width * .88));
+                const leftX = Math.max(6, targetLeft - (compact ? 48 : 80));
+                const path = `M${startX} ${startY}
+                    C${startX - 44} ${startY + 18} ${startX - 44} ${upperShelfY - 12} ${startX + 6} ${upperShelfY}
+                    C${startX + 170} ${upperShelfY + 10} ${rightX - 42} ${upperShelfY - 12} ${rightX} ${upperShelfY + 122}
+                    C${rightX + 18} ${upperShelfY + 220} ${rightX - 22} ${middleY - 34} ${rightX - 92} ${middleY}
+                    C${rightX - 350} ${middleY + 24} ${leftX + 220} ${middleY - 46} ${leftX + 72} ${middleY + 10}
+                    C${leftX + 12} ${middleY + 48} ${leftX - 8} ${endY - 72} ${leftX + 20} ${endY - 30}
+                    C${leftX + 32} ${endY - 8} ${endX - 24} ${endY - 12} ${endX} ${endY}`;
                 setJourneyRoute({
                     width,
                     height: Math.ceil(endY + 56),

@@ -21,10 +21,11 @@ runuser -u memora -- npm --prefix "$app_dir" ci
 # Build beside the active release. Visitors keep receiving the complete current
 # bundle until the replacement is ready.
 rm -rf -- "$next_dist"
-# Keep HTML, API and live data on the VPS. GitHub Pages serves immutable browser
-# bundles from a network path that remains fast when the direct VPS route stalls.
+# Publish HTML and its hashed browser bundles from the same atomic release.
+# Cloudflare caches the immutable files while the shared build prevents HTML
+# from ever pointing at a bundle produced by a different runner.
 runuser -u memora -- env \
-  VITE_ASSET_BASE=https://arar228.github.io/memora-solutions/ \
+  VITE_ASSET_BASE=/ \
   npm --prefix "$app_dir" run build -- --outDir "$next_dist"
 
 rm -rf -- "$previous_dist"

@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-22T15:29:14.865Z",
+  "updatedAt": "2026-08-22T15:49:39.210Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 36900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-02",
+      "returnDate": null,
+      "date": "2026-08-22T15:40:07+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW0209CXR1?marker=748397&currency=rub",
+      "text": "Финально, Москва — Нячанг за 36900₽ туда-обратно.\n→"
+    },
     {
       "type": "flight",
       "from": {
@@ -338,9 +373,9 @@
         "kind": "city"
       },
       "price": 13300,
-      "oldPrice": 15516,
-      "savings": 2216,
-      "discount": 0.14,
+      "oldPrice": 15607,
+      "savings": 2307,
+      "discount": 0.15,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -351,46 +386,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW2408AYT1?marker=748397&currency=rub",
       "text": "Ещё Москва — Анталья (Турция) за 13300Р туда и обратно на правильные такие 2 недели, прямые с багажом\n— 24.08-07.09 —"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 58800,
-      "oldPrice": 62119,
-      "savings": 3319,
-      "discount": 0.05,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Абу-Даби",
-          "code": "AUH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-22T13:57:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN2109SEZ1?marker=748397&currency=rub",
-      "text": "из Казани на Сейшелы 🇸🇨 за 58 800 р. RT (осенью и зимой)\nEtihad, через Абу-Даби - \nВсе даты:"
     },
     {
       "type": "flight",
@@ -431,6 +426,46 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/KZN2109CPT1?marker=748397&currency=rub",
       "text": "из Казани в ЮАР 🇿🇦 за 57 300 р. RT (осенью и зимой)\nEtihad, пересадки в Абу-Даби - \nВсе даты:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сейшелы",
+        "code": "SEZ",
+        "country": {
+          "ru": "Сейшелы",
+          "en": "Seychelles"
+        },
+        "kind": "country"
+      },
+      "price": 58800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Абу-Даби",
+          "code": "AUH"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-22T13:57:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN2109SEZ1?marker=748397&currency=rub",
+      "text": "из Казани на Сейшелы 🇸🇨 за 58 800 р. RT (осенью и зимой)\nEtihad, через Абу-Даби - \nВсе даты:"
     },
     {
       "type": "tour",
@@ -628,8 +663,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 25225,
-      "savings": 18725,
+      "oldPrice": 25313,
+      "savings": 18813,
       "discount": 0.74,
       "oneway": true,
       "roundTrip": false,
@@ -1023,9 +1058,9 @@
         "kind": "city"
       },
       "price": 5300,
-      "oldPrice": 23214,
-      "savings": 17914,
-      "discount": 0.77,
+      "oldPrice": 23744,
+      "savings": 18444,
+      "discount": 0.78,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1058,8 +1093,8 @@
         "kind": "city"
       },
       "price": 5300,
-      "oldPrice": 15516,
-      "savings": 10216,
+      "oldPrice": 15607,
+      "savings": 10307,
       "discount": 0.66,
       "oneway": false,
       "roundTrip": false,
@@ -1198,8 +1233,8 @@
         "kind": "city"
       },
       "price": 6000,
-      "oldPrice": 25225,
-      "savings": 19225,
+      "oldPrice": 25313,
+      "savings": 19313,
       "discount": 0.76,
       "oneway": false,
       "roundTrip": false,
@@ -1233,8 +1268,8 @@
         "kind": "city"
       },
       "price": 5300,
-      "oldPrice": 23306,
-      "savings": 18006,
+      "oldPrice": 23301,
+      "savings": 18001,
       "discount": 0.77,
       "oneway": false,
       "roundTrip": false,
@@ -1338,8 +1373,8 @@
         "kind": "city"
       },
       "price": 5500,
-      "oldPrice": 15516,
-      "savings": 10016,
+      "oldPrice": 15607,
+      "savings": 10107,
       "discount": 0.65,
       "oneway": true,
       "roundTrip": false,
@@ -2238,76 +2273,6 @@
       "text": "Туры Москва - Тунис от 51 061₽/чел. на 11 ночей (было от 56 011₽, цена упала на 9%)\n👉 Ссылка на туры:"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Занзибар",
-        "code": "ZNZ",
-        "country": {
-          "ru": "Танзания",
-          "en": "Tanzania"
-        },
-        "kind": "city"
-      },
-      "price": 60900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-25",
-      "returnDate": "2026-09-07",
-      "date": "2026-08-21T17:57:20+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2508ZNZ1?marker=748397&currency=rub",
-      "text": "Москва — Занзибар (Танзания) от 60900Р туда и обратно, прямые с багажом  — 25.08-07.09 —"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Челябинск",
-        "code": "CEK",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 5300,
-      "oldPrice": 25225,
-      "savings": 19925,
-      "discount": 0.79,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-22",
-      "returnDate": null,
-      "date": "2026-08-21T17:35:58+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/CEK2208AYT1?marker=748397&currency=rub",
-      "text": "Из Челябинска — тоже в Анталью (Турция) от 5300Р в одну сторону, прямые с багажом\n— 22.08 — 5300Р\n— 23.08 — 6100Р\n— 25.08 — 8600Р"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -2398,9 +2363,9 @@
         "kind": "city"
       },
       "price": 4700,
-      "oldPrice": 21803,
-      "savings": 17103,
-      "discount": 0.78,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2433,9 +2398,9 @@
         "kind": "city"
       },
       "price": 7400,
-      "oldPrice": 25142,
-      "savings": 17742,
-      "discount": 0.71,
+      "oldPrice": 24560,
+      "savings": 17160,
+      "discount": 0.7,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2748,9 +2713,9 @@
         "kind": "city"
       },
       "price": 6300,
-      "oldPrice": 22344,
-      "savings": 16044,
-      "discount": 0.72,
+      "oldPrice": 21946,
+      "savings": 15646,
+      "discount": 0.71,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2923,8 +2888,8 @@
         "kind": "city"
       },
       "price": 1585,
-      "oldPrice": 6990,
-      "savings": 5405,
+      "oldPrice": 6924,
+      "savings": 5339,
       "discount": 0.77,
       "oneway": false,
       "roundTrip": false,
@@ -3713,9 +3678,9 @@
         "kind": "city"
       },
       "price": 14800,
-      "oldPrice": 19508,
-      "savings": 4708,
-      "discount": 0.24,
+      "oldPrice": 21529,
+      "savings": 6729,
+      "discount": 0.31,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -4362,7 +4327,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.708Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-22T14:25:28+00:00",
@@ -4372,7 +4337,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-22T13:57:01+00:00",
@@ -4382,17 +4347,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-22T15:14:35+00:00",
+      "latestPostAt": "2026-08-22T15:40:07+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -4402,7 +4367,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
       "latestPostAt": "2026-08-22T06:33:17+00:00",
@@ -4412,7 +4377,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 20,
       "freshPosts": 14,
       "latestPostAt": "2026-08-22T13:49:17+00:00",
@@ -4422,7 +4387,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-22T14:23:51+00:00",
@@ -4432,7 +4397,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -4442,7 +4407,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 9,
       "freshPosts": 8,
       "latestPostAt": "2026-08-22T10:12:59+00:00",
@@ -4452,7 +4417,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:29:14.709Z",
+      "checkedAt": "2026-08-22T15:49:39.017Z",
       "fetchedPosts": 8,
       "freshPosts": 6,
       "latestPostAt": "2026-08-22T13:35:45+00:00",

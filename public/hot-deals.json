@@ -1,7 +1,77 @@
 {
-  "updatedAt": "2026-08-22T10:32:12.065Z",
+  "updatedAt": "2026-08-22T10:52:18.548Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кутаиси",
+        "code": "KUT",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
+      },
+      "price": 8400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-22T10:33:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2109KUT1?marker=748397&currency=rub",
+      "text": "из Москвы в Кутаиси 🇬🇪 за 8 400 р. OW (на следующей неделе)\nАзимут, прямой рейс -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Батуми",
+        "code": "BUS",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
+      },
+      "price": 10300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-22T10:33:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER2109BUS1?marker=748397&currency=rub",
+      "text": "из Сочи в Батуми 🇬🇪 за 10 300 р. RT (осенью)\nRed Wings, прямые рейсы -"
+    },
     {
       "type": "flight",
       "from": {
@@ -4221,83 +4291,13 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/ws61MR",
       "text": "🔥 в Кавминводы на 6 ночей с 25 августа от 20 000/чел  (вернетесь 31-го, туры без группового трансфера из аэропорта Минеральных Вод до отеля, индивидуальный - за доплату)\n🔥 варианты в сентябре  или в"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 6500,
-      "oldPrice": 23726,
-      "savings": 17226,
-      "discount": 0.73,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-20T10:44:35+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/SVX2109AYT1?marker=748397&currency=rub",
-      "text": "из Екатеринбург в Анталью 🇹🇷 за 6 500 р. OW (завтра)\nУральские, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Астрахань",
-        "code": "ASF",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 6500,
-      "oldPrice": 23646,
-      "savings": 17146,
-      "discount": 0.73,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-20T10:44:35+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/ASF2109AYT1?marker=748397&currency=rub",
-      "text": "из Астрахани в Анталью 🇹🇷 за 6 500 р. OW (на выходных)\nУральские, прямой рейс с багажом -"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.368Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-22T09:30:07+00:00",
@@ -4307,17 +4307,17 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.368Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-22T10:10:08+00:00",
+      "latestPostAt": "2026-08-22T10:33:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.369Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-22T08:02:29+00:00",
@@ -4327,7 +4327,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.369Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -4337,7 +4337,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.369Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
       "latestPostAt": "2026-08-22T06:33:17+00:00",
@@ -4347,7 +4347,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.369Z",
       "fetchedPosts": 20,
       "freshPosts": 13,
       "latestPostAt": "2026-08-22T06:01:48+00:00",
@@ -4357,7 +4357,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.369Z",
       "fetchedPosts": 20,
       "freshPosts": 10,
       "latestPostAt": "2026-08-22T07:33:14+00:00",
@@ -4367,7 +4367,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.369Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -4377,7 +4377,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.369Z",
       "fetchedPosts": 9,
       "freshPosts": 9,
       "latestPostAt": "2026-08-22T10:12:59+00:00",
@@ -4387,7 +4387,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-22T10:32:11.885Z",
+      "checkedAt": "2026-08-22T10:52:18.369Z",
       "fetchedPosts": 8,
       "freshPosts": 5,
       "latestPostAt": "2026-08-22T09:14:07+00:00",

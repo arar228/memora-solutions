@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-22T14:29:44.695Z",
+  "updatedAt": "2026-08-22T14:51:17.890Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 9300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-23",
+      "returnDate": null,
+      "date": "2026-08-22T14:48:30+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2308HRG1?marker=748397&currency=rub",
+      "text": "Москва — Хургада за 9300₽ в одну сторону.\n→"
+    },
     {
       "type": "tour",
       "from": {
@@ -2345,41 +2380,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Горно-Алтайск",
-        "code": "RGK",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 4400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-22",
-      "returnDate": null,
-      "date": "2026-08-21T15:45:01+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2208RGK1?marker=748397&currency=rub",
-      "text": "Москва — Горно-Алтайск от 4400₽ в одну сторону, вылет ночью, рейсы прямые, с багажом\n— 22.08 - 4400₽"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Санкт-Петербург",
         "code": "LED",
         "country": {
@@ -4461,48 +4461,13 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/C7nWhs",
       "text": "🔥 в Турцию на неделю с вылетом в конце августа с проживанием в 4-5* от 49 900/чел, все включено, с топливными сборами www.turscanner.ru/-/Yg7Gd1 (вылет 28-го)\n🔥 успеть летом - на 7 ночей с 24 август"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 117279,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-20T14:30:44+00:00",
-      "source": "travelata",
-      "link": "https://travelata.ru/rating/bgoperator/maldives?utm_source=smm&utm_medium=telegram&utm_campaign=onelink&utm_content=maldivesDOP&utm_term=2008#?fromCity=2&toCountry=56&dateFrom=01.09.2026&dateTo=03.09.2026&daysFlexible=1&nightFrom=10&nightTo=14&adults=2&hotelClass=all&operators=11&meal=8.1.11.2.10.3.5&priceFrom=6000&priceTo=21000000&directFlight=true&sid=i9x2qpi0wx&sort=priceUp&f_good=true",
-      "text": "⚡️Горящие МАЛЬДИВЫ с ПРЯМЫМ рейсом, 10 ночей с завтраками, туры от 117 279 ₽/чел.! В туре перелёт, проживание, питание, медицинская страховка и трансфер🚘"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.513Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-22T14:25:28+00:00",
@@ -4512,7 +4477,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-22T13:57:01+00:00",
@@ -4522,17 +4487,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-22T14:12:21+00:00",
+      "latestPostAt": "2026-08-22T14:48:30+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -4542,7 +4507,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
       "latestPostAt": "2026-08-22T06:33:17+00:00",
@@ -4552,7 +4517,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 20,
       "freshPosts": 14,
       "latestPostAt": "2026-08-22T13:49:17+00:00",
@@ -4562,7 +4527,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 20,
       "freshPosts": 10,
       "latestPostAt": "2026-08-22T14:23:51+00:00",
@@ -4572,7 +4537,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -4582,9 +4547,9 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 9,
-      "freshPosts": 9,
+      "freshPosts": 8,
       "latestPostAt": "2026-08-22T10:12:59+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4592,7 +4557,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-22T14:29:44.514Z",
+      "checkedAt": "2026-08-22T14:51:17.710Z",
       "fetchedPosts": 8,
       "freshPosts": 6,
       "latestPostAt": "2026-08-22T13:35:45+00:00",

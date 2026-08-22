@@ -16,19 +16,46 @@ jobs:
       - name: Check production health
         run: |
           for attempt in 1 2 3; do
+            html="$(mktemp)"
+            bundle="$(mktemp)"
             status="$(curl --location --silent --show-error \
-              --output /dev/null --write-out '%{http_code}' \
+              --header 'Cache-Control: no-cache' \
+              --output "$html" --write-out '%{http_code}' \
               --connect-timeout 10 --max-time 20 \
-              https://memorasolutions.ru/health || true)"
+              "https://memorasolutions.ru/?uptime=${GITHUB_RUN_ID}-${attempt}" || true)"
 
             if [ "$status" = "200" ]; then
-              echo "Production is healthy."
-              exit 0
+              entry="$(sed -n 's/.*<script[^>]*type="module"[^>]*src="\([^"]*\)".*/\1/p' "$html" | head -n 1)"
+
+              if [ -n "$entry" ]; then
+                entry_url="$(ENTRY="$entry" python3 - <<'PY'
+          import os
+          from urllib.parse import urljoin
+          print(urljoin('https://memorasolutions.ru/', os.environ['ENTRY']))
+          PY
+          )"
+
+                bundle_status="$(curl --location --silent --show-error \
+                  --header 'Cache-Control: no-cache' \
+                  --output "$bundle" --write-out '%{http_code}' \
+                  --connect-timeout 10 --max-time 30 \
+                  "$entry_url" || true)"
+
+                if [ "$bundle_status" = "200" ] && [ -s "$bundle" ]; then
+                  echo "Production HTML and entry bundle are healthy."
+                  exit 0
+                fi
+
+                echo "Attempt $attempt: entry bundle returned HTTP $bundle_status."
+              else
+                echo "Attempt $attempt: module entry was not found in production HTML."
+              fi
+            else
+              echo "Attempt $attempt: production HTML returned HTTP $status."
             fi
 
-            echo "Attempt $attempt returned HTTP $status."
             sleep 10
           done
 
-          echo "Production healthcheck failed three times." >&2
+          echo "Production frontend check failed three times." >&2
           exit 1

@@ -1,7 +1,191 @@
 {
-  "updatedAt": "2026-08-22T15:49:39.210Z",
+  "updatedAt": "2026-08-22T16:34:00.967Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "price": 64300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-08-22T16:33:40+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/8cGBtn",
+      "text": "🔥 в Египет (курорт Эль-Аламейн на Средиземном море) на неделю в сентябре от 64 300/чел, все включено, туры на прямых рейсах"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Волгоград",
+        "code": "VOG",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 11800,
+      "oldPrice": 22080,
+      "savings": 10280,
+      "discount": 0.47,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-23",
+      "returnDate": "2026-09-03",
+      "date": "2026-08-22T16:22:26+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/VOG2308AYT1?marker=748397&currency=rub",
+      "text": "🔥 Волгоград — Анталья (Турция) от 11800Р туда и обратно, прямые с багажом\n— 23.08-03.09 — 11800Р\n— 2 билета — 23700Р\n— 3 билета — 35500Р\n— 4 билета — 47400Р и, возможно, больше мест"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кавказские Минеральные Воды",
+        "code": "MRV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 7400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-24",
+      "returnDate": null,
+      "date": "2026-08-22T16:14:34+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SVX2408MRV1?marker=748397&currency=rub",
+      "text": "Екатеринбург — Минеральные Воды от 7400Р в одну сторону, прямые с багажом\n— 24.08 — 7400Р\n— 25.08 — 8500Р"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 65500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Пхукет",
+          "code": "HKT"
+        },
+        {
+          "name": "Китай",
+          "code": "PEK"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-08-27",
+      "returnDate": "2026-09-27",
+      "date": "2026-08-22T15:57:58+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SVX2708HKT1?marker=748397&currency=rub",
+      "text": "Екатеринбург — Пхукет / Бангкок (Таиланд) — Екатеринбург в сентябре за 65500Р туда и обратно сложным маршрутом, рейсы прямые, в ручную кладь нацпера входит 10 кг 55х40х25 см + рюкзак/сумка/портфель до"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Паттайя",
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 196000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 10,
+      "departDate": "2026-09-21",
+      "returnDate": "2026-10-01",
+      "date": "2026-08-22T15:51:33+00:00",
+      "source": "toursmsk",
+      "link": "https://tp.media/r?marker=98731.sniper_TH_msk_20260822_welcomeworldbeachfrontre&trs=449333&p=660&u=https%3A//level.travel/packages/404749735%3Fsearch_type%3Dpackage&campaign_id=26&erid=2VtzqwgjJHU",
+      "text": "🇹🇭 Паттайя, Welcome World Beachfront Resort 4★ — завтраки\n• 10 ночей\n• питание — завтраки\n• ~196.000 рублей за двоих\n• вылет 21.09.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэро"
+    },
     {
       "type": "flight",
       "from": {
@@ -1643,41 +1827,6 @@
       "text": "⚡️Ого! На 12 ночей на ПХУКЕТ за 81 877 ₽/чел. с завтраками! Летим прямым рейсом! В туре: перелёт + проживание + питание + мед. страховка + трансфер 🚘"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Новосибирск",
-        "code": "OVB",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бангкок",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 14100,
-      "oldPrice": 43017,
-      "savings": 28917,
-      "discount": 0.67,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-23",
-      "returnDate": null,
-      "date": "2026-08-22T05:53:45+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/OVB2308BKK1?marker=748397&currency=rub",
-      "text": "Новосибирск — Бангкок за 14100₽ в одну сторону.\n→"
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Санкт-Петербург",
@@ -1781,41 +1930,6 @@
       "source": "toursmsk",
       "link": "https://level.tpx.lu/NrjtuGSE?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
       "text": "Туры Москва - Таиланд от 55 427₽/чел. на 7 ночей (было от 61 157₽, цена упала на 9%)\n👉 Ссылка на туры:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Краснодар",
-        "code": "KRR",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 5800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-26",
-      "returnDate": null,
-      "date": "2026-08-22T03:48:17+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2608KRR1?marker=748397&currency=rub",
-      "text": "Москва — Краснодар за 5800₽ в одну сторону.\n→"
     },
     {
       "type": "tour",
@@ -4286,48 +4400,13 @@
       "source": "toursmsk",
       "link": "https://level.tpx.lu/rYlPNxve?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
       "text": "Туры Москва - Казахстан от 28 981₽/чел. на 3 ночи (было от 30 871₽, цена упала на 6%)\n👉 Ссылка на туры:"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 52331,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08-22",
-      "returnDate": "2026-09-02",
-      "date": "2026-08-20T15:59:01+00:00",
-      "source": "toursmsk",
-      "link": "https://level.tpx.lu/3zatBfTk?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "text": "Туры Москва - Тунис от 52 331₽/чел. на 11 ночей (было от 62 442₽, цена упала на 16%)\n👉 Ссылка на туры:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-22T14:25:28+00:00",
@@ -4337,7 +4416,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-22T13:57:01+00:00",
@@ -4347,17 +4426,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-22T15:40:07+00:00",
+      "latestPostAt": "2026-08-22T16:22:26+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -4367,17 +4446,17 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
-      "latestPostAt": "2026-08-22T06:33:17+00:00",
+      "latestPostAt": "2026-08-22T15:51:33+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 20,
       "freshPosts": 14,
       "latestPostAt": "2026-08-22T13:49:17+00:00",
@@ -4387,17 +4466,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 20,
-      "freshPosts": 8,
-      "latestPostAt": "2026-08-22T14:23:51+00:00",
+      "freshPosts": 9,
+      "latestPostAt": "2026-08-22T16:33:40+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -4407,7 +4486,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 9,
       "freshPosts": 8,
       "latestPostAt": "2026-08-22T10:12:59+00:00",
@@ -4417,7 +4496,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-22T15:49:39.017Z",
+      "checkedAt": "2026-08-22T16:34:00.775Z",
       "fetchedPosts": 8,
       "freshPosts": 6,
       "latestPostAt": "2026-08-22T13:35:45+00:00",

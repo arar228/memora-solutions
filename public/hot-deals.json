@@ -1,7 +1,157 @@
 {
-  "updatedAt": "2026-08-22T11:49:53.648Z",
+  "updatedAt": "2026-08-22T12:54:32.206Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Челябинск",
+        "code": "CEK",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6500,
+      "oldPrice": 25225,
+      "savings": 18725,
+      "discount": 0.74,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-23",
+      "returnDate": null,
+      "date": "2026-08-22T12:53:12+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/CEK2308AYT1?marker=748397&currency=rub",
+      "text": "Челябинск — Анталья за 6500₽ в одну сторону.\n→"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бодрум",
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 18300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-24",
+      "returnDate": null,
+      "date": "2026-08-22T12:43:41+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2408BJV1?marker=748397&currency=rub",
+      "text": "Москва — Бодрум за 18300₽ туда-обратно.\n→"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Новая Зеландия",
+        "code": "AKL",
+        "country": {
+          "ru": "Новая Зеландия",
+          "en": "New Zealand"
+        },
+        "kind": "country"
+      },
+      "price": 72500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Чэнду",
+          "code": "CTU"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-22T12:22:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2109AKL1?marker=748397&currency=rub",
+      "text": "из Москвы в Новую Зеландию 🇳🇿 за 72 500 р. RT (на Рождество)\nSichuan Airlines, через Чэнду - \nВсе даты:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бангкок",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 25200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Маскат",
+          "code": "MCT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-22T12:20:55+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2109BKK1?marker=748397&currency=rub",
+      "text": "Москва — Бангкок за 25200₽ в одну сторону с багажом.\nПример →"
+    },
     {
       "type": "flight",
       "from": {
@@ -4056,278 +4206,13 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/KZN2109MMK1?marker=748397&currency=rub",
       "text": "из Казани в Ярославль 🇷🇺 за 3 600 р. OW (август-сентябрь)\nЮВТ Аэро, прямой рейс -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хайнань",
-        "code": "SYX",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 64400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-09-02",
-      "returnDate": "2026-09-08",
-      "date": "2026-08-20T12:41:00+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://level.tpx.lu/Fqa71Igq",
-      "text": "🏖Туры на о.Хайнань из Спб на 6 ночей с 2 сентября от 64.400 руб/чел, виза не нужна"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Касабланка",
-        "code": "CMN",
-        "country": {
-          "ru": "Марокко",
-          "en": "Morocco"
-        },
-        "kind": "city"
-      },
-      "price": 34800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Касабланка",
-          "code": "CMN"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-20T12:34:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0103CMN1?marker=748397&currency=rub",
-      "text": "из Москвы в Тетуан 🇲🇦 за 34 800 р. RT (осенью и зимой)\nRoyal Air Maroc, через Касабланку –"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Фес",
-        "code": "FEZ",
-        "country": {
-          "ru": "Марокко",
-          "en": "Morocco"
-        },
-        "kind": "city"
-      },
-      "price": 34900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Касабланка",
-          "code": "CMN"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-20T12:34:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0103FEZ1?marker=748397&currency=rub",
-      "text": "из Москвы в Фес 🇲🇦 за 34 900 р. RT (осенью и зимой)\nRoyal Air Maroc, день в Касабланке бонусом -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Танжер",
-        "code": "TNG",
-        "country": {
-          "ru": "Марокко",
-          "en": "Morocco"
-        },
-        "kind": "city"
-      },
-      "price": 34900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Касабланка",
-          "code": "CMN"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-08-20T12:34:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0103TNG1?marker=748397&currency=rub",
-      "text": "из Москвы в Танжер 🇲🇦 за 34 900 р. RT (осенью и зимой)\nRoyal Air Maroc, пересадки в Касабланке -"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Касабланка",
-        "code": "CMN",
-        "country": {
-          "ru": "Марокко",
-          "en": "Morocco"
-        },
-        "kind": "city"
-      },
-      "price": 38800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Касабланка",
-          "code": "CMN"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-20T12:10:31+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2109CMN1?marker=748397&currency=rub",
-      "text": "из Москвы в Западную Сахару 🇲🇦 за 38 800 р. RT (осенью)\nRoyal Air Maroc, пересадки в Касабланке -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 133029,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09",
-      "returnDate": null,
-      "date": "2026-08-20T12:01:11+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/kZdz5yp",
-      "text": "🐥А знаете ли вы, что туры в Таиланд стоят от 133 029 ₽ за 2 недели в сентябре на двоих? Вот вам"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Танзания",
-        "code": "ZNZ",
-        "country": {
-          "ru": "Танзания",
-          "en": "Tanzania"
-        },
-        "kind": "country"
-      },
-      "price": 168536,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08",
-      "returnDate": null,
-      "date": "2026-08-20T12:01:11+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/NqOSmoW",
-      "text": "🔥 А еще в Танзанию вдвоем можно полететь в августе на 11 ночей по цене от 168 536 ₽ на двоих с перелетами и проживанием \n🚩 В Календаре низких цен интересных направлений еще больше"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.030Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-22T09:30:07+00:00",
@@ -4337,29 +4222,29 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.030Z",
       "fetchedPosts": 20,
-      "freshPosts": 20,
-      "latestPostAt": "2026-08-22T11:15:06+00:00",
+      "freshPosts": 19,
+      "latestPostAt": "2026-08-22T12:22:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.030Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-22T08:02:29+00:00",
+      "latestPostAt": "2026-08-22T12:53:12+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.030Z",
       "fetchedPosts": 20,
-      "freshPosts": 6,
+      "freshPosts": 5,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4367,7 +4252,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.031Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
       "latestPostAt": "2026-08-22T06:33:17+00:00",
@@ -4377,7 +4262,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.031Z",
       "fetchedPosts": 20,
       "freshPosts": 13,
       "latestPostAt": "2026-08-22T06:01:48+00:00",
@@ -4387,7 +4272,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.031Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-22T07:33:14+00:00",
@@ -4397,7 +4282,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.031Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -4407,7 +4292,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.031Z",
       "fetchedPosts": 9,
       "freshPosts": 9,
       "latestPostAt": "2026-08-22T10:12:59+00:00",
@@ -4417,9 +4302,9 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-22T11:49:53.496Z",
+      "checkedAt": "2026-08-22T12:54:32.031Z",
       "fetchedPosts": 8,
-      "freshPosts": 5,
+      "freshPosts": 4,
       "latestPostAt": "2026-08-22T09:14:07+00:00",
       "reusedPrevious": false,
       "error": null

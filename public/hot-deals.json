@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-23T21:29:14.279Z",
+  "updatedAt": "2026-08-23T21:50:05.545Z",
   "marker": "748397",
   "deals": [
     {
@@ -308,9 +308,9 @@
         "kind": "city"
       },
       "price": 5400,
-      "oldPrice": 19413,
-      "savings": 14013,
-      "discount": 0.72,
+      "oldPrice": 19928,
+      "savings": 14528,
+      "discount": 0.73,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -677,9 +677,9 @@
         "kind": "country"
       },
       "price": 6500,
-      "oldPrice": 31983,
-      "savings": 25483,
-      "discount": 0.8,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1027,8 +1027,8 @@
         "kind": "city"
       },
       "price": 5300,
-      "oldPrice": 19413,
-      "savings": 14113,
+      "oldPrice": 19928,
+      "savings": 14628,
       "discount": 0.73,
       "oneway": false,
       "roundTrip": false,
@@ -1307,8 +1307,8 @@
         "kind": "city"
       },
       "price": 19500,
-      "oldPrice": 51016,
-      "savings": 31516,
+      "oldPrice": 50961,
+      "savings": 31461,
       "discount": 0.62,
       "oneway": true,
       "roundTrip": false,
@@ -1342,8 +1342,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 27219,
-      "savings": 20719,
+      "oldPrice": 27216,
+      "savings": 20716,
       "discount": 0.76,
       "oneway": true,
       "roundTrip": false,
@@ -1412,8 +1412,8 @@
         "kind": "city"
       },
       "price": 5500,
-      "oldPrice": 19413,
-      "savings": 13913,
+      "oldPrice": 19928,
+      "savings": 14428,
       "discount": 0.72,
       "oneway": true,
       "roundTrip": false,
@@ -2262,9 +2262,9 @@
         "kind": "city"
       },
       "price": 13300,
-      "oldPrice": 19413,
-      "savings": 6113,
-      "discount": 0.31,
+      "oldPrice": 19928,
+      "savings": 6628,
+      "discount": 0.33,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -2739,41 +2739,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Челябинск",
-        "code": "CEK",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 6000,
-      "oldPrice": 27219,
-      "savings": 21219,
-      "discount": 0.78,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-22T09:13:37+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/CEK2209AYT1?marker=748397&currency=rub",
-      "text": "из Челябинска в Анталью 🇹🇷 за 6 000 р. OW (в воскресенье)\nУральские авиалинии, прямой рейс с багажом -"
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Тюмень",
         "code": "TJM",
         "country": {
@@ -2792,9 +2757,9 @@
         "kind": "city"
       },
       "price": 5300,
-      "oldPrice": 23292,
-      "savings": 17992,
-      "discount": 0.77,
+      "oldPrice": 33042,
+      "savings": 27742,
+      "discount": 0.84,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2805,6 +2770,41 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/TJM2209AYT1?marker=748397&currency=rub",
       "text": "из Тюмени в Анталью 🇹🇷 за 5 300 р. OW (август)\nAzur Air, прямой рейс с багажом -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Челябинск",
+        "code": "CEK",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6000,
+      "oldPrice": 27216,
+      "savings": 21216,
+      "discount": 0.78,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-22T09:13:37+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/CEK2209AYT1?marker=748397&currency=rub",
+      "text": "из Челябинска в Анталью 🇹🇷 за 6 000 р. OW (в воскресенье)\nУральские авиалинии, прямой рейс с багажом -"
     },
     {
       "type": "flight",
@@ -3346,7 +3346,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-23T12:53:20+00:00",
@@ -3356,7 +3356,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 20,
       "freshPosts": 15,
       "latestPostAt": "2026-08-23T12:19:01+00:00",
@@ -3366,7 +3366,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-23T19:13:15+00:00",
@@ -3376,7 +3376,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "idle",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 20,
       "freshPosts": 0,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -3386,7 +3386,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-23T17:53:29+00:00",
@@ -3396,7 +3396,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-23T19:27:02+00:00",
@@ -3406,7 +3406,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 20,
       "freshPosts": 4,
       "latestPostAt": "2026-08-23T13:16:20+00:00",
@@ -3416,7 +3416,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -3426,7 +3426,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-23T21:29:14.107Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 9,
       "freshPosts": 5,
       "latestPostAt": "2026-08-23T10:00:48+00:00",
@@ -3436,7 +3436,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-23T21:29:14.108Z",
+      "checkedAt": "2026-08-23T21:50:05.365Z",
       "fetchedPosts": 8,
       "freshPosts": 3,
       "latestPostAt": "2026-08-22T13:35:45+00:00",

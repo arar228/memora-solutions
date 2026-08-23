@@ -77,6 +77,38 @@ export function resilientBootPlugin() {
     });
   }
 
+  function installImageFallback(primary) {
+    const secondarySources = sources
+      .filter((source) => source.name !== primary.name)
+      .sort((left, right) => Number(left.name === 'origin') - Number(right.name === 'origin'));
+    const orderedSources = [primary, ...secondarySources];
+    window.__memoraAssetBase = primary.base;
+    window.__memoraAssetSources = orderedSources.map(({ name, base }) => ({ name, base }));
+
+    window.addEventListener('error', (event) => {
+      const image = event.target;
+      if (!(image instanceof HTMLImageElement)) return;
+
+      let current;
+      try {
+        current = new URL(image.currentSrc || image.src, location.href);
+      } catch {
+        return;
+      }
+
+      const sourceIndex = orderedSources.findIndex((source) => current.href.startsWith(source.base));
+      if (sourceIndex < 0 || sourceIndex >= orderedSources.length - 1) return;
+
+      const path = current.href.slice(orderedSources[sourceIndex].base.length);
+      if (!/\.(?:avif|gif|jpe?g|png|svg|webp)(?:[?#]|$)/i.test(path)) return;
+
+      const nextSource = orderedSources[sourceIndex + 1];
+      const nextUrl = assetUrl(nextSource.base, path);
+      if (nextUrl === image.src) return;
+      image.src = nextUrl;
+    }, true);
+  }
+
   try {
     const winner = await Promise.any(sources.map(probe));
     for (const [name, controller] of controllers) {
@@ -84,6 +116,7 @@ export function resilientBootPlugin() {
     }
     window.__memoraAssetSource = winner.name;
     document.documentElement.dataset.memoraAssetSource = winner.name;
+    installImageFallback(winner);
     await Promise.all(styles.map((path) => attachStyle(winner, path)));
     await import(assetUrl(winner.base, entry));
   } catch (error) {

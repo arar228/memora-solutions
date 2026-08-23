@@ -8,7 +8,7 @@ export default function WalletPage() {
             productKey="wallet"
             pageVariant="wallet"
             iconVariant="green"
-            iconImg={staticAsset('/wallet-logo.png')}
+            iconImg={staticAsset('/wallet-logo.webp')}
             iconAlt="Wallet"
             botUrl="https://t.me/MemoraWallet_bot"
             HeaderIcon={Wallet}

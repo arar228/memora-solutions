@@ -7,15 +7,22 @@ flock -n 9 || exit 0
 app_dir=/opt/memora-solutions
 next_dist="$app_dir/dist.next"
 previous_dist="$app_dir/dist.previous"
+deployed_marker="$app_dir/.deployed-commit"
 current=$(runuser -u memora -- git -C "$app_dir" rev-parse HEAD)
+if [[ -s "$deployed_marker" ]]; then
+  deployed=$(<"$deployed_marker")
+else
+  deployed="$current"
+  printf '%s\n' "$deployed" > "$deployed_marker"
+fi
 runuser -u memora -- git -C "$app_dir" fetch origin master
 target=$(runuser -u memora -- git -C "$app_dir" rev-parse origin/master)
 
-if [[ "$current" == "$target" ]]; then
+if [[ "$deployed" == "$target" ]]; then
   exit 0
 fi
 
-changed_files=$(runuser -u memora -- git -C "$app_dir" diff --name-only "$current" "$target")
+changed_files=$(runuser -u memora -- git -C "$app_dir" diff --name-only "$deployed" "$target")
 data_only=0
 if [[ -n "$changed_files" ]] && ! grep -Evq '^public/(flights|hot-deals|radar|tours)\.json$' <<<"$changed_files"; then
   data_only=1
@@ -32,6 +39,7 @@ if [[ "$data_only" -eq 1 ]]; then
       install -o memora -g memora -m 0644 "$source_file" "$app_dir/dist/$feed.json"
     fi
   done
+  printf '%s\n' "$target" > "$deployed_marker"
   exit 0
 fi
 
@@ -75,6 +83,7 @@ if [[ -z "$asset_path" || ! -s "$next_dist/$asset_path" ]]; then
 fi
 
 rm -rf -- "$previous_dist"
+printf '%s\n' "$target" > "$deployed_marker"
 if [[ -e "$app_dir/dist" ]]; then
   mv -- "$app_dir/dist" "$previous_dist"
 fi

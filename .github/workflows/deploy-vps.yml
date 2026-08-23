@@ -1,7 +1,9 @@
 name: Deploy VPS
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Deploy production assets"]
+    types: [completed]
     branches: [master]
   workflow_dispatch:
 
@@ -14,6 +16,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Install SSH client

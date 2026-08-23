@@ -19,7 +19,7 @@ export default function HomePage() {
             bot: '@MemoraTravelRadarBot',
             to: '/travel-radar',
             color: 'gold',
-            logo: staticAsset('/travel-logo.png'),
+            logo: staticAsset('/travel-logo.webp'),
         },
         {
             icon: <Wallet size={32} />,
@@ -30,7 +30,7 @@ export default function HomePage() {
             bot: '@MemoraWallet_bot',
             to: '/wallet',
             color: 'green',
-            logo: staticAsset('/wallet-logo.png'),
+            logo: staticAsset('/wallet-logo.webp'),
         },
         {
             icon: <Cake size={32} />,
@@ -41,7 +41,7 @@ export default function HomePage() {
             bot: '@MemoraBDayBot',
             to: '/bday-bot',
             color: 'blue',
-            logo: staticAsset('/bdaybot-logo.png'),
+            logo: staticAsset('/bdaybot-logo.webp'),
         },
         {
             icon: <Timer size={32} />,
@@ -52,7 +52,7 @@ export default function HomePage() {
             bot: t('pomodoro.downloadHint'),
             to: '/pomodoro',
             color: 'orange',
-            logo: staticAsset('/pomodoro-logo.png'),
+            logo: staticAsset('/pomodoro-logo.webp'),
         },
     ];
 
@@ -81,7 +81,7 @@ export default function HomePage() {
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <motion.img
-                            src={staticAsset('/logo.png?v=2')}
+                            src={staticAsset('/logo.webp?v=1')}
                             alt={t('brand')}
                             className="hero__logo"
                             style={{

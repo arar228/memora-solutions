@@ -14,6 +14,7 @@
         "check:admin-type": "node scripts/check-admin-typography.js",
         "start": "node server.js",
         "optimize-images": "node scripts/optimize-images.js",
+        "build:web-images": "node scripts/build-web-images.js",
         "fetch-tours": "node scripts/fetch-tours.js",
         "audit:deals": "node scripts/audit-deal-channels.js",
         "test:deals": "node scripts/test-parse-deals.js",

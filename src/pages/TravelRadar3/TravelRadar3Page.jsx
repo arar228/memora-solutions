@@ -27,7 +27,7 @@ import { fmtPrice } from './helpers';
 import bundledTravelFeed from '../../../public/hot-deals.json';
 import './TravelRadar3.css';
 
-const FEED_REQUEST_TIMEOUT_MS = 5_000;
+const FEED_REQUEST_TIMEOUT_MS = 1_500;
 
 async function fetchTravelFeed() {
     const controller = new AbortController();

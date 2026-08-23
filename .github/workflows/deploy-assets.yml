@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify application
+        run: npm run lint
+
       - name: Build production assets
         run: npm run build
         env:

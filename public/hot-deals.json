@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-23T15:30:55.068Z",
+  "updatedAt": "2026-08-23T15:50:23.935Z",
   "marker": "748397",
   "deals": [
     {
@@ -1022,8 +1022,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 27224,
-      "savings": 20724,
+      "oldPrice": 27209,
+      "savings": 20709,
       "discount": 0.76,
       "oneway": true,
       "roundTrip": false,
@@ -1035,6 +1035,41 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/CEK2209AYT1?marker=748397&currency=rub",
       "text": "- из Челябинска в Анталью: 6 500 ₽ в одну сторону (посмотреть)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Волгоград",
+        "code": "VOG",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 11800,
+      "oldPrice": 27639,
+      "savings": 15839,
+      "discount": 0.57,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-23T05:15:34+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/VOG2209AYT1?marker=748397&currency=rub",
+      "text": "- из Волгограда в Анталью: 11 800 ₽ туда-обратно (посмотреть)"
     },
     {
       "type": "flight",
@@ -1070,41 +1105,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW2209AYT1?marker=748397&currency=rub",
       "text": "- в Анталью: 5 500 ₽ в одну сторону, 13 300 ₽ туда-обратно (раз, два)\n- в Аланью: 6 300 ₽ в одну сторону (посмотреть)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Волгоград",
-        "code": "VOG",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 11800,
-      "oldPrice": 24616,
-      "savings": 12816,
-      "discount": 0.52,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-23T05:15:34+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/VOG2209AYT1?marker=748397&currency=rub",
-      "text": "- из Волгограда в Анталью: 11 800 ₽ туда-обратно (посмотреть)"
     },
     {
       "type": "flight",
@@ -2542,8 +2542,8 @@
         "kind": "city"
       },
       "price": 6000,
-      "oldPrice": 27224,
-      "savings": 21224,
+      "oldPrice": 27209,
+      "savings": 21209,
       "discount": 0.78,
       "oneway": false,
       "roundTrip": false,
@@ -2577,8 +2577,8 @@
         "kind": "city"
       },
       "price": 5300,
-      "oldPrice": 23040,
-      "savings": 17740,
+      "oldPrice": 23125,
+      "savings": 17825,
       "discount": 0.77,
       "oneway": false,
       "roundTrip": false,
@@ -3516,7 +3516,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-08-23T12:53:20+00:00",
@@ -3526,7 +3526,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-23T12:19:01+00:00",
@@ -3536,7 +3536,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-23T10:33:16+00:00",
@@ -3546,7 +3546,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "idle",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 20,
       "freshPosts": 0,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -3556,7 +3556,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-23T12:51:02+00:00",
@@ -3566,7 +3566,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 20,
       "freshPosts": 10,
       "latestPostAt": "2026-08-23T06:01:42+00:00",
@@ -3576,7 +3576,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-23T13:16:20+00:00",
@@ -3586,7 +3586,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -3596,7 +3596,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 9,
       "freshPosts": 5,
       "latestPostAt": "2026-08-23T10:00:48+00:00",
@@ -3606,7 +3606,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-23T15:30:54.928Z",
+      "checkedAt": "2026-08-23T15:50:23.800Z",
       "fetchedPosts": 8,
       "freshPosts": 3,
       "latestPostAt": "2026-08-22T13:35:45+00:00",

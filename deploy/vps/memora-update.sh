@@ -15,7 +15,26 @@ if [[ "$current" == "$target" ]]; then
   exit 0
 fi
 
+changed_files=$(runuser -u memora -- git -C "$app_dir" diff --name-only "$current" "$target")
+data_only=0
+if [[ -n "$changed_files" ]] && ! grep -Evq '^public/(flights|hot-deals|radar|tours)\.json$' <<<"$changed_files"; then
+  data_only=1
+fi
+
 runuser -u memora -- git -C "$app_dir" merge --ff-only origin/master
+
+# Scheduled parsers publish data without rebuilding the React application.
+# Refresh both the API source and the public snapshot in place.
+if [[ "$data_only" -eq 1 ]]; then
+  for feed in flights hot-deals radar tours; do
+    source_file="$app_dir/public/$feed.json"
+    if [[ -s "$source_file" ]]; then
+      install -o memora -g memora -m 0644 "$source_file" "$app_dir/dist/$feed.json"
+    fi
+  done
+  exit 0
+fi
+
 runuser -u memora -- npm --prefix "$app_dir" ci
 
 # Wait for the asset workflow to publish the exact same commit. The CDN branch
@@ -42,20 +61,15 @@ rm -rf -- "$next_dist"
 runuser -u memora -- mkdir -p "$next_dist"
 runuser -u memora -- git -C "$app_dir" archive origin/cdn | runuser -u memora -- tar -x -C "$next_dist"
 
-# Pages can lag briefly behind the branch. Keep the active release until the
-# entry bundle of the next release is publicly downloadable.
-asset_url=$(grep -oE 'https://arar228.github.io/memora-solutions/static/index-[^" ]+\.js' "$next_dist/index.html" | head -n 1)
-asset_ready=0
-for _ in {1..36}; do
-  if [[ -n "$asset_url" ]] && curl --fail --silent --show-error --max-time 20 --range 0-1023 "$asset_url" >/dev/null; then
-    asset_ready=1
-    break
-  fi
-  sleep 5
-done
+# The release carries a same-origin copy and two external fallbacks. Validate
+# the local entry before swapping directories; public CDN availability is no
+# longer a deployment blocker.
+asset_path=$(grep -oE '<meta name="memora-entry" content="[^"]+"' "$next_dist/index.html" \
+  | sed -E 's/.*content="([^"]+)"/\1/' \
+  | head -n 1)
 
-if [[ "$asset_ready" -ne 1 ]]; then
-  echo "CDN entry bundle is not available: $asset_url" >&2
+if [[ -z "$asset_path" || ! -s "$next_dist/$asset_path" ]]; then
+  echo "Release entry bundle is missing: $asset_path" >&2
   rm -rf -- "$next_dist"
   exit 1
 fi

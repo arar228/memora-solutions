@@ -25,30 +25,29 @@ jobs:
               "https://memorasolutions.ru/?uptime=${GITHUB_RUN_ID}-${attempt}" || true)"
 
             if [ "$status" = "200" ]; then
-              entry="$(sed -n 's/.*<script[^>]*type="module"[^>]*src="\([^"]*\)".*/\1/p' "$html" | head -n 1)"
+              entry="$(sed -n 's/.*<meta name="memora-entry" content="\([^"]*\)".*/\1/p' "$html" | head -n 1)"
 
               if [ -n "$entry" ]; then
-                entry_url="$(ENTRY="$entry" python3 - <<'PY'
-          import os
-          from urllib.parse import urljoin
-          print(urljoin('https://memorasolutions.ru/', os.environ['ENTRY']))
-          PY
-          )"
+                for base in \
+                  'https://memorasolutions.ru/' \
+                  'https://arar228.github.io/memora-solutions/' \
+                  'https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/'; do
+                  entry_url="${base}${entry}"
+                  bundle_status="$(curl --location --silent --show-error \
+                    --header 'Cache-Control: no-cache' \
+                    --output "$bundle" --write-out '%{http_code}' \
+                    --connect-timeout 8 --max-time 15 \
+                    "$entry_url" || true)"
 
-                bundle_status="$(curl --location --silent --show-error \
-                  --header 'Cache-Control: no-cache' \
-                  --output "$bundle" --write-out '%{http_code}' \
-                  --connect-timeout 10 --max-time 30 \
-                  "$entry_url" || true)"
+                  if [ "$bundle_status" = "200" ] && [ -s "$bundle" ]; then
+                    echo "Production HTML and resilient entry source are healthy: $base"
+                    exit 0
+                  fi
 
-                if [ "$bundle_status" = "200" ] && [ -s "$bundle" ]; then
-                  echo "Production HTML and entry bundle are healthy."
-                  exit 0
-                fi
-
-                echo "Attempt $attempt: entry bundle returned HTTP $bundle_status."
+                  echo "Attempt $attempt: $entry_url returned HTTP $bundle_status."
+                done
               else
-                echo "Attempt $attempt: module entry was not found in production HTML."
+                echo "Attempt $attempt: resilient entry metadata was not found in production HTML."
               fi
             else
               echo "Attempt $attempt: production HTML returned HTTP $status."

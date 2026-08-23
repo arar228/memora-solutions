@@ -5,6 +5,53 @@
   <meta charset="UTF-8" />
 
   <style>
+    :root {
+      --color-bg: #1a1a1e;
+      --color-gold: #06b6d4;
+      --color-green: #10b981;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-bg);
+    }
+
+    .global-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-bg);
+    }
+
+    .loader-logo {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      animation: memora-pulse 2s infinite ease-in-out;
+    }
+
+    .loader-circle {
+      width: 100px;
+      height: 100px;
+      border: 3px solid transparent;
+      border-top-color: var(--color-gold);
+      border-right-color: var(--color-green);
+      border-radius: 50%;
+      animation: memora-spin 1.5s linear infinite;
+    }
+
+    @keyframes memora-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes memora-pulse {
+      50% { transform: scale(0.85); opacity: 0.7; }
+    }
+
     .global-loader__failure {
       box-sizing: border-box;
       width: min(560px, calc(100vw - 40px));
@@ -68,6 +115,8 @@
         } catch (_) {}
       }
 
+      window.__memoraReportBoot = report;
+
       window.addEventListener('error', function (event) {
         var target = event.target;
         var source = event.filename || (target && (target.src || target.href)) || '';
@@ -103,7 +152,11 @@
         button.className = 'global-loader__retry';
         button.type = 'button';
         button.textContent = 'Повторить загрузку';
-        button.onclick = function () { location.reload(); };
+        button.onclick = function () {
+          var next = new URL(location.href);
+          next.searchParams.set('recovery', Date.now());
+          location.replace(next.href);
+        };
         panel.appendChild(title);
         panel.appendChild(message);
         panel.appendChild(button);
@@ -112,7 +165,7 @@
     })();
   </script>
 
-  <link rel="icon" type="image/png" href="%BASE_URL%logo.png?v=2" />
+  <link rel="icon" type="image/png" href="/logo.png?v=2" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Мемора Солюшнс — цифровые инструменты для улучшения качества жизни. Радар путешествий, планирование, помощь в отношениях." />
@@ -145,7 +198,7 @@
   <!-- Site Loading Animation -->
   <div id="global-loader" class="global-loader">
     <div class="loader-circle"></div>
-    <img src="%BASE_URL%logo.png?v=2" alt="Loading" class="loader-logo" />
+    <img src="/logo.png?v=2" alt="Loading" class="loader-logo" />
   </div>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>

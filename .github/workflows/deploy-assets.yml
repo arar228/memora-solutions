@@ -33,7 +33,7 @@ jobs:
       - name: Build production assets
         run: npm run build
         env:
-          VITE_ASSET_BASE: https://arar228.github.io/memora-solutions/
+          VITE_ASSET_BASE: ./
 
       - name: Publish immutable assets to CDN branch
         run: |

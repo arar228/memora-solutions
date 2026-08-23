@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { resilientBootPlugin } from './build/resilientBootPlugin.js'
 
 const normalizeBaseUrl = (value) => {
   const trimmed = value?.trim()
@@ -14,11 +15,12 @@ export default defineConfig(({ command }) => {
 
   return {
     base,
-    plugins: [react()],
+    plugins: [react(), resilientBootPlugin()],
     build: {
       // Stable groups let browsers cache the framework separately from pages.
-      // VITE_ASSET_BASE may point production assets at the GitHub Pages CDN.
+      // The HTML bootloader selects the fastest healthy asset origin at runtime.
       assetsDir: 'static',
+      modulePreload: false,
       rollupOptions: {
         output: {
           manualChunks: {

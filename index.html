@@ -166,7 +166,7 @@
     })();
   </script>
 
-  <link rel="icon" type="image/png" href="/logo.png?v=2" />
+  <link rel="icon" type="image/webp" href="./logo-loader.webp?v=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Мемора Солюшнс — цифровые инструменты для улучшения качества жизни. Радар путешествий, планирование, помощь в отношениях." />
@@ -194,32 +194,31 @@
     content="Цифровые инструменты для улучшения качества жизни." />
   <meta name="twitter:image" content="https://memorasolutions.ru/logo.png" />
   
-<meta name="memora-entry" content="static/index-ic04GVp6.js">
+<meta name="memora-entry" content="static/index-x-wxE6Bb.js">
 <script type="module" data-memora-resilient-boot>
-  const entry = "static/index-ic04GVp6.js";
+  const entry = "static/index-x-wxE6Bb.js";
   const styles = ["static/index-Bwe1_yYg.css"];
   const sources = [
-    { name: 'origin', base: new URL('/', location.origin).href },
     { name: 'github', base: 'https://arar228.github.io/memora-solutions/' },
-    { name: 'jsdelivr', base: 'https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/' }
+    { name: 'jsdelivr', base: 'https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/' },
+    { name: 'origin', base: new URL('/', location.origin).href }
   ];
-  const controllers = new Map();
 
   const assetUrl = (base, path) => new URL(path, base).href;
 
   async function probe(source) {
     const controller = new AbortController();
-    controllers.set(source.name, controller);
-    const timeout = setTimeout(() => controller.abort(), 6000);
+    const timeout = setTimeout(() => controller.abort(), 2500);
+    const startedAt = performance.now();
 
     try {
       const response = await fetch(assetUrl(source.base, entry), {
-        cache: 'force-cache',
+        method: 'HEAD',
+        cache: 'no-store',
         signal: controller.signal
       });
       if (!response.ok) throw new Error(source.name + ' HTTP ' + response.status);
-      await response.arrayBuffer();
-      return source;
+      return { source, latency: performance.now() - startedAt };
     } finally {
       clearTimeout(timeout);
     }
@@ -231,13 +230,13 @@
       const timeout = setTimeout(() => {
         link.remove();
         reject(new Error(source.name + ' stylesheet timeout'));
-      }, 6000);
+      }, 7000);
       link.rel = 'stylesheet';
       link.crossOrigin = 'anonymous';
       link.href = assetUrl(source.base, path);
       link.onload = () => {
         clearTimeout(timeout);
-        resolve();
+        resolve(link);
       };
       link.onerror = () => {
         clearTimeout(timeout);
@@ -248,12 +247,7 @@
     });
   }
 
-  function installImageFallback(primary) {
-    const secondarySources = sources
-      .filter((source) => source.name !== primary.name)
-      .sort((left, right) => Number(left.name === 'origin') - Number(right.name === 'origin'));
-    const orderedSources = [primary, ...secondarySources];
-    window.__memoraAssetBase = primary.base;
+  function installImageFallback(orderedSources) {
     window.__memoraAssetSources = orderedSources.map(({ name, base }) => ({ name, base }));
 
     window.addEventListener('error', (event) => {
@@ -280,23 +274,56 @@
     }, true);
   }
 
-  try {
-    const winner = await Promise.any(sources.map(probe));
-    for (const [name, controller] of controllers) {
-      if (name !== winner.name) controller.abort();
+  async function activate(source) {
+    const links = [];
+    window.__memoraAssetBase = source.base;
+    window.__memoraAssetSource = source.name;
+    document.documentElement.dataset.memoraAssetSource = source.name;
+
+    try {
+      links.push(...await Promise.all(styles.map((path) => attachStyle(source, path))));
+      await import(assetUrl(source.base, entry));
+    } catch (error) {
+      links.forEach((link) => link.remove());
+      throw error;
     }
-    window.__memoraAssetSource = winner.name;
-    document.documentElement.dataset.memoraAssetSource = winner.name;
-    installImageFallback(winner);
-    await Promise.all(styles.map((path) => attachStyle(winner, path)));
-    await import(assetUrl(winner.base, entry));
-  } catch (error) {
+  }
+
+  const checks = await Promise.allSettled(sources.slice(0, 2).map(probe));
+  const preferred = checks
+    .filter((result) => result.status === 'fulfilled')
+    .map((result) => result.value)
+    .sort((left, right) => left.latency - right.latency)
+    .map((result) => result.source);
+  const orderedSources = [
+    ...preferred,
+    sources[2]
+  ];
+  installImageFallback(orderedSources);
+
+  let lastError;
+  for (const source of orderedSources) {
+    try {
+      await activate(source);
+      lastError = null;
+      break;
+    } catch (error) {
+      lastError = error;
+      window.__memoraReportBoot?.(
+        'asset_source_failed',
+        error?.stack || error?.message || String(error),
+        source.name
+      );
+    }
+  }
+
+  if (lastError) {
     window.__memoraReportBoot?.(
       'asset_sources_exhausted',
-      error?.stack || error?.message || String(error),
+      lastError?.stack || lastError?.message || String(lastError),
       entry
     );
-    throw error;
+    throw lastError;
   }
 </script>
   
@@ -306,7 +333,7 @@
   <!-- Site Loading Animation -->
   <div id="global-loader" class="global-loader">
     <div class="loader-circle"></div>
-    <img src="/logo.png?v=2" alt="Loading" class="loader-logo" />
+    <img src="./logo-loader.webp?v=1" alt="" class="loader-logo" width="64" height="64" />
   </div>
   <div id="root"></div>
 </body>

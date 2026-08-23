@@ -1,7 +1,42 @@
 {
-  "updatedAt": "2026-08-23T16:35:02.305Z",
+  "updatedAt": "2026-08-23T16:55:47.176Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "ОАЭ",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "country"
+      },
+      "price": 40505,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-11-30",
+      "returnDate": "2026-12-07",
+      "date": "2026-08-23T16:39:04+00:00",
+      "source": "toursmsk",
+      "link": "https://level.tpx.lu/Q7dRinbA?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "text": "Туры Москва - ОАЭ от 40 505₽/чел. на 7 ночей (было от 45 814₽, цена упала на 12%)\n👉 Ссылка на туры:"
+    },
     {
       "type": "flight",
       "from": {
@@ -3440,48 +3475,13 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/10BVvj",
       "text": "🔥 в Тунис на 6-10 ночей с вылетом в конце августа - например, с 23 или 24 августа - от 41 700/чел с питанием, виза не нужна"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 51061,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08-24",
-      "returnDate": "2026-09-04",
-      "date": "2026-08-21T18:11:01+00:00",
-      "source": "toursmsk",
-      "link": "https://level.tpx.lu/65c9Byzm?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "text": "Туры Москва - Тунис от 51 061₽/чел. на 11 ночей (было от 56 011₽, цена упала на 9%)\n👉 Ссылка на туры:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-23T16:35:02.133Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-23T12:53:20+00:00",
@@ -3491,7 +3491,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-23T12:19:01+00:00",
@@ -3501,7 +3501,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-23T16:35:01+00:00",
@@ -3511,7 +3511,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "idle",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 20,
       "freshPosts": 0,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -3521,17 +3521,17 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-23T12:51:02+00:00",
+      "latestPostAt": "2026-08-23T16:39:04+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-23T06:01:42+00:00",
@@ -3541,7 +3541,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-23T13:16:20+00:00",
@@ -3551,7 +3551,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -3561,7 +3561,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 9,
       "freshPosts": 5,
       "latestPostAt": "2026-08-23T10:00:48+00:00",
@@ -3571,7 +3571,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-23T16:35:02.134Z",
+      "checkedAt": "2026-08-23T16:55:46.999Z",
       "fetchedPosts": 8,
       "freshPosts": 3,
       "latestPostAt": "2026-08-22T13:35:45+00:00",

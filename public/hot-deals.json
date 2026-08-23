@@ -1,7 +1,201 @@
 {
-  "updatedAt": "2026-08-23T11:50:08.940Z",
+  "updatedAt": "2026-08-23T12:55:52.117Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Владивосток",
+        "code": "VVO",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хайнань",
+        "code": "SYX",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 36300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 9,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-23T12:53:20+00:00",
+      "source": "vandroukiru",
+      "link": "https://vandrouki.ru/tury/8-9-nochej-na-hajnane-iz-vladivostoka/",
+      "text": "Забронировать тур на Хайнань на 8-9 ночей за 33100-36300 рублей с человека, например. А почему бы и нет."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Тунис",
+        "code": "TUN",
+        "country": {
+          "ru": "Тунис",
+          "en": "Tunisia"
+        },
+        "kind": "country"
+      },
+      "price": 48934,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-08-26",
+      "returnDate": "2026-09-02",
+      "date": "2026-08-23T12:51:02+00:00",
+      "source": "toursmsk",
+      "link": "https://level.tpx.lu/xjFYHBek?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "text": "Туры Москва - Тунис от 48 934₽/чел. на 7 ночей (было от 54 835₽, цена упала на 11%)\n👉 Ссылка на туры:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сиань",
+        "code": "XIY",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 17500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Пекин",
+          "code": "PEK"
+        },
+        {
+          "name": "Шымкент",
+          "code": "CIT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-23T12:19:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2209XIY1?marker=748397&currency=rub",
+      "text": "из Москвы в Сиань 🇨🇳 за 17 500 р. OW (осенью)\nBeijing Capital Airlines, через Циндао -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шанхай",
+        "code": "PVG",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 18900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Шымкент",
+          "code": "CIT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-23T12:19:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2209PVG1?marker=748397&currency=rub",
+      "text": "из Москвы в Шанхай 🇨🇳 за 18 900 р. OW (осенью и зимой)\nSCAT, пересадка в Шымкенте -"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гонконг",
+        "code": "HKG",
+        "country": {
+          "ru": "Гонконг",
+          "en": "Hong Kong"
+        },
+        "kind": "country"
+      },
+      "price": 22100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Пекин",
+          "code": "PEK"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-23T12:19:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2209HKG1?marker=748397&currency=rub",
+      "text": "из Москвы в Гонконг 🇭🇰 за 22 100 р. OW (сентябрь-октябрь)\nChina Eastern, пересадка в Пекине -"
+    },
     {
       "type": "flight",
       "from": {
@@ -3425,41 +3619,6 @@
     {
       "type": "tour",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 56011,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-08-24",
-      "returnDate": "2026-09-04",
-      "date": "2026-08-21T13:49:04+00:00",
-      "source": "toursmsk",
-      "link": "https://level.tpx.lu/65c9Byzm?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "text": "Туры Москва - Тунис от 56 011₽/чел. на 11 ночей (было от 59 980₽, цена упала на 7%)\n👉 Ссылка на туры:"
-    },
-    {
-      "type": "tour",
-      "from": {
         "name": "Санкт-Петербург",
         "code": "LED",
         "country": {
@@ -3631,68 +3790,33 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/LED2209AYT1?marker=748397&currency=rub",
       "text": "из Петербурга в Анталью 🇹🇷 за 6 300 р. OW (послезавтра)\nTurkish Airlines, прямой рейс с багажом -"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Астрахань",
-        "code": "ASF",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 11700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-21T12:17:22+00:00",
-      "source": "samokatus",
-      "link": "https://smkt.us/bi7jj",
-      "text": "из Астрахани в Анталью 🇹🇷 за 11 700 р. RT (август-сентябрь)\nУральские авиалинии, прямые рейсы с багажом - \n🏨 Отели в Анталье:"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
-      "latestPostAt": "2026-08-23T10:54:51+00:00",
+      "latestPostAt": "2026-08-23T12:53:20+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
-      "latestPostAt": "2026-08-23T11:06:01+00:00",
+      "latestPostAt": "2026-08-23T12:19:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-23T10:33:16+00:00",
@@ -3702,7 +3826,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 20,
       "freshPosts": 3,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -3712,17 +3836,17 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-23T11:03:19+00:00",
+      "latestPostAt": "2026-08-23T12:51:02+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
       "latestPostAt": "2026-08-23T06:01:42+00:00",
@@ -3732,7 +3856,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
       "latestPostAt": "2026-08-22T16:33:40+00:00",
@@ -3741,10 +3865,10 @@
     },
     {
       "channel": "onlinetours",
-      "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "status": "idle",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 16,
-      "freshPosts": 1,
+      "freshPosts": 0,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3752,7 +3876,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.748Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 9,
       "freshPosts": 6,
       "latestPostAt": "2026-08-23T10:00:48+00:00",
@@ -3762,7 +3886,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-23T11:50:08.749Z",
+      "checkedAt": "2026-08-23T12:55:51.946Z",
       "fetchedPosts": 8,
       "freshPosts": 3,
       "latestPostAt": "2026-08-22T13:35:45+00:00",

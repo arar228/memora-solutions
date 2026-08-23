@@ -1,7 +1,112 @@
 {
-  "updatedAt": "2026-08-23T10:52:26.872Z",
+  "updatedAt": "2026-08-23T11:27:56.103Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 40800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-23T11:06:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2209CXR1?marker=748397&currency=rub",
+      "text": "из Москвы в Нячанг 🇻🇳 за 40 800 р. RT (август-сентябрь)\nRed Wings, прямые рейсы с багажом - \nВсе даты:"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "ОАЭ",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "country"
+      },
+      "price": 54232,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 14,
+      "departDate": "2026-09-03",
+      "returnDate": "2026-09-17",
+      "date": "2026-08-23T11:03:19+00:00",
+      "source": "toursmsk",
+      "link": "https://level.tpx.lu/xByUo19W?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "text": "Туры Москва - ОАЭ от 54 232₽/чел. на 14 ночей (было от 58 253₽, цена упала на 7%)\n👉 Ссылка на туры:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Челябинск",
+        "code": "CEK",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Грузия",
+        "code": "TBS",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "country"
+      },
+      "price": 6500,
+      "oldPrice": 31983,
+      "savings": 25483,
+      "discount": 0.8,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-23T10:54:51+00:00",
+      "source": "vandroukiru",
+      "link": "https://www.aviasales.ru/search/CEK2209TBS1?marker=748397&currency=rub",
+      "text": "Прямые осенние рейсы из Челябинска, Саратова и Волгограда в Грузию от 6500 рублей!"
+    },
     {
       "type": "flight",
       "from": {
@@ -3388,41 +3493,6 @@
       "text": "🔥Египет \"все включено\" на 11 ночей от 42.200 руб/чел"
     },
     {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тунис",
-        "code": "TUN",
-        "country": {
-          "ru": "Тунис",
-          "en": "Tunisia"
-        },
-        "kind": "country"
-      },
-      "price": 47493,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08-26",
-      "returnDate": "2026-09-02",
-      "date": "2026-08-21T13:47:01+00:00",
-      "source": "toursmsk",
-      "link": "https://level.tpx.lu/xjFYHBek?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "text": "Туры Москва - Тунис от 47 493₽/чел. на 7 ночей (было от 51 739₽, цена упала на 8%)\n👉 Ссылка на туры:"
-    },
-    {
       "type": "flight",
       "from": {
         "name": "Москва",
@@ -3666,68 +3736,33 @@
       "source": "vandroukiru",
       "link": "https://www.aviasales.ru/search/MOW2209MSQ1?marker=748397&currency=rub",
       "text": "Прямой рейс из Москвы в Минск в начале осени за 1585 рублей!"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 200470,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08-30",
-      "returnDate": "2026-09-06",
-      "date": "2026-08-21T11:04:03+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/ELy2koP",
-      "text": "🏝Немного радости — не про этот отель. Тут получится только сразу МНОГО. Pickalbatros Citadel Sahl Hasheesh 5* в Хургаде, залив Сахл Хашиш, хорош вот чем:\n❤ Благодаря каскадному расположению корпусов "
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 20,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-22T14:25:28+00:00",
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-23T10:54:51+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 20,
-      "freshPosts": 18,
-      "latestPostAt": "2026-08-23T09:59:01+00:00",
+      "freshPosts": 19,
+      "latestPostAt": "2026-08-23T11:06:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-23T10:33:16+00:00",
@@ -3737,7 +3772,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 20,
       "freshPosts": 4,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -3747,17 +3782,17 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-23T09:47:14+00:00",
+      "latestPostAt": "2026-08-23T11:03:19+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 20,
       "freshPosts": 11,
       "latestPostAt": "2026-08-23T06:01:42+00:00",
@@ -3767,7 +3802,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
       "latestPostAt": "2026-08-22T16:33:40+00:00",
@@ -3777,7 +3812,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -3787,7 +3822,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 9,
       "freshPosts": 6,
       "latestPostAt": "2026-08-23T10:00:48+00:00",
@@ -3797,9 +3832,9 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-23T10:52:26.696Z",
+      "checkedAt": "2026-08-23T11:27:55.922Z",
       "fetchedPosts": 8,
-      "freshPosts": 4,
+      "freshPosts": 3,
       "latestPostAt": "2026-08-22T13:35:45+00:00",
       "reusedPrevious": false,
       "error": null

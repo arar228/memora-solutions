@@ -1,7 +1,537 @@
 {
-  "updatedAt": "2026-08-24T13:05:45.283Z",
+  "updatedAt": "2026-08-24T13:57:48.194Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 5900,
+      "oldPrice": 16880,
+      "savings": 10980,
+      "discount": 0.65,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-24T13:52:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER2309DLM1?marker=748397&currency=rub",
+      "text": "из Сочи в Даламан 🇹🇷 за 5 900 р. OW (август)\nИрАэро, прямой рейс с багажом -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Краснодар",
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 14700,
+      "oldPrice": 15327,
+      "savings": 627,
+      "discount": 0.04,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-24T13:52:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KRR2309AYT1?marker=748397&currency=rub",
+      "text": "из Краснодара в Анталью 🇹🇷 за 14 700 р. RT (на днях)\nSouthwind, прямые рейсы с багажом -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Батуми",
+        "code": "BUS",
+        "country": {
+          "ru": "Грузия",
+          "en": "Georgia"
+        },
+        "kind": "city"
+      },
+      "price": 12700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-24T13:52:13+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/AER2309BUS1?marker=748397&currency=rub",
+      "text": "из Минеральных Вод в Батуми 🇬🇪 за 12 700 р. RT (осенью)\nАзимут, прямые рейсы -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Красноярск",
+        "code": "KJA",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 4800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-24T13:52:02+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/LED2309KJA1?marker=748397&currency=rub",
+      "text": "Санкт-Петербург — Красноярск за 4800₽ в одну сторону.\n→",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Краснодар",
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 14800,
+      "oldPrice": 15327,
+      "savings": 527,
+      "discount": 0.03,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-25",
+      "returnDate": null,
+      "date": "2026-08-24T13:49:17+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/KRR2508AYT1?marker=748397&currency=rub",
+      "text": "Краснодар — Анталья за 14800₽ туда-обратно.",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "price": 50483,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-09-08",
+      "returnDate": "2026-09-15",
+      "date": "2026-08-24T13:46:21+00:00",
+      "source": "gorashietury",
+      "link": "https://tour.checkintime.ru/search/Moscow-RU-to-Hurghada-EG-departure-08.09.2026-for-7-nights-2-adults-0-kids-1..5-stars-package-type?filter_rating=8&sort_by=price,asc&aflt=CheckInTime",
+      "text": "🔥 Туры в Египет 🇪🇬 из Москвы на 7 ночей от 50483 руб. на человека.\n✈️ Вылет 8 сентября - от 50483 руб/чел\n✈️ Вылет 8 сентября - от 50605 руб/чел\n✈️ Вылет 30 августа - от 67982 руб/чел"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Таиланд",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "country"
+      },
+      "price": 56900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 10,
+      "departDate": "2026-08-27",
+      "returnDate": "2026-09-06",
+      "date": "2026-08-24T13:39:39+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/B8sSpr",
+      "text": "🔥 в Таиланд (Паттайя) на 9-10 ночей с 27 августа с проживанием в 4-5* от 56 900/чел  (скидка по промокоду 2500Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Таиланд",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "country"
+      },
+      "price": 61200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-08-24T13:39:39+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/8wpnkD",
+      "text": "🔥 в Таиланд (Паттайя) на неделю и дольше в сентябре с проживанием в 4-5* от 61 200/чел  (скидка по промокоду 2500Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 69300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-13",
+      "returnDate": null,
+      "date": "2026-08-24T13:39:39+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/tPxAR1",
+      "text": "🔥 варианты на Пхукет - 2 недели в сентябре от 69 300/чел, например, с вылетом 13 сентября \n🔥 варианты туров в сентябре в Краби  или в Као Лак  (обратите внимание, индивидуальный трансфер аэропорт Пх"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сочи",
+        "code": "AER",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Даламан",
+        "code": "DLM",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6000,
+      "oldPrice": 16880,
+      "savings": 10880,
+      "discount": 0.64,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-25",
+      "returnDate": null,
+      "date": "2026-08-24T13:38:10+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/AER2508DLM1?marker=748397&currency=rub",
+      "text": "Сочи — Даламан за 6000₽ в одну сторону или за 16000 в обе.\n→",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шанхай",
+        "code": "PVG",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 25600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-26",
+      "returnDate": null,
+      "date": "2026-08-24T13:35:20+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2608PVG1?marker=748397&currency=rub",
+      "text": "Москва — Шанхай от 25600₽ в одну сторону, вылет в среду, рейсы прямые, с багажом\n— 26.08 - 25600₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Ставрополь",
+        "code": "STW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 16800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-09-01",
+      "returnDate": "2026-09-11",
+      "date": "2026-08-24T13:32:39+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SVX0109STW1?marker=748397&currency=rub",
+      "text": "Екатеринбург — Ставрополь от 16800Р туда и обратно, рейсы прямые с ручной кладью\n— 01-11.09 — 16800Р\n— 01-18.09 — 16800Р",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Самара",
+        "code": "KUF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 3100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-08-29",
+      "date": "2026-08-24T13:24:26+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2508KUF1?marker=748397&currency=rub",
+      "text": "Москва — Самара за 3100₽ в одну сторону.\n→",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Касабланка",
+        "code": "CMN",
+        "country": {
+          "ru": "Марокко",
+          "en": "Morocco"
+        },
+        "kind": "city"
+      },
+      "price": 30387,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-22",
+      "returnDate": null,
+      "date": "2026-08-24T13:12:36+00:00",
+      "source": "gorashietury",
+      "link": "https://www.aviasales.ru/search/MOW2211CMN1?marker=748397&currency=rub",
+      "text": "✈️ Москва - Касабланка, от 30387 рублей",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
     {
       "type": "tour",
       "from": {
@@ -365,45 +895,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Актау",
-        "code": "SCO",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "city"
-      },
-      "price": 5500,
-      "oldPrice": 26272,
-      "savings": 20772,
-      "discount": 0.79,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-24T12:54:19+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN2309SCO1?marker=748397&currency=rub",
-      "text": "из Казани в Актау 🇰🇿 за 5 500 р. OW (октябрь)\nSCAT, прямой рейс с багажом -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Уфа",
         "code": "UFA",
         "country": {
@@ -422,9 +913,9 @@
         "kind": "city"
       },
       "price": 5500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 26757,
+      "savings": 21257,
+      "discount": 0.79,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -435,6 +926,45 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/UFA2309SCO1?marker=748397&currency=rub",
       "text": "из Уфы в Актау 🇰🇿 за 5 500 р. OW (сентябрь)\nSCAT, прямой рейс с багажом -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Актау",
+        "code": "SCO",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "price": 5500,
+      "oldPrice": 26165,
+      "savings": 20665,
+      "discount": 0.79,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-24T12:54:19+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN2309SCO1?marker=748397&currency=rub",
+      "text": "из Казани в Актау 🇰🇿 за 5 500 р. OW (октябрь)\nSCAT, прямой рейс с багажом -",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -1011,46 +1541,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Паттайя",
-        "code": "UTP",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 60900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": "2026-09-09",
-      "returnDate": "2026-09-17",
-      "date": "2026-08-24T12:37:23+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/WlDt9tvy?erid=2VtzqwtqK9V",
-      "text": "Паттайя, 8 ночей\nВылет из: #Москва\nДаты: 09.09.26 - 17.09.26\nЦена: 60900P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirate",
-      "originalLink": "https://пртс.рф/1Tlr",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Шарм-эль-Шейх",
         "code": "SSH",
         "country": {
@@ -1100,8 +1590,8 @@
         "kind": "city"
       },
       "price": 28000,
-      "oldPrice": 51016,
-      "savings": 23016,
+      "oldPrice": 51015,
+      "savings": 23015,
       "discount": 0.45,
       "oneway": true,
       "roundTrip": false,
@@ -1415,9 +1905,9 @@
         "kind": "city"
       },
       "price": 14400,
-      "oldPrice": 23003,
-      "savings": 8603,
-      "discount": 0.37,
+      "oldPrice": 21470,
+      "savings": 7070,
+      "discount": 0.33,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -1454,9 +1944,9 @@
         "kind": "city"
       },
       "price": 9300,
-      "oldPrice": 39314,
-      "savings": 30014,
-      "discount": 0.76,
+      "oldPrice": 32609,
+      "savings": 23309,
+      "discount": 0.71,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1493,8 +1983,8 @@
         "kind": "city"
       },
       "price": 6600,
-      "oldPrice": 22530,
-      "savings": 15930,
+      "oldPrice": 22997,
+      "savings": 16397,
       "discount": 0.71,
       "oneway": false,
       "roundTrip": false,
@@ -1612,9 +2102,9 @@
         "kind": "city"
       },
       "price": 6900,
-      "oldPrice": 23003,
-      "savings": 16103,
-      "discount": 0.7,
+      "oldPrice": 21470,
+      "savings": 14570,
+      "discount": 0.68,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1651,9 +2141,9 @@
         "kind": "city"
       },
       "price": 4600,
-      "oldPrice": 17766,
-      "savings": 13166,
-      "discount": 0.74,
+      "oldPrice": 18262,
+      "savings": 13662,
+      "discount": 0.75,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1690,8 +2180,8 @@
         "kind": "city"
       },
       "price": 4300,
-      "oldPrice": 13865,
-      "savings": 9565,
+      "oldPrice": 13874,
+      "savings": 9574,
       "discount": 0.69,
       "oneway": false,
       "roundTrip": false,
@@ -1703,45 +2193,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/AER0109AYT1?marker=748397&currency=rub",
       "text": "из Сочи в Анталью 🇹🇷 за 4 300 р. OW (август)\nУральские авиалинии, прямой рейс с багажом -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 6400,
-      "oldPrice": 24367,
-      "savings": 17967,
-      "discount": 0.74,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-25",
-      "returnDate": "2026-09-02",
-      "date": "2026-08-24T09:50:34+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SVX2508AYT1?marker=748397&currency=rub",
-      "text": "Екатеринбург — Анталья от 6400₽ в одну сторону, вылет завтра, рейсы прямые, с багажом\n— 25.08 - 6400₽",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -1768,9 +2219,9 @@
         "kind": "city"
       },
       "price": 5400,
-      "oldPrice": 23068,
-      "savings": 17668,
-      "discount": 0.77,
+      "oldPrice": 22630,
+      "savings": 17230,
+      "discount": 0.76,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -1781,6 +2232,45 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/TJM2608AYT1?marker=748397&currency=rub",
       "text": "Тюмень — Анталья от 5400₽ в одну сторону или от 21500₽ обе,  вылет в среду, рейсы прямые, с багажом\n— 26.08 - 5400₽\n— 26.08 - 02.09 - 21500₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 6400,
+      "oldPrice": 21926,
+      "savings": 15526,
+      "discount": 0.71,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-25",
+      "returnDate": "2026-09-02",
+      "date": "2026-08-24T09:50:34+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/SVX2508AYT1?marker=748397&currency=rub",
+      "text": "Екатеринбург — Анталья от 6400₽ в одну сторону, вылет завтра, рейсы прямые, с багажом\n— 25.08 - 6400₽",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -1846,8 +2336,8 @@
         "kind": "country"
       },
       "price": 6985,
-      "oldPrice": 15547,
-      "savings": 8562,
+      "oldPrice": 15565,
+      "savings": 8580,
       "discount": 0.55,
       "oneway": false,
       "roundTrip": true,
@@ -1885,9 +2375,9 @@
         "kind": "city"
       },
       "price": 15400,
-      "oldPrice": 23003,
-      "savings": 7603,
-      "discount": 0.33,
+      "oldPrice": 21470,
+      "savings": 6070,
+      "discount": 0.28,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -1924,9 +2414,9 @@
         "kind": "city"
       },
       "price": 6800,
-      "oldPrice": 23242,
-      "savings": 16442,
-      "discount": 0.71,
+      "oldPrice": 22525,
+      "savings": 15725,
+      "discount": 0.7,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1963,9 +2453,9 @@
         "kind": "city"
       },
       "price": 5300,
-      "oldPrice": 20088,
-      "savings": 14788,
-      "discount": 0.74,
+      "oldPrice": 19086,
+      "savings": 13786,
+      "discount": 0.72,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2530,8 +3020,8 @@
         "kind": "city"
       },
       "price": 25300,
-      "oldPrice": 33566,
-      "savings": 8266,
+      "oldPrice": 33605,
+      "savings": 8305,
       "discount": 0.25,
       "oneway": false,
       "roundTrip": true,
@@ -2801,8 +3291,8 @@
         "kind": "city"
       },
       "price": 6400,
-      "oldPrice": 20201,
-      "savings": 13801,
+      "oldPrice": 19903,
+      "savings": 13503,
       "discount": 0.68,
       "oneway": false,
       "roundTrip": false,
@@ -2997,87 +3487,9 @@
         },
         "kind": "city"
       },
-      "price": 14600,
-      "oldPrice": 33566,
-      "savings": 18966,
-      "discount": 0.57,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-24T05:15:48+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/LED2309SKD1?marker=748397&currency=rub",
-      "text": "Санкт-Петербург — Самарканд за 14600₽ туда-обратно.",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Бодрум",
-        "code": "BJV",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 15800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-07",
-      "returnDate": null,
-      "date": "2026-08-24T05:15:30+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/BJV0709MOW1?marker=748397&currency=rub",
-      "text": "Бодрум (Турция) — Москва от 15800Р в одну сторону, прямой с багажом\n— 07.09 — 15800Р\n— 08.09 — 16400Р\n— 09.09 — 18500Р\n— 12.09 — 16400Р",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Самарканд",
-        "code": "SKD",
-        "country": {
-          "ru": "Узбекистан",
-          "en": "Uzbekistan"
-        },
-        "kind": "city"
-      },
       "price": 14594,
-      "oldPrice": 33566,
-      "savings": 18972,
+      "oldPrice": 33605,
+      "savings": 19011,
       "discount": 0.57,
       "oneway": false,
       "roundTrip": false,
@@ -3089,45 +3501,6 @@
       "source": "gorashietury",
       "link": "https://www.aviasales.ru/search/LED0704SKD1?marker=748397&currency=rub",
       "text": "✈️ Санкт-Петербург - Самарканд, от 14594 рублей",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 5400,
-      "oldPrice": 20088,
-      "savings": 14688,
-      "discount": 0.73,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-25",
-      "returnDate": null,
-      "date": "2026-08-24T05:11:19+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2508AYT1?marker=748397&currency=rub",
-      "text": "Москва — Анталья за 5400₽ в одну сторону.\n→",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -3529,8 +3902,8 @@
         "kind": "city"
       },
       "price": 6710,
-      "oldPrice": 22499,
-      "savings": 15789,
+      "oldPrice": 22525,
+      "savings": 15815,
       "discount": 0.7,
       "oneway": false,
       "roundTrip": false,
@@ -3853,8 +4226,8 @@
         "kind": "country"
       },
       "price": 6500,
-      "oldPrice": 32186,
-      "savings": 25686,
+      "oldPrice": 32223,
+      "savings": 25723,
       "discount": 0.8,
       "oneway": false,
       "roundTrip": false,
@@ -4528,8 +4901,8 @@
         "kind": "city"
       },
       "price": 6601,
-      "oldPrice": 22530,
-      "savings": 15929,
+      "oldPrice": 22997,
+      "savings": 16396,
       "discount": 0.71,
       "oneway": false,
       "roundTrip": false,
@@ -4910,289 +5283,13 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/5Sk15b",
       "text": "🔥 в Танзанию (на Занзибар) на 13 ночей с вылетом 25 августа от 65 100/чел  (скидка по промокоду 2500Lucky ; виза по прибытии 50$/чел + обязательная страховка 44/22$ за взрослого/ребенка)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 58800,
-      "oldPrice": 61636,
-      "savings": 2836,
-      "discount": 0.05,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Абу-Даби",
-          "code": "AUH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-22T13:57:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN2309SEZ1?marker=748397&currency=rub",
-      "text": "из Казани на Сейшелы 🇸🇨 за 58 800 р. RT (осенью и зимой)\nEtihad, через Абу-Даби - \nВсе даты:",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "ЮАР",
-        "code": "CPT",
-        "country": {
-          "ru": "ЮАР",
-          "en": "South Africa"
-        },
-        "kind": "country"
-      },
-      "price": 57300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Абу-Даби",
-          "code": "AUH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-22T13:57:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN2309CPT1?marker=748397&currency=rub",
-      "text": "из Казани в ЮАР 🇿🇦 за 57 300 р. RT (осенью и зимой)\nEtihad, пересадки в Абу-Даби - \nВсе даты:",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 67033,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-09-02",
-      "returnDate": "2026-09-09",
-      "date": "2026-08-22T13:49:17+00:00",
-      "source": "toursspb",
-      "link": "https://level.tpx.gr/avtH9Dhk?erid=2VtzqwsMKs9",
-      "text": "Туры Санкт-Петербург - Таиланд от 67 033₽/чел. на 7 ночей (было от 73 443₽, цена упала на 9%)\n👉 Ссылка на туры:",
-      "originalLink": "https://level.tpx.lu/WyT6kIkO?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 44029,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08-24",
-      "returnDate": "2026-08-31",
-      "date": "2026-08-22T13:46:29+00:00",
-      "source": "gorashietury",
-      "link": "https://tour.checkintime.ru/search/Moscow-RU-to-Any-EG-departure-24.08.2026-for-7-nights-2-adults-0-kids-1..5-stars-package-type?filter_rating=8&sort_by=price,asc&aflt=CheckInTime",
-      "text": "🔥 Туры в Египет 🇪🇬 из Москвы на 7 ночей от 44029 руб. на человека.\n✈️ Вылет 24 августа - от 44029 руб/чел\n✈️ Вылет 3 сентября - от 49830 руб/чел\n✈️ Вылет 30 августа - от 110994 руб/чел"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 78870,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-08-30",
-      "returnDate": "2026-09-06",
-      "date": "2026-08-22T13:35:45+00:00",
-      "source": "leveltravel",
-      "link": "https://lvtv.me/gBYDwLT",
-      "text": "✈️ Туры в Стамбул стоят от 78 870 ₽ за 7 ночей с 30 августа на двоих  \n🧳 Можно забронировать отель без перелета по цене от 16 956 ₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Окленд",
-        "code": "AKL",
-        "country": {
-          "ru": "Новая Зеландия",
-          "en": "New Zealand"
-        },
-        "kind": "city"
-      },
-      "price": 107598,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2027-02-17",
-      "returnDate": null,
-      "date": "2026-08-22T13:12:40+00:00",
-      "source": "gorashietury",
-      "link": "https://www.aviasales.ru/search/MOW1702AKL1?marker=748397&currency=rub",
-      "text": "✈️ Москва - Окленд, от 107598 рублей",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталья",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 13300,
-      "oldPrice": 20088,
-      "savings": 6788,
-      "discount": 0.34,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-08-24",
-      "returnDate": "2026-09-07",
-      "date": "2026-08-22T13:06:00+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2408AYT1?marker=748397&currency=rub",
-      "text": "из Москвы в Анталью 🇹🇷 за 13 300 р. RT (24.08-7.09)",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-08-24T12:44:04+00:00",
@@ -5202,27 +5299,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
-      "freshPosts": 15,
-      "latestPostAt": "2026-08-24T12:54:19+00:00",
+      "freshPosts": 14,
+      "latestPostAt": "2026-08-24T13:52:13+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-24T12:42:11+00:00",
+      "latestPostAt": "2026-08-24T13:52:02+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-08-24T12:33:13+00:00",
@@ -5232,7 +5329,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-24T12:42:12+00:00",
@@ -5242,9 +5339,9 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
-      "freshPosts": 9,
+      "freshPosts": 8,
       "latestPostAt": "2026-08-24T12:59:02+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5252,17 +5349,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
-      "freshPosts": 3,
-      "latestPostAt": "2026-08-23T13:16:20+00:00",
+      "freshPosts": 4,
+      "latestPostAt": "2026-08-24T13:39:39+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-24T12:50:38+00:00",
@@ -5272,7 +5369,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 9,
       "freshPosts": 7,
       "latestPostAt": "2026-08-24T13:02:47+00:00",
@@ -5282,9 +5379,9 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 6,
-      "freshPosts": 3,
+      "freshPosts": 2,
       "latestPostAt": "2026-08-24T06:31:59+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5292,17 +5389,17 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
-      "latestPostAt": "2026-08-24T09:12:34+00:00",
+      "latestPostAt": "2026-08-24T13:46:21+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 11,
       "freshPosts": 6,
       "latestPostAt": "2026-08-24T06:34:56+00:00",
@@ -5312,10 +5409,10 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-08-24T13:05:38.754Z",
+      "checkedAt": "2026-08-24T13:57:43.670Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-08-24T13:04:19+00:00",
+      "latestPostAt": "2026-08-24T13:07:43+00:00",
       "reusedPrevious": false,
       "error": null
     }

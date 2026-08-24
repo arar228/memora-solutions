@@ -193,6 +193,7 @@
 .portfolio-case-row:hover .portfolio-case-row__media button:first-child > img { transform: scale(1.025); }
 .portfolio-case-row__media button:nth-child(2) { position: absolute; right: 9px; bottom: 9px; width: 40%; height: 70%; border: 2px solid rgba(255,255,255,.92); border-radius: 8px; box-shadow: 0 8px 18px rgba(0,0,0,.28); }
 .portfolio-case-row__media.media-domatrix button:nth-child(2) { width: 27%; height: 82%; }
+.portfolio-case-row__media button[data-more]::after { content: attr(data-more); position: absolute; top: 8px; right: 8px; z-index: 2; display: grid; min-width: 34px; height: 34px; place-items: center; padding: 0 7px; border: 1px solid rgba(255,255,255,.38); border-radius: 999px; color: #fff; background: rgba(10,11,15,.8); backdrop-filter: blur(10px); font-size: 18px; font-weight: 800; }
 .portfolio-case-row__media.media-poker button:nth-child(2) { width: 48%; height: 64%; }
 .portfolio-case-row__media button > span { position: absolute; right: 8px; bottom: 8px; display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid rgba(255,255,255,.34); border-radius: 50%; background: rgba(10,11,15,.78); backdrop-filter: blur(10px); transition: transform .2s ease,background .2s ease; }
 .portfolio-case-row__media button:hover > span,

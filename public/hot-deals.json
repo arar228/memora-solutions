@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-24T03:11:40.500Z",
+  "updatedAt": "2026-08-24T04:23:54.828Z",
   "marker": "748397",
   "deals": [
     {
@@ -712,9 +712,9 @@
         "kind": "country"
       },
       "price": 6500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 32128,
+      "savings": 25628,
+      "discount": 0.8,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1289,6 +1289,41 @@
     {
       "type": "flight",
       "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 19500,
+      "oldPrice": 51016,
+      "savings": 31516,
+      "discount": 0.62,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-23T05:15:34+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2309HKT1?marker=748397&currency=rub",
+      "text": "- на Пхукет: 19 500 ₽ в одну сторону (посмотреть)"
+    },
+    {
+      "type": "flight",
+      "from": {
         "name": "Челябинск",
         "code": "CEK",
         "country": {
@@ -1307,8 +1342,8 @@
         "kind": "city"
       },
       "price": 6500,
-      "oldPrice": 27224,
-      "savings": 20724,
+      "oldPrice": 27317,
+      "savings": 20817,
       "discount": 0.76,
       "oneway": true,
       "roundTrip": false,
@@ -1565,41 +1600,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW2309BJV1?marker=748397&currency=rub",
       "text": "- в Бодрум: 18 300 ₽ туда-обратно (раз, два)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пхукет",
-        "code": "HKT",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 19500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-23T05:15:34+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2309HKT1?marker=748397&currency=rub",
-      "text": "- на Пхукет: 19 500 ₽ в одну сторону (посмотреть)"
     },
     {
       "type": "flight",
@@ -2103,46 +2103,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 58800,
-      "oldPrice": 61315,
-      "savings": 2515,
-      "discount": 0.04,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Абу-Даби",
-          "code": "AUH"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-22T13:57:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN2309SEZ1?marker=748397&currency=rub",
-      "text": "из Казани на Сейшелы 🇸🇨 за 58 800 р. RT (осенью и зимой)\nEtihad, через Абу-Даби - \nВсе даты:"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "ЮАР",
         "code": "CPT",
         "country": {
@@ -2170,6 +2130,46 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/KZN2309CPT1?marker=748397&currency=rub",
       "text": "из Казани в ЮАР 🇿🇦 за 57 300 р. RT (осенью и зимой)\nEtihad, пересадки в Абу-Даби - \nВсе даты:"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сейшелы",
+        "code": "SEZ",
+        "country": {
+          "ru": "Сейшелы",
+          "en": "Seychelles"
+        },
+        "kind": "country"
+      },
+      "price": 58800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Абу-Даби",
+          "code": "AUH"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-22T13:57:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN2309SEZ1?marker=748397&currency=rub",
+      "text": "из Казани на Сейшелы 🇸🇨 за 58 800 р. RT (осенью и зимой)\nEtihad, через Абу-Даби - \nВсе даты:"
     },
     {
       "type": "tour",
@@ -2792,8 +2792,8 @@
         "kind": "city"
       },
       "price": 6000,
-      "oldPrice": 27224,
-      "savings": 21224,
+      "oldPrice": 27317,
+      "savings": 21317,
       "discount": 0.78,
       "oneway": false,
       "roundTrip": false,
@@ -3206,7 +3206,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.710Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-08-23T12:53:20+00:00",
@@ -3216,7 +3216,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 20,
       "freshPosts": 15,
       "latestPostAt": "2026-08-23T12:19:01+00:00",
@@ -3226,7 +3226,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-23T19:13:15+00:00",
@@ -3236,7 +3236,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "idle",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 20,
       "freshPosts": 0,
       "latestPostAt": "2026-08-21T14:43:35+00:00",
@@ -3246,7 +3246,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
       "latestPostAt": "2026-08-24T02:11:12+00:00",
@@ -3256,7 +3256,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
       "latestPostAt": "2026-08-23T19:27:02+00:00",
@@ -3266,7 +3266,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 20,
       "freshPosts": 4,
       "latestPostAt": "2026-08-23T13:16:20+00:00",
@@ -3276,7 +3276,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 16,
       "freshPosts": 0,
       "latestPostAt": "2026-08-21T12:21:44+00:00",
@@ -3286,7 +3286,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 9,
       "freshPosts": 5,
       "latestPostAt": "2026-08-23T10:00:48+00:00",
@@ -3296,7 +3296,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-24T03:11:40.336Z",
+      "checkedAt": "2026-08-24T04:23:54.711Z",
       "fetchedPosts": 8,
       "freshPosts": 3,
       "latestPostAt": "2026-08-22T13:35:45+00:00",

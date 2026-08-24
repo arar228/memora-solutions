@@ -150,7 +150,10 @@
 .portfolio-section { padding: 120px 0; scroll-margin-top: 88px; }
 .portfolio-section--manager,
 .portfolio-section--offer,
-.portfolio-section--contact { background: var(--portfolio-bg); }
+.portfolio-section--contact {
+    background: var(--portfolio-bg);
+    padding-bottom: clamp(32px, 4vw, 56px);
+}
 .portfolio-section--cases,
 .portfolio-section--process,
 .portfolio-section--documents { color: var(--portfolio-ink); background: var(--portfolio-paper); }

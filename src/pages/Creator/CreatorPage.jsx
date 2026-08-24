@@ -16,6 +16,7 @@ import {
     FileSignature,
     FileText,
     Gauge,
+    Gamepad2,
     Mail,
     Maximize2,
     MessageCircle,
@@ -58,6 +59,7 @@ const PROJECT_META = [
     { id: 'domatrix', icon: Building2, assets: ['/portfolio/domatrix-landing.webp', '/portfolio/domatrix-app.webp'], tone: 'green' },
     { id: 'poker', icon: Trophy, assets: ['/portfolio/poker-club.webp', '/portfolio/poker-control.webp'], tone: 'gold' },
     { id: 'armk', icon: MonitorSmartphone, assets: ['/portfolio/armk-site.webp'], tone: 'ice' },
+    { id: 'teya-leya', icon: Gamepad2, tone: 'magenta' },
     { id: 'wallet', icon: WalletCards, tone: 'mint' },
     { id: 'pomodoro', icon: Timer, tone: 'orange' },
     { id: 'radar', icon: Plane, tone: 'cyan' },
@@ -73,7 +75,7 @@ const COPY = {
         lead: 'Проектируем пользовательский путь, интерфейс, код, данные и инфраструктуру. Доводим продукт до стабильного релиза и понятного управления.',
         discuss: 'Оставить запрос',
         cases: 'Смотреть проекты',
-        proof: [['8', 'продуктов в портфолио'], ['Web · Desktop · Bots', 'единый контур разработки'], ['$30 / час', 'ставка команды'], ['Спринтами', 'проверяемый результат']],
+        proof: [['9', 'продуктов в портфолио'], ['Web · Desktop · Bots', 'единый контур разработки'], ['$30 / час', 'ставка команды'], ['Спринтами', 'проверяемый результат']],
         casesLabel: '01 / Проекты',
         casesTitle: 'Разные задачи. Своя логика у каждого продукта.',
         projectAction: 'Открыть проект',
@@ -83,6 +85,7 @@ const COPY = {
             { name: 'DOMATRIX', type: 'АСУЗ · 23 системы · Digital twin', text: 'Единый центр управления инженерными системами здания: диспетчеризация, заявки, мониторинг и сервисы для жителей.', href: '#contact' },
             { name: 'Платформа спортивного покера', type: 'Клуб · Турниры · Live control', text: 'Публичный сайт клуба, расписание и рейтинг игроков, регистрация на турниры и единый экран управления залом, уровнями и участниками.', href: '#contact' },
             { name: 'Сайт ARMK', type: 'Корпоративный сайт · AI · CMS', text: 'Продукты, компетенции, вакансии, гарантии и AI-ассистент в одном живом корпоративном интерфейсе.', href: 'https://armk.pro/' },
+            { name: 'Тея и Лея', type: 'Unity · WebGL · Яндекс Игры', text: 'Казуальная 2D-игра с гардеробом, составными персонажами, забегом Теи и мостами, которые рисует Лея.', href: '#contact' },
             { name: 'Memora Wallet Manager', type: 'Telegram · Python · Fintech', text: 'Учёт расходов сообщением, бюджеты, отчёты, валюты, часовые пояса и ежедневные уведомления.', href: '/wallet' },
             { name: 'Memora Pomodoro', type: 'Electron · React · Local-first', text: 'Таймер фокуса с оверлеем, статистикой, анимированными сценами и web-версией.', href: '/pomodoro' },
             { name: 'Радар путешествий', type: 'React · Парсеры · Data pipeline', text: 'Единая лента туров и билетов из тревел-каналов с фильтрами, датами и первоисточниками.', href: '/travel-radar' },
@@ -126,13 +129,14 @@ const COPY = {
     },
     en: {
         eyebrow: 'Product team portfolio', titlePrimary: 'Digital products', titleSecondary: 'built for the real world', scrollHint: 'Continue the journey', lead: 'We design the user journey, interface, code, data, and infrastructure—then take the product to a stable release and clear operations.', discuss: 'Send a request', cases: 'View projects',
-        proof: [['8', 'products in the portfolio'], ['Web · Desktop · Bots', 'one delivery system'], ['$30 / hour', 'team rate'], ['Sprint delivery', 'a verifiable outcome']],
+        proof: [['9', 'products in the portfolio'], ['Web · Desktop · Bots', 'one delivery system'], ['$30 / hour', 'team rate'], ['Sprint delivery', 'a verifiable outcome']],
         casesLabel: '01 / Projects', casesTitle: 'Different challenges. A distinct logic for every product.', projectAction: 'Open project', projectDetails: 'Discuss project',
         projects: [
             { name: 'ARMK B2B', type: 'B2B · Commerce · Catalogue', text: 'A wholesale platform with thousands of items, manager and customer roles, filters, stock, and cart.', href: '#contact' },
             { name: 'DOMATRIX', type: 'BMS · 23 systems · Digital twin', text: 'One control centre for building systems, dispatching, service requests, monitoring, and resident services.', href: '#contact' },
             { name: 'Sports poker platform', type: 'Club · Tournaments · Live control', text: 'A public club website, schedule and player ratings, tournament registration, and one live control screen for the venue, levels, and participants.', href: '#contact' },
             { name: 'ARMK Website', type: 'Corporate website · AI · CMS', text: 'Products, capabilities, vacancies, guarantees, and an AI assistant in one live corporate interface.', href: 'https://armk.pro/' },
+            { name: 'Teya & Leya', type: 'Unity · WebGL · Yandex Games', text: 'A casual 2D game with a wardrobe, modular characters, Teya’s runner, and bridges drawn by Leya.', href: '#contact' },
             { name: 'Memora Wallet Manager', type: 'Telegram · Python · Fintech', text: 'Expense tracking by message, budgets, reports, currencies, time zones, and daily notifications.', href: '/wallet' },
             { name: 'Memora Pomodoro', type: 'Electron · React · Local-first', text: 'A focus timer with overlay, statistics, animated scenes, and a web version.', href: '/pomodoro' },
             { name: 'Travel Radar', type: 'React · Parsers · Data pipeline', text: 'One feed of tours and tickets from travel channels with filters, dates, and source links.', href: '/travel-radar' },
@@ -451,7 +455,7 @@ export default function CreatorPage() {
                         <motion.div className="portfolio-showcase-tilt" initial={prefersReducedMotion ? false : { rotateZ: 0 }} animate={{ rotateZ: -2 }} transition={{ duration: prefersReducedMotion ? 0 : 0.42, delay: prefersReducedMotion ? 0 : 2.64, ease: [0.16, 1, 0.3, 1] }}>
                             <div className="portfolio-showcase">
                                 <div className="portfolio-showcase__scan" aria-hidden="true" />
-                                <div className="portfolio-showcase__pulse"><i /><span>8 PROJECTS · LIVE PORTFOLIO</span></div>
+                                <div className="portfolio-showcase__pulse"><i /><span>{c.projects.length} PROJECTS · LIVE PORTFOLIO</span></div>
                                 {c.projects.slice(0, 4).map((item, index) => { const external = isExternalHref(item.href); return <a href={item.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} key={item.name}><span>0{index + 1}</span><strong>{item.name}</strong><small>{item.type}</small>{external ? <ExternalLink size={18} /> : <ArrowRight size={18} />}</a>; })}
                             </div>
                             <svg className="portfolio-showcase-outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">

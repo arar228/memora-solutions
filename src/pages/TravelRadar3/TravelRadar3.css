@@ -621,6 +621,13 @@
     text-align: right !important;
 }
 
+.travel-feed__table-link-stack {
+    display: inline-flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
 .travel-feed__table-link-cell a {
     display: inline-flex;
     align-items: center;
@@ -818,6 +825,14 @@
     color: var(--text-muted);
     font-size: var(--travel-ui-small);
     text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.travel-feed__affiliate-note {
+    color: #8f939a;
+    font-size: var(--travel-ui-small);
+    font-weight: 650;
+    line-height: 1.2;
     white-space: nowrap;
 }
 

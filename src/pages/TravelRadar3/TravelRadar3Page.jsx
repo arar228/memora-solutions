@@ -72,6 +72,7 @@ const COPY = {
         nights: 'ночей',
         open: 'Открыть предложение',
         tableOpen: 'Открыть',
+        advertisement: 'Реклама',
         source: 'Источник',
         noDeals: 'Измените фильтры, чтобы увидеть подходящие предложения.',
         found: 'предложений',
@@ -112,7 +113,7 @@ const COPY = {
         usefulEyebrow: 'Следующий шаг',
         usefulTitle: 'Полезные сервисы для поездки',
         usefulLead: 'Когда предложение найдено, здесь можно подобрать жильё, экскурсии и проверить другие варианты.',
-        disclosure: 'Часть ссылок партнёрские: сервис может выплатить нам комиссию, но цена для вас не меняется.',
+        disclosure: 'Партнёрские ссылки отмечены словом «Реклама». За подтверждённое бронирование сервис может выплатить нам комиссию.',
         freshNote: 'Цены быстро меняются. Проверяйте итоговую стоимость и условия на странице продавца.',
         alertsEyebrow: 'Персональный радар',
         alertsTitle: 'Уведомления о подходящих предложениях',
@@ -159,6 +160,7 @@ const COPY = {
         nights: 'nights',
         open: 'Open deal',
         tableOpen: 'Open',
+        advertisement: 'Ad',
         source: 'Source',
         noDeals: 'Adjust the filters to see matching deals.',
         found: 'deals',
@@ -199,7 +201,7 @@ const COPY = {
         usefulEyebrow: 'Next step',
         usefulTitle: 'Useful services for your trip',
         usefulLead: 'Once you find a deal, use these links to choose a stay, activities and compare alternatives.',
-        disclosure: 'Some links are affiliate links. We may receive a commission, while your price stays the same.',
+        disclosure: 'Affiliate links carry an “Ad” label. We may receive a commission for a confirmed booking.',
         freshNote: 'Prices change quickly. Confirm the final price and terms on the seller page.',
         alertsEyebrow: 'Personal radar',
         alertsTitle: 'Alerts for matching deals',
@@ -666,6 +668,11 @@ function DealCard({ deal, lang, copy }) {
                     {copy.open}
                     <ExternalLink size={15} aria-hidden="true" />
                 </a>
+                {deal.isAffiliate ? (
+                    <span className="travel-feed__affiliate-note">
+                        {copy.advertisement} · {deal.affiliateBrand}
+                    </span>
+                ) : null}
                 {deal.source ? (
                     <a
                         href={`https://t.me/${deal.source}`}
@@ -783,15 +790,22 @@ function DealTable({ deals, lang, copy, sort, onSort }) {
                                     ) : <span className="travel-feed__missing">—</span>}
                                 </td>
                                 <td className="travel-feed__table-link-cell">
-                                    <a
-                                        href={deal.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer sponsored"
-                                        aria-label={`${copy.open}: ${routeLabel}`}
-                                    >
-                                        <span>{copy.tableOpen}</span>
-                                        <ExternalLink size={14} aria-hidden="true" />
-                                    </a>
+                                    <div className="travel-feed__table-link-stack">
+                                        <a
+                                            href={deal.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer sponsored"
+                                            aria-label={`${copy.open}: ${routeLabel}`}
+                                        >
+                                            <span>{copy.tableOpen}</span>
+                                            <ExternalLink size={14} aria-hidden="true" />
+                                        </a>
+                                        {deal.isAffiliate ? (
+                                            <small className="travel-feed__affiliate-note">
+                                                {copy.advertisement} · {deal.affiliateBrand}
+                                            </small>
+                                        ) : null}
+                                    </div>
                                 </td>
                             </tr>
                         );

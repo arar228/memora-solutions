@@ -28,6 +28,10 @@ jobs:
         run: node scripts/fetch-tours.js
 
       - name: Structure deals
+        env:
+          TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+          TRAVELPAYOUTS_MARKER: ${{ secrets.TRAVELPAYOUTS_MARKER }}
+          TRAVELPAYOUTS_TRS: '547927'
         run: node scripts/parse-deals.js
 
       - name: Test parser

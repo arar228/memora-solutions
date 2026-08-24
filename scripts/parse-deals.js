@@ -10,10 +10,9 @@
  * Per deal we now extract the manager's core metric — САВИНГС (savings):
  * "вместо 60 000", "скидка 35%", "экономия 20 000" → oldPrice/savings/discount.
  *
- * FLIGHT deals get OUR Aviasales affiliate link (marker 748397) — the
- * "intercept". TOUR deals keep the offer link found inside their own segment
- * (that's where the user books) until tour-operator affiliate programs are
- * connected.
+ * FLIGHT deals get OUR Aviasales affiliate link. TOUR deals are passed through
+ * the official Travelpayouts Links API where the connected brand supports it;
+ * unsupported destinations retain the source booking link.
  *
  * Output shape:
  *   { type:'flight'|'tour', from:{name,code}, to:{name,code}, price, oldPrice,
@@ -25,6 +24,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import { DEAL_DESTINATIONS } from './deal-destinations.js';
 import { placeMeta } from './travel-place-meta.js';
+import { monetizeDeals } from './travel-affiliate-links.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -73,7 +73,9 @@ function findCities(text, table) {
       const startsInsideWord = idx > 0 && /[\p{L}\p{N}]/u.test(t[idx - 1]);
       const tail = t.slice(idx + stem.length).match(/^[\p{L}\p{N}]*/u)?.[0] || '';
       if (!startsInsideWord && DECLENSION_ENDINGS.has(tail)) {
-        const prefixed = /(^|[\s(«"])(?:из|с)\s+$/.test(t.slice(Math.max(0, idx - 14), idx));
+        const prefixed = /(?:^|\s)(?:из|с)\s*[:—–-]?\s*#?\s*$/iu.test(
+          t.slice(Math.max(0, idx - 24), idx),
+        );
         const key = `${code}:${idx}`;
         const current = matches.get(key);
         if (!current || stem.length > current.stemLength) {
@@ -165,7 +167,7 @@ function resolveRoute(text, fallbackOrigin = null, fallbackDestination = null) {
 const TOUR_RE = /(?:^|[^\p{L}])тур(?:ы|а|ов|ом|е|у)?(?!\p{L})|турпакет|отел|(?:\d{1,2}|несколько)\s*ноч(?:ь|и|ей)?(?!\p{L})|звёзд|звезд|all\s*inclusive|всё включено|все включено|пляжн|круиз/iu;
 // Price: "12 990 ₽ / руб / р." OR "от 17 000" (channels often omit the currency
 // after "от", e.g. "3 ночи от 17 000/чел").
-const PRICE_CUR_RE = /(\d{1,3}(?:[\s.]\d{3})+|\d{4,7})\s*(?:₽|руб(?:\.|ля|лей)?|р\.?)(?![\p{L}\p{N}])/iu;
+const PRICE_CUR_RE = /(\d{1,3}(?:[\s.]\d{3})+|\d{4,7})\s*(?:₽|руб(?:\.|ля|лей)?|р\.?|P)(?![\p{L}\p{N}])/iu;
 const PRICE_OT_RE = /от\s+(\d{1,3}(?:[\s.]\d{3})+|\d{4,7})(?!\s*(?:%|зв|\*|ноч))/i;
 const OLD_RE = /вместо\s*(\d[\d\s.]{2,})/i;
 const PCT_RE = /скидк\w*\s*(?:до\s*)?[-−]?\s*(\d{1,2})\s*%|[-−]\s*(\d{1,2})\s*%/i;
@@ -551,7 +553,7 @@ function buildDeals(items, refPrices = new Map()) {
 async function main() {
   const raw = JSON.parse(await readFile(join(ROOT, 'public', 'tours.json'), 'utf8'));
   const refPrices = await loadRefPrices();
-  const deals = buildDeals(raw.items, refPrices);
+  const deals = await monetizeDeals(buildDeals(raw.items, refPrices));
   const payload = {
     updatedAt: new Date().toISOString(), marker: MARKER, deals, health: raw.health || [],
   };

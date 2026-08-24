@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { parseTravelDates, structure } from './parse-deals.js';
+import { brandForUrl, unwrapTravelpayoutsUrl } from './travel-affiliate-links.js';
 
 function parse(text, channel = 'test') {
   return structure({
@@ -222,5 +223,22 @@ const petersburgChannelOrigin = parse(
 );
 assert.equal(petersburgChannelOrigin[0].from.code, 'LED');
 assert.equal(petersburgChannelOrigin[0].to.code, 'BKK');
+
+const latinPriceSymbol = parse(
+  'Кемер, 6 ночей\nВылет из: #СПб\nДаты: 26.08.26 - 01.09.26\nЦена: 45100P',
+  'turs_sale',
+);
+assert.equal(latinPriceSymbol[0].type, 'tour');
+assert.equal(latinPriceSymbol[0].from.code, 'LED');
+assert.equal(latinPriceSymbol[0].to.code, 'AYT');
+assert.equal(latinPriceSymbol[0].price, 45100);
+assert.equal(latinPriceSymbol[0].departDate, '2026-08-26');
+assert.equal(latinPriceSymbol[0].returnDate, '2026-09-01');
+
+const unwrappedLevelTravel = unwrapTravelpayoutsUrl(
+  'https://tp.media/r?marker=111&u=https%3A%2F%2Flevel.travel%2Fpackages%2F123&erid=test',
+);
+assert.equal(unwrappedLevelTravel.toString(), 'https://level.travel/packages/123');
+assert.equal(brandForUrl(unwrappedLevelTravel).id, 'leveltravel');
 
 console.log('deal parser: all destination checks passed');

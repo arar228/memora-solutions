@@ -2,7 +2,6 @@ import { Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Header from './shared/Header';
-import Footer from './shared/Footer';
 import GoldParticles from './shared/GoldParticles';
 import ErrorBoundary from './shared/ErrorBoundary';
 import LoadingFallback from './shared/LoadingFallback';
@@ -122,14 +121,10 @@ export default function App() {
         <GoldParticles />
         <Header />
         <ErrorBoundary>
-          {/* Footer lives inside the Suspense boundary so it's hidden while a
-              route chunk is loading (otherwise the short loading view pushes the
-              footer up into the middle of the screen). */}
           <Suspense fallback={<LoadingFallback />}>
             <main className="app__main">
               <AnimatedRoutes />
             </main>
-            <Footer />
           </Suspense>
         </ErrorBoundary>
       </div>

@@ -157,8 +157,8 @@ html {
   scrollbar-gutter: stable;
 }
 
-/* App shell — sticky footer so the footer stays at the bottom on short pages
-   instead of floating up into the middle of the viewport. */
+/* App shell keeps short routes at viewport height without adding a separate
+   decorative block below the page content. */
 .app {
   display: flex;
   flex-direction: column;

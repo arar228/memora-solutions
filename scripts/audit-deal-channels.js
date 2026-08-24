@@ -14,6 +14,9 @@ const requestedChannels = [
   'onlinetours_russia',
   'travelataru',
   'leveltravel',
+  'gorashietury',
+  'tg_otpuskpro',
+  'turs_sale',
 ];
 
 const cutoff = Date.now() - MAX_POST_AGE_HOURS * 60 * 60 * 1000;

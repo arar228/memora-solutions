@@ -28,6 +28,10 @@ const CHANNELS = [
     'onlinetours',
     'travelata',
     'leveltravel',
+    // Audited 24.08.2026: active public feeds with structured prices/dates.
+    'gorashietury',
+    'tg_otpuskpro',
+    'turs_sale',
 ];
 
 // Historical handles from the original brief. They must not be fetched as

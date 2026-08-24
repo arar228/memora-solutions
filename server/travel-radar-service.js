@@ -7,6 +7,7 @@ import {
 } from './admin-store.js';
 import { fetchAllChannels } from '../scripts/fetch-tours.js';
 import { buildDeals, loadRefPrices } from '../scripts/parse-deals.js';
+import { monetizeDeals } from '../scripts/travel-affiliate-links.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -731,7 +732,7 @@ export async function refreshTravelRadar({ force = false } = {}) {
     }
     const previousRaw = previousFeed.rawItems || await readRawItems();
     const raw = await fetchAllChannels(previousRaw);
-    const deals = buildDeals(raw.items, await loadRefPrices());
+    const deals = await monetizeDeals(buildDeals(raw.items, await loadRefPrices()));
     const feed = {
       updatedAt: raw.updatedAt,
       marker: '748397',

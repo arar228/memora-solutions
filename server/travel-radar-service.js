@@ -824,7 +824,7 @@ async function configureTelegramWebhook() {
 }
 
 export function startTravelRadarServices() {
-  setTimeout(() => refreshTravelRadar().catch((error) => {
+  setTimeout(() => refreshTravelRadar({ force: true }).catch((error) => {
     console.error('Travel Radar initial refresh:', error);
   }), 5_000).unref();
   refreshTimer = setInterval(() => refreshTravelRadar({ force: true }).catch((error) => {

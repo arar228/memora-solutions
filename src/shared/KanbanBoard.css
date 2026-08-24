@@ -157,14 +157,6 @@
     transition: border-color 140ms ease, opacity 140ms ease, transform 140ms ease;
 }
 
-.memora-board__task[draggable='true'] {
-    cursor: grab;
-}
-
-.memora-board__task[draggable='true']:active {
-    cursor: grabbing;
-}
-
 .memora-board__task.is-dragging {
     opacity: 0.38;
 }
@@ -189,6 +181,15 @@
     display: flex;
     align-items: center;
     gap: 4px;
+}
+
+.memora-board__task-heading[draggable='true'] {
+    cursor: grab;
+    user-select: none;
+}
+
+.memora-board__task-heading[draggable='true']:active {
+    cursor: grabbing;
 }
 
 .memora-board__drag-handle {

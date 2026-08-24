@@ -133,17 +133,19 @@ export default function KanbanBoard({
                                         <article
                                             key={task.id}
                                             className={`memora-board__task ${onTaskDrop ? 'is-sortable' : ''} ${draggingId === task.id ? 'is-dragging' : ''} ${isDropTarget ? 'is-drop-target' : ''}`}
-                                            draggable={Boolean(onTaskDrop)}
-                                            onDragStart={event => beginDrag(event, id, task.id)}
-                                            onDragEnd={() => {
-                                                setDraggingId('');
-                                                setDropTarget(null);
-                                            }}
                                             onDragOver={event => markDropTarget(event, id, index)}
                                             onDrop={event => acceptDrop(event, id, index)}
                                         >
                                             {(id !== 'closed' || onTaskDrop) && (
-                                                <div className="memora-board__task-heading">
+                                                <div
+                                                    className="memora-board__task-heading"
+                                                    draggable={Boolean(onTaskDrop)}
+                                                    onDragStart={onTaskDrop ? event => beginDrag(event, id, task.id) : undefined}
+                                                    onDragEnd={onTaskDrop ? () => {
+                                                        setDraggingId('');
+                                                        setDropTarget(null);
+                                                    } : undefined}
+                                                >
                                                     {onTaskDrop && (
                                                         <span className="memora-board__drag-handle" aria-hidden="true">
                                                             <GripVertical size={15} />

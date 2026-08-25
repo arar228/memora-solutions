@@ -89,13 +89,13 @@ export const TIMER_LIMITS = {
   break: { min: 1, max: 180 },
 };
 
-// Contribution grid levels (pomodoros per day)
+// Contribution grid levels (focus minutes per day)
 export const GRID_LEVELS = [
   { min: 0, max: 0, class: '' },
-  { min: 1, max: 2, class: 'l1' },
-  { min: 3, max: 4, class: 'l2' },
-  { min: 5, max: 6, class: 'l3' },
-  { min: 7, max: Infinity, class: 'l4' },
+  { min: 1, max: 24, class: 'l1' },
+  { min: 25, max: 49, class: 'l2' },
+  { min: 50, max: 89, class: 'l3' },
+  { min: 90, max: Infinity, class: 'l4' },
 ];
 
 // Window dimensions — portrait main panel at 9:16 (1080×1920) proportions.

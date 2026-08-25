@@ -2,7 +2,7 @@ import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import path from 'path';
 import { MAIN_WINDOW, SIDEBAR_WIDTH } from '../shared/constants';
 import { IPC } from '../shared/ipc-channels';
-import { registerTimerIPC, timerStart, timerPause, timerResume, timerReset, timerSkip, setProfile, setTrayUpdater, refreshSettingsCache } from './timer';
+import { registerTimerIPC, timerStart, timerPause, timerResume, timerReset, timerSkip, setProfile, setTrayUpdater, refreshSettingsCache, flushTimerActivity } from './timer';
 import { initDB, registerDBIPC, getAllSettings, getActiveProfile, setProfileSyncCallback, setSettingsCacheInvalidator } from './db';
 import { createTray, updateTray, setTrayLang, destroyTray } from './tray';
 import { createOverlayWindow, registerOverlayIPC, destroyOverlay, updateOverlaySettings, setOverlayVisible } from './overlay';
@@ -245,6 +245,7 @@ if (!gotLock) {
 
   app.on('before-quit', () => {
     isQuitting = true;
+    flushTimerActivity();
     unregisterAll();
     destroyTray();
     destroyOverlay();

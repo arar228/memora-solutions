@@ -25,7 +25,12 @@ const LS = {
   sessions: 'memora-pomodoro:sessions',
 };
 
-interface StoredSession { mode: TimerMode; duration_sec: number; started_at: string; }
+interface StoredSession {
+  mode: TimerMode;
+  duration_sec: number;
+  started_at: string;
+  completed?: boolean;
+}
 
 function read<T>(key: string, fallback: T): T {
   try {
@@ -50,6 +55,7 @@ let timerType: TimerType = 'timer';
 let timeLeft = Math.round(profile.work_time * 60);
 let totalTime = timeLeft;
 let elapsed = 0;
+let recordedElapsed = 0;
 let completedPomos = 0;
 let idlePaused = false;
 let startedAt: string | null = null;
@@ -81,11 +87,30 @@ function payload(): TimerTickPayload {
 }
 function emit(): void { const p = payload(); tickSubs.forEach(cb => cb(p)); }
 
-function saveSession(m: TimerMode, sec: number): void {
-  if (!startedAt || sec < 60) return;
+function saveSession(m: TimerMode, sec: number, sessionStartedAt: string, completed = false): void {
+  if (sec < 1) return;
   const all = readArr<StoredSession>(LS.sessions);
-  all.push({ mode: m, duration_sec: sec, started_at: startedAt });
+  all.push({ mode: m, duration_sec: sec, started_at: sessionStartedAt, completed });
   write(LS.sessions, all);
+}
+
+function currentWorkedSeconds(): number {
+  return timerType === 'stopwatch' ? elapsed : Math.max(0, totalTime - timeLeft);
+}
+
+function saveActivitySlice(worked: number, completed = false): number {
+  if (!startedAt || mode !== 'focus') return 0;
+  const seconds = Math.max(0, worked - recordedElapsed);
+  if (seconds < 1) return 0;
+  saveSession('focus', seconds, startedAt, completed);
+  recordedElapsed = worked;
+  startedAt = new Date().toISOString();
+  return seconds;
+}
+
+function clearActivityTracking(): void {
+  recordedElapsed = 0;
+  startedAt = null;
 }
 
 function stopTicker(): void {
@@ -109,8 +134,8 @@ function complete(natural: boolean): void {
   const wasFocus = mode === 'focus';
   if (wasFocus && natural) {
     completedPomos++;
-    saveSession('focus', totalTime);
   }
+  if (wasFocus) saveActivitySlice(currentWorkedSeconds(), natural);
   const nextMode: TimerMode = wasFocus ? 'break' : 'focus';
   const done: TimerCompletePayload = {
     mode, nextMode, duration: totalTime - timeLeft, autoStart: false, natural,
@@ -119,7 +144,7 @@ function complete(natural: boolean): void {
   totalTime = duration(mode);
   timeLeft = totalTime;
   status = 'idle';
-  startedAt = null;
+  clearActivityTracking();
   emit();
   doneSubs.forEach(cb => cb(done));
 }
@@ -155,6 +180,7 @@ function runTimer(): void {
     }
     if (idlePaused) idlePaused = false;
     const left = Math.round((endsAt - Date.now()) / 1000);
+    splitActivityAtMidnight(Math.max(0, totalTime - Math.max(0, left)));
     if (left <= 0) { timeLeft = 0; complete(true); return; }
     if (left !== timeLeft) { timeLeft = left; emit(); }
   });
@@ -171,6 +197,7 @@ function runStopwatch(): void {
     }
     if (idlePaused) idlePaused = false;
     const e = Math.floor((Date.now() - swBase) / 1000);
+    splitActivityAtMidnight(e);
     if (e !== elapsed) { elapsed = e; emit(); }
   });
 }
@@ -179,6 +206,12 @@ function runStopwatch(): void {
 const pad = (n: number) => String(n).padStart(2, '0');
 const localDay = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 
+function splitActivityAtMidnight(worked: number): void {
+  if (startedAt && localDay(new Date(startedAt)) !== localDay(new Date())) {
+    saveActivitySlice(worked, false);
+  }
+}
+
 function focusSessions(): StoredSession[] {
   return readArr<StoredSession>(LS.sessions).filter(s => s.mode === 'focus');
 }
@@ -186,27 +219,69 @@ function focusSessions(): StoredSession[] {
 function statsNow(): Stats {
   const rows = focusSessions();
   const byDay = new Map<string, number>();
+  let totalSeconds = 0;
   rows.forEach(s => {
     const k = localDay(new Date(s.started_at));
-    byDay.set(k, (byDay.get(k) || 0) + 1);
+    byDay.set(k, (byDay.get(k) || 0) + s.duration_sec);
+    totalSeconds += s.duration_sec;
   });
   const today = localDay(new Date());
-  // Streak: consecutive days with ≥1 focus session, counting back from today.
+  // A productive day starts once at least one full minute is recorded.
+  const activeDays = [...byDay.entries()]
+    .filter(([, seconds]) => seconds >= 60)
+    .map(([day]) => day)
+    .sort((a, b) => b.localeCompare(a));
+  const dayMs = (day: string) => new Date(`${day}T00:00:00`).getTime();
+  const oneDay = 86_400_000;
+  const yesterdayDate = new Date();
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yesterday = localDay(yesterdayDate);
+
   let currentStreak = 0;
-  for (let i = 0; ; i++) {
-    const d = new Date(); d.setDate(d.getDate() - i);
-    const k = localDay(d);
-    if (byDay.has(k)) currentStreak++;
-    else if (i > 0 || !byDay.has(today)) break;
+  if (activeDays[0] === today || activeDays[0] === yesterday) {
+    currentStreak = 1;
+    for (let i = 1; i < activeDays.length; i++) {
+      if (Math.round((dayMs(activeDays[i - 1]) - dayMs(activeDays[i])) / oneDay) !== 1) break;
+      currentStreak++;
+    }
   }
-  const best = Math.max(currentStreak, ...[...byDay.keys()].map(() => currentStreak), 0);
+
+  let bestStreak = activeDays.length ? 1 : 0;
+  let run = bestStreak;
+  for (let i = 1; i < activeDays.length; i++) {
+    if (Math.round((dayMs(activeDays[i - 1]) - dayMs(activeDays[i])) / oneDay) === 1) {
+      run++;
+      bestStreak = Math.max(bestStreak, run);
+    } else {
+      run = 1;
+    }
+  }
+  const completedRows = rows.filter(s => s.completed === true);
   return {
-    totalPomodoros: rows.length,
-    todayPomodoros: byDay.get(today) || 0,
+    totalPomodoros: completedRows.length,
+    todayPomodoros: completedRows.filter(s => localDay(new Date(s.started_at)) === today).length,
+    totalMinutes: Math.floor(totalSeconds / 60),
+    todayMinutes: Math.floor((byDay.get(today) || 0) / 60),
     currentStreak,
-    bestStreak: best,
+    bestStreak,
   };
 }
+
+function notifySaved(seconds: number): void {
+  if (seconds < 1) return;
+  const done: TimerCompletePayload = {
+    mode: 'focus', nextMode: 'focus', duration: seconds, autoStart: false, natural: false,
+  };
+  doneSubs.forEach(cb => cb(done));
+}
+
+function flushCurrentActivity(): number {
+  const saved = saveActivitySlice(currentWorkedSeconds(), false);
+  clearActivityTracking();
+  return saved;
+}
+
+window.addEventListener('beforeunload', () => { flushCurrentActivity(); });
 
 const noop = async () => ({ ok: true });
 const noUnsub = () => () => { /* nothing to unsubscribe */ };
@@ -217,12 +292,17 @@ export const webApi: ElectronAPI = {
     start: async () => {
       if (timerType === 'stopwatch') {
         if (status === 'running') return { ok: true };
-        if (status === 'idle') { elapsed = 0; startedAt = new Date().toISOString(); }
+        if (status === 'idle') {
+          elapsed = 0;
+          recordedElapsed = 0;
+          startedAt = new Date().toISOString();
+        }
         status = 'running'; runStopwatch(); emit(); return { ok: true };
       }
       if (status === 'idle' || status === 'waiting') {
         totalTime = duration(mode);
         timeLeft = totalTime;
+        recordedElapsed = 0;
         startedAt = new Date().toISOString();
       }
       status = 'running'; runTimer(); emit(); return { ok: true };
@@ -238,14 +318,17 @@ export const webApi: ElectronAPI = {
     },
     reset: async () => {
       stopTicker();
+      let saved = 0;
       if (timerType === 'stopwatch') {
-        if (elapsed >= 60) saveSession('focus', elapsed); // a finished stint counts
+        saved = saveActivitySlice(elapsed, false);
         elapsed = 0;
       } else {
+        saved = saveActivitySlice(currentWorkedSeconds(), false);
         totalTime = duration(mode);
         timeLeft = totalTime;
       }
-      status = 'idle'; idlePaused = false; startedAt = null; emit();
+      status = 'idle'; idlePaused = false; clearActivityTracking(); emit();
+      notifySaved(saved);
       return { ok: true };
     },
     skip: async () => { complete(false); return { ok: true }; },
@@ -260,11 +343,14 @@ export const webApi: ElectronAPI = {
     setType: async (t: string) => {
       if (status === 'running') return { ok: false };
       stopTicker();
+      const saved = saveActivitySlice(currentWorkedSeconds(), false);
       timerType = t as TimerType;
+      if (timerType === 'stopwatch') mode = 'focus';
       elapsed = 0;
       totalTime = duration(mode);
       timeLeft = totalTime;
-      status = 'idle'; idlePaused = false; emit();
+      status = 'idle'; idlePaused = false; clearActivityTracking(); emit();
+      notifySaved(saved);
       return { ok: true };
     },
     onTick: (cb: (d: TimerTickPayload) => void) => { tickSubs.add(cb); cb(payload()); return () => { tickSubs.delete(cb); }; },
@@ -287,9 +373,9 @@ export const webApi: ElectronAPI = {
       const m = new Map<string, number>();
       focusSessions().forEach(s => {
         const k = localDay(new Date(s.started_at));
-        if (k >= from && k <= to) m.set(k, (m.get(k) || 0) + 1);
+        if (k >= from && k <= to) m.set(k, (m.get(k) || 0) + s.duration_sec);
       });
-      return [...m.entries()].map(([day, count]) => ({ day, count }));
+      return [...m.entries()].map(([day, seconds]) => ({ day, count: Math.floor(seconds / 60) }));
     },
     getWeekly: async (from: string, to: string) => {
       const m = new Map<string, { count: number; seconds: number }>();

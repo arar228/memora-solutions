@@ -151,7 +151,7 @@ export default function ContribGrid({ accentColor, lang, refreshKey = 0 }: Contr
     <div className="contrib-section">
       <div className="contrib-header">
         <span className="contrib-title">
-          🍅 {total} {lang === 'ru' ? 'помидоров' : 'pomodoros'}
+          ⏱ {total} {lang === 'ru' ? 'мин' : 'min'}
         </span>
       </div>
 
@@ -205,7 +205,7 @@ export default function ContribGrid({ accentColor, lang, refreshKey = 0 }: Contr
       {/* Tooltip */}
       {hoveredDay && (
         <div className="contrib-tooltip">
-          {formatDate(hoveredDay)} — {hoveredCount} 🍅
+          {formatDate(hoveredDay)} — {hoveredCount} {lang === 'ru' ? 'мин' : 'min'}
         </div>
       )}
 

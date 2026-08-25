@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 interface FloatingTomatoesProps {
   active: boolean;
   accentColor: string;
-  count: number; // total pomodoros earned — determines how many tomatoes fly
+  count: number; // activity level derived from accumulated focus minutes
 }
 
 const MIN_TOMATOES = 1;

@@ -20,7 +20,8 @@ const IDLE_THRESHOLD = 10; // seconds of no system input before pausing focus
 // Countdown timer vs. count-up stopwatch.
 let timerType: TimerType = 'timer';
 let elapsed = 0; // stopwatch: seconds counted up (paused while idle in pure-time)
-const STOPWATCH_MIN_SAVE = 60; // don't record stopwatch sessions shorter than this
+let recordedElapsed = 0; // seconds already persisted after a day rollover
+const MIN_ACTIVITY_SAVE = 1;
 let trayUpdateFn: ((status: TimerStatus, timeLeft: number, mode: TimerMode) => void) | null = null;
 
 // Cached settings (updated via refreshSettingsCache)
@@ -70,23 +71,57 @@ function broadcastTick(): void {
 
 // Broadcast a completion event (used by the stopwatch when a session is saved,
 // so the renderer refreshes its stats). natural=false → no "time-up" alert.
-function broadcastComplete(natural: boolean): void {
+function broadcastComplete(natural: boolean, duration = elapsed): void {
   const payload: TimerCompletePayload = {
-    mode: 'focus', nextMode: 'focus', duration: elapsed, autoStart: false, natural,
+    mode: 'focus', nextMode: 'focus', duration, autoStart: false, natural,
   };
   BrowserWindow.getAllWindows().forEach((win) => {
     if (!win.isDestroyed()) win.webContents.send(IPC.TIMER_COMPLETE, payload);
   });
 }
 
-// Persist an accumulated stopwatch session (as a focus session) if it's long
-// enough to be meaningful, then clear the stopwatch. Returns whether it saved.
-function saveStopwatchIfAny(): boolean {
-  const save = elapsed >= STOPWATCH_MIN_SAVE && !!startedAt;
-  if (save) saveSession(profile.name, 'focus', elapsed, true, startedAt as string);
+function localDay(iso: string | Date): string {
+  const date = typeof iso === 'string' ? new Date(iso) : iso;
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+function currentWorkedSeconds(): number {
+  return timerType === 'stopwatch' ? elapsed : Math.max(0, totalTime - timeLeft);
+}
+
+// Save only the part that has not been persisted yet. This lets a long-running
+// session cross midnight without moving the whole result into its first day.
+function saveActivitySlice(worked: number, completed: boolean): number {
+  if (!startedAt || mode !== 'focus') return 0;
+  const duration = Math.max(0, worked - recordedElapsed);
+  if (duration < MIN_ACTIVITY_SAVE) return 0;
+  saveSession(profile.name, 'focus', duration, completed, startedAt);
+  recordedElapsed = worked;
+  startedAt = new Date().toISOString();
+  return duration;
+}
+
+function splitActivityAtMidnight(worked: number): void {
+  if (startedAt && localDay(startedAt) !== localDay(new Date())) {
+    saveActivitySlice(worked, false);
+  }
+}
+
+// Persist an accumulated stopwatch session as factual focus time, then clear it.
+function saveStopwatchIfAny(): number {
+  const saved = saveActivitySlice(elapsed, false);
   elapsed = 0;
+  recordedElapsed = 0;
   startedAt = null;
-  return save;
+  return saved;
+}
+
+function saveTimerIfAny(completed = false): number {
+  const saved = saveActivitySlice(currentWorkedSeconds(), completed);
+  recordedElapsed = 0;
+  startedAt = null;
+  return saved;
 }
 
 // Broadcast a sound cue to all windows (renderer plays it `times` times).
@@ -104,11 +139,8 @@ function getDuration(m: TimerMode): number {
   return Math.round((m === 'focus' ? profile.work_time : profile.break_time) * 60);
 }
 
-// Complete current interval.
-// `natural` = the interval ran down to zero on its own. A *skipped* focus
-// (natural=false) must NOT count as a finished pomodoro: it's neither saved to
-// the DB/grid nor counted toward the round, and fires no completion sound /
-// notification.
+// Complete current interval. A skipped focus is saved as factual work time,
+// while only an interval that reaches zero counts as a completed pomodoro.
 function completeInterval(natural = true): void {
   if (intervalId) {
     clearInterval(intervalId);
@@ -119,12 +151,13 @@ function completeInterval(natural = true): void {
   const wasFocus = mode === 'focus';
   const countsAsPomo = wasFocus && natural;
 
-  // Count + record a naturally completed focus session.
+  // Record every factual focus slice. `completed` stays reserved for a timer
+  // that reached zero naturally; partial cycles still feed minute statistics.
   if (countsAsPomo) {
     completedPomos++;
     totalSessionPomos++;
-    if (startedAt) saveSession(profile.name, mode, totalTime, true, startedAt);
   }
+  if (wasFocus) saveTimerIfAny(countsAsPomo);
 
   // Two modes only — they simply alternate (rounds/long breaks are gone).
   const nextMode: TimerMode = wasFocus ? 'break' : 'focus';
@@ -185,6 +218,7 @@ function completeInterval(natural = true): void {
   totalTime = getDuration(mode);
   timeLeft = totalTime;
   startedAt = null;
+  recordedElapsed = 0;
 
   if (autoStart) {
     startTimer();
@@ -212,7 +246,10 @@ function startTimer(): void {
   }
   status = 'running';
   idlePaused = false;
-  startedAt = new Date().toISOString();
+  if (!startedAt) {
+    startedAt = new Date().toISOString();
+    recordedElapsed = 0;
+  }
   expectedTick = Date.now() + 1000;
 
   intervalId = setInterval(() => {
@@ -243,6 +280,8 @@ function startTimer(): void {
       timeLeft = Math.max(0, timeLeft - missedSeconds);
     }
     expectedTick = now + 1000;
+
+    splitActivityAtMidnight(currentWorkedSeconds());
 
     timeLeft--;
 
@@ -302,6 +341,8 @@ function startStopwatch(): void {
     if (drift > 2000 && !pureTime) elapsed += Math.floor(drift / 1000);
     expectedTick = now + 1000;
 
+    splitActivityAtMidnight(elapsed);
+
     elapsed++;
     broadcastTick();
   }, 1000);
@@ -358,10 +399,11 @@ export function timerReset(): { ok: boolean } {
       if (!win.isDestroyed()) win.setProgressBar(-1);
     });
     broadcastTick();
-    if (saved) broadcastComplete(false); // refresh stats without a time-up alert
+    if (saved) broadcastComplete(false, saved); // refresh stats without a time-up alert
     return { ok: true };
   }
 
+  const saved = saveTimerIfAny(false);
   status = 'idle';
   timeLeft = getDuration(mode);
   totalTime = timeLeft;
@@ -370,6 +412,7 @@ export function timerReset(): { ok: boolean } {
     if (!win.isDestroyed()) win.setProgressBar(-1);
   });
   broadcastTick();
+  if (saved) broadcastComplete(false, saved);
   return { ok: true };
 }
 
@@ -380,8 +423,9 @@ export function timerSetType(t: TimerType): { ok: boolean } {
   if (intervalId) { clearInterval(intervalId); intervalId = null; }
   idlePaused = false;
 
-  let savedSW = false;
-  if (timerType === 'stopwatch') savedSW = saveStopwatchIfAny();
+  let saved = 0;
+  if (timerType === 'stopwatch') saved = saveStopwatchIfAny();
+  else saved = saveTimerIfAny(false);
 
   timerType = t;
   status = 'idle';
@@ -390,6 +434,7 @@ export function timerSetType(t: TimerType): { ok: boolean } {
   });
 
   if (t === 'stopwatch') {
+    mode = 'focus';
     elapsed = 0;
     startedAt = null;
   } else {
@@ -399,7 +444,7 @@ export function timerSetType(t: TimerType): { ok: boolean } {
   }
 
   broadcastTick();
-  if (savedSW) broadcastComplete(false);
+  if (saved) broadcastComplete(false, saved);
   return { ok: true };
 }
 
@@ -420,6 +465,17 @@ export function timerSetMode(newMode: TimerMode): { ok: boolean } {
   status = 'idle';
   broadcastTick();
   return { ok: true };
+}
+
+// Called during application shutdown so closing the app is also an explicit
+// end of the current factual work slice.
+export function flushTimerActivity(): void {
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = null;
+  }
+  if (timerType === 'stopwatch') saveStopwatchIfAny();
+  else saveTimerIfAny(false);
 }
 
 // Register IPC handlers

@@ -33,12 +33,8 @@ function currentWeek(): string[] {
 }
 
 function fmtTime(sec: number, lang: 'ru' | 'en'): string {
-  const m = Math.round(sec / 60);
-  if (m < 60) return lang === 'ru' ? `${m} мин` : `${m} min`;
-  const h = Math.floor(m / 60);
-  const mm = m % 60;
-  if (lang === 'ru') return mm ? `${h} ч ${mm} м` : `${h} ч`;
-  return mm ? `${h}h ${mm}m` : `${h}h`;
+  const m = Math.floor(sec / 60);
+  return lang === 'ru' ? `${m} мин` : `${m} min`;
 }
 
 // Weekly focus-time bar chart (Mon–Sun of the current week). Bars are scaled to
@@ -80,7 +76,6 @@ export default function WeeklyChart({ accentColor, lang, refreshKey = 0, animate
   const stats = week.map(d => byDay[d] || { day: d, count: 0, seconds: 0 });
   const maxSec = Math.max(1, ...stats.map(s => s.seconds));
   const totalSec = stats.reduce((a, s) => a + s.seconds, 0);
-  const totalCount = stats.reduce((a, s) => a + s.count, 0);
   const isEmpty = totalSec === 0;
 
   return (
@@ -88,7 +83,7 @@ export default function WeeklyChart({ accentColor, lang, refreshKey = 0, animate
       <div className="week-header">
         <span className="week-total">⏱ {fmtTime(totalSec, lang)}</span>
         <span className="week-sub">
-          {totalCount} 🍅 · {lang === 'ru' ? 'эта неделя' : 'this week'}
+          {lang === 'ru' ? 'эта неделя' : 'this week'}
         </span>
       </div>
 
@@ -102,8 +97,8 @@ export default function WeeklyChart({ accentColor, lang, refreshKey = 0, animate
                 <div
                   className={`week-bar ${isToday ? 'is-today' : ''}`}
                   style={{ height: `${h}%`, background: accentColor }}
-                  aria-label={`${labels[i]}: ${fmtTime(s.seconds, lang)}, ${s.count}`}
-                  title={`${labels[i]}: ${fmtTime(s.seconds, lang)} · ${s.count} 🍅`}
+                  aria-label={`${labels[i]}: ${fmtTime(s.seconds, lang)}`}
+                  title={`${labels[i]}: ${fmtTime(s.seconds, lang)}`}
                 />
               </div>
               <span className={`week-day ${isToday ? 'is-today' : ''}`}>{labels[i]}</span>
@@ -115,8 +110,8 @@ export default function WeeklyChart({ accentColor, lang, refreshKey = 0, animate
       {isEmpty && (
         <div className="week-empty">
           {lang === 'ru'
-            ? 'На этой неделе пока пусто — запусти таймер или секундомер'
-            : 'Nothing this week yet — start the timer or stopwatch'}
+            ? 'Запустите таймер или секундомер — минуты появятся здесь'
+            : 'Start the timer or stopwatch to build your weekly activity'}
         </div>
       )}
     </div>

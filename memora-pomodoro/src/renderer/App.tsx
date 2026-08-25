@@ -54,7 +54,7 @@ export default function App() {
     elapsed: 0,
   });
   const [refreshKey, setRefreshKey] = useState(0);
-  const [totalPomos, setTotalPomos] = useState(1);
+  const [activityLevel, setActivityLevel] = useState(1);
   // Main-view toggles.
   const [pureTime, setPureTime] = useState(true);
   const [activeProfile, setActiveProfile] = useState('Pomodoro');
@@ -206,11 +206,11 @@ export default function App() {
     if (timerState.status === 'running') setFlashing(false);
   }, [timerState.status]);
 
-  // Load stats (total pomodoro count feeds the floating-tomatoes density);
-  // the weekly chart loads its own data.
+  // Activity minutes feed the ambient background density; the weekly chart
+  // loads the precise per-day totals itself.
   useEffect(() => {
     window.api.db.getStats().then(s => {
-      setTotalPomos(s.totalPomodoros || 1);
+      setActivityLevel(Math.max(1, Math.ceil((s.totalMinutes || 0) / 25)));
     }).catch(() => { /* ignore */ });
   }, [refreshKey]);
 
@@ -463,7 +463,7 @@ export default function App() {
 
   return (
     <div className="app app-wide anim">
-      <FloatingTomatoes active={timerState.status === 'running'} accentColor={accent} count={totalPomos} />
+      <FloatingTomatoes active={timerState.status === 'running'} accentColor={accent} count={activityLevel} />
 
       {/* Time-up alert (system notifications get ignored): a contrasting flash
           and/or a scatter of tomatoes, per the time_up_effect setting. */}
@@ -598,7 +598,7 @@ export default function App() {
             <button className="ctrl-rect" onClick={handleReset}
               disabled={timerState.elapsed === 0 && laps.length === 0}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 1 9 9"/><polyline points="1 17 3 21 7 19"/></svg>
-              {lang === 'ru' ? 'Сброс' : 'Reset'}
+              {lang === 'ru' ? 'Завершить' : 'Finish'}
             </button>
           )}
             <button className="ctrl-rect ctrl-rect--play" onClick={handlePlayPause} disabled={!timerReady}
@@ -613,7 +613,9 @@ export default function App() {
         <div className="controls-rect app-no-drag">
           <button className="ctrl-rect" onClick={handleReset} disabled={!timerReady}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 1 9 9"/><polyline points="1 17 3 21 7 19"/></svg>
-            {lang === 'ru' ? 'Сброс' : 'Reset'}
+            {sceneElapsedSeconds > 0
+              ? (lang === 'ru' ? 'Новый цикл' : 'New cycle')
+              : (lang === 'ru' ? 'Сброс' : 'Reset')}
           </button>
           <button className="ctrl-rect ctrl-rect--play" onClick={handlePlayPause} disabled={!timerReady}
             style={{ background: accent, borderColor: accent, color: contrastColor(accent) }}>

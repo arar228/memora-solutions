@@ -166,9 +166,9 @@ function localDateStr(d: Date): string {
 export function getHistory(from: string, to: string): DayCount[] {
   if (!db) return [];
   const stmt = db.prepare(
-    `SELECT date(started_at, 'localtime') as day, COUNT(*) as count
+    `SELECT date(started_at, 'localtime') as day, CAST(SUM(duration_sec) / 60 AS INTEGER) as count
      FROM sessions
-     WHERE mode = 'focus' AND completed = 1
+     WHERE mode = 'focus'
        AND date(started_at, 'localtime') >= ? AND date(started_at, 'localtime') <= ?
      GROUP BY day
      ORDER BY day`
@@ -183,14 +183,14 @@ export function getHistory(from: string, to: string): DayCount[] {
   return results;
 }
 
-// Per-day focus totals (count + seconds) for the weekly bar chart. Includes
-// stopwatch sessions (saved as focus), so the time bars reflect real work time.
+// Per-day focus totals for the weekly bar chart. Every recorded work slice is
+// included: full timers, partial timers and stopwatch sessions.
 export function getWeekly(from: string, to: string): DayStat[] {
   if (!db) return [];
   const stmt = db.prepare(
     `SELECT date(started_at, 'localtime') as day, COUNT(*) as count, COALESCE(SUM(duration_sec), 0) as seconds
      FROM sessions
-     WHERE mode = 'focus' AND completed = 1
+     WHERE mode = 'focus'
        AND date(started_at, 'localtime') >= ? AND date(started_at, 'localtime') <= ?
      GROUP BY day
      ORDER BY day`
@@ -206,16 +206,26 @@ export function getWeekly(from: string, to: string): DayStat[] {
 }
 
 export function getStats(): Stats {
-  if (!db) return { totalPomodoros: 0, todayPomodoros: 0, currentStreak: 0, bestStreak: 0 };
+  if (!db) return {
+    totalPomodoros: 0, todayPomodoros: 0, totalMinutes: 0, todayMinutes: 0,
+    currentStreak: 0, bestStreak: 0,
+  };
 
   const total = (db.exec(`SELECT COUNT(*) FROM sessions WHERE mode='focus' AND completed=1`)[0]?.values[0]?.[0] as number) || 0;
+  const totalSeconds = (db.exec(`SELECT COALESCE(SUM(duration_sec), 0) FROM sessions WHERE mode='focus'`)[0]?.values[0]?.[0] as number) || 0;
 
   const today = localDateStr(new Date());
   const todayCount = (db.exec(`SELECT COUNT(*) FROM sessions WHERE mode='focus' AND completed=1 AND date(started_at, 'localtime')='${today}'`)[0]?.values[0]?.[0] as number) || 0;
+  const todaySeconds = (db.exec(`SELECT COALESCE(SUM(duration_sec), 0) FROM sessions WHERE mode='focus' AND date(started_at, 'localtime')='${today}'`)[0]?.values[0]?.[0] as number) || 0;
 
-  // Streak calculation (distinct local focus days, newest first)
+  // A productive day starts once at least one full minute is recorded.
   const days = db.exec(
-    `SELECT DISTINCT date(started_at, 'localtime') as day FROM sessions WHERE mode='focus' AND completed=1 ORDER BY day DESC`
+    `SELECT date(started_at, 'localtime') as day
+     FROM sessions
+     WHERE mode='focus'
+     GROUP BY day
+     HAVING SUM(duration_sec) >= 60
+     ORDER BY day DESC`
   )[0]?.values?.map((v: unknown[]) => v[0] as string) || [];
 
   // Day gaps measured from local midnight so a single missing day breaks a run.
@@ -246,7 +256,14 @@ export function getStats(): Stats {
     }
   }
 
-  return { totalPomodoros: total, todayPomodoros: todayCount, currentStreak, bestStreak };
+  return {
+    totalPomodoros: total,
+    todayPomodoros: todayCount,
+    totalMinutes: Math.floor(totalSeconds / 60),
+    todayMinutes: Math.floor(todaySeconds / 60),
+    currentStreak,
+    bestStreak,
+  };
 }
 
 // === Settings ===
@@ -324,11 +341,15 @@ export function createProfile(name?: string): Profile {
 // === Export ===
 function exportJSON(): string {
   if (!db) return '{}';
-  const sessions = db.exec(`SELECT * FROM sessions WHERE mode='focus' AND completed=1 ORDER BY started_at`);
+  const sessions = db.exec(`SELECT * FROM sessions WHERE mode='focus' ORDER BY started_at`);
   const mapped = sessions[0]?.values.map((r: unknown[]) => ({
     profile: r[1], mode: r[2], duration_sec: r[3], completed: !!r[4], started_at: r[5], finished_at: r[6],
   })) || [];
-  return JSON.stringify({ app: 'Memora Pomodoro', version: '1.0.0', exported_at: new Date().toISOString(), sessions: mapped, total_pomodoros: mapped.length }, null, 2);
+  const totalMinutes = Math.floor(mapped.reduce((sum, row) => sum + Number(row.duration_sec || 0), 0) / 60);
+  return JSON.stringify({
+    app: 'Memora Pomodoro', version: '1.0.0', exported_at: new Date().toISOString(),
+    sessions: mapped, total_minutes: totalMinutes,
+  }, null, 2);
 }
 
 // RFC-4180 field escaping: wrap in quotes and double internal quotes when the
@@ -340,8 +361,8 @@ function csvField(v: unknown): string {
 
 function exportCSV(): string {
   if (!db) return '';
-  // Same row set as the JSON export (completed focus sessions) for consistency.
-  const sessions = db.exec(`SELECT profile, mode, duration_sec, completed, started_at, finished_at FROM sessions WHERE mode='focus' AND completed=1 ORDER BY started_at`);
+  // Same row set as the JSON export for consistency.
+  const sessions = db.exec(`SELECT profile, mode, duration_sec, completed, started_at, finished_at FROM sessions WHERE mode='focus' ORDER BY started_at`);
   const header = 'profile,mode,duration_sec,completed,started_at,finished_at';
   const rows = sessions[0]?.values.map((r: unknown[]) => r.map(csvField).join(',')) || [];
   return [header, ...rows].join('\n') + '\n';

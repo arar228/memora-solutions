@@ -66,11 +66,11 @@ export interface Session {
 // === Stats ===
 export interface DayCount {
   day: string;
-  count: number;
+  count: number; // accumulated focus minutes (legacy field name)
 }
 
-// Per-day focus totals for the weekly bar chart (count of pomodoros + total
-// focus seconds, so a chart can show either pomodoros or time).
+// Per-day focus totals for the weekly bar chart. `count` is the number of
+// stored activity slices; the user-facing value is always `seconds` → minutes.
 export interface DayStat {
   day: string;
   count: number;
@@ -80,6 +80,8 @@ export interface DayStat {
 export interface Stats {
   totalPomodoros: number;
   todayPomodoros: number;
+  totalMinutes: number;
+  todayMinutes: number;
   currentStreak: number;
   bestStreak: number;
 }

@@ -133,7 +133,6 @@ const COPY = {
         editAlerts: 'Изменить фильтры',
         saveAlerts: 'Сохранить фильтры',
         cancellationScheduled: 'Автопродление отключено · способ оплаты отвязан',
-        paymentReviewMode: 'Демонстрация управления подпиской для согласования ЮKassa',
         capabilitiesLoading: 'Проверяем подключение оплаты…',
         alertsUnavailable: 'Подключение оплаты требует проверки. Обновите страницу через минуту.',
         paymentNote: '300 ₽ за 30 дней · безопасная оплата через YooKassa · автопродление',
@@ -224,7 +223,6 @@ const COPY = {
         editAlerts: 'Edit filters',
         saveAlerts: 'Save filters',
         cancellationScheduled: 'Auto-renewal disabled · payment method unlinked',
-        paymentReviewMode: 'Subscription management preview for YooKassa review',
         capabilitiesLoading: 'Checking payment connection…',
         alertsUnavailable: 'The payment connection needs verification. Refresh the page in a minute.',
         paymentNote: '300 RUB for 30 days · secure YooKassa checkout · auto-renewal',
@@ -1075,7 +1073,6 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
                     <div className="travel-alerts__unavailable">{copy.alertsUnavailable}</div>
                 ) : isActive ? (
                     <div className="travel-alerts__status">
-                        {reviewMode ? <div className="travel-alerts__review-mode">{copy.paymentReviewMode}</div> : null}
                         <CheckCircle2 size={26} aria-hidden="true" />
                         <div>
                             <strong>{copy.activeAlert}</strong>

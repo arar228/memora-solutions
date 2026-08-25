@@ -40,6 +40,21 @@ jobs:
           test -n "$TRAVELPAYOUTS_MARKER"
           test -n "$YOOKASSA_SHOP_ID"
           test -n "$YOOKASSA_SECRET_KEY"
+          if [ "$YOOKASSA_SHOP_ID" != '1442213' ]; then
+            echo "::error::YooKassa credentials belong to a different shop"
+            exit 1
+          fi
+          yookassa_status=$(curl \
+            --silent \
+            --show-error \
+            --output /dev/null \
+            --write-out '%{http_code}' \
+            --user "$YOOKASSA_SHOP_ID:$YOOKASSA_SECRET_KEY" \
+            'https://api.yookassa.ru/v3/payments?limit=1')
+          if [ "$yookassa_status" != '200' ]; then
+            echo "::error::YooKassa API credentials validation failed"
+            exit 1
+          fi
           install -d -m 700 "$HOME/.ssh"
 
           host_keys=''

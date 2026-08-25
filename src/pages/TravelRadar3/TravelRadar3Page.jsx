@@ -133,6 +133,7 @@ const COPY = {
         editAlerts: 'Изменить фильтры',
         saveAlerts: 'Сохранить фильтры',
         cancellationScheduled: 'Автопродление отключено · способ оплаты отвязан',
+        paymentReviewMode: 'Демонстрация управления подпиской для согласования ЮKassa',
         capabilitiesLoading: 'Проверяем подключение оплаты…',
         alertsUnavailable: 'Подключение оплаты требует проверки. Обновите страницу через минуту.',
         paymentNote: '300 ₽ за 30 дней · безопасная оплата через YooKassa · автопродление',
@@ -223,6 +224,7 @@ const COPY = {
         editAlerts: 'Edit filters',
         saveAlerts: 'Save filters',
         cancellationScheduled: 'Auto-renewal disabled · payment method unlinked',
+        paymentReviewMode: 'Subscription management preview for YooKassa review',
         capabilitiesLoading: 'Checking payment connection…',
         alertsUnavailable: 'The payment connection needs verification. Refresh the page in a minute.',
         paymentNote: '300 RUB for 30 days · secure YooKassa checkout · auto-renewal',
@@ -873,6 +875,9 @@ function filterValue(filter) {
 }
 
 function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOrigin, defaultDestination, dealType }) {
+    const reviewMode = useMemo(() => new URLSearchParams(window.location.search).get('autopay-review') === '1', []);
+    const [reviewAutoRenew, setReviewAutoRenew] = useState(true);
+    const [reviewPeriodEnd] = useState(() => new Date(Date.now() + (30 * 24 * 60 * 60 * 1_000)).toISOString());
     const [capabilities, setCapabilities] = useState(null);
     const [token, setToken] = useState(() => localStorage.getItem('memora_travel_subscription_token') || '');
     const [subscription, setSubscription] = useState(null);
@@ -992,6 +997,10 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
 
     const cancel = async () => {
         if (!window.confirm(copy.cancelRenewalConfirm)) return;
+        if (reviewMode) {
+            setReviewAutoRenew(false);
+            return;
+        }
         setBusy(true);
         setError('');
         try {
@@ -1039,7 +1048,12 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
         }
     };
 
-    const status = subscription?.status;
+    const displayedSubscription = reviewMode ? {
+        status: 'active',
+        autoRenew: reviewAutoRenew,
+        currentPeriodEnd: reviewPeriodEnd,
+    } : subscription;
+    const status = displayedSubscription?.status;
     const isActive = ['active', 'canceling'].includes(status);
     const connectTelegramUrl = telegramUrl || (capabilities?.telegramUsername && token
         ? `https://t.me/${capabilities.telegramUsername}?start=radar_${token}`
@@ -1055,22 +1069,23 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
                     <p className="travel-alerts__note">{copy.paymentNote}</p>
                 </div>
 
-                {capabilities === null ? (
+                {!reviewMode && capabilities === null ? (
                     <div className="travel-alerts__unavailable">{copy.capabilitiesLoading}</div>
-                ) : !capabilities.subscriptionsAvailable ? (
+                ) : !reviewMode && !capabilities.subscriptionsAvailable ? (
                     <div className="travel-alerts__unavailable">{copy.alertsUnavailable}</div>
                 ) : isActive ? (
                     <div className="travel-alerts__status">
+                        {reviewMode ? <div className="travel-alerts__review-mode">{copy.paymentReviewMode}</div> : null}
                         <CheckCircle2 size={26} aria-hidden="true" />
                         <div>
                             <strong>{copy.activeAlert}</strong>
-                            <span>{copy.activeUntil}: {new Date(subscription.currentPeriodEnd).toLocaleDateString(lang)}</span>
+                            <span>{copy.activeUntil}: {new Date(displayedSubscription.currentPeriodEnd).toLocaleDateString(lang)}</span>
                         </div>
-                        {subscription.autoRenew ? (
+                        {displayedSubscription.autoRenew ? (
                             <button type="button" disabled={busy} onClick={cancel}>{copy.cancelRenewal}</button>
                         ) : <span className="travel-alerts__canceled">{copy.cancellationScheduled}</span>}
-                        <button type="button" disabled={busy} onClick={() => setEditing(!editing)}>{copy.editAlerts}</button>
-                        {editing ? (
+                        {!reviewMode ? <button type="button" disabled={busy} onClick={() => setEditing(!editing)}>{copy.editAlerts}</button> : null}
+                        {!reviewMode && editing ? (
                             <div className="travel-alerts__form travel-alerts__form--settings">
                                 <label><span>{copy.origin}</span><select value={form.origin} onChange={(e) => setForm({ ...form, origin: e.target.value })}><option value="all">{copy.allOrigins}</option>{originOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
                                 <label><span>{copy.destination}</span><select value={form.destination} onChange={(e) => setForm({ ...form, destination: e.target.value })}><option value="all">{copy.allDestinations}</option>{destinationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>

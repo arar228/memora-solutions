@@ -1015,6 +1015,17 @@
     gap: 0.7rem;
 }
 
+.travel-alerts__review-mode {
+    grid-column: 1 / -1;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid rgba(243, 183, 88, 0.32);
+    border-radius: 10px;
+    color: #f3b758;
+    background: rgba(243, 183, 88, 0.08);
+    font-size: 0.78rem;
+    line-height: 1.45;
+}
+
 .travel-alerts__status > svg {
     color: #3dc1a7;
 }

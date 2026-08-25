@@ -43,7 +43,9 @@ files twice per hour as a fallback. Paid alerts require:
 - `YOOKASSA_SHOP_ID` and `YOOKASSA_SECRET_KEY` — YooKassa API credentials;
 - `PUBLIC_BASE_URL` — normally `https://memorasolutions.ru`;
 - `YOOKASSA_RECEIPTS_ENABLED=true` if YooKassa must receive receipt data;
-- `YOOKASSA_VAT_CODE` — receipt VAT code (defaults to `1`).
+- `YOOKASSA_VAT_CODE` — receipt VAT code. Set it explicitly for the merchant's
+  tax regime before enabling receipts; the application uses `1` only as a
+  backward-compatible fallback.
 
 The YooKassa shop must have recurring payments enabled. Configure its webhook
 as `https://memorasolutions.ru/api/travel/payments/yookassa` for the

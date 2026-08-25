@@ -29,6 +29,9 @@ let refreshRunning = false;
 let renewalRunning = false;
 
 const hashToken = (token) => createHash('sha256').update(String(token)).digest('hex');
+const paymentIdempotenceKey = (...parts) => createHash('sha256')
+  .update(parts.map((part) => String(part || '')).join('|'))
+  .digest('hex');
 const dealKey = (deal) => createHash('sha256').update([
   deal.source, deal.link, deal.type, deal.from?.code, deal.to?.code, deal.price,
 ].join('|')).digest('hex').slice(0, 24);
@@ -124,6 +127,7 @@ export async function createTravelSubscription(input) {
     currentPeriodEnd: null,
     paymentMethodId: null,
     pendingPaymentId: null,
+    paymentAttempt: 1,
     appliedPaymentIds: [],
     renewalStartedAt: null,
     notifiedDealIds: [],
@@ -199,11 +203,16 @@ export async function createTravelCheckout(token) {
 
   const payment = await yookassaRequest('/payments', {
     method: 'POST',
-    idempotenceKey: randomUUID(),
+    idempotenceKey: paymentIdempotenceKey(
+      subscription.id,
+      'initial',
+      subscription.paymentAttempt || 1,
+    ),
     body: {
       amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
       capture: true,
       save_payment_method: true,
+      merchant_customer_id: subscription.id,
       confirmation: {
         type: 'redirect',
         return_url: `${PUBLIC_BASE_URL}/travel-radar?subscription=payment-return`,
@@ -231,7 +240,8 @@ async function applyVerifiedPayment(payment) {
   if (!payment?.id || payment.status !== 'succeeded') return false;
   if (payment.amount?.currency !== 'RUB' || Number(payment.amount?.value) !== PRICE_RUB) return false;
   const subscriptionId = String(payment.metadata?.subscription_id || '');
-  if (!subscriptionId) return false;
+  const paymentKind = String(payment.metadata?.payment_kind || '');
+  if (!subscriptionId || !['initial', 'renewal'].includes(paymentKind)) return false;
 
   const now = Date.now();
   let activatedSubscription = null;
@@ -286,6 +296,7 @@ export async function handleYookassaWebhook(input) {
             ? 'active'
             : item.telegramChatId ? 'awaiting_payment' : 'awaiting_telegram',
         pendingPaymentId: null,
+        paymentAttempt: renewal ? item.paymentAttempt : (item.paymentAttempt || 1) + 1,
         renewalStartedAt: null,
         lastPaymentError: payment.cancellation_details?.reason || 'payment_canceled',
         updatedAt: new Date().toISOString(),
@@ -775,7 +786,11 @@ async function renewSubscriptions() {
       try {
         const payment = await yookassaRequest('/payments', {
           method: 'POST',
-          idempotenceKey: randomUUID(),
+          idempotenceKey: paymentIdempotenceKey(
+            subscription.id,
+            'renewal',
+            subscription.currentPeriodEnd,
+          ),
           body: {
             amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
             capture: true,

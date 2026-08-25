@@ -132,7 +132,8 @@ const COPY = {
         editAlerts: 'Изменить фильтры',
         saveAlerts: 'Сохранить фильтры',
         cancellationScheduled: 'Автопродление отключено',
-        alertsUnavailable: 'Подписка готова технически и появится после подключения Telegram-бота и платёжного магазина.',
+        capabilitiesLoading: 'Проверяем подключение оплаты…',
+        alertsUnavailable: 'Подключение оплаты требует проверки. Обновите страницу через минуту.',
         paymentNote: '300 ₽ за 30 дней · безопасная оплата через YooKassa · автопродление',
     },
     en: {
@@ -220,7 +221,8 @@ const COPY = {
         editAlerts: 'Edit filters',
         saveAlerts: 'Save filters',
         cancellationScheduled: 'Auto-renewal disabled',
-        alertsUnavailable: 'The subscription flow is ready and will appear after the Telegram bot and payment shop are connected.',
+        capabilitiesLoading: 'Checking payment connection…',
+        alertsUnavailable: 'The payment connection needs verification. Refresh the page in a minute.',
         paymentNote: '300 RUB for 30 days · secure YooKassa checkout · auto-renewal',
     },
 };
@@ -887,10 +889,26 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch('/api/travel/capabilities')
-            .then((response) => response.ok ? response.json() : Promise.reject())
-            .then(setCapabilities)
-            .catch(() => setCapabilities({ subscriptionsAvailable: false }));
+        let cancelled = false;
+        let retryTimer;
+        const loadCapabilities = (attempt = 0) => {
+            fetch('/api/travel/capabilities', { cache: 'no-store' })
+                .then((response) => response.ok ? response.json() : Promise.reject())
+                .then((data) => { if (!cancelled) setCapabilities(data); })
+                .catch(() => {
+                    if (cancelled) return;
+                    if (attempt < 2) {
+                        retryTimer = window.setTimeout(() => loadCapabilities(attempt + 1), 1_000 * (attempt + 1));
+                        return;
+                    }
+                    setCapabilities({ subscriptionsAvailable: false, connectionFailed: true });
+                });
+        };
+        loadCapabilities();
+        return () => {
+            cancelled = true;
+            window.clearTimeout(retryTimer);
+        };
     }, []);
 
     useEffect(() => {
@@ -1034,7 +1052,9 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
                     <p className="travel-alerts__note">{copy.paymentNote}</p>
                 </div>
 
-                {!capabilities?.subscriptionsAvailable ? (
+                {capabilities === null ? (
+                    <div className="travel-alerts__unavailable">{copy.capabilitiesLoading}</div>
+                ) : !capabilities.subscriptionsAvailable ? (
                     <div className="travel-alerts__unavailable">{copy.alertsUnavailable}</div>
                 ) : isActive ? (
                     <div className="travel-alerts__status">

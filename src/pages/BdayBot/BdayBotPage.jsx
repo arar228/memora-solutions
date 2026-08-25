@@ -8,7 +8,7 @@ export default function BdayBotPage() {
             productKey="bdayBot"
             pageVariant="bday"
             iconVariant="blue"
-            iconImg={staticAsset('/bdaybot-logo.webp')}
+            iconImg={staticAsset('/bdaybot-logo.webp?v=2')}
             iconAlt="BDay Bot"
             botUrl="https://t.me/MemoraBDayBot"
             HeaderIcon={Cake}

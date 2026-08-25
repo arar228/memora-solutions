@@ -386,7 +386,7 @@
 
 .travel-feed__table {
     width: 100%;
-    min-width: 1100px;
+    min-width: 1140px;
     border-spacing: 0;
     border-collapse: separate;
     table-layout: fixed;
@@ -444,7 +444,7 @@
 .travel-feed__table th:nth-child(8) { width: 92px; }
 .travel-feed__table th:nth-child(9) { width: 150px; }
 .travel-feed__table th:nth-child(10) { width: 98px; }
-.travel-feed__table th:nth-child(11) { width: 92px; }
+.travel-feed__table th:nth-child(11) { width: 116px; }
 
 .travel-feed__column-sort {
     display: inline-flex;
@@ -622,8 +622,10 @@
 }
 
 .travel-feed__table-link-stack {
-    display: inline-flex;
-    align-items: flex-end;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: stretch;
     flex-direction: column;
     gap: 0.35rem;
 }
@@ -632,7 +634,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 82px;
+    width: 100%;
+    max-width: 100%;
     min-height: 32px;
     gap: 0.3rem;
     padding: 0.35rem 0.48rem;
@@ -643,6 +646,7 @@
     font-size: var(--travel-ui-small);
     font-weight: 700;
     text-decoration: none;
+    box-sizing: border-box;
     transition: border-color 150ms ease, background 150ms ease;
 }
 
@@ -829,10 +833,15 @@
 }
 
 .travel-feed__affiliate-note {
+    display: block;
+    width: 100%;
+    overflow: hidden;
     color: #8f939a;
     font-size: var(--travel-ui-small);
     font-weight: 650;
     line-height: 1.2;
+    text-align: right;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 

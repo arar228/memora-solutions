@@ -66,7 +66,7 @@ export default function Header() {
         <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
             <div className="header__inner container">
                 <Link to="/" className="header__logo">
-                    <img src={staticAsset('/logo.webp?v=1')} alt="Memora Solutions" className="header__logo-img" decoding="async" />
+                    <img src={staticAsset('/logo.webp?v=2')} alt="Memora Solutions" className="header__logo-img" decoding="async" />
                     <span className="header__logo-text">{t('brand')}</span>
                 </Link>
 

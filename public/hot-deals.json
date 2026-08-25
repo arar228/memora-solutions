@@ -1,7 +1,86 @@
 {
-  "updatedAt": "2026-08-25T20:38:01.310Z",
+  "updatedAt": "2026-08-25T21:36:19.187Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 35900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-08-30",
+      "returnDate": null,
+      "date": "2026-08-25T21:03:01+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/QYk3Gm",
+      "text": "🔥 в Турцию (Мармарис) на неделю с вылетом 30 августа от 35 900/чел, с топливными сборами   (скидка по промокоду 550Lucky)"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Рим",
+        "code": "ROM",
+        "country": {
+          "ru": "Италия",
+          "en": "Italy"
+        },
+        "kind": "city"
+      },
+      "price": 30800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11",
+      "returnDate": null,
+      "date": "2026-08-25T20:58:17+00:00",
+      "source": "nachemodanahspb",
+      "link": "https://www.aviasales.ru/search/LED0111ROM1?marker=748397&currency=rub",
+      "text": "✈️В Рим от 30.800 рублей туда-обратно, стыковки в Стамбуле, даты в ноябре и декабре",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
     {
       "type": "flight",
       "from": {
@@ -6048,52 +6127,13 @@
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
       "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Самарканд",
-        "code": "SKD",
-        "country": {
-          "ru": "Узбекистан",
-          "en": "Uzbekistan"
-        },
-        "kind": "city"
-      },
-      "price": 25300,
-      "oldPrice": 33825,
-      "savings": 8525,
-      "discount": 0.25,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-08-24T07:50:28+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED2409SKD1?marker=748397&currency=rub",
-      "text": "✈️Весной в Самарканд за 25.300 руб туда-обратно, рейсы прямые",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.026Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-25T16:01:55+00:00",
@@ -6103,7 +6143,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 19,
       "freshPosts": 18,
       "latestPostAt": "2026-08-25T18:21:01+00:00",
@@ -6113,7 +6153,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-25T20:36:27+00:00",
@@ -6123,17 +6163,17 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 20,
-      "freshPosts": 17,
-      "latestPostAt": "2026-08-25T20:24:36+00:00",
+      "freshPosts": 18,
+      "latestPostAt": "2026-08-25T20:58:17+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
       "latestPostAt": "2026-08-25T17:07:09+00:00",
@@ -6143,7 +6183,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 20,
       "freshPosts": 17,
       "latestPostAt": "2026-08-25T17:39:11+00:00",
@@ -6153,17 +6193,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 20,
-      "freshPosts": 7,
-      "latestPostAt": "2026-08-25T15:05:50+00:00",
+      "freshPosts": 8,
+      "latestPostAt": "2026-08-25T21:03:01+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 16,
       "freshPosts": 2,
       "latestPostAt": "2026-08-25T15:12:36+00:00",
@@ -6173,7 +6213,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 13,
       "freshPosts": 10,
       "latestPostAt": "2026-08-25T14:31:14+00:00",
@@ -6183,7 +6223,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 5,
       "freshPosts": 5,
       "latestPostAt": "2026-08-25T08:27:01+00:00",
@@ -6193,7 +6233,7 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-25T19:51:20+00:00",
@@ -6203,7 +6243,7 @@
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 8,
       "freshPosts": 3,
       "latestPostAt": "2026-08-25T12:51:54+00:00",
@@ -6213,7 +6253,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-08-25T20:37:56.027Z",
+      "checkedAt": "2026-08-25T21:36:13.316Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-25T17:45:04+00:00",

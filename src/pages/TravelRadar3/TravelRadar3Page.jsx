@@ -128,10 +128,11 @@ const COPY = {
         pay: 'Оплатить 300 ₽',
         activeAlert: 'Уведомления активны',
         activeUntil: 'Оплачено до',
-        cancelRenewal: 'Отключить автопродление',
+        cancelRenewal: 'Отключить автопродление и отвязать способ оплаты',
+        cancelRenewalConfirm: 'Отключить автопродление и отвязать сохранённый способ оплаты? Уведомления продолжат работать до конца оплаченного периода.',
         editAlerts: 'Изменить фильтры',
         saveAlerts: 'Сохранить фильтры',
-        cancellationScheduled: 'Автопродление отключено',
+        cancellationScheduled: 'Автопродление отключено · способ оплаты отвязан',
         capabilitiesLoading: 'Проверяем подключение оплаты…',
         alertsUnavailable: 'Подключение оплаты требует проверки. Обновите страницу через минуту.',
         paymentNote: '300 ₽ за 30 дней · безопасная оплата через YooKassa · автопродление',
@@ -217,10 +218,11 @@ const COPY = {
         pay: 'Pay 300 RUB',
         activeAlert: 'Alerts are active',
         activeUntil: 'Paid until',
-        cancelRenewal: 'Disable auto-renewal',
+        cancelRenewal: 'Disable auto-renewal and unlink payment method',
+        cancelRenewalConfirm: 'Disable auto-renewal and unlink the saved payment method? Alerts will remain active until the paid period ends.',
         editAlerts: 'Edit filters',
         saveAlerts: 'Save filters',
-        cancellationScheduled: 'Auto-renewal disabled',
+        cancellationScheduled: 'Auto-renewal disabled · payment method unlinked',
         capabilitiesLoading: 'Checking payment connection…',
         alertsUnavailable: 'The payment connection needs verification. Refresh the page in a minute.',
         paymentNote: '300 RUB for 30 days · secure YooKassa checkout · auto-renewal',
@@ -989,6 +991,7 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
     };
 
     const cancel = async () => {
+        if (!window.confirm(copy.cancelRenewalConfirm)) return;
         setBusy(true);
         setError('');
         try {

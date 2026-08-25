@@ -317,6 +317,8 @@ export async function cancelTravelSubscription(token) {
     result = {
       ...item,
       autoRenew: false,
+      paymentMethodId: null,
+      renewalStartedAt: null,
       status: item.status === 'active' ? 'canceling' : 'canceled',
       updatedAt: new Date().toISOString(),
     };
@@ -475,9 +477,11 @@ export async function disableTravelAdminSubscription(id) {
       ...item,
       status: 'canceled',
       autoRenew: false,
+      paymentMethodId: null,
       manualAccess: false,
       currentPeriodEnd: now,
       pendingPaymentId: null,
+      renewalStartedAt: null,
       updatedAt: now,
     };
     return result;
@@ -529,6 +533,8 @@ export async function handleTravelTelegramUpdate(update, secretHeader) {
       return {
         ...item,
         autoRenew: false,
+        paymentMethodId: null,
+        renewalStartedAt: null,
         status: item.status === 'active' ? 'canceling' : item.status,
         updatedAt: new Date().toISOString(),
       };
@@ -536,7 +542,7 @@ export async function handleTravelTelegramUpdate(update, secretHeader) {
     await telegramRequest('sendMessage', {
       chat_id: chatId,
       text: changed
-        ? 'Автопродление отключено. Уведомления продолжат работать до конца оплаченного периода.'
+        ? 'Автопродление отключено, способ оплаты отвязан. Уведомления продолжат работать до конца оплаченного периода.'
         : 'Активная подписка для этого чата не найдена.',
     });
     return { accepted: true };

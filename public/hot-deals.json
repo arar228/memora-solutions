@@ -1,7 +1,46 @@
 {
-  "updatedAt": "2026-08-26T16:02:44.373Z",
+  "updatedAt": "2026-08-26T16:54:01.035Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бодрум",
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 16800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-08-26T16:14:06+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2509BJV1?marker=748397&currency=rub",
+      "text": "из Москвы в Бодрум 🇹🇷 за 16 800 р. RT (авг-сен)",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
     {
       "type": "tour",
       "from": {
@@ -530,9 +569,9 @@
         "kind": "city"
       },
       "price": 5462,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 16297,
+      "savings": 10835,
+      "discount": 0.66,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1482,9 +1521,9 @@
         "kind": "city"
       },
       "price": 4700,
-      "oldPrice": 21660,
-      "savings": 16960,
-      "discount": 0.78,
+      "oldPrice": 17519,
+      "savings": 12819,
+      "discount": 0.73,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1521,9 +1560,9 @@
         "kind": "city"
       },
       "price": 5200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 16297,
+      "savings": 11097,
+      "discount": 0.68,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -4070,8 +4109,8 @@
         "kind": "country"
       },
       "price": 8900,
-      "oldPrice": 33136,
-      "savings": 24236,
+      "oldPrice": 33188,
+      "savings": 24288,
       "discount": 0.73,
       "oneway": false,
       "roundTrip": false,
@@ -5144,8 +5183,8 @@
         "kind": "city"
       },
       "price": 33200,
-      "oldPrice": 34130,
-      "savings": 930,
+      "oldPrice": 34213,
+      "savings": 1013,
       "discount": 0.03,
       "oneway": false,
       "roundTrip": true,
@@ -5343,9 +5382,9 @@
         "kind": "city"
       },
       "price": 5284,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 16297,
+      "savings": 11013,
+      "discount": 0.68,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -6285,53 +6324,13 @@
       "source": "vandroukiru",
       "link": "https://vandrouki.ru/tury/11-nochej-na-zanzibare-s-vyletom-iz-moskvy/",
       "text": "11 ночей (не десять, не двенадцать - одиннадцать) на Занзибаре с вылетом из Москвы 27 августа за 68100 рублей с человека!"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Беларусь",
-        "code": "MSQ",
-        "country": {
-          "ru": "Беларусь",
-          "en": "Belarus"
-        },
-        "kind": "country"
-      },
-      "price": 22976,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-11-08",
-      "returnDate": "2026-11-19",
-      "date": "2026-08-24T17:19:12+00:00",
-      "source": "toursspb",
-      "link": "https://level.tpx.gr/w12sejf3?erid=2VtzqwsMKs9",
-      "text": "Туры Санкт-Петербург - Беларусь от 22 976₽/чел. на 11 ночей (было от 24 792₽, цена упала на 7%)\n👉 Ссылка на туры:",
-      "originalLink": "https://level.tpx.lu/A13Itzdz?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.390Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-26T15:02:58+00:00",
@@ -6341,17 +6340,17 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.390Z",
       "fetchedPosts": 19,
-      "freshPosts": 17,
-      "latestPostAt": "2026-08-26T13:40:56+00:00",
+      "freshPosts": 18,
+      "latestPostAt": "2026-08-26T16:14:06+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.390Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-26T15:49:16+00:00",
@@ -6361,7 +6360,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.390Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-26T08:03:38+00:00",
@@ -6371,7 +6370,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.390Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-08-26T15:49:18+00:00",
@@ -6381,17 +6380,17 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.390Z",
       "fetchedPosts": 20,
-      "freshPosts": 18,
-      "latestPostAt": "2026-08-26T09:39:11+00:00",
+      "freshPosts": 19,
+      "latestPostAt": "2026-08-26T16:47:03+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.391Z",
       "fetchedPosts": 20,
       "freshPosts": 8,
       "latestPostAt": "2026-08-26T12:29:07+00:00",
@@ -6401,7 +6400,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.391Z",
       "fetchedPosts": 16,
       "freshPosts": 1,
       "latestPostAt": "2026-08-25T15:12:36+00:00",
@@ -6411,7 +6410,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.391Z",
       "fetchedPosts": 13,
       "freshPosts": 9,
       "latestPostAt": "2026-08-26T14:20:52+00:00",
@@ -6421,7 +6420,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.391Z",
       "fetchedPosts": 6,
       "freshPosts": 6,
       "latestPostAt": "2026-08-26T08:39:58+00:00",
@@ -6431,7 +6430,7 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.391Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-26T13:46:45+00:00",
@@ -6441,7 +6440,7 @@
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.391Z",
       "fetchedPosts": 8,
       "freshPosts": 1,
       "latestPostAt": "2026-08-25T12:51:54+00:00",
@@ -6451,7 +6450,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-08-26T16:02:38.820Z",
+      "checkedAt": "2026-08-26T16:53:53.391Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-08-26T12:50:18+00:00",

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Download, CheckCircle2, Timer, Play, Maximize2 } from 'lucide-react';
+import { Download, CheckCircle2, Timer, Play, Maximize2, RefreshCw, ShieldCheck, ChevronDown } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
 import './PomodoroPage.css';
 
@@ -44,8 +44,8 @@ export default function PomodoroPage() {
     const release = import.meta.env.POMODORO_RELEASE;
     const releaseLine = release?.version
         ? (ru
-            ? `Актуальная версия ${release.version} · от ${new Date(release.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}`
-            : `Latest version ${release.version} · ${new Date(release.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}`)
+            ? `Версия ${release.version} · ${new Date(release.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}`
+            : `Version ${release.version} · ${new Date(release.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}`)
         : '';
 
     return (
@@ -76,48 +76,54 @@ export default function PomodoroPage() {
                                 ? (ru ? 'Скачать для Windows' : 'Download for Windows')
                                 : t(k('download'))}
                         </a>
-                        <div className="pomodoro-hero__hint">
-                            {isWin
-                                ? t(k('downloadHint'))
-                                : (ru
-                                    ? 'Сейчас доступна версия для Windows. macOS и Linux — скоро.'
-                                    : 'Windows build available now. macOS and Linux coming soon.')}
+                        <div className="pomodoro-hero__meta">
+                            <span>
+                                {isWin
+                                    ? t(k('downloadHint'))
+                                    : (ru ? 'Версия для Windows' : 'Windows build')}
+                            </span>
+                            {releaseLine && <span>{releaseLine}</span>}
                         </div>
 
-                        {releaseLine && (
-                            <div className="pomodoro-hero__version">{releaseLine}</div>
-                        )}
-
-                        <div className="pomodoro-hero__update">
-                            {ru
-                                ? '↻ Обновляетесь? Просто запустите новый установщик поверх старой версии — вся статистика и настройки сохранятся.'
-                                : '↻ Updating? Just run the new installer over the old version — all your stats and settings are kept.'}
-                        </div>
-
-                        <details className="pomodoro-hero__install">
-                            <summary>
-                                {ru
-                                    ? 'Windows показывает «Система Windows защитила ваш компьютер»? Что делать'
-                                    : 'Windows shows "Windows protected your PC"? What to do'}
-                            </summary>
-                            <div className="pomodoro-hero__install-body">
-                                <ol>
-                                    <li>
-                                        {ru ? 'Нажмите ' : 'Click '}
-                                        <b>{ru ? '«Подробнее»' : '"More info"'}</b>
-                                    </li>
-                                    <li>
-                                        {ru ? 'Затем ' : 'Then click '}
-                                        <b>{ru ? '«Выполнить в любом случае»' : '"Run anyway"'}</b>
-                                    </li>
-                                </ol>
-                                <p>
+                        <div className="pomodoro-hero__support">
+                            <div className="pomodoro-hero__update">
+                                <RefreshCw size={15} aria-hidden="true" />
+                                <span>
                                     {ru
-                                        ? 'Это нормально для нового приложения без платной цифровой подписи — файл безопасен и собран из открытого кода этого проекта.'
-                                        : 'This is normal for a new app without a paid code-signing certificate — the file is safe and built from this project’s open source.'}
-                                </p>
+                                        ? 'Статистика и настройки сохраняются'
+                                        : 'Updates keep your stats and settings.'}
+                                </span>
                             </div>
-                        </details>
+
+                            <details className="pomodoro-hero__install">
+                                <summary>
+                                    <ShieldCheck size={16} aria-hidden="true" />
+                                    <span>
+                                        {ru
+                                            ? 'Инструкция запуска'
+                                            : 'Launch guide'}
+                                    </span>
+                                    <ChevronDown className="pomodoro-hero__install-chevron" size={15} aria-hidden="true" />
+                                </summary>
+                                <div className="pomodoro-hero__install-body">
+                                    <ol>
+                                        <li>
+                                            {ru ? 'Нажмите ' : 'Click '}
+                                            <b>{ru ? '«Подробнее»' : '"More info"'}</b>
+                                        </li>
+                                        <li>
+                                            {ru ? 'Затем ' : 'Then click '}
+                                            <b>{ru ? '«Выполнить в любом случае»' : '"Run anyway"'}</b>
+                                        </li>
+                                    </ol>
+                                    <p>
+                                        {ru
+                                            ? 'Предупреждение появляется, поскольку у установщика пока нет платной цифровой подписи. Файл собран из открытого кода проекта.'
+                                            : 'The warning appears because the installer does not yet have a paid code-signing certificate. The file is built from the project’s open source.'}
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
                     </motion.div>
                 </div>
             </section>

@@ -250,6 +250,50 @@ async function handleBdayAdminApi(req, res, pathname, url) {
 }
 
 async function handleAdminApi(req, res, pathname, url) {
+  if (pathname === '/api/admin/overview' && req.method === 'GET') {
+    const readSnapshot = async (filename) => {
+      try {
+        return JSON.parse(await readFile(join(DIST, filename), 'utf8'));
+      } catch (error) {
+        console.error(`Admin overview cannot read ${filename}:`, error.message);
+        return null;
+      }
+    };
+
+    const [pomodoro, radar, deals] = await Promise.all([
+      readSnapshot('pomodoro-version.json'),
+      readSnapshot('radar.json'),
+      readSnapshot('hot-deals.json'),
+    ]);
+    const dealItems = Array.isArray(deals?.deals) ? deals.deals : [];
+
+    return sendJson(res, 200, {
+      pomodoro: pomodoro ? {
+        version: pomodoro.version || null,
+        date: pomodoro.date || null,
+      } : null,
+      radar: radar ? {
+        updatedAt: radar.updatedAt || null,
+        hot: Array.isArray(radar.hotFlights) ? radar.hotFlights.length : 0,
+        cities: Array.isArray(radar.cheapFrom) ? radar.cheapFrom.length : 0,
+        legs: Array.isArray(radar.stitchLegs) ? radar.stitchLegs.length : 0,
+        calendars: Array.isArray(radar.calendars) ? radar.calendars.length : 0,
+      } : null,
+      deals: deals ? {
+        updatedAt: deals.updatedAt || null,
+        total: dealItems.length,
+        tours: dealItems.filter(item => item.type === 'tour').length,
+        flights: dealItems.filter(item => item.type === 'flight').length,
+        withSavings: dealItems.filter(item => item.savings).length,
+      } : null,
+      unavailable: [
+        !pomodoro && 'pomodoro',
+        !radar && 'radar',
+        !deals && 'deals',
+      ].filter(Boolean),
+    });
+  }
+
   if (pathname === '/api/admin/status' && req.method === 'GET') {
     return sendJson(res, 200, { storage: await getStoreStatus() });
   }

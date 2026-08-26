@@ -51,14 +51,16 @@ export default function TravelPanel() {
         setLoading(true);
         setError('');
         return Promise.all([
-            fetch('/radar.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : null)),
-            fetch('/hot-deals.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : null)),
+            adminApi.getOverview(),
             adminApi.getTravel(),
         ])
-            .then(([nextRadar, nextDeals, nextAdmin]) => {
-                setRadar(nextRadar);
-                setDeals(nextDeals);
+            .then(([overview, nextAdmin]) => {
+                setRadar(overview?.radar || null);
+                setDeals(overview?.deals || null);
                 setAdmin(nextAdmin);
+                if (overview?.unavailable?.length) {
+                    setError(`Источники данных недоступны: ${overview.unavailable.join(', ')}`);
+                }
             })
             .catch(err => setError(err.message))
             .finally(() => setLoading(false));
@@ -105,9 +107,6 @@ export default function TravelPanel() {
         ].some(value => String(value || '').toLocaleLowerCase().includes(query)));
     }, [admin?.subscriptions, search]);
 
-    const tours = (deals?.deals || []).filter(item => item.type === 'tour');
-    const flights = (deals?.deals || []).filter(item => item.type === 'flight');
-    const withSavings = (deals?.deals || []).filter(item => item.savings);
     const stats = admin?.stats || {};
 
     return (
@@ -207,20 +206,20 @@ export default function TravelPanel() {
                     <CardDescription>Состояние предложений, которые сейчас видят пользователи.</CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <Stat title="Всего находок" value={(deals?.deals || []).length} sub={`обновлено ${formatDate(deals?.updatedAt)}`} />
-                    <Stat title="Билеты" value={flights.length} sub="в текущей ленте" />
-                    <Stat title="Туры" value={tours.length} sub="в текущей ленте" />
-                    <Stat title="С экономией" value={withSavings.length} sub={`из ${flights.length} билетов`} />
+                    <Stat title="Всего находок" value={deals?.total || 0} sub={`обновлено ${formatDate(deals?.updatedAt)}`} />
+                    <Stat title="Билеты" value={deals?.flights || 0} sub="в текущей ленте" />
+                    <Stat title="Туры" value={deals?.tours || 0} sub="в текущей ленте" />
+                    <Stat title="С экономией" value={deals?.withSavings || 0} sub={`из ${deals?.flights || 0} билетов`} />
                 </CardContent>
             </Card>
 
             <Card>
                 <CardHeader><CardTitle>Служебные данные</CardTitle></CardHeader>
                 <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <Stat title="Горящие билеты" value={(radar?.hotFlights || []).length} sub={`обновлено ${formatDate(radar?.updatedAt)}`} />
-                    <Stat title="Города вылета" value={(radar?.cheapFrom || []).length} sub="в подборе" />
-                    <Stat title="Стыковочные плечи" value={(radar?.stitchLegs || []).length} sub="в маршрутах" />
-                    <Stat title="Календари цен" value={(radar?.calendars || []).length} sub="маршрутов" />
+                    <Stat title="Горящие билеты" value={radar?.hot || 0} sub={`обновлено ${formatDate(radar?.updatedAt)}`} />
+                    <Stat title="Города вылета" value={radar?.cities || 0} sub="в подборе" />
+                    <Stat title="Стыковочные плечи" value={radar?.legs || 0} sub="в маршрутах" />
+                    <Stat title="Календари цен" value={radar?.calendars || 0} sub="маршрутов" />
                 </CardContent>
             </Card>
         </div>

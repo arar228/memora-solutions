@@ -19,6 +19,7 @@ async function request(path, options = {}) {
 }
 
 export const adminApi = {
+  getOverview: () => request('/api/admin/overview'),
   getKanban: () => request('/api/admin/kanban'),
   saveKanbanBoard: (board) => request('/api/admin/kanban/board', {
     method: 'PUT',

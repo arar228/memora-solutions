@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, Badge } from '../../ui';
+import { adminApi } from '../api';
 
 /**
  * Обзор: одна страница, по которой и разработчик, и менеджер понимают,
@@ -40,29 +41,24 @@ const PRODUCTS = [
 ];
 
 export default function Overview() {
-    const [pomodoro, setPomodoro] = useState(null);
-    const [radar, setRadar] = useState(null);
-    const [deals, setDeals] = useState(null);
+    const [snapshot, setSnapshot] = useState(null);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        const grab = (url, set, pick) => fetch(url, { cache: 'no-cache' })
-            .then(r => (r.ok ? r.json() : null))
-            .then(d => set(d ? pick(d) : null))
-            .catch(() => set(null));
-
-        grab('/pomodoro-version.json', setPomodoro, d => d);
-        grab('/radar.json', setRadar, d => ({
-            updatedAt: d.updatedAt,
-            hot: (d.hotFlights || []).length,
-            cities: (d.cheapFrom || []).length,
-            legs: (d.stitchLegs || []).length,
-        }));
-        grab('/hot-deals.json', setDeals, d => ({
-            updatedAt: d.updatedAt,
-            total: (d.deals || []).length,
-            tours: (d.deals || []).filter(x => x.type === 'tour').length,
-        }));
+        adminApi.getOverview()
+            .then(data => {
+                setSnapshot(data);
+                setError(data?.unavailable?.length
+                    ? `Источники данных недоступны: ${data.unavailable.join(', ')}`
+                    : '');
+            })
+            .catch(err => setError(err.message));
     }, []);
+
+    const pomodoro = snapshot?.pomodoro;
+    const radar = snapshot?.radar;
+    const deals = snapshot?.deals;
+    const loading = snapshot === null && !error;
 
     const when = (iso) => {
         if (!iso) return '—';
@@ -81,21 +77,26 @@ export default function Overview() {
                         ленты путешествий — по расписанию каждые несколько часов, версия Помодоро — при выпуске сборки.
                     </CardDescription>
                 </CardHeader>
+                {error && (
+                    <div className="mx-5 rounded-control border border-danger/40 bg-danger/10 px-4 py-3 text-ui-sm text-danger">
+                        {error}
+                    </div>
+                )}
                 <CardContent className="grid gap-4 sm:grid-cols-3">
                     <Stat
                         title="Помодоро"
-                        value={pomodoro?.version ? `v${pomodoro.version}` : '—'}
-                        sub={pomodoro?.date ? `от ${pomodoro.date}` : 'нет данных'}
+                        value={loading ? '…' : pomodoro?.version ? `v${pomodoro.version}` : '—'}
+                        sub={loading ? 'Загружаем данные…' : pomodoro?.date ? `от ${pomodoro.date}` : 'Источник недоступен'}
                     />
                     <Stat
                         title="Горящие билеты"
-                        value={radar ? String(radar.hot) : '—'}
-                        sub={radar ? `городов: ${radar.cities} · обновлено ${when(radar.updatedAt)}` : 'нет данных'}
+                        value={loading ? '…' : radar ? String(radar.hot) : '—'}
+                        sub={loading ? 'Загружаем данные…' : radar ? `городов: ${radar.cities} · обновлено ${when(radar.updatedAt)}` : 'Источник недоступен'}
                     />
                     <Stat
                         title="Находки из каналов"
-                        value={deals ? String(deals.total) : '—'}
-                        sub={deals ? `из них туров: ${deals.tours} · ${when(deals.updatedAt)}` : 'нет данных'}
+                        value={loading ? '…' : deals ? String(deals.total) : '—'}
+                        sub={loading ? 'Загружаем данные…' : deals ? `из них туров: ${deals.tours} · ${when(deals.updatedAt)}` : 'Источник недоступен'}
                     />
                 </CardContent>
             </Card>

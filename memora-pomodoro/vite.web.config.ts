@@ -19,6 +19,76 @@ const protectedSceneHash = createHash('sha256')
 const webSceneFileName = `ninja-tomato-${protectedSceneHash}.scene`;
 const webScenePath = resolve(webSceneDir, webSceneFileName);
 
+function resilientWebAssetsPlugin() {
+  return {
+    name: 'resilient-web-assets',
+    apply: 'build',
+    enforce: 'post',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, context) {
+        if (!context.bundle) return html;
+
+        const output = Object.values(context.bundle);
+        const entry = output.find((item) => item.type === 'chunk' && item.isEntry)?.fileName;
+        const stylesheet = output.find((item) => item.type === 'asset' && item.fileName.endsWith('.css'))?.fileName;
+        if (!entry || !stylesheet) throw new Error('Pomodoro web entry assets were not found');
+
+        const loader = `<script type="module">
+  const sources = [
+    'https://arar228.github.io/memora-solutions/app/pomodoro/',
+    'https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/app/pomodoro/',
+    new URL('./', location.href).href
+  ];
+
+  async function fastest(path) {
+    const controllers = sources.map(() => new AbortController());
+    try {
+      const result = await Promise.any(sources.map(async (base, index) => {
+        const response = await fetch(new URL(path, base), {
+          cache: 'force-cache',
+          signal: controllers[index].signal
+        });
+        if (!response.ok) throw new Error(base + ' HTTP ' + response.status);
+        return { index, text: await response.text() };
+      }));
+      controllers.forEach((controller, index) => {
+        if (index !== result.index) controller.abort();
+      });
+      return result.text;
+    } catch (error) {
+      controllers.forEach((controller) => controller.abort());
+      throw error;
+    }
+  }
+
+  try {
+    const [css, javascript] = await Promise.all([
+      fastest(${JSON.stringify(stylesheet)}),
+      fastest(${JSON.stringify(entry)})
+    ]);
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+    const moduleUrl = URL.createObjectURL(new Blob([javascript], { type: 'text/javascript' }));
+    await import(moduleUrl);
+    URL.revokeObjectURL(moduleUrl);
+  } catch (error) {
+    const root = document.getElementById('root');
+    if (root) root.innerHTML = '<button type="button" onclick="location.reload()" style="margin:24px;padding:12px 18px;border:0;border-radius:10px;background:#31c7d9;color:#101115;font:700 16px Arial;cursor:pointer">Повторить загрузку таймера</button>';
+    console.error('Pomodoro assets failed to load', error);
+  }
+</script>`;
+
+        return html
+          .replace(/\s*<script\b(?=[^>]*\btype="module")(?=[^>]*\bsrc="[^"]+")[^>]*><\/script>/i, '')
+          .replace(/\s*<link\b(?=[^>]*\brel="stylesheet")(?=[^>]*\bhref="[^"]+")[^>]*>/i, '')
+          .replace('</head>', `${loader}\n</head>`);
+      },
+    },
+  };
+}
+
 export default defineConfig(({ command, mode }) => {
   const sceneKey = loadEnv(mode, __dirname, 'MEMORA_').MEMORA_SCENE_KEY || process.env.MEMORA_SCENE_KEY;
   if (!sceneKey) throw new Error('MEMORA_SCENE_KEY is required (use .env.local or a protected build secret).');
@@ -46,6 +116,7 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     react(),
+    resilientWebAssetsPlugin(),
     {
       // Страница /pomodoro читает этот файл и показывает номер и дату версии —
       // одна сборка обновляет и web-копию, и надпись о версии.

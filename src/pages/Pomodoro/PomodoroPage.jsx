@@ -32,6 +32,12 @@ export default function PomodoroPage() {
     const os = detectOS();
     const isWin = os === 'windows';
     const downloadHref = isWin ? WIN_INSTALLER : RELEASES_LATEST;
+    const selectedAssetSource = typeof document !== 'undefined'
+        ? document.documentElement.dataset.memoraAssetSource
+        : '';
+    const webAppSrc = selectedAssetSource
+        ? `${WEB_APP_URL}?assetSource=${encodeURIComponent(selectedAssetSource)}`
+        : WEB_APP_URL;
 
     // Vite embeds the release metadata in this page chunk. A new Pomodoro
     // release changes the chunk hash; repeat visits use the immutable cache.
@@ -142,7 +148,7 @@ export default function PomodoroPage() {
                         </p>
                         <div className="pomodoro-live__frame">
                             <iframe
-                                src={WEB_APP_URL}
+                                src={webAppSrc}
                                 title={ru ? 'Мемора Помодоро — веб-версия' : 'Memora Pomodoro — web version'}
                                 loading="eager"
                                 fetchPriority="high"

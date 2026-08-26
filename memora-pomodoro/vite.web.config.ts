@@ -34,50 +34,52 @@ function resilientWebAssetsPlugin() {
         const stylesheet = output.find((item) => item.type === 'asset' && item.fileName.endsWith('.css'))?.fileName;
         if (!entry || !stylesheet) throw new Error('Pomodoro web entry assets were not found');
 
-        const loader = `<script type="module">
-  const sources = [
-    'https://arar228.github.io/memora-solutions/app/pomodoro/',
-    'https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/app/pomodoro/',
-    new URL('./', location.href).href
-  ];
+        const loader = `<script>
+  const bases = {
+    github: 'https://arar228.github.io/memora-solutions/app/pomodoro/',
+    jsdelivr: 'https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/app/pomodoro/',
+    origin: new URL('./', location.href).href
+  };
+  const preferred = new URLSearchParams(location.search).get('assetSource');
+  const order = [...new Set([preferred, 'github', 'jsdelivr', 'origin'])]
+    .filter((name) => name && bases[name]);
 
-  async function fastest(path) {
-    const controllers = sources.map(() => new AbortController());
-    try {
-      const result = await Promise.any(sources.map(async (base, index) => {
-        const response = await fetch(new URL(path, base), {
-          cache: 'force-cache',
-          signal: controllers[index].signal
-        });
-        if (!response.ok) throw new Error(base + ' HTTP ' + response.status);
-        return { index, text: await response.text() };
-      }));
-      controllers.forEach((controller, index) => {
-        if (index !== result.index) controller.abort();
-      });
-      return result.text;
-    } catch (error) {
-      controllers.forEach((controller) => controller.abort());
-      throw error;
+  function retryingElement(kind, path, index = 0) {
+    if (index >= order.length) {
+      const root = document.getElementById('root');
+      if (root) root.innerHTML = '<button type="button" onclick="location.reload()" style="margin:24px;padding:12px 18px;border:0;border-radius:10px;background:#31c7d9;color:#101115;font:700 16px Arial;cursor:pointer">Повторить загрузку таймера</button>';
+      return;
     }
+
+    const element = document.createElement(kind === 'script' ? 'script' : 'link');
+    if (kind === 'script') {
+      element.type = 'module';
+      element.src = new URL(path, bases[order[index]]).href;
+    } else {
+      element.rel = 'stylesheet';
+      element.href = new URL(path, bases[order[index]]).href;
+    }
+    element.crossOrigin = 'anonymous';
+
+    let settled = false;
+    const timer = setTimeout(() => fail(), 2500);
+    const fail = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      element.remove();
+      retryingElement(kind, path, index + 1);
+    };
+    element.onload = () => {
+      settled = true;
+      clearTimeout(timer);
+    };
+    element.onerror = fail;
+    document.head.appendChild(element);
   }
 
-  try {
-    const [css, javascript] = await Promise.all([
-      fastest(${JSON.stringify(stylesheet)}),
-      fastest(${JSON.stringify(entry)})
-    ]);
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
-    const moduleUrl = URL.createObjectURL(new Blob([javascript], { type: 'text/javascript' }));
-    await import(moduleUrl);
-    URL.revokeObjectURL(moduleUrl);
-  } catch (error) {
-    const root = document.getElementById('root');
-    if (root) root.innerHTML = '<button type="button" onclick="location.reload()" style="margin:24px;padding:12px 18px;border:0;border-radius:10px;background:#31c7d9;color:#101115;font:700 16px Arial;cursor:pointer">Повторить загрузку таймера</button>';
-    console.error('Pomodoro assets failed to load', error);
-  }
+  retryingElement('style', ${JSON.stringify(stylesheet)});
+  retryingElement('script', ${JSON.stringify(entry)});
 </script>`;
 
         return html

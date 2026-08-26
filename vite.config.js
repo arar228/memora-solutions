@@ -1,6 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { readFileSync } from 'node:fs'
 import { resilientBootPlugin } from './build/resilientBootPlugin.js'
+
+const pomodoroRelease = JSON.parse(
+  readFileSync(new URL('./public/pomodoro-version.json', import.meta.url), 'utf8'),
+)
 
 const normalizeBaseUrl = (value) => {
   const trimmed = value?.trim()
@@ -15,6 +20,9 @@ export default defineConfig(({ command }) => {
 
   return {
     base,
+    define: {
+      'import.meta.env.POMODORO_RELEASE': JSON.stringify(pomodoroRelease),
+    },
     plugins: [react(), resilientBootPlugin()],
     build: {
       // Stable groups let browsers cache the framework separately from pages.

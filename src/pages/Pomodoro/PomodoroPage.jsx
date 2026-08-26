@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Download, CheckCircle2, Timer, Play, Maximize2 } from 'lucide-react';
@@ -34,16 +33,9 @@ export default function PomodoroPage() {
     const isWin = os === 'windows';
     const downloadHref = isWin ? WIN_INSTALLER : RELEASES_LATEST;
 
-    // Номер и дата актуальной версии — файл пишется сборкой веб-копии.
-    const [release, setRelease] = useState(null);
-    useEffect(() => {
-        let cancelled = false;
-        fetch('/pomodoro-version.json', { cache: 'no-cache' })
-            .then(r => (r.ok ? r.json() : null))
-            .then(d => { if (!cancelled) setRelease(d); })
-            .catch(() => { /* без надписи о версии страница остаётся рабочей */ });
-        return () => { cancelled = true; };
-    }, []);
+    // Vite embeds the release metadata in this page chunk. A new Pomodoro
+    // release changes the chunk hash; repeat visits use the immutable cache.
+    const release = import.meta.env.POMODORO_RELEASE;
     const releaseLine = release?.version
         ? (ru
             ? `Актуальная версия ${release.version} · от ${new Date(release.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}`
@@ -152,7 +144,7 @@ export default function PomodoroPage() {
                             <iframe
                                 src={WEB_APP_URL}
                                 title={ru ? 'Мемора Помодоро — веб-версия' : 'Memora Pomodoro — web version'}
-                                loading="lazy"
+                                loading="eager"
                             />
                         </div>
                     </section>

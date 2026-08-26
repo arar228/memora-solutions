@@ -145,6 +145,7 @@ export default function PomodoroPage() {
                                 src={WEB_APP_URL}
                                 title={ru ? 'Мемора Помодоро — веб-версия' : 'Memora Pomodoro — web version'}
                                 loading="eager"
+                                fetchPriority="high"
                             />
                         </div>
                     </section>

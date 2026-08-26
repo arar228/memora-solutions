@@ -9,7 +9,7 @@ import { createHash, randomBytes } from 'node:crypto';
 // web — правка в renderer видна в обеих версиях после пересборки.
 const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf8'));
 const webOutDir = resolve(__dirname, '../public/app/pomodoro');
-const productionAssetBase = 'https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/app/pomodoro/';
+const productionAssetBase = 'https://arar228.github.io/memora-solutions/app/pomodoro/';
 const webSceneDir = resolve(webOutDir, 'assets');
 const protectedScenePath = resolve(__dirname, 'assets/ninja-tomato.scene');
 const protectedSceneHash = createHash('sha256')

@@ -10,6 +10,7 @@ const NAV_LINKS = [
     { to: '/', key: 'home' },
     { to: '/travel-radar', key: 'travelRadar' },
     { to: '/products', key: 'products' },
+    { to: '/attention-lab', key: 'attentionLab' },
     { to: '/kanban', key: 'kanban' },
 ];
 

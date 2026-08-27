@@ -36,6 +36,7 @@ import {
     X,
 } from 'lucide-react';
 import AnimatedSection from '../../shared/AnimatedSection';
+import AttentionPortal from '../../shared/AttentionPortal';
 import { staticAsset } from '../../shared/staticAsset';
 import './CreatorPage.css';
 
@@ -487,6 +488,8 @@ export default function CreatorPage() {
             </header>
 
             <section className="portfolio-proof"><div className="container portfolio-proof__grid">{c.proof.map(([value, label]) => <div key={value}><strong>{value}</strong><span>{label}</span></div>)}</div></section>
+
+            <AttentionPortal lang={lang} />
 
             {journeyRoute && <div className="portfolio-journey-route" style={{ height: journeyRoute.height }} aria-hidden="true">
                 <svg viewBox={`0 0 ${journeyRoute.width} ${journeyRoute.height}`} preserveAspectRatio="none">

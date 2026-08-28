@@ -317,6 +317,28 @@
     overflow: hidden !important;
 }
 
+.memora-chat__composer .memora-chat__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--chat-faint);
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.memora-chat__composer .memora-chat__consent input {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    min-height: 18px;
+    margin: 0;
+    accent-color: var(--chat-accent);
+}
+
+.memora-chat__consent a {
+    color: var(--chat-accent);
+}
+
 @media (max-width: 960px) {
     .memora-workspace {
         grid-template-columns: repeat(2, minmax(0, 1fr));

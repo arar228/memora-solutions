@@ -9,7 +9,7 @@ import { createHash, randomBytes } from 'node:crypto';
 // web — правка в renderer видна в обеих версиях после пересборки.
 const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf8'));
 const webOutDir = resolve(__dirname, '../public/app/pomodoro');
-const productionAssetBase = 'https://arar228.github.io/memora-solutions/app/pomodoro/';
+const productionAssetBase = '/app/pomodoro/';
 const webSceneDir = resolve(webOutDir, 'assets');
 const protectedScenePath = resolve(__dirname, 'assets/ninja-tomato.scene');
 const protectedSceneHash = createHash('sha256')
@@ -41,7 +41,7 @@ function resilientWebAssetsPlugin() {
     origin: new URL('./', location.href).href
   };
   const preferred = new URLSearchParams(location.search).get('assetSource');
-  const order = [...new Set([preferred, 'github', 'jsdelivr', 'origin'])]
+  const order = [...new Set([preferred, 'origin', 'github', 'jsdelivr'])]
     .filter((name) => name && bases[name]);
 
   function retryingElement(kind, path, index = 0) {
@@ -99,13 +99,12 @@ export default defineConfig(({ command, mode }) => {
   const sceneKeyMask = randomBytes(32);
   const sceneKeyMasked = Buffer.from(sceneKeyBytes.map((byte, index) => byte ^ sceneKeyMask[index]));
   const webSceneUrl = command === 'build'
-    ? new URL(`assets/${webSceneFileName}`, productionAssetBase).href
+    ? `${productionAssetBase}assets/${webSceneFileName}`
     : `./assets/${webSceneFileName}`;
   return {
   root: resolve(__dirname, 'src/web'),
-  // Keep the iframe document on memorasolutions.ru so its localStorage remains
-  // stable. Production JS/CSS/fonts use content-hashed CDN URLs and can stay in
-  // the browser cache for a year; the dev server continues to use local assets.
+  // Keep the primary assets on the same atomic release as the iframe document.
+  // The loader retains GitHub Pages and jsDelivr as secondary recovery sources.
   base: command === 'build' ? productionAssetBase : './',
   plugins: [
     {

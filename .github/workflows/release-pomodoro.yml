@@ -1,0 +1,46 @@
+name: Release Pomodoro
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag, for example pomodoro-v1.4.2
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: memora-pomodoro
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: memora-pomodoro/package-lock.json
+
+      - run: npm ci
+      - run: npm run dist:win -- --publish never
+
+      - name: Create SHA-256 manifest
+        shell: pwsh
+        run: |
+          $installer = Resolve-Path 'release/Memora-Pomodoro-Setup.exe'
+          $hash = (Get-FileHash -LiteralPath $installer -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  Memora-Pomodoro-Setup.exe" | Set-Content -LiteralPath 'release/SHA256SUMS.txt' -Encoding ascii
+
+      - name: Publish release assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          gh release view "$RELEASE_TAG" >/dev/null 2>&1 || gh release create "$RELEASE_TAG" --title "Memora Pomodoro $RELEASE_TAG" --generate-notes
+          gh release upload "$RELEASE_TAG" release/Memora-Pomodoro-Setup.exe release/SHA256SUMS.txt --clobber

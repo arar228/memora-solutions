@@ -248,7 +248,7 @@ export default function AttentionLabPage() {
                 </div>
             </header>
 
-            <main>
+            <div>
                 <section className="attention-lab-section attention-editorial" id="case" aria-labelledby="attention-case-title">
                     <div className="container">
                         <SectionHeading label={c.case.label} title={c.case.title} id="attention-case-title" light />
@@ -315,7 +315,7 @@ export default function AttentionLabPage() {
                 </section>
 
                 <motion.section className="attention-lab-close" initial={prefersReducedMotion ? false : { clipPath: 'inset(18% 8% 18% 8%)' }} whileInView={{ clipPath: 'inset(0% 0% 0% 0%)' }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, ease: EASE }}><div className="container"><span><Code2 size={23} /> UX / UI · DATA</span><h2 className="type-display">{c.closeTitle}</h2><motion.a className="attention-lab-button is-primary" href="/#contact" whileHover={prefersReducedMotion ? undefined : { y: -4 }}>{c.closeAction} <ArrowRight size={20} /></motion.a></div></motion.section>
-            </main>
+            </div>
         </div>
     );
 }

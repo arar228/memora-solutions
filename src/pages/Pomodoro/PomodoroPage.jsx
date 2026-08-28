@@ -7,6 +7,7 @@ import './PomodoroPage.css';
 // Permanent, version-less URL (electron-builder artifactName is stable).
 const WIN_INSTALLER = 'https://github.com/arar228/memora-solutions/releases/latest/download/Memora-Pomodoro-Setup.exe';
 const RELEASES_LATEST = 'https://github.com/arar228/memora-solutions/releases/latest';
+const CHECKSUMS = '/Memora-Pomodoro-Setup.sha256';
 // Веб-копия приложения: та же кодовая база, что и у десктопа, собирается
 // командой `npm run build:web` в memora-pomodoro/ прямо в public/app/pomodoro.
 const WEB_APP_URL = '/app/pomodoro/index.html';
@@ -100,27 +101,20 @@ export default function PomodoroPage() {
                                     <ShieldCheck size={16} aria-hidden="true" />
                                     <span>
                                         {ru
-                                            ? 'Инструкция запуска'
-                                            : 'Launch guide'}
+                                            ? 'Проверка установщика'
+                                            : 'Verify the installer'}
                                     </span>
                                     <ChevronDown className="pomodoro-hero__install-chevron" size={15} aria-hidden="true" />
                                 </summary>
                                 <div className="pomodoro-hero__install-body">
-                                    <ol>
-                                        <li>
-                                            {ru ? 'Нажмите ' : 'Click '}
-                                            <b>{ru ? '«Подробнее»' : '"More info"'}</b>
-                                        </li>
-                                        <li>
-                                            {ru ? 'Затем ' : 'Then click '}
-                                            <b>{ru ? '«Выполнить в любом случае»' : '"Run anyway"'}</b>
-                                        </li>
-                                    </ol>
                                     <p>
                                         {ru
-                                            ? 'Предупреждение появляется, поскольку у установщика пока нет платной цифровой подписи. Файл собран из открытого кода проекта.'
-                                            : 'The warning appears because the installer does not yet have a paid code-signing certificate. The file is built from the project’s open source.'}
+                                            ? 'Текущий установщик выпускается без цифровой подписи, поэтому SmartScreen показывает предупреждение. Скачайте файл со страницы официального релиза и сравните его SHA-256 с опубликованной контрольной суммой.'
+                                            : 'The current installer is unsigned, so SmartScreen shows a warning. Download it from the official release page and compare its SHA-256 with the published checksum.'}
                                     </p>
+                                    <p><code>Get-FileHash .\Memora-Pomodoro-Setup.exe -Algorithm SHA256</code></p>
+                                    <p><a href={CHECKSUMS} target="_blank" rel="noopener noreferrer">{ru ? 'Открыть опубликованный SHA-256' : 'Open the published SHA-256'}</a></p>
+                                    <p>{ru ? 'Контрольная сумма должна совпасть полностью. При расхождении файл запускать нельзя.' : 'The checksum must match exactly. Do not run a file whose checksum differs.'}</p>
                                 </div>
                             </details>
                         </div>

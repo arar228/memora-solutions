@@ -965,8 +965,14 @@
     align-items: flex-start;
     gap: 0.65rem;
     color: var(--text-secondary);
-    font-size: 0.76rem;
+    font-size: 1rem;
     line-height: 1.5;
+}
+
+.travel-alerts__consent a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
 }
 
 .travel-alerts__consent input {

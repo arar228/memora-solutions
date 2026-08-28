@@ -134,10 +134,10 @@ const COPY = {
         documentNotice: 'Пример рассчитан на проекты по праву РФ. Перед подписанием юрист проверяет реквизиты сторон, налоговый статус, модель передачи прав, обработку персональных данных и подсудность конкретного проекта.',
         documentClose: 'Закрыть пример',
         contact: {
-            label: '06 / Новый проект', title: 'Один запрос — удобный канал ответа', text: 'Опишите задачу и выберите телефон, почту или Telegram. Запрос сразу попадёт менеджеру.',
+            label: '06 / Новый проект', title: 'Опишите задачу и выберите телефон, почту или Telegram. Запрос сразу попадёт менеджеру.', text: '',
             name: 'Как к вам обращаться', request: 'Что нужно разработать', method: 'Куда направить ответ', phone: 'Телефон', email: 'Почта', telegram: 'Telegram',
             namePlaceholder: 'Имя', requestPlaceholder: 'Контекст, задача и желаемый результат', phonePlaceholder: '+7 999 000-00-00', emailPlaceholder: 'name@company.ru', telegramPlaceholder: '@username',
-            submit: 'Отправить запрос', sending: 'Отправляем…', success: 'Запрос отправлен. Менеджер свяжется с вами выбранным способом.', error: 'Заполните задачу и контакт для ответа.', questionLink: 'Открыть раздел «Задать вопрос»',
+            submit: 'Отправить запрос', sending: 'Отправляем…', success: 'Запрос отправлен. Менеджер свяжется с вами выбранным способом.', error: 'Заполните задачу, контакт и согласие на обработку данных.', privacy: 'Согласен на обработку данных по политике конфиденциальности', privacyLink: 'Открыть политику', questionLink: 'Открыть раздел «Задать вопрос»',
         },
     },
     en: {
@@ -161,7 +161,7 @@ const COPY = {
         process: [['01', 'Discovery', 'Objective, users, constraints, and acceptance criteria.', 'Understand the task'], ['02', 'Sprint', 'Scope, hour estimate, team, and demo date.', 'Set the plan'], ['03', 'Development', 'Interface, code, integrations, testing, and progress demos.', 'Build the product'], ['04', 'Delivery', 'Release, report, documents, and an agreed next step.', 'Deliver the result']],
         offerLabel: '04 / Engagement', offerTitle: 'Two payment formats', marketBadge: 'below market', standardTitle: 'Core format', standardPrice: '$30', standardCaption: '/ team hour', standardItems: ['the sprint is paid before kickoff', 'scope, timing, and demo are set in advance'], offerFlow: ['Scope', 'Sprint', 'Demo'], flexibleTitle: 'Flexible format', flexiblePrice: '$39', flexibleCaption: '/ team hour', flexibleNote: 'partial prepayment', flexibleItems: ['part of the fee before kickoff', 'balance tied to timing or outcome'],
         docsLabel: '05 / Client kit', docsTitle: 'Project documents', documents: [['Commercial proposal', 'Scope, team, estimate, stages, and budget.'], ['Sprint report', 'Goals, delivered features, checks, and next step.'], ['Agreement', 'Scope, rights, payment, timing, and responsibilities.'], ['Acceptance certificate', 'Delivered result and acceptance confirmation.']], managerAction: 'Discuss the project', documentOpen: 'Open example', documentExample: 'Structure example', documentNotice: 'This example is structured for projects governed by Russian law. Before signing, legal counsel verifies party details, tax status, the IP transfer model, personal data processing, and jurisdiction for the specific project.', documentClose: 'Close example',
-        contact: { label: '06 / New project', title: 'One request. Your preferred reply channel.', text: 'Describe the project and choose phone, email, or Telegram. The request goes straight to the manager.', name: 'Your name', request: 'What should we build?', method: 'Where should we reply?', phone: 'Phone', email: 'Email', telegram: 'Telegram', namePlaceholder: 'Name', requestPlaceholder: 'Context, objective, and desired outcome', phonePlaceholder: '+7 999 000-00-00', emailPlaceholder: 'name@company.com', telegramPlaceholder: '@username', submit: 'Send request', sending: 'Sending…', success: 'Request sent. The manager will reply through your chosen channel.', error: 'Add the project request and a reply contact.', questionLink: 'Open Ask a Question' },
+        contact: { label: '06 / New project', title: 'Describe the project and choose phone, email, or Telegram. The request goes straight to the manager.', text: '', name: 'Your name', request: 'What should we build?', method: 'Where should we reply?', phone: 'Phone', email: 'Email', telegram: 'Telegram', namePlaceholder: 'Name', requestPlaceholder: 'Context, objective, and desired outcome', phonePlaceholder: '+7 999 000-00-00', emailPlaceholder: 'name@company.com', telegramPlaceholder: '@username', submit: 'Send request', sending: 'Sending…', success: 'Request sent. The manager will reply through your chosen channel.', error: 'Add the project request, reply contact, and data processing consent.', privacy: 'I agree to data processing under the privacy policy', privacyLink: 'Open policy', questionLink: 'Open Ask a Question' },
     },
 };
 
@@ -247,6 +247,7 @@ function ProjectInquiry({ copy, lang }) {
     const [request, setRequest] = useState('');
     const [method, setMethod] = useState('phone');
     const [contact, setContact] = useState('');
+    const [privacyConsent, setPrivacyConsent] = useState(false);
     const [status, setStatus] = useState('idle');
     const [error, setError] = useState('');
     const startedAt = useRef(Date.now());
@@ -261,7 +262,7 @@ function ProjectInquiry({ copy, lang }) {
 
     const submit = async event => {
         event.preventDefault();
-        if (request.trim().length < 10 || !isContactValid || status === 'sending') {
+        if (request.trim().length < 10 || !isContactValid || !privacyConsent || status === 'sending') {
             setError(copy.error);
             return;
         }
@@ -275,7 +276,7 @@ function ProjectInquiry({ copy, lang }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     mode: 'personal', clientId: getClientId(), name: name.trim(), text: message,
-                    website: '', startedAt: startedAt.current,
+                    website: '', startedAt: startedAt.current, privacyConsent,
                 }),
             });
             if (!response.ok) throw new Error('request_failed');
@@ -309,7 +310,8 @@ function ProjectInquiry({ copy, lang }) {
                 </div>
             </fieldset>
             <label className="portfolio-inquiry__contact"><span>{methodLabel}</span><input value={contact} placeholder={placeholders[method]} inputMode={method === 'phone' ? 'tel' : method === 'email' ? 'email' : 'text'} onChange={event => setContact(event.target.value)} /></label>
-            <button className="portfolio-inquiry__submit" type="submit" disabled={status === 'sending'}><Send size={20} /> {status === 'sending' ? copy.sending : copy.submit}</button>
+            <label className="portfolio-inquiry__consent"><input type="checkbox" checked={privacyConsent} onChange={event => setPrivacyConsent(event.target.checked)} /><span>{copy.privacy}. <a href="/privacy" target="_blank" rel="noopener noreferrer">{copy.privacyLink}</a></span></label>
+            <button className="portfolio-inquiry__submit" type="submit" disabled={status === 'sending' || !privacyConsent}><Send size={20} /> {status === 'sending' ? copy.sending : copy.submit}</button>
             <div className="portfolio-inquiry__feedback" aria-live="polite">
                 {status === 'success' && <span><CircleCheck size={18} /> {copy.success}</span>}
                 {error && <strong>{error}</strong>}
@@ -469,7 +471,7 @@ export default function CreatorPage() {
                             <div className="portfolio-showcase">
                                 <div className="portfolio-showcase__scan" aria-hidden="true" />
                                 <div className="portfolio-showcase__pulse"><i /><span>{c.projects.length} PROJECTS · LIVE PORTFOLIO</span></div>
-                                {c.projects.slice(0, 4).map((item, index) => { const external = isExternalHref(item.href); return <a href={item.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} key={item.name}><span>0{index + 1}</span><strong>{item.name}</strong><small>{item.type}</small>{external ? <ExternalLink size={18} /> : <ArrowRight size={18} />}</a>; })}
+                                {c.projects.slice(0, 4).map((item, index) => <a href={`#project-${PROJECT_META[index].id}`} key={item.name}><span>0{index + 1}</span><strong>{item.name}</strong><small>{item.type}</small><ArrowRight size={18} /></a>)}
                             </div>
                             <svg className="portfolio-showcase-outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                                 <defs>
@@ -509,7 +511,7 @@ export default function CreatorPage() {
                 </svg>
             </div>}
 
-            <main>
+            <div>
                 <section className="portfolio-section portfolio-section--cases" id="cases"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.casesLabel}</span><h2>{c.casesTitle}</h2></div><div className="portfolio-case-list">{c.projects.map((project, index) => { const meta = PROJECT_META[index]; const Icon = meta.icon; const external = isExternalHref(project.href); return <motion.article ref={index === 0 ? firstProjectRef : undefined} id={`project-${meta.id}`} whileHover={{ x: 6 }} key={meta.id} className={`portfolio-case-row tone-${meta.tone} ${meta.assets ? 'has-media' : 'is-compact'}`}><span className="portfolio-case-row__number">{String(index + 1).padStart(2, '0')}</span><div className="portfolio-case-row__identity"><span className="portfolio-case-row__type"><Icon size={20} /><span>{project.type}</span></span><h3>{project.name}</h3></div><p className="portfolio-case-row__description">{project.text}</p>{meta.assets && <div className={`portfolio-case-row__media media-${meta.id}`}>{meta.assets.map((asset, assetIndex) => <button type="button" data-more={assetIndex === 1 && meta.assets.length > 2 ? `+${meta.assets.length - 2}` : undefined} onClick={() => setGallery({ project, assets: meta.assets, index: assetIndex })} aria-label={lang === 'ru' ? `Открыть скриншот ${assetIndex + 1} из ${meta.assets.length} проекта ${project.name}` : `Open screenshot ${assetIndex + 1} of ${meta.assets.length} for ${project.name}`} key={asset}><img src={staticAsset(asset)} alt={`${project.name} — ${assetIndex + 1}`} loading="lazy" decoding="async" /><span><Maximize2 size={20} aria-hidden="true" /></span></button>)}</div>}<a className="portfolio-case-row__action" href={project.href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{project.href === '#contact' ? c.projectDetails : c.projectAction} {external ? <ExternalLink size={20} /> : <ArrowRight size={20} />}</a></motion.article>; })}</div></AnimatedSection></div></section>
 
                 <section className="portfolio-section portfolio-section--manager"><div className="container"><AnimatedSection className="portfolio-manager"><figure><img src={staticAsset('/sergey.webp')} alt={`${c.managerName}, ${c.managerRole}`} loading="lazy" decoding="async" /><figcaption>{c.managerRole}</figcaption></figure><div><span className="portfolio-kicker">{c.managerLabel}</span><h2>{c.managerName}</h2><p>{c.managerLead}</p><ul>{c.managerItems.map((item, index) => <li key={item} style={{ '--manager-index': index }}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul><a className="portfolio-button" href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">{c.managerAction} <ArrowRight size={20} /></a></div></AnimatedSection></div></section>
@@ -520,8 +522,8 @@ export default function CreatorPage() {
 
                 <section className="portfolio-section portfolio-section--documents" id="documents"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.docsLabel}</span><h2>{c.docsTitle}</h2></div><div className="portfolio-documents">{c.documents.map(([title], index) => { const Icon = documentIcons[index]; const template = DOCUMENT_TEMPLATES[lang][index]; return <button className={`portfolio-document-card portfolio-document-card--${index + 1}`} type="button" onClick={() => setDocumentViewer(index)} aria-label={`${c.documentOpen}: ${title}`} key={title}><span className="portfolio-document-card__visual" aria-hidden="true"><span className="portfolio-document-card__meta"><span><Icon size={24} /></span><b>{String(index + 1).padStart(2, '0')}</b></span><span className="portfolio-document-card__structure">{template.preview.map((item, itemIndex) => <span key={item}><i>{String(itemIndex + 1).padStart(2, '0')}</i><em>{item}</em></span>)}</span></span><span className="portfolio-document-card__body"><span className="portfolio-document-card__copy"><strong>{title}</strong></span><span className="portfolio-document-card__action">{c.documentOpen} <ArrowRight size={20} /></span></span></button>; })}</div></AnimatedSection></div></section>
 
-                <section className="portfolio-section portfolio-section--contact" id="contact"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.contact.label}</span><h2>{c.contact.title}</h2><p>{c.contact.text}</p></div><ProjectInquiry copy={c.contact} lang={lang} /></AnimatedSection></div></section>
-            </main>
+                <section className="portfolio-section portfolio-section--contact" id="contact"><div className="container"><AnimatedSection><div className="portfolio-section-head"><span>{c.contact.label}</span><h2>{c.contact.title}</h2>{c.contact.text && <p>{c.contact.text}</p>}</div><ProjectInquiry copy={c.contact} lang={lang} /></AnimatedSection></div></section>
+            </div>
             {documentViewer !== null && (() => { const template = DOCUMENT_TEMPLATES[lang][documentViewer]; return <div className="portfolio-document-viewer" role="dialog" aria-modal="true" aria-labelledby="document-viewer-title"><button className="portfolio-document-viewer__backdrop" type="button" onClick={() => setDocumentViewer(null)} aria-label={c.documentClose} /><div className="portfolio-document-viewer__panel"><header><div><span>{c.documentExample}</span><strong id="document-viewer-title">{template.title}</strong></div><button type="button" onClick={() => setDocumentViewer(null)} aria-label={c.documentClose}><X size={26} /></button></header><div className="portfolio-document-viewer__layout"><nav aria-label={lang === 'ru' ? 'Примеры документов' : 'Document examples'}>{DOCUMENT_TEMPLATES[lang].map((item, index) => { const Icon = documentIcons[index]; return <button type="button" className={index === documentViewer ? 'is-active' : ''} onClick={() => setDocumentViewer(index)} key={item.title}><Icon size={22} /><span>{item.title}</span></button>; })}</nav><article className="portfolio-document-sheet"><div className="portfolio-document-sheet__head"><span>{template.code}</span><h2>{template.title}</h2><p>{template.lead}</p></div><div className="portfolio-document-sheet__sections">{template.sections.map(([title, points]) => <section key={title}><h3>{title}</h3><ul>{points.map(point => <li key={point}>{point}</li>)}</ul></section>)}</div><aside><ShieldCheck size={24} /><p>{c.documentNotice}</p></aside></article></div></div></div>; })()}
             {gallery && <div className="portfolio-lightbox" role="dialog" aria-modal="true" aria-label={lang === 'ru' ? `Скриншоты проекта ${gallery.project.name}` : `${gallery.project.name} screenshots`}><button className="portfolio-lightbox__backdrop" type="button" onClick={() => setGallery(null)} aria-label={lang === 'ru' ? 'Закрыть просмотр' : 'Close viewer'} /><div className="portfolio-lightbox__panel"><div className="portfolio-lightbox__header"><strong>{gallery.project.name}</strong><span>{gallery.index + 1} / {gallery.assets.length}</span><a href={staticAsset(gallery.assets[gallery.index])} target="_blank" rel="noopener noreferrer" aria-label={lang === 'ru' ? 'Открыть оригинал' : 'Open original'}><Maximize2 size={22} /></a><button type="button" onClick={() => setGallery(null)} aria-label={lang === 'ru' ? 'Закрыть' : 'Close'}><X size={24} /></button></div><div className={`portfolio-lightbox__stage ${gallery.assets.length === 1 ? 'is-single' : ''}`}>{gallery.assets.length > 1 && <button type="button" onClick={() => moveGallery(-1)} aria-label={lang === 'ru' ? 'Предыдущий скриншот' : 'Previous screenshot'}><ChevronLeft size={30} /></button>}<img src={staticAsset(gallery.assets[gallery.index])} alt={`${gallery.project.name} — ${gallery.index + 1}`} />{gallery.assets.length > 1 && <button type="button" onClick={() => moveGallery(1)} aria-label={lang === 'ru' ? 'Следующий скриншот' : 'Next screenshot'}><ChevronRight size={30} /></button>}</div></div></div>}
         </div>

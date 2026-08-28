@@ -122,6 +122,7 @@ const COPY = {
         minDiscount: 'Скидка от, %',
         email: 'Email для оплаты и чека',
         consent: 'Согласен на списание 300 ₽ каждые 30 дней. Автопродление можно отключить в любой момент.',
+        privacyConsent: 'Согласен на обработку данных по политике конфиденциальности.',
         connect: 'Настроить уведомления',
         openTelegram: 'Подключить Telegram',
         telegramHint: 'Откройте бота и нажмите Start, затем вернитесь на эту страницу.',
@@ -135,7 +136,7 @@ const COPY = {
         cancellationScheduled: 'Автопродление отключено · способ оплаты отвязан',
         capabilitiesLoading: 'Проверяем подключение оплаты…',
         alertsUnavailable: 'Подключение оплаты требует проверки. Обновите страницу через минуту.',
-        paymentNote: '300 ₽ за 30 дней · безопасная оплата через YooKassa · автопродление',
+        paymentNote: '300 ₽ за 30 дней · оплата через YooKassa · автопродление',
     },
     en: {
         eyebrow: 'Live finds',
@@ -212,6 +213,7 @@ const COPY = {
         minDiscount: 'Minimum discount, %',
         email: 'Email for payment receipt',
         consent: 'I agree to a 300 RUB charge every 30 days. Auto-renewal can be disabled at any time.',
+        privacyConsent: 'I agree to data processing under the privacy policy.',
         connect: 'Configure alerts',
         openTelegram: 'Connect Telegram',
         telegramHint: 'Open the bot and press Start, then return to this page.',
@@ -225,7 +227,7 @@ const COPY = {
         cancellationScheduled: 'Auto-renewal disabled · payment method unlinked',
         capabilitiesLoading: 'Checking payment connection…',
         alertsUnavailable: 'The payment connection needs verification. Refresh the page in a minute.',
-        paymentNote: '300 RUB for 30 days · secure YooKassa checkout · auto-renewal',
+        paymentNote: '300 RUB for 30 days · YooKassa checkout · auto-renewal',
     },
 };
 
@@ -888,6 +890,7 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
         minDiscount: '',
         email: '',
         consent: false,
+        privacyConsent: false,
     });
     const [busy, setBusy] = useState(false);
     const [editing, setEditing] = useState(false);
@@ -919,7 +922,12 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
     useEffect(() => {
         if (!token) return undefined;
         let cancelled = false;
-        const check = () => fetch(`/api/travel/subscriptions?token=${encodeURIComponent(token)}`, { cache: 'no-store' })
+        const check = () => fetch('/api/travel/subscriptions/status', {
+            method: 'POST',
+            cache: 'no-store',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token }),
+        })
             .then((response) => response.ok ? response.json() : Promise.reject())
             .then((data) => { if (!cancelled) setSubscription(data.subscription); })
             .catch(() => {});
@@ -953,6 +961,7 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
                 body: JSON.stringify({
                     email: form.email,
                     consent: form.consent,
+                    privacyConsent: form.privacyConsent,
                     filters: {
                         origin: filterPayload(form.origin),
                         destination: filterPayload(form.destination),
@@ -1119,7 +1128,8 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
                         <label><span>{copy.minDiscount}</span><input type="number" min="0" max="90" value={form.minDiscount} onChange={(e) => setForm({ ...form, minDiscount: e.target.value })} /></label>
                         <label><span>{copy.email}</span><input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></label>
                         <label className="travel-alerts__consent"><input type="checkbox" checked={form.consent} onChange={(e) => setForm({ ...form, consent: e.target.checked })} /><span>{copy.consent}</span></label>
-                        <button className="travel-alerts__primary" type="button" disabled={busy || !form.consent || !form.email} onClick={submit}><Bell size={17} aria-hidden="true" />{copy.connect}</button>
+                        <label className="travel-alerts__consent"><input type="checkbox" checked={form.privacyConsent} onChange={(e) => setForm({ ...form, privacyConsent: e.target.checked })} /><span>{copy.privacyConsent} <a href="/privacy" target="_blank" rel="noopener noreferrer">{lang === 'ru' ? 'Открыть политику' : 'Open policy'}</a></span></label>
+                        <button className="travel-alerts__primary" type="button" disabled={busy || !form.consent || !form.privacyConsent || !form.email} onClick={submit}><Bell size={17} aria-hidden="true" />{copy.connect}</button>
                     </div>
                 )}
                 {error ? <p className="travel-alerts__error" role="alert">{error}</p> : null}
@@ -1222,7 +1232,7 @@ export default function TravelRadar3Page() {
     }
 
     return (
-        <main className="travel-feed">
+        <div className="travel-feed">
             <div className="container">
                 <AnimatedSection>
                     <header className="travel-feed__hero">
@@ -1424,6 +1434,6 @@ export default function TravelRadar3Page() {
                     </section>
                 </AnimatedSection>
             </div>
-        </main>
+        </div>
     );
 }

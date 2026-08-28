@@ -18,6 +18,7 @@
         "fetch-tours": "node scripts/fetch-tours.js",
         "audit:deals": "node scripts/audit-deal-channels.js",
         "test:deals": "node scripts/test-parse-deals.js",
+        "test:payments": "node scripts/test-travel-payments.js",
         "validate-feeds": "node scripts/validate-feeds.js"
     },
     "dependencies": {
@@ -31,7 +32,7 @@
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "react-i18next": "^16.5.6",
-        "react-router-dom": "^7.18.1",
+        "react-router-dom": "^7.18.2",
         "tailwind-merge": "^3.6.0",
         "three": "^0.183.2"
     },
@@ -45,9 +46,13 @@
         "eslint-plugin-react-hooks": "^7.0.1",
         "eslint-plugin-react-refresh": "^0.4.24",
         "globals": "^16.5.0",
-        "postcss": "^8.5.22",
+        "postcss": "^8.5.26",
         "sharp": "^0.35.3",
         "tailwindcss": "^3.4.19",
         "vite": "^7.3.6"
+    },
+    "overrides": {
+        "brace-expansion": "1.1.18",
+        "js-yaml": "4.3.1"
     }
 }

@@ -81,7 +81,10 @@ jobs:
             printf 'TRAVELPAYOUTS_MARKER=%s\n' "$TRAVELPAYOUTS_MARKER"
             printf 'TRAVELPAYOUTS_TRS=%s\n' "$TRAVELPAYOUTS_TRS"
             printf 'YOOKASSA_SHOP_ID=%s\n' "$YOOKASSA_SHOP_ID"
+            printf 'YOOKASSA_EXPECTED_SHOP_ID=1442213\n'
             printf 'YOOKASSA_SECRET_KEY=%s\n' "$YOOKASSA_SECRET_KEY"
+            printf 'YOOKASSA_RECEIPTS_ENABLED=true\n'
+            printf 'YOOKASSA_VAT_CODE=1\n'
           } > "$affiliate_env"
           chmod 600 "$affiliate_env"
           sshpass -e scp \
@@ -103,7 +106,7 @@ jobs:
              caddy_tmp=$(mktemp)
              env_tmp=$(mktemp)
              trap '\''rm -f "$update_tmp" "$caddy_tmp" "$env_tmp" /tmp/memora-travelpayouts.env'\'' EXIT
-             grep -Ev '\''^(TRAVELPAYOUTS_TOKEN|TRAVELPAYOUTS_MARKER|TRAVELPAYOUTS_TRS|YOOKASSA_SHOP_ID|YOOKASSA_SECRET_KEY)='\'' /etc/memora-solutions.env > "$env_tmp" || true
+             grep -Ev '\''^(TRAVELPAYOUTS_TOKEN|TRAVELPAYOUTS_MARKER|TRAVELPAYOUTS_TRS|YOOKASSA_SHOP_ID|YOOKASSA_EXPECTED_SHOP_ID|YOOKASSA_SECRET_KEY|YOOKASSA_RECEIPTS_ENABLED|YOOKASSA_VAT_CODE)='\'' /etc/memora-solutions.env > "$env_tmp" || true
              cat /tmp/memora-travelpayouts.env >> "$env_tmp"
              install -o root -g memora -m 0640 "$env_tmp" /etc/memora-solutions.env
              git -c safe.directory="$app_dir" -C "$app_dir" show origin/master:deploy/vps/memora-update.sh > "$update_tmp"

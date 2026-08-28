@@ -26,6 +26,10 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - run: npm audit --audit-level=high
+      - run: node --check server.js && for file in server/*.js; do node --check "$file"; done
+      - run: npm run test:deals
+      - run: npm run test:payments
       - run: npm run lint
       - run: npm run build
 
@@ -44,4 +48,7 @@ jobs:
           cache-dependency-path: memora-pomodoro/package-lock.json
 
       - run: npm ci
+      - run: npm audit --audit-level=high
       - run: npx tsc --noEmit
+      - run: npm run build
+      - run: npm run build:web

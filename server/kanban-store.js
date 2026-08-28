@@ -90,6 +90,7 @@ export async function appendKanbanMessage({
   text,
   name = '',
   author = 'visitor',
+  privacyConsentAt = null,
 }) {
   if (!KANBAN_MESSAGE_MODES.has(mode)) throw new Error('INVALID_MODE');
   if (mode === 'personal' && !validClientId(conversationId)) throw new Error('INVALID_CLIENT');
@@ -104,6 +105,7 @@ export async function appendKanbanMessage({
     name: author === 'visitor' ? cleanName : 'Команда Memora',
     author: author === 'manager' ? 'manager' : 'visitor',
     createdAt: new Date().toISOString(),
+    ...(author === 'visitor' && privacyConsentAt ? { privacyConsentAt } : {}),
   };
   await updateState(KANBAN_MESSAGES_KEY, [], current => [
     ...cleanStoredMessages(current),

@@ -1,4 +1,4 @@
-import { createHash, randomBytes, randomUUID } from 'node:crypto';
+import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,6 +22,8 @@ const TELEGRAM_USERNAME = String(process.env.RADAR_TELEGRAM_BOT_USERNAME || '').
 const TELEGRAM_WEBHOOK_SECRET = process.env.RADAR_TELEGRAM_WEBHOOK_SECRET || '';
 const YOOKASSA_SHOP_ID = process.env.YOOKASSA_SHOP_ID || '';
 const YOOKASSA_SECRET_KEY = process.env.YOOKASSA_SECRET_KEY || '';
+const YOOKASSA_EXPECTED_SHOP_ID = process.env.YOOKASSA_EXPECTED_SHOP_ID || '1442213';
+const PROVIDER_TIMEOUT_MS = 12_000;
 
 let refreshTimer;
 let renewalTimer;
@@ -29,6 +31,12 @@ let refreshRunning = false;
 let renewalRunning = false;
 
 const hashToken = (token) => createHash('sha256').update(String(token)).digest('hex');
+const secretMatches = (actual, expected) => {
+  const actualBuffer = Buffer.from(String(actual || ''), 'utf8');
+  const expectedBuffer = Buffer.from(String(expected || ''), 'utf8');
+  return actualBuffer.length === expectedBuffer.length
+    && timingSafeEqual(actualBuffer, expectedBuffer);
+};
 const paymentIdempotenceKey = (...parts) => createHash('sha256')
   .update(parts.map((part) => String(part || '')).join('|'))
   .digest('hex');
@@ -81,7 +89,11 @@ async function readRawItems() {
 
 export function travelCapabilities() {
   const telegram = Boolean(TELEGRAM_TOKEN && TELEGRAM_USERNAME && TELEGRAM_WEBHOOK_SECRET);
-  const payments = Boolean(YOOKASSA_SHOP_ID && YOOKASSA_SECRET_KEY);
+  const payments = Boolean(
+    YOOKASSA_SHOP_ID
+      && YOOKASSA_SECRET_KEY
+      && YOOKASSA_SHOP_ID === YOOKASSA_EXPECTED_SHOP_ID,
+  );
   return {
     priceRub: PRICE_RUB,
     periodDays: 30,
@@ -103,6 +115,7 @@ export async function createTravelSubscription(input) {
   const email = cleanEmail(input.email);
   if (!email) throw new Error('INVALID_EMAIL');
   if (input.consent !== true) throw new Error('CONSENT_REQUIRED');
+  if (input.privacyConsent !== true) throw new Error('PRIVACY_CONSENT_REQUIRED');
 
   const token = randomBytes(24).toString('base64url');
   const now = new Date().toISOString();
@@ -122,6 +135,7 @@ export async function createTravelSubscription(input) {
     },
     autoRenew: true,
     consentAt: now,
+    privacyConsentAt: now,
     createdAt: now,
     updatedAt: now,
     currentPeriodEnd: null,
@@ -157,16 +171,45 @@ function paymentAuth() {
   return `Basic ${Buffer.from(`${YOOKASSA_SHOP_ID}:${YOOKASSA_SECRET_KEY}`).toString('base64')}`;
 }
 
+function assertPaymentConfiguration() {
+  if (!YOOKASSA_SHOP_ID || !YOOKASSA_SECRET_KEY) throw new Error('SUBSCRIPTIONS_NOT_CONFIGURED');
+  if (YOOKASSA_SHOP_ID !== YOOKASSA_EXPECTED_SHOP_ID) throw new Error('PAYMENT_SHOP_MISMATCH');
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = PROVIDER_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } catch (error) {
+    if (error?.name === 'AbortError') {
+      const timeoutError = new Error('Платёжный сервис превысил время ожидания');
+      timeoutError.code = 'PAYMENT_PROVIDER_ERROR';
+      throw timeoutError;
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 async function yookassaRequest(path, { method = 'GET', body, idempotenceKey } = {}) {
-  const response = await fetch(`https://api.yookassa.ru/v3${path}`, {
-    method,
-    headers: {
-      Authorization: paymentAuth(),
-      'Content-Type': 'application/json',
-      ...(idempotenceKey ? { 'Idempotence-Key': idempotenceKey } : {}),
-    },
-    ...(body ? { body: JSON.stringify(body) } : {}),
-  });
+  assertPaymentConfiguration();
+  let response;
+  try {
+    response = await fetchWithTimeout(`https://api.yookassa.ru/v3${path}`, {
+      method,
+      headers: {
+        Authorization: paymentAuth(),
+        'Content-Type': 'application/json',
+        ...(idempotenceKey ? { 'Idempotence-Key': idempotenceKey } : {}),
+      },
+      ...(body ? { body: JSON.stringify(body) } : {}),
+    });
+  } catch (error) {
+    if (!error.code) error.code = 'PAYMENT_PROVIDER_ERROR';
+    throw error;
+  }
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
     const error = new Error(payload.description || `YooKassa HTTP ${response.status}`);
@@ -177,7 +220,11 @@ async function yookassaRequest(path, { method = 'GET', body, idempotenceKey } = 
 }
 
 function receiptFor(subscription) {
-  if (process.env.YOOKASSA_RECEIPTS_ENABLED !== 'true') return {};
+  if (process.env.YOOKASSA_RECEIPTS_ENABLED === 'false') return {};
+  const configuredVatCode = Number(process.env.YOOKASSA_VAT_CODE || 1);
+  const vatCode = Number.isInteger(configuredVatCode) && configuredVatCode >= 1 && configuredVatCode <= 12
+    ? configuredVatCode
+    : 1;
   return {
     receipt: {
       customer: { email: subscription.email },
@@ -185,7 +232,7 @@ function receiptFor(subscription) {
         description: 'Подписка на уведомления Радара путешествий, 30 дней',
         quantity: '1.00',
         amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
-        vat_code: Number(process.env.YOOKASSA_VAT_CODE) || 1,
+        vat_code: vatCode,
         payment_subject: 'service',
         payment_mode: 'full_payment',
       }],
@@ -233,7 +280,14 @@ export async function createTravelCheckout(token) {
       }
       : item
   )));
-  return { confirmationUrl: payment.confirmation?.confirmation_url || null };
+  if (payment.status === 'succeeded') await applyVerifiedPayment(payment);
+  const confirmationUrl = String(payment.confirmation?.confirmation_url || '');
+  if (payment.status !== 'succeeded' && !confirmationUrl.startsWith('https://')) {
+    const error = new Error('Платёжный сервис не вернул защищённую ссылку оплаты');
+    error.code = 'PAYMENT_PROVIDER_ERROR';
+    throw error;
+  }
+  return { confirmationUrl: confirmationUrl || null };
 }
 
 async function applyVerifiedPayment(payment) {
@@ -242,12 +296,13 @@ async function applyVerifiedPayment(payment) {
   const subscriptionId = String(payment.metadata?.subscription_id || '');
   const paymentKind = String(payment.metadata?.payment_kind || '');
   if (!subscriptionId || !['initial', 'renewal'].includes(paymentKind)) return false;
+  if (String(payment.merchant_customer_id || '') !== subscriptionId) return false;
 
   const now = Date.now();
   let activatedSubscription = null;
   await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
     if (item.id !== subscriptionId) return item;
-    if ((item.appliedPaymentIds || []).includes(payment.id)) return item;
+    if (!isVerifiedPaymentForSubscription(payment, item)) return item;
     const base = Math.max(now, Date.parse(item.currentPeriodEnd || '') || 0);
     activatedSubscription = {
       ...item,
@@ -273,7 +328,17 @@ async function applyVerifiedPayment(payment) {
       console.error('Travel Radar payment confirmation:', error.message);
     }
   }
-  return true;
+  return Boolean(activatedSubscription);
+}
+
+export function isVerifiedPaymentForSubscription(payment, subscription) {
+  if (!payment?.id || payment.status !== 'succeeded' || !subscription?.id) return false;
+  if (payment.amount?.currency !== 'RUB' || Number(payment.amount?.value) !== PRICE_RUB) return false;
+  if (String(payment.metadata?.subscription_id || '') !== subscription.id) return false;
+  if (!['initial', 'renewal'].includes(String(payment.metadata?.payment_kind || ''))) return false;
+  if (String(payment.merchant_customer_id || '') !== subscription.id) return false;
+  if (subscription.pendingPaymentId !== payment.id) return false;
+  return !(subscription.appliedPaymentIds || []).includes(payment.id);
 }
 
 export async function handleYookassaWebhook(input) {
@@ -284,6 +349,9 @@ export async function handleYookassaWebhook(input) {
   const payment = await yookassaRequest(`/payments/${encodeURIComponent(paymentId)}`);
   if (input.event === 'payment.canceled' && payment.status === 'canceled') {
     const subscriptionId = String(payment.metadata?.subscription_id || '');
+    if (!subscriptionId || String(payment.merchant_customer_id || '') !== subscriptionId) {
+      return { accepted: false };
+    }
     await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
       if (item.id !== subscriptionId || item.pendingPaymentId !== payment.id) return item;
       const expired = item.currentPeriodEnd && Date.parse(item.currentPeriodEnd) <= Date.now();
@@ -360,11 +428,11 @@ export async function updateTravelSubscription(token, input) {
 }
 
 async function telegramRequest(method, body) {
-  const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/${method}`, {
+  const response = await fetchWithTimeout(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/${method}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  });
+  }, 10_000);
   const payload = await response.json().catch(() => ({}));
   if (!response.ok || !payload.ok) throw new Error(payload.description || `Telegram HTTP ${response.status}`);
   return payload.result;
@@ -519,7 +587,7 @@ export async function deleteTravelAdminSubscription(id) {
 }
 
 export async function handleTravelTelegramUpdate(update, secretHeader) {
-  if (!TELEGRAM_WEBHOOK_SECRET || secretHeader !== TELEGRAM_WEBHOOK_SECRET) {
+  if (!TELEGRAM_WEBHOOK_SECRET || !secretMatches(secretHeader, TELEGRAM_WEBHOOK_SECRET)) {
     throw new Error('INVALID_TELEGRAM_SECRET');
   }
   const message = update?.message;
@@ -801,6 +869,7 @@ async function renewSubscriptions() {
             amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
             capture: true,
             payment_method_id: subscription.paymentMethodId,
+            merchant_customer_id: subscription.id,
             description: 'Продление уведомлений Радара путешествий',
             metadata: { subscription_id: subscription.id, payment_kind: 'renewal' },
             ...receiptFor(subscription),

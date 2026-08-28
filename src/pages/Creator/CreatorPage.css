@@ -367,6 +367,9 @@
 .portfolio-inquiry input:focus,
 .portfolio-inquiry textarea:focus { border-color: var(--portfolio-cyan); box-shadow: 0 0 0 3px rgba(56,200,220,.12); }
 .portfolio-inquiry__request { grid-column: 1 / -1; }
+.portfolio-inquiry label.portfolio-inquiry__consent { grid-column: 1 / -1; display: flex; grid-template-columns: none; align-items: flex-start; gap: 12px; font-size: 1rem; line-height: 1.5; }
+.portfolio-inquiry__consent input { flex: 0 0 auto; width: 20px; min-height: 20px; height: 20px; margin-top: 2px; accent-color: var(--portfolio-cyan); }
+.portfolio-inquiry__consent a { color: var(--portfolio-cyan); text-underline-offset: .18em; }
 .portfolio-inquiry fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 .portfolio-inquiry legend { margin-bottom: 10px; color: #c7c8ce; font-weight: 700; }
 .portfolio-inquiry__methods { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }

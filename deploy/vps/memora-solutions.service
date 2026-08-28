@@ -17,8 +17,15 @@ TimeoutStopSec=30
 KillSignal=SIGTERM
 NoNewPrivileges=true
 PrivateTmp=true
+PrivateDevices=true
 ProtectHome=true
 ProtectSystem=full
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+UMask=0027
 
 [Install]
 WantedBy=multi-user.target

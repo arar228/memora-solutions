@@ -26,7 +26,7 @@ function sslFor(connectionString) {
   } catch {
     // Let pg report malformed connection strings with its native error.
   }
-  return { rejectUnauthorized: false };
+  return { rejectUnauthorized: process.env.PGSSL_REJECT_UNAUTHORIZED !== 'false' };
 }
 
 function getPool() {

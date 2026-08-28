@@ -19,6 +19,7 @@ const KanbanPage = lazyWithRetry(() => import('./pages/Kanban'));
 const CreatorPage = lazyWithRetry(() => import('./pages/Creator'));
 const PomodoroPage = lazyWithRetry(() => import('./pages/Pomodoro'));
 const AttentionLabPage = lazyWithRetry(() => import('./pages/AttentionLab'));
+const PrivacyPage = lazyWithRetry(() => import('./pages/Privacy'));
 
 // Admin is dev-only — import.meta.env.DEV is statically replaced at build time,
 // so the import and chunk are tree-shaken out of production bundles.
@@ -32,6 +33,51 @@ const IS_ADMIN_HOST = typeof window !== 'undefined'
   && (window.location.hostname.startsWith('admin.')
     // локальная проверка без поддомена: ?admin=1
     || new URLSearchParams(window.location.search).has('admin'));
+
+const ROUTE_META = {
+  '/': ['Разработка цифровых продуктов | Memora Solutions', 'Проектируем интерфейсы, разрабатываем сервисы и доводим цифровые продукты до стабильного релиза.'],
+  '/products': ['Продукты Memora Solutions', 'Цифровые инструменты Memora Solutions для внимания, планирования, путешествий и повседневных задач.'],
+  '/travel-radar': ['Радар путешествий | Memora Solutions', 'Актуальные предложения на билеты и туры, фильтры маршрутов и персональные уведомления в Telegram.'],
+  '/wallet': ['Memora Wallet Manager', 'Telegram-инструмент для учёта расходов, бюджетов, валют и регулярных финансовых отчётов.'],
+  '/bday-bot': ['Memora BDayBot', 'Telegram-помощник для дней рождения, контактов, напоминаний и персональных поздравлений.'],
+  '/kanban': ['Задать вопрос | Memora Solutions', 'Прямой канал связи с командой Memora Solutions и открытая доска текущих задач.'],
+  '/pomodoro': ['Memora Pomodoro', 'Таймер фокуса с анимированными сценами, статистикой и режимом оверлея.'],
+  '/attention-lab': ['Лаборатория внимания | Memora Solutions', 'Интерактивная демонстрация управления вниманием пользователя с помощью грамотного дизайна.'],
+  '/privacy': ['Политика обработки данных | Memora Solutions', 'Какие данные обрабатывает Memora Solutions, для каких целей и как управлять своими данными.'],
+};
+
+function setMeta(selector, attributes, content) {
+  let element = document.head.querySelector(selector);
+  if (!element) {
+    element = document.createElement('meta');
+    for (const [name, value] of Object.entries(attributes)) element.setAttribute(name, value);
+    document.head.appendChild(element);
+  }
+  element.setAttribute('content', content);
+}
+
+function RouteMetadata() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const canonicalPath = ['/travel-radar-3', '/travel-radar-4'].includes(pathname)
+      || pathname.startsWith('/travel-radar-v2/') ? '/travel-radar' : pathname;
+    const meta = ROUTE_META[canonicalPath];
+    const title = meta?.[0] || 'Страница не найдена | Memora Solutions';
+    const description = meta?.[1] || 'Перейдите к продуктам и сервисам Memora Solutions.';
+    const canonicalUrl = `https://memorasolutions.ru${meta ? canonicalPath : pathname}`;
+    document.title = title;
+    setMeta('meta[name="description"]', { name: 'description' }, description);
+    setMeta('meta[name="robots"]', { name: 'robots' }, meta ? 'index,follow' : 'noindex,follow');
+    setMeta('meta[property="og:title"]', { property: 'og:title' }, title);
+    setMeta('meta[property="og:description"]', { property: 'og:description' }, description);
+    setMeta('meta[property="og:url"]', { property: 'og:url' }, canonicalUrl);
+    setMeta('meta[name="twitter:title"]', { name: 'twitter:title' }, title);
+    setMeta('meta[name="twitter:description"]', { name: 'twitter:description' }, description);
+    const canonical = document.head.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', canonicalUrl);
+  }, [pathname]);
+  return null;
+}
 
 function PageTransition({ children }) {
   return (
@@ -65,6 +111,7 @@ function AnimatedRoutes() {
         <Route path="/creator" element={<Navigate to="/" replace />} />
         <Route path="/pomodoro" element={<PageTransition><PomodoroPage /></PageTransition>} />
         <Route path="/attention-lab" element={<PageTransition><AttentionLabPage /></PageTransition>} />
+        <Route path="/privacy" element={<PageTransition><PrivacyPage /></PageTransition>} />
         <Route path="/internal" element={<Navigate to="/" replace />} />
         {AdminPage && (
           <Route path="/admin" element={<PageTransition><AdminPage /></PageTransition>} />
@@ -76,8 +123,27 @@ function AnimatedRoutes() {
 }
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return undefined;
+    }
+
+    let attempts = 0;
+    let timer;
+    const scrollToAnchor = () => {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (target) {
+        target.scrollIntoView({ block: 'start' });
+        return;
+      }
+      attempts += 1;
+      if (attempts < 20) timer = window.setTimeout(scrollToAnchor, 100);
+    };
+    scrollToAnchor();
+    return () => window.clearTimeout(timer);
+  }, [pathname, hash]);
   return null;
 }
 
@@ -120,6 +186,7 @@ export default function App() {
       <div className="app">
         <GlobalLoaderHider />
         <ScrollToTop />
+        <RouteMetadata />
         <GoldParticles />
         <Header />
         <ErrorBoundary>

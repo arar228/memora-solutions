@@ -14,13 +14,13 @@
  * Зависимостей нет намеренно: меньше поверхности и нечего обновлять.
  */
 import { createServer } from 'node:http';
-import { createReadStream } from 'node:fs';
+import { createReadStream, readFileSync } from 'node:fs';
 import { readFile, stat } from 'node:fs/promises';
 import { join, extname, normalize } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
-import { randomUUID, timingSafeEqual } from 'node:crypto';
+import { createHash, randomUUID, timingSafeEqual } from 'node:crypto';
 import {
   DEFAULT_POMODORO_TOKENS,
   closeAdminStore,
@@ -74,6 +74,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, 'dist');
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
+const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || 'https://memorasolutions.ru').replace(/\/$/, '');
 let isShuttingDown = false;
 
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
@@ -103,6 +104,55 @@ const MIME = {
 };
 
 const isAdminHost = (host = '') => host.toLowerCase().startsWith('admin.');
+
+function builtInlineScriptHashes() {
+  const hashes = new Set();
+  const documents = [
+    join(DIST, 'index.html'),
+    join(DIST, 'app', 'pomodoro', 'index.html'),
+  ];
+
+  for (const document of documents) {
+    try {
+      const html = readFileSync(document, 'utf8');
+      for (const match of html.matchAll(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)) {
+        hashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`);
+      }
+    } catch {
+      // Optional embedded applications may be absent in a partial development build.
+    }
+  }
+
+  return [...hashes].join(' ');
+}
+
+const INLINE_SCRIPT_HASHES = builtInlineScriptHashes();
+
+const SECURITY_HEADERS = {
+  'Content-Security-Policy': [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "frame-ancestors 'self'",
+    `script-src 'self' https://cdn.jsdelivr.net https://arar228.github.io ${INLINE_SCRIPT_HASHES}`.trim(),
+    "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://arar228.github.io",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data: https://cdn.jsdelivr.net https://arar228.github.io",
+    "connect-src 'self' https://autocomplete.travelpayouts.com https://cdn.jsdelivr.net https://arar228.github.io",
+    "frame-src 'self' https:",
+    "media-src 'self' blob:",
+    "form-action 'self' https:",
+  ].join('; '),
+  'Cross-Origin-Opener-Policy': 'same-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(self)',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'SAMEORIGIN',
+};
+
+function applySecurityHeaders(res) {
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) res.setHeader(name, value);
+}
 
 function sendJson(res, status, body, extraHeaders = {}) {
   const payload = Buffer.from(JSON.stringify(body));
@@ -512,8 +562,8 @@ async function sendFile(res, path, status = 200) {
   await pipeline(createReadStream(path, { highWaterMark: 256 * 1024 }), res);
 }
 
-async function sendSpaIndex(res) {
-  return sendFile(res, join(DIST, 'index.html'));
+async function sendSpaIndex(res, status = 200) {
+  return sendFile(res, join(DIST, 'index.html'), status);
 }
 
 const KANBAN_CLIENT_RATE_LIMIT = 5;
@@ -523,8 +573,10 @@ const KANBAN_MIN_INTERVAL_MS = 3_000;
 const kanbanRateState = new Map();
 
 function requestIp(req) {
-  const forwarded = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'];
-  return String(Array.isArray(forwarded) ? forwarded[0] : forwarded || req.socket.remoteAddress || '')
+  const remoteAddress = String(req.socket.remoteAddress || '');
+  const trustedProxy = ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(remoteAddress);
+  const forwarded = trustedProxy ? req.headers['x-forwarded-for'] : '';
+  return String(Array.isArray(forwarded) ? forwarded[0] : forwarded || remoteAddress)
     .split(',')[0]
     .trim()
     .slice(0, 80);
@@ -583,30 +635,62 @@ function recordKanbanMessage(rate) {
 }
 
 const travelMutationTimestamps = new Map();
+const travelStatusTimestamps = new Map();
+const travelWebhookTimestamps = new Map();
+const adminAuthFailures = new Map();
+
+function checkWindowRate(store, key, limit, windowMs) {
+  const now = Date.now();
+  const recent = (store.get(key) || []).filter((timestamp) => now - timestamp < windowMs);
+  if (recent.length >= limit) return false;
+  store.set(key, [...recent, now]);
+  if (store.size > 2_000) {
+    for (const [storedKey, timestamps] of store) {
+      if (!timestamps.some((timestamp) => now - timestamp < windowMs)) store.delete(storedKey);
+    }
+  }
+  return true;
+}
+
+function adminAuthAllowed(req) {
+  const now = Date.now();
+  const key = requestIp(req);
+  const recent = (adminAuthFailures.get(key) || [])
+    .filter((timestamp) => now - timestamp < 15 * 60 * 1000);
+  adminAuthFailures.set(key, recent);
+  return recent.length < 10;
+}
+
+function recordAdminAuthFailure(req) {
+  const key = requestIp(req);
+  adminAuthFailures.set(key, [...(adminAuthFailures.get(key) || []), Date.now()].slice(-10));
+  if (adminAuthFailures.size > 2_000) {
+    const cutoff = Date.now() - 15 * 60 * 1000;
+    for (const [storedKey, timestamps] of adminAuthFailures) {
+      if (!timestamps.some((timestamp) => timestamp > cutoff)) adminAuthFailures.delete(storedKey);
+    }
+  }
+}
 
 function checkTravelMutationRate(req) {
-  const key = requestIp(req);
-  const now = Date.now();
-  const recent = (travelMutationTimestamps.get(key) || [])
-    .filter((timestamp) => now - timestamp < 15 * 60 * 1000);
-  if (recent.length >= 8) return false;
-  travelMutationTimestamps.set(key, [...recent, now]);
-  return true;
+  return checkWindowRate(travelMutationTimestamps, requestIp(req), 8, 15 * 60 * 1000);
 }
 
 const TRAVEL_ERROR_STATUS = {
   INVALID_EMAIL: 400,
   CONSENT_REQUIRED: 400,
+  PRIVACY_CONSENT_REQUIRED: 400,
   SUBSCRIPTION_NOT_FOUND: 404,
   TELEGRAM_NOT_CONNECTED: 409,
   ALREADY_ACTIVE: 409,
   STORAGE_UNAVAILABLE: 503,
   SUBSCRIPTIONS_NOT_CONFIGURED: 503,
   PAYMENT_PROVIDER_ERROR: 502,
+  PAYMENT_SHOP_MISMATCH: 503,
   INVALID_TELEGRAM_SECRET: 403,
 };
 
-async function handlePublicTravelApi(req, res, pathname, url) {
+async function handlePublicTravelApi(req, res, pathname) {
   if (pathname === '/api/travel/deals' && req.method === 'GET') {
     const feed = await getTravelFeed();
     const { rawItems: _rawItems, ...publicFeed } = feed;
@@ -615,13 +699,13 @@ async function handlePublicTravelApi(req, res, pathname, url) {
   if (pathname === '/api/travel/capabilities' && req.method === 'GET') {
     return sendJson(res, 200, travelCapabilities(), { 'Cache-Control': 'public, max-age=60' });
   }
-  if (pathname === '/api/travel/subscriptions' && req.method === 'GET') {
-    const subscription = await getTravelSubscription(url.searchParams.get('token') || '');
-    return subscription
-      ? sendJson(res, 200, { subscription })
-      : sendJson(res, 404, { error: 'Подписка не найдена' });
+  const isWebhook = ['/api/travel/telegram/webhook', '/api/travel/payments/yookassa'].includes(pathname);
+  if (isWebhook && req.method !== 'POST') {
+    return sendJson(res, 405, { error: 'Method not allowed' }, { Allow: 'POST' });
   }
-
+  if (isWebhook && !String(req.headers['content-type'] || '').toLowerCase().includes('application/json')) {
+    return sendJson(res, 415, { error: 'Content-Type must be application/json' });
+  }
   let body;
   try {
     body = await readJson(req, 64 * 1024);
@@ -633,6 +717,9 @@ async function handlePublicTravelApi(req, res, pathname, url) {
 
   try {
     if (pathname === '/api/travel/telegram/webhook' && req.method === 'POST') {
+      if (!checkWindowRate(travelWebhookTimestamps, `telegram:${requestIp(req)}`, 120, 5 * 60 * 1000)) {
+        return sendJson(res, 429, { error: 'Too many requests' }, { 'Retry-After': '300' });
+      }
       const result = await handleTravelTelegramUpdate(
         body,
         String(req.headers['x-telegram-bot-api-secret-token'] || ''),
@@ -640,15 +727,28 @@ async function handlePublicTravelApi(req, res, pathname, url) {
       return sendJson(res, 200, result);
     }
     if (pathname === '/api/travel/payments/yookassa' && req.method === 'POST') {
+      if (!checkWindowRate(travelWebhookTimestamps, `yookassa:${requestIp(req)}`, 120, 5 * 60 * 1000)
+        || !checkWindowRate(travelWebhookTimestamps, 'yookassa:global', 600, 5 * 60 * 1000)) {
+        return sendJson(res, 429, { error: 'Too many requests' }, { 'Retry-After': '300' });
+      }
       return sendJson(res, 200, await handleYookassaWebhook(body));
     }
 
-    if (!['/api/travel/subscriptions', '/api/travel/subscriptions/checkout', '/api/travel/subscriptions/cancel', '/api/travel/subscriptions/settings'].includes(pathname)) {
+    if (!['/api/travel/subscriptions', '/api/travel/subscriptions/status', '/api/travel/subscriptions/checkout', '/api/travel/subscriptions/cancel', '/api/travel/subscriptions/settings'].includes(pathname)) {
       return sendJson(res, 404, { error: 'Not found' });
     }
     if (req.method !== 'POST') return sendJson(res, 405, { error: 'Method not allowed' });
     if (!publicMutationIsSameOrigin(req)) {
       return sendJson(res, 403, { error: 'Проверка источника запроса не пройдена' });
+    }
+    if (pathname === '/api/travel/subscriptions/status') {
+      if (!checkWindowRate(travelStatusTimestamps, requestIp(req), 240, 15 * 60 * 1000)) {
+        return sendJson(res, 429, { error: 'Слишком много запросов. Попробуйте позднее.' }, { 'Retry-After': '60' });
+      }
+      const subscription = await getTravelSubscription(String(body.token || ''));
+      return subscription
+        ? sendJson(res, 200, { subscription })
+        : sendJson(res, 404, { error: 'Подписка не найдена' });
     }
     if (!checkTravelMutationRate(req)) {
       return sendJson(res, 429, { error: 'Слишком много запросов. Попробуйте позднее.' }, { 'Retry-After': '900' });
@@ -674,12 +774,14 @@ async function handlePublicTravelApi(req, res, pathname, url) {
     const messages = {
       INVALID_EMAIL: 'Укажите корректный email',
       CONSENT_REQUIRED: 'Нужно подтвердить условия автопродления',
+      PRIVACY_CONSENT_REQUIRED: 'Подтвердите согласие на обработку данных',
       SUBSCRIPTION_NOT_FOUND: 'Подписка не найдена',
       TELEGRAM_NOT_CONNECTED: 'Сначала подключите Telegram-бота',
       ALREADY_ACTIVE: 'Подписка уже активна',
       STORAGE_UNAVAILABLE: 'Хранилище подписок временно недоступно',
       SUBSCRIPTIONS_NOT_CONFIGURED: 'Платные уведомления ещё не подключены',
       PAYMENT_PROVIDER_ERROR: 'Платёжный сервис временно недоступен',
+      PAYMENT_SHOP_MISMATCH: 'Платёжный магазин настроен с ошибкой',
       INVALID_TELEGRAM_SECRET: 'Forbidden',
     };
     return sendJson(res, status, { error: messages[error.code || error.message] || 'Не удалось выполнить запрос' });
@@ -699,7 +801,10 @@ async function handlePublicKanbanApi(req, res, pathname, url) {
 
   if (req.method === 'GET') {
     const mode = url.searchParams.get('mode') || 'general';
-    const clientId = url.searchParams.get('clientId') || '';
+    const authorization = String(req.headers.authorization || '');
+    const clientId = mode === 'personal' && authorization.startsWith('Bearer ')
+      ? authorization.slice(7).trim()
+      : '';
     if (!KANBAN_MESSAGE_MODES.has(mode)
       || (mode === 'personal' && !validClientId(clientId))) {
       return sendJson(res, 400, { error: 'Некорректный режим чата' });
@@ -731,6 +836,9 @@ async function handlePublicKanbanApi(req, res, pathname, url) {
   if (!validClientId(clientId) || !KANBAN_MESSAGE_MODES.has(mode)) {
     return sendJson(res, 400, { error: 'Некорректные параметры сообщения' });
   }
+  if (body.privacyConsent !== true) {
+    return sendJson(res, 400, { error: 'Подтвердите согласие на обработку данных' });
+  }
   // Honeypot + minimum fill time block simple form bots before touching storage.
   if (body.website || !Number.isFinite(startedAt)
     || Date.now() - startedAt < 800
@@ -754,6 +862,7 @@ async function handlePublicKanbanApi(req, res, pathname, url) {
       text: body.text,
       name: body.name,
       author: 'visitor',
+      privacyConsentAt: new Date().toISOString(),
     });
     recordKanbanMessage(rate);
     return sendJson(res, 201, {
@@ -785,8 +894,29 @@ function bootReportField(value, limit) {
   return String(value == null ? '' : value).replace(/[\r\n\t]+/g, ' ').slice(0, limit);
 }
 
+function bootReportUrl(value) {
+  try {
+    const url = new URL(String(value || ''), PUBLIC_BASE_URL);
+    return `${url.origin}${url.pathname}`.slice(0, 500);
+  } catch {
+    return '';
+  }
+}
+
+const KNOWN_SPA_PATHS = new Set([
+  '/', '/products', '/travel-radar', '/travel-radar-3', '/travel-radar-4',
+  '/wallet', '/bday-bot', '/kanban', '/creator', '/pomodoro', '/attention-lab',
+  '/privacy', '/internal', '/admin',
+]);
+
+function isKnownSpaPath(pathname, admin) {
+  if (admin) return pathname === '/' || pathname === '/admin';
+  return KNOWN_SPA_PATHS.has(pathname) || pathname.startsWith('/travel-radar-v2/');
+}
+
 const server = createServer(async (req, res) => {
   try {
+    applySecurityHeaders(res);
     const host = req.headers.host || '';
     const admin = isAdminHost(host);
     const url = new URL(req.url, `http://${host || 'localhost'}`);
@@ -817,8 +947,8 @@ const server = createServer(async (req, res) => {
           ip: requestIp(req),
           type: bootReportField(body.type, 40),
           detail: bootReportField(body.detail, 1000),
-          source: bootReportField(body.source, 500),
-          href: bootReportField(body.href, 1000),
+          source: bootReportUrl(body.source),
+          href: bootReportUrl(body.href),
           userAgent: bootReportField(body.userAgent, 1000),
           online: Boolean(body.online),
         }));
@@ -838,14 +968,24 @@ const server = createServer(async (req, res) => {
     }
 
     if (!admin && pathname.startsWith('/api/travel/')) {
-      return await handlePublicTravelApi(req, res, pathname, url);
+      return await handlePublicTravelApi(req, res, pathname);
     }
 
     if (!admin && (pathname === '/api/kanban/board' || pathname === '/api/kanban/messages')) {
       return await handlePublicKanbanApi(req, res, pathname, url);
     }
 
-    if (admin && !checkAuth(req)) return requireAuth(res);
+    if (admin) {
+      const authenticated = checkAuth(req);
+      if (!authenticated && !adminAuthAllowed(req)) {
+        return sendJson(res, 429, { error: 'Слишком много попыток входа' }, { 'Retry-After': '900' });
+      }
+      if (!authenticated) {
+        recordAdminAuthFailure(req);
+        return requireAuth(res);
+      }
+      adminAuthFailures.delete(requestIp(req));
+    }
 
     if (pathname.startsWith('/api/admin/')) {
       if (!admin) return sendJson(res, 404, { error: 'Not found' });
@@ -870,8 +1010,7 @@ const server = createServer(async (req, res) => {
       if (filePath === join(DIST, 'index.html')) return await sendSpaIndex(res);
       return await sendFile(res, filePath);
     } catch {
-      // SPA-фоллбэк: любой неизвестный путь отдаёт index.html, роутер разберётся
-      return await sendSpaIndex(res);
+      return await sendSpaIndex(res, isKnownSpaPath(pathname, admin) ? 200 : 404);
     }
   } catch (err) {
     res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });

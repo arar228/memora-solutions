@@ -45,6 +45,7 @@ export default function KanbanPage() {
     const [name, setName] = useState(() => localStorage.getItem(NAME_KEY) || '');
     const [text, setText] = useState('');
     const [website, setWebsite] = useState('');
+    const [privacyConsent, setPrivacyConsent] = useState(false);
     const [sending, setSending] = useState(false);
     const [chatLoading, setChatLoading] = useState(true);
     const [error, setError] = useState('');
@@ -60,8 +61,10 @@ export default function KanbanPage() {
 
     const loadMessages = useCallback((quiet = false) => {
         if (!quiet) setChatLoading(true);
-        const query = new URLSearchParams({ mode: chatMode, clientId: visitorId });
-        return jsonRequest(`/api/kanban/messages?${query}`)
+        const query = new URLSearchParams({ mode: chatMode });
+        return jsonRequest(`/api/kanban/messages?${query}`, {
+            headers: chatMode === 'personal' ? { Authorization: `Bearer ${visitorId}` } : {},
+        })
             .then(({ messages: nextMessages }) => {
                 setMessages(Array.isArray(nextMessages) ? nextMessages : []);
                 setError('');
@@ -88,7 +91,7 @@ export default function KanbanPage() {
     };
 
     const sendMessage = async () => {
-        if (sending || text.trim().length < 2) return;
+        if (sending || text.trim().length < 2 || !privacyConsent) return;
         setSending(true);
         setError('');
         setNotice('');
@@ -102,6 +105,7 @@ export default function KanbanPage() {
                     name,
                     website,
                     startedAt: formStartedAt.current,
+                    privacyConsent,
                 }),
             });
             setMessages(current => [...current, message]);
@@ -192,8 +196,12 @@ export default function KanbanPage() {
                                         Website<input tabIndex={-1} autoComplete="off" value={website}
                                             onChange={event => setWebsite(event.target.value)} />
                                     </label>
+                                    <label className="memora-chat__consent">
+                                        <input type="checkbox" checked={privacyConsent} onChange={event => setPrivacyConsent(event.target.checked)} />
+                                        <span>{lang === 'ru' ? 'Согласен на обработку данных' : 'I agree to data processing'} · <a href="/privacy" target="_blank" rel="noopener noreferrer">{lang === 'ru' ? 'политика' : 'policy'}</a></span>
+                                    </label>
                                     <button type="button" onClick={sendMessage}
-                                        disabled={sending || text.trim().length < 2}>
+                                        disabled={sending || text.trim().length < 2 || !privacyConsent}>
                                         <Send size={14} /> {sending ? t('kanban.sending') : t('kanban.send')}
                                     </button>
                                     <div className="memora-chat__status">

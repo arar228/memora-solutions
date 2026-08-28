@@ -11,6 +11,15 @@ import { registerHotkeys, unregisterAll } from './hotkeys';
 let mainWindow: BrowserWindow | null = null;
 let isQuitting = false;
 
+function openTrustedExternal(rawUrl: string): void {
+  try {
+    const url = new URL(rawUrl);
+    if (url.protocol === 'https:') void shell.openExternal(url.href);
+  } catch {
+    // Invalid renderer input is ignored at the privilege boundary.
+  }
+}
+
 // Set app name for notifications and taskbar
 app.setName('Memora Pomodoro');
 if (process.platform === 'win32') {
@@ -32,7 +41,7 @@ function createMainWindow(): void {
       preload: path.join(__dirname, '../preload/index.js'),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: false,
+      sandbox: true,
     },
   });
 
@@ -74,8 +83,11 @@ function createMainWindow(): void {
   });
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    shell.openExternal(url);
+    openTrustedExternal(url);
     return { action: 'deny' };
+  });
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (!url.startsWith('file://') && !url.startsWith('http://localhost:')) event.preventDefault();
   });
 
   if (process.env.ELECTRON_RENDERER_URL) {
@@ -163,7 +175,7 @@ if (!gotLock) {
     ipcMain.handle(IPC.GET_VERSION, () => app.getVersion());
 
     ipcMain.handle(IPC.OPEN_EXTERNAL, (_e, url: string) => {
-      shell.openExternal(url);
+      openTrustedExternal(url);
     });
 
     // Window control IPC

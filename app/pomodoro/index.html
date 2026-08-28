@@ -17,7 +17,7 @@
     origin: new URL('./', location.href).href
   };
   const preferred = new URLSearchParams(location.search).get('assetSource');
-  const order = [...new Set([preferred, 'github', 'jsdelivr', 'origin'])]
+  const order = [...new Set([preferred, 'origin', 'github', 'jsdelivr'])]
     .filter((name) => name && bases[name]);
 
   function retryingElement(kind, path, index = 0) {
@@ -54,11 +54,11 @@
     document.head.appendChild(element);
   }
 
-  retryingElement('style', "assets/index-C3t_Nfrz.css");
-  retryingElement('script', "assets/index-CvKSZXo7.js");
+  retryingElement('style', "assets/index-BlC2n-pT.css");
+  retryingElement('script', "assets/index-a29QFG8l.js");
 </script>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root"></div>
 </body>
 </html>

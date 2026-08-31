@@ -13,6 +13,7 @@ import {
     Flame,
     LayoutGrid,
     Plane,
+    QrCode,
     RefreshCw,
     Search,
     Send,
@@ -130,17 +131,19 @@ const COPY = {
         checkingTelegram: 'Проверяем Telegram…',
         statusRefreshFailed: 'Статус не обновился. Проверьте соединение и повторите.',
         sessionExpired: 'Ссылка подключения устарела. Настройте уведомления заново.',
-        pay: 'Оплатить 300 ₽',
+        payRecurring: 'Картой · автопродление',
+        paySbp: 'СБП · 30 дней',
+        sbpNote: 'СБП — один платёж за 30 дней. Следующий период оплачивается вручную.',
         activeAlert: 'Уведомления активны',
         activeUntil: 'Оплачено до',
         cancelRenewal: 'Отключить автопродление и отвязать способ оплаты',
         cancelRenewalConfirm: 'Отключить автопродление и отвязать сохранённый способ оплаты? Уведомления продолжат работать до конца оплаченного периода.',
         editAlerts: 'Изменить фильтры',
         saveAlerts: 'Сохранить фильтры',
-        cancellationScheduled: 'Автопродление отключено · способ оплаты отвязан',
+        cancellationScheduled: 'Доступ действует до конца периода · продление вручную',
         capabilitiesLoading: 'Проверяем подключение оплаты…',
         alertsUnavailable: 'Подключение оплаты требует проверки. Обновите страницу через минуту.',
-        paymentNote: '300 ₽ за 30 дней · оплата через YooKassa · автопродление',
+        paymentNote: 'Карта с автопродлением или разовая оплата через СБП',
     },
     en: {
         eyebrow: 'Live finds',
@@ -225,17 +228,19 @@ const COPY = {
         checkingTelegram: 'Checking Telegram…',
         statusRefreshFailed: 'The status did not update. Check your connection and try again.',
         sessionExpired: 'The connection link has expired. Configure alerts again.',
-        pay: 'Pay 300 RUB',
+        payRecurring: 'Card · auto-renewal',
+        paySbp: 'SBP · 30 days',
+        sbpNote: 'SBP is one payment for 30 days. The next period is paid manually.',
         activeAlert: 'Alerts are active',
         activeUntil: 'Paid until',
         cancelRenewal: 'Disable auto-renewal and unlink payment method',
         cancelRenewalConfirm: 'Disable auto-renewal and unlink the saved payment method? Alerts will remain active until the paid period ends.',
         editAlerts: 'Edit filters',
         saveAlerts: 'Save filters',
-        cancellationScheduled: 'Auto-renewal disabled · payment method unlinked',
+        cancellationScheduled: 'Access remains active until the period ends · manual renewal',
         capabilitiesLoading: 'Checking payment connection…',
         alertsUnavailable: 'The payment connection needs verification. Refresh the page in a minute.',
-        paymentNote: '300 RUB for 30 days · YooKassa checkout · auto-renewal',
+        paymentNote: 'Card with auto-renewal or a one-time SBP payment',
     },
 };
 
@@ -1046,14 +1051,14 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
         }
     };
 
-    const checkout = async () => {
+    const checkout = async (paymentMethod) => {
         setBusy(true);
         setError('');
         try {
             const response = await fetch('/api/travel/subscriptions/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token }),
+                body: JSON.stringify({ token, paymentMethod }),
             });
             const data = await response.json();
             if (!response.ok || !data.confirmationUrl) throw new Error(data.error || 'Платёж не создан');
@@ -1181,9 +1186,17 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
                                 <p>{copy.telegramHint}</p>
                             </>
                         ) : (
-                            <button className="travel-alerts__primary" type="button" disabled={busy} onClick={checkout}>
-                                <CreditCard size={17} aria-hidden="true" />{copy.pay}
-                            </button>
+                            <>
+                                <div className="travel-alerts__payment-actions" aria-label={lang === 'ru' ? 'Способ оплаты' : 'Payment method'}>
+                                    <button className="travel-alerts__primary" type="button" disabled={busy} onClick={() => checkout('recurring')}>
+                                        <CreditCard size={17} aria-hidden="true" />{copy.payRecurring}
+                                    </button>
+                                    <button className="travel-alerts__secondary" type="button" disabled={busy} onClick={() => checkout('sbp')}>
+                                        <QrCode size={17} aria-hidden="true" />{copy.paySbp}
+                                    </button>
+                                </div>
+                                <p>{copy.sbpNote}</p>
+                            </>
                         )}
                     </div>
                 ) : (

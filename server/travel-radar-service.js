@@ -141,6 +141,7 @@ export async function createTravelSubscription(input) {
     currentPeriodEnd: null,
     paymentMethodId: null,
     pendingPaymentId: null,
+    pendingPaymentMethod: null,
     paymentAttempt: 1,
     appliedPaymentIds: [],
     renewalStartedAt: null,
@@ -223,6 +224,8 @@ async function yookassaRequest(path, { method = 'GET', body, idempotenceKey } = 
       error.publicMessage = 'YooKassa отклонила параметры чека. Проверьте настройки онлайн-кассы.';
     } else if (['save_payment_method', 'merchant_customer_id'].includes(parameter)) {
       error.publicMessage = 'YooKassa отклонила настройку автоплатежа. Проверьте разрешение на сохранение банковских карт.';
+    } else if (parameter.startsWith('payment_method_data')) {
+      error.publicMessage = 'СБП ещё требуется подключить для магазина в YooKassa.';
     }
     console.error('YooKassa API request rejected', {
       status: response.status,
@@ -256,13 +259,80 @@ function receiptFor(subscription) {
   };
 }
 
-export async function createTravelCheckout(token) {
-  const subscription = await findSubscription(token);
+export function buildInitialPaymentBody(subscription, paymentMethod = 'recurring') {
+  if (!['recurring', 'sbp'].includes(paymentMethod)) throw new Error('INVALID_PAYMENT_METHOD');
+  const oneTime = paymentMethod === 'sbp';
+  return {
+    amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
+    capture: true,
+    ...(oneTime
+      ? { payment_method_data: { type: 'sbp' } }
+      : { save_payment_method: true }),
+    merchant_customer_id: subscription.id,
+    confirmation: {
+      type: 'redirect',
+      return_url: `${PUBLIC_BASE_URL}/travel-radar?subscription=payment-return`,
+    },
+    description: 'Уведомления Радара путешествий — 30 дней',
+    metadata: {
+      subscription_id: subscription.id,
+      payment_kind: 'initial',
+      payment_mode: oneTime ? 'one_time' : 'recurring',
+    },
+    ...receiptFor(subscription),
+  };
+}
+
+export function renewalStateForPayment(payment, subscription) {
+  const oneTime = payment.metadata?.payment_mode === 'one_time';
+  const saved = payment.payment_method?.saved === true;
+  return {
+    autoRenew: oneTime ? false : saved && Boolean(subscription.autoRenew),
+    paymentMethodId: oneTime || !saved ? null : payment.payment_method.id,
+  };
+}
+
+async function preparePaymentAttempt(subscription, paymentMethod) {
+  if (!subscription.pendingPaymentId) return subscription;
+  const pendingPayment = await yookassaRequest(`/payments/${encodeURIComponent(subscription.pendingPaymentId)}`);
+  if (pendingPayment.status === 'succeeded') {
+    await applyVerifiedPayment(pendingPayment);
+    throw new Error('ALREADY_ACTIVE');
+  }
+  if (pendingPayment.status === 'pending' && subscription.pendingPaymentMethod === paymentMethod) {
+    const confirmationUrl = String(pendingPayment.confirmation?.confirmation_url || '');
+    if (confirmationUrl.startsWith('https://')) return { ...subscription, confirmationUrl };
+  }
+  if (pendingPayment.status === 'pending') {
+    await yookassaRequest(`/payments/${encodeURIComponent(subscription.pendingPaymentId)}/cancel`, {
+      method: 'POST',
+      idempotenceKey: paymentIdempotenceKey(subscription.id, 'cancel', subscription.pendingPaymentId),
+    });
+  }
+  const nextSubscription = {
+    ...subscription,
+    pendingPaymentId: null,
+    pendingPaymentMethod: null,
+    paymentAttempt: (subscription.paymentAttempt || 1) + 1,
+    updatedAt: new Date().toISOString(),
+  };
+  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => (
+    item.id === subscription.id ? nextSubscription : item
+  )));
+  return nextSubscription;
+}
+
+export async function createTravelCheckout(token, paymentMethod = 'recurring') {
+  if (!['recurring', 'sbp'].includes(paymentMethod)) throw new Error('INVALID_PAYMENT_METHOD');
+  let subscription = await findSubscription(token);
   if (!subscription) throw new Error('SUBSCRIPTION_NOT_FOUND');
   if (!subscription.telegramChatId) throw new Error('TELEGRAM_NOT_CONNECTED');
   if (subscription.status === 'active' && Date.parse(subscription.currentPeriodEnd) > Date.now()) {
     throw new Error('ALREADY_ACTIVE');
   }
+
+  subscription = await preparePaymentAttempt(subscription, paymentMethod);
+  if (subscription.confirmationUrl) return { confirmationUrl: subscription.confirmationUrl };
 
   const payment = await yookassaRequest('/payments', {
     method: 'POST',
@@ -271,19 +341,7 @@ export async function createTravelCheckout(token) {
       'initial',
       subscription.paymentAttempt || 1,
     ),
-    body: {
-      amount: { value: `${PRICE_RUB}.00`, currency: 'RUB' },
-      capture: true,
-      save_payment_method: true,
-      merchant_customer_id: subscription.id,
-      confirmation: {
-        type: 'redirect',
-        return_url: `${PUBLIC_BASE_URL}/travel-radar?subscription=payment-return`,
-      },
-      description: 'Уведомления Радара путешествий — 30 дней',
-      metadata: { subscription_id: subscription.id, payment_kind: 'initial' },
-      ...receiptFor(subscription),
-    },
+    body: buildInitialPaymentBody(subscription, paymentMethod),
   });
   await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => (
     item.id === subscription.id
@@ -292,6 +350,7 @@ export async function createTravelCheckout(token) {
         ...item,
         status: 'awaiting_payment',
         pendingPaymentId: payment.id,
+        pendingPaymentMethod: paymentMethod,
         updatedAt: new Date().toISOString(),
       }
       : item
@@ -320,12 +379,13 @@ async function applyVerifiedPayment(payment) {
     if (item.id !== subscriptionId) return item;
     if (!isVerifiedPaymentForSubscription(payment, item)) return item;
     const base = Math.max(now, Date.parse(item.currentPeriodEnd || '') || 0);
+    const renewalState = renewalStateForPayment(payment, item);
     activatedSubscription = {
       ...item,
       status: 'active',
-      autoRenew: payment.payment_method?.saved === true ? item.autoRenew : false,
-      paymentMethodId: payment.payment_method?.saved ? payment.payment_method.id : item.paymentMethodId,
+      ...renewalState,
       pendingPaymentId: null,
+      pendingPaymentMethod: null,
       renewalStartedAt: null,
       lastPaymentError: null,
       appliedPaymentIds: [...(item.appliedPaymentIds || []), payment.id].slice(-60),
@@ -380,6 +440,7 @@ export async function handleYookassaWebhook(input) {
             ? 'active'
             : item.telegramChatId ? 'awaiting_payment' : 'awaiting_telegram',
         pendingPaymentId: null,
+        pendingPaymentMethod: null,
         paymentAttempt: renewal ? item.paymentAttempt : (item.paymentAttempt || 1) + 1,
         renewalStartedAt: null,
         lastPaymentError: payment.cancellation_details?.reason || 'payment_canceled',
@@ -521,6 +582,7 @@ export async function grantTravelAdminSubscription(id, input = {}) {
       activatedAt: now,
       currentPeriodEnd: expiresAt,
       pendingPaymentId: null,
+      pendingPaymentMethod: null,
       renewalStartedAt: null,
       notifiedDealIds: [],
       lastPaymentError: null,
@@ -565,6 +627,7 @@ export async function disableTravelAdminSubscription(id) {
       manualAccess: false,
       currentPeriodEnd: now,
       pendingPaymentId: null,
+      pendingPaymentMethod: null,
       renewalStartedAt: null,
       updatedAt: now,
     };

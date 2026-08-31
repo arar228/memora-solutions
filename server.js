@@ -683,6 +683,7 @@ const TRAVEL_ERROR_STATUS = {
   SUBSCRIPTION_NOT_FOUND: 404,
   TELEGRAM_NOT_CONNECTED: 409,
   ALREADY_ACTIVE: 409,
+  INVALID_PAYMENT_METHOD: 400,
   STORAGE_UNAVAILABLE: 503,
   SUBSCRIPTIONS_NOT_CONFIGURED: 503,
   PAYMENT_PROVIDER_ERROR: 502,
@@ -758,7 +759,10 @@ async function handlePublicTravelApi(req, res, pathname) {
       return sendJson(res, 201, await createTravelSubscription(body));
     }
     if (pathname === '/api/travel/subscriptions/checkout') {
-      return sendJson(res, 200, await createTravelCheckout(String(body.token || '')));
+      return sendJson(res, 200, await createTravelCheckout(
+        String(body.token || ''),
+        String(body.paymentMethod || 'recurring'),
+      ));
     }
     if (pathname === '/api/travel/subscriptions/settings') {
       return sendJson(res, 200, {
@@ -778,6 +782,7 @@ async function handlePublicTravelApi(req, res, pathname) {
       SUBSCRIPTION_NOT_FOUND: 'Подписка не найдена',
       TELEGRAM_NOT_CONNECTED: 'Сначала подключите Telegram-бота',
       ALREADY_ACTIVE: 'Подписка уже активна',
+      INVALID_PAYMENT_METHOD: 'Выберите доступный способ оплаты',
       STORAGE_UNAVAILABLE: 'Хранилище подписок временно недоступно',
       SUBSCRIPTIONS_NOT_CONFIGURED: 'Платные уведомления ещё не подключены',
       PAYMENT_PROVIDER_ERROR: 'Платёжный сервис временно недоступен',

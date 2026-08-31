@@ -214,6 +214,22 @@ async function yookassaRequest(path, { method = 'GET', body, idempotenceKey } = 
   if (!response.ok) {
     const error = new Error(payload.description || `YooKassa HTTP ${response.status}`);
     error.code = 'PAYMENT_PROVIDER_ERROR';
+    const parameter = String(payload.parameter || '');
+    if (payload.code === 'invalid_credentials' || response.status === 401) {
+      error.publicMessage = 'YooKassa отклонила ключ магазина. Проверьте подключение магазина.';
+    } else if (payload.code === 'forbidden' || response.status === 403) {
+      error.publicMessage = 'YooKassa запретила создание платежа. Проверьте подключение платежей и автоплатежей в магазине.';
+    } else if (parameter.startsWith('receipt')) {
+      error.publicMessage = 'YooKassa отклонила параметры чека. Проверьте настройки онлайн-кассы.';
+    } else if (['save_payment_method', 'merchant_customer_id'].includes(parameter)) {
+      error.publicMessage = 'YooKassa отклонила настройку автоплатежа. Проверьте разрешение на сохранение банковских карт.';
+    }
+    console.error('YooKassa API request rejected', {
+      status: response.status,
+      code: payload.code || null,
+      parameter: parameter || null,
+      id: payload.id || null,
+    });
     throw error;
   }
   return payload;

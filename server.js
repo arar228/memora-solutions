@@ -784,7 +784,9 @@ async function handlePublicTravelApi(req, res, pathname) {
       PAYMENT_SHOP_MISMATCH: 'Платёжный магазин настроен с ошибкой',
       INVALID_TELEGRAM_SECRET: 'Forbidden',
     };
-    return sendJson(res, status, { error: messages[error.code || error.message] || 'Не удалось выполнить запрос' });
+    return sendJson(res, status, {
+      error: error.publicMessage || messages[error.code || error.message] || 'Не удалось выполнить запрос',
+    });
   }
 }
 

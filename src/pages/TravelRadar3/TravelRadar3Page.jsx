@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     ArrowRight,
@@ -126,6 +126,10 @@ const COPY = {
         connect: 'Настроить уведомления',
         openTelegram: 'Подключить Telegram',
         telegramHint: 'Откройте бота и нажмите Start, затем вернитесь на эту страницу.',
+        checkTelegram: 'Проверить подключение',
+        checkingTelegram: 'Проверяем Telegram…',
+        statusRefreshFailed: 'Статус не обновился. Проверьте соединение и повторите.',
+        sessionExpired: 'Ссылка подключения устарела. Настройте уведомления заново.',
         pay: 'Оплатить 300 ₽',
         activeAlert: 'Уведомления активны',
         activeUntil: 'Оплачено до',
@@ -217,6 +221,10 @@ const COPY = {
         connect: 'Configure alerts',
         openTelegram: 'Connect Telegram',
         telegramHint: 'Open the bot and press Start, then return to this page.',
+        checkTelegram: 'Check connection',
+        checkingTelegram: 'Checking Telegram…',
+        statusRefreshFailed: 'The status did not update. Check your connection and try again.',
+        sessionExpired: 'The connection link has expired. Configure alerts again.',
         pay: 'Pay 300 RUB',
         activeAlert: 'Alerts are active',
         activeUntil: 'Paid until',
@@ -893,51 +901,105 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
         privacyConsent: false,
     });
     const [busy, setBusy] = useState(false);
+    const [statusChecking, setStatusChecking] = useState(false);
     const [editing, setEditing] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
         let cancelled = false;
         let retryTimer;
-        const loadCapabilities = (attempt = 0) => {
-            fetch('/api/travel/capabilities', { cache: 'no-store' })
-                .then((response) => response.ok ? response.json() : Promise.reject())
-                .then((data) => { if (!cancelled) setCapabilities(data); })
-                .catch(() => {
-                    if (cancelled) return;
-                    if (attempt < 2) {
-                        retryTimer = window.setTimeout(() => loadCapabilities(attempt + 1), 1_000 * (attempt + 1));
-                        return;
-                    }
-                    setCapabilities({ subscriptionsAvailable: false, connectionFailed: true });
+        let controller;
+        const loadCapabilities = async (attempt = 0) => {
+            controller = new AbortController();
+            const timeout = window.setTimeout(() => controller.abort(), 8_000);
+            try {
+                const response = await fetch('/api/travel/capabilities', {
+                    cache: 'no-store',
+                    signal: controller.signal,
                 });
+                if (!response.ok) throw new Error('CAPABILITIES_UNAVAILABLE');
+                const data = await response.json();
+                if (!cancelled) setCapabilities(data);
+            } catch {
+                if (cancelled) return;
+                if (attempt < 2) {
+                    retryTimer = window.setTimeout(() => loadCapabilities(attempt + 1), 1_000 * (attempt + 1));
+                    return;
+                }
+                setCapabilities({ subscriptionsAvailable: false, connectionFailed: true });
+            } finally {
+                window.clearTimeout(timeout);
+            }
         };
         loadCapabilities();
         return () => {
             cancelled = true;
+            controller?.abort();
             window.clearTimeout(retryTimer);
         };
     }, []);
 
+    const refreshSubscription = useCallback(async ({ silent = false } = {}) => {
+        if (!token) return null;
+        const controller = new AbortController();
+        const timeout = window.setTimeout(() => controller.abort(), 8_000);
+        setStatusChecking(true);
+        try {
+            const response = await fetch('/api/travel/subscriptions/status', {
+                method: 'POST',
+                cache: 'no-store',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token }),
+                signal: controller.signal,
+            });
+            const data = await response.json().catch(() => ({}));
+            if (response.status === 404) {
+                localStorage.removeItem('memora_travel_subscription_token');
+                setToken('');
+                setSubscription(null);
+                setTelegramUrl('');
+                setError(copy.sessionExpired);
+                return null;
+            }
+            if (!response.ok) throw new Error(data.error || copy.statusRefreshFailed);
+            setSubscription(data.subscription);
+            if (!silent) setError('');
+            return data.subscription;
+        } catch (requestError) {
+            if (!silent) {
+                setError(requestError.name === 'AbortError'
+                    ? copy.statusRefreshFailed
+                    : requestError.message || copy.statusRefreshFailed);
+            }
+            return null;
+        } finally {
+            window.clearTimeout(timeout);
+            setStatusChecking(false);
+        }
+    }, [copy.sessionExpired, copy.statusRefreshFailed, token]);
+
     useEffect(() => {
         if (!token) return undefined;
         let cancelled = false;
-        const check = () => fetch('/api/travel/subscriptions/status', {
-            method: 'POST',
-            cache: 'no-store',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token }),
-        })
-            .then((response) => response.ok ? response.json() : Promise.reject())
-            .then((data) => { if (!cancelled) setSubscription(data.subscription); })
-            .catch(() => {});
-        check();
-        if (['active', 'canceling', 'canceled', 'past_due'].includes(subscription?.status)) {
-            return () => { cancelled = true; };
-        }
-        const timer = setInterval(check, 3_000);
-        return () => { cancelled = true; clearInterval(timer); };
-    }, [subscription?.status, token]);
+        let timer;
+        const poll = async () => {
+            const next = await refreshSubscription({ silent: true });
+            if (cancelled || ['active', 'canceling', 'canceled', 'past_due'].includes(next?.status)) return;
+            timer = window.setTimeout(poll, 3_000);
+        };
+        const refreshWhenVisible = () => {
+            if (document.visibilityState === 'visible') refreshSubscription({ silent: true });
+        };
+        poll();
+        window.addEventListener('focus', refreshWhenVisible);
+        document.addEventListener('visibilitychange', refreshWhenVisible);
+        return () => {
+            cancelled = true;
+            window.clearTimeout(timer);
+            window.removeEventListener('focus', refreshWhenVisible);
+            document.removeEventListener('visibilitychange', refreshWhenVisible);
+        };
+    }, [refreshSubscription, token]);
 
     useEffect(() => {
         if (!subscription?.filters || editing) return;
@@ -1106,11 +1168,16 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
                     <div className="travel-alerts__steps">
                         {!subscription?.telegramConnected ? (
                             <>
-                                {connectTelegramUrl ? (
-                                    <a className="travel-alerts__primary" href={connectTelegramUrl} target="_blank" rel="noopener noreferrer">
-                                        <Send size={17} aria-hidden="true" />{copy.openTelegram}
-                                    </a>
-                                ) : null}
+                                <div className="travel-alerts__actions">
+                                    {connectTelegramUrl ? (
+                                        <a className="travel-alerts__primary" href={connectTelegramUrl} target="_blank" rel="noopener noreferrer">
+                                            <Send size={17} aria-hidden="true" />{copy.openTelegram}
+                                        </a>
+                                    ) : null}
+                                    <button className="travel-alerts__secondary" type="button" disabled={statusChecking} onClick={() => refreshSubscription()}>
+                                        <RefreshCw size={17} aria-hidden="true" />{statusChecking ? copy.checkingTelegram : copy.checkTelegram}
+                                    </button>
+                                </div>
                                 <p>{copy.telegramHint}</p>
                             </>
                         ) : (

@@ -943,7 +943,7 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
         if (!token) return null;
         const controller = new AbortController();
         const timeout = window.setTimeout(() => controller.abort(), 8_000);
-        setStatusChecking(true);
+        if (!silent) setStatusChecking(true);
         try {
             const response = await fetch('/api/travel/subscriptions/status', {
                 method: 'POST',
@@ -974,7 +974,7 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
             return null;
         } finally {
             window.clearTimeout(timeout);
-            setStatusChecking(false);
+            if (!silent) setStatusChecking(false);
         }
     }, [copy.sessionExpired, copy.statusRefreshFailed, token]);
 
@@ -985,7 +985,7 @@ function TravelAlerts({ copy, lang, originOptions, destinationOptions, defaultOr
         const poll = async () => {
             const next = await refreshSubscription({ silent: true });
             if (cancelled || ['active', 'canceling', 'canceled', 'past_due'].includes(next?.status)) return;
-            timer = window.setTimeout(poll, 3_000);
+            timer = window.setTimeout(poll, 5_000);
         };
         const refreshWhenVisible = () => {
             if (document.visibilityState === 'visible') refreshSubscription({ silent: true });

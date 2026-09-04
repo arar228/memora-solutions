@@ -1,22 +1,64 @@
 {
-  "updatedAt": "2026-09-04T04:39:33.133Z",
+  "updatedAt": "2026-09-04T11:23:41.676Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
   "items": [
     {
-      "origin": "DXB",
-      "destination": "MCT",
-      "depart_date": "2026-09-12",
-      "return_date": "2026-09-20",
-      "price": 5535,
-      "median": 7507,
-      "discount": 0.26268815771946186,
+      "origin": "MRV",
+      "destination": "MCX",
+      "depart_date": "2026-09-09",
+      "return_date": "2026-09-10",
+      "price": 3770,
+      "median": 11073.5,
+      "discount": 0.6595475685194383,
       "samples": 30,
-      "number_of_changes": 1,
-      "found_at": "2026-09-04T03:54:04",
-      "link": "https://www.aviasales.ru/search/DXB1209MCT20091?marker=748397&currency=rub",
-      "key": "DXB-MCT-2026-09-12-5535"
+      "number_of_changes": 0,
+      "found_at": "2026-09-04T10:10:35",
+      "link": "https://www.aviasales.ru/search/MRV0909MCX10091?marker=748397&currency=rub",
+      "key": "MRV-MCX-2026-09-09-3770"
+    },
+    {
+      "origin": "MCX",
+      "destination": "MRV",
+      "depart_date": "2026-09-10",
+      "return_date": "2026-09-13",
+      "price": 3870,
+      "median": 10875,
+      "discount": 0.6441379310344828,
+      "samples": 28,
+      "number_of_changes": 0,
+      "found_at": "2026-09-04T10:14:27",
+      "link": "https://www.aviasales.ru/search/MCX1009MRV13091?marker=748397&currency=rub",
+      "key": "MCX-MRV-2026-09-10-3870"
+    },
+    {
+      "origin": "FRA",
+      "destination": "LON",
+      "depart_date": "2026-09-14",
+      "return_date": "2026-09-21",
+      "price": 3373,
+      "median": 6056,
+      "discount": 0.4430317040951123,
+      "samples": 4,
+      "number_of_changes": 0,
+      "found_at": "2026-09-04T10:12:20",
+      "link": "https://www.aviasales.ru/search/FRA1409LON21091?marker=748397&currency=rub",
+      "key": "FRA-LON-2026-09-14-3373"
+    },
+    {
+      "origin": "ATH",
+      "destination": "PFO",
+      "depart_date": "2026-10-01",
+      "return_date": "2026-10-04",
+      "price": 3340,
+      "median": 5432,
+      "discount": 0.3851251840942563,
+      "samples": 25,
+      "number_of_changes": 0,
+      "found_at": "2026-09-04T10:06:37",
+      "link": "https://www.aviasales.ru/search/ATH0110PFO04101?marker=748397&currency=rub",
+      "key": "ATH-PFO-2026-10-01-3340"
     }
   ]
 }

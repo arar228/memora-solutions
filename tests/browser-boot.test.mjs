@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { browserBoot } from '../build/browserBoot.js';
 import { resilientBootPlugin } from '../build/resilientBootPlugin.js';
+import { entryModules } from '../build/entryModules.js';
 
 async function documentAttempt({ href = 'https://example.test/pomodoro?keep=1#timer', mode = 'stall', styles = [], subdirectory = '', script } = {}) {
   const timers = new Map();
@@ -22,7 +23,9 @@ async function documentAttempt({ href = 'https://example.test/pomodoro?keep=1#ti
       createElement: () => ({ remove() { this.removed = true; } }),
       head: { appendChild(link) {
         links.push(link);
-        queueMicrotask(() => mode === 'style-error' ? link.onerror() : link.onload());
+        if (link.rel === 'stylesheet') {
+          queueMicrotask(() => mode === 'style-error' ? link.onerror() : link.onload());
+        }
       } },
     },
   });
@@ -99,4 +102,26 @@ test('the actual HTML plugin emits standalone executable boot code', async () =>
   const attempt = await documentAttempt({ mode: 'success', script });
   assert.equal(attempt.imports.length, 1);
   assert.equal(attempt.timers.size, 0);
+});
+
+test('entry graph includes static dependencies once and leaves lazy pages unloaded', () => {
+  const bundle = {
+    'entry.js': { type: 'chunk', imports: ['react.js', 'ui.js'], dynamicImports: ['lazy.js'] },
+    'react.js': { type: 'chunk', imports: ['ui.js'] },
+    'ui.js': { type: 'chunk', imports: ['react.js'] },
+    'lazy.js': { type: 'chunk', imports: [] },
+  };
+  assert.deepEqual(entryModules(bundle, 'entry.js'), ['entry.js', 'react.js', 'ui.js']);
+});
+
+test('module hints use the active source before CSS and do not execute on CSS failure', async () => {
+  const script = `(${browserBoot.toString()})(${JSON.stringify({
+    entry: 'static/entry.js', modules: ['static/entry.js', 'static/react.js'], styles: ['static/site.css'],
+  })});`;
+  const attempt = await documentAttempt({ mode: 'style-error', script });
+  assert.deepEqual(attempt.links.map(link => link.rel), ['modulepreload', 'modulepreload', 'stylesheet']);
+  assert.equal(attempt.links[1].href, 'https://arar228.github.io/memora-solutions/static/react.js');
+  assert.ok(attempt.links.every(link => link.crossOrigin === 'anonymous' && link.removed));
+  assert.equal(attempt.imports.length, 0);
+  assert.equal(attempt.navigation.length, 1);
 });

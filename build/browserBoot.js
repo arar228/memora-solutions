@@ -1,6 +1,6 @@
 // Embedded in both HTML documents. A timed-out import cannot be cancelled
 // reliably, so every recovery attempt starts in a new document.
-export async function browserBoot({ entry, styles, subdirectory = '', timeoutMs = 8000 }) {
+export async function browserBoot({ entry, styles, modules = [entry], subdirectory = '', timeoutMs = 8000 }) {
   const page = new URL(location.href);
   const parameter = '__memora_boot';
   const sources = [
@@ -77,6 +77,16 @@ export async function browserBoot({ entry, styles, subdirectory = '', timeoutMs 
 
   deadline = setTimeout(() => fail(new Error('Application transfer deadline exceeded')), timeoutMs);
   try {
+    // Fetch/compile alongside CSS; execution still waits for all styles. Every
+    // hint uses this attempt's source, and recovery always gets a new document.
+    for (const path of new Set([entry, ...modules])) {
+      const link = document.createElement('link');
+      links.push(link);
+      link.rel = 'modulepreload';
+      link.crossOrigin = 'anonymous';
+      link.href = new URL(path, source.base).href;
+      document.head.appendChild(link);
+    }
     await Promise.all(styles.map(path => new Promise((resolve, reject) => {
       const link = document.createElement('link');
       links.push(link);

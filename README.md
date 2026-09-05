@@ -70,11 +70,15 @@ PostgreSQL и внешние сервисы нужны соответствую�
 ```bash
 npm run test:deals
 npm run test:payments
+npm run test:reliability
 npm run lint
 npm run build
+python3 -m unittest discover -s services/memora-wallet-manager/tests -v
 ```
 
-[CI](.github/workflows/ci.yml) также проверяет зависимости, синтаксис серверных модулей, типы и сборки Pomodoro.
+[CI](.github/workflows/ci.yml) также проверяет зависимости, синтаксис серверных модулей, типы и сборки Pomodoro. Тесты надёжности воспроизводят сбои загрузки, хранилища и платёжных уведомлений с подменёнными внешними сервисами.
+
+Для работы с проектом: [CONTRIBUTING](CONTRIBUTING.md). Для приватного сообщения об уязвимости: [SECURITY](SECURITY.md).
 
 ## Сборка Pomodoro
 

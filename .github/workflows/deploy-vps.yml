@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: production-vps
@@ -16,10 +17,36 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master') || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RELEASE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ env.RELEASE_SHA }}
+
+      - name: Require successful CI and assets for this exact commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_SHA" =~ ^[a-f0-9]{40}$ ]]
+          for workflow in ci.yml deploy-assets.yml; do
+            ready=0
+            for _ in {1..30}; do
+              conclusion=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/runs?head_sha=$RELEASE_SHA&per_page=10" \
+                --jq '.workflow_runs | map(select(.head_branch == "master" and (.event == "push" or .event == "workflow_dispatch"))) | .[0].conclusion')
+              if [[ "$conclusion" == success ]]; then ready=1; break; fi
+              if [[ "$conclusion" != null && -n "$conclusion" ]]; then
+                echo "::error::Required workflow $workflow finished with $conclusion"
+                exit 1
+              fi
+              sleep 5
+            done
+            [[ "$ready" == 1 ]] || { echo "::error::Required workflow $workflow is not ready"; exit 1; }
+          done
 
       - name: Prepare key authentication
         id: ssh
@@ -30,7 +57,7 @@ jobs:
           port: '22'
           fingerprint: SHA256:nLvPFGCkQO01+MrsLWHZkCsgMI7BOU9b6nRAzQ/zMGU
 
-      - name: Verify host and deploy
+      - name: Deploy checked application and runtime configuration
         env:
           VPS_SSH_KEY_FILE: ${{ steps.ssh.outputs.key-path }}
           VPS_KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known-hosts-path }}
@@ -46,25 +73,24 @@ jobs:
           test -s "$VPS_SSH_KEY_FILE"
           test -n "$TRAVELPAYOUTS_TOKEN"
           test -n "$TRAVELPAYOUTS_MARKER"
-          test -n "$YOOKASSA_SHOP_ID"
           test -n "$YOOKASSA_SECRET_KEY"
-          if [ "$YOOKASSA_SHOP_ID" != '1442213' ]; then
-            echo "::error::YooKassa credentials belong to a different shop"
-            exit 1
-          fi
-          yookassa_status=$(curl \
-            --silent \
-            --show-error \
-            --output /dev/null \
-            --write-out '%{http_code}' \
-            --user "$YOOKASSA_SHOP_ID:$YOOKASSA_SECRET_KEY" \
-            'https://api.yookassa.ru/v3/payments?limit=1')
-          if [ "$yookassa_status" != '200' ]; then
-            echo "::error::YooKassa API credentials validation failed"
-            exit 1
-          fi
+          [[ "$YOOKASSA_SHOP_ID" == 1442213 ]]
+          yookassa_status=$(curl --silent --show-error --connect-timeout 5 --max-time 15 \
+            --output /dev/null --write-out '%{http_code}' \
+            --user "$YOOKASSA_SHOP_ID:$YOOKASSA_SECRET_KEY" 'https://api.yookassa.ru/v3/payments?limit=1')
+          [[ "$yookassa_status" == 200 ]] || { echo '::error::YooKassa credential validation failed'; exit 1; }
+          ssh_options=(-i "$VPS_SSH_KEY_FILE" -o BatchMode=yes -o IdentitiesOnly=yes \
+            -o "UserKnownHostsFile=$VPS_KNOWN_HOSTS_FILE" -o HostKeyAlgorithms=ssh-ed25519 \
+            -o StrictHostKeyChecking=yes -o ConnectTimeout=15)
           affiliate_env=$(mktemp)
-          trap 'rm -f "$affiliate_env"' EXIT
+          remote_dir=$(ssh "${ssh_options[@]}" -p "$VPS_PORT" "root@$VPS_HOST" 'umask 077; mktemp -d /run/memora-release.XXXXXX')
+          [[ "$remote_dir" =~ ^/run/memora-release\.[a-zA-Z0-9]{6}$ ]]
+          cleanup() {
+            rm -f -- "$affiliate_env"
+            ssh "${ssh_options[@]}" -p "$VPS_PORT" "root@$VPS_HOST" \
+              "rm -f -- '$remote_dir/environment' '$remote_dir/updater'; rmdir -- '$remote_dir'" || true
+          }
+          trap cleanup EXIT
           {
             printf 'TRAVELPAYOUTS_TOKEN=%s\n' "$TRAVELPAYOUTS_TOKEN"
             printf 'TRAVELPAYOUTS_MARKER=%s\n' "$TRAVELPAYOUTS_MARKER"
@@ -76,39 +102,23 @@ jobs:
             printf 'YOOKASSA_VAT_CODE=1\n'
           } > "$affiliate_env"
           chmod 600 "$affiliate_env"
-          scp -i "$VPS_SSH_KEY_FILE" \
-            -o BatchMode=yes -o IdentitiesOnly=yes \
-            -o UserKnownHostsFile="$VPS_KNOWN_HOSTS_FILE" \
-            -o HostKeyAlgorithms=ssh-ed25519 \
-            -o StrictHostKeyChecking=yes \
-            -P "$VPS_PORT" \
-            "$affiliate_env" \
-            "root@$VPS_HOST:/tmp/memora-travelpayouts.env"
-          ssh -i "$VPS_SSH_KEY_FILE" \
-            -o BatchMode=yes -o IdentitiesOnly=yes \
-            -o UserKnownHostsFile="$VPS_KNOWN_HOSTS_FILE" \
-            -o HostKeyAlgorithms=ssh-ed25519 \
-            -o StrictHostKeyChecking=yes \
-            -o ConnectTimeout=15 \
-            -p "$VPS_PORT" \
-            "root@$VPS_HOST" \
-            'set -euo pipefail
-             app_dir=/opt/memora-solutions
-             runuser -u memora -- git -C "$app_dir" fetch origin master
-             update_tmp=$(mktemp)
-             caddy_tmp=$(mktemp)
-             env_tmp=$(mktemp)
-             trap '\''rm -f "$update_tmp" "$caddy_tmp" "$env_tmp" /tmp/memora-travelpayouts.env'\'' EXIT
-             grep -Ev '\''^(TRAVELPAYOUTS_TOKEN|TRAVELPAYOUTS_MARKER|TRAVELPAYOUTS_TRS|YOOKASSA_SHOP_ID|YOOKASSA_EXPECTED_SHOP_ID|YOOKASSA_SECRET_KEY|YOOKASSA_RECEIPTS_ENABLED|YOOKASSA_VAT_CODE)='\'' /etc/memora-solutions.env > "$env_tmp" || true
-             cat /tmp/memora-travelpayouts.env >> "$env_tmp"
-             install -o root -g memora -m 0640 "$env_tmp" /etc/memora-solutions.env
-             git -c safe.directory="$app_dir" -C "$app_dir" show origin/master:deploy/vps/memora-update.sh > "$update_tmp"
-             git -c safe.directory="$app_dir" -C "$app_dir" show origin/master:deploy/vps/memora-solutions.caddy > "$caddy_tmp"
-             install -o root -g root -m 0755 "$update_tmp" /usr/local/sbin/memora-update
-             caddy validate --config "$caddy_tmp" --adapter caddyfile
-             install -o root -g root -m 0644 "$caddy_tmp" /etc/caddy/Caddyfile
-             systemctl reload caddy
-             systemctl start memora-update.service
-             test "$(systemctl show -p Result --value memora-update.service)" = success
-             systemctl is-active --quiet memora-solutions.service
-             git -c safe.directory="$app_dir" -C "$app_dir" rev-parse HEAD'
+          scp "${ssh_options[@]}" -P "$VPS_PORT" "$affiliate_env" "root@$VPS_HOST:$remote_dir/environment"
+          scp "${ssh_options[@]}" -P "$VPS_PORT" deploy/vps/memora-update.sh "root@$VPS_HOST:$remote_dir/updater"
+          ssh "${ssh_options[@]}" -p "$VPS_PORT" "root@$VPS_HOST" bash -s -- "$RELEASE_SHA" "$remote_dir" <<'REMOTE'
+          set -euo pipefail
+          target=$1
+          remote_dir=$2
+          [[ "$target" =~ ^[a-f0-9]{40}$ && "$remote_dir" =~ ^/run/memora-release\.[a-zA-Z0-9]{6}$ ]]
+          # Install the recovery engine from the same checked commit atomically.
+          # Runtime env/Caddy/code changes occur together inside its transaction.
+          install -o root -g root -m 0755 "$remote_dir/updater" /usr/local/sbin/memora-update.next
+          flock -w 60 /run/lock/memora-update.lock mv /usr/local/sbin/memora-update.next /usr/local/sbin/memora-update
+          /usr/local/sbin/memora-update "$target" "$remote_dir/environment"
+          app_dir=/opt/memora-solutions
+          actual=$(runuser -u memora -- git -C "$app_dir" rev-parse HEAD)
+          [[ "$(<"$app_dir/.deployed-commit")" == "$actual" ]]
+          runuser -u memora -- git -C "$app_dir" merge-base --is-ancestor "$target" "$actual"
+          systemctl is-active --quiet memora-solutions.service
+          curl --fail --silent --show-error --max-time 5 http://127.0.0.1:3020/health
+          printf '\nVerified running commit: %s\n' "$actual"
+          REMOTE

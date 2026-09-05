@@ -1,60 +1,89 @@
-# React + Vite
+# Memora Solutions
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Рабочая платформа веб-продуктов и Telegram-инструментов: управление вниманием, планирование, путешествия и учёт расходов.
 
-Currently, two official plugins are available:
+[Сайт](https://memorasolutions.ru) · [Продукты](https://memorasolutions.ru/products) · [Pomodoro](https://memorasolutions.ru/pomodoro) · [Travel Radar](https://memorasolutions.ru/travel-radar)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Что находится в репозитории
 
-## React Compiler
+| Компонент | Задача | Исходники |
+| --- | --- | --- |
+| Сайт и портфолио | Страницы продуктов, интерактивные сцены, русский и английский интерфейсы | [src](src/) |
+| Pomodoro | Фокус-сессии, анимированные сцены, статистика; общий интерфейс для desktop и web | [memora-pomodoro](memora-pomodoro/) |
+| Travel Radar | Сбор и фильтрация предложений, Telegram-уведомления и подписки | [scripts](scripts/), [travel-radar-service.js](server/travel-radar-service.js) |
+| Kanban и управление | Задачи, сообщения и настройки продуктов через защищённый API | [server](server/), [src/admin](src/admin/) |
+| Wallet Manager | Telegram-бот для расходов, бюджетов и отчётов | [сервис и инструкция](services/memora-wallet-manager/) |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Страница BDayBot и его интеграция в панель управления также находятся здесь. Сам сервис BDayBot развёртывается из отдельного репозитория.
 
-## Expanding the ESLint configuration
+## Технологии
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Интерфейс:** React 19, Vite, React Router, Tailwind CSS, i18next.
+- **Графика и анимация:** Three.js, GSAP, Framer Motion.
+- **Сервер и интеграции:** Node.js, PostgreSQL, Telegram Bot API, YooKassa.
+- **Pomodoro:** Electron, React, TypeScript, SQL.js.
+- **Wallet Manager:** Python.
+- **Доставка:** GitHub Actions, Caddy и systemd; статические сборки для резервных источников загрузки.
 
-## Memora production
+## Что посмотреть в коде
 
-The production server is `server.js`. It serves the public site and the
-password-protected management interface on `admin.memorasolutions.ru`.
+- [Загрузка сайта с резервными источниками](build/resilientBootPlugin.js) — восстановление загрузки статических ресурсов.
+- [Парсер предложений](scripts/parse-deals.js) и [его проверки](scripts/test-parse-deals.js) — извлечение и нормализация данных.
+- [Travel Radar](server/travel-radar-service.js) и [проверки платежной логики](scripts/test-travel-payments.js) — подписки, уведомления и обработка событий оплаты.
+- [HTTP-сервер](server.js) — маршрутизация, API, авторизация управления и endpoint `/health`.
+- [Общий renderer Pomodoro](memora-pomodoro/src/renderer/) — интерфейс web- и desktop-версий.
+- [Обновление VPS](deploy/vps/memora-update.sh) — получение изменений, сборка, проверка сервиса и возврат предыдущей статической сборки при сбое.
 
-Required environment variables:
+## Локальный запуск сайта
 
-- `ADMIN_USER` — Basic Auth login (normally `admin`);
-- `ADMIN_PASSWORD` — Basic Auth password; never commit it;
-- `DATABASE_URL` or `DATABASE_PUBLIC_URL` — PostgreSQL used by the shared
-  Kanban and Pomodoro settings;
-- `BDAY_DATABASE_URL` — BdayBot PostgreSQL connection for the centralized
-  management panel;
-- `BDAY_BOT_TOKEN` — Telegram token used by the centralized panel for bot
-  health checks, personal messages, previews, and broadcasts;
-- `BDAY_ADMIN_ID` — Telegram ID that receives broadcast previews;
-- `BDAY_ADMIN_URL` — optional link to the legacy BdayBot control panel.
+Требуется Node.js 20.19+ в версии, поддерживаемой Vite; CI использует Node.js 20.
 
-Travel Radar runs its Telegram-channel parser inside the production server
-every 30 minutes; a separate GitHub Actions workflow refreshes the same public
-files twice per hour as a fallback. Paid alerts require:
+```bash
+git clone https://github.com/arar228/memora-solutions.git
+cd memora-solutions
+npm ci
+npm run dev
+```
 
-- `RADAR_TELEGRAM_BOT_TOKEN` — token issued by BotFather;
-- `RADAR_TELEGRAM_BOT_USERNAME` — bot username without `@`;
-- `RADAR_TELEGRAM_WEBHOOK_SECRET` — random 1–256 character webhook secret;
-- `YOOKASSA_SHOP_ID` and `YOOKASSA_SECRET_KEY` — YooKassa API credentials;
-- `PUBLIC_BASE_URL` — normally `https://memorasolutions.ru`;
-- `YOOKASSA_RECEIPTS_ENABLED=true` if YooKassa must receive receipt data;
-- `YOOKASSA_VAT_CODE` — receipt VAT code. Set it explicitly for the merchant's
-  tax regime before enabling receipts; the application uses `1` only as a
-  backward-compatible fallback.
+Vite запускает интерфейс разработки. Серверные интеграции настраиваются отдельно.
 
-The YooKassa shop must have recurring payments enabled. Configure its webhook
-as `https://memorasolutions.ru/api/travel/payments/yookassa` for the
-`payment.succeeded` and `payment.canceled` events. The Telegram webhook is registered automatically on
-server startup when all three `RADAR_TELEGRAM_*` variables are present. Bot
-commands `/status` and `/cancel` let a subscriber check the paid period or stop
-auto-renewal even if browser storage was cleared.
+Проверка статической production-сборки:
 
-Pomodoro uses one renderer source for desktop and web. After renderer changes,
-run `npm run build:web` inside `memora-pomodoro`; this updates
-`public/app/pomodoro` and `public/pomodoro-version.json`. A desktop release is
-built with `npm run dist:win` from the same directory.
+```bash
+npm run build
+npm run preview
+```
+
+Для запуска Node.js-сервера скопируйте [.env.example](.env.example) в `.env`, укажите настройки своего окружения и выполните:
+
+```bash
+npm run build
+node --env-file=.env server.js
+```
+
+По умолчанию сервер доступен на `http://127.0.0.1:3000`, проверка состояния — `http://127.0.0.1:3000/health`. Значение `ADMIN_PASSWORD` включает доступ к управлению; при пустом значении сервер возвращает HTTP 401.
+
+PostgreSQL и внешние сервисы нужны соответствующим функциям. Переменные интеграций и production-запуск описаны в [руководстве по эксплуатации](docs/operations.md).
+
+## Проверки
+
+```bash
+npm run test:deals
+npm run test:payments
+npm run lint
+npm run build
+```
+
+[CI](.github/workflows/ci.yml) также проверяет зависимости, синтаксис серверных модулей, типы и сборки Pomodoro.
+
+## Сборка Pomodoro
+
+У приложения отдельные зависимости и команды. Для сборки renderer нужен `MEMORA_SCENE_KEY`, соответствующий зашифрованной сцене; он передаётся через окружение сборки. Корневая сборка сайта использует готовые файлы из `public/app/pomodoro`.
+
+Подробности — в разделе [Pomodoro builds](docs/operations.md#pomodoro-builds).
+
+## Публикация и лицензия
+
+Это публичный рабочий репозиторий. Общая лицензия для всего проекта пока не определена: в [package.json Pomodoro](memora-pomodoro/package.json) указана MIT, а [пользовательское соглашение](memora-pomodoro/resources/license.txt) содержит ограничения на изменение и распространение. Эти условия требуют согласования владельцем перед переиспользованием и объявлением единой open-source лицензии.
+
+Храните пароли, токены, ключи развёртывания, пользовательские базы и резервные копии вне Git. Правила настройки и проверки публикации — в [руководстве по эксплуатации](docs/operations.md#configuration-and-access).

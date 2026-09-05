@@ -19,15 +19,23 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
-      - name: Install SSH client
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+      - uses: actions/checkout@v6
+
+      - name: Prepare key authentication
+        id: ssh
+        uses: ./.github/actions/setup-vps-ssh
+        with:
+          private-key: ${{ secrets.MEMORA_VPS_SSH_KEY }}
+          host: 23.94.105.127
+          port: '22'
+          fingerprint: SHA256:nLvPFGCkQO01+MrsLWHZkCsgMI7BOU9b6nRAzQ/zMGU
 
       - name: Verify host and deploy
         env:
-          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          VPS_SSH_KEY_FILE: ${{ steps.ssh.outputs.key-path }}
+          VPS_KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known-hosts-path }}
           VPS_HOST: 23.94.105.127
           VPS_PORT: '22'
-          VPS_FINGERPRINT: SHA256:nLvPFGCkQO01+MrsLWHZkCsgMI7BOU9b6nRAzQ/zMGU
           TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
           TRAVELPAYOUTS_MARKER: ${{ secrets.TRAVELPAYOUTS_MARKER }}
           TRAVELPAYOUTS_TRS: '547927'
@@ -35,7 +43,7 @@ jobs:
           YOOKASSA_SECRET_KEY: ${{ secrets.YOOKASSA_SECRET_KEY }}
         run: |
           set -euo pipefail
-          test -n "$VPS_PASSWORD"
+          test -s "$VPS_SSH_KEY_FILE"
           test -n "$TRAVELPAYOUTS_TOKEN"
           test -n "$TRAVELPAYOUTS_MARKER"
           test -n "$YOOKASSA_SHOP_ID"
@@ -55,25 +63,6 @@ jobs:
             echo "::error::YooKassa API credentials validation failed"
             exit 1
           fi
-          install -d -m 700 "$HOME/.ssh"
-
-          host_keys=''
-          for attempt in 1 2 3 4 5; do
-            host_keys=$(ssh-keyscan -T 10 -p "$VPS_PORT" "$VPS_HOST" 2>/dev/null || true)
-            [ -n "$host_keys" ] && break
-            sleep 3
-          done
-          test -n "$host_keys"
-
-          actual_fingerprints=$(printf '%s\n' "$host_keys" | ssh-keygen -lf - -E sha256 | awk '{ print $2 }')
-          if ! printf '%s\n' "$actual_fingerprints" | grep -Fxq "$VPS_FINGERPRINT"; then
-            echo "::error::VPS host fingerprint mismatch"
-            exit 1
-          fi
-          printf '%s\n' "$host_keys" > "$HOME/.ssh/known_hosts"
-          chmod 600 "$HOME/.ssh/known_hosts"
-
-          export SSHPASS="$VPS_PASSWORD"
           affiliate_env=$(mktemp)
           trap 'rm -f "$affiliate_env"' EXIT
           {
@@ -87,14 +76,18 @@ jobs:
             printf 'YOOKASSA_VAT_CODE=1\n'
           } > "$affiliate_env"
           chmod 600 "$affiliate_env"
-          sshpass -e scp \
-            -o BatchMode=no \
+          scp -i "$VPS_SSH_KEY_FILE" \
+            -o BatchMode=yes -o IdentitiesOnly=yes \
+            -o UserKnownHostsFile="$VPS_KNOWN_HOSTS_FILE" \
+            -o HostKeyAlgorithms=ssh-ed25519 \
             -o StrictHostKeyChecking=yes \
             -P "$VPS_PORT" \
             "$affiliate_env" \
             "root@$VPS_HOST:/tmp/memora-travelpayouts.env"
-          sshpass -e ssh \
-            -o BatchMode=no \
+          ssh -i "$VPS_SSH_KEY_FILE" \
+            -o BatchMode=yes -o IdentitiesOnly=yes \
+            -o UserKnownHostsFile="$VPS_KNOWN_HOSTS_FILE" \
+            -o HostKeyAlgorithms=ssh-ed25519 \
             -o StrictHostKeyChecking=yes \
             -o ConnectTimeout=15 \
             -p "$VPS_PORT" \

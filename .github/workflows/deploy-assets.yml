@@ -31,7 +31,11 @@ jobs:
         run: npm ci
 
       - name: Verify application
-        run: npm run lint
+        run: |
+          npm run lint
+          npm run test:deals
+          npm run test:payments
+          npm run test:reliability
 
       - name: Build production assets
         run: npm run build

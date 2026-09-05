@@ -19,6 +19,7 @@
         "audit:deals": "node scripts/audit-deal-channels.js",
         "test:deals": "node scripts/test-parse-deals.js",
         "test:payments": "node scripts/test-travel-payments.js",
+        "test:reliability": "node scripts/test-reliability.mjs",
         "validate-feeds": "node scripts/validate-feeds.js"
     },
     "dependencies": {

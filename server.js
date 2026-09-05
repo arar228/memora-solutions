@@ -532,6 +532,12 @@ function requireAuth(res) {
 
 async function sendFile(res, path, status = 200) {
   const info = await stat(path);
+  // Read small responses before committing headers. A read failure can still
+  // produce a normal error response instead of corrupting an in-flight one.
+  const body = res.req?.method !== 'HEAD' && info.size <= 1024 * 1024
+    ? await readFile(path)
+    : null;
+  if (res.destroyed || res.writableEnded) return;
   const ext = extname(path).toLowerCase();
   const normalizedPath = path.replaceAll('\\', '/');
   const immutable = ext !== '.html'
@@ -554,9 +560,7 @@ async function sendFile(res, path, status = 200) {
   // Railway's edge may buffer tiny stream chunks and leave module responses
   // open after forwarding only the first group. Keep application bundles in a
   // single response write; reserve streaming for genuinely large data files.
-  if (info.size <= 1024 * 1024) {
-    return res.end(await readFile(path));
-  }
+  if (body !== null) return res.end(body);
 
   res.flushHeaders();
   await pipeline(createReadStream(path, { highWaterMark: 256 * 1024 }), res);
@@ -1014,12 +1018,20 @@ const server = createServer(async (req, res) => {
       const info = await stat(filePath);
       if (info.isDirectory()) filePath = join(filePath, 'index.html');
       await stat(filePath);
-      if (filePath === join(DIST, 'index.html')) return await sendSpaIndex(res);
-      return await sendFile(res, filePath);
-    } catch {
+    } catch (error) {
+      if (!['ENOENT', 'ENOTDIR'].includes(error.code)) throw error;
       return await sendSpaIndex(res, isKnownSpaPath(pathname, admin) ? 200 : 404);
     }
+    // Only lookup failures fall back to the SPA. Transfer errors must never
+    // start a second response on a socket that has already received headers.
+    return await sendFile(res, filePath);
   } catch (err) {
+    if (req.aborted || res.destroyed || res.writableEnded) return;
+    if (res.headersSent) {
+      res.destroy();
+      console.error('Response transfer failed:', err.code || err.name);
+      return;
+    }
     res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
     res.end('Server error');
     console.error(err);

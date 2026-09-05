@@ -38,6 +38,11 @@ function getPool() {
       max: 3,
       idleTimeoutMillis: 30_000,
       connectionTimeoutMillis: 8_000,
+      statement_timeout: 15_000,
+      idle_in_transaction_session_timeout: 15_000,
+    });
+    pool.on('error', (error) => {
+      console.error('Bday database idle connection failed:', error.code || error.name);
     });
   }
   return pool;

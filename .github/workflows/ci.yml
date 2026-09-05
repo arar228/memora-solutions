@@ -30,6 +30,7 @@ jobs:
       - run: node --check server.js && for file in server/*.js; do node --check "$file"; done
       - run: npm run test:deals
       - run: npm run test:payments
+      - run: npm run test:reliability
       - run: npm run lint
       - run: npm run build
 

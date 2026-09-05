@@ -29,6 +29,8 @@ const memory = new Map([
 
 let pool;
 let ready;
+let initializationError;
+let retryAfter = 0;
 
 function sslFor(connectionString) {
   if (!connectionString || connectionString.includes('.railway.internal')) return false;
@@ -53,6 +55,13 @@ function getPool() {
       max: 4,
       idleTimeoutMillis: 30_000,
       connectionTimeoutMillis: 8_000,
+      statement_timeout: 15_000,
+      idle_in_transaction_session_timeout: 15_000,
+    });
+    pool.on('error', (error) => {
+      // pg removes the broken idle client itself. Catch its background event
+      // so a database restart does not terminate the HTTP process.
+      console.error('Admin database idle connection failed:', error.code || error.name);
     });
   }
   return pool;
@@ -62,13 +71,23 @@ async function ensureStore() {
   const db = getPool();
   if (!db) return false;
   if (!ready) {
+    if (Date.now() < retryAfter) throw initializationError;
     ready = db.query(`
       CREATE TABLE IF NOT EXISTS memora_admin_state (
         key TEXT PRIMARY KEY,
         value JSONB NOT NULL,
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
-    `).then(() => true);
+    `).then(() => {
+      initializationError = null;
+      retryAfter = 0;
+      return true;
+    }).catch((error) => {
+      ready = null;
+      initializationError = error;
+      retryAfter = Date.now() + 1_000;
+      throw error;
+    });
   }
   return ready;
 }

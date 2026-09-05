@@ -48,6 +48,40 @@ built with `npm run dist:win` from the same directory.
 
 ## Configuration and access
 
+### Payment delivery and recovery
+
+Payment events are verified using an authenticated YooKassa GET request. The
+provider payment ID must match the subscription's stored pending ID; amount,
+currency, customer and subscription metadata remain mandatory checks. Confirmed
+successes and cancellations are idempotent and duplicate events are acknowledged.
+
+A valid event arriving before its pending ID is saved receives HTTP 503 with a
+retry hint. HTTP 200 is sent only after processing or intentional ignoring of an
+unrelated event. YooKassa uses the HTTP status, ignores the response body, and
+retries non-200 responses for up to 24 hours; see its
+[webhook documentation](https://yookassa.ru/developers/using-api/webhooks).
+
+At startup and every five minutes the server reconciles stored pending payments
+via GET only. Each round-robin batch contains at most 12 payments, with three
+concurrent provider requests. Provider deadlines cover both headers and JSON
+body. A failed payment check leaves its pending ID available for the next run.
+Only persistent subscription storage is accepted for payment operations.
+
+An outstanding recovery gap remains: if the process crashes after YooKassa creates
+a payment but before its ID is committed, the GET-only reconciler cannot discover
+that ID. A durable payment-request/outbox record and operator reconciliation are
+still required for this case. Do not blindly retry an old creation request:
+[YooKassa idempotence](https://yookassa.ru/developers/using-api/interaction-format)
+is guaranteed for 24 hours. These changes do not introduce automatic recharging
+to resolve unknown payments.
+
+Regression tests use mocked provider/Telegram boundaries and synthetic data:
+`npm run test:payments` and `npm run test:reliability`. They cover early success
+and cancellation, duplicate delivery, lost webhook recovery, database failure,
+invalid payment fields, late renewal responses and stalled provider bodies.
+
+### Runtime credentials
+
 For a local server, copy the repository's `.env.example` to `.env` and run
 `node --env-file=.env server.js`. The `npm start` command expects variables
 to have already been supplied by the process environment.

@@ -688,6 +688,7 @@ const TRAVEL_ERROR_STATUS = {
   TELEGRAM_NOT_CONNECTED: 409,
   ALREADY_ACTIVE: 409,
   INVALID_PAYMENT_METHOD: 400,
+  PAYMENT_IN_PROGRESS: 409,
   STORAGE_UNAVAILABLE: 503,
   SUBSCRIPTIONS_NOT_CONFIGURED: 503,
   PAYMENT_PROVIDER_ERROR: 502,
@@ -736,7 +737,11 @@ async function handlePublicTravelApi(req, res, pathname) {
         || !checkWindowRate(travelWebhookTimestamps, 'yookassa:global', 600, 5 * 60 * 1000)) {
         return sendJson(res, 429, { error: 'Too many requests' }, { 'Retry-After': '300' });
       }
-      return sendJson(res, 200, await handleYookassaWebhook(body));
+      const result = await handleYookassaWebhook(body);
+      // YooKassa ignores the JSON body: only HTTP 200 acknowledges delivery.
+      // Preserve retries when an early event has not been attached yet.
+      return sendJson(res, result.accepted ? 200 : 503, result,
+        result.accepted ? {} : { 'Retry-After': '30' });
     }
 
     if (!['/api/travel/subscriptions', '/api/travel/subscriptions/status', '/api/travel/subscriptions/checkout', '/api/travel/subscriptions/cancel', '/api/travel/subscriptions/settings'].includes(pathname)) {
@@ -787,6 +792,7 @@ async function handlePublicTravelApi(req, res, pathname) {
       TELEGRAM_NOT_CONNECTED: 'Сначала подключите Telegram-бота',
       ALREADY_ACTIVE: 'Подписка уже активна',
       INVALID_PAYMENT_METHOD: 'Выберите доступный способ оплаты',
+      PAYMENT_IN_PROGRESS: 'Предыдущий платёж обрабатывается. Проверьте статус через несколько секунд.',
       STORAGE_UNAVAILABLE: 'Хранилище подписок временно недоступно',
       SUBSCRIPTIONS_NOT_CONFIGURED: 'Платные уведомления ещё не подключены',
       PAYMENT_PROVIDER_ERROR: 'Платёжный сервис временно недоступен',

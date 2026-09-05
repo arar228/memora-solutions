@@ -27,8 +27,12 @@ const PROVIDER_TIMEOUT_MS = 12_000;
 
 let refreshTimer;
 let renewalTimer;
+let paymentReconciliationTimer;
+let initialRefreshTimer;
 let refreshRunning = false;
 let renewalRunning = false;
+let reconciliationRunning = false;
+let reconciliationOffset = 0;
 
 const hashToken = (token) => createHash('sha256').update(String(token)).digest('hex');
 const secretMatches = (actual, expected) => {
@@ -177,11 +181,17 @@ function assertPaymentConfiguration() {
   if (YOOKASSA_SHOP_ID !== YOOKASSA_EXPECTED_SHOP_ID) throw new Error('PAYMENT_SHOP_MISMATCH');
 }
 
-async function fetchWithTimeout(url, options = {}, timeoutMs = PROVIDER_TIMEOUT_MS) {
+async function fetchJsonWithTimeout(url, options = {}, timeoutMs = PROVIDER_TIMEOUT_MS) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    return await fetch(url, { ...options, signal: controller.signal });
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    // Keep the deadline through body consumption, including stalled JSON bodies.
+    const payload = await response.json();
+    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+      throw new Error('Invalid provider JSON response');
+    }
+    return { response, payload };
   } catch (error) {
     if (error?.name === 'AbortError') {
       const timeoutError = new Error('Платёжный сервис превысил время ожидания');
@@ -197,8 +207,9 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = PROVIDER_TIMEOUT_
 async function yookassaRequest(path, { method = 'GET', body, idempotenceKey } = {}) {
   assertPaymentConfiguration();
   let response;
+  let payload;
   try {
-    response = await fetchWithTimeout(`https://api.yookassa.ru/v3${path}`, {
+    ({ response, payload } = await fetchJsonWithTimeout(`https://api.yookassa.ru/v3${path}`, {
       method,
       headers: {
         Authorization: paymentAuth(),
@@ -206,12 +217,11 @@ async function yookassaRequest(path, { method = 'GET', body, idempotenceKey } = 
         ...(idempotenceKey ? { 'Idempotence-Key': idempotenceKey } : {}),
       },
       ...(body ? { body: JSON.stringify(body) } : {}),
-    });
+    }));
   } catch (error) {
     if (!error.code) error.code = 'PAYMENT_PROVIDER_ERROR';
     throw error;
   }
-  const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
     const error = new Error(payload.description || `YooKassa HTTP ${response.status}`);
     error.code = 'PAYMENT_PROVIDER_ERROR';
@@ -294,7 +304,8 @@ export function renewalStateForPayment(payment, subscription) {
 
 async function preparePaymentAttempt(subscription, paymentMethod) {
   if (!subscription.pendingPaymentId) return subscription;
-  const pendingPayment = await yookassaRequest(`/payments/${encodeURIComponent(subscription.pendingPaymentId)}`);
+  let pendingPayment = await yookassaRequest(`/payments/${encodeURIComponent(subscription.pendingPaymentId)}`);
+  if (pendingPayment.id !== subscription.pendingPaymentId) throw new Error('PAYMENT_PROVIDER_ERROR');
   if (pendingPayment.status === 'succeeded') {
     await applyVerifiedPayment(pendingPayment);
     throw new Error('ALREADY_ACTIVE');
@@ -304,26 +315,31 @@ async function preparePaymentAttempt(subscription, paymentMethod) {
     if (confirmationUrl.startsWith('https://')) return { ...subscription, confirmationUrl };
   }
   if (pendingPayment.status === 'pending') {
-    await yookassaRequest(`/payments/${encodeURIComponent(subscription.pendingPaymentId)}/cancel`, {
+    pendingPayment = await yookassaRequest(`/payments/${encodeURIComponent(subscription.pendingPaymentId)}/cancel`, {
       method: 'POST',
       idempotenceKey: paymentIdempotenceKey(subscription.id, 'cancel', subscription.pendingPaymentId),
     });
   }
-  const nextSubscription = {
-    ...subscription,
-    pendingPaymentId: null,
-    pendingPaymentMethod: null,
-    paymentAttempt: (subscription.paymentAttempt || 1) + 1,
-    updatedAt: new Date().toISOString(),
-  };
-  await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => (
-    item.id === subscription.id ? nextSubscription : item
-  )));
-  return nextSubscription;
+  if (pendingPayment.status === 'succeeded') {
+    await applyVerifiedPayment(pendingPayment);
+    throw new Error('ALREADY_ACTIVE');
+  }
+  if (pendingPayment.status !== 'canceled') throw new Error('PAYMENT_IN_PROGRESS');
+  await processVerifiedPayment(pendingPayment);
+  // Read current state after verification. A webhook or settings update may have
+  // changed it while the provider request was in flight.
+  const latest = (await getState(SUBSCRIPTIONS_KEY, [])).find(item => item.id === subscription.id);
+  if (!latest) throw new Error('SUBSCRIPTION_NOT_FOUND');
+  if (latest.status === 'active' && Date.parse(latest.currentPeriodEnd) > Date.now()) {
+    throw new Error('ALREADY_ACTIVE');
+  }
+  if (latest.pendingPaymentId) throw new Error('PAYMENT_IN_PROGRESS');
+  return latest;
 }
 
 export async function createTravelCheckout(token, paymentMethod = 'recurring') {
   if (!['recurring', 'sbp'].includes(paymentMethod)) throw new Error('INVALID_PAYMENT_METHOD');
+  if (!(await getStoreStatus()).persistent) throw new Error('STORAGE_UNAVAILABLE');
   let subscription = await findSubscription(token);
   if (!subscription) throw new Error('SUBSCRIPTION_NOT_FOUND');
   if (!subscription.telegramChatId) throw new Error('TELEGRAM_NOT_CONNECTED');
@@ -346,6 +362,9 @@ export async function createTravelCheckout(token, paymentMethod = 'recurring') {
   await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => (
     item.id === subscription.id
       && !(item.appliedPaymentIds || []).includes(payment.id)
+      && !(item.resolvedPaymentIds || []).includes(payment.id)
+      && (item.paymentAttempt || 1) === (subscription.paymentAttempt || 1)
+      && (!item.pendingPaymentId || item.pendingPaymentId === payment.id)
       ? {
         ...item,
         status: 'awaiting_payment',
@@ -355,7 +374,7 @@ export async function createTravelCheckout(token, paymentMethod = 'recurring') {
       }
       : item
   )));
-  if (payment.status === 'succeeded') await applyVerifiedPayment(payment);
+  if (['succeeded', 'canceled'].includes(payment.status)) await processVerifiedPayment(payment);
   const confirmationUrl = String(payment.confirmation?.confirmation_url || '');
   if (payment.status !== 'succeeded' && !confirmationUrl.startsWith('https://')) {
     const error = new Error('Платёжный сервис не вернул защищённую ссылку оплаты');
@@ -417,17 +436,15 @@ export function isVerifiedPaymentForSubscription(payment, subscription) {
   return !(subscription.appliedPaymentIds || []).includes(payment.id);
 }
 
-export async function handleYookassaWebhook(input) {
-  const paymentId = String(input?.object?.id || '');
-  if (!paymentId || !['payment.succeeded', 'payment.canceled'].includes(input?.event)) {
-    return { accepted: true };
+async function processVerifiedPayment(payment) {
+  const subscriptionId = String(payment.metadata?.subscription_id || '');
+  const kind = String(payment.metadata?.payment_kind || '');
+  if (!payment.id || !subscriptionId || String(payment.merchant_customer_id || '') !== subscriptionId
+    || !['initial', 'renewal'].includes(kind)
+    || payment.amount?.currency !== 'RUB' || Number(payment.amount?.value) !== PRICE_RUB) {
+    return { accepted: true, ignored: true };
   }
-  const payment = await yookassaRequest(`/payments/${encodeURIComponent(paymentId)}`);
-  if (input.event === 'payment.canceled' && payment.status === 'canceled') {
-    const subscriptionId = String(payment.metadata?.subscription_id || '');
-    if (!subscriptionId || String(payment.merchant_customer_id || '') !== subscriptionId) {
-      return { accepted: false };
-    }
+  if (payment.status === 'canceled') {
     await updateState(SUBSCRIPTIONS_KEY, [], (subscriptions) => subscriptions.map((item) => {
       if (item.id !== subscriptionId || item.pendingPaymentId !== payment.id) return item;
       const expired = item.currentPeriodEnd && Date.parse(item.currentPeriodEnd) <= Date.now();
@@ -441,15 +458,65 @@ export async function handleYookassaWebhook(input) {
             : item.telegramChatId ? 'awaiting_payment' : 'awaiting_telegram',
         pendingPaymentId: null,
         pendingPaymentMethod: null,
+        resolvedPaymentIds: [...(item.resolvedPaymentIds || []), payment.id].slice(-60),
         paymentAttempt: renewal ? item.paymentAttempt : (item.paymentAttempt || 1) + 1,
         renewalStartedAt: null,
         lastPaymentError: payment.cancellation_details?.reason || 'payment_canceled',
         updatedAt: new Date().toISOString(),
       };
     }));
+  } else if (payment.status === 'succeeded') {
+    await applyVerifiedPayment(payment);
+  }
+  const subscription = (await getState(SUBSCRIPTIONS_KEY, [])).find(item => item.id === subscriptionId);
+  if (!subscription) return { accepted: true, ignored: true };
+  // Duplicate deliveries are acknowledged only after durable terminal state.
+  // A valid early webhook without its pending ID must be retried by YooKassa.
+  return { accepted: Boolean((subscription.appliedPaymentIds || []).includes(payment.id)
+    || (subscription.resolvedPaymentIds || []).includes(payment.id)) };
+}
+
+export async function handleYookassaWebhook(input) {
+  const paymentId = String(input?.object?.id || '');
+  if (!paymentId || !['payment.succeeded', 'payment.canceled'].includes(input?.event)) {
     return { accepted: true };
   }
-  return { accepted: await applyVerifiedPayment(payment) };
+  if (!(await getStoreStatus()).persistent) throw new Error('STORAGE_UNAVAILABLE');
+  // Only the ID is taken from the webhook; all payment fields come from the
+  // authenticated provider API. Pending-ID association remains mandatory.
+  const payment = await yookassaRequest(`/payments/${encodeURIComponent(paymentId)}`);
+  if (payment.id !== paymentId) throw new Error('PAYMENT_PROVIDER_ERROR');
+  return processVerifiedPayment(payment);
+}
+
+export async function reconcileTravelPayments() {
+  if (reconciliationRunning || !travelCapabilities().payments) return;
+  reconciliationRunning = true;
+  try {
+    if (!(await getStoreStatus()).persistent) throw new Error('STORAGE_UNAVAILABLE');
+    const pending = (await getState(SUBSCRIPTIONS_KEY, [])).filter(item => item.pendingPaymentId);
+    if (!pending.length) return;
+    // Bounded, round-robin batches avoid starving later subscriptions. This job
+    // only GETs existing payments; it never creates or retries a charge.
+    const count = Math.min(12, pending.length);
+    const batch = Array.from({ length: count }, (_, index) => pending[(reconciliationOffset + index) % pending.length]);
+    reconciliationOffset = (reconciliationOffset + count) % pending.length;
+    let index = 0;
+    await Promise.all(Array.from({ length: Math.min(3, count) }, async () => {
+      while (index < batch.length) {
+        const subscription = batch[index++];
+        try {
+          const payment = await yookassaRequest(`/payments/${encodeURIComponent(subscription.pendingPaymentId)}`);
+          if (payment.id !== subscription.pendingPaymentId) throw new Error('PAYMENT_PROVIDER_ERROR');
+          if (['succeeded', 'canceled'].includes(payment.status)) await processVerifiedPayment(payment);
+        } catch (error) {
+          console.error('Travel Radar payment reconciliation:', error.code || error.name);
+        }
+      }
+    }));
+  } finally {
+    reconciliationRunning = false;
+  }
 }
 
 export async function cancelTravelSubscription(token) {
@@ -505,12 +572,11 @@ export async function updateTravelSubscription(token, input) {
 }
 
 async function telegramRequest(method, body) {
-  const response = await fetchWithTimeout(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/${method}`, {
+  const { response, payload } = await fetchJsonWithTimeout(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/${method}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   }, 10_000);
-  const payload = await response.json().catch(() => ({}));
   if (!response.ok || !payload.ok) throw new Error(payload.description || `Telegram HTTP ${response.status}`);
   return payload.result;
 }
@@ -913,10 +979,11 @@ export async function refreshTravelRadar({ force = false } = {}) {
   }
 }
 
-async function renewSubscriptions() {
+export async function renewSubscriptions() {
   if (renewalRunning || !travelCapabilities().payments) return;
   renewalRunning = true;
   try {
+    if (!(await getStoreStatus()).persistent) throw new Error('STORAGE_UNAVAILABLE');
     await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => {
       if (!item.currentPeriodEnd || Date.parse(item.currentPeriodEnd) > Date.now()) return item;
       if (item.status === 'canceling') return { ...item, status: 'canceled', updatedAt: new Date().toISOString() };
@@ -933,9 +1000,16 @@ async function renewSubscriptions() {
       && (!item.renewalStartedAt || Date.now() - Date.parse(item.renewalStartedAt) > 6 * 60 * 60 * 1000));
     for (const subscription of due) {
       const startedAt = new Date().toISOString();
-      await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => (
-        item.id === subscription.id ? { ...item, renewalStartedAt: startedAt } : item
-      )));
+      let claimed = false;
+      await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => {
+        if (item.id !== subscription.id || item.status !== 'active' || !item.autoRenew
+          || !item.paymentMethodId || item.pendingPaymentId
+          || item.currentPeriodEnd !== subscription.currentPeriodEnd
+          || item.renewalStartedAt !== subscription.renewalStartedAt) return item;
+        claimed = true;
+        return { ...item, renewalStartedAt: startedAt };
+      }));
+      if (!claimed) continue;
       try {
         const payment = await yookassaRequest('/payments', {
           method: 'POST',
@@ -955,12 +1029,19 @@ async function renewSubscriptions() {
           },
         });
         await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => (
-          item.id === subscription.id ? { ...item, pendingPaymentId: payment.id } : item
+          item.id === subscription.id
+            && item.currentPeriodEnd === subscription.currentPeriodEnd
+            && !(item.appliedPaymentIds || []).includes(payment.id)
+            && !(item.resolvedPaymentIds || []).includes(payment.id)
+            && (!item.pendingPaymentId || item.pendingPaymentId === payment.id)
+            ? { ...item, pendingPaymentId: payment.id } : item
         )));
-        if (payment.status === 'succeeded') await applyVerifiedPayment(payment);
+        if (['succeeded', 'canceled'].includes(payment.status)) await processVerifiedPayment(payment);
       } catch (error) {
         await updateState(SUBSCRIPTIONS_KEY, [], (items) => items.map((item) => (
           item.id === subscription.id
+            && item.currentPeriodEnd === subscription.currentPeriodEnd
+            && item.renewalStartedAt === startedAt
             ? { ...item, lastPaymentError: error.message, updatedAt: new Date().toISOString() }
             : item
         )));
@@ -993,7 +1074,8 @@ async function configureTelegramWebhook() {
 }
 
 export function startTravelRadarServices() {
-  setTimeout(() => refreshTravelRadar({ force: true }).catch((error) => {
+  if (refreshTimer) return;
+  initialRefreshTimer = setTimeout(() => refreshTravelRadar({ force: true }).catch((error) => {
     console.error('Travel Radar initial refresh:', error);
   }), 5_000).unref();
   refreshTimer = setInterval(() => refreshTravelRadar({ force: true }).catch((error) => {
@@ -1002,13 +1084,22 @@ export function startTravelRadarServices() {
   renewalTimer = setInterval(() => renewSubscriptions().catch((error) => {
     console.error('Travel Radar renewals:', error);
   }), 60 * 60 * 1000);
+  paymentReconciliationTimer = setInterval(() => reconcileTravelPayments().catch((error) => {
+    console.error('Travel Radar payment reconciliation:', error.code || error.name);
+  }), 5 * 60 * 1000);
   refreshTimer.unref();
   renewalTimer.unref();
+  paymentReconciliationTimer.unref();
   configureTelegramWebhook();
-  renewSubscriptions().catch((error) => console.error('Travel Radar renewals:', error));
+  reconcileTravelPayments()
+    .then(() => renewSubscriptions())
+    .catch((error) => console.error('Travel Radar payment startup:', error.code || error.name));
 }
 
 export function stopTravelRadarServices() {
+  if (initialRefreshTimer) clearTimeout(initialRefreshTimer);
   if (refreshTimer) clearInterval(refreshTimer);
   if (renewalTimer) clearInterval(renewalTimer);
+  if (paymentReconciliationTimer) clearInterval(paymentReconciliationTimer);
+  initialRefreshTimer = refreshTimer = renewalTimer = paymentReconciliationTimer = undefined;
 }

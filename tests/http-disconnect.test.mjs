@@ -19,6 +19,9 @@ async function fixture(t) {
   }
   Object.assign(stubs['./server/admin-store.js'], { DEFAULT_POMODORO_TOKENS: {}, getState: async (_key, fallback) => fallback });
   Object.assign(stubs['./server/kanban-store.js'], { KANBAN_MESSAGE_MODES: new Set(['general', 'personal']), KANBAN_BOARD_KEY: 'board' });
+  Object.assign(stubs['./server/travel-radar-service.js'], {
+    handleYookassaWebhook: async () => ({ accepted: mode !== 'early-webhook' }),
+  });
   stubs['node:http'] = { createServer(handler) { server = createServer(handler); return server; } };
   stubs['node:fs'] = {
     readFileSync: () => html.toString(),
@@ -83,4 +86,20 @@ test('missing assets keep their 404 and HEAD returns no body', async t => {
   const head = await fetch(`${base}/index.html`, { method: 'HEAD' });
   assert.equal(head.status, 200);
   assert.equal(await head.text(), '');
+});
+
+test('payment webhook HTTP status requests redelivery until durable processing succeeds', async t => {
+  const f = await fixture(t);
+  f.setMode('early-webhook');
+  const request = () => fetch(`${f.base}/api/travel/payments/yookassa`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}',
+  });
+  const early = await request();
+  assert.equal(early.status, 503);
+  assert.equal(early.headers.get('retry-after'), '30');
+  assert.equal((await early.json()).accepted, false);
+  f.setMode('normal');
+  const processed = await request();
+  assert.equal(processed.status, 200);
+  assert.equal((await processed.json()).accepted, true);
 });

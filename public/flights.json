@@ -1,7 +1,36 @@
 {
-  "updatedAt": "2026-09-05T15:18:38.094Z",
+  "updatedAt": "2026-09-05T20:26:46.183Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
-  "items": []
+  "items": [
+    {
+      "origin": "MRV",
+      "destination": "MCX",
+      "depart_date": "2026-09-20",
+      "return_date": "2026-09-22",
+      "price": 5760,
+      "median": 11104,
+      "discount": 0.4812680115273775,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-09-05T20:18:18",
+      "link": "https://www.aviasales.ru/search/MRV2009MCX22091?marker=748397&currency=rub",
+      "key": "MRV-MCX-2026-09-20-5760"
+    },
+    {
+      "origin": "KVX",
+      "destination": "KZN",
+      "depart_date": "2026-09-12",
+      "return_date": "2026-09-14",
+      "price": 6343,
+      "median": 8559,
+      "discount": 0.2589087510223157,
+      "samples": 29,
+      "number_of_changes": 0,
+      "found_at": "2026-09-05T20:13:52",
+      "link": "https://www.aviasales.ru/search/KVX1209KZN14091?marker=748397&currency=rub",
+      "key": "KVX-KZN-2026-09-12-6343"
+    }
+  ]
 }

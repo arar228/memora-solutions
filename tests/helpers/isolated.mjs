@@ -1,6 +1,12 @@
 import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
 
+// Keep the VM module wrappers and their contexts alive until this isolated test
+// worker exits. Repeatedly dropping wrappers while exported async functions are
+// still in use triggers SIGSEGV with the Linux Node 20 test runtime. This bounded
+// fixture registry is test-only; production does not load code through node:vm.
+const fixtures = [];
+
 // Load real source with explicit boundary fakes. No database, Telegram or
 // payment request is allowed to escape a reliability test.
 export async function isolatedModule(relativePath, stubs, { env = {}, globals = {} } = {}) {
@@ -16,13 +22,17 @@ export async function isolatedModule(relativePath, stubs, { env = {}, globals = 
     context, identifier: url.href,
     initializeImportMeta(meta) { meta.url = url.href; },
   });
+  const fixture = { context, source, imports: [] };
+  fixtures.push(fixture);
   await source.link(async specifier => {
     const exports = stubs[specifier]
       || (specifier.startsWith('node:') ? await import(specifier) : null);
     if (!exports) throw new Error(`Unmocked import: ${specifier}`);
-    return new vm.SyntheticModule(Object.keys(exports), function () {
+    const dependency = new vm.SyntheticModule(Object.keys(exports), function () {
       for (const [name, value] of Object.entries(exports)) this.setExport(name, value);
     }, { context });
+    fixture.imports.push(dependency);
+    return dependency;
   });
   await source.evaluate();
   return source.namespace;

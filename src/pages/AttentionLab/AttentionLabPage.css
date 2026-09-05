@@ -201,3 +201,6 @@
 @media (prefers-reduced-motion: reduce) {
   .attention-lab *, .attention-lab *::before, .attention-lab *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+@media (max-width: 380px) {
+  .lab-part-legend { grid-template-columns: 1fr; }
+}

@@ -58,8 +58,12 @@ transaction claims a 90-second submission lease; the provider POST starts only
 after this commit. Concurrent tabs/processes share the same database lock and key.
 
 Payment events are verified using an authenticated YooKassa GET. They must match
-the stored pending ID or the journal request nonce, plus amount, currency,
-customer and subscription metadata. This lets an early webhook bind the provider
+the stored pending ID or the journal request nonce, plus amount, currency and
+subscription metadata. `merchant_customer_id` is optional in the provider payment
+object (see the [official OpenAPI specification](https://yookassa.ru/developers/using-api/openapi-specification));
+when present it must match. Its absence never replaces the required ID/nonce
+association. The frozen journal request also has the expected customer ID.
+This lets an early webhook bind the provider
 ID before the POST response arrives. Terminal results and duplicate IDs are
 handled in the same transaction. A late response preserves a committed result.
 Legacy events without either association receive HTTP 503 for provider redelivery.

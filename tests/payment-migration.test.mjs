@@ -9,6 +9,8 @@ const canceled = { id: 'fixture-payment', status: 'canceled', merchant_customer_
 test('completed history with zero or canceled initial payments permits a legacy migration', () => {
   assert.equal(legacyPaymentReview(subscription, []).eligible, true);
   assert.deepEqual(legacyPaymentReview(subscription, [canceled]), { eligible: true, canceledIds: [canceled.id] });
+  assert.deepEqual(legacyPaymentReview(subscription, [{ ...canceled, merchant_customer_id: undefined }]),
+    { eligible: true, canceledIds: [canceled.id] });
 });
 
 test('pending, successful, recurring and mismatched legacy payments require manual review', () => {
@@ -16,6 +18,7 @@ test('pending, successful, recurring and mismatched legacy payments require manu
     { ...canceled, status: 'pending' }, { ...canceled, status: 'succeeded' },
     { ...canceled, metadata: { ...canceled.metadata, payment_kind: 'renewal' } },
     { ...canceled, merchant_customer_id: 'different-customer' },
+    { ...canceled, id: undefined },
     { ...canceled, amount: { value: '1.00', currency: 'RUB' } },
   ]) assert.equal(legacyPaymentReview(subscription, [payment]).eligible, false);
 });

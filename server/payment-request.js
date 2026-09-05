@@ -62,7 +62,7 @@ export function knownPayment(item, id) {
 export function paymentBelongsToSubscription(payment, item, legacyPrice = 300) {
   if (!payment?.id || !item?.id) return false;
   if (String(payment.metadata?.subscription_id || '') !== item.id
-    || String(payment.merchant_customer_id || '') !== item.id
+    || (payment.merchant_customer_id != null && String(payment.merchant_customer_id) !== item.id)
     || !['initial', 'renewal'].includes(payment.metadata?.payment_kind)) return false;
   if (item.pendingPaymentId && item.pendingPaymentId !== payment.id) return false;
   const request = item.paymentRequest;
@@ -73,7 +73,8 @@ export function paymentBelongsToSubscription(payment, item, legacyPrice = 300) {
       || request.state === 'abandoned') return false;
     let body;
     try { body = JSON.parse(request.bodyJson); } catch { return false; }
-    return payment.amount?.currency === body.amount?.currency
+    return body.merchant_customer_id === item.id
+      && payment.amount?.currency === body.amount?.currency
       && Number(payment.amount?.value) === Number(body.amount?.value)
       && Number(payment.amount?.value) > 0
       && (!body.metadata?.payment_mode || body.metadata.payment_mode === payment.metadata?.payment_mode);

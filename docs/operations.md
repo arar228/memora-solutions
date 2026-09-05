@@ -213,6 +213,17 @@ a secret scanner alone cannot establish that a repository is safe to publish.
 
 ## Pomodoro builds
 
+Public audit builds use `npm run build:public` and `npm run build:web:public`
+inside `memora-pomodoro`. They explicitly select `MEMORA_PUBLIC_BUILD=true`,
+discard any scene key from the child process and replace Ninja with the procedural
+Orbit scene. No service credentials are required. This mode is checked by CI even
+on fork PRs; it does not change the project's license or claim byte-identical
+reproduction of an official installer. To view the web build locally, build the
+parent site, run `node server.js`, and open
+`http://127.0.0.1:3000/app/pomodoro/index.html?assetSource=origin`.
+
+The following commands are for the official artwork build:
+
 From the repository root:
 
 ```bash

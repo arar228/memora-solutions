@@ -2,8 +2,9 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { createHash, randomBytes } from 'node:crypto';
+import { createHash } from 'node:crypto';
 import { entryModules } from '../build/entryModules.js';
+import { sceneDefines } from '../build/sceneDefines.js';
 
 // Web-сборка того же renderer'а: результат кладётся прямо в public/ сайта,
 // страница /pomodoro встраивает его во фрейм. Одна кодовая база на десктоп и
@@ -52,11 +53,7 @@ function resilientWebAssetsPlugin() {
 
 export default defineConfig(({ command, mode }) => {
   const sceneKey = loadEnv(mode, __dirname, 'MEMORA_').MEMORA_SCENE_KEY || process.env.MEMORA_SCENE_KEY;
-  if (!sceneKey) throw new Error('MEMORA_SCENE_KEY is required (use .env.local or a protected build secret).');
-  const sceneKeyBytes = Buffer.from(sceneKey, 'base64');
-  if (sceneKeyBytes.length !== 32) throw new Error('MEMORA_SCENE_KEY must decode to 32 bytes.');
-  const sceneKeyMask = randomBytes(32);
-  const sceneKeyMasked = Buffer.from(sceneKeyBytes.map((byte, index) => byte ^ sceneKeyMask[index]));
+  const artworkDefines = sceneDefines(sceneKey, process.env.MEMORA_PUBLIC_BUILD === 'true');
   const webSceneUrl = command === 'build'
     ? `${productionAssetBase}assets/${webSceneFileName}`
     : `./assets/${webSceneFileName}`;
@@ -101,8 +98,7 @@ export default defineConfig(({ command, mode }) => {
     __APP_VERSION__: JSON.stringify(pkg.version),
     __IS_WEB__: 'true',
     __WEB_NINJA_SCENE_URL__: JSON.stringify(webSceneUrl),
-    __MEMORA_SCENE_KEY_A__: JSON.stringify(sceneKeyMask.toString('base64')),
-    __MEMORA_SCENE_KEY_B__: JSON.stringify(sceneKeyMasked.toString('base64')),
+    ...artworkDefines,
   },
   build: {
     outDir: webOutDir,

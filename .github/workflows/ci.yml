@@ -69,5 +69,9 @@ jobs:
       - run: npm ci
       - run: npm audit --audit-level=high
       - run: npx tsc --noEmit
+      - name: Build public desktop and web without credentials
+        run: npm run build:public && npm run build:web:public
       - run: npm run build
+        if: env.MEMORA_SCENE_KEY != ''
       - run: npm run build:web
+        if: env.MEMORA_SCENE_KEY != ''

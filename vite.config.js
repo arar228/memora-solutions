@@ -24,6 +24,9 @@ export default defineConfig(({ command }) => {
       'import.meta.env.POMODORO_RELEASE': JSON.stringify(pomodoroRelease),
     },
     plugins: [react(), resilientBootPlugin()],
+    // Pomodoro is an independent app with its own React version. Only scan the
+    // website entry when preparing development dependencies.
+    optimizeDeps: { entries: ['index.html'] },
     build: {
       // Stable groups let browsers cache the framework separately from pages.
       // The HTML bootloader uses bounded CDN attempts and same-origin recovery.

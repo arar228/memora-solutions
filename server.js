@@ -402,6 +402,7 @@ async function handleAdminApi(req, res, pathname, url) {
         INVALID_EXPIRATION: 'Укажите будущую дату окончания доступа',
         INVALID_MESSAGE: 'Введите сообщение',
         SUBSCRIPTION_ACTIVE: 'Сначала отключите действующий доступ',
+        PAYMENT_IN_PROGRESS: 'Сначала завершите сверку связанного платежа; его запись сохраняется для восстановления.',
       };
       return sendJson(res, 400, { error: messages[error.message] || 'Операция не выполнена' });
     }
@@ -689,6 +690,9 @@ const TRAVEL_ERROR_STATUS = {
   ALREADY_ACTIVE: 409,
   INVALID_PAYMENT_METHOD: 400,
   PAYMENT_IN_PROGRESS: 409,
+  PAYMENT_REVIEW_REQUIRED: 409,
+  PAYMENT_ATTEMPT_EXPIRED: 409,
+  SUBSCRIPTION_CAPACITY: 503,
   STORAGE_UNAVAILABLE: 503,
   SUBSCRIPTIONS_NOT_CONFIGURED: 503,
   PAYMENT_PROVIDER_ERROR: 502,
@@ -793,6 +797,9 @@ async function handlePublicTravelApi(req, res, pathname) {
       ALREADY_ACTIVE: 'Подписка уже активна',
       INVALID_PAYMENT_METHOD: 'Выберите доступный способ оплаты',
       PAYMENT_IN_PROGRESS: 'Предыдущий платёж обрабатывается. Проверьте статус через несколько секунд.',
+      PAYMENT_REVIEW_REQUIRED: 'Платёж требует сверки с ЮKassa. Повторное списание приостановлено; обратитесь в поддержку.',
+      PAYMENT_ATTEMPT_EXPIRED: 'Попытка оплаты завершена. Можно открыть новую форму оплаты.',
+      SUBSCRIPTION_CAPACITY: 'Регистрация новых подписок временно приостановлена. Обратитесь в поддержку.',
       STORAGE_UNAVAILABLE: 'Хранилище подписок временно недоступно',
       SUBSCRIPTIONS_NOT_CONFIGURED: 'Платные уведомления ещё не подключены',
       PAYMENT_PROVIDER_ERROR: 'Платёжный сервис временно недоступен',

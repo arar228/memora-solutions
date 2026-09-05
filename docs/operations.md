@@ -50,35 +50,84 @@ built with `npm run dist:win` from the same directory.
 
 ### Payment delivery and recovery
 
-Payment events are verified using an authenticated YooKassa GET request. The
-provider payment ID must match the subscription's stored pending ID; amount,
-currency, customer and subscription metadata remain mandatory checks. Confirmed
-successes and cancellations are idempotent and duplicate events are acknowledged.
+Before creating a payment, the server commits a request journal entry into the
+subscription's PostgreSQL record. The entry contains a UUID idempotence key and
+the exact JSON request bytes, including amount, receipt, customer, payment method
+and metadata. Settings changes and restarts preserve that snapshot. A second
+transaction claims a 90-second submission lease; the provider POST starts only
+after this commit. Concurrent tabs/processes share the same database lock and key.
 
-A valid event arriving before its pending ID is saved receives HTTP 503 with a
-retry hint. HTTP 200 is sent only after processing or intentional ignoring of an
-unrelated event. YooKassa uses the HTTP status, ignores the response body, and
-retries non-200 responses for up to 24 hours; see its
+Payment events are verified using an authenticated YooKassa GET. They must match
+the stored pending ID or the journal request nonce, plus amount, currency,
+customer and subscription metadata. This lets an early webhook bind the provider
+ID before the POST response arrives. Terminal results and duplicate IDs are
+handled in the same transaction. A late response preserves a committed result.
+Legacy events without either association receive HTTP 503 for provider redelivery.
+YooKassa retries non-200 webhook responses for up to 24 hours; see its
 [webhook documentation](https://yookassa.ru/developers/using-api/webhooks).
 
-At startup and every five minutes the server reconciles stored pending payments
-via GET only. Each round-robin batch contains at most 12 payments, with three
-concurrent provider requests. Provider deadlines cover both headers and JSON
-body. A failed payment check leaves its pending ID available for the next run.
-Only persistent subscription storage is accepted for payment operations.
+At startup and every five minutes the server reconciles at most 12 requests in a
+round-robin batch, with three concurrent workers. Known IDs use GET only. An
+unknown result uses the persisted POST bytes and key, subject to the lease and
+exponential retry delay (one minute to one hour). Provider deadlines include the
+response body. Persistent storage is required for every journal mutation.
 
-An outstanding recovery gap remains: if the process crashes after YooKassa creates
-a payment but before its ID is committed, the GET-only reconciler cannot discover
-that ID. A durable payment-request/outbox record and operator reconciliation are
-still required for this case. Do not blindly retry an old creation request:
 [YooKassa idempotence](https://yookassa.ru/developers/using-api/interaction-format)
-is guaranteed for 24 hours. These changes do not introduce automatic recharging
-to resolve unknown payments.
+is guaranteed for 24 hours. Automatic POST recovery stops 23 hours after journal
+creation, leaving a one-hour margin; server clock synchronization is required.
+An ambiguous expired request, an explicit provider rejection or cancellation
+during an unknown request sets `paymentReviewRequired`. Checkout and new renewal
+creation stop until the payment is reconciled. A never-submitted expired request
+is abandoned; an explicit new checkout may prepare a fresh request. Each billing
+period gets at most one automatic renewal request, including canceled results.
+
+Operator procedure for `paymentReviewRequired`: locate the existing transaction
+in the merchant dashboard/history and verify its subscription/customer/nonce and
+amount. Have the provider redeliver its terminal webhook (the server verifies it
+by GET). Never clear an ambiguous journal or create a new key merely to retry.
+For an administrative access override, late payment evidence is retained for
+manual resolution; it does not reactivate the revoked access or issue a refund.
+Admin deletion is blocked while payment review or an unresolved request exists.
+Current request bodies are server-only; admin responses expose a compact summary.
+History is bounded to 120 summaries and 60 applied/resolved IDs per subscription;
+provider history and protected database backups remain necessary audit records.
+
+#### Existing subscriptions
+
+After deploying a server reporting `paymentJournalVersion: 1` from
+`/api/travel/capabilities`, run the following as the application user with its
+server-only environment:
+
+```bash
+node --env-file=/etc/memora-solutions.env scripts/migrate-payment-journal.mjs --dry-run
+node --env-file=/etc/memora-solutions.env scripts/migrate-payment-journal.mjs --apply
+```
+
+Take a database backup first. The migration performs a bounded, fully paginated
+provider-history GET scan and upgrades only records with no unresolved payment,
+pending ID, renewal marker or admin override. Successful payments, ambiguous
+metadata and incomplete history require operator review. A concurrent subscription
+change aborts the transaction. Output contains counts only. This migration creates
+no payments or Telegram messages and preserves subscription access/expiry.
+
+#### Rollback compatibility
+
+Once a journal request exists, rollback must keep a journal-aware payment engine.
+Older code can ignore the recorded key and create another charge. If emergency
+rollback to pre-journal code is necessary, first stop the application and updater,
+preserve the live database, and remove `YOOKASSA_SECRET_KEY` and `YOOKASSA_SHOP_ID`
+from that old release's runtime environment. Keep payment creation disabled until
+the journal-aware release is restored and unresolved requests are reconciled.
+Do not automatically restore an old database snapshot over a live payment ledger.
+The legacy VPS updater currently restores only static assets on health failure;
+full application/configuration rollback is a separate deployment follow-up.
 
 Regression tests use mocked provider/Telegram boundaries and synthetic data:
-`npm run test:payments` and `npm run test:reliability`. They cover early success
-and cancellation, duplicate delivery, lost webhook recovery, database failure,
-invalid payment fields, late renewal responses and stalled provider bodies.
+`npm run test:payments` and `npm run test:reliability`. They cover early and lost
+events, concurrent instances, simulated database failures/restarts, frozen request
+replay, deadline expiry, opt-out, admin overrides and legacy migration eligibility.
+These are deterministic service tests, not live charges or a physical VPS crash
+test. A restore drill and offsite backups remain operational requirements.
 
 ### Runtime credentials
 

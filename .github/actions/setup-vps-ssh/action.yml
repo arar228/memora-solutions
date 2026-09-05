@@ -1,0 +1,56 @@
+name: Prepare VPS SSH key
+description: Configure key authentication and verify the pinned ED25519 server identity.
+inputs:
+  private-key:
+    description: Dedicated private key from GitHub Actions secrets.
+    required: true
+  host:
+    description: Deployment host.
+    required: true
+  port:
+    description: SSH port.
+    required: true
+  fingerprint:
+    description: Pinned ED25519 SHA256 host fingerprint.
+    required: true
+outputs:
+  key-path:
+    description: Private key file in the temporary runner directory.
+    value: ${{ steps.prepare.outputs.key-path }}
+  known-hosts-path:
+    description: Verified known_hosts file.
+    value: ${{ steps.prepare.outputs.known-hosts-path }}
+runs:
+  using: composite
+  steps:
+    - id: prepare
+      shell: bash
+      env:
+        VPS_SSH_KEY: ${{ inputs.private-key }}
+        VPS_HOST: ${{ inputs.host }}
+        VPS_PORT: ${{ inputs.port }}
+        VPS_FINGERPRINT: ${{ inputs.fingerprint }}
+      run: |
+        set -euo pipefail
+        test -n "$VPS_SSH_KEY"
+        key_dir=$(mktemp -d "$RUNNER_TEMP/memora-vps-ssh.XXXXXX")
+        chmod 700 "$key_dir"
+        umask 077
+        printf '%s\n' "$VPS_SSH_KEY" > "$key_dir/id_ed25519"
+        ssh-keygen -y -f "$key_dir/id_ed25519" > /dev/null
+
+        host_keys=''
+        for attempt in 1 2 3 4 5; do
+          host_keys=$(ssh-keyscan -t ed25519 -T 10 -p "$VPS_PORT" "$VPS_HOST" 2>/dev/null || true)
+          [ -n "$host_keys" ] && break
+          sleep 3
+        done
+        test -n "$host_keys"
+        actual=$(printf '%s\n' "$host_keys" | ssh-keygen -lf - -E sha256 | awk '{ print $2 }' | sort -u)
+        if [ "$actual" != "$VPS_FINGERPRINT" ]; then
+          echo "::error::VPS host fingerprint mismatch"
+          exit 1
+        fi
+        printf '%s\n' "$host_keys" > "$key_dir/known_hosts"
+        printf 'key-path=%s\n' "$key_dir/id_ed25519" >> "$GITHUB_OUTPUT"
+        printf 'known-hosts-path=%s\n' "$key_dir/known_hosts" >> "$GITHUB_OUTPUT"

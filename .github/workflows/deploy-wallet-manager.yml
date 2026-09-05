@@ -19,7 +19,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+
+      - name: Prepare key authentication
+        id: ssh
+        uses: ./.github/actions/setup-vps-ssh
+        with:
+          private-key: ${{ secrets.MEMORA_VPS_SSH_KEY }}
+          host: 23.94.105.127
+          port: '22'
+          fingerprint: SHA256:nLvPFGCkQO01+MrsLWHZkCsgMI7BOU9b6nRAzQ/zMGU
 
       - name: Prepare release
         env:
@@ -36,35 +45,23 @@ jobs:
 
       - name: Deploy isolated bot service
         env:
-          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          VPS_SSH_KEY_FILE: ${{ steps.ssh.outputs.key-path }}
+          VPS_KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known-hosts-path }}
           VPS_HOST: 23.94.105.127
           VPS_PORT: '22'
-          VPS_FINGERPRINT: SHA256:nLvPFGCkQO01+MrsLWHZkCsgMI7BOU9b6nRAzQ/zMGU
         run: |
           set -euo pipefail
-          test -n "$VPS_PASSWORD"
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq sshpass
-          install -d -m 700 "$HOME/.ssh"
-
-          host_keys=''
-          for attempt in 1 2 3 4 5; do
-            host_keys=$(ssh-keyscan -T 10 -p "$VPS_PORT" "$VPS_HOST" 2>/dev/null || true)
-            [ -n "$host_keys" ] && break
-            sleep 3
-          done
-          test -n "$host_keys"
-          actual_fingerprints=$(printf '%s\n' "$host_keys" | ssh-keygen -lf - -E sha256 | awk '{ print $2 }')
-          printf '%s\n' "$actual_fingerprints" | grep -Fxq "$VPS_FINGERPRINT"
-          printf '%s\n' "$host_keys" > "$HOME/.ssh/known_hosts"
-          chmod 600 "$HOME/.ssh/known_hosts"
-
-          export SSHPASS="$VPS_PASSWORD"
-          sshpass -e scp -P "$VPS_PORT" -o StrictHostKeyChecking=yes \
+          test -s "$VPS_SSH_KEY_FILE"
+          scp -i "$VPS_SSH_KEY_FILE" -P "$VPS_PORT" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$VPS_KNOWN_HOSTS_FILE" -o HostKeyAlgorithms=ssh-ed25519 \
             /tmp/memora-wallet-manager.tgz /tmp/memora-wallet-manager.env \
             "root@$VPS_HOST:/tmp/"
 
-          sshpass -e ssh -p "$VPS_PORT" -o StrictHostKeyChecking=yes "root@$VPS_HOST" <<'REMOTE'
+          ssh -i "$VPS_SSH_KEY_FILE" -p "$VPS_PORT" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$VPS_KNOWN_HOSTS_FILE" -o HostKeyAlgorithms=ssh-ed25519 \
+            -o ConnectTimeout=15 "root@$VPS_HOST" <<'REMOTE'
           set -euo pipefail
           export DEBIAN_FRONTEND=noninteractive
 

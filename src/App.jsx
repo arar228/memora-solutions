@@ -135,7 +135,8 @@ function ScrollToTop() {
     const scrollToAnchor = () => {
       const target = document.getElementById(decodeURIComponent(hash.slice(1)));
       if (target) {
-        target.scrollIntoView({ block: 'start' });
+        // Cross-route layout changes can move a smooth scroll's destination.
+        target.scrollIntoView({ block: 'start', behavior: 'instant' });
         return;
       }
       attempts += 1;
@@ -145,6 +146,12 @@ function ScrollToTop() {
     return () => window.clearTimeout(timer);
   }, [pathname, hash]);
   return null;
+}
+
+function SiteAmbience() {
+  const { pathname } = useLocation();
+  // Keep the data studies visually quiet and stop decorative background work.
+  return pathname === '/attention-lab' ? null : <GoldParticles />;
 }
 
 function GlobalLoaderHider() {
@@ -187,7 +194,7 @@ export default function App() {
         <GlobalLoaderHider />
         <ScrollToTop />
         <RouteMetadata />
-        <GoldParticles />
+        <SiteAmbience />
         <Header />
         <ErrorBoundary>
           <Suspense fallback={<LoadingFallback />}>

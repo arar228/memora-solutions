@@ -159,9 +159,15 @@ stage=$(mktemp -d "$prefix/opt/memora-release-staging.XXXXXX")
 chmod 0750 "$stage"
 own_app "$stage"
 origin=$(as_app git -C "$app_dir" remote get-url origin)
-as_app git clone --no-hardlinks --no-checkout "$app_dir" "$stage/app"
+as_app git clone --no-local --no-checkout "$app_dir" "$stage/app"
 as_app git -C "$stage/app" remote set-url origin "$origin"
+# A clone transfers local branch history; the candidate can exist only in the
+# source's remote-tracking refs. Explicitly fetch the checked target into staging.
+as_app git -C "$stage/app" fetch origin "$target"
 as_app git -C "$stage/app" checkout -B master "$target"
+# Carry the fetched CDN cache into the next checkout instead of downloading its
+# retained asset history from GitHub again on every subsequent release.
+as_app git -C "$stage/app" fetch "$app_dir" +refs/remotes/origin/cdn:refs/remotes/origin/cdn
 # npm lifecycle scripts receive a clean environment, never runtime credentials.
 if [[ -n "$prefix" ]]; then as_app env -i PATH="$PATH" MEMORA_DEPLOY_TEST_ROOT="$prefix" npm --prefix "$stage/app" ci;
 else env -i PATH="$PATH" /usr/sbin/runuser -u memora -- timeout 600 npm --prefix "$stage/app" ci; fi

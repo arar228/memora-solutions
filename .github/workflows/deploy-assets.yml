@@ -38,6 +38,15 @@ jobs:
           npm run test:reliability
 
       - name: Build production assets
+        working-directory: memora-pomodoro
+        run: |
+          npm ci
+          npx tsc --noEmit
+          npm run build:web
+        env:
+          MEMORA_SCENE_KEY: ${{ secrets.MEMORA_SCENE_KEY }}
+
+      - name: Build website with current Pomodoro assets
         run: npm run build
         env:
           VITE_ASSET_BASE: ./

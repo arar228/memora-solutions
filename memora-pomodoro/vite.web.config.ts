@@ -8,6 +8,8 @@ import { createHash, randomBytes } from 'node:crypto';
 // страница /pomodoro встраивает его во фрейм. Одна кодовая база на десктоп и
 // web — правка в renderer видна в обеих версиях после пересборки.
 const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf8'));
+const browserBootSource = readFileSync(resolve(__dirname, '../build/browserBoot.js'), 'utf8')
+  .replace('export async function browserBoot', 'async function browserBoot');
 const webOutDir = resolve(__dirname, '../public/app/pomodoro');
 const productionAssetBase = '/app/pomodoro/';
 const webSceneDir = resolve(webOutDir, 'assets');
@@ -34,52 +36,8 @@ function resilientWebAssetsPlugin() {
         const stylesheet = output.find((item) => item.type === 'asset' && item.fileName.endsWith('.css'))?.fileName;
         if (!entry || !stylesheet) throw new Error('Pomodoro web entry assets were not found');
 
-        const loader = `<script>
-  const bases = {
-    github: 'https://arar228.github.io/memora-solutions/app/pomodoro/',
-    jsdelivr: 'https://cdn.jsdelivr.net/gh/arar228/memora-solutions@cdn/app/pomodoro/',
-    origin: new URL('./', location.href).href
-  };
-  const preferred = new URLSearchParams(location.search).get('assetSource');
-  const order = [...new Set([preferred, 'origin', 'github', 'jsdelivr'])]
-    .filter((name) => name && bases[name]);
-
-  function retryingElement(kind, path, index = 0) {
-    if (index >= order.length) {
-      const root = document.getElementById('root');
-      if (root) root.innerHTML = '<button type="button" onclick="location.reload()" style="margin:24px;padding:12px 18px;border:0;border-radius:10px;background:#31c7d9;color:#101115;font:700 16px Arial;cursor:pointer">Повторить загрузку таймера</button>';
-      return;
-    }
-
-    const element = document.createElement(kind === 'script' ? 'script' : 'link');
-    if (kind === 'script') {
-      element.type = 'module';
-      element.src = new URL(path, bases[order[index]]).href;
-    } else {
-      element.rel = 'stylesheet';
-      element.href = new URL(path, bases[order[index]]).href;
-    }
-    element.crossOrigin = 'anonymous';
-
-    let settled = false;
-    const timer = setTimeout(() => fail(), 2500);
-    const fail = () => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      element.remove();
-      retryingElement(kind, path, index + 1);
-    };
-    element.onload = () => {
-      settled = true;
-      clearTimeout(timer);
-    };
-    element.onerror = fail;
-    document.head.appendChild(element);
-  }
-
-  retryingElement('style', ${JSON.stringify(stylesheet)});
-  retryingElement('script', ${JSON.stringify(entry)});
+        const loader = `<script type="module" data-memora-resilient-boot>
+(${browserBootSource})(${JSON.stringify({ entry, styles: [stylesheet], subdirectory: 'app/pomodoro/' }).replace(/</g, '\\u003c')});
 </script>`;
 
         return html
@@ -103,8 +61,8 @@ export default defineConfig(({ command, mode }) => {
     : `./assets/${webSceneFileName}`;
   return {
   root: resolve(__dirname, 'src/web'),
-  // Keep the primary assets on the same atomic release as the iframe document.
-  // The loader retains GitHub Pages and jsDelivr as secondary recovery sources.
+  // Hashed files are published with the iframe document. The shared bootloader
+  // selects the inherited CDN source and bounds fallback attempts.
   base: command === 'build' ? productionAssetBase : './',
   plugins: [
     {

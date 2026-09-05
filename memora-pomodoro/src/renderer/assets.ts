@@ -1,6 +1,11 @@
 import protectedNinjaScene from '../../assets/ninja-tomato.scene?raw';
 import appIconUrl from '../../assets/icon.png?url';
 import { IS_WEB } from '../shared/target';
+import { fetchAssetText } from '../shared/fetch-asset.mjs';
+
+declare global {
+  interface Window { __memoraAssetSources?: Array<{ name: string; base: string }> }
+}
 
 declare const __MEMORA_SCENE_KEY_A__: string;
 declare const __MEMORA_SCENE_KEY_B__: string;
@@ -24,9 +29,11 @@ async function loadProtectedNinjaScene(): Promise<string> {
     ? __WEB_NINJA_SCENE_URL__
     : '';
   if (!sceneUrl) throw new Error('Web scene asset URL is missing');
-  const response = await fetch(sceneUrl, { cache: 'force-cache' });
-  if (!response.ok) throw new Error(`Scene asset request failed (${response.status})`);
-  return response.text();
+  const localUrl = new URL(sceneUrl, location.href);
+  const relativePath = localUrl.pathname.replace(/^\/app\/pomodoro\//, '');
+  const urls = (window.__memoraAssetSources || [])
+    .map(source => new URL(relativePath, source.base).href);
+  return fetchAssetText([...urls, localUrl.href]);
 }
 
 function decodeBase64(value: string): ArrayBuffer {
@@ -52,6 +59,9 @@ async function decryptNinjaScene(): Promise<string> {
 }
 
 export function getNinjaTomatoSpritesUrl(): Promise<string> {
-  ninjaSceneUrl ??= decryptNinjaScene();
+  ninjaSceneUrl ??= decryptNinjaScene().catch(error => {
+    ninjaSceneUrl = undefined;
+    throw error;
+  });
   return ninjaSceneUrl;
 }

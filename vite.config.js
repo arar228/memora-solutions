@@ -26,7 +26,7 @@ export default defineConfig(({ command }) => {
     plugins: [react(), resilientBootPlugin()],
     build: {
       // Stable groups let browsers cache the framework separately from pages.
-      // The HTML bootloader selects the fastest healthy asset origin at runtime.
+      // The HTML bootloader uses bounded CDN attempts and same-origin recovery.
       assetsDir: 'static',
       modulePreload: false,
       rollupOptions: {

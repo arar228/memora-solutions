@@ -405,7 +405,8 @@ export function isVerifiedPaymentForSubscription(payment, subscription) {
 async function processVerifiedPayment(payment) {
   const subscriptionId = String(payment?.metadata?.subscription_id || '');
   const kind = String(payment?.metadata?.payment_kind || '');
-  if (!payment?.id || !subscriptionId || String(payment.merchant_customer_id || '') !== subscriptionId
+  if (!payment?.id || !subscriptionId
+    || (payment.merchant_customer_id != null && String(payment.merchant_customer_id) !== subscriptionId)
     || !['initial', 'renewal'].includes(kind) || payment.amount?.currency !== 'RUB'
     || !(Number(payment.amount?.value) > 0)) return { accepted: true, ignored: true };
   if (!['succeeded', 'canceled', 'pending', 'waiting_for_capture'].includes(payment.status)) return { accepted: false };

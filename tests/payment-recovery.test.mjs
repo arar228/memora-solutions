@@ -496,6 +496,30 @@ test('legacy unknown initial and renewal attempts require review instead of gues
   assert.equal(renewal.read()[0].paymentReviewRequired, true);
 });
 
+test('provider may omit the optional merchant customer field; durable nonce still binds the result', async () => {
+  const f = await fixture();
+  f.network(async (_url, options) => response(payment({ merchant_customer_id: undefined,
+    metadata: JSON.parse(options.body).metadata, status: 'pending',
+    confirmation: { confirmation_url: 'https://checkout.example.invalid/' } })));
+  const checkout = await f.api.createTravelCheckout(token, 'sbp');
+  assert.equal(checkout.confirmationUrl, 'https://checkout.example.invalid/');
+  f.network(async () => response(payment({ merchant_customer_id: undefined, metadata: f.calls[0].body.metadata })));
+  assert.equal((await f.api.handleYookassaWebhook(event())).accepted, true);
+  assert.equal(f.read()[0].status, 'active');
+  assert.equal(f.read()[0].autoRenew, false);
+});
+
+test('legacy known payment without optional customer requires exact pending ID and subscription metadata', async () => {
+  const f = await fixture([subscription({ pendingPaymentId: 'fixture-payment' })]);
+  f.network(async () => response(payment({ merchant_customer_id: undefined })));
+  assert.equal((await f.api.handleYookassaWebhook(event())).accepted, true);
+  assert.equal(f.read()[0].status, 'active');
+  const unknown = await fixture();
+  unknown.network(async () => response(payment({ merchant_customer_id: undefined })));
+  assert.equal((await unknown.api.handleYookassaWebhook(event())).accepted, false);
+  assert.equal(unknown.read()[0].status, 'awaiting_payment');
+});
+
 test('public status and admin summaries exclude the frozen receipt and idempotence key', async () => {
   const f = await fixture();
   f.network(async () => { throw new Error('fixture lost response'); });

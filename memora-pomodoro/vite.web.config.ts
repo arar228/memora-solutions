@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createHash, randomBytes } from 'node:crypto';
+import { entryModules } from '../build/entryModules.js';
 
 // Web-сборка того же renderer'а: результат кладётся прямо в public/ сайта,
 // страница /pomodoro встраивает его во фрейм. Одна кодовая база на десктоп и
@@ -37,7 +38,7 @@ function resilientWebAssetsPlugin() {
         if (!entry || !stylesheet) throw new Error('Pomodoro web entry assets were not found');
 
         const loader = `<script type="module" data-memora-resilient-boot>
-(${browserBootSource})(${JSON.stringify({ entry, styles: [stylesheet], subdirectory: 'app/pomodoro/' }).replace(/</g, '\\u003c')});
+(${browserBootSource})(${JSON.stringify({ entry, styles: [stylesheet], modules: entryModules(context.bundle, entry), subdirectory: 'app/pomodoro/' }).replace(/</g, '\\u003c')});
 </script>`;
 
         return html
@@ -63,7 +64,9 @@ export default defineConfig(({ command, mode }) => {
   root: resolve(__dirname, 'src/web'),
   // Hashed files are published with the iframe document. The shared bootloader
   // selects the inherited CDN source and bounds fallback attempts.
-  base: command === 'build' ? productionAssetBase : './',
+  // CSS fonts and JS-imported images resolve beside the selected CDN module,
+  // including GitHub Pages' repository prefix. Absolute paths lost that prefix.
+  base: './',
   plugins: [
     {
       name: 'use-compact-web-icon',

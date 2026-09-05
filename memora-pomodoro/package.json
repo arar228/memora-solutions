@@ -14,7 +14,7 @@
         "dist:win": "electron-vite build && electron-builder --win",
         "dist:mac": "electron-vite build && electron-builder --mac",
         "dist:linux": "electron-vite build && electron-builder --linux",
-        "build:web": "vite build --config vite.web.config.ts",
+        "build:web": "vite build --config vite.web.config.ts && node ../scripts/check-pomodoro-assets.mjs",
         "protect:scene": "node scripts/protect-scene.cjs"
     },
     "dependencies": {

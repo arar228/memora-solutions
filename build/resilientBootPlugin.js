@@ -1,6 +1,7 @@
 import { rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { readFileSync } from 'node:fs';
+import { entryModules } from './entryModules.js';
 
 // Serialize source, not the bundled function: Vite may inject build-only helpers.
 const browserBootSource = readFileSync(new URL('./browserBoot.js', import.meta.url), 'utf8')
@@ -60,13 +61,14 @@ export function resilientBootPlugin() {
         if (!entryMatch) throw new Error('Production entry module was not found');
 
         const entry = cleanAssetPath(entryMatch[1]);
+        const modules = entryModules(context.bundle, entry);
         const stylesheetTags = [...html.matchAll(STYLESHEET_RE)];
         const styles = stylesheetTags.map((match) => cleanAssetPath(match[1]));
 
         const loader = `
 <meta name="memora-entry" content="${entry}">
 <script type="module" data-memora-resilient-boot>
-(${browserBootSource})(${escapeInlineJson({ entry, styles })});
+(${browserBootSource})(${escapeInlineJson({ entry, styles, modules })});
 </script>`;
 
         let transformed = html.replace(RESILIENT_BOOT_RE, loader);

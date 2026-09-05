@@ -123,8 +123,9 @@ preserve the live database, and remove `YOOKASSA_SECRET_KEY` and `YOOKASSA_SHOP_
 from that old release's runtime environment. Keep payment creation disabled until
 the journal-aware release is restored and unresolved requests are reconciled.
 Do not automatically restore an old database snapshot over a live payment ledger.
-The legacy VPS updater currently restores only static assets on health failure;
-full application/configuration rollback is a separate deployment follow-up.
+The transactional VPS updater restores the complete prior application and runtime
+configuration, while preserving the live database. Payment schema changes must
+remain compatible with that prior release or use an explicit maintenance plan.
 
 Regression tests use mocked provider/Telegram boundaries and synthetic data:
 `npm run test:payments` and `npm run test:reliability`. They cover early and lost
@@ -132,6 +133,60 @@ events, concurrent instances, simulated database failures/restarts, frozen reque
 replay, deadline expiry, opt-out, admin overrides and legacy migration eligibility.
 These are deterministic service tests, not live charges or a physical VPS crash
 test. A restore drill and offsite backups remain operational requirements.
+
+### Verified VPS releases
+
+Code releases are pinned to a full commit SHA. Both `CI` and `Deploy production
+assets` must succeed for that SHA on master; the workflow checks before uploading
+the recovery engine, and the VPS updater checks independently before staging.
+Missing/pending checks or GitHub API failures leave the active release untouched.
+The updater finds the matching `assets: <SHA>` snapshot in the last 100 CDN commits.
+It never deploys a newer master commit merely because an older workflow finished.
+
+Preparation uses a separate checkout under `/opt/memora-release-staging.*`:
+dependencies are installed with a clean environment, built assets are extracted,
+the entry bundle/server syntax/Caddy configuration are checked, and free space
+is checked before staging. Production keeps running during preparation. The active
+checkout must have no tracked modifications and its HEAD must match its deployed
+marker. Keep runtime data outside the application directory; the current server
+stores shared user/financial data in PostgreSQL and runtime configuration in `/etc`.
+
+Switching briefly stops the service and moves the **whole** old application into
+a root-private `release-*` directory under `/opt/memora-release-backups`. The new
+code, dependencies, assets and marker move together. The environment patch has a
+strict key allowlist; environment and Caddy snapshots are restored along with the
+old app when startup, reload or health verification fails. The previous directory
+is retained after success. No database snapshot is restored automatically.
+
+`/var/lib/memora-deploy/transaction-v1` records an unfinished switch with filesystem
+syncs before mutation. The next updater invocation recovers it before looking at
+the checkout. For an explicit recovery without starting another release:
+
+```bash
+sudo /usr/local/sbin/memora-update --recover-only
+```
+
+The record is retained if recovery itself fails its health check. After a failed
+preparation/switch the timer avoids repeatedly rebuilding that same SHA; review the
+cause, then pass the full SHA explicitly for a checked retry. The root-owned
+updater is the recovery control plane: the workflow installs it atomically from the
+checked commit, and app rollback keeps that recovery engine. Changes to its
+transaction format require backward-compatible recovery.
+
+The four public feed JSON files still have an explicit data-only fast path for
+the scheduled `[skip ci]` bot commits. That allowlist permits no executable code
+change. It is separate from the checked code-release path; moving feeds off master
+and enabling mandatory branch CI/PR checks remain follow-up work.
+
+Run `bash deploy/vps/test-memora-update.sh` as a regular Linux user. The fixture uses
+real Git/directory moves and fake npm/network/systemd/Caddy commands. It covers
+failed CI, failed dependencies, missing bundles, health/config rollback, failed
+recovery, SIGKILL between renames, successful release and rejected environment
+keys. It creates disposable synthetic fixtures under `/tmp/memora-release-test.*`;
+it never stops a production service. A real power-loss/host restore drill remains
+separate. Backups and failed staging directories are retained for review: monitor
+disk space and archive/remove reviewed releases explicitly; offsite backup is still
+required for loss of the VPS itself.
 
 ### Runtime credentials
 

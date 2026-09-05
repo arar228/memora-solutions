@@ -15,6 +15,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - run: bash -n deploy/vps/memora-update.sh && bash deploy/vps/test-memora-update.sh
+
   wallet:
     runs-on: ubuntu-latest
     steps:

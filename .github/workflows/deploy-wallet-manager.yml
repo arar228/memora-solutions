@@ -36,7 +36,8 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$WALLET_BOT_TOKEN"
-          python -m py_compile services/memora-wallet-manager/bot.py
+          python3 -m unittest discover -s services/memora-wallet-manager/tests -v
+          python3 -m py_compile services/memora-wallet-manager/bot.py services/memora-wallet-manager/storage.py
           tar -C services/memora-wallet-manager \
             --exclude='__pycache__' \
             -czf /tmp/memora-wallet-manager.tgz .
@@ -66,11 +67,46 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive
 
           wallet_debug() {
-            systemctl status memora-wallet-manager.service --no-pager || true
+            systemctl show memora-wallet-manager.service -p ActiveState -p SubState -p Result -p NRestarts || true
             journalctl -u memora-wallet-manager.service -n 80 --no-pager \
-              | sed -E 's/[0-9]{8,}:[A-Za-z0-9_-]{20,}/[REDACTED_BOT_TOKEN]/g' || true
+              | sed -E 's/[0-9]{8,}:[A-Za-z0-9_-]{20,}/[REDACTED_BOT_TOKEN]/g; s/\(Update:.*$/[UPDATE_REDACTED]/' || true
           }
-          trap wallet_debug ERR
+          wallet_switched=0
+          wallet_stopped=0
+          wallet_was_active=0
+          systemctl is-active --quiet memora-wallet-manager.service && wallet_was_active=1
+          wallet_config_backup=$(mktemp -d /var/backups/memora-wallet-config.XXXXXX)
+          chmod 700 "$wallet_config_backup"
+          for file in /etc/memora-wallet-manager.env /etc/systemd/system/memora-wallet-manager.service; do
+            if [ -f "$file" ]; then cp -a "$file" "$wallet_config_backup/"; fi
+          done
+          wallet_rollback() {
+            result=$?
+            trap - ERR
+            wallet_debug
+            if [ "$wallet_switched" -eq 1 ]; then
+              systemctl stop memora-wallet-manager.service || true
+              if [ -d /opt/memora-wallet-manager ]; then
+                mv /opt/memora-wallet-manager "$wallet_config_backup/failed-release"
+              fi
+              if [ -d /opt/memora-wallet-manager.previous ]; then
+                mv /opt/memora-wallet-manager.previous /opt/memora-wallet-manager
+              fi
+              if [ -f "$wallet_config_backup/memora-wallet-manager.env" ]; then
+                cp -a "$wallet_config_backup/memora-wallet-manager.env" /etc/memora-wallet-manager.env
+              fi
+              if [ -f "$wallet_config_backup/memora-wallet-manager.service" ]; then
+                cp -a "$wallet_config_backup/memora-wallet-manager.service" /etc/systemd/system/memora-wallet-manager.service
+              fi
+              systemctl daemon-reload
+            fi
+            if [ "$wallet_stopped" -eq 1 ] && [ "$wallet_was_active" -eq 1 ]; then
+              systemctl start memora-wallet-manager.service || true
+              systemctl is-active --quiet memora-wallet-manager.service || echo '::error::Wallet rollback needs operator attention'
+            fi
+            exit "$result"
+          }
+          trap wallet_rollback ERR
 
           apt-get update -qq
           apt-get install -y -qq python3-venv
@@ -80,12 +116,6 @@ jobs:
             --shell /usr/sbin/nologin memora-wallet
           install -d -o memora-wallet -g memora-wallet -m 750 /var/lib/memora-wallet-manager
           install -d -o root -g root -m 700 /var/backups/memora-wallet-manager
-          if [ -s /var/lib/memora-wallet-manager/user_data.json ]; then
-            cp -a /var/lib/memora-wallet-manager/user_data.json \
-              "/var/backups/memora-wallet-manager/user_data-$(date -u +%Y%m%dT%H%M%SZ).json"
-            find /var/backups/memora-wallet-manager -type f -name 'user_data-*.json' \
-              -printf '%T@ %p\n' | sort -nr | tail -n +15 | cut -d' ' -f2- | xargs -r rm -f
-          fi
           install -d -o root -g root -m 755 /opt/memora-wallet-manager
           rm -rf /opt/memora-wallet-manager.release
           install -d -o root -g root -m 755 /opt/memora-wallet-manager.release
@@ -95,13 +125,35 @@ jobs:
           /opt/memora-wallet-manager.release/.venv/bin/pip install \
             --disable-pip-version-check --no-cache-dir -r /opt/memora-wallet-manager.release/requirements.txt
           /opt/memora-wallet-manager.release/.venv/bin/python -m py_compile \
-            /opt/memora-wallet-manager.release/bot.py
+            /opt/memora-wallet-manager.release/bot.py /opt/memora-wallet-manager.release/storage.py
+          /opt/memora-wallet-manager.release/.venv/bin/python -m unittest discover \
+            -s /opt/memora-wallet-manager.release/tests -v
 
-          systemctl stop memora-wallet-manager.service 2>/dev/null || true
+          # Validate the existing database as the service user. Only a boolean
+          # result is emitted; no financial records are copied into Actions logs.
+          runuser -u memora-wallet -- /opt/memora-wallet-manager.release/.venv/bin/python -c '
+          import json, pathlib, sys
+          sys.path.insert(0, "/opt/memora-wallet-manager.release")
+          from storage import normalize_user_data
+          path = pathlib.Path("/var/lib/memora-wallet-manager/user_data.json")
+          if path.exists():
+              normalize_user_data(json.loads(path.read_bytes()))
+          elif path.with_suffix(".initialized").exists():
+              raise RuntimeError("Wallet data file is missing; restore required")
+          print("Wallet data compatibility: OK")'
+
+          if systemctl cat memora-wallet-manager.service >/dev/null 2>&1; then
+            systemctl stop memora-wallet-manager.service
+          fi
+          wallet_stopped=1
+          # Snapshot after the writer stops; retain all prior restore points.
+          tar -C /var/lib -czf "$wallet_config_backup/data.tgz" memora-wallet-manager
+          chmod 600 "$wallet_config_backup/data.tgz"
           rm -rf /opt/memora-wallet-manager.previous
           if [ -d /opt/memora-wallet-manager ]; then
             mv /opt/memora-wallet-manager /opt/memora-wallet-manager.previous
           fi
+          wallet_switched=1
           mv /opt/memora-wallet-manager.release /opt/memora-wallet-manager
           install -o root -g root -m 600 /tmp/memora-wallet-manager.env /etc/memora-wallet-manager.env
           install -o root -g root -m 644 \

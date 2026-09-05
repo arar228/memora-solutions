@@ -15,6 +15,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  wallet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: python3 -m unittest discover -s services/memora-wallet-manager/tests -v
+      - run: python3 -m py_compile services/memora-wallet-manager/bot.py services/memora-wallet-manager/storage.py
+
   site:
     runs-on: ubuntu-latest
     steps:

@@ -3,8 +3,7 @@
 #
 
 import os
-import json
-import tempfile
+from storage import UserDataStore, WalletStorageError
 # import datetime # This is shadowed by `from datetime import datetime`
 import logging
 import calendar
@@ -28,6 +27,8 @@ logging.basicConfig(
     level=logging.INFO # Change to logging.DEBUG to see more details
 )
 logger = logging.getLogger(__name__)
+# HTTP request URLs contain the Telegram token.
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 # Состояния разговора
 (
@@ -40,6 +41,7 @@ logger = logging.getLogger(__name__)
 # Файл для хранения данных пользователей
 DATA_DIR = os.environ.get("WALLET_DATA_DIR", "/var/lib/memora-wallet-manager")
 USER_DATA_FILE = os.path.join(DATA_DIR, "user_data.json")
+user_data_store = UserDataStore(USER_DATA_FILE)
 
 # Словарь для хранения задач уведомлений
 notification_tasks = {}
@@ -136,6 +138,7 @@ translations = {
         "error.end_date_before_start": "❌ Конечная дата не может быть раньше начальной.",
         "error.start_date_missing": "Ошибка: Начальная дата не найдена.",
         "error.general": "Произошла внутренняя ошибка. Пожалуйста, попробуйте позже.",
+        "error.storage": "Не удалось прочитать данные или подтвердить сохранение. Проверьте историю расходов перед повтором операции. Если ошибка повторяется, обратитесь в поддержку.",
         "error.parse_expense": "Не могу распознать команду или формат расхода.\nПримеры:\n  `100 Продукты`\n  `Такси 350`\n  `вчера 50 кофе`\n  `15.04.2024 200 Обед`",
         "error.category_word_count": "❌ Категория должна содержать от 1 до 3 слов.",
         "error.category_empty": "❌ Категория не может быть пустой.",
@@ -283,6 +286,7 @@ translations = {
         "error.end_date_before_start": "❌ End date cannot be earlier than the start date.",
         "error.start_date_missing": "Error: Start date not found.",
         "error.general": "An internal error occurred. Please try again later.",
+        "error.storage": "Could not read your data or confirm the save. Check your expense history before retrying. Contact support if the error persists.",
         "error.parse_expense": "Could not recognize command or expense format.\nExamples:\n  `100 Groceries`\n  `Taxi 8.5`\n  `yesterday 5 coffee`\n  `15.04.2024 20.5 Lunch`",
         "error.category_word_count": "❌ Category must contain 1 to 3 words.",
         "error.category_empty": "❌ Category cannot be empty.",
@@ -380,65 +384,11 @@ def format_currency(amount: float, user_data: dict) -> str:
 
 # --- Data Handling Functions ---
 def load_user_data():
-    try:
-        if os.path.exists(USER_DATA_FILE):
-            with open(USER_DATA_FILE, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                for user_id, user_info in data.items():
-                    if "expenses" in user_info:
-                        for expense in user_info["expenses"]:
-                            if isinstance(expense.get("amount"), (int, str)):
-                                try: expense["amount"] = float(expense["amount"])
-                                except (ValueError, TypeError): expense["amount"] = 0.0
-                    user_info["monthly_budget"] = float(user_info.get("monthly_budget", 0.0))
-                    user_info["month_start_day"] = int(user_info.get("month_start_day", 1))
-                    user_info["notifications_enabled"] = user_info.get("notifications_enabled", True)
-                    user_info["notification_time"] = user_info.get("notification_time", "21:30")
-                    user_info["language"] = user_info.get("language", "ru")
-                    user_info["currency_symbol"] = user_info.get("currency_symbol", "руб.")
-                    user_info["timezone"] = user_info.get("timezone", "Europe/Moscow")
-                return data
-        return {}
-    except json.JSONDecodeError as e:
-        logger.error(f"Ошибка декодирования JSON: {e} в файле {USER_DATA_FILE}")
-        return {}
-    except Exception as e:
-        logger.error(f"Ошибка загрузки данных пользователей: {e}")
-        return {}
+    return user_data_store.load()
+
 
 def save_user_data(data):
-    try:
-        for user_id, user_info in data.items():
-             if "expenses" in user_info:
-                 for expense in user_info["expenses"]:
-                     if isinstance(expense.get("amount"), (int, str)):
-                         try: expense["amount"] = float(expense["amount"])
-                         except (ValueError, TypeError): expense["amount"] = 0.0
-             user_info["monthly_budget"] = float(user_info.get("monthly_budget", 0.0))
-             user_info["month_start_day"] = int(user_info.get("month_start_day", 1))
-             user_info["notifications_enabled"] = user_info.get("notifications_enabled", True)
-             user_info["notification_time"] = user_info.get("notification_time", "21:30")
-             user_info["language"] = user_info.get("language", "ru")
-             user_info["currency_symbol"] = user_info.get("currency_symbol", "руб.")
-             user_info["timezone"] = user_info.get("timezone", "Europe/Moscow")
-        os.makedirs(DATA_DIR, exist_ok=True)
-        file_descriptor, temporary_path = tempfile.mkstemp(
-            prefix="user_data.",
-            suffix=".tmp",
-            dir=DATA_DIR,
-            text=True,
-        )
-        try:
-            with os.fdopen(file_descriptor, 'w', encoding='utf-8') as file:
-                json.dump(data, file, ensure_ascii=False, indent=4)
-                file.flush()
-                os.fsync(file.fileno())
-            os.replace(temporary_path, USER_DATA_FILE)
-        finally:
-            if os.path.exists(temporary_path):
-                os.unlink(temporary_path)
-    except Exception as e:
-        logger.error(f"Ошибка сохранения данных пользователей: {e}")
+    user_data_store.save(data)
 
 def init_user_data(user_id):
     user_data = {
@@ -2489,11 +2439,12 @@ async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
         logger.debug(f"Suppressed BadRequest (Message not modified) for user {user_id}: {context.error}")
         return
 
-    # Log the full error for debugging
-    logger.error(f"Exception for user {user_id} (Update: {update}):", exc_info=context.error) 
+    # Telegram updates may contain personal financial entries.
+    logger.error("Wallet handler failed (%s)", type(context.error).__name__, exc_info=context.error)
     
     try:
-        message_text = get_translation("error.general", lang)
+        error_key = "error.storage" if isinstance(context.error, WalletStorageError) else "error.general"
+        message_text = get_translation(error_key, lang)
         keyboard = get_main_menu_keyboard(lang) # Default to main menu keyboard
 
         if isinstance(update, Update):
@@ -2644,6 +2595,7 @@ def main():
         application.run_polling(allowed_updates=Update.ALL_TYPES)
     except Exception as e:
         logger.critical(f"Bot polling encountered a critical error: {e}", exc_info=True)
+        raise
     finally:
         logger.info("Bot application stopping. Attempting to cancel active notification tasks...")
         # Create a list of tasks to cancel. Iterating over a dictionary while modifying it can be problematic.

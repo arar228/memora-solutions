@@ -103,6 +103,12 @@ changed_files=$(as_app git -C "$app_dir" diff --name-only "$deployed" "$target")
 # executable code. Code releases below always require both workflows on the SHA.
 if [[ -z "$environment_patch" && -n "$changed_files" ]] \
   && ! grep -Evq '^public/(flights|hot-deals|radar|tours)\.json$' <<< "$changed_files"; then
+  for feed in flights hot-deals radar tours; do
+    [[ "$(as_app git -C "$app_dir" ls-tree "$target" -- "public/$feed.json" | awk '{print $1}')" == 100644 ]]
+    as_app git -C "$app_dir" show "$target:public/$feed.json" | node -e '
+      let input=""; process.stdin.on("data", chunk => input += chunk);
+      process.stdin.on("end", () => JSON.parse(input));'
+  done
   as_app git -C "$app_dir" merge --ff-only "$target"
   for feed in flights hot-deals radar tours; do
     install -m 0644 "$app_dir/public/$feed.json" "$app_dir/dist/$feed.json.next"

@@ -119,6 +119,13 @@ unchanged
 echo 'PASS: failed CI leaves the active release untouched'
 
 fixture
+printf '%s\n' "$base" > "$root/target"
+expect_failure
+unchanged
+[[ ! -f "$root/service-calls" ]]
+echo 'PASS: successful CI for a different SHA cannot authorize this release'
+
+fixture
 touch "$root/npm-fails"
 expect_failure
 unchanged

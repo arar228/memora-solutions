@@ -1,0 +1,17 @@
+name: Предложение
+description: Задача пользователя и желаемый результат
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Какой результат нужен?
+      description: Для кого эта возможность и в какой ситуации пригодится?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Сценарий и критерий готовности
+      description: Опишите действия пользователя и способ проверить результат.
+    validations:
+      required: true

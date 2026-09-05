@@ -9,3 +9,6 @@
 declare const __IS_WEB__: boolean | undefined;
 
 export const IS_WEB: boolean = typeof __IS_WEB__ !== 'undefined' && __IS_WEB__ === true;
+
+declare const __MEMORA_NINJA_AVAILABLE__: boolean | undefined;
+export const HAS_NINJA_SCENE = typeof __MEMORA_NINJA_AVAILABLE__ === 'undefined' || __MEMORA_NINJA_AVAILABLE__;

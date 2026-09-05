@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { getNinjaTomatoSpritesUrl } from '../assets';
+import { HAS_NINJA_SCENE } from '../../shared/target';
 import FocusOrbitScene from './FocusOrbitScene';
 import LightGardenScene from './LightGardenScene';
 import FocusTreeScene from './FocusTreeScene';
@@ -614,7 +615,9 @@ function NinjaTomatoScene({
 }
 
 export default function Scene(props: SceneProps) {
-  if (props.style === 'ninja') return <NinjaTomatoScene {...props} />;
+  if (props.style === 'ninja') return HAS_NINJA_SCENE
+    ? <NinjaTomatoScene {...props} />
+    : <FocusOrbitScene {...props} />;
   if (props.style === 'orbit') return <FocusOrbitScene {...props} />;
   if (props.style === 'garden') return <LightGardenScene {...props} />;
   if (props.style === 'tree') return <FocusTreeScene {...props} />;

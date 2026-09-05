@@ -19,7 +19,12 @@ npm run build
 python3 -m unittest discover -s services/memora-wallet-manager/tests -v
 ```
 
-Wallet-тесты используют стандартную библиотеку Python. У Pomodoro отдельная сборка; зависимости, типы и web/desktop-пакеты описаны в [operations](docs/operations.md#pomodoro-builds). Согласуйте доступ к исходным сценам и ключу сборки до изменения их формата.
+Wallet-тесты используют стандартную библиотеку Python. У Pomodoro отдельные
+`npm run build:public` и `npm run build:web:public`: они собирают приложение с
+процедурной сценой без закрытого ключа. Эти сборки проверяет CI, включая PR из
+fork. Официальная графика проверяется дополнительно при наличии ключа в окружении.
+Команды и границы: [README](README.md#сборка-pomodoro),
+[архитектура](docs/architecture.md), [operations](docs/operations.md#pomodoro-builds).
 
 ## Данные и развёртывание
 

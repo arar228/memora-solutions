@@ -1,0 +1,34 @@
+name: Ошибка
+description: Воспроизводимая ошибка сайта, приложения или локального сервера
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Этот отчёт публичный. Пароли, токены, рабочие базы и сведения пользователей оставьте вне отчёта.
+        Уязвимость передайте приватно: https://github.com/arar228/memora-solutions/security/advisories/new
+  - type: dropdown
+    id: component
+    attributes:
+      label: Компонент
+      options: [Сайт, Лаборатория, Pomodoro web, Pomodoro desktop, Travel Radar, Kanban или управление, Wallet Manager, Другое]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Версия и окружение
+      description: Commit SHA или версия приложения, ОС, браузер; для Pomodoro — вкладка или iframe.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Шаги и результат
+      description: Как повторить, что ожидается и что получилось. Используйте синтетические данные.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Дополнительные наблюдения
+      description: Для загрузки — адрес страницы, длительность, повторяемость; приложите очищенные от персональных данных логи или скриншоты.

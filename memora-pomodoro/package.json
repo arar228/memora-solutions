@@ -8,6 +8,9 @@
     "scripts": {
         "dev": "electron-vite dev",
         "build": "electron-vite build",
+        "build:public": "node scripts/build-public.cjs desktop",
+        "build:web:public": "node scripts/build-public.cjs web",
+        "preview:public": "node scripts/build-public.cjs preview",
         "preview": "electron-vite preview",
         "pack": "electron-vite build && electron-builder --dir",
         "dist": "electron-vite build && electron-builder",

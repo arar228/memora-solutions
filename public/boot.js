@@ -49,9 +49,10 @@
     clearTimeout(window.__memoraBootTimer);
   };
 
-  window.__memoraBootTimer = setTimeout(function () {
+  function showFailure(detail) {
     if (finished) return;
-    report('timeout', lastFailure || 'application_module_not_started', '');
+    clearTimeout(window.__memoraBootTimer);
+    report('timeout', detail || lastFailure || 'application_module_not_started', '');
 
     var loader = document.getElementById('global-loader');
     if (!loader) return;
@@ -62,13 +63,14 @@
     var title = document.createElement('strong');
     title.textContent = 'Загрузка приложения остановилась';
     var message = document.createElement('div');
-    message.textContent = 'Диагностика отправлена на сервер. Повторите загрузку страницы.';
+    message.textContent = 'Повторите загрузку страницы, чтобы проверить соединение заново.';
     var button = document.createElement('button');
     button.className = 'global-loader__retry';
     button.type = 'button';
     button.textContent = 'Повторить загрузку';
     button.onclick = function () {
       var next = new URL(location.href);
+      next.searchParams.delete('__memora_boot');
       next.searchParams.set('recovery', Date.now());
       location.replace(next.href);
     };
@@ -76,5 +78,7 @@
     panel.appendChild(message);
     panel.appendChild(button);
     loader.appendChild(panel);
-  }, 12000);
+  }
+  window.__memoraBootFailed = showFailure;
+  window.__memoraBootTimer = setTimeout(showFailure, 12000);
 })();

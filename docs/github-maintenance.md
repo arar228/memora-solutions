@@ -54,6 +54,12 @@ uses explicit relative alias paths instead of the removed baseUrl option.
 Setup Node 7 remains SHA-pinned. BDay's follow-up updates aiogram, APScheduler,
 psycopg2-binary, psutil and gunicorn under the same combined CI checks.
 
+The final queue batch updates Framer Motion 13.2, Lucide React 1.40 and Globals
+17.12. Tailwind 4 is a separate CSS/PostCSS and visual migration (issue #60):
+its standalone update fails the site build. Tailwind 3.4.19 remains audited;
+major proposals are held until the CSS integration and visual regression checks
+are completed. Minor/patch and security checks remain enabled.
+
 Vite 8 / plugin-react 6 migration is deferred: electron-vite 5 accepts Vite 5/6/7,
 and plugin-react 6 requires Vite 8. Major updates for these two packages are
 explicitly ignored until a coordinated, tested migration is possible. Compatible

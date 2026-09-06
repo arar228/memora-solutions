@@ -13,18 +13,27 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-public-travel-data
+  group: publish-travel-data
   cancel-in-progress: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      FEED_BASE_REF: refs/remotes/origin/travel-data
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: master
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 20
+
+      - name: Load last-known-good data
+        id: baseline
+        run: node scripts/travel-feed-branch.mjs prepare
 
       - name: Build price radar
         id: radar
@@ -63,32 +72,12 @@ jobs:
         continue-on-error: true
         run: node scripts/validate-feeds.js radar flights
 
-      - name: Commit refreshed feeds
-        if: always()
+      - name: Publish validated data snapshot
+        if: always() && steps.baseline.outcome == 'success'
         run: |
-          if [ -f .feed-validation-fatal ]; then
-            echo "Feed validation could not restore a last-known-good file; refusing to commit." >&2
-            exit 1
-          fi
-
-          if [[ -z "$(git status --porcelain public/flights.json public/radar.json)" ]]; then
-            echo "No data changes."
-            exit 0
-          fi
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/flights.json public/radar.json
-          git commit -m "chore(data): refresh travel feeds [skip ci]"
-
-          for i in 1 2 3 4 5; do
-            git pull --rebase origin master && git push && exit 0
-            echo "push attempt $i rejected; rebasing and retrying"
-            sleep $((RANDOM % 5 + 3))
-          done
-
-          echo "failed to push refreshed feeds after 5 attempts" >&2
-          exit 1
+          node scripts/travel-feed-branch.mjs publish radar flights
 
       - name: Report partial failures
         if: always() && (steps.radar.outcome == 'failure' || steps.flights.outcome == 'failure' || steps.validate.outcome == 'failure')

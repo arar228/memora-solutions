@@ -494,9 +494,11 @@ function structure(post) {
 // price of a route. Channels rarely publish "вместо X ₽", so for FLIGHT deals
 // savings = radar reference − deal price. hotFlights carry a median (typical
 // price); cheapFrom carries the current cheapest — median wins when present.
-async function loadRefPrices() {
+async function loadRefPrices(directory = 'public') {
   try {
-    const radar = JSON.parse(await readFile(join(ROOT, 'public', 'radar.json'), 'utf8'));
+    const text = await readFile(join(ROOT, directory, 'radar.json'), 'utf8')
+      .catch(() => readFile(join(ROOT, 'public', 'radar.json'), 'utf8'));
+    const radar = JSON.parse(text);
     const ref = new Map();
     for (const c of radar.cheapFrom || []) {
       for (const it of c.items || []) ref.set(`${c.code}-${it.destination}`, it.price);

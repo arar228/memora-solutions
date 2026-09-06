@@ -250,7 +250,8 @@ function ProjectInquiry({ copy, lang }) {
     const [privacyConsent, setPrivacyConsent] = useState(false);
     const [status, setStatus] = useState('idle');
     const [error, setError] = useState('');
-    const startedAt = useRef(Date.now());
+    const startedAt = useRef(0);
+    useEffect(() => { startedAt.current = Date.now(); }, []);
     const methodLabel = copy[method];
 
     const isContactValid = useMemo(() => {

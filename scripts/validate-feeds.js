@@ -49,7 +49,9 @@ function parseFile(path) {
 }
 
 function readCommitted(path) {
-  return execFileSync('git', ['show', `HEAD:${path}`], {
+  const baseline = process.env.FEED_BASE_REF || 'HEAD';
+  if (!['HEAD', 'refs/remotes/origin/travel-data'].includes(baseline)) throw new Error('Invalid feed baseline');
+  return execFileSync('git', ['show', `${baseline}:${path}`], {
     encoding: 'utf8',
     // radar.json is several megabytes and exceeds child_process' 1 MiB default.
     maxBuffer: 32 * 1024 * 1024,

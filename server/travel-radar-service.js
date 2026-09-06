@@ -81,9 +81,19 @@ function sanitizeSubscription(subscription) {
   };
 }
 
+async function readPublishedFeed(name) {
+  // The VPS updates dist from the JSON-only data branch without touching code.
+  // Source snapshots remain a fallback for local development.
+  try {
+    return JSON.parse(await readFile(join(ROOT, 'dist', name + '.json'), 'utf8'));
+  } catch {
+    return JSON.parse(await readFile(join(ROOT, 'public', name + '.json'), 'utf8'));
+  }
+}
+
 async function readStaticFeed() {
   try {
-    return JSON.parse(await readFile(join(ROOT, 'public', 'hot-deals.json'), 'utf8'));
+    return await readPublishedFeed('hot-deals');
   } catch {
     return { updatedAt: '', deals: [], health: [] };
   }
@@ -91,7 +101,7 @@ async function readStaticFeed() {
 
 async function readRawItems() {
   try {
-    return JSON.parse(await readFile(join(ROOT, 'public', 'tours.json'), 'utf8')).items || [];
+    return (await readPublishedFeed('tours')).items || [];
   } catch {
     return [];
   }
@@ -973,7 +983,7 @@ export async function refreshTravelRadar({ force = false } = {}) {
     }
     const previousRaw = previousFeed.rawItems || await readRawItems();
     const raw = await fetchAllChannels(previousRaw);
-    const deals = await monetizeDeals(buildDeals(raw.items, await loadRefPrices()));
+    const deals = await monetizeDeals(buildDeals(raw.items, await loadRefPrices('dist')));
     const feed = {
       updatedAt: raw.updatedAt,
       marker: '748397',

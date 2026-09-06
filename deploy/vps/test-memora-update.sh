@@ -16,7 +16,8 @@ fixture() {
   git init -q -b master "$root/source"
   git -C "$root/source" config user.name Fixture
   git -C "$root/source" config user.email fixture@example.invalid
-  mkdir -p "$root/source"/{server,deploy/vps,public}
+  mkdir -p "$root/source"/{server,deploy/vps,public,scripts}
+  cp "$(dirname "$updater")/../../scripts/travel-feed-branch.mjs" "$root/source/scripts/"
   printf 'export {};\n' > "$root/source/server.js"
   printf 'export {};\n' > "$root/source/server/payment-journal.js"
   printf 'export const version="old";\n' > "$root/source/server/version.js"
@@ -192,3 +193,49 @@ chmod 0600 "$root/environment-patch"
 if bash "$updater" "$target" "$root/environment-patch" > "$root/release.log" 2>&1; then exit 1; fi
 unchanged
 echo 'PASS: unapproved environment keys cannot enter a release'
+
+seed_data() {
+  node --input-type=module - "$root/source" <<'NODE'
+import { writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+const root = process.argv[2];
+const arrays = { flights: { items: 2 }, 'hot-deals': { deals: 5 }, radar: { hotFlights: 5, cheapFrom: 20, calendars: 20 }, tours: { items: 10 } };
+for (const [name, fields] of Object.entries(arrays)) {
+  const value = { updatedAt: new Date().toISOString() };
+  for (const [field, count] of Object.entries(fields)) value[field] = Array(count).fill({ id: 'fresh-data' });
+  writeFileSync(join(root, 'public', name + '.json'), JSON.stringify(value));
+}
+NODE
+  (cd "$root/source" && node scripts/travel-feed-branch.mjs seed) > "$root/seed.log" 2>&1
+}
+
+fixture
+seed_data
+bash "$updater" "$base" > "$root/refresh.log" 2>&1
+unchanged
+[[ ! -f "$root/service-calls" ]]
+[[ -z "$(git -C "$app" status --porcelain --untracked-files=no)" ]]
+grep -q fresh-data "$app/dist/flights.json"
+echo 'PASS: data-only refresh preserves code, deployed marker, dependencies and running service'
+
+sha256sum "$app/dist/"*.json > "$root/feeds-before"
+git -C "$root/source" worktree add -q -b invalid-data "$root/data" refs/remotes/origin/travel-data
+printf 'untrusted code\n' > "$root/data/unsafe.js"
+git -C "$root/data" add unsafe.js
+git -C "$root/data" commit -qm invalid
+git -C "$root/data" push -q origin HEAD:travel-data
+if bash "$updater" "$base" > "$root/invalid-data.log" 2>&1; then exit 1; fi
+sha256sum "$app/dist/"*.json > "$root/feeds-after"
+cmp "$root/feeds-before" "$root/feeds-after"
+unchanged
+[[ ! -f "$root/service-calls" ]]
+echo 'PASS: code on the data branch is rejected and every last-known-good feed is retained'
+
+fixture
+seed_data
+bash "$updater" "$target" > "$root/release.log" 2>&1
+[[ "$(git -C "$app" rev-parse HEAD)" == "$target" ]]
+grep -q new-bundle "$app/dist/static/entry.js"
+grep -q fresh-data "$app/dist/flights.json"
+[[ -z "$(git -C "$app" status --porcelain --untracked-files=no)" ]]
+echo 'PASS: a code release installs current independent data alongside exact-commit assets'

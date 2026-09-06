@@ -42,6 +42,18 @@ healthy() {
   return 1
 }
 
+sync_feeds() {
+  local repository=$1 destination=$2
+  # Backward-compatible with releases that predate the independent data branch.
+  [[ -f "$repository/scripts/travel-feed-branch.mjs" ]] || return 0
+  if as_app git -C "$repository" fetch --no-tags origin travel-data:refs/remotes/origin/travel-data \
+    && (cd "$repository" && as_app node scripts/travel-feed-branch.mjs install "$destination"); then
+    return 0
+  fi
+  echo 'Travel data refresh failed; retaining the last available snapshot' >&2
+  return 1
+}
+
 # A prepared transaction survives SIGKILL/power loss. Recover it before reading
 # the active checkout; the directory may be between its two rename operations.
 recover() {
@@ -93,7 +105,10 @@ if [[ "$deployed" != "$target" ]] && as_app git -C "$app_dir" merge-base --is-an
   exit 0
 fi
 as_app git -C "$app_dir" merge-base --is-ancestor "$deployed" "$target"
-if [[ "$deployed" == "$target" && -z "$environment_patch" ]]; then exit 0; fi
+if [[ "$deployed" == "$target" && -z "$environment_patch" ]]; then
+  sync_feeds "$app_dir" "$app_dir/dist"
+  exit 0
+fi
 if [[ -z "$requested" && -s "$state_dir/failed-commit" && "$(<"$state_dir/failed-commit")" == "$target" ]]; then
   echo 'Previous release failed; explicit reviewed retry required' >&2; exit 1
 fi
@@ -173,6 +188,14 @@ if [[ -n "$prefix" ]]; then as_app env -i PATH="$PATH" MEMORA_DEPLOY_TEST_ROOT="
 else env -i PATH="$PATH" /usr/sbin/runuser -u memora -- timeout 600 npm --prefix "$stage/app" ci; fi
 as_app mkdir "$stage/app/dist"
 as_app git -C "$app_dir" archive "$cdn_commit" | as_app tar -x -C "$stage/app/dist"
+# Preserve the latest published data through a code release, even if the data
+# remote is temporarily unreachable. Never modify tracked source snapshots.
+for feed in flights hot-deals radar tours; do
+  if [[ -f "$app_dir/dist/$feed.json" && ! -L "$app_dir/dist/$feed.json" ]]; then
+    as_app cp -- "$app_dir/dist/$feed.json" "$stage/app/dist/$feed.json"
+  fi
+done
+sync_feeds "$stage/app" "$stage/app/dist" || echo 'Using retained travel data for this code release'
 asset_path=$(grep -oE '<meta name="memora-entry" content="[^"]+"' "$stage/app/dist/index.html" \
   | sed -E 's/.*content="([^"]+)"/\1/' | head -n 1)
 [[ "$asset_path" =~ ^/?static/[a-zA-Z0-9_-]+\.js$ && -s "$stage/app/dist/${asset_path#/}" ]] \

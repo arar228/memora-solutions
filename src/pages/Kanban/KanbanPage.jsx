@@ -50,7 +50,8 @@ export default function KanbanPage() {
     const [chatLoading, setChatLoading] = useState(true);
     const [error, setError] = useState('');
     const [notice, setNotice] = useState('');
-    const formStartedAt = useRef(Date.now());
+    const formStartedAt = useRef(0);
+    useEffect(() => { formStartedAt.current = Date.now(); }, []);
     const chatEnd = useRef(null);
 
     useEffect(() => {

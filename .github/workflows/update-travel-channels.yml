@@ -10,19 +10,26 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-travel-radar-channels
+  group: publish-travel-data
   cancel-in-progress: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      FEED_BASE_REF: refs/remotes/origin/travel-data
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: master
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 20
+
+      - name: Load last-known-good data
+        run: node scripts/travel-feed-branch.mjs prepare
 
       - name: Fetch every Telegram channel
         run: node scripts/fetch-tours.js
@@ -40,23 +47,8 @@ jobs:
       - name: Validate Telegram feeds
         run: node scripts/validate-feeds.js tours hot-deals
 
-      - name: Commit refreshed feeds
+      - name: Publish validated data snapshot
         run: |
-          if [[ -z "$(git status --porcelain public/tours.json public/hot-deals.json)" ]]; then
-            echo "No data changes."
-            exit 0
-          fi
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/tours.json public/hot-deals.json
-          git commit -m "chore(data): refresh Travel Radar channels [skip ci]"
-
-          for i in 1 2 3 4 5; do
-            git pull --rebase origin master && git push && exit 0
-            echo "push attempt $i rejected; rebasing and retrying"
-            sleep $((RANDOM % 5 + 3))
-          done
-
-          echo "failed to push refreshed channels after 5 attempts" >&2
-          exit 1
+          node scripts/travel-feed-branch.mjs publish tours hot-deals

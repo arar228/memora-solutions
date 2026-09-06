@@ -134,9 +134,14 @@ if [[ -z "$environment_patch" && -n "$changed_files" ]] \
 fi
 
 for workflow in ci.yml deploy-assets.yml; do
-  curl --fail --silent --show-error --connect-timeout 5 --max-time 15 \
-    "https://api.github.com/repos/arar228/memora-solutions/actions/workflows/$workflow/runs?head_sha=$target&per_page=10" \
-    | node -e '
+  workflow_checked=0
+  # The runner and VPS can briefly receive different cached API statuses.
+  # Retry bounded fresh reads; every attempt still verifies the exact SHA.
+  for attempt in {1..6}; do
+    if curl --fail --silent --show-error --connect-timeout 5 --max-time 15 \
+      -H 'Cache-Control: no-cache' \
+      "https://api.github.com/repos/arar228/memora-solutions/actions/workflows/$workflow/runs?head_sha=$target&per_page=10&verification=$(date +%s)-$attempt" \
+      | node -e '
       let input=""; process.stdin.on("data", chunk => input += chunk);
       process.stdin.on("end", () => {
         const runs=JSON.parse(input).workflow_runs || [];
@@ -145,7 +150,16 @@ for workflow in ci.yml deploy-assets.yml; do
         if (!run || run.status !== "completed" || run.conclusion !== "success") {
           console.error("Exact-commit workflow has not passed"); process.exitCode=1;
         }
-      });' "$target"
+      });' "$target"; then
+      workflow_checked=1
+      break
+    fi
+    if [[ "$attempt" -lt 6 ]]; then
+      echo "Waiting for a fresh successful $workflow status (attempt $attempt/6)"
+      sleep 5
+    fi
+  done
+  [[ "$workflow_checked" == 1 ]] || { echo "Exact-commit $workflow gate failed after 6 checks" >&2; exit 1; }
 done
 as_app git -C "$app_dir" fetch origin +cdn:refs/remotes/origin/cdn
 cdn_commit=$(as_app git -C "$app_dir" log -100 --format='%H %s' origin/cdn \

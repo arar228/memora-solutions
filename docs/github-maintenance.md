@@ -5,6 +5,9 @@
 Code changes enter master through a pull request with successful CI: release,
 wallet, site, pomodoro, codeql (javascript-typescript), and codeql (python).
 The VPS also verifies CI and production assets for the exact released commit.
+Its API gate makes up to six fresh reads per workflow, five seconds apart, to
+handle briefly stale status responses. Failed/missing/different-commit checks
+still block deployment before any application or configuration switch.
 Administrators follow the same gate. Force pushes and deletion remain disabled.
 
 ## Independent travel data

@@ -61,8 +61,15 @@ set -euo pipefail
 root=$MEMORA_DEPLOY_TEST_ROOT
 if [[ "$*" == *api.github.com* ]]; then
   conclusion=success
+  status=completed
+  printf 'check\n' >> "$root/ci-checks"
+  if [[ -f "$root/ci-pending-once" ]]; then
+    rm "$root/ci-pending-once"
+    status=in_progress
+    conclusion=
+  fi
   [[ ! -f "$root/ci-fails" ]] || conclusion=failure
-  printf '{"workflow_runs":[{"head_sha":"%s","head_branch":"master","event":"push","status":"completed","conclusion":"%s"}]}' "$(<"$root/target")" "$conclusion"
+  printf '{"workflow_runs":[{"head_sha":"%s","head_branch":"master","event":"push","status":"%s","conclusion":"%s"}]}' "$(<"$root/target")" "$status" "$conclusion"
 else
   [[ ! -f "$root/health-always-fails" ]] || exit 1
   [[ ! -f "$root/health-fails" ]] || ! grep -q 'new' "$root/opt/memora-solutions/server/version.js"
@@ -118,6 +125,8 @@ expect_failure
 unchanged
 [[ ! -f "$root/service-calls" ]]
 echo 'PASS: failed CI leaves the active release untouched'
+[[ "$(wc -l < "$root/ci-checks")" -eq 6 ]]
+echo 'PASS: failed workflow retries are bounded and preserve the fail-closed gate'
 
 fixture
 printf '%s\n' "$base" > "$root/target"
@@ -239,3 +248,11 @@ grep -q new-bundle "$app/dist/static/entry.js"
 grep -q fresh-data "$app/dist/flights.json"
 [[ -z "$(git -C "$app" status --porcelain --untracked-files=no)" ]]
 echo 'PASS: a code release installs current independent data alongside exact-commit assets'
+
+fixture
+touch "$root/ci-pending-once"
+bash "$updater" "$target" > "$root/release.log" 2>&1
+[[ "$(git -C "$app" rev-parse HEAD)" == "$target" ]]
+[[ "$(wc -l < "$root/ci-checks")" -eq 3 ]]
+grep -q 'fresh successful ci.yml status' "$root/release.log"
+echo 'PASS: stale pending status is retried before deploying the exact checked commit'

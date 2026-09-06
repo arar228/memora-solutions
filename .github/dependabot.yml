@@ -16,6 +16,9 @@ updates:
       eslint:
         patterns: ['eslint', '@eslint/js', 'eslint-plugin-*']
     ignore:
+      # Tailwind 4 changes PostCSS/CSS integration; visual migration: issue #60.
+      - dependency-name: tailwindcss
+        update-types: ['version-update:semver-major']
       # plugin-react 6 requires Vite 8; migrate the toolchain as one change.
       - dependency-name: '@vitejs/plugin-react'
         update-types: ['version-update:semver-major']

@@ -128,6 +128,20 @@ function tgMessage(d) {
   ].join('\n');
 }
 
+function plainTextPreview(markup) {
+  let text = '';
+  let offset = 0;
+  while (offset < markup.length) {
+    const tagStart = markup.indexOf('<', offset);
+    if (tagStart < 0) return text + markup.slice(offset);
+    text += markup.slice(offset, tagStart);
+    const tagEnd = markup.indexOf('>', tagStart + 1);
+    if (tagEnd < 0) return text;
+    offset = tagEnd + 1;
+  }
+  return text;
+}
+
 async function postTelegram(text) {
   const res = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
     method: 'POST',
@@ -188,7 +202,7 @@ async function main() {
     console.log(`posted ${fresh.length} new deal(s) to ${TG_CHANNEL}`);
   } else {
     console.log(`(no Telegram configured) ${fresh.length} new deal(s) queued; preview:`);
-    for (const d of fresh.slice(0, 3)) console.log('\n' + tgMessage(d).replace(/<[^>]+>/g, ''));
+    for (const d of fresh.slice(0, 3)) console.log('\n' + plainTextPreview(tgMessage(d)));
   }
 
   const payload = { updatedAt: new Date().toISOString(), source: 'travelpayouts', market: MARKET, currency: CURRENCY, items };

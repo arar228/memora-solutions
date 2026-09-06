@@ -23,6 +23,25 @@ const protectedSceneHash = createHash('sha256')
 const webSceneFileName = `ninja-tomato-${protectedSceneHash}.scene`;
 const webScenePath = resolve(webSceneDir, webSceneFileName);
 
+function removeGeneratedAssetTag(html: string, tagName: 'script' | 'link', assetPath: string) {
+  const assetOffset = html.indexOf(assetPath);
+  const tagStart = html.lastIndexOf(`<${tagName}`, assetOffset);
+  const openingEnd = html.indexOf('>', assetOffset);
+  if (assetOffset < 0 || tagStart < 0 || openingEnd < 0
+      || !html.slice(tagStart, openingEnd).includes(assetPath)) {
+    throw new Error(`Generated ${tagName} asset was not found: ${assetPath}`);
+  }
+
+  let tagEnd = openingEnd + 1;
+  if (tagName === 'script') {
+    const closingTag = '</script>';
+    const closingStart = html.indexOf(closingTag, tagEnd);
+    if (closingStart < 0) throw new Error('Generated script closing tag was not found');
+    tagEnd = closingStart + closingTag.length;
+  }
+  return html.slice(0, tagStart) + html.slice(tagEnd);
+}
+
 function resilientWebAssetsPlugin() {
   return {
     name: 'resilient-web-assets',
@@ -42,10 +61,9 @@ function resilientWebAssetsPlugin() {
 (${browserBootSource})(${JSON.stringify({ entry, styles: [stylesheet], modules: entryModules(context.bundle, entry), subdirectory: 'app/pomodoro/' }).replace(/</g, '\\u003c')});
 </script>`;
 
-        return html
-          .replace(/\s*<script\b(?=[^>]*\btype="module")(?=[^>]*\bsrc="[^"]+")[^>]*><\/script>/i, '')
-          .replace(/\s*<link\b(?=[^>]*\brel="stylesheet")(?=[^>]*\bhref="[^"]+")[^>]*>/i, '')
-          .replace('</head>', `${loader}\n</head>`);
+        const withoutEntry = removeGeneratedAssetTag(html, 'script', entry);
+        const withoutStyles = removeGeneratedAssetTag(withoutEntry, 'link', stylesheet);
+        return withoutStyles.replace('</head>', `${loader}\n</head>`);
       },
     },
   };

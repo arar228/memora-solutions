@@ -5,6 +5,8 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  schedule:
+    - cron: '31 2 * * 3'
   workflow_dispatch: {}
 
 permissions:
@@ -75,3 +77,24 @@ jobs:
         if: env.MEMORA_SCENE_KEY != ''
       - run: npm run build:web
         if: env.MEMORA_SCENE_KEY != ''
+
+  codeql:
+    name: codeql (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      security-events: write
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript, python]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4
+        with:
+          languages: ${{ matrix.language }}
+      - name: Analyze
+        uses: github/codeql-action/analyze@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4

@@ -38,6 +38,22 @@ export interface TimerCompletePayload {
   natural: boolean; // true on a real time-up, false on a manual skip
 }
 
+// Shared renderer contract. Scene implementations depend on this neutral type
+// instead of importing their parent scene selector back into themselves.
+export interface SceneProps {
+  mode: TimerMode;
+  running: boolean;
+  idle: boolean;
+  accent: string;
+  style?: string;
+  speed?: number;
+  status?: TimerStatus;
+  lang?: 'ru' | 'en';
+  summaryKey?: number;
+  progress?: number;
+  elapsedSeconds?: number;
+}
+
 // Visual "time is up" alert shown in addition to (or instead of) ignored OS
 // notifications.
 export type TimeUpEffect = 'flash' | 'tomatoes' | 'both' | 'off';

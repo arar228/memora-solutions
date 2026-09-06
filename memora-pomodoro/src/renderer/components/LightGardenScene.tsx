@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SceneProps } from './Scene';
+import type { SceneProps } from '../../shared/types';
 
 type Point = readonly [number, number];
 

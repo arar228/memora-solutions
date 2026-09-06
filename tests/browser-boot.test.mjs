@@ -61,7 +61,7 @@ test('a stalled import moves to another document without a second import', async
   assert.equal(url.searchParams.get('keep'), '1');
   assert.equal(url.hash, '#timer');
   const second = await documentAttempt({ href: url.href });
-  assert.match(second.imports[0], /^https:\/\/cdn.jsdelivr.net\//);
+  assert.match(second.imports[0], /^https:\/\/cdn\.jsdelivr\.net\//);
   await second.expire();
   const third = await documentAttempt({ href: second.navigation[0] });
   assert.match(third.imports[0], /^https:\/\/example.test\//);

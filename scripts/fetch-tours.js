@@ -52,17 +52,38 @@ const UA =
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
     '(KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 
+function textContent(markup) {
+    let text = '';
+    for (let offset = 0; offset < markup.length; offset += 1) {
+        if (markup[offset] !== '<') {
+            text += markup[offset];
+            continue;
+        }
+
+        const tagEnd = markup.indexOf('>', offset + 1);
+        if (tagEnd < 0) break;
+        const tagName = markup.slice(offset + 1, tagEnd)
+            .match(/^\/?\s*([a-z][a-z0-9-]*)/i)?.[1]?.toLowerCase();
+        if (tagName === 'br') text += '\n';
+        offset = tagEnd;
+    }
+    return text;
+}
+
 function decodeEntities(s) {
-    return s
-        .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<[^>]+>/g, '')
-        .replace(/&nbsp;/g, ' ')
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'")
-        .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    const named = { nbsp: ' ', amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" };
+    return textContent(s)
+        // Decode each entity once so an encoded ampersand cannot expose a
+        // second entity during the same pass.
+        .replace(/&(nbsp|amp|lt|gt|quot|#39|#\d+);/gi, (match, entity) => {
+            const key = entity.toLowerCase();
+            if (Object.hasOwn(named, key)) return named[key];
+            const codePoint = Number(key.slice(1));
+            return Number.isInteger(codePoint) && codePoint >= 0 && codePoint <= 0x10FFFF
+                && !(codePoint >= 0xD800 && codePoint <= 0xDFFF)
+                ? String.fromCodePoint(codePoint)
+                : match;
+        })
         .replace(/\n{3,}/g, '\n\n')
         // Strip trailing reaction clusters that leak from the bubble (emoji+count).
         .replace(/(?:\p{Extended_Pictographic}+\s*\d+\s*)+$/u, '')
@@ -242,5 +263,5 @@ if (isMain) {
 
 export {
     CHANNELS, MAX_POST_AGE_HOURS, SOURCE_ALIASES,
-    fetchAllChannels, fetchChannel, fetchChannelReport, parseChannel,
+    decodeEntities, fetchAllChannels, fetchChannel, fetchChannelReport, parseChannel,
 };

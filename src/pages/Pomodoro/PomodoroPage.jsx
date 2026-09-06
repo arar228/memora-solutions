@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Download, CheckCircle2, Timer, Play, Maximize2, RefreshCw, ShieldCheck, ChevronDown } from 'lucide-react';
@@ -27,6 +28,7 @@ export default function PomodoroPage() {
     const { t, i18n } = useTranslation();
     const k = (path) => `pomodoro.${path}`;
     const ru = i18n.language === 'ru';
+    const [webAppStarted, setWebAppStarted] = useState(false);
 
     // Only Windows is published so far. Windows users get a one-click direct
     // download; everyone else is sent to the releases page.
@@ -147,12 +149,31 @@ export default function PomodoroPage() {
                                 : 'Timer, stopwatch, scenes, and stats. Data stays in this browser.'}
                         </p>
                         <div className="pomodoro-live__frame">
-                            <iframe
-                                src={webAppSrc}
-                                title={ru ? 'Мемора Помодоро — веб-версия' : 'Memora Pomodoro — web version'}
-                                loading="eager"
-                                fetchPriority="high"
-                            />
+                            {webAppStarted ? (
+                                <iframe
+                                    src={webAppSrc}
+                                    title={ru ? 'Мемора Помодоро — веб-версия' : 'Memora Pomodoro — web version'}
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <div className="pomodoro-live__launch">
+                                    <Timer size={42} aria-hidden="true" />
+                                    <strong>{ru ? 'Веб-таймер готов к запуску' : 'Web timer ready'}</strong>
+                                    <span>
+                                        {ru
+                                            ? 'Запустите приложение в этом блоке, когда захотите начать сессию.'
+                                            : 'Launch the app here when you are ready to begin a session.'}
+                                    </span>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => setWebAppStarted(true)}
+                                    >
+                                        <Play size={18} aria-hidden="true" />{' '}
+                                        {ru ? 'Запустить веб-таймер' : 'Launch web timer'}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </section>
                 </AnimatedSection>

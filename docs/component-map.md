@@ -30,9 +30,11 @@
   смешан с браузерным деревом.
 - Страница Radar импортирует `public/hot-deals.json` в bundle. Это связывает
   обновляемые данные со срезом приложения и требует отдельного контракта feed.
-- Pomodoro web имеет три type-only цикла: `Scene.tsx` ↔ `FocusOrbitScene.tsx`,
-  `FocusTreeScene.tsx`, `LightGardenScene.tsx`. Desktop main имеет runtime-цикл
-  `db.ts` ↔ `overlay.ts` через динамический импорт.
+- В исходном срезе Pomodoro web было три type-only цикла: `Scene.tsx` ↔
+  `FocusOrbitScene.tsx`, `FocusTreeScene.tsx`, `LightGardenScene.tsx`. Общий
+  `SceneProps` вынесен в `src/shared/types.ts`; автоматическая проверка графа
+  подтверждает их устранение. Desktop main сохраняет runtime-цикл `db.ts` ↔
+  `overlay.ts` через динамический импорт.
 - `public/app/pomodoro/` — опубликованный результат сборки, а
   `memora-pomodoro/` — исходники. Генерируемые assets остаются отделены от файлов,
   которые редактирует разработчик.

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import type { SceneProps } from './Scene';
+import type { SceneProps } from '../../shared/types';
 
 interface OrbitParticle {
   angle: number;

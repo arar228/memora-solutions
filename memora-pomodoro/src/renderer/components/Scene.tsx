@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { getNinjaTomatoSpritesUrl } from '../assets';
 import { HAS_NINJA_SCENE } from '../../shared/target';
+import type { SceneProps } from '../../shared/types';
 import FocusOrbitScene from './FocusOrbitScene';
 import LightGardenScene from './LightGardenScene';
 import FocusTreeScene from './FocusTreeScene';
@@ -16,24 +17,6 @@ import FocusTreeScene from './FocusTreeScene';
 //              стоит отойти — график ползёт вниз с красной стрелкой.
 //
 // Rendering: a tiny logical grid scaled up with smoothing off — chunky pixels.
-
-export interface SceneProps {
-  mode: 'focus' | 'break';
-  running: boolean;
-  idle: boolean;   // pure-time auto-pause: the user is away from the keyboard
-  accent: string;
-  style?: string;  // 'ninja' | 'flight' | 'chart'
-  speed?: number;  // animation speed in percent
-  status?: 'idle' | 'running' | 'paused' | 'completed' | 'waiting';
-  lang?: 'ru' | 'en';
-  // Bumped when an interval finishes: the chart scene then freezes and shows
-  // the WHOLE session compressed to the module width (см. summary ниже).
-  summaryKey?: number;
-  progress?: number;
-  // Real seconds reported by the timer engine. The activity chart uses this
-  // instead of its own interval so its clean time cannot run one tick ahead.
-  elapsedSeconds?: number;
-}
 
 const W = 192;
 const H = 72;

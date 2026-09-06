@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SceneProps } from './Scene';
+import type { SceneProps } from '../../shared/types';
 
 const BRANCHES = [
   { d: 'M240 168 C239 139 240 109 239 72', start: 0, end: 0.4 },

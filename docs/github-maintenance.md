@@ -46,6 +46,14 @@ ESLint 10 with react-hooks 7.1.1, Electron 44.1.1, router, GSAP, iconv-lite,
 python-telegram-bot 22.8 and timezone data. The brace-expansion security override
 is limited to its compatible 1.x consumers rather than replacing the new API.
 
+The follow-up batch clears the next queued compatible updates (pg, Three.js,
+PostCSS, Sharp, sql.js, fonts, icon tooling and React DOM types). It migrates the
+ESLint React Refresh config to the 0.5 function API, updates i18next 26 and
+react-i18next 17 together, and groups future localization updates. TypeScript 7
+uses explicit relative alias paths instead of the removed baseUrl option.
+Setup Node 7 remains SHA-pinned. BDay's follow-up updates aiogram, APScheduler,
+psycopg2-binary, psutil and gunicorn under the same combined CI checks.
+
 Vite 8 / plugin-react 6 migration is deferred: electron-vite 5 accepts Vite 5/6/7,
 and plugin-react 6 requires Vite 8. Major updates for these two packages are
 explicitly ignored until a coordinated, tested migration is possible. Compatible

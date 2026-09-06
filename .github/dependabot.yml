@@ -6,6 +6,8 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     groups:
+      localization:
+        patterns: ['i18next', 'react-i18next']
       npm-compatible:
         patterns: ['*']
         update-types: [minor, patch]

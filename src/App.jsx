@@ -79,10 +79,10 @@ function RouteMetadata() {
   return null;
 }
 
-function PageTransition({ children }) {
+function PageTransition({ children, immediate = false }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={immediate ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -98,7 +98,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><CreatorPage /></PageTransition>} />
+        <Route path="/" element={<PageTransition immediate><CreatorPage /></PageTransition>} />
         <Route path="/products" element={<PageTransition><HomePage /></PageTransition>} />
         <Route path="/travel-radar" element={<PageTransition><TravelRadar3Page /></PageTransition>} />
         {/* Preserve old bookmarks without exposing multiple competing versions. */}

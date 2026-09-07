@@ -115,12 +115,15 @@
     content="Цифровые инструменты для улучшения качества жизни." />
   <meta name="twitter:image" content="https://memorasolutions.ru/logo.png" />
   
-<meta name="memora-entry" content="static/index-hNfupl2c.js">
+<meta name="memora-entry" content="static/index-B0-Eip9M.js">
 <script type="module" data-memora-resilient-boot>
 (// Embedded in both HTML documents. A timed-out import cannot be cancelled
 // reliably, so every recovery attempt starts in a new document.
-async function browserBoot({ entry, styles, modules = [entry], subdirectory = '', timeoutMs = 8000 }) {
+async function browserBoot({ entry, styles, modules = [entry], landing, subdirectory = '', timeoutMs = 8000 }) {
   const page = new URL(location.href);
+  const isLanding = !subdirectory && page.pathname === '/'
+    && !page.hostname.startsWith('admin.') && !page.searchParams.has('admin');
+  const routeAssets = isLanding ? landing : undefined;
   const parameter = '__memora_boot';
   const sources = [
     { name: 'github', base: `https://arar228.github.io/memora-solutions/${subdirectory}` },
@@ -198,7 +201,7 @@ async function browserBoot({ entry, styles, modules = [entry], subdirectory = ''
   try {
     // Fetch/compile alongside CSS; execution still waits for all styles. Every
     // hint uses this attempt's source, and recovery always gets a new document.
-    for (const path of new Set([entry, ...modules])) {
+    for (const path of new Set([entry, ...modules, ...(routeAssets?.modules || [])])) {
       const link = document.createElement('link');
       links.push(link);
       link.rel = 'modulepreload';
@@ -206,7 +209,7 @@ async function browserBoot({ entry, styles, modules = [entry], subdirectory = ''
       link.href = new URL(path, source.base).href;
       document.head.appendChild(link);
     }
-    await Promise.all(styles.map(path => new Promise((resolve, reject) => {
+    await Promise.all([...new Set([...styles, ...(routeAssets?.styles || [])])].map(path => new Promise((resolve, reject) => {
       const link = document.createElement('link');
       links.push(link);
       link.rel = 'stylesheet';
@@ -226,7 +229,7 @@ async function browserBoot({ entry, styles, modules = [entry], subdirectory = ''
     fail(error);
   }
 }
-)({"entry":"static/index-hNfupl2c.js","styles":["static/index-HY9UKLfL.css"],"modules":["static/index-hNfupl2c.js","static/motion-Dm0ZX7ey.js","static/react-avQ5L5Qo.js","static/i18n-CLQDvJM2.js","static/ui-BePltY8v.js"]});
+)({"entry":"static/index-B0-Eip9M.js","styles":["static/index-HY9UKLfL.css"],"modules":["static/index-B0-Eip9M.js","static/motion-Dm0ZX7ey.js","static/react-avQ5L5Qo.js","static/i18n-CLQDvJM2.js","static/ui-BePltY8v.js"],"landing":{"modules":["static/index-CNmt8W0f.js","static/motion-Dm0ZX7ey.js","static/react-avQ5L5Qo.js","static/AnimatedSection-Dt76o0Zi.js","static/ui-BePltY8v.js","static/index-B0-Eip9M.js","static/i18n-CLQDvJM2.js"],"styles":["static/index-Cn9wwGGt.css","static/index-HY9UKLfL.css"]}});
 </script>
   
 </head>

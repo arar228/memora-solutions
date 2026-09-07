@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { browserBoot } from '../build/browserBoot.js';
 import { resilientBootPlugin } from '../build/resilientBootPlugin.js';
-import { entryModules } from '../build/entryModules.js';
+import { entryModules, landingAssets } from '../build/entryModules.js';
 
 async function documentAttempt({ href = 'https://example.test/pomodoro?keep=1#timer', mode = 'stall', styles = [], subdirectory = '', script } = {}) {
   const timers = new Map();
@@ -124,4 +124,44 @@ test('module hints use the active source before CSS and do not execute on CSS fa
   assert.ok(attempt.links.every(link => link.crossOrigin === 'anonymous' && link.removed));
   assert.equal(attempt.imports.length, 0);
   assert.equal(attempt.navigation.length, 1);
+});
+
+test('landing graph gathers static CSS and JS while preserving lazy sections', () => {
+  const bundle = {
+    'creator.js': { type: 'chunk', fileName: 'creator.js', facadeModuleId: 'C:\\repo\\src\\pages\\Creator\\index.jsx', imports: ['shared.js'], dynamicImports: ['gallery.js'], viteMetadata: { importedCss: new Set(['creator.css']) } },
+    'shared.js': { type: 'chunk', imports: [], viteMetadata: { importedCss: new Set(['shared.css', 'creator.css']) } },
+    'gallery.js': { type: 'chunk', imports: [] },
+  };
+  assert.deepEqual(landingAssets(bundle), { modules: ['creator.js', 'shared.js'], styles: ['creator.css', 'shared.css'] });
+  assert.deepEqual(landingAssets({}), { modules: [], styles: [] });
+});
+
+const landingBoot = `(${browserBoot.toString()})(${JSON.stringify({
+  entry: 'static/entry.js', modules: ['static/entry.js', 'static/react.js'], styles: ['static/site.css'],
+  landing: { modules: ['static/creator.js', 'static/react.js'], styles: ['static/creator.css', 'static/site.css'] },
+})});`;
+
+test('landing preloads its CSS and JS once using the selected recovery source', async () => {
+  const first = await documentAttempt({ href: 'https://example.test/?keep=1#contact', script: landingBoot });
+  assert.deepEqual(first.links.map(link => new URL(link.href).pathname.split('/').pop()), ['entry.js', 'react.js', 'creator.js', 'site.css', 'creator.css']);
+  await first.expire();
+  assert.ok(first.links.every(link => link.removed));
+  const recovered = await documentAttempt({ href: first.navigation[0], mode: 'success', script: landingBoot });
+  assert.ok(recovered.links.every(link => link.href.startsWith('https://cdn.jsdelivr.net/')));
+  assert.equal(recovered.history.url, 'https://example.test/?keep=1#contact');
+});
+
+test('other routes and admin entrypoints retain their original preload graph', async () => {
+  for (const href of ['https://example.test/pomodoro', 'https://example.test/products', 'https://admin.example.test/', 'https://example.test/?admin=1']) {
+    const attempt = await documentAttempt({ href, mode: 'success', script: landingBoot });
+    assert.equal(attempt.links.length, 3, href);
+    assert.ok(attempt.links.every(link => !link.href.includes('creator')));
+  }
+});
+
+test('landing CSS failure triggers normal source recovery before execution', async () => {
+  const attempt = await documentAttempt({ href: 'https://example.test/', mode: 'style-error', script: landingBoot });
+  assert.equal(attempt.imports.length, 0);
+  assert.equal(attempt.navigation.length, 1);
+  assert.ok(attempt.links.every(link => link.removed));
 });

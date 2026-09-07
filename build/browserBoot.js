@@ -1,7 +1,10 @@
 // Embedded in both HTML documents. A timed-out import cannot be cancelled
 // reliably, so every recovery attempt starts in a new document.
-export async function browserBoot({ entry, styles, modules = [entry], subdirectory = '', timeoutMs = 8000 }) {
+export async function browserBoot({ entry, styles, modules = [entry], landing, subdirectory = '', timeoutMs = 8000 }) {
   const page = new URL(location.href);
+  const isLanding = !subdirectory && page.pathname === '/'
+    && !page.hostname.startsWith('admin.') && !page.searchParams.has('admin');
+  const routeAssets = isLanding ? landing : undefined;
   const parameter = '__memora_boot';
   const sources = [
     { name: 'github', base: `https://arar228.github.io/memora-solutions/${subdirectory}` },
@@ -79,7 +82,7 @@ export async function browserBoot({ entry, styles, modules = [entry], subdirecto
   try {
     // Fetch/compile alongside CSS; execution still waits for all styles. Every
     // hint uses this attempt's source, and recovery always gets a new document.
-    for (const path of new Set([entry, ...modules])) {
+    for (const path of new Set([entry, ...modules, ...(routeAssets?.modules || [])])) {
       const link = document.createElement('link');
       links.push(link);
       link.rel = 'modulepreload';
@@ -87,7 +90,7 @@ export async function browserBoot({ entry, styles, modules = [entry], subdirecto
       link.href = new URL(path, source.base).href;
       document.head.appendChild(link);
     }
-    await Promise.all(styles.map(path => new Promise((resolve, reject) => {
+    await Promise.all([...new Set([...styles, ...(routeAssets?.styles || [])])].map(path => new Promise((resolve, reject) => {
       const link = document.createElement('link');
       links.push(link);
       link.rel = 'stylesheet';

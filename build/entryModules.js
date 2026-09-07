@@ -11,3 +11,14 @@ export function entryModules(bundle, entry) {
   visit(entry);
   return [...visited];
 }
+
+// Start the landing route's static graph with the entry, only on that route.
+// Other pages and their dynamic dependencies retain demand loading.
+export function landingAssets(bundle) {
+  const landing = Object.values(bundle).find(item => item.type === 'chunk'
+    && /\/src\/pages\/Creator\/index\.jsx$/.test(item.facadeModuleId?.replaceAll('\\', '/') || ''));
+  if (!landing) return { modules: [], styles: [] };
+  const modules = entryModules(bundle, landing.fileName);
+  const styles = [...new Set(modules.flatMap(file => [...(bundle[file]?.viteMetadata?.importedCss || [])]))];
+  return { modules, styles };
+}

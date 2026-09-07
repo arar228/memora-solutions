@@ -457,15 +457,15 @@ export default function CreatorPage() {
                 <div className="portfolio-hero__aurora" aria-hidden="true" />
                 <div className="container portfolio-hero__inner">
                     <div className="portfolio-hero__copy">
-                        <motion.span className="portfolio-eyebrow" initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.225, delay: prefersReducedMotion ? 0 : 0.36 }}><Sparkles size={18} /> {c.eyebrow}</motion.span>
+                        <span className="portfolio-eyebrow"><Sparkles size={18} /> {c.eyebrow}</span>
                         <h1 className="portfolio-hero__title">
-                            <motion.span className="portfolio-hero__title-primary" initial={prefersReducedMotion ? false : { opacity: 0, y: 26, filter: 'blur(10px)', clipPath: 'inset(0 100% 0 0)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)' }} transition={{ duration: prefersReducedMotion ? 0 : 0.45, delay: prefersReducedMotion ? 0 : 0.45, ease: [0.16, 1, 0.3, 1] }}>{c.titlePrimary}</motion.span>
-                            <motion.span className="portfolio-hero__title-secondary" initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.35, delay: prefersReducedMotion ? 0 : 0.81, ease: [0.16, 1, 0.3, 1] }}>{c.titleSecondary}</motion.span>
+                            <span className="portfolio-hero__title-primary">{c.titlePrimary}</span>
+                            <span className="portfolio-hero__title-secondary">{c.titleSecondary}</span>
                         </h1>
-                        <motion.div className="portfolio-hero__meta" initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: prefersReducedMotion ? 0 : 0.325, delay: prefersReducedMotion ? 0 : 0.975 }}>
+                        <div className="portfolio-hero__meta">
                             <p>{c.lead}</p>
                             <div className="portfolio-hero__actions"><a className="portfolio-button is-primary" href="#contact"><MessageCircle size={20} /> {c.discuss}</a><a className="portfolio-button" href="#cases">{c.cases} <ArrowRight size={20} /></a></div>
-                        </motion.div>
+                        </div>
                     </div>
                     <motion.div ref={showcaseRef} className="portfolio-showcase-stage" initial={prefersReducedMotion ? false : { opacity: 0, y: 52, scale: 0.92, filter: 'blur(9px)' }} animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }} transition={{ duration: prefersReducedMotion ? 0 : 0.575, delay: prefersReducedMotion ? 0 : 1.14, ease: [0.16, 1, 0.3, 1] }}>
                         <motion.div className="portfolio-showcase-tilt" initial={prefersReducedMotion ? false : { rotateZ: 0 }} animate={{ rotateZ: -2 }} transition={{ duration: prefersReducedMotion ? 0 : 0.42, delay: prefersReducedMotion ? 0 : 2.64, ease: [0.16, 1, 0.3, 1] }}>

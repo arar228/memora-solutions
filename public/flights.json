@@ -1,22 +1,50 @@
 {
-  "updatedAt": "2026-09-13T16:23:03.861Z",
+  "updatedAt": "2026-09-13T20:54:16.458Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
   "items": [
     {
-      "origin": "VLC",
-      "destination": "MLA",
-      "depart_date": "2026-10-10",
-      "return_date": "2026-10-17",
-      "price": 3327,
-      "median": 6034,
-      "discount": 0.4486244613854823,
-      "samples": 5,
+      "origin": "STW",
+      "destination": "AER",
+      "depart_date": "2026-09-25",
+      "return_date": "2026-10-02",
+      "price": 4068,
+      "median": 19559,
+      "discount": 0.7920139066414439,
+      "samples": 29,
       "number_of_changes": 0,
-      "found_at": "2026-09-13T16:14:08",
-      "link": "https://www.aviasales.ru/search/VLC1010MLA17101?marker=748397&currency=rub",
-      "key": "VLC-MLA-2026-10-10-3327"
+      "found_at": "2026-09-13T20:27:51",
+      "link": "https://www.aviasales.ru/search/STW2509AER02101?marker=748397&currency=rub",
+      "key": "STW-AER-2026-09-25-4068"
+    },
+    {
+      "origin": "LON",
+      "destination": "BRE",
+      "depart_date": "2026-10-02",
+      "return_date": "2026-10-07",
+      "price": 3522,
+      "median": 6161,
+      "discount": 0.4283395552670021,
+      "samples": 14,
+      "number_of_changes": 0,
+      "found_at": "2026-09-13T20:25:36",
+      "link": "https://www.aviasales.ru/search/LON0210BRE07101?marker=748397&currency=rub",
+      "key": "LON-BRE-2026-10-02-3522"
+    },
+    {
+      "origin": "BRE",
+      "destination": "LON",
+      "depart_date": "2026-09-30",
+      "return_date": "2026-10-02",
+      "price": 3522,
+      "median": 5967,
+      "discount": 0.4097536450477627,
+      "samples": 24,
+      "number_of_changes": 0,
+      "found_at": "2026-09-13T20:26:38",
+      "link": "https://www.aviasales.ru/search/BRE3009LON02101?marker=748397&currency=rub",
+      "key": "BRE-LON-2026-09-30-3522"
     }
   ]
 }

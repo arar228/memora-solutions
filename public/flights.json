@@ -1,22 +1,50 @@
 {
-  "updatedAt": "2026-09-19T11:05:23.940Z",
+  "updatedAt": "2026-09-19T15:56:19.259Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
   "items": [
     {
-      "origin": "NNM",
-      "destination": "HMA",
-      "depart_date": "2026-09-21",
-      "return_date": "2026-09-29",
+      "origin": "HMA",
+      "destination": "NNM",
+      "depart_date": "2026-09-22",
+      "return_date": "2026-09-28",
       "price": 3000,
-      "median": 15433,
-      "discount": 0.8056113522970259,
+      "median": 19818,
+      "discount": 0.8486224644262791,
+      "samples": 14,
+      "number_of_changes": 0,
+      "found_at": "2026-09-19T15:30:13",
+      "link": "https://www.aviasales.ru/search/HMA2209NNM28091?marker=748397&currency=rub",
+      "key": "HMA-NNM-2026-09-22-3000"
+    },
+    {
+      "origin": "UFA",
+      "destination": "MQF",
+      "depart_date": "2026-09-22",
+      "return_date": "2026-09-24",
+      "price": 3116,
+      "median": 10088.5,
+      "discount": 0.6911334688011102,
       "samples": 30,
       "number_of_changes": 0,
-      "found_at": "2026-09-19T10:08:24",
-      "link": "https://www.aviasales.ru/search/NNM2109HMA29091?marker=748397&currency=rub",
-      "key": "NNM-HMA-2026-09-21-3000"
+      "found_at": "2026-09-19T15:34:34",
+      "link": "https://www.aviasales.ru/search/UFA2209MQF24091?marker=748397&currency=rub",
+      "key": "UFA-MQF-2026-09-22-3116"
+    },
+    {
+      "origin": "LAX",
+      "destination": "LAS",
+      "depart_date": "2026-10-08",
+      "return_date": "2026-10-14",
+      "price": 2785,
+      "median": 4097,
+      "discount": 0.3202343177935074,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-09-19T15:35:49",
+      "link": "https://www.aviasales.ru/search/LAX0810LAS14101?marker=748397&currency=rub",
+      "key": "LAX-LAS-2026-10-08-2785"
     }
   ]
 }

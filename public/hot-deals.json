@@ -1,7 +1,616 @@
 {
-  "updatedAt": "2026-09-20T14:05:39.511Z",
+  "updatedAt": "2026-09-20T17:25:16.774Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 45000,
+      "oldPrice": 48349,
+      "savings": 3349,
+      "discount": 0.07,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-04",
+      "returnDate": "2026-11-18",
+      "date": "2026-09-20T17:13:21+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW0411HKT1?marker=748397&currency=rub",
+      "text": "Москва — Пхукет за 45000₽ или за 55000₽ туда-обратно.\n✓ 04.11-18.11 • 55000₽\n✓ 05.02-15.02 • 45000₽\n✓ 29.01-08.02 • 45000₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сеул",
+        "code": "SEL",
+        "country": {
+          "ru": "Южная Корея",
+          "en": "South Korea"
+        },
+        "kind": "city"
+      },
+      "price": 48100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-26",
+      "returnDate": "2026-12-09",
+      "date": "2026-09-20T16:57:33+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2611SEL1?marker=748397&currency=rub",
+      "text": "Москва — Сеул за 48100₽ туда-обратно или за 26800₽ в одну сторону.\n✓ 21.11 • 26800₽\n✓ 26.11-09.12 • 48100₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Токио",
+        "code": "TYO",
+        "country": {
+          "ru": "Япония",
+          "en": "Japan"
+        },
+        "kind": "city"
+      },
+      "price": 49200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-21",
+      "returnDate": "2026-12-04",
+      "date": "2026-09-20T16:57:33+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2111TYO1?marker=748397&currency=rub",
+      "text": "Москва — Токио за 49200₽ туда-обратно или за 25600₽ в одну сторону.\n✓ 21.11 • 25600₽\n✓ 21.11-04.12 • 49200₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Абхазия",
+        "code": "SUI",
+        "country": {
+          "ru": "Абхазия",
+          "en": "Abkhazia"
+        },
+        "kind": "country"
+      },
+      "price": 20549,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 14,
+      "departDate": "2026-10-07",
+      "returnDate": "2026-10-21",
+      "date": "2026-09-20T16:47:12+00:00",
+      "source": "toursspb",
+      "link": "https://level.tpx.gr/IXONJ2HU?erid=2VtzqwsMKs9",
+      "text": "Туры Санкт-Петербург - Абхазия от 20 549₽/чел. на 14 ночей (было от 22 125₽, цена упала на 7%)\n👉 Ссылка на туры:",
+      "originalLink": "https://level.tpx.lu/xLY8FW1K?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Абу-Даби",
+        "code": "AUH",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 29900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Абу-Даби",
+          "code": "AUH"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11-03",
+      "returnDate": "2026-11-17",
+      "date": "2026-09-20T16:30:39+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW0311AUH1?marker=748397&currency=rub",
+      "text": "✓ 03.11 • 29900₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Абу-Даби",
+        "code": "AUH",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 54900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Абу-Даби",
+          "code": "AUH"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11-03",
+      "returnDate": "2026-11-17",
+      "date": "2026-09-20T16:30:39+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW0311AUH1?marker=748397&currency=rub",
+      "text": "✓ 03.11-17.11 • 54900₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 15400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10",
+      "returnDate": null,
+      "date": "2026-09-20T16:03:12+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/0KZ0yy",
+      "text": "🔥 в Казань на выходные в октябре от 15 400/чел  (скидка по промокоду 350Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кавказские Минеральные Воды",
+        "code": "MRV",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 15700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-09-25",
+      "returnDate": "2026-10-02",
+      "date": "2026-09-20T16:03:12+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/SbX8t0",
+      "text": "🔥 в Кавминводы на 6-7 ночей в сентябре (с захватом выходных) от 15 700/чел, например, с вылетом 25 сентября"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Калининград",
+        "code": "KGD",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 16300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-09-20T16:03:12+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/9gF4Wt",
+      "text": "🔥 в Калининград или область на 3-4-5-6 ночей в сентябре от 16 300/чел, есть на выходные  (скидка по промокоду 350Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дагестан",
+        "code": "MCX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 25600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-10",
+      "returnDate": null,
+      "date": "2026-09-20T16:03:12+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/h68YsS",
+      "text": "🔥 в Дагестан на выходные в начале октября (4-6 ночей) от 25 600/чел  (скидка по промокоду 700Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Вьетнам",
+        "code": "SGN",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "country"
+      },
+      "price": 70800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 11,
+      "departDate": "2026-09-30",
+      "returnDate": "2026-10-11",
+      "date": "2026-09-20T16:03:12+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/MXhf1c",
+      "text": "☀️ во Вьетнам на 11 ночей с 30 сентября от 70 800/чел  (скидка по промокоду 2500Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хайнань",
+        "code": "SYX",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 71100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 9,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-09-20T16:03:12+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/2dRZtV",
+      "text": "🔥 на Хайнань (Китай) на 9 ночей в сентябре от 71 100/чел, виза не нужна  (скидка по промокоду 2500Lucky)"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Вьетнам",
+        "code": "SGN",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "country"
+      },
+      "price": 57400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 14,
+      "departDate": "2026-09",
+      "returnDate": null,
+      "date": "2026-09-20T15:00:09+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/S1XSdb",
+      "text": "🔥 во Вьетнам (Нячанг) на 9-14 ночей с вылетом в сентябре от 57 400/чел  (есть выбор дат, проверяйте свои!)\n🔥 если нужно слетать на неделю  (скидка по промокоду 2500Lucky)\n🔥 варианты с вылетом в нач"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Китай",
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "country"
+      },
+      "price": 61320,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 14,
+      "departDate": "2026-09-28",
+      "returnDate": "2026-10-12",
+      "date": "2026-09-20T14:35:21+00:00",
+      "source": "toursspb",
+      "link": "https://level.tpx.gr/BigrfPjD?erid=2VtzqwsMKs9",
+      "text": "Туры Санкт-Петербург - Китай от 61 320₽/чел. на 14 ночей (было от 72 097₽, цена упала на 15%)\n👉 Ссылка на туры:",
+      "originalLink": "https://level.tpx.lu/tytNE6Bi?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Измир",
+        "code": "ADB",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 15660,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-09-20T14:24:43+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2010ADB1?marker=748397&currency=rub",
+      "text": "из Москвы в Измир 🇹🇷 за 15 660 р. RT (нояб)\n• Путеводитель по Измиру: \n• Роудтрипы по Турции:",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кипр",
+        "code": "LCA",
+        "country": {
+          "ru": "Кипр",
+          "en": "Cyprus"
+        },
+        "kind": "country"
+      },
+      "price": 46538,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 3,
+      "departDate": "2026-12-03",
+      "returnDate": "2026-12-06",
+      "date": "2026-09-20T14:19:13+00:00",
+      "source": "toursmsk",
+      "link": "https://level.tpx.gr/9cffnV4V?erid=2VtzqwsMKs9",
+      "text": "Туры Москва - Кипр от 46 538₽/чел. на 3 ночи (было от 50 435₽, цена упала на 8%)\n👉 Ссылка на туры:",
+      "originalLink": "https://level.tpx.lu/iU5IIwsV?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
     {
       "type": "tour",
       "from": {
@@ -558,7 +1167,7 @@
       "returnDate": "2026-10-11",
       "date": "2026-09-20T12:05:21+00:00",
       "source": "nachemodanahspb",
-      "link": "https://onlinetours.tpx.gr/EqO4U9SK?erid=2VtzqwtqK9V",
+      "link": "https://onlinetours.tpx.gr/t3oGSTwu?erid=2VtzqwtqK9V",
       "text": "🏖Туры во Вьетнам на 11 ночей от 72.100 руб/чел с 30 сентября, виза не нужна",
       "originalLink": "https://onlinetours.tpx.lu/9dpEXD0i",
       "isAffiliate": true,
@@ -706,9 +1315,9 @@
         "kind": "city"
       },
       "price": 5600,
-      "oldPrice": 27131,
-      "savings": 21531,
-      "discount": 0.79,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -745,8 +1354,8 @@
         "kind": "city"
       },
       "price": 14500,
-      "oldPrice": 18055,
-      "savings": 3555,
+      "oldPrice": 18060,
+      "savings": 3560,
       "discount": 0.2,
       "oneway": false,
       "roundTrip": true,
@@ -869,9 +1478,9 @@
         "kind": "city"
       },
       "price": 43500,
-      "oldPrice": 45010,
-      "savings": 1510,
-      "discount": 0.03,
+      "oldPrice": 44380,
+      "savings": 880,
+      "discount": 0.02,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -947,8 +1556,8 @@
         "kind": "city"
       },
       "price": 14400,
-      "oldPrice": 45010,
-      "savings": 30610,
+      "oldPrice": 44380,
+      "savings": 29980,
       "discount": 0.68,
       "oneway": true,
       "roundTrip": false,
@@ -986,9 +1595,9 @@
         "kind": "city"
       },
       "price": 15000,
-      "oldPrice": 47428,
-      "savings": 32428,
-      "discount": 0.68,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1025,9 +1634,9 @@
         "kind": "city"
       },
       "price": 15100,
-      "oldPrice": 47428,
-      "savings": 32328,
-      "discount": 0.68,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1064,9 +1673,9 @@
         "kind": "city"
       },
       "price": 16987,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 17552,
+      "savings": 565,
+      "discount": 0.03,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1103,9 +1712,9 @@
         "kind": "country"
       },
       "price": 21000,
-      "oldPrice": 62961,
-      "savings": 41961,
-      "discount": 0.67,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [
@@ -1481,9 +2090,9 @@
         "kind": "city"
       },
       "price": 14800,
-      "oldPrice": 47428,
-      "savings": 32628,
-      "discount": 0.69,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2183,9 +2792,9 @@
         "kind": "city"
       },
       "price": 8926,
-      "oldPrice": 23214,
-      "savings": 14288,
-      "discount": 0.62,
+      "oldPrice": 29541,
+      "savings": 20615,
+      "discount": 0.7,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2686,9 +3295,9 @@
         "kind": "city"
       },
       "price": 5474,
-      "oldPrice": 16319,
-      "savings": 10845,
-      "discount": 0.66,
+      "oldPrice": 17552,
+      "savings": 12078,
+      "discount": 0.69,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -3645,9 +4254,9 @@
         "kind": "city"
       },
       "price": 8200,
-      "oldPrice": 16319,
-      "savings": 8119,
-      "discount": 0.5,
+      "oldPrice": 17552,
+      "savings": 9352,
+      "discount": 0.53,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -3684,9 +4293,9 @@
         "kind": "city"
       },
       "price": 8300,
-      "oldPrice": 12584,
-      "savings": 4284,
-      "discount": 0.34,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -4101,84 +4710,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 37900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-22",
-      "returnDate": "2026-09-30",
-      "date": "2026-09-19T06:01:18+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2209CXR1?marker=748397&currency=rub",
-      "text": "Москва — Нячанг (Вьетнам) за 47200 37900₽ туда-обратно.\n✓ 22.09-30.09 • 47200 37900₽\n✓ 22.09-03.10 • 52000₽",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Маэ",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "city"
-      },
-      "price": 22200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-23",
-      "returnDate": null,
-      "date": "2026-09-19T05:50:29+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2309SEZ1?marker=748397&currency=rub",
-      "text": "Москва — Маэ (Сейшелы) за 22200₽ в одну сторону.\n✓ 23.09 • 22200₽",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Алматы",
         "code": "ALA",
         "country": {
@@ -4236,9 +4767,9 @@
         "kind": "city"
       },
       "price": 19422,
-      "oldPrice": 23214,
-      "savings": 3792,
-      "discount": 0.16,
+      "oldPrice": 29541,
+      "savings": 10119,
+      "discount": 0.34,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -4310,8 +4841,8 @@
         "kind": "city"
       },
       "price": 16600,
-      "oldPrice": 17133,
-      "savings": 533,
+      "oldPrice": 17174,
+      "savings": 574,
       "discount": 0.03,
       "oneway": false,
       "roundTrip": false,
@@ -4441,478 +4972,15 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/qDY6bW",
       "text": "🔥 в Калининград или Калининградскую область на 3-6 ночей в октябре от 14 300/чел, есть выбор дат, есть на выходные  (скидка по промокоду 350Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Паттайя",
-        "code": "UTP",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 134000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": "2026-09-28",
-      "returnDate": "2026-10-08",
-      "date": "2026-09-18T17:12:15+00:00",
-      "source": "toursmsk",
-      "link": "https://level.tpo.lv/m8qjWXWR?erid=2VtzqxXsbY8",
-      "text": "🇹🇭 Паттайя, The Wind 4★ — завтраки\n• 10 ночей\n• питание — завтраки\n• ~134.000 рублей за двоих\n• вылет 28.09.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэрофлот, прямой · багаж 23"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 29491,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-20",
-      "returnDate": null,
-      "date": "2026-09-18T17:11:44+00:00",
-      "source": "gorashietury",
-      "link": "https://www.aviasales.ru/search/LED2009HRG1?marker=748397&currency=rub",
-      "text": "✈️ Санкт-Петербург - Хургада, от 29491 рублей",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Абхазия",
-        "code": "SUI",
-        "country": {
-          "ru": "Абхазия",
-          "en": "Abkhazia"
-        },
-        "kind": "country"
-      },
-      "price": 28086,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-09-18T16:00:55+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🏞 Абхазия от 7 ночей от 28 086 ₽ за двоих"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 77464,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-09-18T16:00:55+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇹🇷 Турция от 7 ночей от 77 464 ₽ за двоих, AI -  всё включено"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Вьетнам",
-        "code": "SGN",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "country"
-      },
-      "price": 82862,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-09-18T16:00:55+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇻🇳 Вьетнам от 10 ночей от 82 862 ₽ за двоих, BB - завтраки"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 83244,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-09-18T16:00:55+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇪🇬 Египет от 7 ночей от 83 244 ₽ за двоих, AI - всё включено"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Китай",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "country"
-      },
-      "price": 100387,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-09-18T16:00:55+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇨🇳 Китай (Хайнань)  от 11 ночей от 100 387 ₽ за двоих"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 134935,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-09-18T16:00:55+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇹🇭 Таиланд от 11 ночей от 134 935 ₽ за двоих, BB - завтраки"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 145260,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 1,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-09-18T16:00:55+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇲🇻 Мальдивы от 5+1 ночей от 145 260 ₽ за двоих, BB - завтраки"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Малайзия",
-        "code": "KUL",
-        "country": {
-          "ru": "Малайзия",
-          "en": "Malaysia"
-        },
-        "kind": "country"
-      },
-      "to": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 11500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10",
-      "returnDate": null,
-      "date": "2026-09-18T15:09:08+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/KUL0110MOW1?marker=748397&currency=rub",
-      "text": "🔥🔥🔥 Из Малайзии в Москву, Питер и Казань на крыльях Etihad Airways за 11500 рублей!",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хайнань",
-        "code": "SYX",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 56900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-09-29",
-      "returnDate": null,
-      "date": "2026-09-18T14:14:10+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/qR6dHf",
-      "text": "🔥 на Хайнань (Китай) на неделю в 4-5* от 56 900/чел, виза не нужна  (скидка по промокоду 2500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 59900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 9,
-      "departDate": "2026-09-29",
-      "returnDate": "2026-10-08",
-      "date": "2026-09-18T14:14:10+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/xJG3s2",
-      "text": "🔥 в Таиланд (Паттайя) на 9 ночей с 29 сентября от 59 900/чел  (скидка по промокоду 2500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Танзания",
-        "code": "ZNZ",
-        "country": {
-          "ru": "Танзания",
-          "en": "Tanzania"
-        },
-        "kind": "country"
-      },
-      "price": 72500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-09-24",
-      "returnDate": "2026-10-05",
-      "date": "2026-09-18T14:14:10+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/9Q3Kkn",
-      "text": "🔥 в Танзанию (на Занзибар) на 11 ночей с 24 сентября от 72 500/чел  (скидка по промокоду 2500Lucky ; виза по прибытии 50$/чел + обязательная страховка 44$)"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.034Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 20,
-      "freshPosts": 12,
+      "freshPosts": 11,
       "latestPostAt": "2026-09-20T09:25:57+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4920,27 +4988,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 15,
-      "freshPosts": 12,
-      "latestPostAt": "2026-09-20T13:28:14+00:00",
+      "freshPosts": 11,
+      "latestPostAt": "2026-09-20T14:24:43+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-09-20T11:00:07+00:00",
+      "latestPostAt": "2026-09-20T17:13:21+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-09-20T12:08:49+00:00",
@@ -4950,39 +5018,39 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-09-20T12:01:14+00:00",
+      "latestPostAt": "2026-09-20T14:19:13+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 20,
-      "freshPosts": 18,
-      "latestPostAt": "2026-09-20T13:43:13+00:00",
+      "freshPosts": 20,
+      "latestPostAt": "2026-09-20T16:47:12+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 19,
-      "freshPosts": 6,
-      "latestPostAt": "2026-09-20T08:59:12+00:00",
+      "freshPosts": 7,
+      "latestPostAt": "2026-09-20T16:03:12+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
-      "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "status": "idle",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 11,
-      "freshPosts": 1,
+      "freshPosts": 0,
       "latestPostAt": "2026-09-18T15:21:45+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4990,7 +5058,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 10,
       "freshPosts": 7,
       "latestPostAt": "2026-09-20T10:01:48+00:00",
@@ -5000,7 +5068,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 12,
       "freshPosts": 4,
       "latestPostAt": "2026-09-19T15:35:25+00:00",
@@ -5010,19 +5078,19 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
-      "latestPostAt": "2026-09-20T13:47:41+00:00",
+      "latestPostAt": "2026-09-20T17:11:44+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 19,
-      "freshPosts": 3,
+      "freshPosts": 2,
       "latestPostAt": "2026-09-20T14:05:21+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5030,7 +5098,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-09-20T14:05:34.035Z",
+      "checkedAt": "2026-09-20T17:25:10.189Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-09-20T12:37:03+00:00",

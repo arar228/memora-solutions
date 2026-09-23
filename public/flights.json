@@ -1,7 +1,50 @@
 {
-  "updatedAt": "2026-09-23T17:07:16.490Z",
+  "updatedAt": "2026-09-23T21:33:44.530Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
-  "items": []
+  "items": [
+    {
+      "origin": "STW",
+      "destination": "AER",
+      "depart_date": "2026-10-09",
+      "return_date": "2026-10-16",
+      "price": 4068,
+      "median": 16289.5,
+      "discount": 0.7502685779182909,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-09-23T19:52:09",
+      "link": "https://www.aviasales.ru/search/STW0910AER16101?marker=748397&currency=rub",
+      "key": "STW-AER-2026-10-09-4068"
+    },
+    {
+      "origin": "KZN",
+      "destination": "KUF",
+      "depart_date": "2026-10-05",
+      "return_date": "2026-10-09",
+      "price": 4726,
+      "median": 7220,
+      "discount": 0.34542936288088644,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-09-23T19:54:53",
+      "link": "https://www.aviasales.ru/search/KZN0510KUF09101?marker=748397&currency=rub",
+      "key": "KZN-KUF-2026-10-05-4726"
+    },
+    {
+      "origin": "FRA",
+      "destination": "LON",
+      "depart_date": "2026-09-28",
+      "return_date": "2026-09-30",
+      "price": 3398,
+      "median": 4880.5,
+      "discount": 0.3037598606700133,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-09-23T19:52:34",
+      "link": "https://www.aviasales.ru/search/FRA2809LON30091?marker=748397&currency=rub",
+      "key": "FRA-LON-2026-09-28-3398"
+    }
+  ]
 }

@@ -1,7 +1,47 @@
 {
-  "updatedAt": "2026-09-26T21:00:37.381Z",
+  "updatedAt": "2026-09-26T23:29:52.862Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Черногория",
+        "code": "TIV",
+        "country": {
+          "ru": "Черногория",
+          "en": "Montenegro"
+        },
+        "kind": "country"
+      },
+      "price": 71319,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 14,
+      "departDate": "2026-10-30",
+      "returnDate": "2026-11-13",
+      "date": "2026-09-26T23:03:16+00:00",
+      "source": "toursspb",
+      "link": "https://level.tpx.gr/lRPS25OB?erid=2VtzqwsMKs9",
+      "text": "Туры Санкт-Петербург - Черногория от 71 319₽/чел. на 14 ночей (было от 77 415₽, цена упала на 8%)\n👉 Ссылка на туры:",
+      "originalLink": "https://level.tpx.lu/2YieTi9T?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
     {
       "type": "flight",
       "from": {
@@ -1158,9 +1198,9 @@
         "kind": "city"
       },
       "price": 15000,
-      "oldPrice": 42683,
-      "savings": 27683,
-      "discount": 0.65,
+      "oldPrice": 44068,
+      "savings": 29068,
+      "discount": 0.66,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1197,9 +1237,9 @@
         "kind": "city"
       },
       "price": 8300,
-      "oldPrice": 18718,
-      "savings": 10418,
-      "discount": 0.56,
+      "oldPrice": 18509,
+      "savings": 10209,
+      "discount": 0.55,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1734,8 +1774,8 @@
         "kind": "city"
       },
       "price": 19400,
-      "oldPrice": 46537,
-      "savings": 27137,
+      "oldPrice": 46156,
+      "savings": 26756,
       "discount": 0.58,
       "oneway": false,
       "roundTrip": false,
@@ -2154,9 +2194,9 @@
         "kind": "city"
       },
       "price": 9800,
-      "oldPrice": 55113,
-      "savings": 45313,
-      "discount": 0.82,
+      "oldPrice": 59604,
+      "savings": 49804,
+      "discount": 0.84,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2814,45 +2854,6 @@
         "kind": "city"
       },
       "to": {
-        "name": "Бодрум",
-        "code": "BJV",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 8100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-12",
-      "returnDate": null,
-      "date": "2026-09-26T05:48:48+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1210BJV1?marker=748397&currency=rub",
-      "text": "Бодрум · ✓ 12.10 • 8100₽",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
         "name": "Даламан",
         "code": "DLM",
         "country": {
@@ -2862,9 +2863,9 @@
         "kind": "city"
       },
       "price": 9700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
+      "oldPrice": 17976,
+      "savings": 8276,
+      "discount": 0.46,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2901,6 +2902,45 @@
         "kind": "city"
       },
       "price": 10100,
+      "oldPrice": 17976,
+      "savings": 7876,
+      "discount": 0.44,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-12",
+      "returnDate": null,
+      "date": "2026-09-26T05:48:48+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1210DLM1?marker=748397&currency=rub",
+      "text": "Даламан · ✓ 12.10 • 10100₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бодрум",
+        "code": "BJV",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 8100,
       "oldPrice": null,
       "savings": null,
       "discount": null,
@@ -2912,8 +2952,8 @@
       "returnDate": null,
       "date": "2026-09-26T05:48:48+00:00",
       "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1210DLM1?marker=748397&currency=rub",
-      "text": "Даламан · ✓ 12.10 • 10100₽",
+      "link": "https://www.aviasales.ru/search/MOW1210BJV1?marker=748397&currency=rub",
+      "text": "Бодрум · ✓ 12.10 • 8100₽",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -3892,8 +3932,8 @@
         "kind": "city"
       },
       "price": 1800,
-      "oldPrice": 4261,
-      "savings": 2461,
+      "oldPrice": 4291,
+      "savings": 2491,
       "discount": 0.58,
       "oneway": false,
       "roundTrip": false,
@@ -4171,9 +4211,9 @@
         "kind": "city"
       },
       "price": 6117,
-      "oldPrice": 20361,
-      "savings": 14244,
-      "discount": 0.7,
+      "oldPrice": 18952,
+      "savings": 12835,
+      "discount": 0.68,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -4636,45 +4676,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Краснодар",
-        "code": "KRR",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Дубай",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "city"
-      },
-      "price": 8100,
-      "oldPrice": 30067,
-      "savings": 21967,
-      "discount": 0.73,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-09-25T10:44:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KRR2610DXB1?marker=748397&currency=rub",
-      "text": "из Краснодара в Дубай 🇦🇪 за 8 100 р. OW (октябрь)\nАзимут, прямой рейс -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -4693,9 +4694,9 @@
         "kind": "city"
       },
       "price": 9500,
-      "oldPrice": 25565,
-      "savings": 16065,
-      "discount": 0.63,
+      "oldPrice": 26192,
+      "savings": 16692,
+      "discount": 0.64,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -4706,6 +4707,45 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW2610DXB1?marker=748397&currency=rub",
       "text": "из Минеральных Вод в Дубай 🇦🇪 за 9 500 р. OW (октябрь)\nАзимут, прямой рейс -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Краснодар",
+        "code": "KRR",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дубай",
+        "code": "DXB",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 8100,
+      "oldPrice": 22836,
+      "savings": 14736,
+      "discount": 0.65,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-09-25T10:44:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KRR2610DXB1?marker=748397&currency=rub",
+      "text": "из Краснодара в Дубай 🇦🇪 за 8 100 р. OW (октябрь)\nАзимут, прямой рейс -",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -4811,9 +4851,9 @@
         "kind": "country"
       },
       "price": 5400,
-      "oldPrice": 20759,
-      "savings": 15359,
-      "discount": 0.74,
+      "oldPrice": 17009,
+      "savings": 11609,
+      "discount": 0.68,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -5353,8 +5393,8 @@
         "kind": "city"
       },
       "price": 2900,
-      "oldPrice": 4261,
-      "savings": 1361,
+      "oldPrice": 4291,
+      "savings": 1391,
       "discount": 0.32,
       "oneway": false,
       "roundTrip": true,
@@ -5934,7 +5974,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.769Z",
       "fetchedPosts": 20,
       "freshPosts": 10,
       "latestPostAt": "2026-09-26T14:21:01+00:00",
@@ -5944,7 +5984,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 19,
       "freshPosts": 17,
       "latestPostAt": "2026-09-26T16:51:13+00:00",
@@ -5954,7 +5994,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-09-26T18:29:18+00:00",
@@ -5964,7 +6004,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 20,
       "freshPosts": 4,
       "latestPostAt": "2026-09-26T07:46:40+00:00",
@@ -5974,7 +6014,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-09-26T14:55:16+00:00",
@@ -5984,17 +6024,17 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 20,
-      "freshPosts": 11,
-      "latestPostAt": "2026-09-26T11:59:23+00:00",
+      "freshPosts": 12,
+      "latestPostAt": "2026-09-26T23:03:16+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-09-26T15:54:54+00:00",
@@ -6004,7 +6044,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 8,
       "freshPosts": 1,
       "latestPostAt": "2026-09-25T15:11:24+00:00",
@@ -6014,7 +6054,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-09-26T10:18:08+00:00",
@@ -6024,7 +6064,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 10,
       "freshPosts": 9,
       "latestPostAt": "2026-09-26T14:33:30+00:00",
@@ -6034,7 +6074,7 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
       "latestPostAt": "2026-09-26T18:02:56+00:00",
@@ -6044,7 +6084,7 @@
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 19,
       "freshPosts": 2,
       "latestPostAt": "2026-09-26T12:00:35+00:00",
@@ -6054,7 +6094,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-09-26T21:00:32.352Z",
+      "checkedAt": "2026-09-26T23:29:47.770Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-09-26T12:38:40+00:00",

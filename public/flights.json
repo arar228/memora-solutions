@@ -1,7 +1,50 @@
 {
-  "updatedAt": "2026-10-02T17:55:21.970Z",
+  "updatedAt": "2026-10-02T22:18:31.278Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
-  "items": []
+  "items": [
+    {
+      "origin": "ULY",
+      "destination": "MOW",
+      "depart_date": "2026-10-08",
+      "return_date": "2026-10-12",
+      "price": 3388,
+      "median": 5567,
+      "discount": 0.3914136878031256,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-10-02T20:50:47",
+      "link": "https://www.aviasales.ru/search/ULY0810MOW12101?marker=748397&currency=rub",
+      "key": "ULY-MOW-2026-10-08-3388"
+    },
+    {
+      "origin": "SVX",
+      "destination": "MOW",
+      "depart_date": "2026-10-05",
+      "return_date": "2026-10-06",
+      "price": 4388,
+      "median": 6622.5,
+      "discount": 0.3374103435258588,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-10-02T20:58:18",
+      "link": "https://www.aviasales.ru/search/SVX0510MOW06101?marker=748397&currency=rub",
+      "key": "SVX-MOW-2026-10-05-4388"
+    },
+    {
+      "origin": "MOW",
+      "destination": "SVX",
+      "depart_date": "2026-10-05",
+      "return_date": "2026-10-06",
+      "price": 5388,
+      "median": 7325,
+      "discount": 0.2644368600682594,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-10-02T20:59:34",
+      "link": "https://www.aviasales.ru/search/MOW0510SVX06101?marker=748397&currency=rub",
+      "key": "MOW-SVX-2026-10-05-5388"
+    }
+  ]
 }

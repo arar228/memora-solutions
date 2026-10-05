@@ -1,7 +1,7 @@
 /**
  * Tailwind включён ТОЛЬКО для админки (admin.memorasolutions.ru).
  *
- * preflight выключен намеренно: он сбрасывает базовые стили всей страницы, а
+ * preflight исключён в admin.css: он сбрасывает базовые стили всей страницы, а
  * основной сайт свёрстан на своём CSS — с включённым preflight он бы поехал.
  * Классы Tailwind при этом работают как обычно.
  *
@@ -10,12 +10,7 @@
  * (public/pomodoro-tokens.json) — их редактирует панель Помодоро.
  */
 export default {
-  content: [
-    './index.html',
-    './src/admin/**/*.{js,jsx}',
-    './src/ui/**/*.{js,jsx}',
-  ],
-  corePlugins: { preflight: false },
+  // Tailwind v4 reads this file through @config; sources live in admin.css.
   theme: {
     extend: {
       colors: {

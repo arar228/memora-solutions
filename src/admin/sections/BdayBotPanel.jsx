@@ -481,8 +481,8 @@ function DetailedActivity({ stats }) {
                         ))}
                     </div>
                     <div className="flex gap-4 text-ui-sm text-ink-3">
-                        <span><i className="mr-1 inline-block h-2 w-2 rounded-sm bg-brand/80" />генерации</span>
-                        <span><i className="mr-1 inline-block h-2 w-2 rounded-sm bg-ok/70" />контакты</span>
+                        <span><i className="mr-1 inline-block h-2 w-2 rounded-xs bg-brand/80" />генерации</span>
+                        <span><i className="mr-1 inline-block h-2 w-2 rounded-xs bg-ok/70" />контакты</span>
                     </div>
                 </CardContent>
             </Card>
@@ -633,7 +633,7 @@ function MessageComposer({ users, recipient, setRecipient, draft, setDraft, busy
                             rows={10}
                             maxLength={4096}
                             placeholder="Текст сообщения. Поддерживается Telegram HTML."
-                            className="w-full resize-y rounded-control border border-line bg-surface-2 p-3 text-ui text-ink outline-none placeholder:text-ink-3 focus:border-brand"
+                            className="w-full resize-y rounded-control border border-line bg-surface-2 p-3 text-ui text-ink outline-hidden placeholder:text-ink-3 focus:border-brand"
                         />
                     </Field>
                     <Field label="Ссылка на изображение — необязательно">
@@ -686,7 +686,7 @@ function BroadcastComposer({ draft, setDraft, recipientCount, busy, onPreview, o
                             rows={11}
                             maxLength={4096}
                             placeholder="Текст рассылки. Поддерживается Telegram HTML."
-                            className="w-full resize-y rounded-control border border-line bg-surface-2 p-3 text-ui text-ink outline-none placeholder:text-ink-3 focus:border-brand"
+                            className="w-full resize-y rounded-control border border-line bg-surface-2 p-3 text-ui text-ink outline-hidden placeholder:text-ink-3 focus:border-brand"
                         />
                     </Field>
                     <Field label="Ссылка на изображение — необязательно">

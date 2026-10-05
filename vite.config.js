@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import { readFileSync } from 'node:fs'
 import { resilientBootPlugin } from './build/resilientBootPlugin.js'
 
@@ -23,7 +24,7 @@ export default defineConfig(({ command }) => {
     define: {
       'import.meta.env.POMODORO_RELEASE': JSON.stringify(pomodoroRelease),
     },
-    plugins: [react(), resilientBootPlugin()],
+    plugins: [react(), tailwindcss(), resilientBootPlugin()],
     // Pomodoro is an independent app with its own React version. Only scan the
     // website entry when preparing development dependencies.
     optimizeDeps: { entries: ['index.html'] },

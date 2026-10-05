@@ -1,9 +1,11 @@
-/* Tailwind подключается только здесь — этот файл грузится исключительно
-   админкой (см. lazy-импорт в App.jsx), а preflight выключен в конфиге,
-   поэтому вёрстка основного сайта не затрагивается. */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind is lazy-loaded by the admin route. Keep preflight excluded.
+   Inline theme values avoid collisions with the public site's CSS variables.
+   Utilities remain unlayered to override the site's unlayered universal reset. */
+@import "tailwindcss/theme.css" layer(theme) theme(inline);
+@import "tailwindcss/utilities.css" source(none);
+@config "../../tailwind.config.js";
+@source "./**/*.{js,jsx}";
+@source "../ui/**/*.{js,jsx}";
 
 /* Админка использует самостоятельную светлую рабочую тему независимо от сайта. */
 .admin-root {

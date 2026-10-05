@@ -49,7 +49,7 @@ function Timeline({ exhibit, lang, selected, onSelect, focused }) {
 function Parts({ exhibit, lang, selected, onSelect, focused }) {
   const total = exhibit.rows.reduce((sum, row) => sum + row.value, 0);
   return <div className="lab-parts">
-    <div className="lab-part-total"><span>{lang === 'ru' ? 'Весь спринт' : 'Full sprint'}</span><strong>{total} <small>{say(exhibit.unit, lang)}</small></strong></div>
+    <div className="lab-part-total"><span>{lang === 'ru' ? 'Весь спринт' : 'Full sprint'}</span><strong className="type-display">{total} <small>{say(exhibit.unit, lang)}</small></strong></div>
     <div className="lab-stacked-bar" aria-hidden="true">{exhibit.rows.map((row, index) => <span key={row.id}
       data-active={focused && selected === row.id} style={{ flex: row.value, '--segment': index }} />)}</div>
     <div className="lab-part-legend">{exhibit.rows.map((row, index) => <button key={row.id} type="button"
@@ -66,7 +66,7 @@ export default function LabWorkbench({ exhibit, lang, saved, onSave }) {
   const insight = getInsight(exhibit, selected, lang);
   const Chart = exhibit.id === 'change' ? Timeline : exhibit.id === 'parts' ? Parts : Bars;
   const ru = lang === 'ru';
-  return <section className="lab-workbench" aria-labelledby="lab-study-title" data-typography-exempt>
+  return <section className="lab-workbench" aria-labelledby="lab-study-title">
     <div className="lab-sheet">
       <header className="lab-sheet-head">
         <div><span className="lab-eyebrow">{exhibit.number} / {say(exhibit.form, lang)}</span><h2 id="lab-study-title">{say(exhibit.title, lang)}</h2></div>
@@ -90,7 +90,7 @@ export default function LabWorkbench({ exhibit, lang, saved, onSave }) {
     <aside className="lab-reading">
       <span className="lab-eyebrow">{ru ? 'Что становится заметно' : 'What comes into focus'}</span>
       <div className="lab-insight" aria-live="polite" aria-atomic="true">
-        {focused ? <><strong className="lab-insight-number">{insight.value}</strong><h3>{insight.label}</h3><p>{insight.detail}</p></>
+        {focused ? <><strong className="lab-insight-number type-display">{insight.value}</strong><h3>{insight.label}</h3><p>{insight.detail}</p></>
           : <><strong className="lab-overview-label">{say(exhibit.form, lang)}</strong><p>{ru ? 'Все значения перед вами. Включите акцент, чтобы выделить один фрагмент и прочитать его в контексте.' : 'Every value is visible. Turn on focus to isolate one element and read it in context.'}</p></>}
       </div>
       <div className="lab-principle"><span className="lab-eyebrow">{ru ? 'Приём' : 'Technique'}</span><h3>{say(exhibit.principle, lang)}</h3><p>{say(exhibit.explanation, lang)}</p></div>

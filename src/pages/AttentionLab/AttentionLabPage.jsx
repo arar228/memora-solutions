@@ -1,122 +1,147 @@
-import { useState } from 'react';
+import { lazy, Suspense, useEffect, useReducer, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight, Bookmark, Check, Clipboard, ExternalLink } from 'lucide-react';
-import LabWorkbench from './LabWorkbench';
-import { EXHIBITS, OUTPUTS, REFERENCES, STORAGE_KEY, TOOLS, createBrief, readSelection, say } from './labData';
-import './AttentionLabPage.css';
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Check, Grip, MousePointer2, RotateCcw, Sparkles, Target, Waypoints } from 'lucide-react';
+import { GOALS, INITIAL_JOURNEY, journeyReducer, pointInTarget } from './journey';
+import './AttentionJourney.css';
+
+const ReferenceLibrary = lazy(() => import('./ReferenceLibrary'));
+const ICONS = [Sparkles, Waypoints, MousePointer2];
+const COPY = {
+  ru: {
+    title: 'Управляем вниманием пользователя с помощью грамотного дизайна',
+    intro: 'Попробуйте сами: найдите акцент, выберите цель и соберите путь к действию.',
+    steps: ['Внимание', 'Выбор', 'Действие'],
+    titles: ['Начните с акцента', 'К чему ведём пользователя?', 'Соедините интерес и действие', 'Этот путь вы собрали сами'],
+    hints: ['Нажмите на светящуюся кнопку.', 'Выберите цель для своего продукта.', 'Перетащите вашу цель в подсвеченную область. Или соедините шаги кнопкой.', 'Акцент, выбор и следующий шаг стали одним целым.'],
+    start: 'Начать опыт', restart: 'Пройти ещё раз', drag: 'Перетащите цель', drop: 'Следующий шаг', connect: 'Соединить шаги', retry: 'Перенесите карточку в подсвеченную область или нажмите «Соединить шаги».',
+    attention: 'Вы нашли акцент', attentionDetail: 'Свет и движение указали точку входа.',
+    choice: 'Вы выбрали цель', choiceDetail: 'У каждого варианта появился понятный результат.',
+    action: 'Вы связали шаги', actionDetail: 'Ваше действие получило видимый ответ.',
+    result: 'Так может работать ваш продукт.', proposal: 'Спроектируем такой путь вместе?', cta: 'Обсудить мой проект',
+    note: 'Выбор перейдёт в черновик заявки. Отправку подтверждаете вы.',
+    library: 'Референсы и инфографика', libraryNote: 'Откройте приёмы, которые можно взять в следующий проект.', loading: 'Открываем библиотеку…',
+  },
+  en: {
+    title: 'Guiding user attention through thoughtful design',
+    intro: 'Try it yourself: find the focus, choose a goal and build a path to action.',
+    steps: ['Attention', 'Choice', 'Action'],
+    titles: ['Start with the focus', 'Where are we guiding the user?', 'Connect interest and action', 'You built this path yourself'],
+    hints: ['Press the glowing button.', 'Choose a goal for your product.', 'Drag your goal into the highlighted area. Or connect the steps with the button.', 'Focus, choice and the next step have come together.'],
+    start: 'Start the experience', restart: 'Try again', drag: 'Drag your goal', drop: 'Next step', connect: 'Connect the steps', retry: 'Move the card into the highlighted area or press “Connect the steps”.',
+    attention: 'You found the focus', attentionDetail: 'Light and motion marked the entrance.',
+    choice: 'You chose a goal', choiceDetail: 'Each option showed a clear outcome.',
+    action: 'You connected the steps', actionDetail: 'Your action received a visible response.',
+    result: 'Your product could work this way.', proposal: 'Shall we design that journey together?', cta: 'Discuss my project',
+    note: 'Your choice goes into an enquiry draft. You decide when to send it.',
+    library: 'References and information design', libraryNote: 'Explore techniques for your next project.', loading: 'Opening the library…',
+  },
+};
 
 export default function AttentionLabPage() {
   const { i18n } = useTranslation();
   const lang = i18n.resolvedLanguage?.startsWith('ru') ? 'ru' : 'en';
-  const ru = lang === 'ru';
-  const [params, setParams] = useSearchParams();
-  const exhibit = EXHIBITS.find(item => item.id === params.get('example')) || EXHIBITS[0];
-  const [saved, setSaved] = useState(() => {
-    try { return readSelection(localStorage.getItem(STORAGE_KEY)); } catch { return []; }
-  });
-  const [storageFailed, setStorageFailed] = useState(false);
-  const [output, setOutput] = useState('web');
-  const [copyState, setCopyState] = useState('');
-  const [manualCopy, setManualCopy] = useState('');
-  const [copyTarget, setCopyTarget] = useState('');
+  const c = COPY[lang];
+  const reduced = useReducedMotion();
+  const [params] = useSearchParams();
+  const [libraryOpen, setLibraryOpen] = useState(() => params.has('example') || window.location.hash === '#playground');
+  const [libraryMounted, setLibraryMounted] = useState(libraryOpen);
+  const [state, dispatch] = useReducer(journeyReducer, INITIAL_JOURNEY);
+  const [missed, setMissed] = useState(false);
+  const titleRef = useRef(null);
+  const dragAreaRef = useRef(null);
+  const targetRef = useRef(null);
+  const restartFocusRef = useRef(false);
+  const goal = GOALS.find(item => item.id === state.goal);
+  const duration = reduced ? 0 : .5;
+  const completed = state.step === 3;
 
-  function toggleSaved(id) {
-    const next = saved.includes(id) ? saved.filter(item => item !== id) : [...saved, id];
-    setSaved(next);
-    setCopyState('');
-    setManualCopy('');
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); setStorageFailed(false); }
-    catch { setStorageFailed(true); }
+  useEffect(() => {
+    if (state.step > 0) titleRef.current?.focus({ preventScroll: true });
+  }, [state.step]);
+
+  function restart() {
+    restartFocusRef.current = true;
+    setMissed(false);
+    dispatch({ type: 'restart' });
   }
 
-  async function copy(text, target) {
-    setCopyTarget(target);
-    setCopyState('');
-    setManualCopy('');
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopyState('success');
-    } catch {
-      setManualCopy(text);
-      setCopyState('manual');
-    }
-  }
+  const receipts = [
+    { title: c.attention, text: c.attentionDetail, Icon: Sparkles },
+    { title: c.choice, text: goal?.[lang].title || c.choiceDetail, Icon: Target },
+    { title: c.action, text: c.actionDetail, Icon: Waypoints },
+  ];
 
-  function selectExample(id) {
-    const next = new URLSearchParams(params);
-    next.set('example', id);
-    setParams(next, { replace: true });
-  }
-
-  function copyFeedback(target) {
-    if (copyTarget !== target) return null;
-    return <div className="lab-copy-result">
-      <p className="lab-copy-feedback" role="status">
-        {copyState === 'success' && (target === 'brief' ? (ru ? 'Бриф скопирован.' : 'Brief copied.') : (ru ? 'Команда скопирована.' : 'Command copied.'))}
-        {copyState === 'manual' && (ru ? 'Доступ к буферу обмена закрыт. Выделите текст ниже и скопируйте вручную.' : 'Clipboard access is blocked. Select the text below and copy it manually.')}
-      </p>
-      {manualCopy && <label className="lab-manual-copy">{ru ? 'Текст для копирования' : 'Text to copy'}<textarea readOnly value={manualCopy} onFocus={event => event.target.select()} rows={8} /></label>}
-    </div>;
-  }
-
-  const brief = createBrief(saved, output, lang);
-  const selectedItems = [...EXHIBITS, ...REFERENCES].filter(item => saved.includes(item.id));
-  return <div className="attention-lab">
+  return <div className="attention-lab attention-journey">
     <div className="container">
-      <header className="lab-intro">
-        <Link to="/#attention-entry" className="lab-back"><ArrowLeft size={18} aria-hidden="true" />{ru ? 'В портфолио' : 'Back to portfolio'}</Link>
-        <div className="lab-intro-row">
-          <div><span className="lab-kicker">MEMORA / {ru ? 'Лаборатория внимания' : 'Attention Lab'}</span><h1 data-typography-exempt>{ru ? <>Данные.<br /><em>Смысл. Внимание.</em></> : <>Data.<br /><em>Meaning. Attention.</em></>}</h1></div>
-          <p>{ru ? 'Меняйте подачу данных и собирайте референсы для своего проекта.' : 'Explore how visual choices shape understanding. Collect references for your project.'}</p>
-        </div>
+      <header className="journey-intro">
+        <div className="journey-intro-top"><span className="lab-kicker">MEMORA / {lang === 'ru' ? 'Лаборатория внимания' : 'Attention Lab'}</span><Link to="/#attention-entry" className="lab-back"><ArrowLeft size={18} aria-hidden="true" />{lang === 'ru' ? 'В портфолио' : 'Back to portfolio'}</Link></div>
+        <h1>{c.title}</h1>
+        <p>{c.intro}</p>
       </header>
-      <div className="lab-questions" role="group" aria-label={ru ? 'Вопрос к данным' : 'Question for your data'} data-typography-exempt>
-        {EXHIBITS.map(item => <button key={item.id} type="button" aria-pressed={item.id === exhibit.id} onClick={() => selectExample(item.id)}>
-          <span>{item.number}</span><strong>{say(item.name, lang)}</strong><ArrowRight size={18} aria-hidden="true" />
-        </button>)}
-      </div>
-      <LabWorkbench key={exhibit.id} exhibit={exhibit} lang={lang} saved={saved.includes(exhibit.id)} onSave={() => toggleSaved(exhibit.id)} />
-      <p className="lab-data-note">{ru ? 'Все числа здесь — демонстрационные. Они показывают работу визуальных приёмов. Реальные выводы строим на данных вашего проекта.' : 'All numbers here are illustrative. They demonstrate visual techniques. Real conclusions come from your project’s data.'}</p>
-
-      <section className="lab-collection" aria-labelledby="lab-collection-title">
-        <div className="lab-section-head"><div><span className="lab-kicker">02 / {ru ? 'В работу' : 'Put it to work'}</span><h2 id="lab-collection-title">{ru ? 'Ваша подборка' : 'Your collection'} <span>({saved.length})</span></h2></div><p>{ru ? 'Сохраните подходящие примеры и источники. Бриф объединит их в отправную точку для проекта.' : 'Save useful examples and sources. A brief brings them together as a starting point for your project.'}</p></div>
-        <div className="lab-collection-body">
-          <div className="lab-saved-list">
-            {selectedItems.length ? selectedItems.map(item => <div className="lab-saved-item" key={item.id}>
-              <span>{item.number || '↗'}</span>
-              {item.rows ? <button type="button" onClick={() => { selectExample(item.id); document.getElementById('lab-study-title')?.scrollIntoView({ block: 'center' }); }}>{say(item.form, lang)}</button> : <a href={item.href} target="_blank" rel="noopener noreferrer">{item.title}<ExternalLink size={16} aria-hidden="true" /></a>}
-              <button className="lab-remove" type="button" onClick={() => toggleSaved(item.id)} aria-label={(ru ? 'Убрать из подборки: ' : 'Remove from collection: ') + say(item.form || item.title, lang)}>{ru ? 'Убрать' : 'Remove'}</button>
-            </div>) : <p className="lab-empty"><Bookmark size={24} aria-hidden="true" />{ru ? 'Начните с примера выше: нажмите «Сохранить пример».' : 'Start with a study above: choose “Save example”.'}</p>}
-            <p className="lab-storage-note">{storageFailed ? (ru ? 'Браузер запретил сохранение. Подборка доступна до закрытия страницы — скопируйте бриф.' : 'Browser storage is blocked. Your collection lasts until the page closes — copy the brief.') : (ru ? 'Подборка сохраняется в этом браузере.' : 'Your collection is saved in this browser.')}</p>
+      <LayoutGroup id="attention-journey">
+        <section className="journey" aria-labelledby="journey-title" data-step={state.step}>
+          <header className="journey-toolbar">
+            <ol aria-label={lang === 'ru' ? 'Ход опыта' : 'Experience progress'}>{c.steps.map((step, index) => <li key={step} aria-current={!completed && state.step === index ? 'step' : undefined} data-done={state.step > index}><span>{state.step > index ? <Check size={18} aria-hidden="true" /> : `0${index + 1}`}</span>{step}</li>)}</ol>
+            {state.step > 0 && <button type="button" className="journey-restart" onClick={restart}><RotateCcw size={18} aria-hidden="true" />{c.restart}</button>}
+          </header>
+          <div className="journey-heading">
+            <h2 id="journey-title" ref={titleRef} tabIndex={-1}>{c.titles[state.step]}</h2>
+            <p role="status" aria-live="polite" aria-atomic="true">{state.step === 2 && <>{goal[lang].title}. </>}{c.hints[state.step]}</p>
           </div>
-          <div className="lab-brief">
-            <label htmlFor="lab-output">{ru ? 'Что создаём' : 'What are we making?'}</label>
-            <select id="lab-output" value={output} onChange={event => { setOutput(event.target.value); setCopyState(''); setManualCopy(''); }}>{OUTPUTS.map(item => <option value={item.id} key={item.id}>{say(item.title, lang)}</option>)}</select>
-            <span>{OUTPUTS.find(item => item.id === output).engine}</span>
-            <button type="button" className="lab-primary" disabled={!saved.length} onClick={() => copy(brief, 'brief')}><Clipboard size={18} aria-hidden="true" />{ru ? 'Скопировать бриф' : 'Copy brief'}</button>
-            {copyFeedback('brief')}
-          </div>
-        </div>
-      </section>
-
-      <section className="lab-library" aria-labelledby="lab-library-title">
-        <div className="lab-section-head"><div><span className="lab-kicker">03 / {ru ? 'Насмотренность' : 'Visual literacy'}</span><h2 id="lab-library-title">{ru ? 'Библиотека приёмов' : 'A library of techniques'}</h2></div><p>{ru ? 'Источники, к которым возвращаемся при выборе формы и сценария.' : 'Sources to return to when choosing a visual form and interaction.'}</p></div>
-        <div className="lab-reference-grid">{REFERENCES.map(item => <article key={item.id}>
-          <a href={item.href} target="_blank" rel="noopener noreferrer"><h3>{item.title}</h3><ExternalLink size={18} aria-hidden="true" /></a>
-          <p>{say(item.text, lang)}</p>
-          <button type="button" aria-pressed={saved.includes(item.id)} onClick={() => toggleSaved(item.id)}>{saved.includes(item.id) ? <Check size={18} aria-hidden="true" /> : <Bookmark size={18} aria-hidden="true" />}{saved.includes(item.id) ? (ru ? 'В подборке' : 'In collection') : (ru ? 'В подборку' : 'Save reference')}</button>
-        </article>)}</div>
-      </section>
-      <details className="lab-tools">
-        <summary>{ru ? 'Как перенести приём в проект' : 'How to bring a technique into your project'}</summary>
-        <p>{ru ? 'Эти этюды работают на React и SVG. Для следующих проектов выбираем инструмент под формат результата:' : 'These studies use React and SVG. For future projects, we choose tools around the output:'}</p>
-        <div className="lab-output-grid">{OUTPUTS.map(item => <article key={item.id}><h3>{say(item.title, lang)}</h3><strong>{item.engine}</strong><p>{item.route}</p></article>)}</div>
-        <h3>{ru ? 'Инструменты для команды' : 'Tools for the team'}</h3>
-        <p>{ru ? 'Команды для собственной среды разработки. Перед установкой изучите документацию и содержимое пакета. Для OpenSkills замените SOURCE на выбранный репозиторий.' : 'Commands for your development environment. Review the documentation and package contents before installing. For OpenSkills, replace SOURCE with your selected repository.'}</p>
-        {TOOLS.map(tool => <div className="lab-tool" key={tool.title}><a href={tool.href} target="_blank" rel="noopener noreferrer">{tool.title}<ExternalLink size={16} aria-hidden="true" /></a><code>{tool.code}</code><button type="button" onClick={() => copy(tool.code, tool.title)}>{ru ? 'Копировать команду' : 'Copy command'}</button>{copyFeedback(tool.title)}</div>)}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div key={state.step} className={`journey-scene journey-scene--${state.step}`} initial={{ opacity: 0, y: reduced ? 0 : 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reduced ? 0 : -8, transition: { duration: reduced ? 0 : .15 } }} transition={{ duration }} onAnimationComplete={() => {
+              if (state.step === 0 && restartFocusRef.current) {
+                document.getElementById('lab-start')?.focus({ preventScroll: true });
+                restartFocusRef.current = false;
+              }
+            }}>
+              {state.step === 0 && <div className="journey-entry">
+                <div className="journey-fragments" aria-hidden="true">{[0, 1, 2, 3].map(n => <span key={n}><i /><i /><i /></span>)}</div>
+                <svg className="journey-beam" viewBox="0 0 1000 320" preserveAspectRatio="none" aria-hidden="true"><motion.path d="M40 250 C150 250 130 90 290 90 S340 160 500 160" fill="none" stroke="currentColor" strokeWidth="2" initial={{ pathLength: reduced ? 1 : 0 }} animate={{ pathLength: 1 }} transition={{ duration: reduced ? 0 : 1.4 }} /></svg>
+                <motion.button layoutId={reduced ? undefined : 'journey-focus'} id="lab-start" type="button" className="journey-start" onClick={() => dispatch({ type: 'start' })} whileInView={reduced ? {} : { boxShadow: ['0 0 0 0px #75dfeb30', '0 0 0 20px #75dfeb00', '0 0 0 0px #75dfeb00'] }} viewport={{ once: true, amount: .8 }} transition={{ duration: reduced ? 0 : 1.8, repeat: reduced ? 0 : 2 }}><MousePointer2 size={22} aria-hidden="true" />{c.start}<ArrowRight size={22} aria-hidden="true" /></motion.button>
+              </div>}
+              {state.step === 1 && <div className="journey-goals">{GOALS.map((item, index) => {
+                const Icon = ICONS[index];
+                return <motion.button layoutId={reduced ? undefined : `journey-goal-${item.id}`} type="button" key={item.id} className="journey-goal" onClick={() => dispatch({ type: 'choose', goal: item.id })} initial={{ opacity: 0, y: reduced ? 0 : 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration, delay: reduced ? 0 : index * .12 }} whileHover={reduced ? {} : { y: -6 }}>
+                  <span className="journey-goal-top"><Icon size={28} aria-hidden="true" /><span>0{index + 1}</span></span><h3>{item[lang].title}</h3><p>{item[lang].detail}</p><ArrowRight className="journey-goal-arrow" size={22} aria-hidden="true" />
+                </motion.button>;
+              })}</div>}
+              {state.step === 2 && <div className="journey-connect">
+                <div className="journey-drag-area" ref={dragAreaRef}>
+                  <svg className="journey-link-line" viewBox="0 0 800 150" preserveAspectRatio="none" aria-hidden="true"><motion.path d="M170 75 H630" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="5 10" initial={{ pathLength: reduced ? 1 : 0 }} animate={{ pathLength: 1 }} transition={{ duration }} /></svg>
+                  <motion.div layoutId={reduced ? undefined : `journey-goal-${goal.id}`} className="journey-token" drag dragConstraints={dragAreaRef} dragSnapToOrigin dragElastic={0} onDragEnd={(event, info) => {
+                    // Motion reports page coordinates; target bounds use viewport coordinates.
+                    const point = { x: event.clientX ?? info.point.x - window.scrollX, y: event.clientY ?? info.point.y - window.scrollY };
+                    if (targetRef.current && pointInTarget(point, targetRef.current.getBoundingClientRect())) dispatch({ type: 'connect' });
+                    else setMissed(true);
+                  }} whileDrag={reduced ? {} : { scale: 1.04, cursor: 'grabbing' }} aria-hidden="true"><Grip size={22} /><strong>{goal[lang].title}</strong><span>{c.drag}</span></motion.div>
+                  <motion.div layoutId={reduced ? undefined : 'journey-action'} className="journey-drop" ref={targetRef}><Target size={30} aria-hidden="true" /><strong>{c.drop}</strong></motion.div>
+                </div>
+                <button type="button" className="journey-connect-button" onClick={() => dispatch({ type: 'connect' })}>{c.connect}<ArrowRight size={22} aria-hidden="true" /></button>
+                {missed && <p className="journey-drag-help" role="status">{c.retry}</p>}
+              </div>}
+              {completed && <div className="journey-result">
+                <div className="journey-receipts">{receipts.map(({ title, text, Icon }, index) => <motion.div layoutId={reduced ? undefined : index === 0 ? 'journey-focus' : index === 1 ? `journey-goal-${goal.id}` : 'journey-action'} key={index} className="journey-receipt" initial={{ opacity: 0, y: reduced ? 0 : 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration, delay: reduced ? 0 : index * .15 }}><Icon size={22} aria-hidden="true" /><strong>{title}</strong><p>{text}</p><Check size={18} aria-hidden="true" /></motion.div>)}</div>
+                <motion.div className="journey-proposal" initial={{ opacity: 0, y: reduced ? 0 : 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration, delay: reduced ? 0 : .5 }}>
+                  <span className="lab-kicker">MEMORA × {lang === 'ru' ? 'ВАШ ПРОЕКТ' : 'YOUR PROJECT'}</span>
+                  <h2>{c.result}</h2><p>{goal[lang].result}</p><p className="journey-invitation">{c.proposal}</p>
+                  <Link className="journey-cta" to={`/?labGoal=${goal.id}#contact`}>{c.cta}<ArrowRight size={22} aria-hidden="true" /></Link><span className="journey-handoff-note">{c.note}</span>
+                </motion.div>
+              </div>}
+            </motion.div>
+          </AnimatePresence>
+          {state.step > 0 && !completed && <div className="journey-feedback"><Check size={18} aria-hidden="true" /><span>{state.step === 1 ? c.attentionDetail : c.choiceDetail}</span></div>}
+        </section>
+      </LayoutGroup>
+      <details className="journey-library" id="playground" open={libraryOpen} onToggle={event => {
+        setLibraryOpen(event.currentTarget.open);
+        if (event.currentTarget.open) setLibraryMounted(true);
+      }}>
+        <summary><span><strong>{c.library}</strong><span>{c.libraryNote}</span></span><ArrowRight size={22} aria-hidden="true" /></summary>
+        {libraryMounted && <Suspense fallback={<p role="status">{c.loading}</p>}><ReferenceLibrary /></Suspense>}
       </details>
-      <footer className="lab-end"><p>{ru ? 'Какие данные стоит сделать понятнее в вашем продукте?' : 'Which data deserves more clarity in your product?'}</p><Link to="/#contact">{ru ? 'Обсудить задачу' : 'Discuss your project'}<ArrowRight size={20} aria-hidden="true" /></Link></footer>
     </div>
   </div>;
 }

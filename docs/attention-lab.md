@@ -1,8 +1,32 @@
 # Attention Lab
 
-The Lab extends Memora's portfolio with a working demonstration of information design. The homepage entrance follows the project gallery. The existing `/attention-lab` route, bilingual content, saved-reference key and copyable brief remain supported.
+The Lab opens with a user-driven attention journey. The visitor finds an accented
+entrance, chooses a product goal, connects that goal to the next action, and sees
+a collaboration card assembled from the three completed actions. The homepage
+entrance follows the project gallery. The existing `/attention-lab` route,
+bilingual content, saved-reference key and copyable brief remain supported.
 
-## Research → product decisions
+## Attention journey
+
+- Every transition follows an explicit action: start → choose → connect → result.
+  The reducer validates both the current stage and a known goal ID. Repeated or
+  out-of-order actions have no effect; restart clears the goal and restores focus.
+- A finite accent pulse starts when its button enters view. Scene entrances,
+  a drawn connecting path and shared-layout cards show continuity. No background
+  animation loop, countdown or forced scrolling controls the visitor.
+- Dragging uses viewport coordinates for target detection, including after page
+  scrolling. A native button offers the same result through keyboard or touch.
+- The final message varies with the chosen goal. Its ordinary contact link carries
+  only a validated `labGoal` ID. The existing contact form creates an editable
+  draft from that ID; payment, consent, API and submission behavior stay unchanged.
+- Stage headings receive focus after actions, instructions use polite live
+  announcements, and reduced-motion preference gives instant transitions.
+- The reference shelf is a secondary native details element. Its JavaScript and
+  styles load on first opening; its component stays mounted afterward to preserve
+  in-memory selections when browser storage is blocked. `?example=` links and
+  the historical `#playground` anchor open the library directly.
+
+## Reference library: research → product decisions
 
 | Reference | Observed pattern | Application here |
 | --- | --- | --- |
@@ -15,16 +39,25 @@ These are design interpretations, not measured conversion claims or copies of th
 
 ## Structure
 
-- `src/shared/AttentionPortal.jsx`: once-only scroll reveal of a chart sheet, ordinary link into the Lab; reduced-motion support.
+- `src/shared/AttentionPortal.jsx`: once-only scroll reveal of a chart sheet, ordinary link into the experience; reduced-motion support.
+- `AttentionLabPage.jsx` / `AttentionJourney.css`: staged interaction, drag target,
+  progress, restart, assembled invitation and optional reference library.
+- `journey.js`: finite-state reducer, bilingual goals, validated contact handoff
+  and viewport target detection; shared by the existing contact form.
 - `src/pages/AttentionLab/labData.js`: bilingual datasets, reference catalog, safe selection parser, derived insights, text brief.
 - `LabWorkbench.jsx`: native buttons, CSS bars and responsive SVG line geometry; exact-value table.
-- `AttentionLabPage.jsx`: study selection in `?example=`, device-local collection, copy status and manual fallback, secondary tool reference.
+- `ReferenceLibrary.jsx`: study selection in `?example=`, device-local collection, copy status and manual fallback, secondary tool reference.
 - `AttentionLabPage.css`: dark Memora shell, light chart sheet, responsive controls.
 - `tests/attention-lab.test.mjs`: data integrity, insight arithmetic, saved-selection validation and reusable briefs.
+- `tests/attention-journey.test.mjs`: all three goal paths, stage guards, restart,
+  safe bilingual contact drafts, drag boundaries and typography/motion contracts.
 
 The studies render with React, CSS and SVG. Vega-Lite, Altair, Observable Plot, matplotlib and AntV are reference options for future work, not hidden runtime dependencies. No new package was installed. Heavy chart runtimes and continuous Lab animation loops are absent; the shared particle component is unmounted on this route.
 
-The chart workbench opts out of the site's forced 18/22/56 typography to retain readable chart labels and responsive controls. Its body text is 16px; normal chart labels are 14–16px, secondary metadata 13px. The surrounding site keeps Memora typography.
+The experience, reference workbench and homepage entrance all follow the site's
+56/22/18 typography. There are no typography exemptions or component-specific
+font-size declarations. Larger numeric insights use the existing `type-display`
+class. Narrow layouts adapt the grid and wrapping rather than the font scale.
 
 ## Reference shelf
 
@@ -55,6 +88,9 @@ Vite's dependency scan is restricted to the root `index.html`. Without this boun
 ## Validation
 
 - Root ESLint / typography validation and production build.
-- 19 automated reliability tests, including five Lab tests.
-- Browser checks: question switching; selected values; overview/focus; keyboard activation; exact table; saved collection after reload; copy brief; ru/en; narrow viewport overflow and chart readability.
+- 84 automated reliability tests, including five library and five journey tests.
+- Browser checks: staged Russian flow; successful dragging after scroll;
+  English keyboard flow and focus order; repeat and restored entry focus;
+  personalized contact draft (without submission); reference switching and saved
+  collection after reload; 390px layout and computed 56/22/18 typography.
 - Deployment remains on the existing Memora infrastructure. This frontend redesign does not close the remaining server/payment/updater findings recorded in the separate reliability audit.

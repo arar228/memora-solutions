@@ -13,7 +13,7 @@ import { cn } from './utils';
 
 // ---------- Button ----------
 const buttonVariants = cva(
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-control text-ui font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-control text-ui font-semibold transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand/60 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
     {
         variants: {
             variant: {
@@ -59,7 +59,7 @@ export const Input = forwardRef(function Input({ className, ...props }, ref) {
         <input
             ref={ref}
             className={cn(
-                'h-12 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-none transition-colors',
+                'h-12 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-hidden transition-colors',
                 'placeholder:text-ink-3 focus:border-brand',
                 className,
             )}
@@ -77,7 +77,7 @@ export const Select = forwardRef(function Select({ className, ...props }, ref) {
         <select
             ref={ref}
             className={cn(
-                'h-12 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-none focus:border-brand',
+                'h-12 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-hidden focus:border-brand',
                 className,
             )}
             {...props}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin style regression</title>
+    <link rel="stylesheet" href="/src/index.css" />
+    <link rel="stylesheet" href="/src/admin/admin.css" />
+  </head>
+  <body>
+    <main class="app container section">
+      <h1 id="public-heading">Memora Solutions</h1>
+      <p id="public-body">Публичная тема и размеры шрифтов</p>
+    </main>
+    <section class="admin-root bg-bg text-ink p-6">
+      <div id="card" class="rounded-card border border-line bg-surface shadow-card p-5">
+        <h2 id="admin-heading" class="text-admin-heading text-ink">Панель управления</h2>
+        <label for="field">Название проекта</label>
+        <input id="field" value="Тестовый проект" class="h-12 w-full rounded-control border border-line bg-surface-2 px-3 text-ui text-ink outline-hidden focus:border-brand" />
+        <button id="action" class="inline-flex items-center justify-center h-12 px-4 rounded-control bg-brand text-white text-ui">Сохранить</button>
+      </div>
+    </section>
+    <output id="result"></output>
+    <script type="module">
+      const style = id => getComputedStyle(document.getElementById(id));
+      const checks = {
+        publicHeading: style('public-heading').fontSize === '56px',
+        publicBody: style('public-body').fontSize === '18px',
+        publicColor: style('public-body').color === 'rgb(229, 229, 229)',
+        publicBackground: getComputedStyle(document.body).backgroundColor === 'rgb(26, 26, 30)',
+        heading: style('admin-heading').fontSize === '22px',
+        inputType: style('field').fontSize === '18px',
+        inputHeight: style('field').height === '48px',
+        inputPadding: style('field').paddingLeft === '12px',
+        inputBorder: style('field').borderTopStyle === 'solid' && style('field').borderTopWidth === '1px',
+        radius: style('field').borderRadius === '10px',
+        card: style('card').backgroundColor === 'rgb(255, 255, 255)',
+        cardPadding: style('card').paddingTop === '20px',
+        action: style('action').backgroundColor === 'rgb(6, 121, 138)',
+      };
+      document.getElementById('result').textContent = JSON.stringify({ pass: Object.values(checks).every(Boolean), checks });
+    </script>
+  </body>
+</html>

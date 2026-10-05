@@ -41,6 +41,7 @@
         "@eslint/js": "^10.0.1",
         "@types/react": "^19.2.18",
         "@types/react-dom": "^19.2.7",
+        "@tailwindcss/vite": "^4.3.3",
         "@vitejs/plugin-react": "^5.2.0",
         "autoprefixer": "^10.5.5",
         "eslint": "^10.9.1",
@@ -49,11 +50,11 @@
         "globals": "^17.12.0",
         "postcss": "^8.5.28",
         "sharp": "^0.35.4",
-        "tailwindcss": "^3.4.19",
+        "tailwindcss": "^4.3.3",
         "vite": "^7.3.6"
     },
     "overrides": {
-        "brace-expansion@^1.0.0": "1.1.18",
+        "brace-expansion@^1.0.0": "1.1.21",
         "js-yaml": "4.3.1"
     }
 }

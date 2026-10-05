@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Route scroll regression</title>
+  <link rel="stylesheet" href="/src/index.css">
+  <style>
+    .fixture-route { height: 1800px; animation: route-enter 1s linear; }
+    @keyframes route-enter { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    #result { position: fixed; z-index: 1; top: 24px; left: 24px; padding: 24px; background: #202024; }
+  </style>
+</head>
+<body>
+  <div class="app"><main class="app__main"><div class="fixture-route"></div></main></div>
+  <output id="result">Sampling route animation…</output>
+  <script type="module">
+    const result = document.getElementById('result');
+    const started = performance.now();
+    const frames = [];
+    function sample() {
+      const body = document.body;
+      frames.push({
+        bodyOverflowY: getComputedStyle(body).overflowY,
+        bodyOverflow: body.scrollHeight - body.clientHeight,
+        bodyWidth: body.clientWidth,
+        documentWidth: document.documentElement.clientWidth,
+        documentOverflow: document.documentElement.scrollHeight - document.documentElement.clientHeight,
+      });
+      if (performance.now() - started < 1200) return requestAnimationFrame(sample);
+      const secondScrollbarFrames = frames.filter(frame => ['auto', 'scroll'].includes(frame.bodyOverflowY) && frame.bodyOverflow > 1);
+      const widths = [...new Set(frames.map(frame => frame.bodyWidth))];
+      const pass = secondScrollbarFrames.length === 0 && widths.length === 1;
+      result.textContent = JSON.stringify({
+        pass, frames: frames.length, secondScrollbarFrames: secondScrollbarFrames.length,
+        bodyWidths: widths, maximumBodyOverflow: Math.max(...frames.map(frame => frame.bodyOverflow)),
+        bodyOverflowY: frames[0]?.bodyOverflowY, documentScrolls: frames.every(frame => frame.documentOverflow > 0),
+      });
+      result.dataset.pass = String(pass);
+    }
+    requestAnimationFrame(sample);
+  </script>
+</body>
+</html>

@@ -11,9 +11,19 @@
       --color-green: #10b981;
     }
 
+    /* Match the loaded stylesheet from the first paint: the viewport owns
+       scrolling and reserves its gutter throughout lazy route loading. */
+    html {
+      overflow-x: hidden;
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+    }
+
     body {
       margin: 0;
       background: var(--color-bg);
+      overflow-x: clip;
+      overflow-y: visible;
     }
 
     .global-loader {

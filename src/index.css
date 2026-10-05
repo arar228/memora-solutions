@@ -135,6 +135,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -149,12 +151,10 @@ body {
     var(--color-bg);
   line-height: 1.7;
   transition: background-color var(--transition-slow), color var(--transition-slow);
-  overflow-x: hidden;
-}
-
-/* Prevent layout shift on scrollbar appearance */
-html {
-  scrollbar-gutter: stable;
+  /* hidden on one axis makes the other axis auto, creating a second
+     scrollbar while the route's translateY animation overflows the body. */
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 /* App shell keeps short routes at viewport height without adding a separate

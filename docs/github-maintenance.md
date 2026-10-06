@@ -44,6 +44,13 @@ Weekly minor/patch updates are grouped per ecosystem. React and its DOM/types
 major versions are grouped; ESLint and its plugins are grouped. Actions are
 SHA-pinned and updated together. Security audits continue in CI.
 
+The October 6 Attention Lab release updates the site and Pomodoro lockfiles from
+source-map-js 1.2.1 to the compatible 1.2.2 security patch for
+[GHSA-68fv-2mgg-jv7q](https://github.com/advisories/GHSA-68fv-2mgg-jv7q).
+The site audit is clear; Pomodoro retains eight moderate findings in the desktop
+packaging dependency chain. These remain a separate reviewed packaging update;
+the high-severity release gate passes without a forced Electron-builder downgrade.
+
 The 2026-09-06 batch updates React/DOM/types together (including Pomodoro),
 ESLint 10 with react-hooks 7.1.1, Electron 44.1.1, router, GSAP, iconv-lite,
 python-telegram-bot 22.8 and timezone data. The brace-expansion security override

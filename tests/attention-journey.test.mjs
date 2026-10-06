@@ -50,19 +50,22 @@ test('drag success is based on a finite pointer position inside the target', () 
   for (const point of [null, { x: NaN, y: 100 }, { x: Infinity, y: 80 }, { x: 99, y: 100 }, { x: 150, y: 161 }]) assert.equal(pointInTarget(point, rect), false);
 });
 
-test('Lab respects site typography, reduced motion and optional library loading', () => {
+test('Lab respects site typography, reduced motion and a tunnel-only experience', () => {
   for (const file of ['AttentionLabPage.jsx', 'ReferenceLibrary.jsx', 'LabWorkbench.jsx']) {
     assert.doesNotMatch(readFileSync(new URL(`../src/pages/AttentionLab/${file}`, import.meta.url), 'utf8'), /data-typography-exempt/);
   }
   const source = readFileSync(new URL('../src/pages/AttentionLab/AttentionLabPage.jsx', import.meta.url), 'utf8');
   assert.match(source, /useReducedMotion/);
-  assert.match(source, /lazy\(\(\) => import\('\.\/ReferenceLibrary'\)\)/);
-  assert.match(source, /libraryMounted && <Suspense/);
-  assert.match(source, /if \(event.currentTarget.open\) setLibraryMounted\(true\)/);
-  assert.match(source, /className="journey-connect-button"/);
+  assert.doesNotMatch(source, /ReferenceLibrary|libraryMounted|libraryOpen|useSearchParams|playground|<details|<summary/);
+  assert.doesNotMatch(source, /Референсы и инфографика|References and information design/);
+  assert.match(source, /className="tunnel-contact"/);
+  assert.doesNotMatch(source, /type="range"|sculpture-steps/);
+  assert.match(source, /<AttentionSculpture/);
   assert.doesNotMatch(source, /setInterval|fetch\(|localStorage|repeat: Infinity/);
   const css = readFileSync(new URL('../src/pages/AttentionLab/AttentionJourney.css', import.meta.url), 'utf8');
   assert.doesNotMatch(css, /font-size\s*:/);
   assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.doesNotMatch(css, /journey-library|tunnel-library-wrap/);
+  assert.match(css, /\.attention-lab\.attention-journey \{ padding: 0;/);
   for (const path of ['../src/pages/AttentionLab/AttentionLabPage.css', '../src/shared/AttentionPortal.css']) assert.doesNotMatch(readFileSync(new URL(path, import.meta.url), 'utf8'), /font-size\s*:/);
 });

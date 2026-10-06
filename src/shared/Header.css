@@ -276,6 +276,19 @@
 }
 
 /* === Responsive === */
+.header.header--immersive { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; }
+.header--immersive .header__inner { max-width: none; padding-inline: clamp(20px, 4vw, 64px); }
+.header--immersive .header__nav { display: none; }
+.header--immersive .header__burger { display: flex; border-radius: 999px; color: #11141b; background: #eeeef5; }
+.header--immersive .header__action-btn { min-height: 44px; border-radius: 999px; background: #20222d; color: #eeeef5; }
+.header__immersive-contact { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 20px; border-radius: 999px; color: #f4f4fa; background: #20222d; text-decoration: none; }
+.header__immersive-contact:hover { background: #333746; }
+.header--immersive .header__mobile-menu { left: auto; right: clamp(20px, 4vw, 64px); width: min(360px, calc(100vw - 40px)); max-height: calc(100svh - var(--header-height) - 20px); overflow-y: auto; border: 1px solid #ffffff24; border-radius: 20px; background: #11151eee; backdrop-filter: blur(18px); }
+@media (max-width: 700px) {
+    .header__immersive-contact { display: none; }
+    .header--immersive .header__inner { gap: 8px; }
+}
+
 /* Tighten the nav before it would overflow at narrower desktop widths / zoom. */
 @media (max-width: 1280px) {
     .header__nav {

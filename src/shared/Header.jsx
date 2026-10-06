@@ -24,6 +24,7 @@ const PRODUCTS = [
 export default function Header() {
     const { t, i18n } = useTranslation();
     const location = useLocation();
+    const immersive = location.pathname === '/attention-lab';
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [productsOpen, setProductsOpen] = useState(false);
@@ -64,7 +65,13 @@ export default function Header() {
     };
 
     return (
-        <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
+        <header className={`header ${scrolled ? 'header--scrolled' : ''} ${immersive ? 'header--immersive' : ''}`}
+            onKeyDown={event => {
+                if (immersive && event.key === 'Escape' && mobileOpen) {
+                    setMobileOpen(false);
+                    event.currentTarget.querySelector('.header__burger')?.focus();
+                }
+            }}>
             <div className="header__inner container">
                 <Link to="/" className="header__logo">
                     <img src={staticAsset('/logo.webp?v=2')} alt="Memora Solutions" className="header__logo-img" decoding="async" />
@@ -133,6 +140,9 @@ export default function Header() {
                 </nav>
 
                 <div className="header__actions">
+                    {immersive && <Link className="header__immersive-contact" to="/?labGoal=act#contact">
+                        {i18n.resolvedLanguage?.startsWith('ru') ? 'Обсудить проект' : 'Discuss a project'}
+                    </Link>}
                     <button
                         onClick={toggleLang}
                         className="header__action-btn"
@@ -147,6 +157,7 @@ export default function Header() {
                         onClick={() => setMobileOpen(!mobileOpen)}
                         aria-label={mobileOpen ? t('a11y.closeMenu') : t('a11y.openMenu')}
                         aria-expanded={mobileOpen}
+                        aria-controls={mobileOpen ? 'header-navigation-menu' : undefined}
                     >
                         {mobileOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
                     </button>
@@ -156,6 +167,7 @@ export default function Header() {
             <AnimatePresence>
                 {mobileOpen && (
                     <motion.div
+                        id="header-navigation-menu"
                         className="header__mobile-menu"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}

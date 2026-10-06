@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { goalBrief, goalFromSearch } from '../AttentionLab/journey';
 import {
     ArrowRight,
     AtSign,
@@ -244,7 +245,7 @@ function getClientId() {
 
 function ProjectInquiry({ copy, lang }) {
     const [name, setName] = useState('');
-    const [request, setRequest] = useState('');
+    const [request, setRequest] = useState(() => goalBrief(goalFromSearch(window.location.search)?.id, lang));
     const [method, setMethod] = useState('phone');
     const [contact, setContact] = useState('');
     const [privacyConsent, setPrivacyConsent] = useState(false);

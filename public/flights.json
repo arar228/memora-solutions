@@ -1,7 +1,50 @@
 {
-  "updatedAt": "2026-10-09T01:15:53.342Z",
+  "updatedAt": "2026-10-09T10:39:56.219Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
-  "items": []
+  "items": [
+    {
+      "origin": "MCX",
+      "destination": "AER",
+      "depart_date": "2026-10-13",
+      "return_date": "2026-10-16",
+      "price": 2977,
+      "median": 5762,
+      "discount": 0.48333911836168,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-10-09T10:30:08",
+      "link": "https://www.aviasales.ru/search/MCX1310AER16101?marker=748397&currency=rub",
+      "key": "MCX-AER-2026-10-13-2977"
+    },
+    {
+      "origin": "AER",
+      "destination": "MCX",
+      "depart_date": "2026-10-11",
+      "return_date": "2026-10-16",
+      "price": 3267,
+      "median": 5699,
+      "discount": 0.42674153360238637,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-10-09T10:29:20",
+      "link": "https://www.aviasales.ru/search/AER1110MCX16101?marker=748397&currency=rub",
+      "key": "AER-MCX-2026-10-11-3267"
+    },
+    {
+      "origin": "MOW",
+      "destination": "KZN",
+      "depart_date": "2026-10-11",
+      "return_date": "2026-10-13",
+      "price": 3418,
+      "median": 4753.5,
+      "discount": 0.2809508783001999,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-10-09T10:21:10",
+      "link": "https://www.aviasales.ru/search/MOW1110KZN13101?marker=748397&currency=rub",
+      "key": "MOW-KZN-2026-10-11-3418"
+    }
+  ]
 }

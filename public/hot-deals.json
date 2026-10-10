@@ -1,7 +1,987 @@
 {
-  "updatedAt": "2026-10-10T09:42:28.090Z",
+  "updatedAt": "2026-10-10T15:49:54.374Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Вьетнам",
+        "code": "SGN",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "country"
+      },
+      "price": 68448,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-13",
+      "returnDate": "2026-10-20",
+      "date": "2026-10-10T13:46:21+00:00",
+      "source": "gorashietury",
+      "link": "https://tour.checkintime.ru/search/Moscow-RU-to-Nha.Trang-VN-departure-13.10.2026-for-7-nights-2-adults-0-kids-1..5-stars-package-type?filter_rating=8&sort_by=price,asc&aflt=CheckInTime",
+      "text": "🔥 Туры во Вьетнам 🇻🇳 из Москвы на 7 ночей от 68448 руб. на человека.\n✈️ Вылет 13 октября - от 68448 руб/чел\n✈️ Вылет 20 октября - от 73755 руб/чел\n✈️ Вылет 13 октября - от 88612 руб/чел"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Стамбул",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 8400,
+      "oldPrice": 17620,
+      "savings": 9220,
+      "discount": 0.52,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-10T13:26:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0911IST1?marker=748397&currency=rub",
+      "text": "из Москвы в Севилью 🇪🇸 за 8 400 р. OW (зимой и весной)\nPegasus, через Стамбул -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Стамбул",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 9400,
+      "oldPrice": 17620,
+      "savings": 8220,
+      "discount": 0.47,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-10T13:26:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0911IST1?marker=748397&currency=rub",
+      "text": "из Москвы в Болонью 🇮🇹 за 9 400 р. OW (зимой и весной)\nPegasus, пересадка в Стамбуле -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бильбао",
+        "code": "BIO",
+        "country": {
+          "ru": "Испания",
+          "en": "Spain"
+        },
+        "kind": "city"
+      },
+      "price": 7575,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-12-02",
+      "returnDate": null,
+      "date": "2026-10-10T13:12:31+00:00",
+      "source": "gorashietury",
+      "link": "https://www.aviasales.ru/search/MOW0212BIO1?marker=748397&currency=rub",
+      "text": "✈️ Москва - Бильбао, от 7575 рублей",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Индонезия",
+        "code": "DPS",
+        "country": {
+          "ru": "Индонезия",
+          "en": "Indonesia"
+        },
+        "kind": "country"
+      },
+      "price": 49800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Гуанчжоу",
+          "code": "CAN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-10T12:37:00+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0911DPS1?marker=748397&currency=rub",
+      "text": "из Москвы в Индонезию 🇮🇩 за 49 800 р. RT (зимой)\nChina Southern, через Гуанчжоу - \nВсе даты:",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарджа",
+        "code": "SHJ",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 53100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-12",
+      "returnDate": "2026-10-19",
+      "date": "2026-10-10T12:33:40+00:00",
+      "source": "turs_sale",
+      "link": "https://onlinetours.tpx.gr/4E34mujn?erid=2VtzqwtqK9V",
+      "text": "Шарджа, 7 ночей\nВылет из: #Москва\nДаты: 12.10.26 - 19.10.26\nЦена: 53100P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirates",
+      "originalLink": "https://пртс.рф/6mut",
+      "isAffiliate": true,
+      "affiliateBrand": "OnlineTours",
+      "affiliateProgram": "onlinetours",
+      "affiliateErid": "2VtzqwtqK9V"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Махачкала",
+        "code": "MCX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кемер",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 23400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-16",
+      "returnDate": "2026-10-23",
+      "date": "2026-10-10T12:28:19+00:00",
+      "source": "turs_sale",
+      "link": "https://onlinetours.tpx.gr/zi9YW8Bh?erid=2VtzqwtqK9V",
+      "text": "Кемер, 7 ночей\nВылет из: #Махачкала #ЮФО\nДаты: 16.10.26 - 23.10.26\nЦена: 23400P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/",
+      "originalLink": "https://пртс.рф/FqHV",
+      "isAffiliate": true,
+      "affiliateBrand": "OnlineTours",
+      "affiliateProgram": "onlinetours",
+      "affiliateErid": "2VtzqwtqK9V"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Тюмень",
+        "code": "TJM",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кемер",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 47800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-12",
+      "returnDate": "2026-10-19",
+      "date": "2026-10-10T12:27:48+00:00",
+      "source": "turs_sale",
+      "link": "https://onlinetours.tpx.gr/65qN1wiu?erid=2VtzqwtqK9V",
+      "text": "Кемер, 7 ночей\nВылет из: #Тюмень #Урал\nДаты: 12.10.26 - 19.10.26\nЦена: 47800P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pi",
+      "originalLink": "https://пртс.рф/iV3d",
+      "isAffiliate": true,
+      "affiliateBrand": "OnlineTours",
+      "affiliateProgram": "onlinetours",
+      "affiliateErid": "2VtzqwtqK9V"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Астрахань",
+        "code": "ASF",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 39000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-18",
+      "returnDate": "2026-10-25",
+      "date": "2026-10-10T12:20:33+00:00",
+      "source": "turs_sale",
+      "link": "https://onlinetours.tpx.gr/EbCU3id1?erid=2VtzqwtqK9V",
+      "text": "Хургада, 7 ночей\nВылет из: #Астрахань #Поволжье\nДаты: 18.10.26 - 25.10.26\nЦена: 39000P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: ",
+      "originalLink": "https://пртс.рф/onwG",
+      "isAffiliate": true,
+      "affiliateBrand": "OnlineTours",
+      "affiliateProgram": "onlinetours",
+      "affiliateErid": "2VtzqwtqK9V"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Кемер",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 29300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-12",
+      "returnDate": "2026-10-19",
+      "date": "2026-10-10T12:14:09+00:00",
+      "source": "turs_sale",
+      "link": "https://onlinetours.tpx.gr/B9RFuq4Z?erid=2VtzqwtqK9V",
+      "text": "Кемер, 7 ночей\nВылет из: #МинВоды #ЮФО\nДаты: 12.10.26 - 19.10.26\nЦена: 29300P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pi",
+      "originalLink": "https://пртс.рф/Z5fk",
+      "isAffiliate": true,
+      "affiliateBrand": "OnlineTours",
+      "affiliateProgram": "onlinetours",
+      "affiliateErid": "2VtzqwtqK9V"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 69900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 12,
+      "departDate": "2026-10-16",
+      "returnDate": "2026-10-28",
+      "date": "2026-10-10T12:09:33+00:00",
+      "source": "turs_sale",
+      "link": "https://onlinetours.tpx.gr/tKAPqcg6?erid=2VtzqwtqK9V",
+      "text": "Нячанг, 12 ночей\nВылет из: #Москва\nДаты: 16.10.26 - 28.10.26\nЦена: 69900P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirate",
+      "originalLink": "https://пртс.рф/Y4vh",
+      "isAffiliate": true,
+      "affiliateBrand": "OnlineTours",
+      "affiliateProgram": "onlinetours",
+      "affiliateErid": "2VtzqwtqK9V"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Абхазия",
+        "code": "SUI",
+        "country": {
+          "ru": "Абхазия",
+          "en": "Abkhazia"
+        },
+        "kind": "country"
+      },
+      "price": 10200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-10-12",
+      "returnDate": "2026-10-18",
+      "date": "2026-10-10T12:04:52+00:00",
+      "source": "turs_sale",
+      "link": "https://onlinetours.tpx.gr/ORIoqHBy?erid=2VtzqwtqK9V",
+      "text": "Абхазия, 6 ночей\nВылет из: #Москва\nДаты: 12.10.26 - 18.10.26\nЦена: 10200P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirate",
+      "originalLink": "https://пртс.рф/iG1j",
+      "isAffiliate": true,
+      "affiliateBrand": "OnlineTours",
+      "affiliateProgram": "onlinetours",
+      "affiliateErid": "2VtzqwtqK9V"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Индия",
+        "code": "DEL",
+        "country": {
+          "ru": "Индия",
+          "en": "India"
+        },
+        "kind": "country"
+      },
+      "price": 45470,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-16",
+      "returnDate": "2026-10-23",
+      "date": "2026-10-10T11:19:28+00:00",
+      "source": "toursmsk",
+      "link": "https://level.tpx.gr/at1P2rNl?erid=2VtzqwsMKs9",
+      "text": "Туры Москва - Индия от 45 470₽/чел. на 7 ночей (было от 49 149₽, цена упала на 7%)\n👉 Ссылка на туры:",
+      "originalLink": "https://level.tpx.lu/axdOj72S?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 1700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-10T11:06:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX0911LED1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Петербург 🇷🇺 за 1 700 р. OW (октябрь)\nПобеда, прямой рейс -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Дагестан",
+        "code": "MCX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 7400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-10T11:06:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN0911MCX1?marker=748397&currency=rub",
+      "text": "из Казани в Дагестан 🇷🇺 за 7 400 р. RT (зимой)\nNordwind, прямые рейсы -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Волгоград",
+        "code": "VOG",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 7600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-10T11:06:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX0911VOG1?marker=748397&currency=rub",
+      "text": "из Екатеринбурга в Волгоград 🇷🇺 за 7 600 р. RT (ноябрь-декабрь)\nNordStar, прямые рейсы -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Тунис",
+        "code": "TUN",
+        "country": {
+          "ru": "Тунис",
+          "en": "Tunisia"
+        },
+        "kind": "country"
+      },
+      "price": 110382,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-18",
+      "returnDate": "2026-10-25",
+      "date": "2026-10-10T10:58:30+00:00",
+      "source": "leveltravel",
+      "link": "https://lvtv.me/MKtMkNv",
+      "text": "🐥В октябре температура воды в Тунисе от +21C до +24C.\nОт 🚩 110 382 ₽ за 7 ночей с 18 по 25 октября стоят туры туда, если бронировать их сейчас \n📍 \"Талассо\" в переводе с греческого означает \"море\". "
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 24300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-13",
+      "returnDate": null,
+      "date": "2026-10-10T10:29:12+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW1310CXR1?marker=748397&currency=rub",
+      "text": "Москва — Нячанг за 24300₽ в одну сторону.\nБилеты → 13.10 • 24300₽\nТуда-обратно за 51400:",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Токио",
+        "code": "TYO",
+        "country": {
+          "ru": "Япония",
+          "en": "Japan"
+        },
+        "kind": "city"
+      },
+      "price": 26000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Гуанчжоу",
+          "code": "CAN"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-10T10:17:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0911TYO1?marker=748397&currency=rub",
+      "text": "из Москвы в Токио 🇯🇵 за 26 000 р. OW (зимой и весной)\nChina Southern, пересадка в Гуанчжоу - \nВсе даты:",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Осака",
+        "code": "OSA",
+        "country": {
+          "ru": "Япония",
+          "en": "Japan"
+        },
+        "kind": "city"
+      },
+      "price": 26000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Китай",
+          "code": "PEK"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-10T10:17:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0911OSA1?marker=748397&currency=rub",
+      "text": "из Москвы в Осаку 🇯🇵 за 26 000 р. OW (зимой)\nChina Southern, стыковки в Китае - \nВсе даты:",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Абхазия",
+        "code": "SUI",
+        "country": {
+          "ru": "Абхазия",
+          "en": "Abkhazia"
+        },
+        "kind": "country"
+      },
+      "price": 10700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-14",
+      "returnDate": null,
+      "date": "2026-10-10T10:06:30+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/tJrR1x",
+      "text": "🔥 в Абхазию на следующие выходные от 10 700/чел  (после выбора отеля и номера есть опции: без трансфера или с групповым трансфером; важно: туры на рейсах до Сочи, возможны переносы и значительные зад"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Турция",
+        "code": "IST",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "country"
+      },
+      "price": 27800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-10-14",
+      "returnDate": "2026-10-21",
+      "date": "2026-10-10T10:06:30+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/8v5Vws",
+      "text": "🔥 в Турцию на 5-7 ночей с 14 октября от 27 800/чел, все включено, с топливными сборами"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 259107,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-25",
+      "returnDate": "2026-11-01",
+      "date": "2026-10-10T10:00:23+00:00",
+      "source": "leveltravel",
+      "link": "https://lvtv.me/qgQuLoM",
+      "text": "☀V Hotel - Sharm El Sheikh 5* от 259 107 ₽ с 25 октября по 1 ноября"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 276539,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-26",
+      "returnDate": "2026-11-02",
+      "date": "2026-10-10T10:00:23+00:00",
+      "source": "leveltravel",
+      "link": "https://lvtv.me/77JRVHC",
+      "text": "☀Grand Rotana Resort & Spa 5* от 276 539 ₽ с 26 октября по 2 ноября"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Город вылета уточняется",
+        "code": "ANY",
+        "country": {
+          "ru": "Город вылета уточняется",
+          "en": "Город вылета уточняется"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарм-эль-Шейх",
+        "code": "SSH",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 320160,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-30",
+      "returnDate": "2026-11-06",
+      "date": "2026-10-10T10:00:23+00:00",
+      "source": "leveltravel",
+      "link": "https://lvtv.me/uwV5jJ5",
+      "text": "☀Sunrise Arabian Beach Resort 5* от 320 160 ₽ с 30 октября по 6 ноября"
+    },
     {
       "type": "tour",
       "from": {
@@ -1308,8 +2288,8 @@
         "kind": "city"
       },
       "price": 6800,
-      "oldPrice": 17148,
-      "savings": 10348,
+      "oldPrice": 17026,
+      "savings": 10226,
       "discount": 0.6,
       "oneway": true,
       "roundTrip": false,
@@ -1347,8 +2327,8 @@
         "kind": "city"
       },
       "price": 21000,
-      "oldPrice": 21226,
-      "savings": 226,
+      "oldPrice": 21242,
+      "savings": 242,
       "discount": 0.01,
       "oneway": false,
       "roundTrip": true,
@@ -2824,8 +3804,8 @@
         "kind": "city"
       },
       "price": 8900,
-      "oldPrice": 21226,
-      "savings": 12326,
+      "oldPrice": 21242,
+      "savings": 12342,
       "discount": 0.58,
       "oneway": false,
       "roundTrip": true,
@@ -3222,8 +4202,8 @@
         "kind": "city"
       },
       "price": 7200,
-      "oldPrice": 17148,
-      "savings": 9948,
+      "oldPrice": 17026,
+      "savings": 9826,
       "discount": 0.58,
       "oneway": false,
       "roundTrip": false,
@@ -3261,8 +4241,8 @@
         "kind": "city"
       },
       "price": 1700,
-      "oldPrice": 5825,
-      "savings": 4125,
+      "oldPrice": 5830,
+      "savings": 4130,
       "discount": 0.71,
       "oneway": false,
       "roundTrip": false,
@@ -3586,86 +4566,6 @@
       "text": "Смотрите, какой чудесный Korston Royal Hotel 5* с бассейном и хаммамом: от 🔥87 326 ₽ за 7 ночей с 18 по 25 октября на двоих"
     },
     {
-      "type": "tour",
-      "from": {
-        "name": "Иркутск",
-        "code": "IKT",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Паттайя",
-        "code": "UTP",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 59100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-11-06",
-      "returnDate": "2026-11-13",
-      "date": "2026-10-09T09:15:13+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/ntUQGmLR?erid=2VtzqwtqK9V",
-      "text": "Паттайя, 7 ночей\nВылет из: #Иркутск #Сибирь\nДаты: 06.11.26 - 13.11.26\nЦена: 59100P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.",
-      "originalLink": "https://пртс.рф/2sZH",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Омск",
-        "code": "OMS",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кемер",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 49700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-11-02",
-      "returnDate": "2026-11-08",
-      "date": "2026-10-09T09:14:33+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/b3Lavubg?erid=2VtzqwtqK9V",
-      "text": "Кемер, 6 ночей\nВылет из: #Омск #Сибирь\nДаты: 02.11.26 - 08.11.26\nЦена: 49700P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pi",
-      "originalLink": "https://пртс.рф/7pyh",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
       "type": "flight",
       "from": {
         "name": "Москва",
@@ -3747,86 +4647,6 @@
     {
       "type": "tour",
       "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кемер",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 28400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-10-15",
-      "returnDate": "2026-10-21",
-      "date": "2026-10-09T09:05:56+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/nl02QHgi?erid=2VtzqwtqK9V",
-      "text": "Кемер, 6 ночей\nВылет из: #МинВоды #ЮФО\nДаты: 15.10.26 - 21.10.26\nЦена: 28400P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pi",
-      "originalLink": "https://пртс.рф/W7ZF",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 77000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-10-19",
-      "returnDate": "2026-10-30",
-      "date": "2026-10-09T08:53:45+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/iHe7ypTr?erid=2VtzqwtqK9V",
-      "text": "Нячанг, 11 ночей\nВылет из: #Урал #Уфа\nДаты: 19.10.26 - 30.10.26\nЦена: 77000P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pir",
-      "originalLink": "https://пртс.рф/evoL",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
-      "type": "tour",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -3863,46 +4683,6 @@
       "affiliateBrand": "Level.Travel",
       "affiliateProgram": "leveltravel",
       "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Тюмень",
-        "code": "TJM",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кемер",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 53300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-10-12",
-      "returnDate": "2026-10-18",
-      "date": "2026-10-09T08:53:20+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/65qN1wiu?erid=2VtzqwtqK9V",
-      "text": "Кемер, 6 ночей\nВылет из: #Тюмень #Урал\nДаты: 12.10.26 - 18.10.26\nЦена: 53300P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pi",
-      "originalLink": "https://пртс.рф/iV3d",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
     },
     {
       "type": "flight",
@@ -4229,126 +5009,6 @@
       "text": "🇲🇻 Баа Атолл, Dhoani Maldives Guesthouse ?★ — завтраки\n• 7 ночей\n• питание — завтраки\n• ~190.000 рублей за двоих\n• вылет 12.10.2026\n• из Москвы\n• 🚐 трансфер аэропорт ↔ отель — включён\n• ✈️ Аэрофлот"
     },
     {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 13800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-10-14",
-      "returnDate": "2026-10-20",
-      "date": "2026-10-09T08:08:51+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/QL7jyY34?erid=2VtzqwtqK9V",
-      "text": "Сочи, 6 ночей\nВылет из: #СПб\nДаты: 14.10.26 - 20.10.26\nЦена: 13800P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/piratesru\nВК",
-      "originalLink": "https://пртс.рф/zrAx",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 95500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": "2026-10-12",
-      "returnDate": "2026-10-22",
-      "date": "2026-10-09T08:06:11+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/jDdaHr3L?erid=2VtzqwtqK9V",
-      "text": "Мальдивы, 10 ночей\nВылет из: #Москва\nДаты: 12.10.26 - 22.10.26\nЦена: 95500P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pira",
-      "originalLink": "https://пртс.рф/mWwM",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 10500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-10-18",
-      "returnDate": "2026-10-24",
-      "date": "2026-10-09T08:02:33+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/WPRGDZN6?erid=2VtzqwtqK9V",
-      "text": "Сочи, 6 ночей\nВылет из: #Москва\nДаты: 18.10.26 - 24.10.26\nЦена: 10500P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/piratesru",
-      "originalLink": "https://пртс.рф/ZUGo",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
       "type": "flight",
       "from": {
         "name": "Город вылета уточняется",
@@ -4501,84 +5161,6 @@
       "text": "Так поплаваем: 3 затяжных (и затягивающих) круиза где-то в степях ЮВА. Один на декабрь этого года, два - на апрель-май следующего.   \n🛀 Круговой из Гонконга на 10 дней/9 ночей с посещением Японии и Ю"
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 17300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-09T07:55:04+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0911MLE1?marker=748397&currency=rub",
-      "text": "из Москвы на Мальдивы 🇲🇻 за 17 300 р. OW (сегодня)\nАэрофлот, прямой рейс с багажом - \nВсе даты:",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 22800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-09T07:55:04+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0911SEZ1?marker=748397&currency=rub",
-      "text": "из Москвы на Сейшелы 🇸🇨 за 22 800 р. OW (завтра)\nАэрофлот, прямой рейс - \nВсе даты:",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -4682,84 +5264,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/EVN1201MIL1?marker=748397&currency=rub",
       "text": "Ереван — Милан за 7600₽ туда-обратно.\n✓ RT 12.01-21.01 • 7600₽\n✓ OW 10.11 • 4500₽",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 5700,
-      "oldPrice": 17333,
-      "savings": 11633,
-      "discount": 0.67,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-09T07:26:10+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0911IST1?marker=748397&currency=rub",
-      "text": "из Петербурга в Стамбул 🇹🇷 за 5 700 р. OW (декабрь)\nSouthwind, прямой рейс -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 12700,
-      "oldPrice": 17333,
-      "savings": 4633,
-      "discount": 0.27,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-09T07:26:10+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0911IST1?marker=748397&currency=rub",
-      "text": "2 в 1! из Петербурга в Стамбул 🇹🇷 и Ниш 🇷🇸 за 12 700 р. OW (декабрь)\nSouthwind + Air Serbia, прямые рейсы -",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -4941,8 +5445,8 @@
         "kind": "city"
       },
       "price": 8400,
-      "oldPrice": 21226,
-      "savings": 12826,
+      "oldPrice": 21242,
+      "savings": 12842,
       "discount": 0.6,
       "oneway": true,
       "roundTrip": false,
@@ -4954,85 +5458,6 @@
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW1010DXB1?marker=748397&currency=rub",
       "text": "Москва — Дубай за  10300  8400₽ в одну сторону.\n✓ 10.10 • 10300₽\n✓ 11.10 • 10300 8400₽\n✓ 13.10 • 10300₽",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 53044,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-09T05:47:37+00:00",
-      "source": "travelata",
-      "link": "https://travelata.tpx.gr/7qKixtBj?erid=2VtzqupLVjA",
-      "text": "⚡️ ️ Горящие туры в Турцию, отели с теплыми бассейнами, питание «всё включено» • 8 ночей, туры от 53 044 ₽ с человека. Включены проживание в отеле, перелёт, выбранный вариант трансфера, медицинская ст",
-      "originalLink": "https://go.travelata.ru/OOwqi",
-      "isAffiliate": true,
-      "affiliateBrand": "Travelata",
-      "affiliateProgram": "travelata",
-      "affiliateErid": "2VtzqupLVjA"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 1700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-11",
-      "returnDate": null,
-      "date": "2026-10-09T05:40:04+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW1110KZN1?marker=748397&currency=rub",
-      "text": "Москва — Казань за 1700₽ в одну сторону.\n✓ 11.10 • 1700₽\n✓ 12.10 • 1700₽",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -5506,935 +5931,45 @@
       "source": "luckywings",
       "link": "https://www.turscanner.ru/-/dR6THR",
       "text": "🔥 в Мармарис (Турция) на неделю c 11 октября от 49 700/чел с топливными сборами  (скидка по промокоду 1300Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бодрум",
-        "code": "BJV",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 48400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-10",
-      "returnDate": null,
-      "date": "2026-10-08T18:06:35+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/ZF1j5k",
-      "text": "🔥 в Бодрум (Турция) на неделю c 10 октября от 48 400/чел с топливными сборами  или варианты в Мармарис от 41 800/чел  (скидка по промокоду 700Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Оман",
-        "code": "MCT",
-        "country": {
-          "ru": "Оман",
-          "en": "Oman"
-        },
-        "kind": "country"
-      },
-      "price": 54900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-12",
-      "returnDate": null,
-      "date": "2026-10-08T18:06:35+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/0J5Kkv",
-      "text": "🔥 в Оман на неделю с 12 октября от 54 900/чел, виза не нужна  (скидка по промокоду 2500Lucky)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Вьетнам",
-        "code": "SGN",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "country"
-      },
-      "price": 68300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 14,
-      "departDate": "2026-10",
-      "returnDate": null,
-      "date": "2026-10-08T18:06:35+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/ZF1j5k",
-      "text": "🔥 во Вьетнам (Нячанг) на 10-14 ночей в октябре (например, с вылетом 13-го) от 68 300/чел www.turscanner.ru/-/BddBW7"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 78600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-12",
-      "returnDate": null,
-      "date": "2026-10-08T18:06:35+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/Yc0788",
-      "text": "🔥 на Мальдивы на неделю с 12 октября от 78 600/чел  (скидка по промокоду 3500Lucky или 4500Lucky)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Милан",
-        "code": "MIL",
-        "country": {
-          "ru": "Италия",
-          "en": "Italy"
-        },
-        "kind": "city"
-      },
-      "price": 28412,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-10-13",
-      "returnDate": null,
-      "date": "2026-10-08T17:11:44+00:00",
-      "source": "gorashietury",
-      "link": "https://www.aviasales.ru/search/LED1310MIL1?marker=748397&currency=rub",
-      "text": "✈️ Санкт-Петербург - Милан, от 28412 рублей",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Астана",
-        "code": "NQZ",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "city"
-      },
-      "price": 18000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Турция",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11",
-      "returnDate": null,
-      "date": "2026-10-08T17:02:10+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0111NQZ1?marker=748397&currency=rub",
-      "text": "В Астану 18.000 руб",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 18100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Турция",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11",
-      "returnDate": null,
-      "date": "2026-10-08T17:02:10+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0111HRG1?marker=748397&currency=rub",
-      "text": "В Хургаду 18.100 руб",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Милан",
-        "code": "MIL",
-        "country": {
-          "ru": "Италия",
-          "en": "Italy"
-        },
-        "kind": "city"
-      },
-      "price": 18600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Турция",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11",
-      "returnDate": null,
-      "date": "2026-10-08T17:02:10+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0111MIL1?marker=748397&currency=rub",
-      "text": "В Милан 18.600 руб",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мадрид",
-        "code": "MAD",
-        "country": {
-          "ru": "Испания",
-          "en": "Spain"
-        },
-        "kind": "city"
-      },
-      "price": 19400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Турция",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11",
-      "returnDate": null,
-      "date": "2026-10-08T17:02:10+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0111MAD1?marker=748397&currency=rub",
-      "text": "В Мадрид 19.400 руб",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Каир",
-        "code": "CAI",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 20500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Турция",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11",
-      "returnDate": null,
-      "date": "2026-10-08T17:02:10+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0111CAI1?marker=748397&currency=rub",
-      "text": "В Каир 20.500 руб",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Касабланка",
-        "code": "CMN",
-        "country": {
-          "ru": "Марокко",
-          "en": "Morocco"
-        },
-        "kind": "city"
-      },
-      "price": 22200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Турция",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11",
-      "returnDate": null,
-      "date": "2026-10-08T17:02:10+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0111CMN1?marker=748397&currency=rub",
-      "text": "В Касабланку 22.200 руб",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Барселона",
-        "code": "BCN",
-        "country": {
-          "ru": "Испания",
-          "en": "Spain"
-        },
-        "kind": "city"
-      },
-      "price": 25000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Турция",
-          "code": "IST"
-        }
-      ],
-      "nights": null,
-      "departDate": "2026-11",
-      "returnDate": null,
-      "date": "2026-10-08T17:02:10+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED0111BCN1?marker=748397&currency=rub",
-      "text": "В Барселону 25.000 руб",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 72500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": "2026-11",
-      "returnDate": null,
-      "date": "2026-10-08T16:44:18+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://level.tpx.gr/utiRSTnK?erid=2VtzqwsMKs9",
-      "text": "🏖Туры в Египет на 8 ночей в ноябре-декабре от 72.500 руб/чел, летит Аэрофлот, питание на выбор",
-      "originalLink": "https://level.tpx.lu/63leHt8y",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Китай",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "country"
-      },
-      "price": 59671,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-12-10",
-      "returnDate": "2026-12-21",
-      "date": "2026-10-08T16:31:34+00:00",
-      "source": "toursspb",
-      "link": "https://level.tpx.gr/Ff05lddW?erid=2VtzqwsMKs9",
-      "text": "Туры Санкт-Петербург - Китай от 59 671₽/чел. на 11 ночей (было от 67 966₽, цена упала на 12%)\n👉 Ссылка на туры:",
-      "originalLink": "https://level.tpx.lu/LseoS6Ev?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хайнань",
-        "code": "SYX",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 59771,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 13,
-      "departDate": "2027-03",
-      "returnDate": null,
-      "date": "2026-10-08T15:34:13+00:00",
-      "source": "travelata",
-      "link": "https://travelata.tpx.gr/f6vYvuB7?erid=2VtzqupLVjA",
-      "text": "🏖 13 ночей отдыха на острове Хайнань, отели на 1-2 линии с завтраками — от 59 771 ₽ с человека.",
-      "originalLink": "https://go.travelata.ru/Sroof",
-      "isAffiliate": true,
-      "affiliateBrand": "Travelata",
-      "affiliateProgram": "travelata",
-      "affiliateErid": "2VtzqupLVjA"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нью-Йорк",
-        "code": "NYC",
-        "country": {
-          "ru": "США",
-          "en": "United States"
-        },
-        "kind": "city"
-      },
-      "price": 68400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Касабланка",
-          "code": "CMN"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-08T13:55:11+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0911NYC1?marker=748397&currency=rub",
-      "text": "из Москвы в Нью-Йорк 🇺🇸 за 68 400 р. RT (до апреля)\nRoyal Air Maroc, пересадки в Касабланке -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нью-Йорк",
-        "code": "NYC",
-        "country": {
-          "ru": "США",
-          "en": "United States"
-        },
-        "kind": "city"
-      },
-      "price": 70500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Касабланка",
-          "code": "CMN"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-08T13:55:11+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED0911NYC1?marker=748397&currency=rub",
-      "text": "из Петербурга в Нью-Йорк 🇺🇸 за 70 500 р. RT (ноябрь-апрель)\nRoyal Air Maroc, через Касабланку -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Стамбул",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 120961,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-11-01",
-      "returnDate": "2026-11-30",
-      "date": "2026-10-08T13:48:50+00:00",
-      "source": "leveltravel",
-      "link": "https://level.tpx.gr/jWrOZxcn?erid=2VtzqwsMKs9",
-      "text": "Туры в Стамбул на ВЕСЬ ноябрь стоят от 🔥120 961 ₽ на двоих (!) с 1 по 30 ноября, с перелетами и проживанием",
-      "originalLink": "https://level.travel/search/Moscow-RU-to-Istanbul-TR-departure-01.11.2026-for-29-nights-2-adults-0-kids-1..5-stars-package-type?sort_by=price,asc&utm_source=tg&utm_medium=smm&utm_campaign=2026-10-08-post-3&aflt=smm",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Китай",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "country"
-      },
-      "price": 83996,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-10-20",
-      "returnDate": "2026-10-27",
-      "date": "2026-10-08T13:46:07+00:00",
-      "source": "gorashietury",
-      "link": "https://tour.checkintime.ru/search/Moscow-RU-to-Sanya.Bay-CN-departure-20.10.2026-for-7-nights-2-adults-0-kids-1..5-stars-package-type?filter_rating=8&sort_by=price,asc&aflt=CheckInTime",
-      "text": "🔥 Туры в Китай 🇨🇳 из Москвы на 7 ночей от 83996 руб. на человека.\n✈️ Вылет 20 октября - от 83996 руб/чел\n✈️ Вылет 20 октября - от 84585 руб/чел\n✈️ Вылет 20 октября - от 90384 руб/чел"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Абхазия",
-        "code": "SUI",
-        "country": {
-          "ru": "Абхазия",
-          "en": "Abkhazia"
-        },
-        "kind": "country"
-      },
-      "price": 17848,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-08T13:34:23+00:00",
-      "source": "travelata",
-      "link": "https://travelata.tpx.gr/D0EoUoLs?erid=2VtzqupLVjA",
-      "text": "- Абхазия, полный пансион, отели с хорошим рейтингом • 8 ночей, от 17 848 ₽/чел.",
-      "originalLink": "https://go.travelata.ru/J7tau",
-      "isAffiliate": true,
-      "affiliateBrand": "Travelata",
-      "affiliateProgram": "travelata",
-      "affiliateErid": "2VtzqupLVjA"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "ОАЭ",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "country"
-      },
-      "price": 57509,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-08T13:34:23+00:00",
-      "source": "travelata",
-      "link": "https://travelata.tpx.gr/D0EoUoLs?erid=2VtzqupLVjA",
-      "text": "- Эмираты, завтраки+ужины • 8 ночей, от 57 509 ₽/чел.",
-      "originalLink": "https://go.travelata.ru/J7tau",
-      "isAffiliate": true,
-      "affiliateBrand": "Travelata",
-      "affiliateProgram": "travelata",
-      "affiliateErid": "2VtzqupLVjA"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 60115,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-08T13:34:23+00:00",
-      "source": "travelata",
-      "link": "https://travelata.tpx.gr/D0EoUoLs?erid=2VtzqupLVjA",
-      "text": "- Египет, 4-5️, «всё включено» • 7 ночей, от 60 115 ₽/чел.\n- Аланья, «всё включено», есть бассейн с подогревом • 9 ночей, от 62 720 ₽/чел.",
-      "originalLink": "https://go.travelata.ru/J7tau",
-      "isAffiliate": true,
-      "affiliateBrand": "Travelata",
-      "affiliateProgram": "travelata",
-      "affiliateErid": "2VtzqupLVjA"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
-      "fetchedPosts": 16,
-      "freshPosts": 16,
-      "latestPostAt": "2026-10-10T08:39:28+00:00",
+      "checkedAt": "2026-10-10T15:49:46.088Z",
+      "fetchedPosts": 17,
+      "freshPosts": 17,
+      "latestPostAt": "2026-10-10T10:34:12+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.088Z",
       "fetchedPosts": 17,
       "freshPosts": 17,
-      "latestPostAt": "2026-10-10T09:22:00+00:00",
+      "latestPostAt": "2026-10-10T14:58:08+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.088Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-10-10T06:34:32+00:00",
+      "latestPostAt": "2026-10-10T10:29:12+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.088Z",
       "fetchedPosts": 20,
-      "freshPosts": 5,
+      "freshPosts": 3,
       "latestPostAt": "2026-10-09T13:39:03+00:00",
       "reusedPrevious": false,
       "error": null
@@ -6442,17 +5977,17 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-10-10T09:39:25+00:00",
+      "latestPostAt": "2026-10-10T11:19:28+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-10-10T09:11:35+00:00",
@@ -6462,17 +5997,17 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
       "fetchedPosts": 20,
-      "freshPosts": 8,
-      "latestPostAt": "2026-10-10T08:20:28+00:00",
+      "freshPosts": 9,
+      "latestPostAt": "2026-10-10T10:06:30+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
       "fetchedPosts": 11,
       "freshPosts": 1,
       "latestPostAt": "2026-10-09T11:51:23+00:00",
@@ -6482,50 +6017,50 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
-      "fetchedPosts": 14,
-      "freshPosts": 10,
-      "latestPostAt": "2026-10-10T08:16:26+00:00",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
+      "fetchedPosts": 8,
+      "freshPosts": 8,
+      "latestPostAt": "2026-10-10T10:18:08+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
       "fetchedPosts": 15,
       "freshPosts": 9,
-      "latestPostAt": "2026-10-10T08:13:52+00:00",
+      "latestPostAt": "2026-10-10T10:58:30+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
-      "latestPostAt": "2026-10-10T09:12:28+00:00",
+      "latestPostAt": "2026-10-10T13:46:21+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
       "fetchedPosts": 14,
       "freshPosts": 2,
-      "latestPostAt": "2026-10-09T14:05:25+00:00",
+      "latestPostAt": "2026-10-10T12:03:07+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-10-10T09:42:23.188Z",
+      "checkedAt": "2026-10-10T15:49:46.089Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-10-10T06:04:47+00:00",
+      "latestPostAt": "2026-10-10T12:33:40+00:00",
       "reusedPrevious": false,
       "error": null
     }

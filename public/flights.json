@@ -1,22 +1,50 @@
 {
-  "updatedAt": "2026-10-11T05:53:29.374Z",
+  "updatedAt": "2026-10-11T12:57:11.327Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
   "items": [
+    {
+      "origin": "NBC",
+      "destination": "SVX",
+      "depart_date": "2026-10-26",
+      "return_date": "2026-10-31",
+      "price": 3615,
+      "median": 10649,
+      "discount": 0.6605315053056625,
+      "samples": 20,
+      "number_of_changes": 0,
+      "found_at": "2026-10-11T11:14:55",
+      "link": "https://www.aviasales.ru/search/NBC2610SVX31101?marker=748397&currency=rub",
+      "key": "NBC-SVX-2026-10-26-3615"
+    },
     {
       "origin": "MOW",
       "destination": "KZN",
       "depart_date": "2026-10-12",
       "return_date": "2026-10-13",
       "price": 3388,
-      "median": 4775,
-      "discount": 0.29047120418848166,
+      "median": 4713,
+      "discount": 0.2811372798642054,
       "samples": 30,
       "number_of_changes": 0,
-      "found_at": "2026-10-11T05:08:46",
+      "found_at": "2026-10-11T11:13:30",
       "link": "https://www.aviasales.ru/search/MOW1210KZN13101?marker=748397&currency=rub",
       "key": "MOW-KZN-2026-10-12-3388"
+    },
+    {
+      "origin": "MOW",
+      "destination": "PEE",
+      "depart_date": "2026-10-12",
+      "return_date": "2026-10-13",
+      "price": 3988,
+      "median": 5363.5,
+      "discount": 0.2564556726018458,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-10-11T11:09:57",
+      "link": "https://www.aviasales.ru/search/MOW1210PEE13101?marker=748397&currency=rub",
+      "key": "MOW-PEE-2026-10-12-3988"
     }
   ]
 }

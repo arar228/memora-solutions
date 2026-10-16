@@ -1,7 +1,95 @@
 {
-  "updatedAt": "2026-10-16T18:17:53.481Z",
+  "updatedAt": "2026-10-16T21:36:54.775Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Фукуок",
+        "code": "PQC",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 40000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Аддис-Абеба",
+          "code": "ADD"
+        }
+      ],
+      "nights": null,
+      "departDate": "2027-10-19",
+      "returnDate": "2027-03-27",
+      "date": "2026-10-16T18:21:02+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW1910PQC1?marker=748397&currency=rub",
+      "text": "▪️«Аэрофлот» 🇷🇺 запустил регулярные прямые рейсы из Москвы на остров Фукуок 🇻🇳. Полёты выполняются трижды в неделю на широкофюзеляжных лайнерах Airbus A330, цены на билеты — от 40 000 рублей в одн",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Аддис-Абеба",
+        "code": "ADD",
+        "country": {
+          "ru": "Эфиопия",
+          "en": "Ethiopia"
+        },
+        "kind": "city"
+      },
+      "price": 104000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Аддис-Абеба",
+          "code": "ADD"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-10-27",
+      "returnDate": "2027-03-27",
+      "date": "2026-10-16T18:21:02+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2710ADD1?marker=748397&currency=rub",
+      "text": "▪️Ethiopian Airlines 🇪🇹 с 27 октября начнёт летать в глубоководный порт Накала 🇲🇿 на севере Мозамбика трижды в неделю; из Москвы доступны стыковочные билеты через Аддис-Абебу по цене от 104 000 ру",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
     {
       "type": "flight",
       "from": {
@@ -573,9 +661,9 @@
         "kind": "city"
       },
       "price": 5351,
-      "oldPrice": 16261,
-      "savings": 10910,
-      "discount": 0.67,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -842,9 +930,9 @@
         "kind": "city"
       },
       "price": 5900,
-      "oldPrice": 16350,
-      "savings": 10450,
-      "discount": 0.64,
+      "oldPrice": 19517,
+      "savings": 13617,
+      "discount": 0.7,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -881,9 +969,9 @@
         "kind": "city"
       },
       "price": 6800,
-      "oldPrice": 17136,
-      "savings": 10336,
-      "discount": 0.6,
+      "oldPrice": 17749,
+      "savings": 10949,
+      "discount": 0.62,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -920,8 +1008,8 @@
         "kind": "city"
       },
       "price": 1600,
-      "oldPrice": 4332,
-      "savings": 2732,
+      "oldPrice": 4330,
+      "savings": 2730,
       "discount": 0.63,
       "oneway": false,
       "roundTrip": false,
@@ -1908,9 +1996,9 @@
         "kind": "city"
       },
       "price": 7200,
-      "oldPrice": 32175,
-      "savings": 24975,
-      "discount": 0.78,
+      "oldPrice": 38209,
+      "savings": 31009,
+      "discount": 0.81,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -1947,9 +2035,9 @@
         "kind": "city"
       },
       "price": 5200,
-      "oldPrice": 16261,
-      "savings": 11061,
-      "discount": 0.68,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2366,9 +2454,9 @@
         "kind": "city"
       },
       "price": 15400,
-      "oldPrice": 17136,
-      "savings": 1736,
-      "discount": 0.1,
+      "oldPrice": 17749,
+      "savings": 2349,
+      "discount": 0.13,
       "oneway": false,
       "roundTrip": true,
       "connections": [],
@@ -2598,8 +2686,8 @@
         "kind": "country"
       },
       "price": 4600,
-      "oldPrice": 11551,
-      "savings": 6951,
+      "oldPrice": 11471,
+      "savings": 6871,
       "discount": 0.6,
       "oneway": false,
       "roundTrip": false,
@@ -2637,8 +2725,8 @@
         "kind": "country"
       },
       "price": 5300,
-      "oldPrice": 11551,
-      "savings": 6251,
+      "oldPrice": 11471,
+      "savings": 6171,
       "discount": 0.54,
       "oneway": false,
       "roundTrip": false,
@@ -2676,9 +2764,9 @@
         "kind": "country"
       },
       "price": 7900,
-      "oldPrice": 11551,
-      "savings": 3651,
-      "discount": 0.32,
+      "oldPrice": 11471,
+      "savings": 3571,
+      "discount": 0.31,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2715,8 +2803,8 @@
         "kind": "country"
       },
       "price": 9000,
-      "oldPrice": 11551,
-      "savings": 2551,
+      "oldPrice": 11471,
+      "savings": 2471,
       "discount": 0.22,
       "oneway": false,
       "roundTrip": false,
@@ -2754,9 +2842,9 @@
         "kind": "country"
       },
       "price": 11000,
-      "oldPrice": 11551,
-      "savings": 551,
-      "discount": 0.05,
+      "oldPrice": 11471,
+      "savings": 471,
+      "discount": 0.04,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -2941,9 +3029,9 @@
         "kind": "city"
       },
       "price": 11500,
-      "oldPrice": 11551,
-      "savings": 51,
-      "discount": 0,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -3278,8 +3366,8 @@
         "kind": "city"
       },
       "price": 4800,
-      "oldPrice": 11551,
-      "savings": 6751,
+      "oldPrice": 11471,
+      "savings": 6671,
       "discount": 0.58,
       "oneway": false,
       "roundTrip": false,
@@ -3356,9 +3444,9 @@
         "kind": "city"
       },
       "price": 5200,
-      "oldPrice": 32175,
-      "savings": 26975,
-      "discount": 0.84,
+      "oldPrice": 38209,
+      "savings": 33009,
+      "discount": 0.86,
       "oneway": false,
       "roundTrip": false,
       "connections": [],
@@ -3395,8 +3483,8 @@
         "kind": "city"
       },
       "price": 5300,
-      "oldPrice": 18761,
-      "savings": 13461,
+      "oldPrice": 18664,
+      "savings": 13364,
       "discount": 0.72,
       "oneway": false,
       "roundTrip": false,
@@ -4093,9 +4181,9 @@
         "kind": "country"
       },
       "price": 8100,
-      "oldPrice": 11551,
-      "savings": 3451,
-      "discount": 0.3,
+      "oldPrice": 11471,
+      "savings": 3371,
+      "discount": 0.29,
       "oneway": false,
       "roundTrip": false,
       "connections": [
@@ -4228,123 +4316,6 @@
       "source": "nachemodanahspb",
       "link": "https://www.aviasales.ru/search/LED0111AYT1?marker=748397&currency=rub",
       "text": "✈️Прямые рейсы в Анталью в ноябре за 31.800 руб туда-обратно",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кутаиси",
-        "code": "KUT",
-        "country": {
-          "ru": "Грузия",
-          "en": "Georgia"
-        },
-        "kind": "city"
-      },
-      "price": 8100,
-      "oldPrice": 16575,
-      "savings": 8475,
-      "discount": 0.51,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-15T08:55:40+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1511KUT1?marker=748397&currency=rub",
-      "text": "из Москвы в Кутаиси 🇬🇪 за 8 100 р. OW (октябрь)\nАзимут, прямой рейс -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Тбилиси",
-        "code": "TBS",
-        "country": {
-          "ru": "Грузия",
-          "en": "Georgia"
-        },
-        "kind": "city"
-      },
-      "price": 11500,
-      "oldPrice": 15439,
-      "savings": 3939,
-      "discount": 0.26,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-15T08:55:40+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW1511TBS1?marker=748397&currency=rub",
-      "text": "из Минеральных Вод в Тбилиси 🇬🇪 за 11 500 р. RT (октябрь-ноябрь)\nАзимут, прямые рейсы -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Сочи",
-        "code": "AER",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Батуми",
-        "code": "BUS",
-        "country": {
-          "ru": "Грузия",
-          "en": "Georgia"
-        },
-        "kind": "city"
-      },
-      "price": 8900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-15T08:55:40+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/AER1511BUS1?marker=748397&currency=rub",
-      "text": "из Сочи в Батуми 🇬🇪 за 8 900 р. RT (осенью)\nRed Wings, прямые рейсы -",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -4652,7 +4623,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.924Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 15,
       "freshPosts": 9,
       "latestPostAt": "2026-10-16T10:14:50+00:00",
@@ -4662,17 +4633,17 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 17,
       "freshPosts": 17,
-      "latestPostAt": "2026-10-16T14:23:41+00:00",
+      "latestPostAt": "2026-10-16T18:21:02+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-10-16T18:11:12+00:00",
@@ -4682,7 +4653,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 20,
       "freshPosts": 12,
       "latestPostAt": "2026-10-16T10:34:08+00:00",
@@ -4692,8 +4663,8 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
-      "fetchedPosts": 19,
+      "checkedAt": "2026-10-16T21:36:51.801Z",
+      "fetchedPosts": 18,
       "freshPosts": 2,
       "latestPostAt": "2026-10-16T06:01:36+00:00",
       "reusedPrevious": false,
@@ -4702,7 +4673,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 20,
       "freshPosts": 2,
       "latestPostAt": "2026-10-16T06:02:22+00:00",
@@ -4712,7 +4683,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
       "latestPostAt": "2026-10-16T13:14:04+00:00",
@@ -4722,7 +4693,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 8,
       "freshPosts": 1,
       "latestPostAt": "2026-10-16T10:55:37+00:00",
@@ -4732,7 +4703,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 13,
       "freshPosts": 11,
       "latestPostAt": "2026-10-16T13:07:10+00:00",
@@ -4742,7 +4713,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 12,
       "freshPosts": 8,
       "latestPostAt": "2026-10-16T12:28:27+00:00",
@@ -4752,7 +4723,7 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
       "latestPostAt": "2026-10-16T17:40:12+00:00",
@@ -4762,7 +4733,7 @@
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 18,
       "freshPosts": 2,
       "latestPostAt": "2026-10-16T16:05:31+00:00",
@@ -4772,7 +4743,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-10-16T18:17:48.925Z",
+      "checkedAt": "2026-10-16T21:36:51.801Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-10-16T12:20:34+00:00",

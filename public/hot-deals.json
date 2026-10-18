@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-18T20:29:33.827Z",
+  "updatedAt": "2026-10-18T22:33:30.401Z",
   "marker": "748397",
   "deals": [
     {
@@ -532,50 +532,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Астана",
-        "code": "NQZ",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "city"
-      },
-      "price": 16300,
-      "oldPrice": 16381,
-      "savings": 81,
-      "discount": 0,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Екатеринбург",
-          "code": "SVX"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-18T12:45:08+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN1711NQZ1?marker=748397&currency=rub",
-      "text": "из Казани в Астану 🇰🇿 за 16 300 р. RT (осенью и зимой)\nRed Wings, пересадки в Екатеринбурге -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -612,6 +568,50 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/MOW1711NQZ1?marker=748397&currency=rub",
       "text": "из Москвы в Астану 🇰🇿 за 8 700 р. OW (октябрь)\nАэрофлот, прямой рейс -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Астана",
+        "code": "NQZ",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "price": 16300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Екатеринбург",
+          "code": "SVX"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-18T12:45:08+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN1711NQZ1?marker=748397&currency=rub",
+      "text": "из Казани в Астану 🇰🇿 за 16 300 р. RT (осенью и зимой)\nRed Wings, пересадки в Екатеринбурге -",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -3820,7 +3820,7 @@
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.781Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 18,
       "freshPosts": 3,
       "latestPostAt": "2026-10-18T07:57:47+00:00",
@@ -3830,7 +3830,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.781Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 20,
       "freshPosts": 15,
       "latestPostAt": "2026-10-18T14:45:00+00:00",
@@ -3840,7 +3840,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 20,
       "freshPosts": 19,
       "latestPostAt": "2026-10-18T17:00:18+00:00",
@@ -3850,7 +3850,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 20,
       "freshPosts": 2,
       "latestPostAt": "2026-10-17T09:22:42+00:00",
@@ -3860,7 +3860,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 19,
       "freshPosts": 18,
       "latestPostAt": "2026-10-18T12:12:21+00:00",
@@ -3870,7 +3870,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-10-18T06:15:38+00:00",
@@ -3880,7 +3880,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
       "latestPostAt": "2026-10-18T19:19:03+00:00",
@@ -3890,7 +3890,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 8,
       "freshPosts": 0,
       "latestPostAt": "2026-10-16T10:55:37+00:00",
@@ -3900,7 +3900,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 10,
       "freshPosts": 6,
       "latestPostAt": "2026-10-18T10:01:43+00:00",
@@ -3910,7 +3910,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 11,
       "freshPosts": 4,
       "latestPostAt": "2026-10-17T15:35:58+00:00",
@@ -3920,7 +3920,7 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 20,
       "freshPosts": 17,
       "latestPostAt": "2026-10-18T18:50:11+00:00",
@@ -3930,7 +3930,7 @@
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 20,
       "freshPosts": 2,
       "latestPostAt": "2026-10-18T14:01:59+00:00",
@@ -3940,7 +3940,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-10-18T20:29:30.782Z",
+      "checkedAt": "2026-10-18T22:33:03.046Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-10-18T12:13:55+00:00",

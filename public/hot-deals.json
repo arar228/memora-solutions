@@ -1,7 +1,46 @@
 {
-  "updatedAt": "2026-10-18T14:47:26.813Z",
+  "updatedAt": "2026-10-18T17:59:56.523Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталья",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 14800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-12-09",
+      "returnDate": "2026-12-19",
+      "date": "2026-10-18T17:00:18+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW0912AYT1?marker=748397&currency=rub",
+      "text": "Москва — Анталья за 14800₽ туда-обратно прямыми рейсами от S7, конец осени и начало зимы.\nБилеты → 09.12-19.12 • 14800₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
     {
       "type": "tour",
       "from": {
@@ -432,8 +471,8 @@
         "kind": "city"
       },
       "price": 14200,
-      "oldPrice": 14938,
-      "savings": 738,
+      "oldPrice": 14985,
+      "savings": 785,
       "discount": 0.05,
       "oneway": false,
       "roundTrip": true,
@@ -450,6 +489,50 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/SVX1711NQZ1?marker=748397&currency=rub",
       "text": "из Екатеринбурга в Астану 🇰🇿 за 14 200 р. RT (зимой)\nRed Wings, прямые рейсы -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Астана",
+        "code": "NQZ",
+        "country": {
+          "ru": "Казахстан",
+          "en": "Kazakhstan"
+        },
+        "kind": "city"
+      },
+      "price": 16300,
+      "oldPrice": 16381,
+      "savings": 81,
+      "discount": 0,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Екатеринбург",
+          "code": "SVX"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-10-18T12:45:08+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN1711NQZ1?marker=748397&currency=rub",
+      "text": "из Казани в Астану 🇰🇿 за 16 300 р. RT (осенью и зимой)\nRed Wings, пересадки в Екатеринбурге -",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -500,50 +583,6 @@
       "affiliateErid": null
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Казань",
-        "code": "KZN",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Астана",
-        "code": "NQZ",
-        "country": {
-          "ru": "Казахстан",
-          "en": "Kazakhstan"
-        },
-        "kind": "city"
-      },
-      "price": 16300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Екатеринбург",
-          "code": "SVX"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-18T12:45:08+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/KZN1711NQZ1?marker=748397&currency=rub",
-      "text": "из Казани в Астану 🇰🇿 за 16 300 р. RT (осенью и зимой)\nRed Wings, пересадки в Екатеринбурге -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Владивосток",
@@ -575,13 +614,8 @@
       "returnDate": "2026-11-12",
       "date": "2026-10-18T12:13:55+00:00",
       "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/F21OvL4H?erid=2VtzqwtqK9V",
-      "text": "Нячанг, 6 ночей\nВылет из: #Владивосток #Дальний_Восток\nДаты: 06.11.26 - 12.11.26\nЦена: 51300P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиаб",
-      "originalLink": "https://пртс.рф/yeWu",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
+      "link": "https://пртс.рф/yeWu",
+      "text": "Нячанг, 6 ночей\nВылет из: #Владивосток #Дальний_Восток\nДаты: 06.11.26 - 12.11.26\nЦена: 51300P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиаб"
     },
     {
       "type": "tour",
@@ -655,13 +689,8 @@
       "returnDate": "2026-10-26",
       "date": "2026-10-18T12:09:06+00:00",
       "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/ck8nkzW9?erid=2VtzqwtqK9V",
-      "text": "Сочи, 6 ночей\nВылет из: #СПб\nДаты: 20.10.26 - 26.10.26\nЦена: 14000P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/piratesru\nВК",
-      "originalLink": "https://пртс.рф/2HVS",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
+      "link": "https://пртс.рф/2HVS",
+      "text": "Сочи, 6 ночей\nВылет из: #СПб\nДаты: 20.10.26 - 26.10.26\nЦена: 14000P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/piratesru\nВК"
     },
     {
       "type": "tour",
@@ -2743,13 +2772,8 @@
       "returnDate": "2026-11-02",
       "date": "2026-10-17T10:26:13+00:00",
       "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/bJNnLK3w?erid=2VtzqwtqK9V",
-      "text": "Нячанг, 10 ночей\nВылет из: #Казань #Поволжье\nДаты: 23.10.26 - 02.11.26\nЦена: 98900P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max",
-      "originalLink": "https://пртс.рф/2U6O",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
+      "link": "https://пртс.рф/2U6O",
+      "text": "Нячанг, 10 ночей\nВылет из: #Казань #Поволжье\nДаты: 23.10.26 - 02.11.26\nЦена: 98900P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max"
     },
     {
       "type": "tour",
@@ -2783,13 +2807,8 @@
       "returnDate": "2026-11-18",
       "date": "2026-10-17T10:23:40+00:00",
       "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/KTTvrC1r?erid=2VtzqwtqK9V",
-      "text": "Нячанг, 7 ночей\nВылет из: #Новосибирск #Сибирь\nДаты: 11.11.26 - 18.11.26\nЦена: 64200P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: m",
-      "originalLink": "https://пртс.рф/GVVo",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
+      "link": "https://пртс.рф/GVVo",
+      "text": "Нячанг, 7 ночей\nВылет из: #Новосибирск #Сибирь\nДаты: 11.11.26 - 18.11.26\nЦена: 64200P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: m"
     },
     {
       "type": "tour",
@@ -2823,13 +2842,8 @@
       "returnDate": "2026-11-10",
       "date": "2026-10-17T10:18:35+00:00",
       "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/JOsveV5k?erid=2VtzqwtqK9V",
-      "text": "Паттайя, 7 ночей\nВылет из: #Иркутск #Сибирь\nДаты: 03.11.26 - 10.11.26\nЦена: 58400P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.",
-      "originalLink": "https://пртс.рф/RWor",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
+      "link": "https://пртс.рф/RWor",
+      "text": "Паттайя, 7 ночей\nВылет из: #Иркутск #Сибирь\nДаты: 03.11.26 - 10.11.26\nЦена: 58400P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max."
     },
     {
       "type": "tour",
@@ -2863,13 +2877,8 @@
       "returnDate": "2026-11-19",
       "date": "2026-10-17T10:17:22+00:00",
       "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/lJ6gj1bK?erid=2VtzqwtqK9V",
-      "text": "Нячанг, 6 ночей\nВылет из: #Владивосток #Дальний_Восток\nДаты: 13.11.26 - 19.11.26\nЦена: 49400P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиаб",
-      "originalLink": "https://пртс.рф/m7Pm",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
+      "link": "https://пртс.рф/m7Pm",
+      "text": "Нячанг, 6 ночей\nВылет из: #Владивосток #Дальний_Восток\nДаты: 13.11.26 - 19.11.26\nЦена: 49400P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиаб"
     },
     {
       "type": "tour",
@@ -3624,13 +3633,8 @@
       "returnDate": "2026-10-27",
       "date": "2026-10-17T06:04:57+00:00",
       "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/QL7jyY34?erid=2VtzqwtqK9V",
-      "text": "Сочи, 6 ночей\nВылет из: #СПб\nДаты: 21.10.26 - 27.10.26\nЦена: 13000P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/piratesru\nВК",
-      "originalLink": "https://пртс.рф/zrAx",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
+      "link": "https://пртс.рф/zrAx",
+      "text": "Сочи, 6 ночей\nВылет из: #СПб\nДаты: 21.10.26 - 27.10.26\nЦена: 13000P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/piratesru\nВК"
     },
     {
       "type": "flight",
@@ -3828,297 +3832,13 @@
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
       "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бильбао",
-        "code": "BIO",
-        "country": {
-          "ru": "Испания",
-          "en": "Spain"
-        },
-        "kind": "city"
-      },
-      "price": 11686,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-11-14",
-      "returnDate": null,
-      "date": "2026-10-16T17:11:42+00:00",
-      "source": "gorashietury",
-      "link": "https://www.aviasales.ru/search/LED1411BIO1?marker=748397&currency=rub",
-      "text": "✈️ Санкт-Петербург - Бильбао, от 11686 рублей",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Абхазия",
-        "code": "SUI",
-        "country": {
-          "ru": "Абхазия",
-          "en": "Abkhazia"
-        },
-        "kind": "country"
-      },
-      "price": 17586,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-16T16:05:31+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🏞 Абхазия от 7 ночей от 17 586 ₽ за двоих"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Турция",
-        "code": "IST",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "country"
-      },
-      "price": 91671,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-16T16:05:31+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇹🇷 Турция от 7 ночей от 91 671 ₽ за двоих, AI -  всё включено"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Мальдивы",
-        "code": "MLE",
-        "country": {
-          "ru": "Мальдивы",
-          "en": "Maldives"
-        },
-        "kind": "country"
-      },
-      "price": 153698,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 8,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-16T16:05:31+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇲🇻 Мальдивы от 8 ночей от 153 698 ₽ за двоих, BB - завтраки"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 154667,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-16T16:05:31+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇪🇬 Египет от 7 ночей от 154 667 ₽ за двоих, AI - всё включено"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 196806,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 1,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-16T16:05:31+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇹🇭 Таиланд от 8+1 ночей от 196 806 ₽ за двоих"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Вьетнам",
-        "code": "SGN",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "country"
-      },
-      "price": 226925,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 14,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-16T16:05:31+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇻🇳 Вьетнам от 14 ночей от 226 925 ₽ за двоих"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Китай",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "country"
-      },
-      "price": 336792,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 12,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-16T16:05:31+00:00",
-      "source": "tg_otpuskpro",
-      "link": "https://otpusk.pro/goryashhie-tury-v-abhaziyu/",
-      "text": "🇨🇳 Китай (Хайнань)  от 12 ночей от 336 792 ₽ за двоих, BB - завтраки"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 18,
       "freshPosts": 3,
       "latestPostAt": "2026-10-18T07:57:47+00:00",
@@ -4128,7 +3848,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-10-18T14:45:00+00:00",
@@ -4138,17 +3858,17 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-10-18T11:22:51+00:00",
+      "latestPostAt": "2026-10-18T17:00:18+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 20,
       "freshPosts": 2,
       "latestPostAt": "2026-10-17T09:22:42+00:00",
@@ -4158,7 +3878,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 19,
       "freshPosts": 18,
       "latestPostAt": "2026-10-18T12:12:21+00:00",
@@ -4168,7 +3888,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 20,
       "freshPosts": 6,
       "latestPostAt": "2026-10-18T06:15:38+00:00",
@@ -4178,7 +3898,7 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 20,
       "freshPosts": 4,
       "latestPostAt": "2026-10-18T13:29:07+00:00",
@@ -4188,7 +3908,7 @@
     {
       "channel": "onlinetours",
       "status": "idle",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 8,
       "freshPosts": 0,
       "latestPostAt": "2026-10-16T10:55:37+00:00",
@@ -4198,7 +3918,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 10,
       "freshPosts": 6,
       "latestPostAt": "2026-10-18T10:01:43+00:00",
@@ -4208,7 +3928,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 11,
       "freshPosts": 4,
       "latestPostAt": "2026-10-17T15:35:58+00:00",
@@ -4218,9 +3938,9 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 20,
-      "freshPosts": 18,
+      "freshPosts": 16,
       "latestPostAt": "2026-10-18T13:47:46+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4228,9 +3948,9 @@
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 20,
-      "freshPosts": 3,
+      "freshPosts": 2,
       "latestPostAt": "2026-10-18T14:01:59+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4238,7 +3958,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-10-18T14:47:23.079Z",
+      "checkedAt": "2026-10-18T17:59:43.880Z",
       "fetchedPosts": 20,
       "freshPosts": 9,
       "latestPostAt": "2026-10-18T12:13:55+00:00",

@@ -1,7 +1,85 @@
 {
-  "updatedAt": "2026-10-24T16:11:45.439Z",
+  "updatedAt": "2026-10-24T18:56:42.676Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Гуанчжоу",
+        "code": "CAN",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 18800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-12-21",
+      "returnDate": "2027-01-01",
+      "date": "2026-10-24T18:12:12+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/CAN2112MOW1?marker=748397&currency=rub",
+      "text": "Гуанчжоу — Москва за 18800₽ в одну сторону.\n✓ 21.12 • 18800₽\n✓ 29.12 • 18800₽\n✓ 01.01 • 18800₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Анталия",
+        "code": "AYT",
+        "country": {
+          "ru": "Турция",
+          "en": "Turkey"
+        },
+        "kind": "city"
+      },
+      "price": 19933,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-04",
+      "returnDate": null,
+      "date": "2026-10-24T17:11:43+00:00",
+      "source": "gorashietury",
+      "link": "https://www.aviasales.ru/search/LED0411AYT1?marker=748397&currency=rub",
+      "text": "✈️ Санкт-Петербург - Анталия, от 19933 рублей",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
     {
       "type": "tour",
       "from": {
@@ -1315,50 +1393,6 @@
       "affiliateErid": null
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Токио",
-        "code": "TYO",
-        "country": {
-          "ru": "Япония",
-          "en": "Japan"
-        },
-        "kind": "city"
-      },
-      "price": 82600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Пекин",
-          "code": "PEK"
-        }
-      ],
-      "nights": null,
-      "departDate": "2027-03-07",
-      "returnDate": null,
-      "date": "2026-10-24T08:37:32+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0703TYO1?marker=748397&currency=rub",
-      "text": "из Москвы в Токио 🇯🇵 за 82 600 р. RT (март)\nВсе даты:",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Франция",
@@ -1392,182 +1426,6 @@
       "source": "leveltravel",
       "link": "https://lvtv.me/a2Rj8jP",
       "text": "✈️ Три в одном! Тунис воплощает в себе африканскую харизму, европейский уровень сервиса и традиции талассотерапии родом из Франции.\n📍Смотрите фото отелей, читайте отзывы и бронируйте туры — от 127 81"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 59900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Аддис-Абеба",
-          "code": "ADD"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-24T08:11:16+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2311SEZ1?marker=748397&currency=rub",
-      "text": "из Москвы на Сейшелы 🇸🇨 за 59 900 р. RT (ноябрь-декабрь)\nEthiopian, через Аддис-Абебу - \n🗓 Все даты:",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Тюмень",
-        "code": "TJM",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бангкок",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 15800,
-      "oldPrice": 48979,
-      "savings": 33179,
-      "discount": 0.68,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Иркутск",
-          "code": "IKT"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-24T07:47:16+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/TJM2311BKK1?marker=748397&currency=rub",
-      "text": "из Тюмени в Бангкок 🇹🇭 за 15 800 р. OW (осенью и зимой)\nS7, через Иркутск -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Владивосток",
-        "code": "VVO",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Филиппины",
-        "code": "MNL",
-        "country": {
-          "ru": "Филиппины",
-          "en": "Philippines"
-        },
-        "kind": "country"
-      },
-      "price": 12700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Пекин",
-          "code": "PEK"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-24T07:47:16+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/VVO2311MNL1?marker=748397&currency=rub",
-      "text": "из Владивостока на Филиппины 🇵🇭 за 12 700 р. OW (ноябрь-декабрь)\nAir China, удобная стыковка в Пекине -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Владивосток",
-        "code": "VVO",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 17900,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [
-        {
-          "name": "Пекин",
-          "code": "PEK"
-        },
-        {
-          "name": "Иркутск",
-          "code": "IKT"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-24T07:47:16+00:00",
-      "source": "samokatus",
-      "link": "https://l.samokatus.ru/OByT",
-      "text": "из Минеральных Вод в Нячанг 🇻🇳 за 17 900 р. OW (на следующей неделе)\nAzur Air, прямой рейс с багажом - \n📌 Путеводитель по Бангкоку: \n🏨 Отели в Таиланде:"
     },
     {
       "type": "tour",
@@ -2850,45 +2708,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Байкал",
-        "code": "IKT",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 17300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-23T13:20:54+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/LED2311IKT1?marker=748397&currency=rub",
-      "text": "из Петербурга на Байкал 🇷🇺 за 17 300 р. RT (до марта)\nРоссия, прямые рейсы - \n🗓 Все даты:",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -3002,46 +2821,6 @@
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
       "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шанхай",
-        "code": "PVG",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 31600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Иркутск",
-          "code": "IKT"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-23T12:50:40+00:00",
-      "source": "samokatus",
-      "link": "https://l.samokatus.ru/ED3J",
-      "text": "из Москвы в Шанхай 🇨🇳 за 31 600 р. RT (декабрь)\nS7, через Иркутск - \n🏨 Отели в Шанхае:"
     },
     {
       "type": "flight",
@@ -3978,87 +3757,13 @@
       "source": "gorashietury",
       "link": "https://tour.checkintime.ru/search/St.Petersburg-RU-to-Any-EG-departure-08.11.2026-for-7-nights-2-adults-1(6)-kids-1..5-stars-package-type?filter_rating=8&sort_by=price,asc&aflt=CheckInTime",
       "text": "🔥 Туры с детьми в Египет 🇪🇬 из Санкт-Петербурга на 7 ночей от 62560 руб. на человека.\n✈️ Вылет 8 ноября - от 62560 руб/чел\n✈️ Вылет 8 ноября - от 66602 руб/чел\n✈️ Вылет 3 ноября - от 92530 руб/чел"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 56700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2027-01-02",
-      "returnDate": "2027-01-13",
-      "date": "2026-10-22T18:00:19+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/GF7hYw",
-      "text": "🎄 в Египет на 11 ночей с вылетом в конце декабря (обратно 2 января) от 56 700/чел, все включено  (скидка по промокоду LT-LUCKYWINGS)"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пекин",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 30399,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-11-18",
-      "returnDate": null,
-      "date": "2026-10-22T17:11:43+00:00",
-      "source": "gorashietury",
-      "link": "https://www.aviasales.ru/search/LED1811PEK1?marker=748397&currency=rub",
-      "text": "✈️ Санкт-Петербург - Пекин, от 30399 рублей",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.588Z",
       "fetchedPosts": 19,
       "freshPosts": 9,
       "latestPostAt": "2026-10-24T16:07:29+00:00",
@@ -4068,27 +3773,27 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
-      "fetchedPosts": 15,
-      "freshPosts": 15,
-      "latestPostAt": "2026-10-24T13:23:01+00:00",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
+      "fetchedPosts": 8,
+      "freshPosts": 8,
+      "latestPostAt": "2026-10-24T16:48:37+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-10-24T14:00:00+00:00",
+      "latestPostAt": "2026-10-24T18:12:12+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 20,
       "freshPosts": 7,
       "latestPostAt": "2026-10-23T13:59:00+00:00",
@@ -4098,7 +3803,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 7,
       "freshPosts": 5,
       "latestPostAt": "2026-10-24T09:46:32+00:00",
@@ -4108,7 +3813,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 11,
       "freshPosts": 2,
       "latestPostAt": "2026-10-24T00:39:44+00:00",
@@ -4118,9 +3823,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 19,
-      "freshPosts": 7,
+      "freshPosts": 6,
       "latestPostAt": "2026-10-24T14:24:13+00:00",
       "reusedPrevious": false,
       "error": null
@@ -4128,7 +3833,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 11,
       "freshPosts": 1,
       "latestPostAt": "2026-10-23T12:15:06+00:00",
@@ -4138,7 +3843,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-10-24T10:18:12+00:00",
@@ -4148,7 +3853,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 11,
       "freshPosts": 8,
       "latestPostAt": "2026-10-24T14:54:59+00:00",
@@ -4158,17 +3863,17 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.674Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 20,
-      "freshPosts": 18,
-      "latestPostAt": "2026-10-24T13:46:17+00:00",
+      "freshPosts": 19,
+      "latestPostAt": "2026-10-24T18:56:22+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.675Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 20,
       "freshPosts": 2,
       "latestPostAt": "2026-10-24T14:35:17+00:00",
@@ -4178,7 +3883,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-10-24T16:11:42.675Z",
+      "checkedAt": "2026-10-24T18:56:39.589Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-10-24T12:19:13+00:00",

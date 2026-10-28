@@ -1,7 +1,282 @@
 {
-  "updatedAt": "2026-10-28T14:23:47.018Z",
+  "updatedAt": "2026-10-28T19:48:33.972Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Екатеринбург",
+        "code": "SVX",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гоа",
+        "code": "GOI",
+        "country": {
+          "ru": "Индия",
+          "en": "India"
+        },
+        "kind": "city"
+      },
+      "price": 29000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-14",
+      "returnDate": "2026-10-30",
+      "date": "2026-10-28T18:21:00+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SVX1411GOI1?marker=748397&currency=rub",
+      "text": "▪️ «Аэрофлот» с 14 ноября увеличивает частоту прямых рейсов из Екатеринбурга в Гоа 🇮🇳 с трех до пяти раз в неделю. Билеты — от 29 000 рублей в одну сторону.",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 9900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11-04",
+      "returnDate": null,
+      "date": "2026-10-28T17:15:14+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/LED0411HRG1?marker=748397&currency=rub",
+      "text": "Санкт-Петербург — Хургада за 9900₽ в одну сторону.",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "price": 15300,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Стамбул",
+          "code": "IST"
+        }
+      ],
+      "nights": null,
+      "departDate": "2026-11-24",
+      "returnDate": null,
+      "date": "2026-10-28T17:15:14+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/HRG2411LED1?marker=748397&currency=rub",
+      "text": "✓ из Хургады 24.11 • 15300₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Касабланка",
+        "code": "CMN",
+        "country": {
+          "ru": "Марокко",
+          "en": "Morocco"
+        },
+        "kind": "city"
+      },
+      "price": 30149,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-29",
+      "returnDate": null,
+      "date": "2026-10-28T17:11:43+00:00",
+      "source": "gorashietury",
+      "link": "https://www.aviasales.ru/search/LED2911CMN1?marker=748397&currency=rub",
+      "text": "✈️ Санкт-Петербург - Касабланка, от 30149 рублей",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Вьетнам",
+        "code": "SGN",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "country"
+      },
+      "price": 62600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-02",
+      "returnDate": null,
+      "date": "2026-10-28T16:32:16+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/L5v49Z",
+      "text": "🔥 во Вьетнам на неделю и дольше в ноябре от 62 600/чел, проверяйте свои даты  или варианты на неделю с 1 или 2 ноября"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 78800,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 8,
+      "departDate": "2026-11-05",
+      "returnDate": "2026-11-13",
+      "date": "2026-10-28T16:32:16+00:00",
+      "source": "luckywings",
+      "link": "https://www.turscanner.ru/-/NPPYp9",
+      "text": "🔥 на Пхукет (Таиланд) на 8 ночей с 5 ноября от 78 800/чел"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 4600,
+      "oldPrice": 26788,
+      "savings": 22188,
+      "discount": 0.83,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-10-29",
+      "returnDate": null,
+      "date": "2026-10-28T15:37:56+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2910HRG1?marker=748397&currency=rub",
+      "text": "Москва — Хургада за 4600₽ в одну сторону завтра.\nБилеты → 29.10 • 4600₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
     {
       "type": "tour",
       "from": {
@@ -2965,46 +3240,6 @@
     {
       "type": "tour",
       "from": {
-        "name": "Новосибирск",
-        "code": "OVB",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 61500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-11-18",
-      "returnDate": "2026-11-25",
-      "date": "2026-10-28T06:14:33+00:00",
-      "source": "turs_sale",
-      "link": "https://onlinetours.tpx.gr/fyRm8og2?erid=2VtzqwtqK9V",
-      "text": "Нячанг, 7 ночей\nВылет из: #Новосибирск #Сибирь\nДаты: 18.11.26 - 25.11.26\nЦена: 61500P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: m",
-      "originalLink": "https://пртс.рф/E143",
-      "isAffiliate": true,
-      "affiliateBrand": "OnlineTours",
-      "affiliateProgram": "onlinetours",
-      "affiliateErid": "2VtzqwtqK9V"
-    },
-    {
-      "type": "tour",
-      "from": {
         "name": "Город вылета уточняется",
         "code": "ANY",
         "country": {
@@ -3041,84 +3276,6 @@
       "affiliateBrand": "Travelata",
       "affiliateProgram": "travelata",
       "affiliateErid": "2VtzqupLVjA"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 31400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-11-01",
-      "returnDate": null,
-      "date": "2026-10-28T05:20:18+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/SVX0111CXR1?marker=748397&currency=rub",
-      "text": "Екатеринбург — Нячанг за 31400₽ в одну сторону.\nБилеты → 01.11 • 31400₽",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Мадрид",
-        "code": "MAD",
-        "country": {
-          "ru": "Испания",
-          "en": "Spain"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сан-Паулу",
-        "code": "SAO",
-        "country": {
-          "ru": "Бразилия",
-          "en": "Brazil"
-        },
-        "kind": "city"
-      },
-      "price": 24700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-11-26",
-      "returnDate": null,
-      "date": "2026-10-28T05:12:21+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MAD2611SAO1?marker=748397&currency=rub",
-      "text": "Мадрид — Сан-Паулу (Бразилия) за 24700₽ в одну сторону.",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
     },
     {
       "type": "flight",
@@ -5417,161 +5574,43 @@
       "source": "leveltravel",
       "link": "https://lvtv.me/AUsaUSC",
       "text": "Бангкок от 🏖148 829 ₽"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Даламан",
-        "code": "DLM",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 6020,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-11-09",
-      "returnDate": null,
-      "date": "2026-10-26T17:11:44+00:00",
-      "source": "gorashietury",
-      "link": "https://www.aviasales.ru/search/LED0911DLM1?marker=748397&currency=rub",
-      "text": "✈️ Санкт-Петербург - Даламан, от 6020 рублей",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Город вылета уточняется",
-        "code": "ANY",
-        "country": {
-          "ru": "Город вылета уточняется",
-          "en": "Город вылета уточняется"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 68851,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 10,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-26T15:08:36+00:00",
-      "source": "travelata",
-      "link": "https://travelata.tpx.gr/DXrZjfHZ?erid=2VtzqupLVjA",
-      "text": "⚡️Таиланд, ПАТТАЙЯ, на 10 ночей, 1 линия с ЗАВТРАКАМИ, туры от 68 851 ₽/чел.! Включены перелёт, проживание, медицинская страховка и трансфер🚘",
-      "originalLink": "https://go.travelata.ru/UYHuL",
-      "isAffiliate": true,
-      "affiliateBrand": "Travelata",
-      "affiliateProgram": "travelata",
-      "affiliateErid": "2VtzqupLVjA"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 5550,
-      "oldPrice": 26788,
-      "savings": 21238,
-      "discount": 0.79,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-10-26T14:58:43+00:00",
-      "source": "vandroukiru",
-      "link": "https://www.aviasales.ru/search/MOW2711HRG1?marker=748397&currency=rub",
-      "text": "Прямой рейс из Москвы в Египет с багажом за 5550 рублей!",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 20,
       "freshPosts": 5,
-      "latestPostAt": "2026-10-28T06:24:06+00:00",
+      "latestPostAt": "2026-10-28T15:37:23+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-10-28T13:11:38+00:00",
+      "latestPostAt": "2026-10-28T18:21:00+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 19,
       "freshPosts": 19,
-      "latestPostAt": "2026-10-28T14:14:05+00:00",
+      "latestPostAt": "2026-10-28T18:40:31+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 20,
       "freshPosts": 13,
       "latestPostAt": "2026-10-28T11:47:24+00:00",
@@ -5581,7 +5620,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 8,
       "freshPosts": 5,
       "latestPostAt": "2026-10-28T11:16:13+00:00",
@@ -5591,8 +5630,8 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
-      "fetchedPosts": 13,
+      "checkedAt": "2026-10-28T19:48:29.934Z",
+      "fetchedPosts": 12,
       "freshPosts": 3,
       "latestPostAt": "2026-10-28T06:02:34+00:00",
       "reusedPrevious": false,
@@ -5601,19 +5640,19 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 19,
-      "freshPosts": 6,
-      "latestPostAt": "2026-10-28T12:24:19+00:00",
+      "freshPosts": 7,
+      "latestPostAt": "2026-10-28T16:32:16+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "onlinetours",
-      "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "status": "idle",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 11,
-      "freshPosts": 1,
+      "freshPosts": 0,
       "latestPostAt": "2026-10-26T16:01:18+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5621,9 +5660,9 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 13,
-      "freshPosts": 10,
+      "freshPosts": 9,
       "latestPostAt": "2026-10-28T14:21:28+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5631,7 +5670,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 15,
       "freshPosts": 8,
       "latestPostAt": "2026-10-28T13:44:51+00:00",
@@ -5641,17 +5680,17 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.393Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
-      "latestPostAt": "2026-10-28T13:46:10+00:00",
+      "latestPostAt": "2026-10-28T18:48:43+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.394Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 20,
       "freshPosts": 2,
       "latestPostAt": "2026-10-28T12:03:28+00:00",
@@ -5661,10 +5700,10 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-10-28T14:23:43.394Z",
+      "checkedAt": "2026-10-28T19:48:29.934Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-10-28T12:29:44+00:00",
+      "latestPostAt": "2026-10-28T17:16:05+00:00",
       "reusedPrevious": false,
       "error": null
     }

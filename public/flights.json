@@ -1,22 +1,50 @@
 {
-  "updatedAt": "2026-11-01T00:10:57.964Z",
+  "updatedAt": "2026-11-01T06:13:59.000Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
   "items": [
     {
+      "origin": "FRA",
+      "destination": "ALC",
+      "depart_date": "2026-11-09",
+      "return_date": "2026-11-14",
+      "price": 5604,
+      "median": 9811,
+      "discount": 0.42880440322087454,
+      "samples": 17,
+      "number_of_changes": 0,
+      "found_at": "2026-11-01T05:35:48",
+      "link": "https://www.aviasales.ru/search/FRA0911ALC14111?marker=748397&currency=rub",
+      "key": "FRA-ALC-2026-11-09-5604"
+    },
+    {
+      "origin": "KUF",
+      "destination": "KZN",
+      "depart_date": "2026-11-13",
+      "return_date": "2026-11-16",
+      "price": 4699,
+      "median": 7555.5,
+      "discount": 0.3780689563893852,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-11-01T05:28:20",
+      "link": "https://www.aviasales.ru/search/KUF1311KZN16111?marker=748397&currency=rub",
+      "key": "KUF-KZN-2026-11-13-4699"
+    },
+    {
       "origin": "OVB",
       "destination": "KJA",
       "depart_date": "2026-11-03",
       "return_date": "2026-11-09",
-      "price": 5192,
+      "price": 5221,
       "median": 7348,
-      "discount": 0.2934131736526946,
+      "discount": 0.28946652150244967,
       "samples": 30,
       "number_of_changes": 0,
-      "found_at": "2026-10-31T23:54:31",
+      "found_at": "2026-11-01T05:31:07",
       "link": "https://www.aviasales.ru/search/OVB0311KJA09111?marker=748397&currency=rub",
-      "key": "OVB-KJA-2026-11-03-5192"
+      "key": "OVB-KJA-2026-11-03-5221"
     }
   ]
 }

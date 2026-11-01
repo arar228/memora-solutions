@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-01T19:06:27.810Z",
+  "updatedAt": "2026-11-01T22:44:04.820Z",
   "marker": "748397",
   "deals": [
     {
@@ -800,6 +800,45 @@
     {
       "type": "flight",
       "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Сейшелы",
+        "code": "SEZ",
+        "country": {
+          "ru": "Сейшелы",
+          "en": "Seychelles"
+        },
+        "kind": "country"
+      },
+      "price": 42800,
+      "oldPrice": 42821,
+      "savings": 21,
+      "discount": 0,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-11-01T11:05:58+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW0112SEZ1?marker=748397&currency=rub",
+      "text": "из Москвы на Сейшелы 🇸🇨 за 42 800 р. RT (ноябрь-декабрь)",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
         "name": "Сейшелы",
         "code": "SEZ",
         "country": {
@@ -831,45 +870,6 @@
       "source": "samokatus",
       "link": "https://www.aviasales.ru/search/SEZ0112NBO1?marker=748397&currency=rub",
       "text": "из Сейшел 🇸🇨 в Найроби 🇰🇪 за 41 500 р. RT (нояб-дек)",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Сейшелы",
-        "code": "SEZ",
-        "country": {
-          "ru": "Сейшелы",
-          "en": "Seychelles"
-        },
-        "kind": "country"
-      },
-      "price": 42800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-11-01T11:05:58+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW0112SEZ1?marker=748397&currency=rub",
-      "text": "из Москвы на Сейшелы 🇸🇨 за 42 800 р. RT (ноябрь-декабрь)",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -940,8 +940,8 @@
         "kind": "country"
       },
       "price": 21700,
-      "oldPrice": 42783,
-      "savings": 21083,
+      "oldPrice": 42821,
+      "savings": 21121,
       "discount": 0.49,
       "oneway": false,
       "roundTrip": true,
@@ -2403,8 +2403,8 @@
         "kind": "city"
       },
       "price": 5700,
-      "oldPrice": 18832,
-      "savings": 13132,
+      "oldPrice": 18856,
+      "savings": 13156,
       "discount": 0.7,
       "oneway": true,
       "roundTrip": false,
@@ -2959,9 +2959,9 @@
         "kind": "city"
       },
       "price": 7200,
-      "oldPrice": 22358,
-      "savings": 15158,
-      "discount": 0.68,
+      "oldPrice": 21127,
+      "savings": 13927,
+      "discount": 0.66,
       "oneway": true,
       "roundTrip": false,
       "connections": [],
@@ -3086,83 +3086,13 @@
       "affiliateBrand": "Level.Travel",
       "affiliateProgram": "leveltravel",
       "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Кавказские Минеральные Воды",
-        "code": "MRV",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 15100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-11-02",
-      "returnDate": "2026-11-08",
-      "date": "2026-10-30T20:36:57+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/aJXqp6",
-      "text": "🔥 в Кавминводы (например, в Пятигорск или Ессентуки) на 4-6 ночей со 2 ноября от 15 100/чел  (туры без группового трансфера из аэропорта Минеральных Вод до отеля, индивидуальный - за доплату)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Таиланд",
-        "code": "BKK",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "country"
-      },
-      "price": 73300,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-12",
-      "returnDate": null,
-      "date": "2026-10-30T20:36:57+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/zg5SGq",
-      "text": "🔥 в Таиланд (Паттайя) на неделю и дольше в декабре от 73 300/чел  (скидка по промокоду 2500Lucky)"
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 19,
       "freshPosts": 7,
       "latestPostAt": "2026-10-31T15:38:54+00:00",
@@ -3172,7 +3102,7 @@
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 10,
       "freshPosts": 10,
       "latestPostAt": "2026-11-01T13:11:24+00:00",
@@ -3182,7 +3112,7 @@
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
       "latestPostAt": "2026-11-01T12:31:00+00:00",
@@ -3192,7 +3122,7 @@
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 20,
       "freshPosts": 1,
       "latestPostAt": "2026-11-01T10:58:03+00:00",
@@ -3202,7 +3132,7 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 13,
       "freshPosts": 4,
       "latestPostAt": "2026-11-01T06:01:50+00:00",
@@ -3212,7 +3142,7 @@
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 13,
       "freshPosts": 2,
       "latestPostAt": "2026-11-01T06:02:35+00:00",
@@ -3222,9 +3152,9 @@
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 20,
-      "freshPosts": 10,
+      "freshPosts": 9,
       "latestPostAt": "2026-11-01T09:12:25+00:00",
       "reusedPrevious": false,
       "error": null
@@ -3232,7 +3162,7 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 11,
       "freshPosts": 1,
       "latestPostAt": "2026-10-31T12:19:58+00:00",
@@ -3242,7 +3172,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 11,
       "freshPosts": 6,
       "latestPostAt": "2026-11-01T10:22:05+00:00",
@@ -3252,7 +3182,7 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 11,
       "freshPosts": 4,
       "latestPostAt": "2026-11-01T13:05:00+00:00",
@@ -3262,7 +3192,7 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 20,
       "freshPosts": 18,
       "latestPostAt": "2026-11-01T18:51:03+00:00",
@@ -3272,7 +3202,7 @@
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 20,
       "freshPosts": 2,
       "latestPostAt": "2026-11-01T16:00:01+00:00",
@@ -3282,7 +3212,7 @@
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-11-01T19:06:23.097Z",
+      "checkedAt": "2026-11-01T22:44:00.714Z",
       "fetchedPosts": 20,
       "freshPosts": 16,
       "latestPostAt": "2026-11-01T17:05:19+00:00",

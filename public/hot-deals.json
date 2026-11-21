@@ -1,7 +1,779 @@
 {
-  "updatedAt": "2026-11-21T11:39:31.661Z",
+  "updatedAt": "2026-11-21T19:03:35.690Z",
   "marker": "748397",
   "deals": [
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бали",
+        "code": "DPS",
+        "country": {
+          "ru": "Индонезия",
+          "en": "Indonesia"
+        },
+        "kind": "city"
+      },
+      "price": 23500,
+      "oldPrice": 46505,
+      "savings": 23005,
+      "discount": 0.49,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-22",
+      "returnDate": null,
+      "date": "2026-11-21T18:54:06+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2211DPS1?marker=748397&currency=rub",
+      "text": "Быстро к зимовке чемодан собрали!  из Москвы на Бали 🇮🇩 за 23 500 р. OW (22 ноября) Аэрофлот, прямой рейс с багажом",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Бангкок",
+        "code": "BKK",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 24500,
+      "oldPrice": 43655,
+      "savings": 19155,
+      "discount": 0.44,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-22",
+      "returnDate": null,
+      "date": "2026-11-21T18:54:06+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2211BKK1?marker=748397&currency=rub",
+      "text": "из Москвы в Бангкок 🇹🇭 за 24 500 р. OW (завтра)",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Сургут",
+        "code": "SGC",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 44800,
+      "oldPrice": 59518,
+      "savings": 14718,
+      "discount": 0.25,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-23",
+      "returnDate": "2026-12-04",
+      "date": "2026-11-21T18:28:31+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/SGC2311HKT1?marker=748397&currency=rub",
+      "text": "из Сургута на Пхукет 🇹🇭 за 44 800 р. RT (23 ноября — 4 декабря)",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Самарканд",
+        "code": "SKD",
+        "country": {
+          "ru": "Узбекистан",
+          "en": "Uzbekistan"
+        },
+        "kind": "city"
+      },
+      "price": 9566,
+      "oldPrice": 22775,
+      "savings": 13209,
+      "discount": 0.58,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2027-02-02",
+      "returnDate": null,
+      "date": "2026-11-21T17:11:44+00:00",
+      "source": "gorashietury",
+      "link": "https://www.aviasales.ru/search/LED0202SKD1?marker=748397&currency=rub",
+      "text": "✈️ Санкт-Петербург - Самарканд, от 9566 рублей",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Египет",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "country"
+      },
+      "price": 39847,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2027-02-09",
+      "returnDate": "2027-02-16",
+      "date": "2026-11-21T15:52:24+00:00",
+      "source": "toursspb",
+      "link": "https://level.tpx.gr/fsEHqU4e?erid=2VtzqwsMKs9",
+      "text": "Туры Санкт-Петербург - Египет от 39 847₽/чел. на 7 ночей (было от 43 202₽, цена упала на 8%)\n👉 Ссылка на туры:",
+      "originalLink": "https://level.tpx.lu/5LYCIHrA?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Вьетнам",
+        "code": "SGN",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "country"
+      },
+      "price": 64621,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-12-10",
+      "returnDate": "2026-12-17",
+      "date": "2026-11-21T14:48:34+00:00",
+      "source": "toursspb",
+      "link": "https://level.tpx.gr/gefIVqF7?erid=2VtzqwsMKs9",
+      "text": "Туры Санкт-Петербург - Вьетнам от 64 621₽/чел. на 7 ночей (было от 74 335₽, цена упала на 13%)\n👉 Ссылка на туры:",
+      "originalLink": "https://level.tpx.lu/Agdqctwu?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Китай",
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "country"
+      },
+      "price": 56456,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-12-06",
+      "returnDate": "2026-12-13",
+      "date": "2026-11-21T13:55:13+00:00",
+      "source": "gorashietury",
+      "link": "https://tour.checkintime.ru/search/Moscow-RU-to-Sanya.Bay-CN-departure-06.12.2026-for-7-nights-2-adults-0-kids-1..5-stars-package-type?filter_rating=8&sort_by=price,asc&aflt=CheckInTime",
+      "text": "🔥 Туры в Китай 🇨🇳 из Москвы на 7 ночей от 56456 руб. на человека.\n✈️ Вылет 6 декабря - от 56456 руб/чел\n✈️ Вылет 6 декабря - от 60499 руб/чел\n✈️ Вылет 8 декабря - от 61857 руб/чел"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Санкт-Петербург",
+        "code": "LED",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Китай",
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "country"
+      },
+      "price": 49035,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2027-01-18",
+      "returnDate": "2027-01-25",
+      "date": "2026-11-21T13:52:20+00:00",
+      "source": "toursspb",
+      "link": "https://level.tpx.gr/QNMADbqG?erid=2VtzqwsMKs9",
+      "text": "Туры Санкт-Петербург - Китай от 49 035₽/чел. на 7 ночей (было от 56 127₽, цена упала на 13%)\n👉 Ссылка на туры:",
+      "originalLink": "https://level.tpx.lu/qpRmUAin?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 18800,
+      "oldPrice": 45192,
+      "savings": 26392,
+      "discount": 0.58,
+      "oneway": true,
+      "roundTrip": false,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-21",
+      "returnDate": null,
+      "date": "2026-11-21T13:03:54+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2111HKT1?marker=748397&currency=rub",
+      "text": "Москва — Пхукет за 18800₽ в одну сторону.\nБилеты → 21.11 • 18800₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Вьетнам",
+        "code": "SGN",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "country"
+      },
+      "price": 115000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 9,
+      "departDate": "2026-11-25",
+      "returnDate": "2026-12-04",
+      "date": "2026-11-21T12:58:02+00:00",
+      "source": "toursmsk",
+      "link": "https://level.tpx.gr/o8CaTXSz?erid=2VtzqwsMKs9",
+      "text": "🇻🇳 Вьетнам, Нячанг, Sochi Hotel 4★ из Москвы\nСтоимость за двоих: ~115.000₽\nВылет: 25.11.2026\nВ цену включено:\n• проживание — 9 ночей\n• питание — завтраки\n• перелёт: VietjetAir, прямой, багаж 15 кг\n•",
+      "originalLink": "https://tp.media/r?marker=776228.sniper_VN_msk_20261121_sochihotel&trs=572709&p=660&u=https%3A//level.travel/packages/411407205%3Fsearch_type%3Dpackage&campaign_id=26&erid=2VtzqxXsbY8",
+      "isAffiliate": true,
+      "affiliateBrand": "Level.Travel",
+      "affiliateProgram": "leveltravel",
+      "affiliateErid": "2VtzqwsMKs9"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Казань",
+        "code": "KZN",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 57700,
+      "oldPrice": 58825,
+      "savings": 1125,
+      "discount": 0.02,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [
+        {
+          "name": "Дубай",
+          "code": "DXB"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-11-21T12:39:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/KZN2112HKT1?marker=748397&currency=rub",
+      "text": "из Казани на Пхукет 🇹🇭 за 57 700 р. RT (декабрь)\nFlyDubai + Emirates, пересадки в Дубае -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Новосибирск",
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шарджа",
+        "code": "SHJ",
+        "country": {
+          "ru": "ОАЭ",
+          "en": "UAE"
+        },
+        "kind": "city"
+      },
+      "price": 37700,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-11-27",
+      "returnDate": "2026-12-03",
+      "date": "2026-11-21T12:31:46+00:00",
+      "source": "turs_sale",
+      "link": "https://p.irat.es/asNF",
+      "text": "Шарджа, 6 ночей\nВылет из: #Новосибирск #Сибирь\nДаты: 27.11.26 - 03.12.26\nЦена: 37700P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: m"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Новосибирск",
+        "code": "OVB",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пхукет",
+        "code": "HKT",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 51600,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 11,
+      "departDate": "2026-11-25",
+      "returnDate": "2026-12-06",
+      "date": "2026-11-21T12:26:23+00:00",
+      "source": "turs_sale",
+      "link": "https://p.irat.es/z53B",
+      "text": "Пхукет, 11 ночей\nВылет из: #Новосибирск #Сибирь\nДаты: 25.11.26 - 06.12.26\nЦена: 51600P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: "
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 57200,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-11-25",
+      "returnDate": "2026-12-01",
+      "date": "2026-11-21T12:21:57+00:00",
+      "source": "turs_sale",
+      "link": "https://p.irat.es/GPig",
+      "text": "Нячанг, 6 ночей\nВылет из: #Москва\nДаты: 25.11.26 - 01.12.26\nЦена: 57200P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirates"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Иркутск",
+        "code": "IKT",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Паттайя",
+        "code": "UTP",
+        "country": {
+          "ru": "Таиланд",
+          "en": "Thailand"
+        },
+        "kind": "city"
+      },
+      "price": 43500,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 6,
+      "departDate": "2026-11-28",
+      "returnDate": "2026-12-04",
+      "date": "2026-11-21T12:18:37+00:00",
+      "source": "turs_sale",
+      "link": "https://p.irat.es/FumI",
+      "text": "Паттайя, 6 ночей\nВылет из: #Иркутск #Сибирь\nДаты: 28.11.26 - 04.12.26\nЦена: 43500P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max."
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Иркутск",
+        "code": "IKT",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 45100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 7,
+      "departDate": "2026-11-30",
+      "returnDate": "2026-12-07",
+      "date": "2026-11-21T12:17:32+00:00",
+      "source": "turs_sale",
+      "link": "https://p.irat.es/YQNl",
+      "text": "Нячанг, 7 ночей\nВылет из: #Иркутск #Сибирь\nДаты: 30.11.26 - 07.12.26\nЦена: 45100P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.r"
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Нячанг",
+        "code": "CXR",
+        "country": {
+          "ru": "Вьетнам",
+          "en": "Vietnam"
+        },
+        "kind": "city"
+      },
+      "price": 55100,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [],
+      "nights": 10,
+      "departDate": "2026-11-25",
+      "returnDate": "2026-12-05",
+      "date": "2026-11-21T12:13:19+00:00",
+      "source": "turs_sale",
+      "link": "https://p.irat.es/bCPB",
+      "text": "Нячанг, 10 ночей\nВылет из: #Москва\nДаты: 25.11.26 - 05.12.26\nЦена: 55100P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirate"
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Пекин",
+        "code": "PEK",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 14400,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Новосибирск",
+          "code": "OVB"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-11-21T11:41:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2112PEK1?marker=748397&currency=rub",
+      "text": "из Москвы в Пекин 🇨🇳 за 14 400 р. OW (зимой)\nS7, через Новосибирск -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Шанхай",
+        "code": "PVG",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 15900,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Иркутск",
+          "code": "IKT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-11-21T11:41:01+00:00",
+      "source": "samokatus",
+      "link": "https://www.aviasales.ru/search/MOW2112PVG1?marker=748397&currency=rub",
+      "text": "из Москвы в Шанхай 🇨🇳 за 15 900 р. OW (зимой)\nS7, пересадка в Иркутске -",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "tour",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Гуанчжоу",
+        "code": "CAN",
+        "country": {
+          "ru": "Китай",
+          "en": "China"
+        },
+        "kind": "city"
+      },
+      "price": 18000,
+      "oldPrice": null,
+      "savings": null,
+      "discount": null,
+      "oneway": false,
+      "roundTrip": false,
+      "connections": [
+        {
+          "name": "Иркутск",
+          "code": "IKT"
+        }
+      ],
+      "nights": null,
+      "departDate": null,
+      "returnDate": null,
+      "date": "2026-11-21T11:41:01+00:00",
+      "source": "samokatus",
+      "link": "https://l.samokatus.ru/4uCJ",
+      "text": "из Москвы в Гуанчжоу 🇨🇳 за 18 000 р. OW (зимой-весной)\nS7, через Иркутск - \n🏨 Отели в Китае:"
+    },
     {
       "type": "flight",
       "from": {
@@ -1019,216 +1791,6 @@
     {
       "type": "tour",
       "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шри-Ланка",
-        "code": "CMB",
-        "country": {
-          "ru": "Шри-Ланка",
-          "en": "Sri Lanka"
-        },
-        "kind": "country"
-      },
-      "price": 72800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-12-01",
-      "returnDate": "2026-12-12",
-      "date": "2026-11-21T09:00:08+00:00",
-      "source": "turs_sale",
-      "link": "https://p.irat.es/YNWc",
-      "text": "Шри-Ланка, 11 ночей\nВылет из: #Екатеринбург #Урал\nДаты: 01.12.26 - 12.12.26\nЦена: 72800P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 77700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-12-04",
-      "returnDate": "2026-12-11",
-      "date": "2026-11-21T08:59:47+00:00",
-      "source": "turs_sale",
-      "link": "https://p.irat.es/1Sg7",
-      "text": "Нячанг, 7 ночей\nВылет из: #Екатеринбург #Урал\nДаты: 04.12.26 - 11.12.26\nЦена: 77700P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: ma"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хайнань",
-        "code": "SYX",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 78500,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-11-24",
-      "returnDate": "2026-12-05",
-      "date": "2026-11-21T08:59:44+00:00",
-      "source": "turs_sale",
-      "link": "https://p.irat.es/ZkcK",
-      "text": "Хайнань, 11 ночей\nВылет из: #СПб\nДаты: 24.11.26 - 05.12.26\nЦена: 78500P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/piratesr"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Хургада",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 40700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-12-18",
-      "returnDate": "2026-12-25",
-      "date": "2026-11-21T08:58:14+00:00",
-      "source": "turs_sale",
-      "link": "https://p.irat.es/MEOh",
-      "text": "Хургада, 7 ночей\nВылет из: #Москва\nДаты: 18.12.26 - 25.12.26\nЦена: 40700P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirate"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Абхазия",
-        "code": "SUI",
-        "country": {
-          "ru": "Абхазия",
-          "en": "Abkhazia"
-        },
-        "kind": "country"
-      },
-      "price": 9800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-11-24",
-      "returnDate": "2026-11-30",
-      "date": "2026-11-21T08:56:37+00:00",
-      "source": "turs_sale",
-      "link": "https://p.irat.es/b1lP",
-      "text": "Абхазия, 6 ночей\nВылет из: #Москва\nДаты: 24.11.26 - 30.11.26\nЦена: 9800P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirates"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пхукет",
-        "code": "HKT",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 64600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 6,
-      "departDate": "2026-11-25",
-      "returnDate": "2026-12-01",
-      "date": "2026-11-21T08:56:17+00:00",
-      "source": "turs_sale",
-      "link": "https://p.irat.es/Qaa0",
-      "text": "Пхукет, 6 ночей\nВылет из: #Москва\nДаты: 25.11.26 - 01.12.26\nЦена: 64600P\n🎁 Промокод PIRATES — ваша дополнительная скидка на Onlinetours!\nБронировать: \nMAX: max.ru/turs_sale\nАвиабилеты: max.ru/pirates"
-    },
-    {
-      "type": "tour",
-      "from": {
         "name": "Москва",
         "code": "MOW",
         "country": {
@@ -1860,12 +2422,12 @@
       "roundTrip": false,
       "connections": [],
       "nights": null,
-      "departDate": "2026-11-27",
-      "returnDate": "2026-12-10",
+      "departDate": "2026-11-30",
+      "returnDate": "2026-12-30",
       "date": "2026-11-21T06:50:08+00:00",
       "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2711AYT1?marker=748397&currency=rub",
-      "text": "Москва — Анталья/Аланья от 3600₽ в одну сторону или за 14500₽ туда-обратно.\n✓ 22.11 • 3600₽\n✓ RT 27.11-10.12 • 14500₽\n✓ 22.11 • 5600₽\n✓ 23.11 • 5600₽\n✓ обратно 14.12 • 11300₽",
+      "link": "https://www.aviasales.ru/search/MOW3011AYT1?marker=748397&currency=rub",
+      "text": "Москва — Анталья/Аланья от 3600₽ в одну сторону или за 14500₽ туда-обратно.\n✓ 22.11 • 3600₽\n✓ RT 30.11-30.12 • 10400₽\n✓ RT 27.11-10.12 • 14500₽\n✓ 22.11 • 5600₽\n✓ 23.11 • 5600₽\n✓ обратно 14.12 • 11300₽",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -2330,7 +2892,7 @@
         },
         "kind": "city"
       },
-      "price": 57400,
+      "price": 41300,
       "oldPrice": null,
       "savings": null,
       "discount": null,
@@ -2343,7 +2905,46 @@
       "date": "2026-11-21T05:40:51+00:00",
       "source": "travelradar",
       "link": "https://www.aviasales.ru/search/MOW2211PQC1?marker=748397&currency=rub",
-      "text": "Москва — Фукуок за 57400₽ туда-обратно.\nБилеты → 22.11-30.11 • 57400₽",
+      "text": "Москва — Фукуок за  57400  41300₽ туда-обратно.\n✓ RT 22.11-30.11 • 57400 41300₽",
+      "isAffiliate": true,
+      "affiliateBrand": "Aviasales",
+      "affiliateProgram": "aviasales",
+      "affiliateErid": null
+    },
+    {
+      "type": "flight",
+      "from": {
+        "name": "Москва",
+        "code": "MOW",
+        "country": {
+          "ru": "Россия",
+          "en": "Russia"
+        },
+        "kind": "city"
+      },
+      "to": {
+        "name": "Хургада",
+        "code": "HRG",
+        "country": {
+          "ru": "Египет",
+          "en": "Egypt"
+        },
+        "kind": "city"
+      },
+      "price": 4800,
+      "oldPrice": 21623,
+      "savings": 16823,
+      "discount": 0.78,
+      "oneway": false,
+      "roundTrip": true,
+      "connections": [],
+      "nights": null,
+      "departDate": "2026-11-22",
+      "returnDate": "2026-11-25",
+      "date": "2026-11-21T05:13:20+00:00",
+      "source": "travelradar",
+      "link": "https://www.aviasales.ru/search/MOW2211HRG1?marker=748397&currency=rub",
+      "text": "✓ 22.11 • 6600 4800₽",
       "isAffiliate": true,
       "affiliateBrand": "Aviasales",
       "affiliateProgram": "aviasales",
@@ -3245,46 +3846,6 @@
       "affiliateErid": null
     },
     {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Марокко",
-        "code": "CMN",
-        "country": {
-          "ru": "Марокко",
-          "en": "Morocco"
-        },
-        "kind": "country"
-      },
-      "price": 66096,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 14,
-      "departDate": "2027-02-01",
-      "returnDate": "2027-02-15",
-      "date": "2026-11-20T13:20:21+00:00",
-      "source": "toursmsk",
-      "link": "https://level.tpx.gr/q2O5Bb4l?erid=2VtzqwsMKs9",
-      "text": "Туры Москва - Марокко от 66 096₽/чел. на 14 ночей (было от 74 803₽, цена упала на 12%)\n👉 Ссылка на туры:",
-      "originalLink": "https://level.tpx.lu/JH7vVbh7?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
       "type": "flight",
       "from": {
         "name": "Екатеринбург",
@@ -3772,45 +4333,6 @@
     {
       "type": "flight",
       "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Марракеш",
-        "code": "RAK",
-        "country": {
-          "ru": "Марокко",
-          "en": "Morocco"
-        },
-        "kind": "city"
-      },
-      "price": 24800,
-      "oldPrice": 26508,
-      "savings": 1708,
-      "discount": 0.06,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": "2027-02-09",
-      "returnDate": "2027-02-19",
-      "date": "2026-11-20T10:03:53+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW0902RAK1?marker=748397&currency=rub",
-      "text": "Москва — Марракеш за 24800₽ туда-обратно.\nБилеты → 09.02-19.02 • 24800₽",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
         "name": "Санкт-Петербург",
         "code": "LED",
         "country": {
@@ -4158,45 +4680,6 @@
       "affiliateErid": null
     },
     {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 27600,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": true,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-11-21",
-      "returnDate": null,
-      "date": "2026-11-20T08:48:59+00:00",
-      "source": "travelradar",
-      "link": "https://www.aviasales.ru/search/MOW2111CXR1?marker=748397&currency=rub",
-      "text": "Москва — Нячанг за 27600₽ в одну сторону.\nБилеты → 21.11 • 27600₽",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
       "type": "tour",
       "from": {
         "name": "Город вылета уточняется",
@@ -4423,123 +4906,6 @@
       "affiliateBrand": "Level.Travel",
       "affiliateProgram": "leveltravel",
       "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Самарканд",
-        "code": "SKD",
-        "country": {
-          "ru": "Узбекистан",
-          "en": "Uzbekistan"
-        },
-        "kind": "city"
-      },
-      "price": 5200,
-      "oldPrice": 19456,
-      "savings": 14256,
-      "discount": 0.73,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-11-20T07:59:57+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2112SKD1?marker=748397&currency=rub",
-      "text": "из Москвы в Самарканд 🇺🇿 за 5 200 р. OW (зимой)\nПобеда, прямые рейсы -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шарм-эль-Шейх",
-        "code": "SSH",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "city"
-      },
-      "price": 6500,
-      "oldPrice": 19523,
-      "savings": 13023,
-      "discount": 0.67,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-11-20T07:59:57+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2112SSH1?marker=748397&currency=rub",
-      "text": "из Москвы в Шарм-эш-Шейх 🇪🇬 за 6 500 р. OW (на этой неделе)\nEgyptair, прямой рейс с багажом -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Гюмри",
-        "code": "LWN",
-        "country": {
-          "ru": "Армения",
-          "en": "Armenia"
-        },
-        "kind": "city"
-      },
-      "price": 11200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-11-20T07:59:57+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2112LWN1?marker=748397&currency=rub",
-      "text": "из Москвы в Гюмри 🇦🇲 за 11 200 р. RT (ноябрь-декабрь)\nПобеда, прямые рейсы -",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
     },
     {
       "type": "tour",
@@ -4843,86 +5209,6 @@
     {
       "type": "tour",
       "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Марокко",
-        "code": "CMN",
-        "country": {
-          "ru": "Марокко",
-          "en": "Morocco"
-        },
-        "kind": "country"
-      },
-      "price": 58288,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2027-02-08",
-      "returnDate": "2027-02-19",
-      "date": "2026-11-20T06:08:17+00:00",
-      "source": "toursspb",
-      "link": "https://level.tpx.gr/5jXPio6X?erid=2VtzqwsMKs9",
-      "text": "🔥 Туры Санкт-Петербург - Марокко от 58 288₽/чел. на 11 ночей (было от 89 353₽, цена упала на 35%)\n👉 Ссылка на туры:",
-      "originalLink": "https://level.tpx.lu/pcLkHbjS?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Вьетнам",
-        "code": "SGN",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "country"
-      },
-      "price": 76029,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-12-15",
-      "returnDate": "2026-12-26",
-      "date": "2026-11-20T06:06:15+00:00",
-      "source": "toursspb",
-      "link": "https://level.tpx.gr/H7rNf1Tr?erid=2VtzqwsMKs9",
-      "text": "Туры Санкт-Петербург - Вьетнам от 76 029₽/чел. на 11 ночей (было от 84 285₽, цена упала на 10%)\n👉 Ссылка на туры:",
-      "originalLink": "https://level.tpx.lu/FJS8PP87?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "tour",
-      "from": {
         "name": "Город вылета уточняется",
         "code": "ANY",
         "country": {
@@ -4989,435 +5275,45 @@
       "source": "gorashietury",
       "link": "https://tour.checkintime.ru/search/St.Petersburg-RU-to-Nha.Trang-VN-departure-22.11.2026-for-7-nights-2-adults-1(6)-kids-1..5-stars-package-type?filter_rating=8&sort_by=price,asc&aflt=CheckInTime",
       "text": "🔥 Туры с детьми во Вьетнам 🇻🇳 из Санкт-Петербурга на 7 ночей от 124904 руб. на человека.\n✈️ Вылет 22 ноября - от 124904 руб/чел\n✈️ Вылет 22 ноября - от 125283 руб/чел\n✈️ Вылет 22 ноября - от 131636"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Китай",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "country"
-      },
-      "price": 56655,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 11,
-      "departDate": "2026-12-09",
-      "returnDate": "2026-12-20",
-      "date": "2026-11-19T18:44:15+00:00",
-      "source": "toursspb",
-      "link": "https://level.tpx.gr/u6wkTVLp?erid=2VtzqwsMKs9",
-      "text": "Туры Санкт-Петербург - Китай от 56 655₽/чел. на 11 ночей (было от 69 177₽, цена упала на 18%)\n👉 Ссылка на туры:",
-      "originalLink": "https://level.tpx.lu/bBCM2PYi?erid=2VtzqwgjJHU?erid=2VtzqwgjJHU",
-      "isAffiliate": true,
-      "affiliateBrand": "Level.Travel",
-      "affiliateProgram": "leveltravel",
-      "affiliateErid": "2VtzqwsMKs9"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Екатеринбург",
-        "code": "SVX",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "price": 13200,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-12-25",
-      "returnDate": "2027-03-27",
-      "date": "2026-11-19T18:21:01+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2512SVX1?marker=748397&currency=rub",
-      "text": "▪️«Уральские авиалинии» с конца декабря запускают рейсы в Алматы 🇰🇿: из Москвы (Жуковский) — с 25.12 шесть раз в неделю (от 13 200 рублей OW), из Екатеринбурга — с 22.12 трижды в неделю (от 15 100 р",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Бали",
-        "code": "DPS",
-        "country": {
-          "ru": "Индонезия",
-          "en": "Indonesia"
-        },
-        "kind": "city"
-      },
-      "price": 47800,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Гуанчжоу",
-          "code": "CAN"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-11-19T18:08:55+00:00",
-      "source": "samokatus",
-      "link": "https://www.aviasales.ru/search/MOW2112DPS1?marker=748397&currency=rub",
-      "text": "из Москвы на Бали 🇮🇩 за 47 800 р. RT (дек-фев)\nВсе даты:",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Анталия",
-        "code": "AYT",
-        "country": {
-          "ru": "Турция",
-          "en": "Turkey"
-        },
-        "kind": "city"
-      },
-      "price": 17524,
-      "oldPrice": 17683,
-      "savings": 159,
-      "discount": 0.01,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": null,
-      "departDate": "2026-12-12",
-      "returnDate": null,
-      "date": "2026-11-19T17:11:43+00:00",
-      "source": "gorashietury",
-      "link": "https://www.aviasales.ru/search/LED1212AYT1?marker=748397&currency=rub",
-      "text": "✈️ Санкт-Петербург - Анталия, от 17524 рублей",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Египет",
-        "code": "HRG",
-        "country": {
-          "ru": "Египет",
-          "en": "Egypt"
-        },
-        "kind": "country"
-      },
-      "price": 34100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 9,
-      "departDate": "2026-11-21",
-      "returnDate": "2026-11-30",
-      "date": "2026-11-19T16:54:03+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/9YdK0j",
-      "text": "🔥 в Египет (Дахаб, Шарм-эль-Шейх) на 9 ночей с 21 ноября от 34 100/чел, все включено, отели 4-5*  (туры не включают групповой трансфер из аэропорта в отель, индивидуальный - за доплату)"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пекин",
-        "code": "PEK",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 54000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-11-27",
-      "returnDate": "2026-12-04",
-      "date": "2026-11-19T16:54:03+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/X5kzb0",
-      "text": "🔥 в Пекин (Китай) на 5-7 ночей в ноябре от 54 000/чел, виза не нужна  (сейчас с вылетом 27 ноября, скидка по промокоду 2500Lucky)\n🔥 варианты в Шанхай, есть в декабре, проверяйте свои даты  (скидка п"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Москва",
-        "code": "MOW",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Нячанг",
-        "code": "CXR",
-        "country": {
-          "ru": "Вьетнам",
-          "en": "Vietnam"
-        },
-        "kind": "city"
-      },
-      "price": 56000,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 13,
-      "departDate": "2026-11-25",
-      "returnDate": "2026-12-08",
-      "date": "2026-11-19T16:54:03+00:00",
-      "source": "luckywings",
-      "link": "https://www.turscanner.ru/-/RQa8vq",
-      "text": "🔥 в Нячанг (Вьетнам) на 9-13 ночей с 22 или 25 ноября от 56 000/чел  или варианты в 4-5* с питанием от 64 600/чел"
-    },
-    {
-      "type": "tour",
-      "from": {
-        "name": "Новосибирск",
-        "code": "OVB",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "ОАЭ",
-        "code": "DXB",
-        "country": {
-          "ru": "ОАЭ",
-          "en": "UAE"
-        },
-        "kind": "country"
-      },
-      "price": 32700,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": false,
-      "connections": [],
-      "nights": 7,
-      "departDate": "2026-11-22",
-      "returnDate": "2026-11-29",
-      "date": "2026-11-19T15:19:04+00:00",
-      "source": "vandroukiru",
-      "link": "https://vandrouki.ru/tury/6-7-nochej-v-oae-s-vyletom-iz-novosibirska/",
-      "text": "Хорошо полетать Новосибирску 22 ноября в ОАЭ на 6-7 ночей за 31000-32700 рублей с человека!"
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Пхукет",
-        "code": "HKT",
-        "country": {
-          "ru": "Таиланд",
-          "en": "Thailand"
-        },
-        "kind": "city"
-      },
-      "price": 74100,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Пекин",
-          "code": "PEK"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-11-19T14:46:56+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED2112HKT1?marker=748397&currency=rub",
-      "text": "На Пхукет 74.100 руб, стыковки в Пекине",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
-    },
-    {
-      "type": "flight",
-      "from": {
-        "name": "Санкт-Петербург",
-        "code": "LED",
-        "country": {
-          "ru": "Россия",
-          "en": "Russia"
-        },
-        "kind": "city"
-      },
-      "to": {
-        "name": "Шанхай",
-        "code": "PVG",
-        "country": {
-          "ru": "Китай",
-          "en": "China"
-        },
-        "kind": "city"
-      },
-      "price": 75400,
-      "oldPrice": null,
-      "savings": null,
-      "discount": null,
-      "oneway": false,
-      "roundTrip": true,
-      "connections": [
-        {
-          "name": "Шанхай",
-          "code": "PVG"
-        }
-      ],
-      "nights": null,
-      "departDate": null,
-      "returnDate": null,
-      "date": "2026-11-19T14:46:56+00:00",
-      "source": "nachemodanahspb",
-      "link": "https://www.aviasales.ru/search/LED2112PVG1?marker=748397&currency=rub",
-      "text": "На Борнео 75.400 руб, стыковки в Шанхае",
-      "isAffiliate": true,
-      "affiliateBrand": "Aviasales",
-      "affiliateProgram": "aviasales",
-      "affiliateErid": null
     }
   ],
   "health": [
     {
       "channel": "vandroukiru",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.695Z",
+      "checkedAt": "2026-11-21T19:03:34.618Z",
       "fetchedPosts": 20,
-      "freshPosts": 20,
-      "latestPostAt": "2026-11-21T11:30:50+00:00",
+      "freshPosts": 14,
+      "latestPostAt": "2026-11-21T17:26:57+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "samokatus",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.695Z",
+      "checkedAt": "2026-11-21T19:03:34.618Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-11-21T10:45:16+00:00",
+      "latestPostAt": "2026-11-21T18:54:06+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "travelradar",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.695Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-11-21T08:28:59+00:00",
+      "latestPostAt": "2026-11-21T13:32:51+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "nachemodanahspb",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.695Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 20,
-      "freshPosts": 8,
+      "freshPosts": 7,
       "latestPostAt": "2026-11-21T09:30:42+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5425,29 +5321,29 @@
     {
       "channel": "toursmsk",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.695Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-11-21T11:28:26+00:00",
+      "latestPostAt": "2026-11-21T13:24:29+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "toursspb",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.695Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-11-21T10:24:19+00:00",
+      "latestPostAt": "2026-11-21T18:44:22+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "luckywings",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.696Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 20,
-      "freshPosts": 8,
+      "freshPosts": 5,
       "latestPostAt": "2026-11-21T08:16:57+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5455,9 +5351,9 @@
     {
       "channel": "onlinetours",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.696Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 8,
-      "freshPosts": 2,
+      "freshPosts": 1,
       "latestPostAt": "2026-11-20T15:01:14+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5465,7 +5361,7 @@
     {
       "channel": "travelata",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.696Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 8,
       "freshPosts": 8,
       "latestPostAt": "2026-11-21T10:18:16+00:00",
@@ -5475,9 +5371,9 @@
     {
       "channel": "leveltravel",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.696Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 14,
-      "freshPosts": 7,
+      "freshPosts": 5,
       "latestPostAt": "2026-11-21T07:01:55+00:00",
       "reusedPrevious": false,
       "error": null
@@ -5485,30 +5381,30 @@
     {
       "channel": "gorashietury",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.696Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 20,
-      "freshPosts": 18,
-      "latestPostAt": "2026-11-21T09:12:31+00:00",
+      "freshPosts": 17,
+      "latestPostAt": "2026-11-21T17:11:44+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "tg_otpuskpro",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.696Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 19,
       "freshPosts": 2,
-      "latestPostAt": "2026-11-20T12:03:47+00:00",
+      "latestPostAt": "2026-11-21T13:01:28+00:00",
       "reusedPrevious": false,
       "error": null
     },
     {
       "channel": "turs_sale",
       "status": "ok",
-      "checkedAt": "2026-11-21T11:39:28.696Z",
+      "checkedAt": "2026-11-21T19:03:34.619Z",
       "fetchedPosts": 20,
       "freshPosts": 20,
-      "latestPostAt": "2026-11-21T09:30:44+00:00",
+      "latestPostAt": "2026-11-21T12:31:46+00:00",
       "reusedPrevious": false,
       "error": null
     }

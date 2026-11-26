@@ -1,22 +1,50 @@
 {
-  "updatedAt": "2026-11-26T03:37:34.971Z",
+  "updatedAt": "2026-11-26T17:00:06.663Z",
   "source": "travelpayouts",
   "market": "ru",
   "currency": "rub",
   "items": [
     {
-      "origin": "IAR",
+      "origin": "LON",
+      "destination": "ACE",
+      "depart_date": "2026-12-06",
+      "return_date": "2026-12-13",
+      "price": 2936,
+      "median": 5391,
+      "discount": 0.45538861064737524,
+      "samples": 8,
+      "number_of_changes": 0,
+      "found_at": "2026-11-26T15:11:51",
+      "link": "https://www.aviasales.ru/search/LON0612ACE13121?marker=748397&currency=rub",
+      "key": "LON-ACE-2026-12-06-2936"
+    },
+    {
+      "origin": "KUF",
       "destination": "AER",
-      "depart_date": "2026-12-05",
-      "return_date": "2026-12-11",
-      "price": 5970,
-      "median": 12004.5,
-      "discount": 0.502686492565288,
+      "depart_date": "2026-12-01",
+      "return_date": "2026-12-03",
+      "price": 3888,
+      "median": 5774,
+      "discount": 0.3266366470384482,
       "samples": 30,
       "number_of_changes": 0,
-      "found_at": "2026-11-26T02:55:10",
-      "link": "https://www.aviasales.ru/search/IAR0512AER11121?marker=748397&currency=rub",
-      "key": "IAR-AER-2026-12-05-5970"
+      "found_at": "2026-11-26T15:16:11",
+      "link": "https://www.aviasales.ru/search/KUF0112AER03121?marker=748397&currency=rub",
+      "key": "KUF-AER-2026-12-01-3888"
+    },
+    {
+      "origin": "MOW",
+      "destination": "KZN",
+      "depart_date": "2026-11-27",
+      "return_date": "2026-11-27",
+      "price": 2588,
+      "median": 3661.5,
+      "discount": 0.29318585279257137,
+      "samples": 30,
+      "number_of_changes": 0,
+      "found_at": "2026-11-26T15:23:15",
+      "link": "https://www.aviasales.ru/search/MOW2711KZN27111?marker=748397&currency=rub",
+      "key": "MOW-KZN-2026-11-27-2588"
     }
   ]
 }
